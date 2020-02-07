@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:provider/provider.dart';
-import 'package:timeplanner_mobile/constants/color.dart';
 import 'package:timeplanner_mobile/constants/url.dart';
 import 'package:timeplanner_mobile/providers/auth_model.dart';
 
@@ -19,13 +18,11 @@ class _LoginPageState extends State<LoginPage> {
 
     return SafeArea(
       child: Material(
-        color: BACKGROUND_COLOR,
+        type: MaterialType.canvas,
         child: Stack(
           children: <Widget>[
             Center(
-              child: const CircularProgressIndicator(
-                valueColor: AlwaysStoppedAnimation(PRIMARY_COLOR),
-              ),
+              child: const CircularProgressIndicator(),
             ),
             Visibility(
               maintainSize: true,

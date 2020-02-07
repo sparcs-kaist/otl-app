@@ -29,7 +29,15 @@ class TimeplannerApp extends StatelessWidget {
     final base = ThemeData.light();
 
     return base.copyWith(
+      accentColor: PRIMARY_COLOR,
+      canvasColor: BACKGROUND_COLOR,
+      iconTheme: base.iconTheme.copyWith(color: CONTENT_COLOR),
+      primaryColor: PRIMARY_COLOR,
       scaffoldBackgroundColor: BACKGROUND_COLOR,
+      textTheme: base.textTheme.apply(
+        bodyColor: CONTENT_COLOR,
+        displayColor: CONTENT_COLOR,
+      ),
     );
   }
 }

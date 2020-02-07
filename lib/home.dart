@@ -53,7 +53,6 @@ class _TimeplannerHomeState extends State<TimeplannerHome> {
               ),
               const Spacer(),
               IconButton(
-                color: CONTENT_COLOR,
                 icon: const Icon(Icons.menu),
                 padding: const EdgeInsets.symmetric(vertical: 13),
                 onPressed: () {},
@@ -67,10 +66,7 @@ class _TimeplannerHomeState extends State<TimeplannerHome> {
 
   BottomNavigationBar _buildBottomNavigationBar() {
     return BottomNavigationBar(
-      backgroundColor: BACKGROUND_COLOR,
       currentIndex: _currentIndex,
-      unselectedItemColor: CONTENT_COLOR,
-      selectedItemColor: PRIMARY_COLOR,
       onTap: (index) {
         setState(() {
           _currentIndex = index;
