@@ -18,7 +18,6 @@ class _LoginPageState extends State<LoginPage> {
 
     return SafeArea(
       child: Material(
-        type: MaterialType.canvas,
         child: Stack(
           children: <Widget>[
             Center(
@@ -30,7 +29,7 @@ class _LoginPageState extends State<LoginPage> {
               maintainState: true,
               visible: _isVisible,
               child: InAppWebView(
-                initialUrl: LOGIN_URL,
+                initialUrl: SESSION_LOGIN_URL,
                 initialOptions: InAppWebViewWidgetOptions(),
                 onLoadStart: (controller, url) {
                   if (url.startsWith(MAIN_URL)) {
