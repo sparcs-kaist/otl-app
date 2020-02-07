@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:timeplanner_mobile/constants/color.dart';
 import 'package:timeplanner_mobile/pages/dictionary_page.dart';
 import 'package:timeplanner_mobile/pages/main_page.dart';
 import 'package:timeplanner_mobile/pages/timetable_page.dart';
+import 'package:timeplanner_mobile/pages/user_page.dart';
+import 'package:timeplanner_mobile/widgets/custom_appbar.dart';
 
 class TimeplannerHome extends StatefulWidget {
   @override
@@ -19,7 +20,21 @@ class _TimeplannerHomeState extends State<TimeplannerHome> {
       body: SafeArea(
         child: Column(
           children: <Widget>[
-            _buildAppBar(),
+            CustomAppBar(
+              actions: <Widget>[
+                IconButton(
+                  icon: const Icon(Icons.language),
+                  onPressed: () {},
+                ),
+                IconButton(
+                  icon: const Icon(Icons.person),
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => UserPage()));
+                  },
+                ),
+              ],
+            ),
             Expanded(
               child: IndexedStack(
                 index: _currentIndex,
@@ -33,34 +48,6 @@ class _TimeplannerHomeState extends State<TimeplannerHome> {
           ],
         ),
       ),
-    );
-  }
-
-  Widget _buildAppBar() {
-    return Column(
-      children: <Widget>[
-        Container(
-          color: PRIMARY_COLOR,
-          height: 5,
-        ),
-        SizedBox(
-          height: 50,
-          child: Row(
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.fromLTRB(16, 11, 0, 12),
-                child: Image.asset("assets/logo.png"),
-              ),
-              const Spacer(),
-              IconButton(
-                icon: const Icon(Icons.menu),
-                padding: const EdgeInsets.symmetric(vertical: 13),
-                onPressed: () {},
-              ),
-            ],
-          ),
-        )
-      ],
     );
   }
 
