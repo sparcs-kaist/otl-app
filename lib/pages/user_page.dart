@@ -15,12 +15,6 @@ class UserPage extends StatelessWidget {
         child: Column(
           children: <Widget>[
             CustomAppBar(
-              leading: IconButton(
-                icon: const Icon(Icons.arrow_back),
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-              ),
               actions: <Widget>[
                 IconButton(
                   icon: const Icon(Icons.language),

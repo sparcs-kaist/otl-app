@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:timeplanner_mobile/constants/color.dart';
 
 class CustomAppBar extends StatelessWidget {
-  final Widget leading;
   final List<Widget> actions;
 
-  CustomAppBar({this.leading, this.actions});
+  CustomAppBar({this.actions});
 
   @override
   Widget build(BuildContext context) {
@@ -15,14 +14,12 @@ class CustomAppBar extends StatelessWidget {
           color: PRIMARY_COLOR,
           height: 5,
         ),
-        Container(
-          padding: leading != null ? null : const EdgeInsets.only(left: 16.0),
+        SizedBox(
           height: 50,
           child: Row(
             children: <Widget>[
-                  leading ?? const SizedBox.shrink(),
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 11, 0, 12),
+                    padding: const EdgeInsets.fromLTRB(16, 11, 0, 12),
                     child: Image.asset("assets/logo.png"),
                   ),
                   const Spacer(),
