@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:timeplanner_mobile/constants/color.dart';
 import 'package:timeplanner_mobile/providers/info_model.dart';
 import 'package:timeplanner_mobile/providers/timetable_model.dart';
+import 'package:timeplanner_mobile/widgets/timetable_block.dart';
+import 'package:timeplanner_mobile/widgets/timetable_table.dart';
 
 class TimetablePage extends StatelessWidget {
   @override
@@ -19,26 +20,27 @@ class TimetablePage extends StatelessWidget {
   }
 
   Widget _buildBody() {
-    return Consumer<TimetableModel>(
-      builder: (context, timetableModel, _) {
-        return ListView(
-          children: timetableModel.timetables.first.lectures
-              .map((lecture) => Card(
-                    color: TIMETABLE_BLOCK_COLORS[lecture.course % 16],
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Column(
-                        children: <Widget>[
-                          Text(lecture.title),
-                          Text(lecture.professors.first.name),
-                          Text(lecture.classroom),
-                        ],
-                      ),
-                    ),
-                  ))
-              .toList(),
-        );
-      },
+    return SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Card(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(6.0),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Consumer<TimetableModel>(
+              builder: (context, timetableModel, _) {
+                return TimetableTable(
+                  lectureBlocks: timetableModel.timetables.first.lectures
+                      .map((lecture) => TimetableBlock(lecture: lecture))
+                      .toList(),
+                );
+              },
+            ),
+          ),
+        ),
+      ),
     );
   }
 }
