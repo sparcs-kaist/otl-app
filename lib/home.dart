@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:timeplanner_mobile/pages/dictionary_page.dart';
 import 'package:timeplanner_mobile/pages/main_page.dart';
 import 'package:timeplanner_mobile/pages/timetable_page.dart';
 import 'package:timeplanner_mobile/pages/user_page.dart';
+import 'package:timeplanner_mobile/providers/auth_model.dart';
+import 'package:timeplanner_mobile/providers/timetable_model.dart';
 import 'package:timeplanner_mobile/widgets/custom_appbar.dart';
 
 class TimeplannerHome extends StatefulWidget {
@@ -20,34 +23,44 @@ class _TimeplannerHomeState extends State<TimeplannerHome> {
       body: SafeArea(
         child: Column(
           children: <Widget>[
-            CustomAppBar(
-              actions: <Widget>[
-                IconButton(
-                  icon: const Icon(Icons.language),
-                  onPressed: () {},
-                ),
-                IconButton(
-                  icon: const Icon(Icons.person),
-                  onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => UserPage()));
-                  },
-                ),
-              ],
-            ),
+            _buildAppBar(context),
             Expanded(
               child: IndexedStack(
                 index: _currentIndex,
                 children: <Widget>[
                   MainPage(),
                   DictionaryPage(),
-                  TimetablePage(),
+                  ChangeNotifierProvider(
+                    create: (context) => TimetableModel(
+                      cookies: Provider.of<AuthModel>(context, listen: false)
+                          .cookies,
+                    ),
+                    child: TimetablePage(),
+                  ),
                 ],
               ),
             ),
           ],
         ),
       ),
+    );
+  }
+
+  CustomAppBar _buildAppBar(BuildContext context) {
+    return CustomAppBar(
+      actions: <Widget>[
+        IconButton(
+          icon: const Icon(Icons.language),
+          onPressed: () {},
+        ),
+        IconButton(
+          icon: const Icon(Icons.person),
+          onPressed: () {
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => UserPage()));
+          },
+        ),
+      ],
     );
   }
 

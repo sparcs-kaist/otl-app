@@ -1,4 +1,4 @@
-class Classtimes {
+class Classtime {
   String building;
   String classroom;
   int begin;
@@ -9,7 +9,7 @@ class Classtimes {
   String classroomEn;
   String classroomShort;
 
-  Classtimes(
+  Classtime(
       {this.building,
       this.classroom,
       this.begin,
@@ -20,7 +20,7 @@ class Classtimes {
       this.classroomEn,
       this.classroomShort});
 
-  Classtimes.fromJson(Map<String, dynamic> json) {
+  Classtime.fromJson(Map<String, dynamic> json) {
     building = json['building'];
     classroom = json['classroom'];
     begin = json['begin'];

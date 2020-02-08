@@ -1,19 +1,19 @@
-import 'package:timeplanner_mobile/models/departments.dart';
-import 'package:timeplanner_mobile/models/favorite_departments.dart';
-import 'package:timeplanner_mobile/models/my_timetable_lectures.dart';
-import 'package:timeplanner_mobile/models/review_writable_lectures.dart';
-import 'package:timeplanner_mobile/models/reviews.dart';
+import 'package:timeplanner_mobile/models/department.dart';
+import 'package:timeplanner_mobile/models/favorite_department.dart';
+import 'package:timeplanner_mobile/models/my_timetable_lecture.dart';
+import 'package:timeplanner_mobile/models/review.dart';
+import 'package:timeplanner_mobile/models/review_writable_lecture.dart';
 
 class User {
-  List<MyTimetableLectures> myTimetableLectures;
-  List<FavoriteDepartments> favoriteDepartments;
+  List<MyTimetableLecture> myTimetableLectures;
+  List<FavoriteDepartment> favoriteDepartments;
   int id;
-  List<Departments> majors;
+  List<Department> majors;
   String firstName;
-  List<ReviewWritableLectures> reviewWritableLectures;
+  List<ReviewWritableLecture> reviewWritableLectures;
   String lastName;
-  List<Departments> departments;
-  List<Reviews> reviews;
+  List<Department> departments;
+  List<Review> reviews;
   String studentId;
   String email;
 
@@ -32,42 +32,42 @@ class User {
 
   User.fromJson(Map<String, dynamic> json) {
     if (json['my_timetable_lectures'] != null) {
-      myTimetableLectures = List<MyTimetableLectures>();
+      myTimetableLectures = List<MyTimetableLecture>();
       json['my_timetable_lectures'].forEach((v) {
-        myTimetableLectures.add(MyTimetableLectures.fromJson(v));
+        myTimetableLectures.add(MyTimetableLecture.fromJson(v));
       });
     }
     if (json['favorite_departments'] != null) {
-      favoriteDepartments = List<FavoriteDepartments>();
+      favoriteDepartments = List<FavoriteDepartment>();
       json['favorite_departments'].forEach((v) {
-        favoriteDepartments.add(FavoriteDepartments.fromJson(v));
+        favoriteDepartments.add(FavoriteDepartment.fromJson(v));
       });
     }
     id = json['id'];
     if (json['majors'] != null) {
-      majors = List<Departments>();
+      majors = List<Department>();
       json['majors'].forEach((v) {
-        majors.add(Departments.fromJson(v));
+        majors.add(Department.fromJson(v));
       });
     }
     firstName = json['firstName'];
     if (json['review_writable_lectures'] != null) {
-      reviewWritableLectures = List<ReviewWritableLectures>();
+      reviewWritableLectures = List<ReviewWritableLecture>();
       json['review_writable_lectures'].forEach((v) {
-        reviewWritableLectures.add(ReviewWritableLectures.fromJson(v));
+        reviewWritableLectures.add(ReviewWritableLecture.fromJson(v));
       });
     }
     lastName = json['lastName'];
     if (json['departments'] != null) {
-      departments = List<Departments>();
+      departments = List<Department>();
       json['departments'].forEach((v) {
-        departments.add(Departments.fromJson(v));
+        departments.add(Department.fromJson(v));
       });
     }
     if (json['reviews'] != null) {
-      reviews = List<Reviews>();
+      reviews = List<Review>();
       json['reviews'].forEach((v) {
-        reviews.add(Reviews.fromJson(v));
+        reviews.add(Review.fromJson(v));
       });
     }
     studentId = json['student_id'];

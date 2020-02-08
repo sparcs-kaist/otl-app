@@ -1,19 +1,19 @@
-import 'package:timeplanner_mobile/models/classtimes.dart';
-import 'package:timeplanner_mobile/models/examtimes.dart';
-import 'package:timeplanner_mobile/models/professors.dart';
+import 'package:timeplanner_mobile/models/classtime.dart';
+import 'package:timeplanner_mobile/models/examtime.dart';
+import 'package:timeplanner_mobile/models/professor.dart';
 
-class MyTimetableLectures {
+class MyTimetableLecture {
   double load;
   String code;
   double grade;
-  List<Professors> professors;
+  List<Professor> professors;
   int creditAu;
   int semester;
   bool isEnglish;
   String room;
   String classTitleEn;
   int year;
-  List<Classtimes> classtimes;
+  List<Classtime> classtimes;
   int limit;
   String classroomShort;
   String professorsStrShortEn;
@@ -27,7 +27,7 @@ class MyTimetableLectures {
   int department;
   String classroomEn;
   String type;
-  List<Examtimes> examtimes;
+  List<Examtime> examtimes;
   String building;
   String exam;
   String classTitle;
@@ -48,7 +48,7 @@ class MyTimetableLectures {
   int numPeople;
   String commonTitleEn;
 
-  MyTimetableLectures(
+  MyTimetableLecture(
       {this.load,
       this.code,
       this.grade,
@@ -94,14 +94,14 @@ class MyTimetableLectures {
       this.numPeople,
       this.commonTitleEn});
 
-  MyTimetableLectures.fromJson(Map<String, dynamic> json) {
-    load = json['load'].toDouble();
+  MyTimetableLecture.fromJson(Map<String, dynamic> json) {
+    load = json['load']?.toDouble();
     code = json['code'];
-    grade = json['grade'].toDouble();
+    grade = json['grade']?.toDouble();
     if (json['professors'] != null) {
-      professors = List<Professors>();
+      professors = List<Professor>();
       json['professors'].forEach((v) {
-        professors.add(Professors.fromJson(v));
+        professors.add(Professor.fromJson(v));
       });
     }
     creditAu = json['credit_au'];
@@ -111,9 +111,9 @@ class MyTimetableLectures {
     classTitleEn = json['class_title_en'];
     year = json['year'];
     if (json['classtimes'] != null) {
-      classtimes = List<Classtimes>();
+      classtimes = List<Classtime>();
       json['classtimes'].forEach((v) {
-        classtimes.add(Classtimes.fromJson(v));
+        classtimes.add(Classtime.fromJson(v));
       });
     }
     limit = json['limit'];
@@ -125,14 +125,14 @@ class MyTimetableLectures {
     speechLetter = json['speech_letter'];
     oldCode = json['old_code'];
     id = json['id'];
-    speech = json['speech'].toDouble();
+    speech = json['speech']?.toDouble();
     department = json['department'];
     classroomEn = json['classroom_en'];
     type = json['type'];
     if (json['examtimes'] != null) {
-      examtimes = List<Examtimes>();
+      examtimes = List<Examtime>();
       json['examtimes'].forEach((v) {
-        examtimes.add(Examtimes.fromJson(v));
+        examtimes.add(Examtime.fromJson(v));
       });
     }
     building = json['building'];

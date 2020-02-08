@@ -1,23 +1,20 @@
-class Departments {
+class Professor {
+  int professorId;
   String nameEn;
-  String code;
-  int id;
   String name;
 
-  Departments({this.nameEn, this.code, this.id, this.name});
+  Professor({this.professorId, this.nameEn, this.name});
 
-  Departments.fromJson(Map<String, dynamic> json) {
+  Professor.fromJson(Map<String, dynamic> json) {
+    professorId = json['professor_id'];
     nameEn = json['name_en'];
-    code = json['code'];
-    id = json['id'];
     name = json['name'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = Map<String, dynamic>();
+    data['professor_id'] = this.professorId;
     data['name_en'] = this.nameEn;
-    data['code'] = this.code;
-    data['id'] = this.id;
     data['name'] = this.name;
     return data;
   }

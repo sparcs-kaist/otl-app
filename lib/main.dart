@@ -4,9 +4,13 @@ import 'package:timeplanner_mobile/constants/color.dart';
 import 'package:timeplanner_mobile/home.dart';
 import 'package:timeplanner_mobile/pages/login_page.dart';
 import 'package:timeplanner_mobile/providers/auth_model.dart';
+import 'package:timeplanner_mobile/providers/info_model.dart';
 
-void main() => runApp(ChangeNotifierProvider(
-      create: (context) => AuthModel(),
+void main() => runApp(MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => AuthModel()),
+        ChangeNotifierProvider(create: (context) => InfoModel()),
+      ],
       child: TimeplannerApp(),
     ));
 
@@ -19,7 +23,18 @@ class TimeplannerApp extends StatelessWidget {
       home: Consumer<AuthModel>(
         builder: (context, authModel, _) {
           if (!authModel.isLogined) return LoginPage();
-          return TimeplannerHome();
+          return Consumer<InfoModel>(
+            builder: (context, infoModel, _) {
+              if (infoModel.state == InfoState.done) return TimeplannerHome();
+              infoModel.updateInfo(cookies: authModel.cookies);
+
+              return Material(
+                child: Center(
+                  child: const CircularProgressIndicator(),
+                ),
+              );
+            },
+          );
         },
       ),
     );

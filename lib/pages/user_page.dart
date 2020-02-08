@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:timeplanner_mobile/constants/color.dart';
-import 'package:timeplanner_mobile/providers/auth_model.dart';
+import 'package:timeplanner_mobile/providers/info_model.dart';
 import 'package:timeplanner_mobile/widgets/custom_appbar.dart';
 
 class UserPage extends StatelessWidget {
@@ -27,7 +27,7 @@ class UserPage extends StatelessWidget {
   }
 
   Widget _buildBody(BuildContext context) {
-    final user = Provider.of<AuthModel>(context).user;
+    final user = Provider.of<InfoModel>(context, listen: false).user;
 
     return Padding(
       padding: const EdgeInsets.all(16.0),

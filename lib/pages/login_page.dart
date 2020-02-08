@@ -14,8 +14,6 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    final authModel = Provider.of<AuthModel>(context, listen: false);
-
     return SafeArea(
       child: Material(
         child: Stack(
@@ -23,29 +21,34 @@ class _LoginPageState extends State<LoginPage> {
             Center(
               child: const CircularProgressIndicator(),
             ),
-            Visibility(
-              maintainSize: true,
-              maintainAnimation: true,
-              maintainState: true,
-              visible: _isVisible,
-              child: InAppWebView(
-                initialUrl: SESSION_LOGIN_URL,
-                initialOptions: InAppWebViewWidgetOptions(),
-                onLoadStart: (controller, url) {
-                  if (url.startsWith(MAIN_URL)) {
-                    setState(() {
-                      _isVisible = false;
-                    });
-                  }
-                },
-                onLoadStop: (controller, url) {
-                  if (url.startsWith(MAIN_URL))
-                    authModel.authenticate(MAIN_URL);
-                },
-              ),
-            ),
+            _buildBody(context),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildBody(BuildContext context) {
+    final authModel = Provider.of<AuthModel>(context, listen: false);
+
+    return Visibility(
+      maintainSize: true,
+      maintainAnimation: true,
+      maintainState: true,
+      visible: _isVisible,
+      child: InAppWebView(
+        initialUrl: SESSION_LOGIN_URL,
+        initialOptions: InAppWebViewWidgetOptions(),
+        onLoadStart: (controller, url) {
+          if (url.startsWith(MAIN_URL)) {
+            setState(() {
+              _isVisible = false;
+            });
+          }
+        },
+        onLoadStop: (controller, url) {
+          if (url.startsWith(MAIN_URL)) authModel.authenticate(MAIN_URL);
+        },
       ),
     );
   }

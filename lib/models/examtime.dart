@@ -1,13 +1,13 @@
-class Examtimes {
+class Examtime {
   int begin;
   int end;
   int day;
   String str;
   String strEn;
 
-  Examtimes({this.begin, this.end, this.day, this.str, this.strEn});
+  Examtime({this.begin, this.end, this.day, this.str, this.strEn});
 
-  Examtimes.fromJson(Map<String, dynamic> json) {
+  Examtime.fromJson(Map<String, dynamic> json) {
     begin = json['begin'];
     end = json['end'];
     day = json['day'];

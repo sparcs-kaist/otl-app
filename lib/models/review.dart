@@ -1,7 +1,7 @@
 import 'package:timeplanner_mobile/models/course.dart';
 import 'package:timeplanner_mobile/models/lecture.dart';
 
-class Reviews {
+class Review {
   int load;
   int isDeleted;
   int like;
@@ -15,7 +15,7 @@ class Reviews {
   int id;
   String gradeLetter;
 
-  Reviews(
+  Review(
       {this.load,
       this.isDeleted,
       this.like,
@@ -29,7 +29,7 @@ class Reviews {
       this.id,
       this.gradeLetter});
 
-  Reviews.fromJson(Map<String, dynamic> json) {
+  Review.fromJson(Map<String, dynamic> json) {
     load = json['load'];
     isDeleted = json['is_deleted'];
     like = json['like'];

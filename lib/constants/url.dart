@@ -4,3 +4,8 @@ const MAIN_URL = BASE_URL + "main";
 const SESSION_URL = BASE_URL + "session/";
 const SESSION_LOGIN_URL = SESSION_URL + "login/?next=" + MAIN_URL;
 const SESSION_INFO_URL = SESSION_URL + "info";
+
+const API_URL = BASE_URL + "api/";
+const API_SEMESTER_URL = API_URL + "semesters";
+const API_TIMETABLE_URL = API_URL + "timetable/";
+const API_TIMETABLE_LOAD_URL = API_TIMETABLE_URL + "table_load";
