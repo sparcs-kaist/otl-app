@@ -53,6 +53,7 @@ class TimetableModel extends ChangeNotifier {
       _timetables = rawTimetables
           .map((timetable) => Timetable.fromJson(timetable))
           .toList();
+      _selectedIndex = 0;
       _state = TimetableState.done;
     } catch (exception) {
       print(exception);

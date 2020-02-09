@@ -2,13 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:timeplanner_mobile/constants/color.dart';
 
 class TimetableTabs extends StatefulWidget {
+  final int index;
   final int length;
   final Function(int) onTap;
   final Function(int) onDuplicate;
   final Function(int) onDelete;
 
   TimetableTabs(
-      {@required this.length,
+      {this.index = 0,
+      @required this.length,
       @required this.onTap,
       @required this.onDuplicate,
       @required this.onDelete});
@@ -22,6 +24,8 @@ class _TimetableTabsState extends State<TimetableTabs> {
 
   @override
   Widget build(BuildContext context) {
+    _index = widget.index;
+
     return Row(
       crossAxisAlignment: CrossAxisAlignment.end,
       children: List.generate(widget.length + 1, (i) => _buildTab(i)),
