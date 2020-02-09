@@ -20,6 +20,7 @@ class TimetableBlock extends StatelessWidget {
       child: Material(
         color: Colors.transparent,
         child: InkWell(
+          borderRadius: BorderRadius.circular(2.0),
           onTap: onTap,
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 4.0),

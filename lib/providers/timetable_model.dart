@@ -12,11 +12,16 @@ enum TimetableState {
 }
 
 class TimetableModel extends ChangeNotifier {
+  int _selectedIndex = 0;
+  int get selectedIndex => _selectedIndex;
+
   Semester _selectedSemester;
   Semester get selectedSemester => _selectedSemester;
 
   List<Timetable> _timetables;
   List<Timetable> get timetables => _timetables;
+
+  Timetable get currentTimetable => _timetables[_selectedIndex];
 
   TimetableState _state = TimetableState.progress;
   TimetableState get state => _state;
@@ -25,6 +30,11 @@ class TimetableModel extends ChangeNotifier {
 
   TimetableModel({List<Cookie> cookies}) {
     cookies?.insertToDio(_dio);
+  }
+
+  void setIndex(int index) {
+    _selectedIndex = index;
+    notifyListeners();
   }
 
   Future<void> getTimetable({Semester semester, List<Cookie> cookies}) async {
