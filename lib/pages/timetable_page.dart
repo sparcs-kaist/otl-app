@@ -18,7 +18,7 @@ class TimetablePage extends StatelessWidget {
         if (timetableModel.state == TimetableState.done)
           return _buildBody(timetableModel, semesters);
 
-        timetableModel.getTimetable(semester: semesters.last);
+        timetableModel.loadTimetable(semester: semesters.last);
 
         return Center(
           child: const CircularProgressIndicator(),
@@ -32,13 +32,14 @@ class TimetablePage extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             TimetableTabs(
               index: timetableModel.selectedIndex,
               length: timetableModel.timetables.length,
               onTap: (i) {
                 if (i > 0 && i == timetableModel.timetables.length)
-                  print("Table create");
+                  timetableModel.createTimetable();
                 else
                   timetableModel.setIndex(i);
               },
@@ -61,7 +62,8 @@ class TimetablePage extends StatelessWidget {
                     child: SemesterLeftRight(
                       semesters: semesters,
                       onSemesterChanged: (index) {
-                        timetableModel.getTimetable(semester: semesters[index]);
+                        timetableModel.loadTimetable(
+                            semester: semesters[index]);
                       },
                     ),
                   ),

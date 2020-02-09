@@ -26,9 +26,12 @@ class _TimetableTabsState extends State<TimetableTabs> {
   Widget build(BuildContext context) {
     _index = widget.index;
 
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.end,
-      children: List.generate(widget.length + 1, (i) => _buildTab(i)),
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: List.generate(widget.length + 1, (i) => _buildTab(i)),
+      ),
     );
   }
 

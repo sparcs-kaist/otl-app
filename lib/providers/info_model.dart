@@ -25,12 +25,12 @@ class InfoModel extends ChangeNotifier {
   Dio _dio = Dio();
 
   InfoModel({List<Cookie> cookies}) {
-    cookies?.insertToDio(_dio);
+    cookies?.pushToDio(_dio);
   }
 
   Future<void> updateInfo({List<Cookie> cookies}) async {
     try {
-      cookies?.insertToDio(_dio);
+      cookies?.pushToDio(_dio);
 
       _semesters = await getSemesters();
       _user = await getUser();

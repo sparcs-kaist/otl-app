@@ -9,3 +9,4 @@ const API_URL = BASE_URL + "api/";
 const API_SEMESTER_URL = API_URL + "semesters";
 const API_TIMETABLE_URL = API_URL + "timetable/";
 const API_TIMETABLE_LOAD_URL = API_TIMETABLE_URL + "table_load";
+const API_TIMETABLE_CREATE_URL = API_TIMETABLE_URL + "table_create";

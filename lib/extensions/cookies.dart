@@ -6,7 +6,7 @@ extension CookiesParsing on List<Cookie> {
     return map((cookie) => "${cookie.name}=${cookie.value}").join("; ");
   }
 
-  void insertToDio(Dio dio) {
+  void pushToDio(Dio dio) {
     dio.options.headers["cookie"] = toRawString();
     dio.options.headers["X-CSRFToken"] =
         firstWhere((cookie) => cookie.name == "csrftoken").value;

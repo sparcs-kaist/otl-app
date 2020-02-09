@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
+import 'package:timeplanner_mobile/constants/url.dart';
 import 'package:timeplanner_mobile/extensions/cookies.dart';
 import 'package:timeplanner_mobile/models/semester.dart';
 import 'package:timeplanner_mobile/models/timetable.dart';
@@ -29,7 +30,7 @@ class TimetableModel extends ChangeNotifier {
   Dio _dio = Dio();
 
   TimetableModel({List<Cookie> cookies}) {
-    cookies?.insertToDio(_dio);
+    cookies?.pushToDio(_dio);
   }
 
   void setIndex(int index) {
@@ -37,13 +38,12 @@ class TimetableModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> getTimetable({Semester semester, List<Cookie> cookies}) async {
+  Future<void> loadTimetable({Semester semester, List<Cookie> cookies}) async {
     try {
       if (semester != null) _selectedSemester = semester;
-      cookies?.insertToDio(_dio);
+      cookies?.pushToDio(_dio);
 
-      final response = await _dio
-          .post("https://otl.kaist.ac.kr/api/timetable/table_load", data: {
+      final response = await _dio.post(API_TIMETABLE_LOAD_URL, data: {
         "year": _selectedSemester.year,
         "semester": _selectedSemester.semester
       });
@@ -61,5 +61,30 @@ class TimetableModel extends ChangeNotifier {
     }
 
     notifyListeners();
+  }
+
+  Future<void> createTimetable(
+      {Semester semester, List<Cookie> cookies}) async {
+    try {
+      if (semester != null) _selectedSemester = semester;
+      cookies?.pushToDio(_dio);
+
+      final response = await _dio.post(API_TIMETABLE_CREATE_URL, data: {
+        "year": _selectedSemester.year,
+        "semester": _selectedSemester.semester,
+        "lectures": [],
+      });
+
+      if (response.data["scucess"]) {
+        _timetables.add(Timetable(
+          id: response.data["id"],
+          lectures: [],
+        ));
+        _selectedIndex = _timetables.length - 1;
+        notifyListeners();
+      }
+    } catch (exception) {
+      print(exception);
+    }
   }
 }
