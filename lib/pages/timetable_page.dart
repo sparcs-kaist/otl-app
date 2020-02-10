@@ -125,8 +125,10 @@ class TimetablePage extends StatelessWidget {
         else
           timetableModel.setIndex(i);
       },
-      onDuplicate: (i) {},
-      onDelete: (i) {},
+      onDuplicate: (i) => timetableModel.createTimetable(
+          lectures: timetableModel.timetables[i].lectures),
+      onDelete: (i) => timetableModel.deleteTimetable(
+          timetable: timetableModel.timetables[i]),
     );
   }
 }
