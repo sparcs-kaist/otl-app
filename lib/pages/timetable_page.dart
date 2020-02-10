@@ -80,7 +80,7 @@ class TimetablePage extends StatelessWidget {
           child: Row(
             children: <Widget>[
               _buildDuplicateButton(timetableModel),
-              _buildDeleteButton(),
+              _buildDeleteButton(timetableModel),
             ],
           ),
         ),
@@ -88,9 +88,9 @@ class TimetablePage extends StatelessWidget {
     );
   }
 
-  Widget _buildDeleteButton() {
+  Widget _buildDeleteButton(TimetableModel timetableModel) {
     return InkWell(
-      onTap: () {},
+      onTap: () => timetableModel.deleteTimetable(),
       child: const Padding(
         padding: EdgeInsets.all(8.0),
         child: Icon(
@@ -103,10 +103,8 @@ class TimetablePage extends StatelessWidget {
 
   Widget _buildDuplicateButton(TimetableModel timetableModel) {
     return InkWell(
-      onTap: () {
-        timetableModel.createTimetable(
-            lectures: timetableModel.currentTimetable.lectures);
-      },
+      onTap: () => timetableModel.createTimetable(
+          lectures: timetableModel.currentTimetable.lectures),
       child: const Padding(
         padding: EdgeInsets.all(8.0),
         child: Icon(

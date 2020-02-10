@@ -39,10 +39,9 @@ class TimetableModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> loadTimetable({Semester semester, List<Cookie> cookies}) async {
+  Future<void> loadTimetable({Semester semester}) async {
     try {
       if (semester != null) _selectedSemester = semester;
-      cookies?.pushToDio(_dio);
 
       final response = await _dio.post(API_TIMETABLE_LOAD_URL, data: {
         "year": _selectedSemester.year,
@@ -65,10 +64,9 @@ class TimetableModel extends ChangeNotifier {
   }
 
   Future<void> createTimetable(
-      {Semester semester, List<Lecture> lectures, List<Cookie> cookies}) async {
+      {Semester semester, List<Lecture> lectures}) async {
     try {
       if (semester != null) _selectedSemester = semester;
-      cookies?.pushToDio(_dio);
 
       final response = await _dio.post(API_TIMETABLE_CREATE_URL, data: {
         "year": _selectedSemester.year,
@@ -84,6 +82,26 @@ class TimetableModel extends ChangeNotifier {
           lectures: lectures ?? [],
         ));
         _selectedIndex = _timetables.length - 1;
+        notifyListeners();
+      }
+    } catch (exception) {
+      print(exception);
+    }
+  }
+
+  Future<void> deleteTimetable({Timetable timetable, Semester semester}) async {
+    try {
+      if (semester != null) _selectedSemester = semester;
+
+      final response = await _dio.post(API_TIMETABLE_DELETE_URL, data: {
+        "table_id": (timetable ?? currentTimetable).id,
+        "year": _selectedSemester.year,
+        "semester": _selectedSemester.semester,
+      });
+
+      if (response.data["scucess"]) {
+        _timetables.remove(timetable ?? currentTimetable);
+        _selectedIndex = 0;
         notifyListeners();
       }
     } catch (exception) {
