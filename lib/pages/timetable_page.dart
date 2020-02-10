@@ -29,56 +29,106 @@ class TimetablePage extends StatelessWidget {
 
   Widget _buildBody(TimetableModel timetableModel, List<Semester> semesters) {
     return SingleChildScrollView(
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            TimetableTabs(
-              index: timetableModel.selectedIndex,
-              length: timetableModel.timetables.length,
-              onTap: (i) {
-                if (i > 0 && i == timetableModel.timetables.length)
-                  timetableModel.createTimetable();
-                else
-                  timetableModel.setIndex(i);
-              },
-              onDuplicate: (i) {},
-              onDelete: (i) {},
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          _buildTimetableTabs(timetableModel),
+          Card(
+            margin: const EdgeInsets.symmetric(horizontal: 4.0),
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.only(
+                topRight: Radius.circular(6.0),
+                bottomLeft: Radius.circular(6.0),
+                bottomRight: Radius.circular(6.0),
+              ),
             ),
-            Card(
-              margin: const EdgeInsets.symmetric(horizontal: 4.0),
-              shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.only(
-                  topRight: Radius.circular(6.0),
-                  bottomLeft: Radius.circular(6.0),
-                  bottomRight: Radius.circular(6.0),
+            child: Column(
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: _buildTableController(timetableModel, semesters),
                 ),
-              ),
-              child: Column(
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: SemesterLeftRight(
-                      semesters: semesters,
-                      onSemesterChanged: (index) {
-                        timetableModel.loadTimetable(
-                            semester: semesters[index]);
-                      },
-                    ),
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Timetable(
+                    lectures: timetableModel.currentTimetable.lectures,
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Timetable(
-                      lectures: timetableModel.currentTimetable.lectures,
-                    ),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
-          ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildTableController(
+      TimetableModel timetableModel, List<Semester> semesters) {
+    return Stack(
+      children: <Widget>[
+        Center(
+          child: SemesterLeftRight(
+            semesters: semesters,
+            onSemesterChanged: (index) {
+              timetableModel.loadTimetable(semester: semesters[index]);
+            },
+          ),
+        ),
+        Positioned(
+          right: 0,
+          child: Row(
+            children: <Widget>[
+              _buildDuplicateButton(timetableModel),
+              _buildDeleteButton(),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildDeleteButton() {
+    return InkWell(
+      onTap: () {},
+      child: const Padding(
+        padding: EdgeInsets.all(8.0),
+        child: Icon(
+          Icons.delete,
+          size: 12.0,
         ),
       ),
+    );
+  }
+
+  Widget _buildDuplicateButton(TimetableModel timetableModel) {
+    return InkWell(
+      onTap: () {
+        timetableModel.createTimetable(
+            lectures: timetableModel.currentTimetable.lectures);
+      },
+      child: const Padding(
+        padding: EdgeInsets.all(8.0),
+        child: Icon(
+          Icons.content_copy,
+          size: 12.0,
+        ),
+      ),
+    );
+  }
+
+  TimetableTabs _buildTimetableTabs(TimetableModel timetableModel) {
+    return TimetableTabs(
+      index: timetableModel.selectedIndex,
+      length: timetableModel.timetables.length,
+      onTap: (i) {
+        if (i > 0 && i == timetableModel.timetables.length)
+          timetableModel.createTimetable();
+        else
+          timetableModel.setIndex(i);
+      },
+      onDuplicate: (i) {},
+      onDelete: (i) {},
     );
   }
 }

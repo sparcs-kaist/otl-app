@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:timeplanner_mobile/constants/url.dart';
 import 'package:timeplanner_mobile/extensions/cookies.dart';
+import 'package:timeplanner_mobile/models/lecture.dart';
 import 'package:timeplanner_mobile/models/semester.dart';
 import 'package:timeplanner_mobile/models/timetable.dart';
 
@@ -64,7 +65,7 @@ class TimetableModel extends ChangeNotifier {
   }
 
   Future<void> createTimetable(
-      {Semester semester, List<Cookie> cookies}) async {
+      {Semester semester, List<Lecture> lectures, List<Cookie> cookies}) async {
     try {
       if (semester != null) _selectedSemester = semester;
       cookies?.pushToDio(_dio);
@@ -72,13 +73,15 @@ class TimetableModel extends ChangeNotifier {
       final response = await _dio.post(API_TIMETABLE_CREATE_URL, data: {
         "year": _selectedSemester.year,
         "semester": _selectedSemester.semester,
-        "lectures": [],
+        "lectures": lectures == null
+            ? []
+            : lectures.map((lecture) => lecture.id).toList(),
       });
 
       if (response.data["scucess"]) {
         _timetables.add(Timetable(
           id: response.data["id"],
-          lectures: [],
+          lectures: lectures ?? [],
         ));
         _selectedIndex = _timetables.length - 1;
         notifyListeners();
