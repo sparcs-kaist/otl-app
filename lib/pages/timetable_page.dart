@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:timeplanner_mobile/models/semester.dart';
-import 'package:timeplanner_mobile/models/timetable.dart';
 import 'package:timeplanner_mobile/providers/info_model.dart';
 import 'package:timeplanner_mobile/providers/timetable_model.dart';
 import 'package:timeplanner_mobile/widgets/semester_picker.dart';
-import 'package:timeplanner_mobile/widgets/timetable.dart' as TimetableWidget;
+import 'package:timeplanner_mobile/widgets/timetable.dart';
 import 'package:timeplanner_mobile/widgets/timetable_tabs.dart';
 
 class TimetablePage extends StatelessWidget {
@@ -53,7 +52,7 @@ class TimetablePage extends StatelessWidget {
                 ),
                 Padding(
                   padding: const EdgeInsets.all(10.0),
-                  child: TimetableWidget.Timetable(
+                  child: Timetable(
                     lectures: timetableModel.currentTimetable.lectures,
                   ),
                 ),
@@ -76,60 +75,39 @@ class TimetablePage extends StatelessWidget {
         else
           timetableModel.setIndex(i);
       },
-      onSettingsTap: (i) async {
-        final func = await showDialog<Function(Timetable)>(
+      onSettingsTap: () {
+        showModalBottomSheet(
             context: context,
-            builder: (context) =>
-                _buildSetttingDialog(context, timetableModel));
-        if (func != null) func(timetableModel.timetables[i]);
+            builder: (context) => _buildSettingsSheet(context, timetableModel));
       },
     );
   }
 
-  SimpleDialog _buildSetttingDialog(
+  Widget _buildSettingsSheet(
       BuildContext context, TimetableModel timetableModel) {
-    return SimpleDialog(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(6.0),
+    return Container(
+      color: Colors.white,
+      child: Wrap(
+        children: <Widget>[
+          ListTile(
+            leading: const Icon(Icons.content_copy),
+            title: const Text("복제"),
+            onTap: () {
+              timetableModel.createTimetable(
+                  lectures: timetableModel.currentTimetable.lectures);
+              Navigator.pop(context);
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.delete),
+            title: const Text("삭제"),
+            onTap: () {
+              timetableModel.deleteTimetable();
+              Navigator.pop(context);
+            },
+          ),
+        ],
       ),
-      children: <Widget>[
-        SimpleDialogOption(
-          onPressed: () => Navigator.pop(
-              context,
-              (Timetable timetable) =>
-                  timetableModel.createTimetable(lectures: timetable.lectures)),
-          child: Row(
-            children: const [
-              Icon(
-                Icons.content_copy,
-                size: 16.0,
-              ),
-              Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Text("복제"),
-              ),
-            ],
-          ),
-        ),
-        SimpleDialogOption(
-          onPressed: () => Navigator.pop(
-              context,
-              (Timetable timetable) =>
-                  timetableModel.deleteTimetable(timetable: timetable)),
-          child: Row(
-            children: const [
-              Icon(
-                Icons.delete,
-                size: 16.0,
-              ),
-              Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Text("삭제"),
-              ),
-            ],
-          ),
-        ),
-      ],
     );
   }
 }

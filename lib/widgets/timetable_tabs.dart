@@ -5,7 +5,7 @@ class TimetableTabs extends StatefulWidget {
   final int index;
   final int length;
   final Function(int) onTap;
-  final Function(int) onSettingsTap;
+  final VoidCallback onSettingsTap;
 
   TimetableTabs(
       {this.index = 0,
@@ -48,7 +48,7 @@ class _TimetableTabsState extends State<TimetableTabs> {
             child: InkWell(
               borderRadius:
                   const BorderRadius.vertical(top: Radius.circular(4.0)),
-              onTap: () => widget.onSettingsTap(_index),
+              onTap: widget.onSettingsTap,
               child: Padding(
                 padding: const EdgeInsets.symmetric(
                   horizontal: 10.0,
@@ -85,8 +85,6 @@ class _TimetableTabsState extends State<TimetableTabs> {
                     widget.onTap(i);
                   });
                 },
-          onLongPress:
-              i == widget.length ? null : () => widget.onSettingsTap(i),
           child: Padding(
             padding: const EdgeInsets.symmetric(
               horizontal: 10.0,
