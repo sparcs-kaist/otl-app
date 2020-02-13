@@ -32,7 +32,7 @@ class Timetable extends StatelessWidget {
   }
 
   Widget _buildHeader(int i) {
-    if (i == 800 || i % 600 == 0) {
+    if (i % 600 == 0) {
       return SizedBox(
         height: _dividerHeight,
         child: Text(
@@ -76,9 +76,9 @@ class Timetable extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: List.generate(
-            ((2400 - 800) / 50 + 2).toInt(),
+            ((2400 - 900) / 50 + 2).toInt(),
             (i) =>
-                (i == 0) ? topPaddingWidget : _buildHeader((i - 1) * 50 + 800)),
+                (i == 0) ? topPaddingWidget : _buildHeader((i - 1) * 50 + 900)),
       ),
     );
   }
@@ -96,7 +96,7 @@ class Timetable extends StatelessWidget {
     final end = classtime.end / 30 - 16;
 
     return Positioned(
-      top: _dividerHeight * (begin + 0.5) + 1,
+      top: _dividerHeight * (begin - 1.5) + 1,
       left: 0,
       right: 0,
       height: _dividerHeight * (end - begin) - 2,
@@ -109,8 +109,7 @@ class Timetable extends StatelessWidget {
   }
 
   Widget _buildCell(int i) {
-    if (i == 800 || i % 600 == 0)
-      return Container(color: BORDER_BOLD_COLOR, height: 1);
+    if (i % 600 == 0) return Container(color: BORDER_BOLD_COLOR, height: 1);
     if (i % 100 == 0) return Container(color: BORDER_COLOR, height: 1);
     return Row(
       children: List.generate(
@@ -128,10 +127,10 @@ class Timetable extends StatelessWidget {
   Widget _buildCells(int index) {
     return Column(
       children: List.generate(
-          ((2400 - 800) / 50 + 1).toInt(),
+          ((2400 - 900) / 50 + 1).toInt(),
           (i) => Padding(
                 padding: dividerPadding,
-                child: _buildCell(i * 50 + 800),
+                child: _buildCell(i * 50 + 900),
               )),
     );
   }
