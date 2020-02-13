@@ -2,18 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:timeplanner_mobile/extensions/semester.dart';
 import 'package:timeplanner_mobile/models/semester.dart';
 
-class SemesterLeftRight extends StatefulWidget {
+class SemesterPicker extends StatefulWidget {
   final List<Semester> semesters;
   final Function(int) onSemesterChanged;
 
-  SemesterLeftRight(
-      {@required this.semesters, @required this.onSemesterChanged});
+  SemesterPicker({@required this.semesters, @required this.onSemesterChanged});
 
   @override
-  _SemesterLeftRightState createState() => _SemesterLeftRightState();
+  _SemesterPickerState createState() => _SemesterPickerState();
 }
 
-class _SemesterLeftRightState extends State<SemesterLeftRight> {
+class _SemesterPickerState extends State<SemesterPicker> {
   int _index;
 
   @override

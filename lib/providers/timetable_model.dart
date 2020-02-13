@@ -101,7 +101,7 @@ class TimetableModel extends ChangeNotifier {
 
       if (response.data["scucess"]) {
         _timetables.remove(timetable ?? currentTimetable);
-        _selectedIndex = 0;
+        _selectedIndex--;
         notifyListeners();
       }
     } catch (exception) {
