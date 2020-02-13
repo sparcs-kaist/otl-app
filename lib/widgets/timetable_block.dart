@@ -6,12 +6,44 @@ class TimetableBlock extends StatelessWidget {
   final Lecture lecture;
   final double fontSize;
   final VoidCallback onTap;
+  final bool showTitle;
+  final bool showProfessor;
+  final bool showClassroom;
 
   TimetableBlock(
-      {@required this.lecture, this.fontSize = 11.0, @required this.onTap});
+      {@required this.lecture,
+      this.fontSize = 10.0,
+      @required this.onTap,
+      this.showTitle = true,
+      this.showProfessor = false,
+      this.showClassroom = true});
 
   @override
   Widget build(BuildContext context) {
+    final contents = <InlineSpan>[];
+
+    if (showTitle) {
+      contents.add(TextSpan(
+        text: lecture.title,
+        style: TextStyle(
+          color: Colors.black87,
+          fontSize: fontSize,
+        ),
+      ));
+      contents.add(const TextSpan(text: "\n"));
+      contents.add(const WidgetSpan(child: SizedBox(height: 12)));
+    }
+
+    if (showProfessor) {
+      contents.add(TextSpan(text: lecture.professorsStrShort));
+      contents.add(const TextSpan(text: "\n"));
+    }
+
+    if (showClassroom) {
+      contents.add(TextSpan(text: lecture.classroom));
+      contents.add(const TextSpan(text: "\n"));
+    }
+
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(2.0),
@@ -23,14 +55,14 @@ class TimetableBlock extends StatelessWidget {
           borderRadius: BorderRadius.circular(2.0),
           onTap: onTap,
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 4.0),
-            child: Center(
-              child: Text(
-                lecture.title,
+            padding: const EdgeInsets.all(4.0),
+            child: RichText(
+              text: TextSpan(
                 style: TextStyle(
-                  color: Colors.black87,
-                  fontSize: fontSize,
+                  color: Colors.black54,
+                  fontSize: fontSize - 1,
                 ),
+                children: contents,
               ),
             ),
           ),

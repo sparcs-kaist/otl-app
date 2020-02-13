@@ -17,7 +17,7 @@ class Timetable extends StatelessWidget {
       {List<Lecture> lectures,
       this.fontSize = 9.0,
       this.dividerPadding =
-          const EdgeInsets.symmetric(horizontal: 2.0, vertical: 6.0),
+          const EdgeInsets.symmetric(horizontal: 1.0, vertical: 10.0),
       this.daysCount = 5}) {
     lectures.forEach((lecture) => lecture.classtimes
         .forEach((classtime) => _lectures[classtime.day][classtime] = lecture));
