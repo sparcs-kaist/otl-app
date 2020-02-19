@@ -9,12 +9,15 @@ class Timetable extends StatelessWidget {
 
   final _daysOfWeek = ["월", "화", "수", "목", "금", "토", "일"];
   final _lectures = List.generate(7, (i) => Map<Classtime, Lecture>());
+
+  final TimetableBlock Function(Lecture) builder;
   final double fontSize;
   final EdgeInsetsGeometry dividerPadding;
   final int daysCount;
 
   Timetable(
       {List<Lecture> lectures,
+      @required this.builder,
       this.fontSize = 9.0,
       this.dividerPadding =
           const EdgeInsets.symmetric(horizontal: 1.0, vertical: 10.0),
@@ -83,13 +86,6 @@ class Timetable extends StatelessWidget {
     );
   }
 
-  TimetableBlock _buildTimetableBlock(Lecture lecture) {
-    return TimetableBlock(
-      lecture: lecture,
-      onTap: () {},
-    );
-  }
-
   Widget _buildLectureBlock(
       {@required Lecture lecture, @required Classtime classtime}) {
     final begin = classtime.begin / 30 - 16;
@@ -103,7 +99,7 @@ class Timetable extends StatelessWidget {
       child: Padding(
         padding:
             EdgeInsets.symmetric(horizontal: dividerPadding.horizontal / 3),
-        child: _buildTimetableBlock(lecture),
+        child: builder(lecture),
       ),
     );
   }
