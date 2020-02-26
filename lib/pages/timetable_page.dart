@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:timeplanner_mobile/dialogs/course_detail_dialog.dart';
 import 'package:timeplanner_mobile/models/semester.dart';
+import 'package:timeplanner_mobile/pages/lecture_detail_page.dart';
 import 'package:timeplanner_mobile/providers/info_model.dart';
 import 'package:timeplanner_mobile/providers/timetable_model.dart';
 import 'package:timeplanner_mobile/widgets/semester_picker.dart';
@@ -60,10 +60,12 @@ class TimetablePage extends StatelessWidget {
                       return TimetableBlock(
                         lecture: lecture,
                         onTap: () {
-                          showDialog(
-                              context: context,
-                              builder: (context) =>
-                                  CourseDetailDialog(lecture));
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    LectureDetailPage(lecture),
+                              ));
                         },
                       );
                     },
