@@ -19,29 +19,20 @@ class _TimeplannerHomeState extends State<TimeplannerHome> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: _buildAppBar(context),
       bottomNavigationBar: _buildBottomNavigationBar(),
-      body: SafeArea(
-        child: Column(
-          children: <Widget>[
-            _buildAppBar(context),
-            Expanded(
-              child: IndexedStack(
-                index: _currentIndex,
-                children: <Widget>[
-                  MainPage(),
-                  DictionaryPage(),
-                  ChangeNotifierProvider(
-                    create: (context) => TimetableModel(
-                      cookies: Provider.of<AuthModel>(context, listen: false)
-                          .cookies,
-                    ),
-                    child: TimetablePage(),
-                  ),
-                ],
-              ),
+      body: IndexedStack(
+        index: _currentIndex,
+        children: <Widget>[
+          MainPage(),
+          DictionaryPage(),
+          ChangeNotifierProvider(
+            create: (context) => TimetableModel(
+              cookies: Provider.of<AuthModel>(context, listen: false).cookies,
             ),
-          ],
-        ),
+            child: TimetablePage(),
+          ),
+        ],
       ),
     );
   }

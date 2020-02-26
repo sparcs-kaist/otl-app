@@ -7,22 +7,18 @@ import 'package:timeplanner_mobile/widgets/custom_appbar.dart';
 class UserPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Material(
-        child: Column(
-          children: <Widget>[
-            CustomAppBar(
-              actions: <Widget>[
-                IconButton(
-                  icon: const Icon(Icons.language),
-                  onPressed: () {},
-                ),
-              ],
-            ),
-            _buildBody(context),
-          ],
-        ),
+    return Scaffold(
+      appBar: CustomAppBar(
+        actions: <Widget>[
+          IconButton(
+            icon: const Icon(Icons.close),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
+        ],
       ),
+      body: _buildBody(context),
     );
   }
 
