@@ -2,27 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:timeplanner_mobile/constants/color.dart';
 import 'package:timeplanner_mobile/providers/info_model.dart';
-import 'package:timeplanner_mobile/widgets/custom_appbar.dart';
 
-class UserPage extends StatelessWidget {
+class UserLayer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: CustomAppBar(
-        actions: <Widget>[
-          IconButton(
-            icon: const Icon(Icons.close),
-            onPressed: () {
-              Navigator.pop(context);
-            },
-          ),
-        ],
-      ),
-      body: _buildBody(context),
-    );
-  }
-
-  Widget _buildBody(BuildContext context) {
     final user = Provider.of<InfoModel>(context, listen: false).user;
 
     return Padding(

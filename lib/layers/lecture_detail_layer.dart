@@ -4,61 +4,48 @@ import 'package:timeplanner_mobile/constants/color.dart';
 import 'package:timeplanner_mobile/constants/url.dart';
 import 'package:timeplanner_mobile/models/lecture.dart';
 import 'package:timeplanner_mobile/models/review.dart';
-import 'package:timeplanner_mobile/widgets/custom_appbar.dart';
 import 'package:timeplanner_mobile/widgets/custom_header_delegate.dart';
 import 'package:timeplanner_mobile/widgets/review_block.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class LectureDetailPage extends StatelessWidget {
+class LectureDetailLayer extends StatelessWidget {
   final Lecture lecture;
   final _scrollController = ScrollController();
 
-  LectureDetailPage(this.lecture);
+  LectureDetailLayer(this.lecture);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: CustomAppBar(
-        actions: <Widget>[
-          IconButton(
-            icon: const Icon(Icons.close),
-            onPressed: () {
-              Navigator.pop(context);
-            },
-          ),
-        ],
+    return Card(
+      color: Colors.white,
+      margin: const EdgeInsets.all(12.0),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(6.0),
       ),
-      body: Card(
-        color: Colors.white,
-        margin: const EdgeInsets.all(12.0),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(6.0),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(12.0),
-          child: Column(
-            children: <Widget>[
-              Text(
-                lecture.title,
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 13.0,
-                ),
-                textAlign: TextAlign.center,
+      child: Padding(
+        padding: const EdgeInsets.all(12.0),
+        child: Column(
+          children: <Widget>[
+            Text(
+              lecture.title,
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 13.0,
               ),
-              const SizedBox(height: 4.0),
-              Text(
-                lecture.classNo.isEmpty
-                    ? lecture.oldCode
-                    : "${lecture.oldCode} (${lecture.classNo})",
-                textAlign: TextAlign.center,
-                style: const TextStyle(fontSize: 12.0),
-              ),
-              _buildButtons(),
-              const SizedBox(height: 8.0),
-              Expanded(child: _buildScrollView()),
-            ],
-          ),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 4.0),
+            Text(
+              lecture.classNo.isEmpty
+                  ? lecture.oldCode
+                  : "${lecture.oldCode} (${lecture.classNo})",
+              textAlign: TextAlign.center,
+              style: const TextStyle(fontSize: 12.0),
+            ),
+            _buildButtons(),
+            const SizedBox(height: 8.0),
+            Expanded(child: _buildScrollView()),
+          ],
         ),
       ),
     );
@@ -72,7 +59,7 @@ class LectureDetailPage extends StatelessWidget {
           onTap: () {},
           child: const Text(
             "과목사전",
-            style: const TextStyle(
+            style: TextStyle(
               color: PRIMARY_COLOR,
               fontSize: 11.0,
             ),
@@ -84,7 +71,7 @@ class LectureDetailPage extends StatelessWidget {
               "https://cais.kaist.ac.kr/syllabusInfo?year=${lecture.year}&term=${lecture.semester}&subject_no=${lecture.code}&lecture_class=${lecture.classNo}&dept_id=${lecture.department}"),
           child: const Text(
             "실라버스",
-            style: const TextStyle(
+            style: TextStyle(
               color: PRIMARY_COLOR,
               fontSize: 11.0,
             ),
@@ -126,27 +113,25 @@ class LectureDetailPage extends StatelessWidget {
             _scrollController.jumpTo(_scrollController.offset + 1);
           }
         },
-        builder: (shrinkOffset) {
-          return Row(
-            children: <Widget>[
-              RichText(
-                text: TextSpan(
-                  text: "과목 후기",
-                  style: const TextStyle(
-                    color: Colors.black87,
-                    fontSize: 13.0,
-                    fontWeight: FontWeight.bold,
-                  ),
+        builder: (shrinkOffset) => Row(
+          children: <Widget>[
+            RichText(
+              text: TextSpan(
+                text: "과목 후기",
+                style: const TextStyle(
+                  color: Colors.black87,
+                  fontSize: 13.0,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
-              FittedBox(
-                child: Icon(shrinkOffset > 0
-                    ? Icons.keyboard_arrow_up
-                    : Icons.keyboard_arrow_down),
-              ),
-            ],
-          );
-        },
+            ),
+            FittedBox(
+              child: Icon(shrinkOffset > 0
+                  ? Icons.keyboard_arrow_up
+                  : Icons.keyboard_arrow_down),
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -4,9 +4,9 @@ import 'package:timeplanner_mobile/constants/color.dart';
 class CustomAppBar extends AppBar {
   CustomAppBar({List<Widget> actions})
       : super(
-          title: SizedBox(
+          title: Image.asset(
+            "assets/logo.png",
             height: 27,
-            child: Image.asset("assets/logo.png"),
           ),
           flexibleSpace: SafeArea(
             child: Container(

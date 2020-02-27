@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:timeplanner_mobile/backdrop.dart';
+import 'package:timeplanner_mobile/layers/lecture_detail_layer.dart';
 import 'package:timeplanner_mobile/models/semester.dart';
-import 'package:timeplanner_mobile/pages/lecture_detail_page.dart';
 import 'package:timeplanner_mobile/providers/info_model.dart';
 import 'package:timeplanner_mobile/providers/timetable_model.dart';
 import 'package:timeplanner_mobile/widgets/semester_picker.dart';
@@ -56,19 +57,13 @@ class TimetablePage extends StatelessWidget {
                   padding: const EdgeInsets.all(10.0),
                   child: Timetable(
                     lectures: timetableModel.currentTimetable.lectures,
-                    builder: (lecture) {
-                      return TimetableBlock(
-                        lecture: lecture,
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) =>
-                                    LectureDetailPage(lecture),
-                              ));
-                        },
-                      );
-                    },
+                    builder: (lecture) => TimetableBlock(
+                      lecture: lecture,
+                      onTap: () {
+                        Backdrop.of(context).toggleBackdropLayerVisibility(
+                            LectureDetailLayer(lecture));
+                      },
+                    ),
                   ),
                 ),
               ],
