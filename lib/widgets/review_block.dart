@@ -9,6 +9,10 @@ class ReviewBlock extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String content =
+        review.content.replaceAll("\r\n", " ").replaceAll("\n", " ");
+    while (content.contains("  ")) content = content.replaceAll("  ", " ");
+
     return Container(
       margin: const EdgeInsets.only(bottom: 6.0),
       padding: const EdgeInsets.symmetric(
@@ -23,12 +27,13 @@ class ReviewBlock extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           Text(
-            review.content.replaceAll("\n", "").trim(),
+            content.trim(),
             maxLines: 3,
             overflow: TextOverflow.ellipsis,
             style: const TextStyle(
+              color: Colors.black87,
               height: 1.3,
-              fontSize: 11.0,
+              fontSize: 12.0,
             ),
           ),
           RichText(

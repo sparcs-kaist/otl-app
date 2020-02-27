@@ -65,12 +65,15 @@ class Timetable extends StatelessWidget {
   }
 
   Widget _buildHeaders(BuildContext context) {
-    final topPaddingWidget = SizedBox(
-      width: 0,
-      child: Text(
-        "요일",
-        maxLines: 1,
-        style: TextStyle(fontSize: fontSize),
+    final topPaddingWidget = Padding(
+      padding: EdgeInsets.only(bottom: dividerPadding.vertical / 2),
+      child: SizedBox(
+        width: 0,
+        child: Text(
+          "요일",
+          maxLines: 1,
+          style: TextStyle(fontSize: fontSize),
+        ),
       ),
     );
 

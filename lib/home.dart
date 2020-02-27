@@ -39,13 +39,13 @@ class _TimeplannerHomeState extends State<TimeplannerHome> {
         index: _currentIndex,
         children: <Widget>[
           MainPage(),
-          DictionaryPage(),
           ChangeNotifierProvider(
             create: (context) => TimetableModel(
               cookies: Provider.of<AuthModel>(context, listen: false).cookies,
             ),
             child: TimetablePage(),
           ),
+          DictionaryPage(),
         ],
       ),
     );
@@ -65,12 +65,12 @@ class _TimeplannerHomeState extends State<TimeplannerHome> {
           title: Text("홈"),
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.library_books),
-          title: Text("과목사전"),
-        ),
-        BottomNavigationBarItem(
           icon: Icon(Icons.table_chart),
           title: Text("모의시간표"),
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.library_books),
+          title: Text("과목사전"),
         ),
       ],
     );
