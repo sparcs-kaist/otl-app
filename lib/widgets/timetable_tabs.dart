@@ -31,7 +31,6 @@ class _TimetableTabsState extends State<TimetableTabs> {
           child: SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: Row(
-              crossAxisAlignment: CrossAxisAlignment.end,
               children: List.generate(
                   widget.length + 1, (i) => _buildTab(i, context)),
             ),
@@ -46,15 +45,16 @@ class _TimetableTabsState extends State<TimetableTabs> {
           child: Material(
             color: Colors.transparent,
             child: InkWell(
-              borderRadius:
-                  const BorderRadius.vertical(top: Radius.circular(4.0)),
+              borderRadius: const BorderRadius.vertical(
+                top: Radius.circular(4.0),
+              ),
               onTap: widget.onSettingsTap,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(
+              child: const Padding(
+                padding: EdgeInsets.symmetric(
                   horizontal: 10.0,
                   vertical: 7.0,
                 ),
-                child: const Icon(
+                child: Icon(
                   Icons.settings,
                   size: 16.0,
                 ),

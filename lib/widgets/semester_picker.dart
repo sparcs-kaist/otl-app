@@ -31,7 +31,9 @@ class _SemesterPickerState extends State<SemesterPicker> {
       child: Row(
         children: <Widget>[
           _buildLeftButton(theme),
-          Expanded(child: _buildTitle(context, semester)),
+          const Spacer(),
+          _buildTitle(context, semester),
+          const Spacer(),
           _buildRightButton(theme),
         ],
       ),

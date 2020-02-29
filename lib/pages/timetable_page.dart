@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:timeplanner_mobile/backdrop.dart';
+import 'package:timeplanner_mobile/constants/color.dart';
 import 'package:timeplanner_mobile/layers/lecture_detail_layer.dart';
 import 'package:timeplanner_mobile/models/semester.dart';
 import 'package:timeplanner_mobile/providers/info_model.dart';
@@ -8,6 +9,7 @@ import 'package:timeplanner_mobile/providers/timetable_model.dart';
 import 'package:timeplanner_mobile/widgets/semester_picker.dart';
 import 'package:timeplanner_mobile/widgets/timetable.dart';
 import 'package:timeplanner_mobile/widgets/timetable_block.dart';
+import 'package:timeplanner_mobile/widgets/timetable_summary.dart';
 import 'package:timeplanner_mobile/widgets/timetable_tabs.dart';
 
 class TimetablePage extends StatelessWidget {
@@ -32,41 +34,59 @@ class TimetablePage extends StatelessWidget {
 
   Widget _buildBody(BuildContext context, TimetableModel timetableModel,
       List<Semester> semesters) {
-    return SingleChildScrollView(
+    return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           _buildTimetableTabs(context, timetableModel),
-          Card(
-            margin: const EdgeInsets.symmetric(horizontal: 4.0),
-            shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.vertical(bottom: Radius.circular(6.0)),
-            ),
-            child: Column(
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: SemesterPicker(
-                    semesters: semesters,
-                    onSemesterChanged: (index) => timetableModel.loadTimetable(
-                        semester: semesters[index]),
-                  ),
+          Expanded(
+            child: Card(
+              margin: const EdgeInsets.symmetric(horizontal: 4.0),
+              shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.vertical(
+                  bottom: Radius.circular(6.0),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Timetable(
-                    lectures: timetableModel.currentTimetable.lectures,
-                    builder: (lecture) => TimetableBlock(
-                      lecture: lecture,
-                      onTap: () {
-                        Backdrop.of(context).toggleBackdropLayerVisibility(
-                            LectureDetailLayer(lecture));
-                      },
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  children: <Widget>[
+                    SemesterPicker(
+                      semesters: semesters,
+                      onSemesterChanged: (index) => timetableModel
+                          .loadTimetable(semester: semesters[index]),
                     ),
-                  ),
+                    Expanded(
+                      child: SingleChildScrollView(
+                        child: Timetable(
+                          lectures: timetableModel.currentTimetable.lectures,
+                          builder: (lecture) => TimetableBlock(
+                            lecture: lecture,
+                            onTap: () {
+                              Backdrop.of(context)
+                                  .toggleBackdropLayerVisibility(
+                                      LectureDetailLayer(lecture));
+                            },
+                          ),
+                        ),
+                      ),
+                    ),
+                    const Divider(
+                      color: DIVIDER_COLOR,
+                      height: 1.0,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 12.0),
+                      child: TimetableSummary(
+                          timetableModel.currentTimetable.lectures),
+                    ),
+                    const Divider(
+                      color: DIVIDER_COLOR,
+                      height: 1.0,
+                    ),
+                  ],
                 ),
-              ],
+              ),
             ),
           ),
         ],

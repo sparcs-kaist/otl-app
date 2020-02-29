@@ -21,11 +21,8 @@ class BackdropScaffold extends StatefulWidget {
   final Widget bottomNavigationBar;
   final List<Widget> actions;
 
-  BackdropScaffold({
-    @required this.frontLayer,
-    this.bottomNavigationBar,
-    this.actions,
-  });
+  BackdropScaffold(
+      {@required this.frontLayer, this.bottomNavigationBar, this.actions});
 
   @override
   _BackdropScaffoldState createState() => _BackdropScaffoldState();
@@ -75,7 +72,7 @@ class _BackdropScaffoldState extends State<BackdropScaffold>
   Widget _buildStack(BuildContext context, BoxConstraints constraints) {
     final layerTop = constraints.biggest.height;
     final layerAnimation = RelativeRectTween(
-      begin: RelativeRect.fromLTRB(0, layerTop, 0, 0),
+      begin: RelativeRect.fromLTRB(0, layerTop, 0, -layerTop),
       end: RelativeRect.fromLTRB(0, 0, 0, 0),
     ).animate(CurvedAnimation(
       parent: _controller,

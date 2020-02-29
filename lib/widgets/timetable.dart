@@ -4,10 +4,19 @@ import 'package:timeplanner_mobile/models/classtime.dart';
 import 'package:timeplanner_mobile/models/lecture.dart';
 import 'package:timeplanner_mobile/widgets/timetable_block.dart';
 
+const DAYSOFWEEK = [
+  "월요일",
+  "화요일",
+  "수요일",
+  "목요일",
+  "금요일",
+  "토요일",
+  "일요일",
+];
+
 class Timetable extends StatelessWidget {
   get _dividerHeight => dividerPadding.vertical + 1;
 
-  final _daysOfWeek = ["월", "화", "수", "목", "금", "토", "일"];
   final _lectures = List.generate(7, (i) => Map<Classtime, Lecture>());
 
   final TimetableBlock Function(Lecture) builder;
@@ -19,8 +28,10 @@ class Timetable extends StatelessWidget {
       {List<Lecture> lectures,
       @required this.builder,
       this.fontSize = 9.0,
-      this.dividerPadding =
-          const EdgeInsets.symmetric(horizontal: 1.0, vertical: 10.0),
+      this.dividerPadding = const EdgeInsets.symmetric(
+        horizontal: 1.0,
+        vertical: 10.0,
+      ),
       this.daysCount = 5}) {
     lectures.forEach((lecture) => lecture.classtimes
         .forEach((classtime) => _lectures[classtime.day][classtime] = lecture));
@@ -65,26 +76,24 @@ class Timetable extends StatelessWidget {
   }
 
   Widget _buildHeaders(BuildContext context) {
-    final topPaddingWidget = Padding(
-      padding: EdgeInsets.only(bottom: dividerPadding.vertical / 2),
-      child: SizedBox(
-        width: 0,
-        child: Text(
-          "요일",
-          maxLines: 1,
-          style: TextStyle(fontSize: fontSize),
-        ),
-      ),
-    );
-
     return Padding(
       padding: const EdgeInsets.only(right: 4.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
-        children: List.generate(
-            ((2400 - 900) / 50 + 2).toInt(),
-            (i) =>
-                (i == 0) ? topPaddingWidget : _buildHeader((i - 1) * 50 + 900)),
+        children: List.generate(((2400 - 900) / 50 + 2).toInt(), (i) {
+          if (i > 0) return _buildHeader((i - 1) * 50 + 900);
+          return Padding(
+            padding: EdgeInsets.only(bottom: dividerPadding.vertical / 2),
+            child: SizedBox(
+              width: 0,
+              child: Text(
+                "요일",
+                maxLines: 1,
+                style: TextStyle(fontSize: fontSize),
+              ),
+            ),
+          );
+        }),
       ),
     );
   }
@@ -100,8 +109,9 @@ class Timetable extends StatelessWidget {
       right: 0,
       height: _dividerHeight * (end - begin) - 2,
       child: Padding(
-        padding:
-            EdgeInsets.symmetric(horizontal: dividerPadding.horizontal / 3),
+        padding: EdgeInsets.symmetric(
+          horizontal: dividerPadding.horizontal / 3,
+        ),
         child: builder(lecture),
       ),
     );
@@ -135,19 +145,20 @@ class Timetable extends StatelessWidget {
   }
 
   Widget _buildColumn(int i) {
-    final lectureBlocks = _lectures[i]
-        .entries
-        .map((e) => _buildLectureBlock(lecture: e.value, classtime: e.key))
-        .toList();
-
     return Expanded(
       child: Column(
         children: <Widget>[
           Text(
-            "${_daysOfWeek[i]}요일",
+            DAYSOFWEEK[i],
             style: TextStyle(fontSize: fontSize),
           ),
-          Stack(children: [_buildCells(i)] + lectureBlocks),
+          Stack(
+            children: <Widget>[
+              _buildCells(i),
+              ..._lectures[i].entries.map((e) =>
+                  _buildLectureBlock(lecture: e.value, classtime: e.key)),
+            ],
+          ),
         ],
       ),
     );
