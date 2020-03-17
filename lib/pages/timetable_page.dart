@@ -57,16 +57,31 @@ class TimetablePage extends StatelessWidget {
                           .loadTimetable(semester: semesters[index]),
                     ),
                     Expanded(
-                      child: SingleChildScrollView(
-                        child: Timetable(
-                          lectures: timetableModel.currentTimetable.lectures,
-                          builder: (lecture) => TimetableBlock(
-                            lecture: lecture,
-                            onTap: () {
-                              Backdrop.of(context)
-                                  .toggleBackdropLayerVisibility(
-                                      LectureDetailLayer(lecture));
-                            },
+                      child: ShaderMask(
+                        blendMode: BlendMode.dstIn,
+                        shaderCallback: (bounds) => LinearGradient(
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                            colors: <Color>[
+                              Colors.white,
+                              Colors.transparent,
+                            ],
+                            stops: <double>[
+                              0.95,
+                              1.0,
+                            ]).createShader(
+                            bounds.shift(Offset(-bounds.left, -bounds.top))),
+                        child: SingleChildScrollView(
+                          child: Timetable(
+                            lectures: timetableModel.currentTimetable.lectures,
+                            builder: (lecture) => TimetableBlock(
+                              lecture: lecture,
+                              onTap: () {
+                                Backdrop.of(context)
+                                    .toggleBackdropLayerVisibility(
+                                        LectureDetailLayer(lecture));
+                              },
+                            ),
                           ),
                         ),
                       ),
