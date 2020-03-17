@@ -9,7 +9,14 @@ import 'package:timeplanner_mobile/providers/info_model.dart';
 void main() => runApp(MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => AuthModel()),
-        ChangeNotifierProvider(create: (context) => InfoModel()),
+        ChangeNotifierProxyProvider<AuthModel, InfoModel>(
+          create: (context) => InfoModel(),
+          update: (context, authModel, infoModel) {
+            if (authModel.isLogined)
+              infoModel.updateInfo(cookies: authModel.cookies);
+            return infoModel;
+          },
+        ),
       ],
       child: TimeplannerApp(),
     ));
@@ -20,21 +27,10 @@ class TimeplannerApp extends StatelessWidget {
     return MaterialApp(
       title: "Timeplanner Mobile",
       theme: _buildTheme(),
-      home: Consumer<AuthModel>(
-        builder: (context, authModel, _) {
-          if (!authModel.isLogined) return LoginPage();
-          return Consumer<InfoModel>(
-            builder: (context, infoModel, _) {
-              if (infoModel.state == InfoState.done) return TimeplannerHome();
-              infoModel.updateInfo(cookies: authModel.cookies);
-
-              return Material(
-                child: Center(
-                  child: const CircularProgressIndicator(),
-                ),
-              );
-            },
-          );
+      home: Consumer<InfoModel>(
+        builder: (context, infoModel, _) {
+          if (infoModel.state == InfoState.done) return TimeplannerHome();
+          return LoginPage();
         },
       ),
     );
