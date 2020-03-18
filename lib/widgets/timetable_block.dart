@@ -13,7 +13,7 @@ class TimetableBlock extends StatelessWidget {
   TimetableBlock(
       {@required this.lecture,
       this.fontSize = 10.0,
-      @required this.onTap,
+      this.onTap,
       this.showTitle = true,
       this.showProfessor = false,
       this.showClassroom = true});

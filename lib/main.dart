@@ -5,6 +5,7 @@ import 'package:timeplanner_mobile/home.dart';
 import 'package:timeplanner_mobile/pages/login_page.dart';
 import 'package:timeplanner_mobile/providers/auth_model.dart';
 import 'package:timeplanner_mobile/providers/info_model.dart';
+import 'package:timeplanner_mobile/providers/timetable_model.dart';
 
 void main() => runApp(MultiProvider(
       providers: [
@@ -17,6 +18,14 @@ void main() => runApp(MultiProvider(
             return infoModel;
           },
         ),
+        ChangeNotifierProxyProvider<AuthModel, TimetableModel>(
+          create: (context) => TimetableModel(),
+          update: (context, authModel, timetableModel) {
+            if (authModel.isLogined)
+              timetableModel.updateCookies(authModel.cookies);
+            return timetableModel;
+          },
+        )
       ],
       child: TimeplannerApp(),
     ));

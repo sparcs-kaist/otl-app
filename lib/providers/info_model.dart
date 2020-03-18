@@ -22,7 +22,7 @@ class InfoModel extends ChangeNotifier {
   InfoState _state = InfoState.progress;
   InfoState get state => _state;
 
-  Dio _dio = Dio();
+  final _dio = Dio();
 
   InfoModel({List<Cookie> cookies}) {
     cookies?.pushToDio(_dio);

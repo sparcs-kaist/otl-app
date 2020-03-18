@@ -5,12 +5,14 @@ class TimetableTabs extends StatefulWidget {
   final int index;
   final int length;
   final Function(int) onTap;
+  final VoidCallback onAddTap;
   final VoidCallback onSettingsTap;
 
   TimetableTabs(
       {this.index = 0,
       @required this.length,
       @required this.onTap,
+      @required this.onAddTap,
       @required this.onSettingsTap});
 
   @override
@@ -36,33 +38,38 @@ class _TimetableTabsState extends State<TimetableTabs> {
             ),
           ),
         ),
-        Card(
-          color: Colors.white,
-          margin: const EdgeInsets.symmetric(horizontal: 4.0),
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.vertical(top: Radius.circular(4.0)),
+        _buildButton(Icons.add, widget.onAddTap),
+        _buildButton(Icons.settings, widget.onSettingsTap),
+      ],
+    );
+  }
+
+  Widget _buildButton(IconData icon, VoidCallback onTap) {
+    return Card(
+      color: Colors.white,
+      margin: const EdgeInsets.symmetric(horizontal: 4.0),
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(4.0)),
+      ),
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          borderRadius: const BorderRadius.vertical(
+            top: Radius.circular(4.0),
           ),
-          child: Material(
-            color: Colors.transparent,
-            child: InkWell(
-              borderRadius: const BorderRadius.vertical(
-                top: Radius.circular(4.0),
-              ),
-              onTap: widget.onSettingsTap,
-              child: const Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: 10.0,
-                  vertical: 7.0,
-                ),
-                child: Icon(
-                  Icons.settings,
-                  size: 16.0,
-                ),
-              ),
+          onTap: onTap,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 10.0,
+              vertical: 7.0,
+            ),
+            child: Icon(
+              icon,
+              size: 16.0,
             ),
           ),
         ),
-      ],
+      ),
     );
   }
 

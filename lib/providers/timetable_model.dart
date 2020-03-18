@@ -28,10 +28,14 @@ class TimetableModel extends ChangeNotifier {
   TimetableState _state = TimetableState.progress;
   TimetableState get state => _state;
 
-  Dio _dio = Dio();
+  final _dio = Dio();
 
   TimetableModel({List<Cookie> cookies}) {
     cookies?.pushToDio(_dio);
+  }
+
+  void updateCookies(List<Cookie> cookies) {
+    cookies.pushToDio(_dio);
   }
 
   void setIndex(int index) {

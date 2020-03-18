@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:timeplanner_mobile/backdrop.dart';
 import 'package:timeplanner_mobile/layers/user_layer.dart';
 import 'package:timeplanner_mobile/pages/dictionary_page.dart';
 import 'package:timeplanner_mobile/pages/main_page.dart';
 import 'package:timeplanner_mobile/pages/timetable_page.dart';
-import 'package:timeplanner_mobile/providers/auth_model.dart';
-import 'package:timeplanner_mobile/providers/timetable_model.dart';
 
 class TimeplannerHome extends StatefulWidget {
   @override
@@ -39,12 +36,7 @@ class _TimeplannerHomeState extends State<TimeplannerHome> {
         index: _currentIndex,
         children: <Widget>[
           MainPage(),
-          ChangeNotifierProvider(
-            create: (context) => TimetableModel(
-              cookies: Provider.of<AuthModel>(context, listen: false).cookies,
-            ),
-            child: TimetablePage(),
-          ),
+          TimetablePage(),
           DictionaryPage(),
         ],
       ),

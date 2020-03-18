@@ -7,9 +7,9 @@ const SESSION_INFO_URL = SESSION_URL + "info";
 
 const API_URL = BASE_URL + "api/";
 const API_SEMESTER_URL = API_URL + "semesters";
-const API_LECTURE_URL = API_URL + "lectures/";
+const API_LECTURE_URL = API_URL + "lectures";
 const API_LECTURE_RELATED_REVIEWS_URL =
-    API_LECTURE_URL + "{id}/related-reviews";
+    API_LECTURE_URL + "/{id}/related-reviews";
 
 const API_TIMETABLE_URL = API_URL + "timetable/";
 const API_TIMETABLE_LOAD_URL = API_TIMETABLE_URL + "table_load";

@@ -25,7 +25,7 @@ class Timetable extends StatelessWidget {
   final int daysCount;
 
   Timetable(
-      {List<Lecture> lectures,
+      {@required List<Lecture> lectures,
       @required this.builder,
       this.fontSize = 9.0,
       this.dividerPadding = const EdgeInsets.symmetric(

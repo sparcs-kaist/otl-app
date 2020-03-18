@@ -4,7 +4,9 @@ import 'package:timeplanner_mobile/backdrop.dart';
 import 'package:timeplanner_mobile/constants/color.dart';
 import 'package:timeplanner_mobile/layers/lecture_detail_layer.dart';
 import 'package:timeplanner_mobile/models/semester.dart';
+import 'package:timeplanner_mobile/pages/lecture_add_page.dart';
 import 'package:timeplanner_mobile/providers/info_model.dart';
+import 'package:timeplanner_mobile/providers/search_model.dart';
 import 'package:timeplanner_mobile/providers/timetable_model.dart';
 import 'package:timeplanner_mobile/widgets/semester_picker.dart';
 import 'package:timeplanner_mobile/widgets/timetable.dart';
@@ -119,6 +121,16 @@ class TimetablePage extends StatelessWidget {
           timetableModel.createTimetable();
         else
           timetableModel.setIndex(i);
+      },
+      onAddTap: () {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ChangeNotifierProvider(
+                create: (context) => SearchModel(),
+                child: LectureAddPage(),
+              ),
+            ));
       },
       onSettingsTap: () {
         showModalBottomSheet(
