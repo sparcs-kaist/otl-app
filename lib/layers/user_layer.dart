@@ -41,7 +41,7 @@ class UserLayer extends StatelessWidget {
       padding: const EdgeInsets.only(bottom: 8.0),
       child: RichText(
         text: TextSpan(
-          style: Theme.of(context).textTheme.body1,
+          style: Theme.of(context).textTheme.bodyText2,
           children: <TextSpan>[
             TextSpan(
               text: "$name ",

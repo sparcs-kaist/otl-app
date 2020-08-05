@@ -36,7 +36,7 @@ class _LoginPageState extends State<LoginPage> {
       visible: _isVisible,
       child: InAppWebView(
         initialUrl: SESSION_LOGIN_URL,
-        initialOptions: InAppWebViewWidgetOptions(),
+        initialOptions: InAppWebViewGroupOptions(),
         onLoadStart: (controller, url) {
           if (url.startsWith(MAIN_URL)) {
             setState(() {

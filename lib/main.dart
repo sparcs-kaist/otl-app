@@ -7,28 +7,31 @@ import 'package:timeplanner_mobile/providers/auth_model.dart';
 import 'package:timeplanner_mobile/providers/info_model.dart';
 import 'package:timeplanner_mobile/providers/timetable_model.dart';
 
-void main() => runApp(MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (context) => AuthModel()),
-        ChangeNotifierProxyProvider<AuthModel, InfoModel>(
-          create: (context) => InfoModel(),
-          update: (context, authModel, infoModel) {
-            if (authModel.isLogined)
-              infoModel.updateInfo(cookies: authModel.cookies);
-            return infoModel;
-          },
-        ),
-        ChangeNotifierProxyProvider<AuthModel, TimetableModel>(
-          create: (context) => TimetableModel(),
-          update: (context, authModel, timetableModel) {
-            if (authModel.isLogined)
-              timetableModel.updateCookies(authModel.cookies);
-            return timetableModel;
-          },
-        )
-      ],
-      child: TimeplannerApp(),
-    ));
+void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  runApp(MultiProvider(
+    providers: [
+      ChangeNotifierProvider(create: (context) => AuthModel()),
+      ChangeNotifierProxyProvider<AuthModel, InfoModel>(
+        create: (context) => InfoModel(),
+        update: (context, authModel, infoModel) {
+          if (authModel.isLogined)
+            infoModel.updateInfo(cookies: authModel.cookies);
+          return infoModel;
+        },
+      ),
+      ChangeNotifierProxyProvider<AuthModel, TimetableModel>(
+        create: (context) => TimetableModel(),
+        update: (context, authModel, timetableModel) {
+          if (authModel.isLogined)
+            timetableModel.updateCookies(authModel.cookies);
+          return timetableModel;
+        },
+      )
+    ],
+    child: TimeplannerApp(),
+  ));
+}
 
 class TimeplannerApp extends StatelessWidget {
   @override

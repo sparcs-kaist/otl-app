@@ -1,18 +1,29 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:timeplanner_mobile/constants/color.dart';
 import 'package:timeplanner_mobile/constants/url.dart';
 import 'package:timeplanner_mobile/models/lecture.dart';
 import 'package:timeplanner_mobile/models/review.dart';
 import 'package:timeplanner_mobile/widgets/custom_header_delegate.dart';
 import 'package:timeplanner_mobile/widgets/review_block.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class LectureDetailLayer extends StatelessWidget {
   final Lecture lecture;
+  final _browser = ChromeSafariBrowser(bFallback: InAppBrowser());
   final _scrollController = ScrollController();
 
   LectureDetailLayer(this.lecture);
+
+  String _getSyllabusUrl() {
+    return Uri.https("cais.kaist.ac.kr", "/syllabusInfo", {
+      "year": lecture.year.toString(),
+      "term": lecture.semester.toString(),
+      "subject_no": lecture.code,
+      "lecture_class": lecture.classNo,
+      "dept_id": lecture.department.toString(),
+    }).toString();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -67,8 +78,7 @@ class LectureDetailLayer extends StatelessWidget {
         ),
         const SizedBox(width: 6.0),
         InkWell(
-          onTap: () => launch(
-              "https://cais.kaist.ac.kr/syllabusInfo?year=${lecture.year}&term=${lecture.semester}&subject_no=${lecture.code}&lecture_class=${lecture.classNo}&dept_id=${lecture.department}"),
+          onTap: () => _browser.open(url: _getSyllabusUrl()),
           child: const Text(
             "실라버스",
             style: TextStyle(
