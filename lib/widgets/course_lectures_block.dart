@@ -14,7 +14,7 @@ class CourseLecturesBlock extends StatelessWidget {
       child: InkWell(
         onTap: onTap,
         child: Padding(
-          padding: const EdgeInsets.fromLTRB(8, 6, 0, 6),
+          padding: const EdgeInsets.fromLTRB(18, 6, 10, 6),
           child: RichText(
             text: TextSpan(
               style: TextStyle(color: Colors.black),

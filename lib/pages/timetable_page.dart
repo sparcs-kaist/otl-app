@@ -3,18 +3,33 @@ import 'package:provider/provider.dart';
 import 'package:timeplanner_mobile/backdrop.dart';
 import 'package:timeplanner_mobile/constants/color.dart';
 import 'package:timeplanner_mobile/layers/lecture_detail_layer.dart';
+import 'package:timeplanner_mobile/models/lecture.dart';
 import 'package:timeplanner_mobile/models/semester.dart';
-import 'package:timeplanner_mobile/pages/lecture_add_page.dart';
 import 'package:timeplanner_mobile/providers/info_model.dart';
 import 'package:timeplanner_mobile/providers/search_model.dart';
 import 'package:timeplanner_mobile/providers/timetable_model.dart';
+import 'package:timeplanner_mobile/widgets/course_lectures_block.dart';
 import 'package:timeplanner_mobile/widgets/semester_picker.dart';
 import 'package:timeplanner_mobile/widgets/timetable.dart';
 import 'package:timeplanner_mobile/widgets/timetable_block.dart';
 import 'package:timeplanner_mobile/widgets/timetable_summary.dart';
 import 'package:timeplanner_mobile/widgets/timetable_tabs.dart';
 
-class TimetablePage extends StatelessWidget {
+class TimetablePage extends StatefulWidget {
+  @override
+  _TimetablePageState createState() => _TimetablePageState();
+}
+
+class _TimetablePageState extends State<TimetablePage> {
+  final _searchTextController = TextEditingController();
+  PersistentBottomSheetController _searchSheetController;
+
+  @override
+  void dispose() {
+    _searchTextController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Consumer<TimetableModel>(
@@ -79,6 +94,9 @@ class TimetablePage extends StatelessWidget {
                             builder: (lecture) => TimetableBlock(
                               lecture: lecture,
                               onTap: () {
+                                _searchSheetController?.close();
+                                _searchSheetController = null;
+
                                 Backdrop.of(context)
                                     .toggleBackdropLayerVisibility(
                                         LectureDetailLayer(lecture));
@@ -111,6 +129,46 @@ class TimetablePage extends StatelessWidget {
     );
   }
 
+  Widget _buildCourse(BuildContext context, List<Lecture> course) {
+    return Container(
+      margin: const EdgeInsets.only(bottom: 6.0),
+      padding: const EdgeInsets.only(top: 8.0, bottom: 2.0),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(4.0),
+        color: BLOCK_COLOR,
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: ListTile.divideTiles(
+          context: context,
+          color: BORDER_BOLD_COLOR,
+          tiles: <Widget>[
+            Padding(
+              padding: const EdgeInsets.fromLTRB(10, 0, 10, 6),
+              child: RichText(
+                text: TextSpan(
+                  style: const TextStyle(color: Colors.black87),
+                  children: <TextSpan>[
+                    TextSpan(
+                      text: course.first.commonTitle,
+                      style: const TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    const TextSpan(text: " "),
+                    TextSpan(text: course.first.oldCode),
+                  ],
+                ),
+              ),
+            ),
+            ...course.map((lecture) => CourseLecturesBlock(
+                  lecture: lecture,
+                  onTap: () {},
+                )),
+          ],
+        ).toList(),
+      ),
+    );
+  }
+
   TimetableTabs _buildTimetableTabs(
       BuildContext context, TimetableModel timetableModel) {
     return TimetableTabs(
@@ -123,20 +181,95 @@ class TimetablePage extends StatelessWidget {
           timetableModel.setIndex(i);
       },
       onAddTap: () {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => ChangeNotifierProvider(
-                create: (context) => SearchModel(),
-                child: LectureAddPage(),
-              ),
-            ));
+        _searchSheetController = showBottomSheet(
+            context: context,
+            builder: (context) => ChangeNotifierProvider(
+                  create: (context) => SearchModel(),
+                  child: Builder(
+                    builder: (context) =>
+                        _buildSearchSheet(context, timetableModel),
+                  ),
+                ));
       },
       onSettingsTap: () {
         showModalBottomSheet(
             context: context,
             builder: (context) => _buildSettingsSheet(context, timetableModel));
       },
+    );
+  }
+
+  Widget _buildSearchSheet(
+      BuildContext context, TimetableModel timetableModel) {
+    final searchModel = Provider.of<SearchModel>(context, listen: false);
+
+    return Container(
+      color: Colors.white,
+      child: Wrap(
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.only(bottom: 12.0),
+            child: Row(
+              children: <Widget>[
+                const SizedBox(width: 12.0),
+                Expanded(
+                  child: TextField(
+                    autofocus: true,
+                    controller: _searchTextController,
+                    onSubmitted: (value) {
+                      searchModel.search(
+                          timetableModel.selectedSemester, value);
+                      _searchTextController.clear();
+                    },
+                    style: const TextStyle(fontSize: 14.0),
+                    decoration: const InputDecoration(
+                      border: InputBorder.none,
+                      contentPadding: EdgeInsets.only(),
+                      isDense: true,
+                      hintText: "검색",
+                      hintStyle: TextStyle(
+                        color: PRIMARY_COLOR,
+                        fontSize: 14.0,
+                      ),
+                      icon: Icon(
+                        Icons.search,
+                        color: PRIMARY_COLOR,
+                      ),
+                    ),
+                  ),
+                ),
+                IconButton(
+                  icon: const Icon(Icons.close),
+                  color: Colors.black45,
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                ),
+              ],
+            ),
+          ),
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 0.3,
+            child: Consumer<SearchModel>(
+              builder: (context, searchModel, _) {
+                if (searchModel.state != SearchState.done) {
+                  return Center(
+                    child: const CircularProgressIndicator(),
+                  );
+                }
+                return Scrollbar(
+                  child: ListView.builder(
+                    padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                    itemCount: searchModel.courses.length,
+                    itemBuilder: (context, index) =>
+                        _buildCourse(context, searchModel.courses[index]),
+                  ),
+                );
+              },
+            ),
+          ),
+        ],
+      ),
     );
   }
 

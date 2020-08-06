@@ -16,6 +16,7 @@ class CustomAppBar extends AppBar {
               height: 5,
             ),
           ),
+          automaticallyImplyLeading: false,
           leading: leading,
           actions: actions,
         );
