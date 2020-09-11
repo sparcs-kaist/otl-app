@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
@@ -86,6 +88,58 @@ class TimetableModel extends ChangeNotifier {
           lectures: lectures ?? [],
         ));
         _selectedIndex = _timetables.length - 1;
+        notifyListeners();
+      }
+    } catch (exception) {
+      print(exception);
+    }
+  }
+
+  Future<void> updateTimetable(
+      {Timetable timetable,
+      @required Lecture lecture,
+      bool delete = false,
+      @required FutureOr<bool> Function(Iterable<Lecture>) onOverlap}) async {
+    try {
+      final table = timetable ?? currentTimetable;
+
+      if (!delete) {
+        final overlappedLectures = table.lectures
+            .where((timetableLecture) => lecture.classtimes.any(
+                (thisClasstime) => timetableLecture.classtimes.any(
+                    (classtime) =>
+                        (classtime.day == thisClasstime.day) &&
+                        (classtime.begin < thisClasstime.end) &&
+                        (classtime.end > thisClasstime.begin))))
+            .toList();
+
+        if (overlappedLectures.length > 0) {
+          if (!await onOverlap(overlappedLectures)) return;
+
+          for (final lecture in overlappedLectures) {
+            final response = await _dio.post(API_TIMETABLE_UPDATE_URL, data: {
+              "table_id": table.id,
+              "lecture_id": lecture.id,
+              "delete": true,
+            });
+
+            if (!response.data["success"]) return;
+            table.lectures.remove(lecture);
+          }
+        }
+      }
+
+      final response = await _dio.post(API_TIMETABLE_UPDATE_URL, data: {
+        "table_id": table.id,
+        "lecture_id": lecture.id,
+        "delete": delete,
+      });
+
+      if (response.data["success"]) {
+        if (delete)
+          table.lectures.remove(lecture);
+        else
+          table.lectures.add(lecture);
         notifyListeners();
       }
     } catch (exception) {

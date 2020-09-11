@@ -6,17 +6,21 @@ class TimetableBlock extends StatelessWidget {
   final Lecture lecture;
   final double fontSize;
   final VoidCallback onTap;
+  final bool isTemp;
   final bool showTitle;
   final bool showProfessor;
   final bool showClassroom;
 
   TimetableBlock(
-      {@required this.lecture,
+      {Key key,
+      @required this.lecture,
       this.fontSize = 10.0,
       this.onTap,
+      this.isTemp = false,
       this.showTitle = true,
       this.showProfessor = false,
-      this.showClassroom = true});
+      this.showClassroom = true})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +51,9 @@ class TimetableBlock extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(2.0),
-        color: TIMETABLE_BLOCK_COLORS[lecture.course % 16],
+        color: isTemp
+            ? const Color(0xFFE05469).withOpacity(0.9)
+            : TIMETABLE_BLOCK_COLORS[lecture.course % 16],
       ),
       child: Material(
         color: Colors.transparent,

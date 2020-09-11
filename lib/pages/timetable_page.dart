@@ -22,7 +22,10 @@ class TimetablePage extends StatefulWidget {
 
 class _TimetablePageState extends State<TimetablePage> {
   final _searchTextController = TextEditingController();
+  final _selectedKey = GlobalKey();
+
   PersistentBottomSheetController _searchSheetController;
+  Lecture _selectedLecture;
 
   @override
   void dispose() {
@@ -51,6 +54,13 @@ class _TimetablePageState extends State<TimetablePage> {
 
   Widget _buildBody(BuildContext context, TimetableModel timetableModel,
       List<Semester> semesters) {
+    bool isFirst = true;
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (_selectedKey?.currentContext != null)
+        Scrollable.ensureVisible(_selectedKey.currentContext);
+    });
+
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(
@@ -70,8 +80,17 @@ class _TimetablePageState extends State<TimetablePage> {
                   children: <Widget>[
                     SemesterPicker(
                       semesters: semesters,
-                      onSemesterChanged: (index) => timetableModel
-                          .loadTimetable(semester: semesters[index]),
+                      onSemesterChanged: (index) {
+                        _searchSheetController?.close();
+                        _searchSheetController = null;
+
+                        setState(() {
+                          _selectedLecture = null;
+                        });
+
+                        timetableModel.loadTimetable(
+                            semester: semesters[index]);
+                      },
                     ),
                     Expanded(
                       child: ShaderMask(
@@ -90,18 +109,37 @@ class _TimetablePageState extends State<TimetablePage> {
                             bounds.shift(Offset(-bounds.left, -bounds.top))),
                         child: SingleChildScrollView(
                           child: Timetable(
-                            lectures: timetableModel.currentTimetable.lectures,
-                            builder: (lecture) => TimetableBlock(
-                              lecture: lecture,
-                              onTap: () {
-                                _searchSheetController?.close();
-                                _searchSheetController = null;
+                            lectures: (_selectedLecture == null)
+                                ? timetableModel.currentTimetable.lectures
+                                : timetableModel.currentTimetable.lectures +
+                                    [_selectedLecture],
+                            builder: (lecture) {
+                              final isSelected = _selectedLecture == lecture;
+                              Key key;
 
-                                Backdrop.of(context)
-                                    .toggleBackdropLayerVisibility(
-                                        LectureDetailLayer(lecture));
-                              },
-                            ),
+                              if (isSelected && isFirst) {
+                                key = _selectedKey;
+                                isFirst = false;
+                              }
+
+                              return TimetableBlock(
+                                key: key,
+                                lecture: lecture,
+                                isTemp: isSelected,
+                                onTap: () {
+                                  _searchSheetController?.close();
+                                  _searchSheetController = null;
+
+                                  setState(() {
+                                    _selectedLecture = null;
+                                  });
+
+                                  Backdrop.of(context)
+                                      .toggleBackdropLayerVisibility(
+                                          LectureDetailLayer(lecture));
+                                },
+                              );
+                            },
                           ),
                         ),
                       ),
@@ -161,7 +199,15 @@ class _TimetablePageState extends State<TimetablePage> {
             ),
             ...course.map((lecture) => CourseLecturesBlock(
                   lecture: lecture,
-                  onTap: () {},
+                  isSelected: _selectedLecture == lecture,
+                  onTap: () {
+                    _searchSheetController.setState(() {
+                      setState(() {
+                        _selectedLecture =
+                            (_selectedLecture == lecture) ? null : lecture;
+                      });
+                    });
+                  },
                 )),
           ],
         ).toList(),
@@ -180,7 +226,7 @@ class _TimetablePageState extends State<TimetablePage> {
         else
           timetableModel.setIndex(i);
       },
-      onAddTap: () {
+      onAddTap: () async {
         _searchSheetController = showBottomSheet(
             context: context,
             builder: (context) => ChangeNotifierProvider(
@@ -190,6 +236,12 @@ class _TimetablePageState extends State<TimetablePage> {
                         _buildSearchSheet(context, timetableModel),
                   ),
                 ));
+        await _searchSheetController.closed;
+        _searchSheetController = null;
+
+        setState(() {
+          _selectedLecture = null;
+        });
       },
       onSettingsTap: () {
         showModalBottomSheet(
@@ -239,10 +291,64 @@ class _TimetablePageState extends State<TimetablePage> {
                   ),
                 ),
                 IconButton(
+                  icon: const Icon(Icons.add),
+                  color: Colors.black45,
+                  onPressed: (_selectedLecture == null)
+                      ? null
+                      : () {
+                          Navigator.pop(context);
+
+                          if (_selectedLecture != null) {
+                            timetableModel.updateTimetable(
+                              lecture: _selectedLecture,
+                              onOverlap: (lectures) async {
+                                bool result = false;
+
+                                await showDialog(
+                                  context: context,
+                                  barrierDismissible: false,
+                                  builder: (context) => AlertDialog(
+                                    title: const Text("수업 추가"),
+                                    content: const Text(
+                                        "시간이 겹치는 수업이 있습니다. 추가하시면 해당 수업은 삭제됩니다.\n시간표에 추가하시겠습니까?"),
+                                    actions: [
+                                      FlatButton(
+                                        child: const Text("취소"),
+                                        onPressed: () {
+                                          result = false;
+                                          Navigator.pop(context);
+                                        },
+                                      ),
+                                      FlatButton(
+                                        child: const Text("추가하기"),
+                                        onPressed: () {
+                                          result = true;
+                                          Navigator.pop(context);
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                );
+
+                                return result;
+                              },
+                            );
+
+                            setState(() {
+                              _selectedLecture = null;
+                            });
+                          }
+                        },
+                ),
+                IconButton(
                   icon: const Icon(Icons.close),
                   color: Colors.black45,
                   onPressed: () {
                     Navigator.pop(context);
+
+                    setState(() {
+                      _selectedLecture = null;
+                    });
                   },
                 ),
               ],
