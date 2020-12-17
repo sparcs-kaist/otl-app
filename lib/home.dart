@@ -54,15 +54,15 @@ class _TimeplannerHomeState extends State<TimeplannerHome> {
       items: const <BottomNavigationBarItem>[
         BottomNavigationBarItem(
           icon: Icon(Icons.home),
-          title: Text("홈"),
+          label: "홈",
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.table_chart),
-          title: Text("시간표"),
+          label: "시간표",
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.library_books),
-          title: Text("과목사전"),
+          label: "과목사전",
         ),
       ],
     );

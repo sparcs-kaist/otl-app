@@ -27,7 +27,7 @@ class Timetable extends StatelessWidget {
   Timetable(
       {@required List<Lecture> lectures,
       @required this.builder,
-      this.fontSize = 9.0,
+      this.fontSize = 10.0,
       this.dividerPadding = const EdgeInsets.symmetric(
         horizontal: 1.0,
         vertical: 10.0,

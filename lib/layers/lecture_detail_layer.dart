@@ -82,14 +82,14 @@ class LectureDetailLayer extends StatelessWidget {
                               content: const Text(
                                   "시간이 겹치는 수업이 있습니다. 추가하시면 해당 수업은 삭제됩니다.\n시간표에 추가하시겠습니까?"),
                               actions: [
-                                FlatButton(
+                                TextButton(
                                   child: const Text("취소"),
                                   onPressed: () {
                                     result = false;
                                     Navigator.pop(context);
                                   },
                                 ),
-                                FlatButton(
+                                TextButton(
                                   child: const Text("추가하기"),
                                   onPressed: () {
                                     result = true;

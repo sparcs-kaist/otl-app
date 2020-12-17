@@ -65,7 +65,7 @@ class _TimetableTabsState extends State<TimetableTabs> {
             ),
             child: Icon(
               icon,
-              size: 16.0,
+              size: 20.0,
             ),
           ),
         ),
@@ -94,12 +94,12 @@ class _TimetableTabsState extends State<TimetableTabs> {
                 },
           child: Padding(
             padding: const EdgeInsets.symmetric(
-              horizontal: 10.0,
-              vertical: 7.0,
+              horizontal: 12.0,
+              vertical: 9.0,
             ),
             child: Text(
               i == widget.length ? "+" : "시간표 ${i + 1}",
-              style: const TextStyle(fontSize: 11.0),
+              style: const TextStyle(fontSize: 12.0),
             ),
           ),
         ),

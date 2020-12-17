@@ -26,17 +26,13 @@ class _SemesterPickerState extends State<SemesterPicker> {
     final theme = Theme.of(context);
     final semester = widget.semesters[_index];
 
-    return SizedBox(
-      width: 120,
-      child: Row(
-        children: <Widget>[
-          _buildLeftButton(theme),
-          const Spacer(),
-          _buildTitle(context, semester),
-          const Spacer(),
-          _buildRightButton(theme),
-        ],
-      ),
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: <Widget>[
+        _buildLeftButton(theme),
+        _buildTitle(context, semester),
+        _buildRightButton(theme),
+      ],
     );
   }
 
@@ -57,49 +53,47 @@ class _SemesterPickerState extends State<SemesterPicker> {
           color: _index == widget.semesters.length - 1
               ? theme.disabledColor
               : theme.iconTheme.color,
-          size: 10.0,
+          size: 14.0,
         ),
       ),
     );
   }
 
   Widget _buildTitle(BuildContext context, Semester semester) {
-    return InkWell(
-      onTap: () async {
-        final index = await showDialog<int>(
-          context: context,
-          builder: (context) => SimpleDialog(
-            title: const Text(
-              "학기 선택",
-              style: TextStyle(fontSize: 16.0),
+    return SizedBox(
+      width: 82,
+      child: InkWell(
+        onTap: () async {
+          final index = await showDialog<int>(
+            context: context,
+            builder: (context) => SimpleDialog(
+              title: const Text("학기 선택"),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(6.0),
+              ),
+              children: List.generate(
+                  widget.semesters.length,
+                  (i) => SimpleDialogOption(
+                        onPressed: () => Navigator.pop(
+                            context, widget.semesters.length - i - 1),
+                        child: Text(widget
+                            .semesters[widget.semesters.length - i - 1].title),
+                      )),
             ),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(6.0),
-            ),
-            children: List.generate(
-                widget.semesters.length,
-                (i) => SimpleDialogOption(
-                      onPressed: () => Navigator.pop(
-                          context, widget.semesters.length - i - 1),
-                      child: Text(
-                        widget.semesters[widget.semesters.length - i - 1].title,
-                        style: const TextStyle(fontSize: 12.0),
-                      ),
-                    )),
-          ),
-        );
+          );
 
-        if (index != null) {
-          _index = index;
-          widget.onSemesterChanged(_index);
-        }
-      },
-      child: Padding(
-        padding: const EdgeInsets.all(4.0),
-        child: Text(
-          semester.title,
-          style: const TextStyle(fontSize: 12.0),
-          textAlign: TextAlign.center,
+          if (index != null) {
+            _index = index;
+            widget.onSemesterChanged(_index);
+          }
+        },
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(
+            semester.title,
+            style: const TextStyle(fontSize: 14.0),
+            textAlign: TextAlign.center,
+          ),
         ),
       ),
     );
@@ -120,7 +114,7 @@ class _SemesterPickerState extends State<SemesterPicker> {
         child: Icon(
           Icons.arrow_back_ios,
           color: _index == 0 ? theme.disabledColor : theme.iconTheme.color,
-          size: 10.0,
+          size: 14.0,
         ),
       ),
     );
