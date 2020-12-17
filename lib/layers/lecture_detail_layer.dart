@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_inappwebview/flutter_inappwebview.dart';
+import 'package:flutter_web_browser/flutter_web_browser.dart';
 import 'package:provider/provider.dart';
 import 'package:timeplanner_mobile/constants/color.dart';
 import 'package:timeplanner_mobile/constants/url.dart';
@@ -12,7 +12,6 @@ import 'package:timeplanner_mobile/widgets/review_block.dart';
 
 class LectureDetailLayer extends StatelessWidget {
   final Lecture lecture;
-  final _browser = ChromeSafariBrowser(bFallback: InAppBrowser());
   final _scrollController = ScrollController();
 
   LectureDetailLayer(this.lecture);
@@ -149,7 +148,22 @@ class LectureDetailLayer extends StatelessWidget {
         ),
         const SizedBox(width: 6.0),
         InkWell(
-          onTap: () => _browser.open(url: _getSyllabusUrl()),
+          onTap: () => FlutterWebBrowser.openWebPage(
+            url: _getSyllabusUrl(),
+            customTabsOptions: CustomTabsOptions(
+              colorScheme: CustomTabsColorScheme.light,
+              toolbarColor: BACKGROUND_COLOR,
+              addDefaultShareMenuItem: true,
+              instantAppsEnabled: true,
+              showTitle: true,
+              urlBarHidingEnabled: true,
+            ),
+            safariVCOptions: SafariViewControllerOptions(
+              barCollapsingEnabled: true,
+              dismissButtonStyle: SafariViewControllerDismissButtonStyle.close,
+              modalPresentationCapturesStatusBarAppearance: true,
+            ),
+          ),
           child: const Text(
             "실라버스",
             style: TextStyle(
