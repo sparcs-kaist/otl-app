@@ -1,16 +1,14 @@
 import 'package:timeplanner_mobile/models/department.dart';
-import 'package:timeplanner_mobile/models/favorite_department.dart';
-import 'package:timeplanner_mobile/models/my_timetable_lecture.dart';
+import 'package:timeplanner_mobile/models/lecture.dart';
 import 'package:timeplanner_mobile/models/review.dart';
-import 'package:timeplanner_mobile/models/review_writable_lecture.dart';
 
 class User {
-  List<MyTimetableLecture> myTimetableLectures;
-  List<FavoriteDepartment> favoriteDepartments;
+  List<Lecture> myTimetableLectures;
+  List<Department> favoriteDepartments;
   int id;
   List<Department> majors;
   String firstName;
-  List<ReviewWritableLecture> reviewWritableLectures;
+  List<Lecture> reviewWritableLectures;
   String lastName;
   List<Department> departments;
   List<Review> reviews;
@@ -32,15 +30,15 @@ class User {
 
   User.fromJson(Map<String, dynamic> json) {
     if (json['my_timetable_lectures'] != null) {
-      myTimetableLectures = List<MyTimetableLecture>();
+      myTimetableLectures = List<Lecture>();
       json['my_timetable_lectures'].forEach((v) {
-        myTimetableLectures.add(MyTimetableLecture.fromJson(v));
+        myTimetableLectures.add(Lecture.fromJson(v));
       });
     }
     if (json['favorite_departments'] != null) {
-      favoriteDepartments = List<FavoriteDepartment>();
+      favoriteDepartments = List<Department>();
       json['favorite_departments'].forEach((v) {
-        favoriteDepartments.add(FavoriteDepartment.fromJson(v));
+        favoriteDepartments.add(Department.fromJson(v));
       });
     }
     id = json['id'];
@@ -52,9 +50,9 @@ class User {
     }
     firstName = json['firstName'];
     if (json['review_writable_lectures'] != null) {
-      reviewWritableLectures = List<ReviewWritableLecture>();
+      reviewWritableLectures = List<Lecture>();
       json['review_writable_lectures'].forEach((v) {
-        reviewWritableLectures.add(ReviewWritableLecture.fromJson(v));
+        reviewWritableLectures.add(Lecture.fromJson(v));
       });
     }
     lastName = json['lastName'];

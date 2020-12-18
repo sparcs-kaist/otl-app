@@ -1,4 +1,4 @@
-import 'package:timeplanner_mobile/models/favorite_department.dart';
+import 'package:timeplanner_mobile/models/department.dart';
 
 class Course {
   String title;
@@ -6,7 +6,7 @@ class Course {
   String titleEn;
   String summary;
   String oldCode;
-  FavoriteDepartment department;
+  Department department;
   String type;
   int id;
   int reviewNum;
@@ -29,7 +29,7 @@ class Course {
     summary = json['summary'];
     oldCode = json['old_code'];
     department = json['department'] != null
-        ? FavoriteDepartment.fromJson(json['department'])
+        ? Department.fromJson(json['department'])
         : null;
     type = json['type'];
     id = json['id'];
