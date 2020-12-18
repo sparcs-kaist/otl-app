@@ -60,74 +60,74 @@ class LectureDetailLayer extends StatelessWidget {
             const Divider(color: DIVIDER_COLOR),
             Align(
               alignment: Alignment.centerRight,
-              child: Consumer<TimetableModel>(
-                builder: (context, timetableModel, _) {
-                  final isAdded = timetableModel.currentTimetable.lectures
-                      .contains(lecture);
-
-                  return InkWell(
-                    onTap: () {
-                      timetableModel.updateTimetable(
-                        lecture: lecture,
-                        delete: isAdded,
-                        onOverlap: (lectures) async {
-                          bool result = false;
-
-                          await showDialog(
-                            context: context,
-                            barrierDismissible: false,
-                            builder: (context) => AlertDialog(
-                              title: const Text("수업 추가"),
-                              content: const Text(
-                                  "시간이 겹치는 수업이 있습니다. 추가하시면 해당 수업은 삭제됩니다.\n시간표에 추가하시겠습니까?"),
-                              actions: [
-                                TextButton(
-                                  child: const Text("취소"),
-                                  onPressed: () {
-                                    result = false;
-                                    Navigator.pop(context);
-                                  },
-                                ),
-                                TextButton(
-                                  child: const Text("추가하기"),
-                                  onPressed: () {
-                                    result = true;
-                                    Navigator.pop(context);
-                                  },
-                                ),
-                              ],
-                            ),
-                          );
-
-                          return result;
-                        },
-                      );
-                    },
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        isAdded
-                            ? const Icon(
-                                Icons.close,
-                                size: 14.0,
-                              )
-                            : const Icon(
-                                Icons.add,
-                                size: 14.0,
-                              ),
-                        const SizedBox(width: 4.0),
-                        Text(
-                          isAdded ? "시간표에서 제거" : "시간표에 추가",
-                          style: const TextStyle(fontSize: 12.0),
-                        ),
-                      ],
-                    ),
-                  );
-                },
-              ),
+              child: _buildUpdateButton(context),
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildUpdateButton(BuildContext context) {
+    final isAdded = context.select<TimetableModel, bool>(
+        (model) => model.currentTimetable.lectures.contains(lecture));
+
+    return InkWell(
+      onTap: () {
+        context.read<TimetableModel>().updateTimetable(
+              lecture: lecture,
+              delete: isAdded,
+              onOverlap: (lectures) async {
+                bool result = false;
+
+                await showDialog(
+                  context: context,
+                  barrierDismissible: false,
+                  builder: (context) => AlertDialog(
+                    title: const Text("수업 추가"),
+                    content: const Text(
+                        "시간이 겹치는 수업이 있습니다. 추가하시면 해당 수업은 삭제됩니다.\n시간표에 추가하시겠습니까?"),
+                    actions: [
+                      TextButton(
+                        child: const Text("취소"),
+                        onPressed: () {
+                          result = false;
+                          Navigator.pop(context);
+                        },
+                      ),
+                      TextButton(
+                        child: const Text("추가하기"),
+                        onPressed: () {
+                          result = true;
+                          Navigator.pop(context);
+                        },
+                      ),
+                    ],
+                  ),
+                );
+
+                return result;
+              },
+            );
+      },
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          isAdded
+              ? const Icon(
+                  Icons.close,
+                  size: 14.0,
+                )
+              : const Icon(
+                  Icons.add,
+                  size: 14.0,
+                ),
+          const SizedBox(width: 4.0),
+          Text(
+            isAdded ? "시간표에서 제거" : "시간표에 추가",
+            style: const TextStyle(fontSize: 12.0),
+          ),
+        ],
       ),
     );
   }

@@ -39,12 +39,9 @@ class TimeplannerApp extends StatelessWidget {
     return MaterialApp(
       title: "Timeplanner Mobile",
       theme: _buildTheme(),
-      home: Consumer<InfoModel>(
-        builder: (context, infoModel, _) {
-          if (infoModel.state == InfoState.done) return TimeplannerHome();
-          return LoginPage();
-        },
-      ),
+      home: (context.watch<InfoModel>().state == InfoState.done)
+          ? TimeplannerHome()
+          : LoginPage(),
     );
   }
 

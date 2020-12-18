@@ -85,9 +85,6 @@ class _LectureSearchState extends State<LectureSearch> {
 
   @override
   Widget build(BuildContext context) {
-    final timetableModel = Provider.of<TimetableModel>(context, listen: false);
-    final searchModel = Provider.of<SearchModel>(context, listen: false);
-
     return Container(
       color: Colors.white,
       child: Wrap(
@@ -101,7 +98,8 @@ class _LectureSearchState extends State<LectureSearch> {
                   controller: _searchTextController,
                   focusNode: _focusNode,
                   onSubmitted: (value) {
-                    searchModel.search(timetableModel.selectedSemester, value,
+                    context.read<SearchModel>().search(
+                        context.read<TimetableModel>().selectedSemester, value,
                         department: _department, type: _type, grade: _grade);
                     _searchTextController.clear();
 
@@ -134,40 +132,40 @@ class _LectureSearchState extends State<LectureSearch> {
                     : () {
                         Navigator.pop(context);
 
-                        timetableModel.updateTimetable(
-                          lecture: _selectedLecture,
-                          onOverlap: (lectures) async {
-                            bool result = false;
+                        context.read<TimetableModel>().updateTimetable(
+                              lecture: _selectedLecture,
+                              onOverlap: (lectures) async {
+                                bool result = false;
 
-                            await showDialog(
-                              context: context,
-                              barrierDismissible: false,
-                              builder: (context) => AlertDialog(
-                                title: const Text("수업 추가"),
-                                content: const Text(
-                                    "시간이 겹치는 수업이 있습니다. 추가하시면 해당 수업은 삭제됩니다.\n시간표에 추가하시겠습니까?"),
-                                actions: [
-                                  TextButton(
-                                    child: const Text("취소"),
-                                    onPressed: () {
-                                      result = false;
-                                      Navigator.pop(context);
-                                    },
+                                await showDialog(
+                                  context: context,
+                                  barrierDismissible: false,
+                                  builder: (context) => AlertDialog(
+                                    title: const Text("수업 추가"),
+                                    content: const Text(
+                                        "시간이 겹치는 수업이 있습니다. 추가하시면 해당 수업은 삭제됩니다.\n시간표에 추가하시겠습니까?"),
+                                    actions: [
+                                      TextButton(
+                                        child: const Text("취소"),
+                                        onPressed: () {
+                                          result = false;
+                                          Navigator.pop(context);
+                                        },
+                                      ),
+                                      TextButton(
+                                        child: const Text("추가하기"),
+                                        onPressed: () {
+                                          result = true;
+                                          Navigator.pop(context);
+                                        },
+                                      ),
+                                    ],
                                   ),
-                                  TextButton(
-                                    child: const Text("추가하기"),
-                                    onPressed: () {
-                                      result = true;
-                                      Navigator.pop(context);
-                                    },
-                                  ),
-                                ],
-                              ),
+                                );
+
+                                return result;
+                              },
                             );
-
-                            return result;
-                          },
-                        );
                       },
               ),
               IconButton(
@@ -214,23 +212,20 @@ class _LectureSearchState extends State<LectureSearch> {
           ),
           SizedBox(
             height: MediaQuery.of(context).size.height * 0.3,
-            child: Consumer<SearchModel>(
-              builder: (context, searchModel, _) {
-                if (searchModel.state != SearchState.done) {
-                  return Center(
+            child: (context.watch<SearchModel>().state != SearchState.done)
+                ? Center(
                     child: const CircularProgressIndicator(),
-                  );
-                }
-                return Scrollbar(
-                  child: ListView.builder(
-                    padding: const EdgeInsets.symmetric(horizontal: 12.0),
-                    itemCount: searchModel.courses.length,
-                    itemBuilder: (context, index) =>
-                        _buildCourse(context, searchModel.courses[index]),
+                  )
+                : Scrollbar(
+                    child: ListView(
+                      padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                      children: context
+                          .select<SearchModel, List<List<Lecture>>>(
+                              (model) => model.courses)
+                          .map((course) => _buildCourse(context, course))
+                          .toList(),
+                    ),
                   ),
-                );
-              },
-            ),
           ),
         ],
       ),

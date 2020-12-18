@@ -27,8 +27,6 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Widget _buildBody(BuildContext context) {
-    final authModel = Provider.of<AuthModel>(context, listen: false);
-
     return Visibility(
       maintainSize: true,
       maintainAnimation: true,
@@ -45,7 +43,8 @@ class _LoginPageState extends State<LoginPage> {
           }
         },
         onLoadStop: (controller, url) {
-          if (url.startsWith(MAIN_URL)) authModel.authenticate(MAIN_URL);
+          if (url.startsWith(MAIN_URL))
+            context.read<AuthModel>().authenticate(MAIN_URL);
         },
       ),
     );

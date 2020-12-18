@@ -24,29 +24,28 @@ class _TimetablePageState extends State<TimetablePage> {
   final _selectedKey = GlobalKey();
 
   PersistentBottomSheetController _searchSheetController;
+  List<Semester> _semesters;
   Lecture _selectedLecture;
 
   @override
+  void initState() {
+    super.initState();
+    _semesters = context.read<InfoModel>().semesters;
+    context.read<TimetableModel>().loadTimetable(semester: _semesters.last);
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Consumer<TimetableModel>(
-      builder: (context, timetableModel, _) {
-        final semesters =
-            Provider.of<InfoModel>(context, listen: false).semesters;
-
-        if (timetableModel.state == TimetableState.done)
-          return _buildBody(context, timetableModel, semesters);
-
-        timetableModel.loadTimetable(semester: semesters.last);
-
-        return Center(
-          child: const CircularProgressIndicator(),
-        );
-      },
+    if (context.watch<TimetableModel>().state == TimetableState.done)
+      return _buildBody(context);
+    return Center(
+      child: const CircularProgressIndicator(),
     );
   }
 
-  Widget _buildBody(BuildContext context, TimetableModel timetableModel,
-      List<Semester> semesters) {
+  Widget _buildBody(BuildContext context) {
+    final lectures = context.select<TimetableModel, List<Lecture>>(
+        (model) => model.currentTimetable.lectures);
     bool isFirst = true;
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -58,7 +57,7 @@ class _TimetablePageState extends State<TimetablePage> {
       padding: const EdgeInsets.all(8.0),
       child: Column(
         children: <Widget>[
-          _buildTimetableTabs(context, timetableModel),
+          _buildTimetableTabs(context),
           Expanded(
             child: Card(
               margin: const EdgeInsets.symmetric(horizontal: 4.0),
@@ -72,7 +71,7 @@ class _TimetablePageState extends State<TimetablePage> {
                 child: Column(
                   children: <Widget>[
                     SemesterPicker(
-                      semesters: semesters,
+                      semesters: _semesters,
                       onSemesterChanged: (index) {
                         _searchSheetController?.close();
                         _searchSheetController = null;
@@ -81,8 +80,9 @@ class _TimetablePageState extends State<TimetablePage> {
                           _selectedLecture = null;
                         });
 
-                        timetableModel.loadTimetable(
-                            semester: semesters[index]);
+                        context
+                            .read<TimetableModel>()
+                            .loadTimetable(semester: _semesters[index]);
                       },
                     ),
                     Expanded(
@@ -103,9 +103,8 @@ class _TimetablePageState extends State<TimetablePage> {
                         child: SingleChildScrollView(
                           child: Timetable(
                             lectures: (_selectedLecture == null)
-                                ? timetableModel.currentTimetable.lectures
-                                : timetableModel.currentTimetable.lectures +
-                                    [_selectedLecture],
+                                ? lectures
+                                : [...lectures, _selectedLecture],
                             builder: (lecture) {
                               final isSelected = _selectedLecture == lecture;
                               Key key;
@@ -143,8 +142,7 @@ class _TimetablePageState extends State<TimetablePage> {
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 12.0),
-                      child: TimetableSummary(
-                          timetableModel.currentTimetable.lectures),
+                      child: TimetableSummary(lectures),
                     ),
                     const Divider(
                       color: DIVIDER_COLOR,
@@ -160,12 +158,15 @@ class _TimetablePageState extends State<TimetablePage> {
     );
   }
 
-  TimetableTabs _buildTimetableTabs(
-      BuildContext context, TimetableModel timetableModel) {
+  TimetableTabs _buildTimetableTabs(BuildContext context) {
+    final timetableModel = context.watch<TimetableModel>();
+
     return TimetableTabs(
       index: timetableModel.selectedIndex,
       length: timetableModel.timetables.length,
       onTap: (i) {
+        final timetableModel = context.read<TimetableModel>();
+
         if (i > 0 && i == timetableModel.timetables.length)
           timetableModel.createTimetable();
         else
@@ -194,13 +195,12 @@ class _TimetablePageState extends State<TimetablePage> {
       onSettingsTap: () {
         showModalBottomSheet(
             context: context,
-            builder: (context) => _buildSettingsSheet(context, timetableModel));
+            builder: (context) => _buildSettingsSheet(context));
       },
     );
   }
 
-  Widget _buildSettingsSheet(
-      BuildContext context, TimetableModel timetableModel) {
+  Widget _buildSettingsSheet(BuildContext context) {
     return Container(
       color: Colors.white,
       child: Wrap(
@@ -209,6 +209,7 @@ class _TimetablePageState extends State<TimetablePage> {
             leading: const Icon(Icons.content_copy),
             title: const Text("복제"),
             onTap: () {
+              final timetableModel = context.read<TimetableModel>();
               timetableModel.createTimetable(
                   lectures: timetableModel.currentTimetable.lectures);
               Navigator.pop(context);
@@ -218,7 +219,7 @@ class _TimetablePageState extends State<TimetablePage> {
             leading: const Icon(Icons.delete),
             title: const Text("삭제"),
             onTap: () {
-              timetableModel.deleteTimetable();
+              context.read<TimetableModel>().deleteTimetable();
               Navigator.pop(context);
             },
           ),
