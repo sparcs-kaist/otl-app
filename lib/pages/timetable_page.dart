@@ -23,7 +23,7 @@ class TimetablePage extends StatefulWidget {
 class _TimetablePageState extends State<TimetablePage> {
   final _selectedKey = GlobalKey();
 
-  PersistentBottomSheetController _searchSheetController;
+  bool _isSearchOpened = false;
   List<Semester> _semesters;
   Lecture _selectedLecture;
 
@@ -60,7 +60,7 @@ class _TimetablePageState extends State<TimetablePage> {
           _buildTimetableTabs(context),
           Expanded(
             child: Card(
-              margin: const EdgeInsets.symmetric(horizontal: 4.0),
+              margin: const EdgeInsets.fromLTRB(4.0, 0.0, 4.0, 4.0),
               shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.vertical(
                   bottom: Radius.circular(6.0),
@@ -73,10 +73,8 @@ class _TimetablePageState extends State<TimetablePage> {
                     SemesterPicker(
                       semesters: _semesters,
                       onSemesterChanged: (index) {
-                        _searchSheetController?.close();
-                        _searchSheetController = null;
-
                         setState(() {
+                          _isSearchOpened = false;
                           _selectedLecture = null;
                         });
 
@@ -119,13 +117,6 @@ class _TimetablePageState extends State<TimetablePage> {
                                 lecture: lecture,
                                 isTemp: isSelected,
                                 onTap: () {
-                                  _searchSheetController?.close();
-                                  _searchSheetController = null;
-
-                                  setState(() {
-                                    _selectedLecture = null;
-                                  });
-
                                   Backdrop.of(context)
                                       .toggleBackdropLayerVisibility(
                                           LectureDetailLayer(lecture));
@@ -153,6 +144,36 @@ class _TimetablePageState extends State<TimetablePage> {
               ),
             ),
           ),
+          Visibility(
+            visible: _isSearchOpened,
+            child: WillPopScope(
+              onWillPop: () async {
+                if (_isSearchOpened) {
+                  setState(() {
+                    _isSearchOpened = false;
+                  });
+                  return null;
+                }
+                return true;
+              },
+              child: ChangeNotifierProvider(
+                create: (context) => SearchModel(),
+                child: LectureSearch(
+                  onClosed: () {
+                    setState(() {
+                      _isSearchOpened = false;
+                      _selectedLecture = null;
+                    });
+                  },
+                  onSelectionChanged: (lecture) {
+                    setState(() {
+                      _selectedLecture = lecture;
+                    });
+                  },
+                ),
+              ),
+            ),
+          ),
         ],
       ),
     );
@@ -172,23 +193,10 @@ class _TimetablePageState extends State<TimetablePage> {
         else
           timetableModel.setIndex(i);
       },
-      onAddTap: () async {
-        _searchSheetController = showBottomSheet(
-            context: context,
-            builder: (context) => ChangeNotifierProvider(
-                  create: (context) => SearchModel(),
-                  child: LectureSearch(
-                    onSelectionChanged: (lecture) {
-                      setState(() {
-                        _selectedLecture = lecture;
-                      });
-                    },
-                  ),
-                ));
-        await _searchSheetController.closed;
-        _searchSheetController = null;
-
+      onAddTap: () {
+        if (_isSearchOpened) return;
         setState(() {
+          _isSearchOpened = true;
           _selectedLecture = null;
         });
       },

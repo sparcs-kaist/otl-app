@@ -127,6 +127,7 @@ class _BackdropScaffoldState extends State<BackdropScaffold>
             appBar: _buildAppBar(context),
             bottomNavigationBar: widget.bottomNavigationBar,
             body: LayoutBuilder(builder: _buildStack),
+            resizeToAvoidBottomInset: false,
           ),
         ),
       ),

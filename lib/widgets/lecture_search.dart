@@ -53,9 +53,10 @@ final grades = {
 };
 
 class LectureSearch extends StatefulWidget {
+  final VoidCallback onClosed;
   final void Function(Lecture) onSelectionChanged;
 
-  LectureSearch({this.onSelectionChanged});
+  LectureSearch({this.onClosed, this.onSelectionChanged});
 
   @override
   _LectureSearchState createState() => _LectureSearchState();
@@ -85,8 +86,10 @@ class _LectureSearchState extends State<LectureSearch> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.white,
+    return Card(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(6.0),
+      ),
       child: Wrap(
         children: <Widget>[
           Row(
@@ -127,11 +130,16 @@ class _LectureSearchState extends State<LectureSearch> {
               ),
               IconButton(
                 icon: const Icon(Icons.add),
-                onPressed: (_selectedLecture == null)
+                onPressed: (_selectedLecture == null ||
+                        context.select<TimetableModel, bool>((model) =>
+                            model.currentTimetable.lectures
+                                .where((lecture) =>
+                                    lecture.oldCode == _selectedLecture.oldCode)
+                                .length >
+                            0))
                     ? null
                     : () {
-                        Navigator.pop(context);
-
+                        widget.onClosed();
                         context.read<TimetableModel>().updateTimetable(
                               lecture: _selectedLecture,
                               onOverlap: (lectures) async {
@@ -170,9 +178,7 @@ class _LectureSearchState extends State<LectureSearch> {
               ),
               IconButton(
                 icon: const Icon(Icons.close),
-                onPressed: () {
-                  Navigator.pop(context);
-                },
+                onPressed: widget.onClosed,
               ),
             ],
           ),
