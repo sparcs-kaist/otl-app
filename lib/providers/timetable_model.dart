@@ -99,7 +99,7 @@ class TimetableModel extends ChangeNotifier {
       {Timetable timetable,
       @required Lecture lecture,
       bool delete = false,
-      @required FutureOr<bool> Function(Iterable<Lecture>) onOverlap}) async {
+      @required FutureOr<bool> Function(List<Lecture>) onOverlap}) async {
     try {
       final table = timetable ?? currentTimetable;
 

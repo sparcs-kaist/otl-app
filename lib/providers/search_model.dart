@@ -19,7 +19,10 @@ class SearchModel extends ChangeNotifier {
 
   final _dio = Dio();
 
-  Future<void> search(Semester semester, String keyword) async {
+  Future<void> search(Semester semester, String keyword,
+      {String department = "ALL",
+      String type = "ALL",
+      String grade = "ALL"}) async {
     _state = SearchState.progress;
     notifyListeners();
 
@@ -27,9 +30,9 @@ class SearchModel extends ChangeNotifier {
       "year": semester.year,
       "semester": semester.semester,
       "keyword": keyword,
-      "department": "ALL",
-      "type": "ALL",
-      "grade": "ALL",
+      "department": department,
+      "type": type,
+      "grade": grade,
     });
 
     final rawLectures = response.data as List;
