@@ -29,6 +29,11 @@ class Review {
       this.id,
       this.gradeLetter});
 
+  bool operator ==(Object other) =>
+      identical(this, other) || (other is Review && other.id == id);
+
+  int get hashCode => id.hashCode;
+
   Review.fromJson(Map<String, dynamic> json) {
     load = json['load'];
     isDeleted = json['is_deleted'];

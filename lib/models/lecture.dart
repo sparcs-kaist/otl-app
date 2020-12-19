@@ -94,6 +94,11 @@ class Lecture {
       this.numPeople,
       this.commonTitleEn});
 
+  bool operator ==(Object other) =>
+      identical(this, other) || (other is Lecture && other.id == id);
+
+  int get hashCode => id.hashCode;
+
   Lecture.fromJson(Map<String, dynamic> json) {
     load = json['load']?.toDouble();
     code = json['code'];

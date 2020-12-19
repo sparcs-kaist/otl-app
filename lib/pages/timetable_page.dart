@@ -31,7 +31,6 @@ class _TimetablePageState extends State<TimetablePage> {
   void initState() {
     super.initState();
     _semesters = context.read<InfoModel>().semesters;
-    context.read<TimetableModel>().loadTimetable(semester: _semesters.last);
   }
 
   @override
@@ -121,6 +120,45 @@ class _TimetablePageState extends State<TimetablePage> {
                                       .toggleBackdropLayerVisibility(
                                           LectureDetailLayer(lecture));
                                 },
+                                onLongPress: isSelected
+                                    ? null
+                                    : () async {
+                                        bool result = false;
+
+                                        await showDialog(
+                                          context: context,
+                                          barrierDismissible: false,
+                                          builder: (context) => AlertDialog(
+                                            title: const Text("삭제"),
+                                            content: Text(
+                                                "'${lecture.title}' 수업을 삭제하시겠습니까?"),
+                                            actions: [
+                                              TextButton(
+                                                child: const Text("취소"),
+                                                onPressed: () {
+                                                  result = false;
+                                                  Navigator.pop(context);
+                                                },
+                                              ),
+                                              TextButton(
+                                                child: const Text("삭제"),
+                                                onPressed: () {
+                                                  result = true;
+                                                  Navigator.pop(context);
+                                                },
+                                              ),
+                                            ],
+                                          ),
+                                        );
+
+                                        if (result) {
+                                          context
+                                              .read<TimetableModel>()
+                                              .updateTimetable(
+                                                  lecture: lecture,
+                                                  delete: true);
+                                        }
+                                      },
                               );
                             },
                           ),
@@ -133,7 +171,10 @@ class _TimetablePageState extends State<TimetablePage> {
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 12.0),
-                      child: TimetableSummary(lectures),
+                      child: TimetableSummary(
+                        lectures: lectures,
+                        tempLecture: _selectedLecture,
+                      ),
                     ),
                     const Divider(
                       color: DIVIDER_COLOR,
@@ -151,6 +192,7 @@ class _TimetablePageState extends State<TimetablePage> {
                 if (_isSearchOpened) {
                   setState(() {
                     _isSearchOpened = false;
+                    _selectedLecture = null;
                   });
                   return null;
                 }
@@ -159,6 +201,11 @@ class _TimetablePageState extends State<TimetablePage> {
               child: ChangeNotifierProvider(
                 create: (context) => SearchModel(),
                 child: LectureSearch(
+                  onAdded: () {
+                    setState(() {
+                      _selectedLecture = null;
+                    });
+                  },
                   onClosed: () {
                     setState(() {
                       _isSearchOpened = false;
@@ -226,10 +273,13 @@ class _TimetablePageState extends State<TimetablePage> {
           ListTile(
             leading: const Icon(Icons.delete),
             title: const Text("삭제"),
-            onTap: () {
-              context.read<TimetableModel>().deleteTimetable();
-              Navigator.pop(context);
-            },
+            onTap: (context.select<TimetableModel, bool>(
+                    (model) => model.timetables.length <= 1))
+                ? null
+                : () {
+                    context.read<TimetableModel>().deleteTimetable();
+                    Navigator.pop(context);
+                  },
           ),
         ],
       ),

@@ -4,9 +4,11 @@ import 'package:timeplanner_mobile/models/lecture.dart';
 class CourseLecturesBlock extends StatelessWidget {
   final Lecture lecture;
   final VoidCallback onTap;
+  final VoidCallback onLongPress;
   final bool isSelected;
 
-  CourseLecturesBlock({@required this.lecture, this.onTap, this.isSelected});
+  CourseLecturesBlock(
+      {@required this.lecture, this.onTap, this.onLongPress, this.isSelected});
 
   @override
   Widget build(BuildContext context) {
@@ -14,6 +16,7 @@ class CourseLecturesBlock extends StatelessWidget {
       color: Colors.transparent,
       child: InkWell(
         onTap: onTap,
+        onLongPress: onLongPress,
         child: Container(
           color: isSelected ? const Color(0xFFDDDDDD) : null,
           padding: const EdgeInsets.fromLTRB(18, 6, 10, 6),

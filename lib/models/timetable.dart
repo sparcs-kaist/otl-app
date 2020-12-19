@@ -6,6 +6,11 @@ class Timetable {
 
   Timetable({this.lectures, this.id});
 
+  bool operator ==(Object other) =>
+      identical(this, other) || (other is Timetable && other.id == id);
+
+  int get hashCode => id.hashCode;
+
   Timetable.fromJson(Map<String, dynamic> json) {
     if (json['lectures'] != null) {
       lectures = List<Lecture>();

@@ -4,17 +4,26 @@ import 'package:flutter_web_browser/flutter_web_browser.dart';
 import 'package:provider/provider.dart';
 import 'package:timeplanner_mobile/constants/color.dart';
 import 'package:timeplanner_mobile/constants/url.dart';
+import 'package:timeplanner_mobile/dio_provider.dart';
 import 'package:timeplanner_mobile/models/lecture.dart';
 import 'package:timeplanner_mobile/models/review.dart';
 import 'package:timeplanner_mobile/providers/timetable_model.dart';
 import 'package:timeplanner_mobile/widgets/custom_header_delegate.dart';
 import 'package:timeplanner_mobile/widgets/review_block.dart';
 
+final Map<int, LectureDetailLayer> layers = {};
+
 class LectureDetailLayer extends StatelessWidget {
   final Lecture lecture;
   final _scrollController = ScrollController();
 
-  LectureDetailLayer(this.lecture);
+  factory LectureDetailLayer(Lecture lecture) {
+    if (!layers.containsKey(lecture.id))
+      layers[lecture.id] = LectureDetailLayer._internal(lecture);
+    return layers[lecture.id];
+  }
+
+  LectureDetailLayer._internal(this.lecture);
 
   String _getSyllabusUrl() {
     return Uri.https("cais.kaist.ac.kr", "/syllabusInfo", {
@@ -233,8 +242,8 @@ class LectureDetailLayer extends StatelessWidget {
 
   FutureBuilder<Response> _buildReviews() {
     return FutureBuilder<Response>(
-      future: Dio().get(API_LECTURE_RELATED_REVIEWS_URL.replaceFirst(
-          "{id}", lecture.id.toString())),
+      future: DioProvider().dio.get(API_LECTURE_RELATED_REVIEWS_URL
+          .replaceFirst("{id}", lecture.id.toString())),
       builder: (context, snapshot) {
         if (!snapshot.hasData) {
           return SliverToBoxAdapter(
@@ -244,12 +253,13 @@ class LectureDetailLayer extends StatelessWidget {
           );
         }
 
-        final reviews = snapshot.data.data as List;
+        final rawReviews = snapshot.data.data as List;
+        final reviews =
+            rawReviews.map((review) => Review.fromJson(review)).toSet();
 
         return SliverList(
-          delegate: SliverChildListDelegate(reviews
-              .map((review) => ReviewBlock(Review.fromJson(review)))
-              .toList()),
+          delegate: SliverChildListDelegate(
+              reviews.map((review) => ReviewBlock(review)).toList()),
         );
       },
     );

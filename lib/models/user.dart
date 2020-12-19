@@ -28,6 +28,11 @@ class User {
       this.studentId,
       this.email});
 
+  bool operator ==(Object other) =>
+      identical(this, other) || (other is User && other.id == id);
+
+  int get hashCode => id.hashCode;
+
   User.fromJson(Map<String, dynamic> json) {
     if (json['my_timetable_lectures'] != null) {
       myTimetableLectures = List<Lecture>();

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:timeplanner_mobile/backdrop.dart';
 import 'package:timeplanner_mobile/constants/color.dart';
+import 'package:timeplanner_mobile/layers/lecture_detail_layer.dart';
 import 'package:timeplanner_mobile/models/lecture.dart';
 import 'package:timeplanner_mobile/providers/search_model.dart';
 import 'package:timeplanner_mobile/providers/timetable_model.dart';
@@ -53,10 +55,11 @@ final grades = {
 };
 
 class LectureSearch extends StatefulWidget {
+  final VoidCallback onAdded;
   final VoidCallback onClosed;
   final void Function(Lecture) onSelectionChanged;
 
-  LectureSearch({this.onClosed, this.onSelectionChanged});
+  LectureSearch({this.onAdded, this.onClosed, this.onSelectionChanged});
 
   @override
   _LectureSearchState createState() => _LectureSearchState();
@@ -138,9 +141,10 @@ class _LectureSearchState extends State<LectureSearch> {
                                 .length >
                             0))
                     ? null
-                    : () {
-                        widget.onClosed();
-                        context.read<TimetableModel>().updateTimetable(
+                    : () async {
+                        bool result = await context
+                            .read<TimetableModel>()
+                            .updateTimetable(
                               lecture: _selectedLecture,
                               onOverlap: (lectures) async {
                                 bool result = false;
@@ -174,6 +178,12 @@ class _LectureSearchState extends State<LectureSearch> {
                                 return result;
                               },
                             );
+
+                        if (result) {
+                          setState(() {
+                            widget.onAdded();
+                          });
+                        }
                       },
               ),
               IconButton(
@@ -277,6 +287,10 @@ class _LectureSearchState extends State<LectureSearch> {
                           (_selectedLecture == lecture) ? null : lecture;
                       widget.onSelectionChanged(_selectedLecture);
                     });
+                  },
+                  onLongPress: () {
+                    Backdrop.of(context).toggleBackdropLayerVisibility(
+                        LectureDetailLayer(lecture));
                   },
                 )),
           ],

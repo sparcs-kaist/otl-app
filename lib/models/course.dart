@@ -22,6 +22,11 @@ class Course {
       this.id,
       this.reviewNum});
 
+  bool operator ==(Object other) =>
+      identical(this, other) || (other is Course && other.id == id);
+
+  int get hashCode => id.hashCode;
+
   Course.fromJson(Map<String, dynamic> json) {
     title = json['title'];
     typeEn = json['type_en'];

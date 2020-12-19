@@ -6,6 +6,7 @@ class TimetableBlock extends StatelessWidget {
   final Lecture lecture;
   final double fontSize;
   final VoidCallback onTap;
+  final VoidCallback onLongPress;
   final bool isTemp;
   final bool showTitle;
   final bool showProfessor;
@@ -16,6 +17,7 @@ class TimetableBlock extends StatelessWidget {
       @required this.lecture,
       this.fontSize = 10.0,
       this.onTap,
+      this.onLongPress,
       this.isTemp = false,
       this.showTitle = true,
       this.showProfessor = false,
@@ -60,6 +62,7 @@ class TimetableBlock extends StatelessWidget {
         child: InkWell(
           borderRadius: BorderRadius.circular(2.0),
           onTap: onTap,
+          onLongPress: onLongPress,
           child: Padding(
             padding: const EdgeInsets.all(4.0),
             child: RichText(

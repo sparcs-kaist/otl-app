@@ -1,10 +1,8 @@
 import 'dart:async';
 
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:timeplanner_mobile/constants/url.dart';
-import 'package:timeplanner_mobile/extensions/cookies.dart';
+import 'package:timeplanner_mobile/dio_provider.dart';
 import 'package:timeplanner_mobile/models/lecture.dart';
 import 'package:timeplanner_mobile/models/semester.dart';
 import 'package:timeplanner_mobile/models/timetable.dart';
@@ -30,29 +28,20 @@ class TimetableModel extends ChangeNotifier {
   TimetableState _state = TimetableState.progress;
   TimetableState get state => _state;
 
-  final _dio = Dio();
-
-  TimetableModel({List<Cookie> cookies}) {
-    cookies?.pushToDio(_dio);
-  }
-
-  void updateCookies(List<Cookie> cookies) {
-    cookies.pushToDio(_dio);
-  }
-
   void setIndex(int index) {
     _selectedIndex = index;
     notifyListeners();
   }
 
-  Future<void> loadTimetable({Semester semester}) async {
+  Future<bool> loadTimetable({Semester semester}) async {
     try {
       if (semester != null) _selectedSemester = semester;
 
-      final response = await _dio.post(API_TIMETABLE_LOAD_URL, data: {
-        "year": _selectedSemester.year,
-        "semester": _selectedSemester.semester
-      });
+      final response = await DioProvider().dio.post(API_TIMETABLE_LOAD_URL,
+          data: {
+            "year": _selectedSemester.year,
+            "semester": _selectedSemester.semester
+          });
 
       final rawTimetables = response.data as List;
 
@@ -61,20 +50,20 @@ class TimetableModel extends ChangeNotifier {
           .toList();
       _selectedIndex = 0;
       _state = TimetableState.done;
+      notifyListeners();
+      return true;
     } catch (exception) {
       print(exception);
       _state = TimetableState.error;
+      notifyListeners();
     }
-
-    notifyListeners();
+    return false;
   }
 
-  Future<void> createTimetable(
-      {Semester semester, List<Lecture> lectures}) async {
+  Future<bool> createTimetable({List<Lecture> lectures}) async {
     try {
-      if (semester != null) _selectedSemester = semester;
-
-      final response = await _dio.post(API_TIMETABLE_CREATE_URL, data: {
+      final response =
+          await DioProvider().dio.post(API_TIMETABLE_CREATE_URL, data: {
         "year": _selectedSemester.year,
         "semester": _selectedSemester.semester,
         "lectures": lectures == null
@@ -89,81 +78,88 @@ class TimetableModel extends ChangeNotifier {
         ));
         _selectedIndex = _timetables.length - 1;
         notifyListeners();
+        return true;
       }
     } catch (exception) {
       print(exception);
     }
+    return false;
   }
 
-  Future<void> updateTimetable(
-      {Timetable timetable,
-      @required Lecture lecture,
+  Future<bool> updateTimetable(
+      {@required Lecture lecture,
       bool delete = false,
-      @required FutureOr<bool> Function(List<Lecture>) onOverlap}) async {
+      FutureOr<bool> Function(Iterable<Lecture>) onOverlap}) async {
     try {
-      final table = timetable ?? currentTimetable;
-
       if (!delete) {
-        final overlappedLectures = table.lectures
-            .where((timetableLecture) => lecture.classtimes.any(
-                (thisClasstime) => timetableLecture.classtimes.any(
-                    (classtime) =>
-                        (classtime.day == thisClasstime.day) &&
-                        (classtime.begin < thisClasstime.end) &&
-                        (classtime.end > thisClasstime.begin))))
-            .toList();
+        final overlappedLectures = currentTimetable.lectures.where(
+            (timetableLecture) => lecture.classtimes.any((thisClasstime) =>
+                timetableLecture.classtimes.any((classtime) =>
+                    (classtime.day == thisClasstime.day) &&
+                    (classtime.begin < thisClasstime.end) &&
+                    (classtime.end > thisClasstime.begin))));
 
         if (overlappedLectures.length > 0) {
-          if (!await onOverlap(overlappedLectures)) return;
+          if (!await onOverlap(overlappedLectures)) return false;
 
           for (final lecture in overlappedLectures) {
-            final response = await _dio.post(API_TIMETABLE_UPDATE_URL, data: {
-              "table_id": table.id,
+            final response =
+                await DioProvider().dio.post(API_TIMETABLE_UPDATE_URL, data: {
+              "table_id": currentTimetable.id,
               "lecture_id": lecture.id,
               "delete": true,
             });
 
-            if (!response.data["success"]) return;
-            table.lectures.remove(lecture);
+            if (!response.data["success"]) {
+              notifyListeners();
+              return false;
+            }
+            currentTimetable.lectures.remove(lecture);
           }
         }
       }
 
-      final response = await _dio.post(API_TIMETABLE_UPDATE_URL, data: {
-        "table_id": table.id,
+      final response =
+          await DioProvider().dio.post(API_TIMETABLE_UPDATE_URL, data: {
+        "table_id": currentTimetable.id,
         "lecture_id": lecture.id,
         "delete": delete,
       });
 
       if (response.data["success"]) {
         if (delete)
-          table.lectures.remove(lecture);
+          currentTimetable.lectures.remove(lecture);
         else
-          table.lectures.add(lecture);
+          currentTimetable.lectures.add(lecture);
         notifyListeners();
+        return true;
       }
     } catch (exception) {
       print(exception);
     }
+    return false;
   }
 
-  Future<void> deleteTimetable({Timetable timetable, Semester semester}) async {
+  Future<bool> deleteTimetable() async {
     try {
-      if (semester != null) _selectedSemester = semester;
+      if (_timetables.length <= 1) return false;
 
-      final response = await _dio.post(API_TIMETABLE_DELETE_URL, data: {
-        "table_id": (timetable ?? currentTimetable).id,
+      final response =
+          await DioProvider().dio.post(API_TIMETABLE_DELETE_URL, data: {
+        "table_id": currentTimetable.id,
         "year": _selectedSemester.year,
         "semester": _selectedSemester.semester,
       });
 
       if (response.data["scucess"]) {
-        _timetables.remove(timetable ?? currentTimetable);
-        _selectedIndex--;
+        _timetables.remove(currentTimetable);
+        if (_selectedIndex > 0) _selectedIndex--;
         notifyListeners();
+        return true;
       }
     } catch (exception) {
       print(exception);
     }
+    return false;
   }
 }

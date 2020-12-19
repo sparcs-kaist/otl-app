@@ -15,16 +15,16 @@ void main() {
       ChangeNotifierProxyProvider<AuthModel, InfoModel>(
         create: (context) => InfoModel(),
         update: (context, authModel, infoModel) {
-          if (authModel.isLogined)
-            infoModel.updateInfo(cookies: authModel.cookies);
+          if (authModel.state == AuthState.done) infoModel.getInfo();
           return infoModel;
         },
       ),
-      ChangeNotifierProxyProvider<AuthModel, TimetableModel>(
+      ChangeNotifierProxyProvider<InfoModel, TimetableModel>(
         create: (context) => TimetableModel(),
-        update: (context, authModel, timetableModel) {
-          if (authModel.isLogined)
-            timetableModel.updateCookies(authModel.cookies);
+        update: (context, infoModel, timetableModel) {
+          if (infoModel.state == InfoState.done &&
+              timetableModel.selectedSemester == null)
+            timetableModel.loadTimetable(semester: infoModel.semesters.last);
           return timetableModel;
         },
       )
