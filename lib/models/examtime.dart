@@ -1,11 +1,11 @@
-class Examtime {
-  int begin;
-  int end;
-  int day;
+import 'package:timeplanner_mobile/models/time.dart';
+
+class Examtime extends Time {
   String str;
   String strEn;
 
-  Examtime({this.begin, this.end, this.day, this.str, this.strEn});
+  Examtime({int begin, int end, int day, this.str, this.strEn})
+      : super(begin: begin, end: end, day: day);
 
   Examtime.fromJson(Map<String, dynamic> json) {
     begin = json['begin'];

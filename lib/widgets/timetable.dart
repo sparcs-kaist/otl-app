@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:timeplanner_mobile/constants/color.dart';
-import 'package:timeplanner_mobile/models/classtime.dart';
 import 'package:timeplanner_mobile/models/lecture.dart';
+import 'package:timeplanner_mobile/models/time.dart';
 import 'package:timeplanner_mobile/widgets/timetable_block.dart';
 
 const DAYSOFWEEK = [
@@ -17,7 +17,7 @@ const DAYSOFWEEK = [
 class Timetable extends StatelessWidget {
   get _dividerHeight => dividerPadding.vertical + 1;
 
-  final _lectures = List.generate(7, (i) => Map<Classtime, Lecture>());
+  final _lectures = List.generate(7, (i) => Map<Time, Lecture>());
 
   final TimetableBlock Function(Lecture) builder;
   final double fontSize;
@@ -27,14 +27,20 @@ class Timetable extends StatelessWidget {
   Timetable(
       {@required List<Lecture> lectures,
       @required this.builder,
+      bool isExamTime = false,
       this.fontSize = 10.0,
       this.dividerPadding = const EdgeInsets.symmetric(
         horizontal: 1.0,
         vertical: 10.0,
       ),
       this.daysCount = 5}) {
-    lectures.forEach((lecture) => lecture.classtimes
-        .forEach((classtime) => _lectures[classtime.day][classtime] = lecture));
+    if (isExamTime) {
+      lectures.forEach((lecture) => lecture.examtimes
+          .forEach((examtime) => _lectures[examtime.day][examtime] = lecture));
+    } else {
+      lectures.forEach((lecture) => lecture.classtimes.forEach(
+          (classtime) => _lectures[classtime.day][classtime] = lecture));
+    }
   }
 
   @override
@@ -98,10 +104,9 @@ class Timetable extends StatelessWidget {
     );
   }
 
-  Widget _buildLectureBlock(
-      {@required Lecture lecture, @required Classtime classtime}) {
-    final begin = classtime.begin / 30 - 16;
-    final end = classtime.end / 30 - 16;
+  Widget _buildLectureBlock({@required Lecture lecture, @required Time time}) {
+    final begin = time.begin / 30 - 16;
+    final end = time.end / 30 - 16;
 
     return Positioned(
       top: _dividerHeight * (begin - 1.5) + 1,
@@ -155,8 +160,8 @@ class Timetable extends StatelessWidget {
           Stack(
             children: <Widget>[
               _buildCells(i),
-              ..._lectures[i].entries.map((e) =>
-                  _buildLectureBlock(lecture: e.value, classtime: e.key)),
+              ..._lectures[i].entries.map(
+                  (e) => _buildLectureBlock(lecture: e.value, time: e.key)),
             ],
           ),
         ],

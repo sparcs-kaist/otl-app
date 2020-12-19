@@ -4,14 +4,18 @@ import 'package:timeplanner_mobile/constants/color.dart';
 class TimetableTabs extends StatefulWidget {
   final int index;
   final int length;
+  final bool isExamTime;
   final Function(int) onTap;
   final VoidCallback onAddTap;
+  final VoidCallback onExamTap;
   final VoidCallback onSettingsTap;
 
   TimetableTabs(
       {this.index = 0,
       @required this.length,
+      this.isExamTime = false,
       @required this.onTap,
+      @required this.onExamTap,
       @required this.onAddTap,
       @required this.onSettingsTap});
 
@@ -39,6 +43,8 @@ class _TimetableTabsState extends State<TimetableTabs> {
           ),
         ),
         _buildButton(Icons.add, widget.onAddTap),
+        _buildButton(widget.isExamTime ? Icons.table_chart : Icons.assignment,
+            widget.onExamTap),
         _buildButton(Icons.settings, widget.onSettingsTap),
       ],
     );

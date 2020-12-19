@@ -1,24 +1,24 @@
-class Classtime {
+import 'package:timeplanner_mobile/models/time.dart';
+
+class Classtime extends Time {
   String building;
   String classroom;
-  int begin;
-  int end;
   String room;
   String classroomShortEn;
-  int day;
   String classroomEn;
   String classroomShort;
 
   Classtime(
       {this.building,
       this.classroom,
-      this.begin,
-      this.end,
+      int begin,
+      int end,
       this.room,
       this.classroomShortEn,
-      this.day,
+      int day,
       this.classroomEn,
-      this.classroomShort});
+      this.classroomShort})
+      : super(begin: begin, end: end, day: day);
 
   Classtime.fromJson(Map<String, dynamic> json) {
     building = json['building'];

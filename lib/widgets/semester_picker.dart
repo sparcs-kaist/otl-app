@@ -3,10 +3,14 @@ import 'package:timeplanner_mobile/extensions/semester.dart';
 import 'package:timeplanner_mobile/models/semester.dart';
 
 class SemesterPicker extends StatefulWidget {
+  final bool isExamTime;
   final List<Semester> semesters;
   final Function(int) onSemesterChanged;
 
-  SemesterPicker({@required this.semesters, @required this.onSemesterChanged});
+  SemesterPicker(
+      {this.isExamTime = false,
+      @required this.semesters,
+      @required this.onSemesterChanged});
 
   @override
   _SemesterPickerState createState() => _SemesterPickerState();
@@ -47,53 +51,49 @@ class _SemesterPickerState extends State<SemesterPicker> {
               });
             },
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(4.0),
         child: Icon(
-          Icons.arrow_forward_ios,
+          Icons.chevron_right,
           color: _index == widget.semesters.length - 1
               ? theme.disabledColor
               : theme.iconTheme.color,
-          size: 14.0,
         ),
       ),
     );
   }
 
   Widget _buildTitle(BuildContext context, Semester semester) {
-    return SizedBox(
-      width: 82,
-      child: InkWell(
-        onTap: () async {
-          final index = await showDialog<int>(
-            context: context,
-            builder: (context) => SimpleDialog(
-              title: const Text("학기 선택"),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(6.0),
-              ),
-              children: List.generate(
-                  widget.semesters.length,
-                  (i) => SimpleDialogOption(
-                        onPressed: () => Navigator.pop(
-                            context, widget.semesters.length - i - 1),
-                        child: Text(widget
-                            .semesters[widget.semesters.length - i - 1].title),
-                      )),
+    return InkWell(
+      onTap: () async {
+        final index = await showDialog<int>(
+          context: context,
+          builder: (context) => SimpleDialog(
+            title: const Text("학기 선택"),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(6.0),
             ),
-          );
-
-          if (index != null) {
-            _index = index;
-            widget.onSemesterChanged(_index);
-          }
-        },
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Text(
-            semester.title,
-            style: const TextStyle(fontSize: 14.0),
-            textAlign: TextAlign.center,
+            children: List.generate(
+                widget.semesters.length,
+                (i) => SimpleDialogOption(
+                      onPressed: () => Navigator.pop(
+                          context, widget.semesters.length - i - 1),
+                      child: Text(widget
+                          .semesters[widget.semesters.length - i - 1].title),
+                    )),
           ),
+        );
+
+        if (index != null) {
+          _index = index;
+          widget.onSemesterChanged(_index);
+        }
+      },
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Text(
+          semester.title + (widget.isExamTime ? " 시험" : " 수업"),
+          style: const TextStyle(fontSize: 14.0),
+          textAlign: TextAlign.center,
         ),
       ),
     );
@@ -110,11 +110,10 @@ class _SemesterPickerState extends State<SemesterPicker> {
               });
             },
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(4.0),
         child: Icon(
-          Icons.arrow_back_ios,
+          Icons.chevron_left,
           color: _index == 0 ? theme.disabledColor : theme.iconTheme.color,
-          size: 14.0,
         ),
       ),
     );

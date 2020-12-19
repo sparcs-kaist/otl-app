@@ -24,6 +24,7 @@ class _TimetablePageState extends State<TimetablePage> {
   final _selectedKey = GlobalKey();
 
   bool _isSearchOpened = false;
+  bool _isExamTime = false;
   List<Semester> _semesters;
   Lecture _selectedLecture;
 
@@ -70,6 +71,7 @@ class _TimetablePageState extends State<TimetablePage> {
                 child: Column(
                   children: <Widget>[
                     SemesterPicker(
+                      isExamTime: _isExamTime,
                       semesters: _semesters,
                       onSemesterChanged: (index) {
                         setState(() {
@@ -102,6 +104,7 @@ class _TimetablePageState extends State<TimetablePage> {
                             lectures: (_selectedLecture == null)
                                 ? lectures
                                 : [...lectures, _selectedLecture],
+                            isExamTime: _isExamTime,
                             builder: (lecture) {
                               final isSelected = _selectedLecture == lecture;
                               Key key;
@@ -232,6 +235,7 @@ class _TimetablePageState extends State<TimetablePage> {
     return TimetableTabs(
       index: timetableModel.selectedIndex,
       length: timetableModel.timetables.length,
+      isExamTime: _isExamTime,
       onTap: (i) {
         final timetableModel = context.read<TimetableModel>();
 
@@ -245,6 +249,11 @@ class _TimetablePageState extends State<TimetablePage> {
         setState(() {
           _isSearchOpened = true;
           _selectedLecture = null;
+        });
+      },
+      onExamTap: () {
+        setState(() {
+          _isExamTime = !_isExamTime;
         });
       },
       onSettingsTap: () {
