@@ -23,6 +23,8 @@ dependencies:
   dio: ^3.0.8
   flutter_inappwebview: ^4.0.0+4
   flutter_web_browser: ^0.13.0
+  open_file: ^3.0.3
+  path_provider: ^1.6.24
   provider: ^4.0.3
 
 dev_dependencies:
