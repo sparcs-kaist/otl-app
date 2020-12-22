@@ -43,7 +43,7 @@ class _TimetableTabsState extends State<TimetableTabs> {
           ),
         ),
         _buildButton(Icons.add, widget.onAddTap),
-        _buildButton(widget.isExamTime ? Icons.table_chart : Icons.assignment,
+        _buildButton(widget.isExamTime ? Icons.tablet : Icons.assignment,
             widget.onExamTap),
         _buildButton(Icons.settings, widget.onSettingsTap),
       ],

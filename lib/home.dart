@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:timeplanner_mobile/backdrop.dart';
 import 'package:timeplanner_mobile/layers/user_layer.dart';
 import 'package:timeplanner_mobile/pages/dictionary_page.dart';
 import 'package:timeplanner_mobile/pages/main_page.dart';
+import 'package:timeplanner_mobile/pages/review_page.dart';
 import 'package:timeplanner_mobile/pages/timetable_page.dart';
+import 'package:timeplanner_mobile/providers/review_model.dart';
 
 class TimeplannerHome extends StatefulWidget {
   @override
@@ -38,6 +41,10 @@ class _TimeplannerHomeState extends State<TimeplannerHome> {
           MainPage(),
           TimetablePage(),
           DictionaryPage(),
+          ChangeNotifierProvider(
+            create: (context) => ReviewModel(),
+            child: ReviewPage(),
+          ),
         ],
       ),
     );
@@ -46,6 +53,9 @@ class _TimeplannerHomeState extends State<TimeplannerHome> {
   BottomNavigationBar _buildBottomNavigationBar() {
     return BottomNavigationBar(
       currentIndex: _currentIndex,
+      type: BottomNavigationBarType.fixed,
+      showSelectedLabels: false,
+      showUnselectedLabels: false,
       onTap: (index) {
         setState(() {
           _currentIndex = index;
@@ -53,16 +63,20 @@ class _TimeplannerHomeState extends State<TimeplannerHome> {
       },
       items: const <BottomNavigationBarItem>[
         BottomNavigationBarItem(
-          icon: Icon(Icons.home),
+          icon: Icon(Icons.home_outlined),
           label: "홈",
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.table_chart),
+          icon: Icon(Icons.table_chart_outlined),
           label: "시간표",
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.library_books),
+          icon: Icon(Icons.library_books_outlined),
           label: "과목사전",
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.rate_review_outlined),
+          label: "과목후기",
         ),
       ],
     );

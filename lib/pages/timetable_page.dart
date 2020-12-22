@@ -58,7 +58,6 @@ class _TimetablePageState extends State<TimetablePage> {
   Widget _buildBody(BuildContext context) {
     final lectures = context.select<TimetableModel, List<Lecture>>(
         (model) => model.currentTimetable.lectures);
-    bool isFirst = true;
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (_selectedKey?.currentContext != null)
@@ -118,72 +117,7 @@ class _TimetablePageState extends State<TimetablePage> {
                               color: Colors.white,
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 8.0),
-                              child: Timetable(
-                                lectures: (_selectedLecture == null)
-                                    ? lectures
-                                    : [...lectures, _selectedLecture],
-                                isExamTime: _isExamTime,
-                                builder: (lecture) {
-                                  final isSelected =
-                                      _selectedLecture == lecture;
-                                  Key key;
-
-                                  if (isSelected && isFirst) {
-                                    key = _selectedKey;
-                                    isFirst = false;
-                                  }
-
-                                  return TimetableBlock(
-                                    key: key,
-                                    lecture: lecture,
-                                    isTemp: isSelected,
-                                    onTap: () {
-                                      Backdrop.of(context)
-                                          .toggleBackdropLayerVisibility(
-                                              LectureDetailLayer(lecture));
-                                    },
-                                    onLongPress: isSelected
-                                        ? null
-                                        : () async {
-                                            bool result = false;
-
-                                            await showDialog(
-                                              context: context,
-                                              barrierDismissible: false,
-                                              builder: (context) => AlertDialog(
-                                                title: const Text("삭제"),
-                                                content: Text(
-                                                    "'${lecture.title}' 수업을 삭제하시겠습니까?"),
-                                                actions: [
-                                                  TextButton(
-                                                    child: const Text("취소"),
-                                                    onPressed: () {
-                                                      result = false;
-                                                      Navigator.pop(context);
-                                                    },
-                                                  ),
-                                                  TextButton(
-                                                    child: const Text("삭제"),
-                                                    onPressed: () {
-                                                      result = true;
-                                                      Navigator.pop(context);
-                                                    },
-                                                  ),
-                                                ],
-                                              ),
-                                            );
-
-                                            if (result) {
-                                              context
-                                                  .read<TimetableModel>()
-                                                  .updateTimetable(
-                                                      lecture: lecture,
-                                                      delete: true);
-                                            }
-                                          },
-                                  );
-                                },
-                              ),
+                              child: _buildTimetable(context, lectures),
                             ),
                           ),
                         ),
@@ -256,6 +190,72 @@ class _TimetablePageState extends State<TimetablePage> {
           ),
         ],
       ),
+    );
+  }
+
+  Timetable _buildTimetable(BuildContext context, List<Lecture> lectures) {
+    bool isFirst = false;
+
+    return Timetable(
+      lectures: (_selectedLecture == null)
+          ? lectures
+          : [...lectures, _selectedLecture],
+      isExamTime: _isExamTime,
+      builder: (lecture) {
+        final isSelected = _selectedLecture == lecture;
+        Key key;
+
+        if (isSelected && isFirst) {
+          key = _selectedKey;
+          isFirst = false;
+        }
+
+        return TimetableBlock(
+          key: key,
+          lecture: lecture,
+          isTemp: isSelected,
+          onTap: () {
+            Backdrop.of(context)
+                .toggleBackdropLayerVisibility(LectureDetailLayer(lecture));
+          },
+          onLongPress: isSelected
+              ? null
+              : () async {
+                  bool result = false;
+
+                  await showDialog(
+                    context: context,
+                    barrierDismissible: false,
+                    builder: (context) => AlertDialog(
+                      title: const Text("삭제"),
+                      content: Text("'${lecture.title}' 수업을 삭제하시겠습니까?"),
+                      actions: [
+                        TextButton(
+                          child: const Text("취소"),
+                          onPressed: () {
+                            result = false;
+                            Navigator.pop(context);
+                          },
+                        ),
+                        TextButton(
+                          child: const Text("삭제"),
+                          onPressed: () {
+                            result = true;
+                            Navigator.pop(context);
+                          },
+                        ),
+                      ],
+                    ),
+                  );
+
+                  if (result) {
+                    context
+                        .read<TimetableModel>()
+                        .updateTimetable(lecture: lecture, delete: true);
+                  }
+                },
+        );
+      },
     );
   }
 

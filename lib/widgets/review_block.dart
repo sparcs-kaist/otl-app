@@ -4,13 +4,21 @@ import 'package:timeplanner_mobile/models/review.dart';
 
 class ReviewBlock extends StatelessWidget {
   final Review review;
+  final int maxLines;
+  final TextOverflow overflow;
+  final bool isSimple;
 
-  ReviewBlock(this.review);
+  ReviewBlock(
+      {@required this.review,
+      this.maxLines,
+      this.overflow,
+      this.isSimple = false});
 
   @override
   Widget build(BuildContext context) {
-    String content =
-        review.content.replaceAll("\r\n", " ").replaceAll("\n", " ");
+    String content = isSimple
+        ? review.content.replaceAll("\r\n", " ").replaceAll("\n", " ")
+        : review.content;
     while (content.contains("  ")) content = content.replaceAll("  ", " ");
 
     return Container(
@@ -26,10 +34,39 @@ class ReviewBlock extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
+          isSimple
+              ? const SizedBox.shrink()
+              : RichText(
+                  text: TextSpan(
+                    style: const TextStyle(
+                      color: Colors.black87,
+                      fontSize: 13.0,
+                    ),
+                    children: <TextSpan>[
+                      TextSpan(
+                        text: review.lecture.title,
+                        style: const TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      TextSpan(text: " "),
+                      TextSpan(text: review.lecture.professorsStrShort),
+                      TextSpan(text: " "),
+                      TextSpan(text: review.lecture.year.toString()),
+                      TextSpan(
+                          text: [
+                        " ",
+                        " 봄",
+                        " 여름",
+                        " 가을",
+                        " 겨울",
+                      ][review.lecture.semester]),
+                    ],
+                  ),
+                ),
+          isSimple ? const SizedBox.shrink() : const SizedBox(height: 4.0),
           Text(
             content.trim(),
-            maxLines: 3,
-            overflow: TextOverflow.ellipsis,
+            maxLines: maxLines,
+            overflow: overflow,
             style: const TextStyle(
               color: Colors.black87,
               height: 1.3,
@@ -37,7 +74,7 @@ class ReviewBlock extends StatelessWidget {
             ),
           ),
           RichText(
-            textAlign: TextAlign.right,
+            textAlign: isSimple ? TextAlign.end : TextAlign.start,
             text: TextSpan(
               style: const TextStyle(
                 color: Colors.black87,

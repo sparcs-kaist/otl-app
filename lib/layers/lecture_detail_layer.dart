@@ -258,8 +258,14 @@ class LectureDetailLayer extends StatelessWidget {
             rawReviews.map((review) => Review.fromJson(review)).toSet();
 
         return SliverList(
-          delegate: SliverChildListDelegate(
-              reviews.map((review) => ReviewBlock(review)).toList()),
+          delegate: SliverChildListDelegate(reviews
+              .map((review) => ReviewBlock(
+                    review: review,
+                    maxLines: 3,
+                    overflow: TextOverflow.ellipsis,
+                    isSimple: true,
+                  ))
+              .toList()),
         );
       },
     );
