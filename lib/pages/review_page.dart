@@ -35,12 +35,17 @@ class ReviewPage extends StatelessWidget {
               ),
               const SizedBox(height: 10.0),
               Expanded(
-                child: Scrollbar(
-                  child: ListView(
-                    children: context.select<ReviewModel, List<Widget>>(
-                        (model) => model.reviews
-                            .map((review) => ReviewBlock(review: review))
-                            .toList()),
+                child: RefreshIndicator(
+                  onRefresh: () async {
+                    await context.read<ReviewModel>().clear();
+                  },
+                  child: Scrollbar(
+                    child: ListView(
+                      children: context.select<ReviewModel, List<Widget>>(
+                          (model) => model.reviews
+                              .map((review) => ReviewBlock(review: review))
+                              .toList()),
+                    ),
                   ),
                 ),
               ),

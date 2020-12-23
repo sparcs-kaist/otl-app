@@ -17,6 +17,7 @@ class CustomAppBar extends AppBar {
             ),
           ),
           automaticallyImplyLeading: false,
+          backgroundColor: Colors.transparent,
           leading: leading,
           actions: actions,
         );

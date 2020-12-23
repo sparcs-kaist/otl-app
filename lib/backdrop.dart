@@ -89,7 +89,12 @@ class _BackdropScaffoldState extends State<BackdropScaffold>
         ),
         PositionedTransition(
           rect: layerAnimation,
-          child: widget.frontLayer,
+          child: AnimatedOpacity(
+            child: widget.frontLayer,
+            curve: Curves.easeInOut,
+            duration: const Duration(milliseconds: 300),
+            opacity: frontLayerVisible ? 1.0 : 0.0,
+          ),
         ),
       ],
     );

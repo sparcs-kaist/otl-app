@@ -15,7 +15,7 @@ const DAYSOFWEEK = [
 ];
 
 class Timetable extends StatelessWidget {
-  get _dividerHeight => dividerPadding.vertical + 1;
+  double get _dividerHeight => dividerPadding.vertical + 1;
 
   final _lectures = List.generate(7, (i) => Map<Time, Lecture>());
 
@@ -47,7 +47,7 @@ class Timetable extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: List.generate(daysCount + 1,
-          (i) => (i == 0) ? _buildHeaders(context) : _buildColumn(i - 1)),
+          (i) => (i == 0) ? _buildHeaders() : _buildColumn(i - 1)),
     );
   }
 
@@ -57,6 +57,7 @@ class Timetable extends StatelessWidget {
         height: _dividerHeight,
         child: Text(
           (((i / 100 - 1) % 12) + 1).toStringAsFixed(0),
+          textAlign: TextAlign.center,
           style: TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: fontSize,
@@ -70,6 +71,7 @@ class Timetable extends StatelessWidget {
         height: _dividerHeight,
         child: Text(
           (((i / 100 - 1) % 12) + 1).toStringAsFixed(0),
+          textAlign: TextAlign.center,
           style: TextStyle(fontSize: fontSize),
         ),
       );
@@ -81,7 +83,7 @@ class Timetable extends StatelessWidget {
     );
   }
 
-  Widget _buildHeaders(BuildContext context) {
+  Widget _buildHeaders() {
     return Padding(
       padding: const EdgeInsets.only(right: 4.0),
       child: Column(
@@ -105,11 +107,11 @@ class Timetable extends StatelessWidget {
   }
 
   Widget _buildLectureBlock({@required Lecture lecture, @required Time time}) {
-    final begin = time.begin / 30 - 16;
-    final end = time.end / 30 - 16;
+    final begin = time.begin / 30 - 18;
+    final end = time.end / 30 - 18;
 
     return Positioned(
-      top: _dividerHeight * (begin - 1.5) + 1,
+      top: _dividerHeight * (begin + 0.5) + 1,
       left: 0,
       right: 0,
       height: _dividerHeight * (end - begin) - 2,
@@ -138,7 +140,7 @@ class Timetable extends StatelessWidget {
     );
   }
 
-  Widget _buildCells(int index) {
+  Widget _buildCells() {
     return Column(
       children: List.generate(
           ((2400 - 900) / 50 + 1).toInt(),
@@ -159,7 +161,7 @@ class Timetable extends StatelessWidget {
           ),
           Stack(
             children: <Widget>[
-              _buildCells(i),
+              _buildCells(),
               ..._lectures[i].entries.map(
                   (e) => _buildLectureBlock(lecture: e.value, time: e.key)),
             ],

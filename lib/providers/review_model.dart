@@ -22,6 +22,12 @@ class ReviewModel extends ChangeNotifier {
     return _reviews;
   }
 
+  Future<void> clear() async {
+    _reviews.clear();
+    _page = 0;
+    await loadReviews();
+  }
+
   Future<void> loadReviews() async {
     _state = ReviewState.progress;
 
