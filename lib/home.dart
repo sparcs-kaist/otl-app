@@ -7,6 +7,7 @@ import 'package:timeplanner_mobile/pages/main_page.dart';
 import 'package:timeplanner_mobile/pages/review_page.dart';
 import 'package:timeplanner_mobile/pages/timetable_page.dart';
 import 'package:timeplanner_mobile/providers/review_model.dart';
+import 'package:timeplanner_mobile/providers/search_model.dart';
 
 class TimeplannerHome extends StatefulWidget {
   @override
@@ -40,7 +41,10 @@ class _TimeplannerHomeState extends State<TimeplannerHome> {
         children: <Widget>[
           MainPage(),
           TimetablePage(),
-          DictionaryPage(),
+          ChangeNotifierProvider(
+            create: (context) => SearchModel(),
+            child: DictionaryPage(),
+          ),
           ChangeNotifierProvider(
             create: (context) => ReviewModel(),
             child: ReviewPage(),

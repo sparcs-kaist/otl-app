@@ -93,7 +93,8 @@ class _LectureSearchState extends State<LectureSearch> {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(6.0),
       ),
-      child: Wrap(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Row(
             children: <Widget>[
@@ -104,7 +105,7 @@ class _LectureSearchState extends State<LectureSearch> {
                   controller: _searchTextController,
                   focusNode: _focusNode,
                   onSubmitted: (value) {
-                    context.read<SearchModel>().search(
+                    context.read<SearchModel>().lectureSearch(
                         context.read<TimetableModel>().selectedSemester, value,
                         department: _department, type: _type, grade: _grade);
                     _searchTextController.clear();
@@ -196,7 +197,7 @@ class _LectureSearchState extends State<LectureSearch> {
             scrollDirection: Axis.horizontal,
             padding: const EdgeInsets.fromLTRB(12.0, 0.0, 12.0, 12.0),
             child: Row(
-              children: [
+              children: <Widget>[
                 LectureFilter(
                   property: "학과",
                   items: departments,
@@ -226,8 +227,7 @@ class _LectureSearchState extends State<LectureSearch> {
               ],
             ),
           ),
-          SizedBox(
-            height: MediaQuery.of(context).size.height * 0.3,
+          Expanded(
             child: (context.watch<SearchModel>().state != SearchState.done)
                 ? Center(
                     child: const CircularProgressIndicator(),
@@ -235,11 +235,10 @@ class _LectureSearchState extends State<LectureSearch> {
                 : Scrollbar(
                     child: ListView(
                       padding: const EdgeInsets.symmetric(horizontal: 12.0),
-                      children: context
-                          .select<SearchModel, List<List<Lecture>>>(
-                              (model) => model.courses)
-                          .map((course) => _buildCourse(context, course))
-                          .toList(),
+                      children: context.select<SearchModel, List<Widget>>(
+                          (model) => model.lectures
+                              .map((course) => _buildCourse(context, course))
+                              .toList()),
                     ),
                   ),
           ),

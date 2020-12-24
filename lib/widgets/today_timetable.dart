@@ -39,7 +39,7 @@ class TodayTimetable extends StatelessWidget {
     });
 
     return Column(
-      children: [
+      children: <Widget>[
         _buildHeaders(),
         _buildRow(),
       ],

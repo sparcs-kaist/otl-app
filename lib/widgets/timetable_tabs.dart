@@ -53,7 +53,7 @@ class _TimetableTabsState extends State<TimetableTabs> {
   Widget _buildButton(IconData icon, VoidCallback onTap) {
     return Card(
       color: Colors.white,
-      margin: const EdgeInsets.symmetric(horizontal: 4.0),
+      margin: const EdgeInsets.fromLTRB(4.0, 4.0, 4.0, 0.0),
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(4.0)),
       ),

@@ -35,10 +35,10 @@ class MainPage extends StatelessWidget {
       transform: Matrix4.translationValues(0, -51, 0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
+        children: <Widget>[
           Stack(
             alignment: Alignment.center,
-            children: [
+            children: <Widget>[
               Image.asset("assets/bg.4556cdee.jpg"),
               Container(
                 decoration: BoxDecoration(
@@ -120,7 +120,7 @@ class MainPage extends StatelessWidget {
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
+                  children: <Widget>[
                     RichText(
                       textAlign: TextAlign.center,
                       text: TextSpan(
@@ -135,7 +135,7 @@ class MainPage extends StatelessWidget {
                                 : "D-$days일 $hours시간 $minutes분",
                             style: const TextStyle(fontSize: 20.0),
                           ),
-                          TextSpan(text: "\n"),
+                          const TextSpan(text: "\n"),
                           TextSpan(
                             text: infoModel.currentSchedule == null
                                 ? "-"
@@ -145,14 +145,14 @@ class MainPage extends StatelessWidget {
                               height: 1.3,
                             ),
                           ),
-                          TextSpan(text: " "),
+                          const TextSpan(text: " "),
                           TextSpan(
                             text: infoModel.currentSchedule == null
                                 ? ""
                                 : infoModel.currentSchedule["name"],
                             style: const TextStyle(fontWeight: FontWeight.bold),
                           ),
-                          TextSpan(text: " "),
+                          const TextSpan(text: " "),
                           TextSpan(
                             text: infoModel.currentSchedule == null
                                 ? ""
@@ -166,7 +166,7 @@ class MainPage extends StatelessWidget {
                     const SizedBox(height: 8.0),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
+                      children: <Widget>[
                         InkWell(
                           onTap: () {
                             launch("https://cais.kaist.ac.kr");

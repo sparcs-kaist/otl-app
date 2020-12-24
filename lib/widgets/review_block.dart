@@ -47,9 +47,9 @@ class ReviewBlock extends StatelessWidget {
                         text: review.lecture.title,
                         style: const TextStyle(fontWeight: FontWeight.bold),
                       ),
-                      TextSpan(text: " "),
+                      const TextSpan(text: " "),
                       TextSpan(text: review.lecture.professorsStrShort),
-                      TextSpan(text: " "),
+                      const TextSpan(text: " "),
                       TextSpan(text: review.lecture.year.toString()),
                       TextSpan(
                           text: [

@@ -187,7 +187,7 @@ class TimetableSummary extends StatelessWidget {
                     : Colors.black87,
               ),
             ),
-            TextSpan(text: "\n"),
+            const TextSpan(text: "\n"),
             TextSpan(
               text: "${titles[1]} ",
               style: TextStyle(

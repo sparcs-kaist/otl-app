@@ -154,36 +154,38 @@ class _TimetablePageState extends State<TimetablePage> {
           ),
           Visibility(
             visible: _isSearchOpened,
-            child: WillPopScope(
-              onWillPop: () async {
-                if (_isSearchOpened) {
-                  setState(() {
-                    _isSearchOpened = false;
-                    _selectedLecture = null;
-                  });
-                  return null;
-                }
-                return true;
-              },
-              child: ChangeNotifierProvider(
-                create: (context) => SearchModel(),
-                child: LectureSearch(
-                  onAdded: () {
-                    setState(() {
-                      _selectedLecture = null;
-                    });
-                  },
-                  onClosed: () {
+            child: Expanded(
+              child: WillPopScope(
+                onWillPop: () async {
+                  if (_isSearchOpened) {
                     setState(() {
                       _isSearchOpened = false;
                       _selectedLecture = null;
                     });
-                  },
-                  onSelectionChanged: (lecture) {
-                    setState(() {
-                      _selectedLecture = lecture;
-                    });
-                  },
+                    return null;
+                  }
+                  return true;
+                },
+                child: ChangeNotifierProvider(
+                  create: (context) => SearchModel(),
+                  child: LectureSearch(
+                    onAdded: () {
+                      setState(() {
+                        _selectedLecture = null;
+                      });
+                    },
+                    onClosed: () {
+                      setState(() {
+                        _isSearchOpened = false;
+                        _selectedLecture = null;
+                      });
+                    },
+                    onSelectionChanged: (lecture) {
+                      setState(() {
+                        _selectedLecture = lecture;
+                      });
+                    },
+                  ),
                 ),
               ),
             ),
@@ -194,7 +196,7 @@ class _TimetablePageState extends State<TimetablePage> {
   }
 
   Timetable _buildTimetable(BuildContext context, List<Lecture> lectures) {
-    bool isFirst = false;
+    bool isFirst = true;
 
     return Timetable(
       lectures: (_selectedLecture == null)
