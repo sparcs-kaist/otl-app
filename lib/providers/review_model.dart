@@ -3,22 +3,16 @@ import 'package:timeplanner_mobile/constants/url.dart';
 import 'package:timeplanner_mobile/dio_provider.dart';
 import 'package:timeplanner_mobile/models/review.dart';
 
-enum ReviewState {
-  progress,
-  error,
-  done,
-}
-
 class ReviewModel extends ChangeNotifier {
-  ReviewState _state = ReviewState.done;
-  ReviewState get state => _state;
-
   int _page = 0;
   int get page => _page;
 
+  bool _isLoading = false;
+  bool get isLoading => _isLoading;
+
   List<Review> _reviews = <Review>[];
   List<Review> get reviews {
-    if (_reviews.length == 0 && _state != ReviewState.progress) loadReviews();
+    if (_reviews.length == 0 && !_isLoading) loadReviews();
     return _reviews;
   }
 
@@ -29,19 +23,19 @@ class ReviewModel extends ChangeNotifier {
   }
 
   Future<void> loadReviews() async {
-    _state = ReviewState.progress;
+    _isLoading = true;
 
     try {
       final response =
           await DioProvider().dio.get(API_REVIEW_LATEST_URL + _page.toString());
-
       final rawReviews = response.data as List;
       _reviews.addAll(rawReviews.map((review) => Review.fromJson(review)));
       _page++;
-      _state = ReviewState.done;
+      _isLoading = false;
+      notifyListeners();
     } catch (exception) {
-      _state = ReviewState.error;
+      print(exception);
+      _isLoading = false;
     }
-    notifyListeners();
   }
 }

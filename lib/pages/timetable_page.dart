@@ -14,7 +14,6 @@ import 'package:timeplanner_mobile/layers/lecture_detail_layer.dart';
 import 'package:timeplanner_mobile/models/lecture.dart';
 import 'package:timeplanner_mobile/models/semester.dart';
 import 'package:timeplanner_mobile/providers/info_model.dart';
-import 'package:timeplanner_mobile/providers/search_model.dart';
 import 'package:timeplanner_mobile/providers/timetable_model.dart';
 import 'package:timeplanner_mobile/widgets/lecture_search.dart';
 import 'package:timeplanner_mobile/widgets/semester_picker.dart';
@@ -48,7 +47,7 @@ class _TimetablePageState extends State<TimetablePage> {
 
   @override
   Widget build(BuildContext context) {
-    if (context.watch<TimetableModel>().state == TimetableState.done)
+    if (context.select<TimetableModel, bool>((model) => model.isLoaded))
       return _buildBody(context);
     return Center(
       child: const CircularProgressIndicator(),
@@ -166,26 +165,23 @@ class _TimetablePageState extends State<TimetablePage> {
                   }
                   return true;
                 },
-                child: ChangeNotifierProvider(
-                  create: (context) => SearchModel(),
-                  child: LectureSearch(
-                    onAdded: () {
-                      setState(() {
-                        _selectedLecture = null;
-                      });
-                    },
-                    onClosed: () {
-                      setState(() {
-                        _isSearchOpened = false;
-                        _selectedLecture = null;
-                      });
-                    },
-                    onSelectionChanged: (lecture) {
-                      setState(() {
-                        _selectedLecture = lecture;
-                      });
-                    },
-                  ),
+                child: LectureSearch(
+                  onAdded: () {
+                    setState(() {
+                      _selectedLecture = null;
+                    });
+                  },
+                  onClosed: () {
+                    setState(() {
+                      _isSearchOpened = false;
+                      _selectedLecture = null;
+                    });
+                  },
+                  onSelectionChanged: (lecture) {
+                    setState(() {
+                      _selectedLecture = lecture;
+                    });
+                  },
                 ),
               ),
             ),

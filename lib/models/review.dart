@@ -12,6 +12,7 @@ class Review {
   int speech;
   String loadLetter;
   Lecture lecture;
+  bool userspecificIsLiked;
   int id;
   String gradeLetter;
 
@@ -46,6 +47,7 @@ class Review {
     loadLetter = json['load_letter'];
     lecture =
         json['lecture'] != null ? Lecture.fromJson(json['lecture']) : null;
+    userspecificIsLiked = json['userspecific_is_liked'];
     id = json['id'];
     gradeLetter = json['grade_letter'];
   }
@@ -66,6 +68,7 @@ class Review {
     if (this.lecture != null) {
       data['lecture'] = this.lecture.toJson();
     }
+    data['userspecific_is_liked'] = this.userspecificIsLiked;
     data['id'] = this.id;
     data['grade_letter'] = this.gradeLetter;
     return data;

@@ -5,12 +5,6 @@ import 'package:timeplanner_mobile/extensions/semester.dart';
 import 'package:timeplanner_mobile/models/semester.dart';
 import 'package:timeplanner_mobile/models/user.dart';
 
-enum InfoState {
-  progress,
-  error,
-  done,
-}
-
 const USED_SCHEDULE_FIELDS = [
   "beginning",
   "end",
@@ -34,6 +28,9 @@ const SCHEDULE_NAME = {
 };
 
 class InfoModel extends ChangeNotifier {
+  Set<int> _years;
+  Set<int> get years => _years;
+
   List<Semester> _semesters;
   List<Semester> get semesters => _semesters;
 
@@ -43,20 +40,20 @@ class InfoModel extends ChangeNotifier {
   Map<String, dynamic> _currentSchedule;
   Map<String, dynamic> get currentSchedule => _currentSchedule;
 
-  InfoState _state = InfoState.progress;
-  InfoState get state => _state;
+  bool _hasData = false;
+  bool get hasData => _hasData;
 
   Future<void> getInfo() async {
     try {
       _semesters = await getSemesters();
+      _years = _semesters.map((semester) => semester.year).toSet();
       _user = await getUser();
       _currentSchedule = getCurrentSchedule();
-      _state = InfoState.done;
+      _hasData = true;
+      notifyListeners();
     } catch (exception) {
       print(exception);
-      _state = InfoState.error;
     }
-    notifyListeners();
   }
 
   Future<List<Semester>> getSemesters() async {

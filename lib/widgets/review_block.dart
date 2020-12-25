@@ -68,8 +68,8 @@ class ReviewBlock extends StatelessWidget {
             maxLines: maxLines,
             overflow: overflow,
             style: const TextStyle(
-              color: Colors.black87,
-              height: 1.3,
+              color: const Color(0xFF555555),
+              height: 1.25,
               fontSize: 12.0,
             ),
           ),
@@ -78,7 +78,7 @@ class ReviewBlock extends StatelessWidget {
             text: TextSpan(
               style: const TextStyle(
                 color: Colors.black87,
-                height: 1.5,
+                height: 1.8,
                 fontSize: 13.0,
               ),
               children: <TextSpan>[

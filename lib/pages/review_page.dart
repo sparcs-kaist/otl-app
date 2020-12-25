@@ -16,7 +16,7 @@ class ReviewPage extends StatelessWidget {
           onNotification: (scrollNotification) {
             final reviewModel = context.read<ReviewModel>();
 
-            if (reviewModel.state != ReviewState.progress &&
+            if (!reviewModel.isLoading &&
                 scrollNotification.metrics.pixels ==
                     scrollNotification.metrics.maxScrollExtent) {
               reviewModel.loadReviews();

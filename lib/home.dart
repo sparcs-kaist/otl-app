@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:timeplanner_mobile/backdrop.dart';
 import 'package:timeplanner_mobile/layers/user_layer.dart';
 import 'package:timeplanner_mobile/pages/dictionary_page.dart';
 import 'package:timeplanner_mobile/pages/main_page.dart';
 import 'package:timeplanner_mobile/pages/review_page.dart';
 import 'package:timeplanner_mobile/pages/timetable_page.dart';
-import 'package:timeplanner_mobile/providers/review_model.dart';
-import 'package:timeplanner_mobile/providers/search_model.dart';
 
 class TimeplannerHome extends StatefulWidget {
   @override
@@ -41,14 +38,8 @@ class _TimeplannerHomeState extends State<TimeplannerHome> {
         children: <Widget>[
           MainPage(),
           TimetablePage(),
-          ChangeNotifierProvider(
-            create: (context) => SearchModel(),
-            child: DictionaryPage(),
-          ),
-          ChangeNotifierProvider(
-            create: (context) => ReviewModel(),
-            child: ReviewPage(),
-          ),
+          DictionaryPage(),
+          ReviewPage(),
         ],
       ),
     );

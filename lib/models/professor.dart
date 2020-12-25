@@ -5,6 +5,12 @@ class Professor {
 
   Professor({this.professorId, this.nameEn, this.name});
 
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is Professor && other.professorId == professorId);
+
+  int get hashCode => professorId.hashCode;
+
   Professor.fromJson(Map<String, dynamic> json) {
     professorId = json['professor_id'];
     nameEn = json['name_en'];

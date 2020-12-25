@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:timeplanner_mobile/constants/color.dart';
+import 'package:timeplanner_mobile/models/course.dart';
 import 'package:timeplanner_mobile/providers/search_model.dart';
 import 'package:timeplanner_mobile/widgets/course_block.dart';
-import 'package:timeplanner_mobile/widgets/lecture_filter.dart';
+import 'package:timeplanner_mobile/widgets/filter.dart';
 
 final departments = {
   "ALL": "전체",
@@ -51,6 +52,10 @@ final grades = {
 };
 
 class CourseSearch extends StatefulWidget {
+  final void Function(Course) onCourseTap;
+
+  CourseSearch({this.onCourseTap});
+
   @override
   _CourseSearchState createState() => _CourseSearchState();
 }
@@ -59,9 +64,9 @@ class _CourseSearchState extends State<CourseSearch> {
   final _searchTextController = TextEditingController();
 
   FocusNode _focusNode;
-  String _department;
-  String _type;
-  String _grade;
+  String _department = departments.keys.first;
+  String _type = types.keys.first;
+  String _grade = grades.keys.first;
 
   @override
   void initState() {
@@ -84,7 +89,6 @@ class _CourseSearchState extends State<CourseSearch> {
         Padding(
           padding: const EdgeInsets.all(12.0),
           child: TextField(
-            autofocus: true,
             controller: _searchTextController,
             focusNode: _focusNode,
             onSubmitted: (value) {
@@ -114,7 +118,7 @@ class _CourseSearchState extends State<CourseSearch> {
           padding: const EdgeInsets.fromLTRB(12.0, 0.0, 12.0, 12.0),
           child: Row(
             children: <Widget>[
-              LectureFilter(
+              Filter(
                 property: "학과",
                 items: departments,
                 onChanged: (value) {
@@ -123,7 +127,7 @@ class _CourseSearchState extends State<CourseSearch> {
                 },
               ),
               const SizedBox(width: 6.0),
-              LectureFilter(
+              Filter(
                 property: "구분",
                 items: types,
                 onChanged: (value) {
@@ -132,7 +136,7 @@ class _CourseSearchState extends State<CourseSearch> {
                 },
               ),
               const SizedBox(width: 6.0),
-              LectureFilter(
+              Filter(
                 property: "학년",
                 items: grades,
                 onChanged: (value) {
@@ -144,17 +148,22 @@ class _CourseSearchState extends State<CourseSearch> {
           ),
         ),
         Expanded(
-          child: (context.watch<SearchModel>().state != SearchState.done)
+          child: context.select<SearchModel, bool>((model) => model.isSearching)
               ? Center(
                   child: const CircularProgressIndicator(),
                 )
-              : Scrollbar(
-                  child: ListView(
-                    padding: const EdgeInsets.symmetric(horizontal: 12.0),
-                    children: context.select<SearchModel, List<Widget>>(
-                        (model) => model.courses
-                            .map((course) => CourseBlock(course))
-                            .toList()),
+              : Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                  child: Scrollbar(
+                    child: ListView(
+                      children: context.select<SearchModel, List<Widget>>(
+                          (model) => model.courses
+                              .map((course) => CourseBlock(
+                                    course: course,
+                                    onTap: () => widget.onCourseTap(course),
+                                  ))
+                              .toList()),
+                    ),
                   ),
                 ),
         ),

@@ -7,7 +7,7 @@ import 'package:timeplanner_mobile/models/lecture.dart';
 import 'package:timeplanner_mobile/providers/search_model.dart';
 import 'package:timeplanner_mobile/providers/timetable_model.dart';
 import 'package:timeplanner_mobile/widgets/course_lectures_block.dart';
-import 'package:timeplanner_mobile/widgets/lecture_filter.dart';
+import 'package:timeplanner_mobile/widgets/filter.dart';
 
 final departments = {
   "ALL": "전체",
@@ -70,9 +70,9 @@ class _LectureSearchState extends State<LectureSearch> {
 
   FocusNode _focusNode;
   Lecture _selectedLecture;
-  String _department;
-  String _type;
-  String _grade;
+  String _department = departments.keys.first;
+  String _type = types.keys.first;
+  String _grade = grades.keys.first;
 
   @override
   void initState() {
@@ -198,7 +198,7 @@ class _LectureSearchState extends State<LectureSearch> {
             padding: const EdgeInsets.fromLTRB(12.0, 0.0, 12.0, 12.0),
             child: Row(
               children: <Widget>[
-                LectureFilter(
+                Filter(
                   property: "학과",
                   items: departments,
                   onChanged: (value) {
@@ -207,7 +207,7 @@ class _LectureSearchState extends State<LectureSearch> {
                   },
                 ),
                 const SizedBox(width: 6.0),
-                LectureFilter(
+                Filter(
                   property: "구분",
                   items: types,
                   onChanged: (value) {
@@ -216,7 +216,7 @@ class _LectureSearchState extends State<LectureSearch> {
                   },
                 ),
                 const SizedBox(width: 6.0),
-                LectureFilter(
+                Filter(
                   property: "학년",
                   items: grades,
                   onChanged: (value) {
@@ -228,17 +228,20 @@ class _LectureSearchState extends State<LectureSearch> {
             ),
           ),
           Expanded(
-            child: (context.watch<SearchModel>().state != SearchState.done)
+            child: context
+                    .select<SearchModel, bool>((model) => model.isSearching)
                 ? Center(
                     child: const CircularProgressIndicator(),
                   )
-                : Scrollbar(
-                    child: ListView(
-                      padding: const EdgeInsets.symmetric(horizontal: 12.0),
-                      children: context.select<SearchModel, List<Widget>>(
-                          (model) => model.lectures
-                              .map((course) => _buildCourse(context, course))
-                              .toList()),
+                : Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                    child: Scrollbar(
+                      child: ListView(
+                        children: context.select<SearchModel, List<Widget>>(
+                            (model) => model.lectures
+                                .map((course) => _buildCourse(context, course))
+                                .toList()),
+                      ),
                     ),
                   ),
           ),

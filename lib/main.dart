@@ -4,7 +4,10 @@ import 'package:timeplanner_mobile/constants/color.dart';
 import 'package:timeplanner_mobile/home.dart';
 import 'package:timeplanner_mobile/pages/login_page.dart';
 import 'package:timeplanner_mobile/providers/auth_model.dart';
+import 'package:timeplanner_mobile/providers/course_detail_model.dart';
 import 'package:timeplanner_mobile/providers/info_model.dart';
+import 'package:timeplanner_mobile/providers/review_model.dart';
+import 'package:timeplanner_mobile/providers/search_model.dart';
 import 'package:timeplanner_mobile/providers/timetable_model.dart';
 
 void main() {
@@ -15,19 +18,21 @@ void main() {
       ChangeNotifierProxyProvider<AuthModel, InfoModel>(
         create: (context) => InfoModel(),
         update: (context, authModel, infoModel) {
-          if (authModel.state == AuthState.done) infoModel.getInfo();
+          if (authModel.isLogined) infoModel.getInfo();
           return infoModel;
         },
       ),
       ChangeNotifierProxyProvider<InfoModel, TimetableModel>(
         create: (context) => TimetableModel(),
         update: (context, infoModel, timetableModel) {
-          if (infoModel.state == InfoState.done &&
-              timetableModel.selectedSemester == null)
+          if (infoModel.hasData && timetableModel.selectedSemester == null)
             timetableModel.loadTimetable(semester: infoModel.semesters.last);
           return timetableModel;
         },
-      )
+      ),
+      ChangeNotifierProvider(create: (context) => SearchModel()),
+      ChangeNotifierProvider(create: (context) => ReviewModel()),
+      ChangeNotifierProvider(create: (context) => CourseDetailModel()),
     ],
     child: TimeplannerApp(),
   ));
@@ -39,7 +44,7 @@ class TimeplannerApp extends StatelessWidget {
     return MaterialApp(
       title: "Timeplanner Mobile",
       theme: _buildTheme(),
-      home: (context.watch<InfoModel>().state == InfoState.done)
+      home: context.select<InfoModel, bool>((model) => model.hasData)
           ? TimeplannerHome()
           : LoginPage(),
     );

@@ -5,12 +5,6 @@ import 'package:timeplanner_mobile/models/course.dart';
 import 'package:timeplanner_mobile/models/lecture.dart';
 import 'package:timeplanner_mobile/models/semester.dart';
 
-enum SearchState {
-  progress,
-  error,
-  done,
-}
-
 class SearchModel extends ChangeNotifier {
   List<Course> _courses;
   List<Course> get courses => _courses ?? [];
@@ -18,14 +12,14 @@ class SearchModel extends ChangeNotifier {
   List<List<Lecture>> _lectures;
   List<List<Lecture>> get lectures => _lectures ?? [];
 
-  SearchState _state = SearchState.done;
-  SearchState get state => _state;
+  bool _isSearching = false;
+  bool get isSearching => _isSearching;
 
   Future<void> courseSearch(String keyword,
       {String department = "ALL",
       String type = "ALL",
       String grade = "ALL"}) async {
-    _state = SearchState.progress;
+    _isSearching = true;
     notifyListeners();
 
     try {
@@ -39,11 +33,11 @@ class SearchModel extends ChangeNotifier {
 
       final rawCourses = response.data as List;
       _courses = rawCourses.map((course) => Course.fromJson(course)).toList();
-      _state = SearchState.done;
     } catch (exception) {
       print(exception);
-      _state = SearchState.error;
     }
+
+    _isSearching = false;
     notifyListeners();
   }
 
@@ -51,7 +45,7 @@ class SearchModel extends ChangeNotifier {
       {String department = "ALL",
       String type = "ALL",
       String grade = "ALL"}) async {
-    _state = SearchState.progress;
+    _isSearching = true;
     notifyListeners();
 
     try {
@@ -74,11 +68,11 @@ class SearchModel extends ChangeNotifier {
               lectures.where((lecture) => lecture.course == course).toList())
           .where((course) => course.length > 0)
           .toList();
-      _state = SearchState.done;
     } catch (exception) {
       print(exception);
-      _state = SearchState.error;
     }
+
+    _isSearching = false;
     notifyListeners();
   }
 }

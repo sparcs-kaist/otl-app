@@ -7,12 +7,6 @@ import 'package:timeplanner_mobile/models/lecture.dart';
 import 'package:timeplanner_mobile/models/semester.dart';
 import 'package:timeplanner_mobile/models/timetable.dart';
 
-enum TimetableState {
-  progress,
-  error,
-  done,
-}
-
 class TimetableModel extends ChangeNotifier {
   int _selectedIndex = 0;
   int get selectedIndex => _selectedIndex;
@@ -25,8 +19,8 @@ class TimetableModel extends ChangeNotifier {
 
   Timetable get currentTimetable => _timetables[_selectedIndex];
 
-  TimetableState _state = TimetableState.progress;
-  TimetableState get state => _state;
+  bool _isLoaded = false;
+  bool get isLoaded => _isLoaded;
 
   void setIndex(int index) {
     _selectedIndex = index;
@@ -49,13 +43,11 @@ class TimetableModel extends ChangeNotifier {
           .map((timetable) => Timetable.fromJson(timetable))
           .toList();
       _selectedIndex = 0;
-      _state = TimetableState.done;
+      _isLoaded = true;
       notifyListeners();
       return true;
     } catch (exception) {
       print(exception);
-      _state = TimetableState.error;
-      notifyListeners();
     }
     return false;
   }

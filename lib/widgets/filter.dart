@@ -1,25 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:timeplanner_mobile/constants/color.dart';
 
-class LectureFilter extends StatefulWidget {
+class Filter extends StatefulWidget {
   final String property;
   final Map<String, String> items;
   final void Function(String) onChanged;
 
-  LectureFilter({this.property, this.items, this.onChanged});
+  Filter({this.property, this.items, this.onChanged});
 
   @override
-  _LectureFilterState createState() => _LectureFilterState();
+  _FilterState createState() => _FilterState();
 }
 
-class _LectureFilterState extends State<LectureFilter> {
+class _FilterState extends State<Filter> {
   MapEntry<String, String> selectedItem;
 
   @override
   void initState() {
     super.initState();
     selectedItem = widget.items.entries.first;
-    widget.onChanged(selectedItem.key);
   }
 
   @override

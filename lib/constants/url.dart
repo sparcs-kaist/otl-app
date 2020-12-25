@@ -8,6 +8,8 @@ const SESSION_INFO_URL = SESSION_URL + "info";
 const API_URL = BASE_URL + "api/";
 const API_SEMESTER_URL = API_URL + "semesters";
 const API_COURSE_URL = API_URL + "courses";
+const API_COURSE_LECTURE_URL = API_COURSE_URL + "/{id}/lectures";
+const API_COURSE_REVIEW_URL = API_COURSE_URL + "/{id}/reviews";
 const API_LECTURE_URL = API_URL + "lectures";
 const API_LECTURE_RELATED_REVIEWS_URL =
     API_LECTURE_URL + "/{id}/related-reviews";
