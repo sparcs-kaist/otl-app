@@ -9,29 +9,26 @@ class UserLayer extends StatelessWidget {
   Widget build(BuildContext context) {
     final user = context.select<InfoModel, User>((model) => model.user);
 
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Card(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(6.0),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              _buildTitle("내 정보"),
-              _buildContent(
-                  context, "이름", "${user.firstName} ${user.lastName}"),
-              _buildContent(context, "메일", user.email),
-              const Divider(color: DIVIDER_COLOR),
-              _buildTitle("학사 정보"),
-              _buildContent(context, "학번", user.studentId),
-              _buildContent(context, "전공",
-                  user.majors.map((department) => department.name).join(", ")),
-              const Divider(color: DIVIDER_COLOR),
-            ],
-          ),
+    return Card(
+      margin: const EdgeInsets.only(),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(16.0)),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            _buildTitle("내 정보"),
+            _buildContent(context, "이름", "${user.firstName} ${user.lastName}"),
+            _buildContent(context, "메일", user.email),
+            const Divider(color: DIVIDER_COLOR),
+            _buildTitle("학사 정보"),
+            _buildContent(context, "학번", user.studentId),
+            _buildContent(context, "전공",
+                user.majors.map((department) => department.name).join(", ")),
+            const Divider(color: DIVIDER_COLOR),
+          ],
         ),
       ),
     );

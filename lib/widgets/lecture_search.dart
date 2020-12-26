@@ -4,6 +4,7 @@ import 'package:timeplanner_mobile/backdrop.dart';
 import 'package:timeplanner_mobile/constants/color.dart';
 import 'package:timeplanner_mobile/layers/lecture_detail_layer.dart';
 import 'package:timeplanner_mobile/models/lecture.dart';
+import 'package:timeplanner_mobile/providers/lecture_detail_model.dart';
 import 'package:timeplanner_mobile/providers/search_model.dart';
 import 'package:timeplanner_mobile/providers/timetable_model.dart';
 import 'package:timeplanner_mobile/widgets/course_lectures_block.dart';
@@ -66,6 +67,7 @@ class LectureSearch extends StatefulWidget {
 }
 
 class _LectureSearchState extends State<LectureSearch> {
+  final _lectureDetailLayer = LectureDetailLayer();
   final _searchTextController = TextEditingController();
 
   FocusNode _focusNode;
@@ -90,8 +92,9 @@ class _LectureSearchState extends State<LectureSearch> {
   @override
   Widget build(BuildContext context) {
     return Card(
+      margin: const EdgeInsets.only(),
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(6.0),
+        borderRadius: BorderRadius.zero,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -291,8 +294,8 @@ class _LectureSearchState extends State<LectureSearch> {
                     });
                   },
                   onLongPress: () {
-                    Backdrop.of(context).toggleBackdropLayerVisibility(
-                        LectureDetailLayer(lecture));
+                    context.read<LectureDetailModel>().loadLecture(lecture);
+                    Backdrop.of(context).show(_lectureDetailLayer);
                   },
                 )),
           ],

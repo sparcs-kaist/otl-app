@@ -14,6 +14,7 @@ import 'package:timeplanner_mobile/layers/lecture_detail_layer.dart';
 import 'package:timeplanner_mobile/models/lecture.dart';
 import 'package:timeplanner_mobile/models/semester.dart';
 import 'package:timeplanner_mobile/providers/info_model.dart';
+import 'package:timeplanner_mobile/providers/lecture_detail_model.dart';
 import 'package:timeplanner_mobile/providers/timetable_model.dart';
 import 'package:timeplanner_mobile/widgets/lecture_search.dart';
 import 'package:timeplanner_mobile/widgets/semester_picker.dart';
@@ -30,6 +31,8 @@ class TimetablePage extends StatefulWidget {
 class _TimetablePageState extends State<TimetablePage> {
   static const MethodChannel _channel =
       const MethodChannel("me.blog.ghwhsbsb123.timeplanner_mobile");
+
+  final _lectureDetailLayer = LectureDetailLayer();
 
   final _selectedKey = GlobalKey();
   final _paintKey = GlobalKey();
@@ -63,131 +66,121 @@ class _TimetablePageState extends State<TimetablePage> {
         Scrollable.ensureVisible(_selectedKey.currentContext);
     });
 
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Column(
-        children: <Widget>[
-          _buildTimetableTabs(context),
-          Expanded(
-            child: Card(
-              margin: const EdgeInsets.fromLTRB(4.0, 0.0, 4.0, 4.0),
-              shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.vertical(
-                  bottom: Radius.circular(6.0),
-                ),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 8.0),
-                child: Column(
-                  children: <Widget>[
-                    SemesterPicker(
-                      isExamTime: _isExamTime,
-                      semesters: _semesters,
-                      onSemesterChanged: (index) {
-                        setState(() {
-                          _isSearchOpened = false;
-                          _selectedLecture = null;
-                        });
+    return Column(
+      children: <Widget>[
+        _buildTimetableTabs(context),
+        Expanded(
+          child: Card(
+            margin: const EdgeInsets.only(),
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.zero,
+            ),
+            child: Column(
+              children: <Widget>[
+                const SizedBox(height: 8.0),
+                SemesterPicker(
+                  isExamTime: _isExamTime,
+                  semesters: _semesters,
+                  onTap: () {
+                    setState(() {
+                      _isExamTime = !_isExamTime;
+                    });
+                  },
+                  onSemesterChanged: (index) {
+                    setState(() {
+                      _isSearchOpened = false;
+                      _selectedLecture = null;
+                    });
 
-                        context
-                            .read<TimetableModel>()
-                            .loadTimetable(semester: _semesters[index]);
-                      },
-                    ),
-                    Expanded(
-                      child: ShaderMask(
-                        blendMode: BlendMode.dstIn,
-                        shaderCallback: (bounds) => LinearGradient(
-                            begin: Alignment.topCenter,
-                            end: Alignment.bottomCenter,
-                            colors: <Color>[
-                              Colors.white,
-                              Colors.transparent,
-                            ],
-                            stops: <double>[
-                              0.95,
-                              1.0,
-                            ]).createShader(
-                            bounds.shift(Offset(-bounds.left, -bounds.top))),
-                        child: SingleChildScrollView(
-                          child: RepaintBoundary(
-                            key: _paintKey,
-                            child: Container(
-                              color: Colors.white,
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 8.0),
-                              child: _buildTimetable(context, lectures),
-                            ),
-                          ),
+                    context
+                        .read<TimetableModel>()
+                        .loadTimetable(semester: _semesters[index]);
+                  },
+                ),
+                Expanded(
+                  child: ShaderMask(
+                    blendMode: BlendMode.dstIn,
+                    shaderCallback: (bounds) => LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: <Color>[
+                          Colors.white,
+                          Colors.transparent,
+                        ],
+                        stops: <double>[
+                          0.95,
+                          1.0,
+                        ]).createShader(
+                        bounds.shift(Offset(-bounds.left, -bounds.top))),
+                    child: SingleChildScrollView(
+                      child: RepaintBoundary(
+                        key: _paintKey,
+                        child: Container(
+                          color: Colors.white,
+                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                          child: _buildTimetable(context, lectures),
                         ),
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                      child: const Divider(
-                        color: DIVIDER_COLOR,
-                        height: 1.0,
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 8.0,
-                        vertical: 12.0,
-                      ),
-                      child: TimetableSummary(
-                        lectures: lectures,
-                        tempLecture: _selectedLecture,
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                      child: const Divider(
-                        color: DIVIDER_COLOR,
-                        height: 1.0,
-                      ),
-                    ),
-                  ],
+                  ),
                 ),
-              ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: const Divider(
+                    color: DIVIDER_COLOR,
+                    height: 1.0,
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 8.0,
+                    vertical: 12.0,
+                  ),
+                  child: TimetableSummary(
+                    lectures: lectures,
+                    tempLecture: _selectedLecture,
+                  ),
+                ),
+              ],
             ),
           ),
-          Visibility(
-            visible: _isSearchOpened,
-            child: Expanded(
-              child: WillPopScope(
-                onWillPop: () async {
-                  if (_isSearchOpened) {
-                    setState(() {
-                      _isSearchOpened = false;
-                      _selectedLecture = null;
-                    });
-                    return null;
-                  }
-                  return true;
+        ),
+        Visibility(
+          visible: _isSearchOpened,
+          child: Expanded(
+            child: WillPopScope(
+              onWillPop: () async {
+                if (_isSearchOpened) {
+                  setState(() {
+                    _isSearchOpened = false;
+                    _selectedLecture = null;
+                  });
+                  return null;
+                }
+                return true;
+              },
+              child: LectureSearch(
+                onAdded: () {
+                  setState(() {
+                    _selectedLecture = null;
+                  });
                 },
-                child: LectureSearch(
-                  onAdded: () {
-                    setState(() {
-                      _selectedLecture = null;
-                    });
-                  },
-                  onClosed: () {
-                    setState(() {
-                      _isSearchOpened = false;
-                      _selectedLecture = null;
-                    });
-                  },
-                  onSelectionChanged: (lecture) {
-                    setState(() {
-                      _selectedLecture = lecture;
-                    });
-                  },
-                ),
+                onClosed: () {
+                  setState(() {
+                    _isSearchOpened = false;
+                    _selectedLecture = null;
+                  });
+                },
+                onSelectionChanged: (lecture) {
+                  setState(() {
+                    _selectedLecture = lecture;
+                  });
+                },
               ),
             ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
@@ -213,8 +206,8 @@ class _TimetablePageState extends State<TimetablePage> {
           lecture: lecture,
           isTemp: isSelected,
           onTap: () {
-            Backdrop.of(context)
-                .toggleBackdropLayerVisibility(LectureDetailLayer(lecture));
+            context.read<LectureDetailModel>().loadLecture(lecture);
+            Backdrop.of(context).show(_lectureDetailLayer);
           },
           onLongPress: isSelected
               ? null
@@ -263,7 +256,6 @@ class _TimetablePageState extends State<TimetablePage> {
     return TimetableTabs(
       index: timetableModel.selectedIndex,
       length: timetableModel.timetables.length,
-      isExamTime: _isExamTime,
       onTap: (i) {
         final timetableModel = context.read<TimetableModel>();
 
@@ -277,11 +269,6 @@ class _TimetablePageState extends State<TimetablePage> {
         setState(() {
           _isSearchOpened = true;
           _selectedLecture = null;
-        });
-      },
-      onExamTap: () {
-        setState(() {
-          _isExamTime = !_isExamTime;
         });
       },
       onSettingsTap: () {

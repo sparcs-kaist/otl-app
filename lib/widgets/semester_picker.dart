@@ -6,11 +6,13 @@ class SemesterPicker extends StatefulWidget {
   final bool isExamTime;
   final List<Semester> semesters;
   final Function(int) onSemesterChanged;
+  final VoidCallback onTap;
 
   SemesterPicker(
       {this.isExamTime = false,
       @required this.semesters,
-      @required this.onSemesterChanged});
+      @required this.onSemesterChanged,
+      this.onTap});
 
   @override
   _SemesterPickerState createState() => _SemesterPickerState();
@@ -64,30 +66,7 @@ class _SemesterPickerState extends State<SemesterPicker> {
 
   Widget _buildTitle(BuildContext context, Semester semester) {
     return InkWell(
-      onTap: () async {
-        final index = await showDialog<int>(
-          context: context,
-          builder: (context) => SimpleDialog(
-            title: const Text("학기 선택"),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(6.0),
-            ),
-            children: List.generate(
-                widget.semesters.length,
-                (i) => SimpleDialogOption(
-                      onPressed: () => Navigator.pop(
-                          context, widget.semesters.length - i - 1),
-                      child: Text(widget
-                          .semesters[widget.semesters.length - i - 1].title),
-                    )),
-          ),
-        );
-
-        if (index != null) {
-          _index = index;
-          widget.onSemesterChanged(_index);
-        }
-      },
+      onTap: widget.onTap,
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Text(

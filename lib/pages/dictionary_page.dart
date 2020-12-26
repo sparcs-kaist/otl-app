@@ -10,19 +10,16 @@ class DictionaryPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Card(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(6.0),
-        ),
-        child: CourseSearch(
-          onCourseTap: (course) {
-            context.read<CourseDetailModel>().loadCourse(course);
-            Backdrop.of(context)
-                .toggleBackdropLayerVisibility(_courseDetailLayer);
-          },
-        ),
+    return Card(
+      margin: const EdgeInsets.only(),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(16.0)),
+      ),
+      child: CourseSearch(
+        onCourseTap: (course) {
+          context.read<CourseDetailModel>().loadCourse(course);
+          Backdrop.of(context).show(_courseDetailLayer);
+        },
       ),
     );
   }

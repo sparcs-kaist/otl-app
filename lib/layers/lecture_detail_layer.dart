@@ -1,31 +1,22 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_web_browser/flutter_web_browser.dart';
 import 'package:provider/provider.dart';
+import 'package:timeplanner_mobile/backdrop.dart';
 import 'package:timeplanner_mobile/constants/color.dart';
-import 'package:timeplanner_mobile/constants/url.dart';
-import 'package:timeplanner_mobile/dio_provider.dart';
+import 'package:timeplanner_mobile/layers/course_detail_layer.dart';
 import 'package:timeplanner_mobile/models/lecture.dart';
 import 'package:timeplanner_mobile/models/review.dart';
+import 'package:timeplanner_mobile/providers/course_detail_model.dart';
+import 'package:timeplanner_mobile/providers/lecture_detail_model.dart';
 import 'package:timeplanner_mobile/providers/timetable_model.dart';
 import 'package:timeplanner_mobile/widgets/custom_header_delegate.dart';
 import 'package:timeplanner_mobile/widgets/review_block.dart';
 
-final Map<int, LectureDetailLayer> layers = {};
-
 class LectureDetailLayer extends StatelessWidget {
-  final Lecture lecture;
+  final _courseDetailLayer = CourseDetailLayer();
   final _scrollController = ScrollController();
 
-  factory LectureDetailLayer(Lecture lecture) {
-    if (!layers.containsKey(lecture.id))
-      layers[lecture.id] = LectureDetailLayer._internal(lecture);
-    return layers[lecture.id];
-  }
-
-  LectureDetailLayer._internal(this.lecture);
-
-  String _getSyllabusUrl() {
+  String _getSyllabusUrl(Lecture lecture) {
     return Uri.https("cais.kaist.ac.kr", "/syllabusInfo", {
       "year": lecture.year.toString(),
       "term": lecture.semester.toString(),
@@ -39,45 +30,56 @@ class LectureDetailLayer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       color: Colors.white,
-      margin: const EdgeInsets.all(12.0),
+      margin: const EdgeInsets.only(),
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(6.0),
+        borderRadius: BorderRadius.vertical(top: Radius.circular(16.0)),
       ),
-      child: Padding(
-        padding: const EdgeInsets.all(12.0),
-        child: Column(
-          children: <Widget>[
-            Text(
-              lecture.title,
-              style: const TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 13.0,
-              ),
-              textAlign: TextAlign.center,
+      child: context.select<LectureDetailModel, bool>((model) => model.hasData)
+          ? _buildBody(context)
+          : Center(
+              child: const CircularProgressIndicator(),
             ),
-            const SizedBox(height: 4.0),
-            Text(
-              lecture.classNo.isEmpty
-                  ? lecture.oldCode
-                  : "${lecture.oldCode} (${lecture.classNo})",
-              textAlign: TextAlign.center,
-              style: const TextStyle(fontSize: 12.0),
+    );
+  }
+
+  Widget _buildBody(BuildContext context) {
+    final lecture =
+        context.select<LectureDetailModel, Lecture>((model) => model.lecture);
+
+    return Padding(
+      padding: const EdgeInsets.all(12.0),
+      child: Column(
+        children: <Widget>[
+          Text(
+            lecture.title,
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 13.0,
             ),
-            _buildButtons(),
-            const SizedBox(height: 8.0),
-            Expanded(child: _buildScrollView()),
-            const Divider(color: DIVIDER_COLOR),
-            Align(
-              alignment: Alignment.centerRight,
-              child: _buildUpdateButton(context),
-            ),
-          ],
-        ),
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 4.0),
+          Text(
+            lecture.classNo.isEmpty
+                ? lecture.oldCode
+                : "${lecture.oldCode} (${lecture.classNo})",
+            textAlign: TextAlign.center,
+            style: const TextStyle(fontSize: 12.0),
+          ),
+          _buildButtons(context, lecture),
+          const SizedBox(height: 8.0),
+          Expanded(child: _buildScrollView(context, lecture)),
+          const Divider(color: DIVIDER_COLOR),
+          Align(
+            alignment: Alignment.centerRight,
+            child: _buildUpdateButton(context, lecture),
+          ),
+        ],
       ),
     );
   }
 
-  Widget _buildUpdateButton(BuildContext context) {
+  Widget _buildUpdateButton(BuildContext context, Lecture lecture) {
     final isAdded = context.select<TimetableModel, bool>(
         (model) => model.currentTimetable.lectures.contains(lecture));
 
@@ -141,12 +143,17 @@ class LectureDetailLayer extends StatelessWidget {
     );
   }
 
-  Widget _buildButtons() {
+  Widget _buildButtons(BuildContext context, Lecture lecture) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: <Widget>[
         InkWell(
-          onTap: () {},
+          onTap: () {
+            context
+                .read<CourseDetailModel>()
+                .loadCourse(context.read<LectureDetailModel>().course);
+            Backdrop.of(context).show(_courseDetailLayer);
+          },
           child: const Text(
             "과목사전",
             style: TextStyle(
@@ -158,7 +165,7 @@ class LectureDetailLayer extends StatelessWidget {
         const SizedBox(width: 6.0),
         InkWell(
           onTap: () => FlutterWebBrowser.openWebPage(
-            url: _getSyllabusUrl(),
+            url: _getSyllabusUrl(lecture),
             customTabsOptions: CustomTabsOptions(
               colorScheme: CustomTabsColorScheme.light,
               toolbarColor: BACKGROUND_COLOR,
@@ -185,18 +192,18 @@ class LectureDetailLayer extends StatelessWidget {
     );
   }
 
-  CustomScrollView _buildScrollView() {
+  CustomScrollView _buildScrollView(BuildContext context, Lecture lecture) {
     return CustomScrollView(
       controller: _scrollController,
       slivers: <Widget>[
         SliverList(
           delegate: SliverChildListDelegate([
-            _buildAttribute(),
-            _buildScores(),
+            _buildAttribute(lecture),
+            _buildScores(lecture),
           ]),
         ),
         _buildReviewHeader(),
-        _buildReviews(),
+        _buildReviews(context),
       ],
     );
   }
@@ -240,38 +247,21 @@ class LectureDetailLayer extends StatelessWidget {
     );
   }
 
-  FutureBuilder<Response> _buildReviews() {
-    return FutureBuilder<Response>(
-      future: DioProvider().dio.get(API_LECTURE_RELATED_REVIEWS_URL
-          .replaceFirst("{id}", lecture.id.toString())),
-      builder: (context, snapshot) {
-        if (!snapshot.hasData) {
-          return SliverToBoxAdapter(
-            child: Center(
-              child: const CircularProgressIndicator(),
-            ),
-          );
-        }
-
-        final rawReviews = snapshot.data.data as List;
-        final reviews =
-            rawReviews.map((review) => Review.fromJson(review)).toSet();
-
-        return SliverList(
-          delegate: SliverChildListDelegate(reviews
-              .map((review) => ReviewBlock(
-                    review: review,
-                    maxLines: 3,
-                    overflow: TextOverflow.ellipsis,
-                    isSimple: true,
-                  ))
-              .toList()),
-        );
-      },
+  SliverList _buildReviews(BuildContext context) {
+    return SliverList(
+      delegate: SliverChildListDelegate(context
+          .select<LectureDetailModel, List<Review>>((model) => model.reviews)
+          .map((review) => ReviewBlock(
+                review: review,
+                maxLines: 3,
+                overflow: TextOverflow.ellipsis,
+                isSimple: true,
+              ))
+          .toList()),
     );
   }
 
-  Widget _buildScores() {
+  Widget _buildScores(Lecture lecture) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Table(
@@ -303,7 +293,7 @@ class LectureDetailLayer extends StatelessWidget {
     );
   }
 
-  RichText _buildAttribute() {
+  RichText _buildAttribute(Lecture lecture) {
     return RichText(
       text: TextSpan(
         style: const TextStyle(

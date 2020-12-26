@@ -15,9 +15,9 @@ class CourseDetailLayer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       color: Colors.white,
-      margin: const EdgeInsets.all(12.0),
+      margin: const EdgeInsets.only(),
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(6.0),
+        borderRadius: BorderRadius.vertical(top: Radius.circular(16.0)),
       ),
       child: context.select<CourseDetailModel, bool>((model) => model.hasData)
           ? _buildBody(context)
@@ -57,33 +57,31 @@ class CourseDetailLayer extends StatelessWidget {
   }
 
   Widget _buildListView(BuildContext context, Course course) {
-    return Scrollbar(
-      child: ListView(
-        children: <Widget>[
-          _buildAttribute(course),
-          _buildScores(course),
-          const Divider(color: DIVIDER_COLOR),
-          Text(
-            "개설 이력",
-            style: const TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 12.0,
-              height: 1.3,
-            ),
+    return ListView(
+      children: <Widget>[
+        _buildAttribute(course),
+        _buildScores(course),
+        const Divider(color: DIVIDER_COLOR),
+        Text(
+          "개설 이력",
+          style: const TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 12.0,
+            height: 1.3,
           ),
-          _buildHistory(context),
-          const Divider(color: DIVIDER_COLOR),
-          Text(
-            "과목 후기",
-            style: const TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 12.0,
-              height: 1.3,
-            ),
+        ),
+        _buildHistory(context),
+        const Divider(color: DIVIDER_COLOR),
+        Text(
+          "과목 후기",
+          style: const TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 12.0,
+            height: 1.3,
           ),
-          _buildReviews(context, course),
-        ],
-      ),
+        ),
+        _buildReviews(context, course),
+      ],
     );
   }
 
@@ -157,38 +155,35 @@ class CourseDetailLayer extends StatelessWidget {
     final years = context.select<InfoModel, Set<int>>((model) => model.years);
     final lectures = context
         .select<CourseDetailModel, List<Lecture>>((model) => model.lectures);
-    return NotificationListener<ScrollNotification>(
-      onNotification: (_) => true,
-      child: Scrollbar(
-        child: SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          padding: const EdgeInsets.symmetric(vertical: 8.0),
-          reverse: true,
-          child: Column(
-            children: <Widget>[
-              _buildHistoryRow(lectures, years, 1),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 6.0),
-                child: Row(
-                  children: years
-                      .map((year) => Container(
-                            width: 110.0,
-                            margin: const EdgeInsets.symmetric(horizontal: 4.0),
-                            child: Text(
-                              year.toString(),
-                              textAlign: TextAlign.center,
-                              style: const TextStyle(
-                                fontSize: 11.0,
-                                fontWeight: FontWeight.bold,
-                              ),
+    return Scrollbar(
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        padding: const EdgeInsets.symmetric(vertical: 8.0),
+        reverse: true,
+        child: Column(
+          children: <Widget>[
+            _buildHistoryRow(lectures, years, 1),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 6.0),
+              child: Row(
+                children: years
+                    .map((year) => Container(
+                          width: 110.0,
+                          margin: const EdgeInsets.symmetric(horizontal: 4.0),
+                          child: Text(
+                            year.toString(),
+                            textAlign: TextAlign.center,
+                            style: const TextStyle(
+                              fontSize: 11.0,
+                              fontWeight: FontWeight.bold,
                             ),
-                          ))
-                      .toList(),
-                ),
+                          ),
+                        ))
+                    .toList(),
               ),
-              _buildHistoryRow(lectures, years, 3),
-            ],
-          ),
+            ),
+            _buildHistoryRow(lectures, years, 3),
+          ],
         ),
       ),
     );

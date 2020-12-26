@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:timeplanner_mobile/widgets/custom_appbar.dart';
+import 'package:timeplanner_mobile/constants/color.dart';
 
 const double _kFlingVelocity = 2.0;
 
@@ -20,9 +20,15 @@ class BackdropScaffold extends StatefulWidget {
   final Widget frontLayer;
   final Widget bottomNavigationBar;
   final List<Widget> actions;
+  final Widget expandedWidget;
+  final bool isExpanded;
 
   BackdropScaffold(
-      {@required this.frontLayer, this.bottomNavigationBar, this.actions});
+      {@required this.frontLayer,
+      this.bottomNavigationBar,
+      this.actions,
+      this.expandedWidget,
+      this.isExpanded = false});
 
   @override
   _BackdropScaffoldState createState() => _BackdropScaffoldState();
@@ -56,16 +62,18 @@ class _BackdropScaffoldState extends State<BackdropScaffold>
     super.dispose();
   }
 
+  bool get isExpanded => widget.isExpanded && frontLayerVisible;
+
   bool get frontLayerVisible {
     return _controller.status == AnimationStatus.completed ||
         _controller.status == AnimationStatus.forward;
   }
 
-  void toggleBackdropLayerVisibility([Widget backLayer]) {
+  void show([Widget backLayer]) {
     setState(() {
       _backLayer = backLayer;
       _controller.fling(
-          velocity: frontLayerVisible ? -_kFlingVelocity : _kFlingVelocity);
+          velocity: backLayer != null ? -_kFlingVelocity : _kFlingVelocity);
     });
   }
 
@@ -102,22 +110,49 @@ class _BackdropScaffoldState extends State<BackdropScaffold>
 
   Future<bool> _willPop() async {
     if (!frontLayerVisible) {
-      toggleBackdropLayerVisibility();
+      show();
       return null;
     }
     return true;
   }
 
-  AppBar _buildAppBar(BuildContext context) {
-    return CustomAppBar(
-      actions: frontLayerVisible
-          ? widget.actions
-          : <Widget>[
-              IconButton(
-                icon: const Icon(Icons.close),
-                onPressed: toggleBackdropLayerVisibility,
-              ),
-            ],
+  Widget _buildAppBar() {
+    return PreferredSize(
+      preferredSize: Size.fromHeight(isExpanded
+          ? MediaQuery.of(context).size.width / 1296 * 865 + 5
+          : kToolbarHeight),
+      child: Theme(
+        data: Theme.of(context).copyWith(
+            primaryIconTheme: IconThemeData(
+                color: isExpanded ? Colors.white70 : CONTENT_COLOR)),
+        child: AppBar(
+          title: Image.asset(
+            "assets/logo.png",
+            height: 27,
+          ),
+          flexibleSpace: SafeArea(
+            child: Column(
+              children: [
+                Container(
+                  color: PRIMARY_COLOR,
+                  height: 5,
+                ),
+                isExpanded ? widget.expandedWidget : const SizedBox.shrink(),
+              ],
+            ),
+          ),
+          automaticallyImplyLeading: false,
+          actions: frontLayerVisible
+              ? widget.actions
+              : <Widget>[
+                  IconButton(
+                    icon: const Icon(Icons.close),
+                    color: isExpanded ? Colors.white70 : null,
+                    onPressed: show,
+                  ),
+                ],
+        ),
+      ),
     );
   }
 
@@ -129,7 +164,9 @@ class _BackdropScaffoldState extends State<BackdropScaffold>
         builder: (context) => WillPopScope(
           onWillPop: _willPop,
           child: Scaffold(
-            appBar: _buildAppBar(context),
+            appBar: _buildAppBar(),
+            backgroundColor:
+                isExpanded ? const Color(0xFF9B4810) : BACKGROUND_COLOR,
             bottomNavigationBar: widget.bottomNavigationBar,
             body: LayoutBuilder(builder: _buildStack),
             resizeToAvoidBottomInset: false,

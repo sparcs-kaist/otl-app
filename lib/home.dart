@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:timeplanner_mobile/backdrop.dart';
+import 'package:timeplanner_mobile/constants/color.dart';
 import 'package:timeplanner_mobile/layers/user_layer.dart';
 import 'package:timeplanner_mobile/pages/dictionary_page.dart';
 import 'package:timeplanner_mobile/pages/main_page.dart';
 import 'package:timeplanner_mobile/pages/review_page.dart';
 import 'package:timeplanner_mobile/pages/timetable_page.dart';
+import 'package:timeplanner_mobile/providers/search_model.dart';
 
 class TimeplannerHome extends StatefulWidget {
   @override
@@ -18,21 +21,25 @@ class _TimeplannerHomeState extends State<TimeplannerHome> {
   @override
   Widget build(BuildContext context) {
     return BackdropScaffold(
-      bottomNavigationBar: _buildBottomNavigationBar(),
       actions: <Widget>[
-        IconButton(
-          icon: const Icon(Icons.language),
-          onPressed: () {},
-        ),
         Builder(
           builder: (context) => IconButton(
             icon: const Icon(Icons.person),
             onPressed: () {
-              Backdrop.of(context).toggleBackdropLayerVisibility(_userLayer);
+              Backdrop.of(context).show(_userLayer);
             },
           ),
         ),
       ],
+      bottomNavigationBar: _buildBottomNavigationBar(),
+      isExpanded: _currentIndex == 0,
+      expandedWidget: Stack(
+        alignment: Alignment.center,
+        children: <Widget>[
+          Image.asset("assets/bg.4556cdee.jpg", fit: BoxFit.cover),
+          _buildSearch(),
+        ],
+      ),
       frontLayer: IndexedStack(
         index: _currentIndex,
         children: <Widget>[
@@ -45,10 +52,47 @@ class _TimeplannerHomeState extends State<TimeplannerHome> {
     );
   }
 
+  Widget _buildSearch() {
+    return Card(
+      color: Colors.white,
+      margin: const EdgeInsets.all(12.0),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(24.0),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(12.0),
+        child: TextField(
+          onSubmitted: (value) {
+            setState(() {
+              context.read<SearchModel>().courseSearch(value);
+              _currentIndex = 2;
+            });
+          },
+          style: const TextStyle(fontSize: 14.0),
+          decoration: const InputDecoration(
+            border: InputBorder.none,
+            contentPadding: EdgeInsets.only(),
+            isDense: true,
+            hintText: "검색",
+            hintStyle: TextStyle(
+              color: PRIMARY_COLOR,
+              fontSize: 14.0,
+            ),
+            icon: Icon(
+              Icons.search,
+              color: PRIMARY_COLOR,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
   BottomNavigationBar _buildBottomNavigationBar() {
     return BottomNavigationBar(
       currentIndex: _currentIndex,
       type: BottomNavigationBarType.fixed,
+      backgroundColor: Colors.white,
       showSelectedLabels: false,
       showUnselectedLabels: false,
       onTap: (index) {

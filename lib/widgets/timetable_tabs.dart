@@ -4,18 +4,14 @@ import 'package:timeplanner_mobile/constants/color.dart';
 class TimetableTabs extends StatefulWidget {
   final int index;
   final int length;
-  final bool isExamTime;
   final Function(int) onTap;
   final VoidCallback onAddTap;
-  final VoidCallback onExamTap;
   final VoidCallback onSettingsTap;
 
   TimetableTabs(
       {this.index = 0,
       @required this.length,
-      this.isExamTime = false,
       @required this.onTap,
-      @required this.onExamTap,
       @required this.onAddTap,
       @required this.onSettingsTap});
 
@@ -43,8 +39,6 @@ class _TimetableTabsState extends State<TimetableTabs> {
           ),
         ),
         _buildButton(Icons.add, widget.onAddTap),
-        _buildButton(widget.isExamTime ? Icons.tablet : Icons.assignment,
-            widget.onExamTap),
         _buildButton(Icons.settings, widget.onSettingsTap),
       ],
     );
@@ -53,9 +47,9 @@ class _TimetableTabsState extends State<TimetableTabs> {
   Widget _buildButton(IconData icon, VoidCallback onTap) {
     return Card(
       color: Colors.white,
-      margin: const EdgeInsets.fromLTRB(4.0, 4.0, 4.0, 0.0),
+      margin: const EdgeInsets.only(left: 8.0),
       shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(4.0)),
+        borderRadius: BorderRadius.vertical(top: Radius.circular(8.0)),
       ),
       child: Material(
         color: Colors.transparent,
@@ -82,9 +76,9 @@ class _TimetableTabsState extends State<TimetableTabs> {
   Widget _buildTab(int i, BuildContext context) {
     return Card(
       color: _index == i ? Colors.white : TAB_COLOR,
-      margin: const EdgeInsets.only(left: 4.0, right: 6.0),
+      margin: const EdgeInsets.only(right: 10.0),
       shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(4.0)),
+        borderRadius: BorderRadius.vertical(top: Radius.circular(8.0)),
       ),
       child: Material(
         color: Colors.transparent,

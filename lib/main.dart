@@ -6,6 +6,7 @@ import 'package:timeplanner_mobile/pages/login_page.dart';
 import 'package:timeplanner_mobile/providers/auth_model.dart';
 import 'package:timeplanner_mobile/providers/course_detail_model.dart';
 import 'package:timeplanner_mobile/providers/info_model.dart';
+import 'package:timeplanner_mobile/providers/lecture_detail_model.dart';
 import 'package:timeplanner_mobile/providers/review_model.dart';
 import 'package:timeplanner_mobile/providers/search_model.dart';
 import 'package:timeplanner_mobile/providers/timetable_model.dart';
@@ -33,6 +34,7 @@ void main() {
       ChangeNotifierProvider(create: (context) => SearchModel()),
       ChangeNotifierProvider(create: (context) => ReviewModel()),
       ChangeNotifierProvider(create: (context) => CourseDetailModel()),
+      ChangeNotifierProvider(create: (context) => LectureDetailModel()),
     ],
     child: TimeplannerApp(),
   ));
