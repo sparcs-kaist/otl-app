@@ -79,8 +79,7 @@ class InfoModel extends ChangeNotifier {
                 "time": time,
               };
             }))
-        .fold<Iterable<Map<String, dynamic>>>(
-            <Map<String, dynamic>>[], (acc, val) => [...acc, ...val])
+        .expand((e) => e)
         .where((e) => e != null)
         .toList();
     schedules.sort((a, b) => a["time"].compareTo(b["time"]));

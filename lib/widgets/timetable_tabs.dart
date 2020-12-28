@@ -46,7 +46,6 @@ class _TimetableTabsState extends State<TimetableTabs> {
 
   Widget _buildButton(IconData icon, VoidCallback onTap) {
     return Card(
-      color: Colors.white,
       margin: const EdgeInsets.only(left: 8.0),
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(8.0)),
@@ -54,9 +53,7 @@ class _TimetableTabsState extends State<TimetableTabs> {
       child: Material(
         color: Colors.transparent,
         child: InkWell(
-          borderRadius: const BorderRadius.vertical(
-            top: Radius.circular(4.0),
-          ),
+          borderRadius: const BorderRadius.vertical(top: Radius.circular(8.0)),
           onTap: onTap,
           child: Padding(
             padding: const EdgeInsets.symmetric(
@@ -83,7 +80,7 @@ class _TimetableTabsState extends State<TimetableTabs> {
       child: Material(
         color: Colors.transparent,
         child: InkWell(
-          borderRadius: const BorderRadius.vertical(top: Radius.circular(4.0)),
+          borderRadius: const BorderRadius.vertical(top: Radius.circular(8.0)),
           onTap: _index == i
               ? null
               : () {

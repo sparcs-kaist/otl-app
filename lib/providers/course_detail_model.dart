@@ -10,16 +10,25 @@ class CourseDetailModel extends ChangeNotifier {
   Course _course;
   Course get course => _course;
 
+  String _selectedFilter;
+  String get selectedFilter => _selectedFilter;
+
+  Lecture get selectedLecture {
+    if (_selectedFilter == "ALL") return null;
+    return _lectures.firstWhere(
+        (lecture) => lecture.professors.any(
+            (professor) => professor.professorId.toString() == _selectedFilter),
+        orElse: () => null);
+  }
+
   List<Lecture> _lectures;
   List<Lecture> get lectures => _lectures;
 
+  List<Professor> _professors;
+  List<Professor> get professors => _professors;
+
   bool _hasData = false;
   bool get hasData => _hasData;
-
-  String _selectedFilter;
-
-  List<Professor> _reviewProfessors;
-  List<Professor> get reviewProfessors => _reviewProfessors;
 
   List<Review> _reviews;
   List<Review> get reviews {
@@ -37,11 +46,13 @@ class CourseDetailModel extends ChangeNotifier {
 
     _course = course;
     _lectures = await getCourseLectures();
-    _reviews = await getCourseReviews();
-    _reviewProfessors = _reviews
-        .map((review) => review.lecture.professors)
-        .fold<List<Professor>>(<Professor>[], (acc, val) => [...acc, ...val])
+    _professors = _lectures
+        .map((lecture) => lecture.professors)
+        .expand((e) => e)
+        .toSet()
+        .toList()
           ..sort((a, b) => a.name.compareTo(b.name));
+    _reviews = await getCourseReviews();
     _selectedFilter = "ALL";
 
     _hasData = true;

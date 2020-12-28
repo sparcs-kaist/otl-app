@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:timeplanner_mobile/constants/color.dart';
 import 'package:timeplanner_mobile/models/lecture.dart';
 
 class CourseLecturesBlock extends StatelessWidget {
@@ -18,11 +19,11 @@ class CourseLecturesBlock extends StatelessWidget {
         onTap: onTap,
         onLongPress: onLongPress,
         child: Container(
-          color: isSelected ? const Color(0xFFDDDDDD) : null,
+          color: isSelected ? SELECTED_COLOR : null,
           padding: const EdgeInsets.fromLTRB(18, 6, 10, 6),
-          child: RichText(
-            text: TextSpan(
-              style: const TextStyle(color: Colors.black),
+          child: Text.rich(
+            TextSpan(
+              style: const TextStyle(fontSize: 12.0),
               children: <TextSpan>[
                 TextSpan(
                   text: lecture.classTitle,

@@ -26,12 +26,21 @@ dependencies:
   intl: ^0.16.1
   open_file: ^3.0.3
   path_provider: ^1.6.24
+  permission_handler: ^5.0.1+1
   provider: ^4.0.3
   url_launcher: ^5.7.10
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flutter_launcher_icons: ^0.8.1
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/icon-512.png"
+  adaptive_icon_background: "#F9F0F0"
+  adaptive_icon_foreground: "assets/icon-512-foreground.png"
 
 
 # For information on the generic Dart part of this file, see the

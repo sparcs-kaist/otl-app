@@ -1,21 +1,15 @@
-import 'dart:io';
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter/services.dart';
-import 'package:open_file/open_file.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
-import 'package:timeplanner_mobile/backdrop.dart';
 import 'package:timeplanner_mobile/constants/color.dart';
-import 'package:timeplanner_mobile/extensions/semester.dart';
 import 'package:timeplanner_mobile/layers/lecture_detail_layer.dart';
 import 'package:timeplanner_mobile/models/lecture.dart';
 import 'package:timeplanner_mobile/models/semester.dart';
 import 'package:timeplanner_mobile/providers/info_model.dart';
 import 'package:timeplanner_mobile/providers/lecture_detail_model.dart';
 import 'package:timeplanner_mobile/providers/timetable_model.dart';
+import 'package:timeplanner_mobile/utils/export_image.dart';
+import 'package:timeplanner_mobile/widgets/backdrop.dart';
 import 'package:timeplanner_mobile/widgets/lecture_search.dart';
 import 'package:timeplanner_mobile/widgets/semester_picker.dart';
 import 'package:timeplanner_mobile/widgets/timetable.dart';
@@ -29,11 +23,6 @@ class TimetablePage extends StatefulWidget {
 }
 
 class _TimetablePageState extends State<TimetablePage> {
-  static const MethodChannel _channel =
-      const MethodChannel("me.blog.ghwhsbsb123.timeplanner_mobile");
-
-  final _lectureDetailLayer = LectureDetailLayer();
-
   final _selectedKey = GlobalKey();
   final _paintKey = GlobalKey();
 
@@ -71,7 +60,6 @@ class _TimetablePageState extends State<TimetablePage> {
         _buildTimetableTabs(context),
         Expanded(
           child: Card(
-            margin: const EdgeInsets.only(),
             shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.zero,
             ),
@@ -126,10 +114,7 @@ class _TimetablePageState extends State<TimetablePage> {
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                  child: const Divider(
-                    color: DIVIDER_COLOR,
-                    height: 1.0,
-                  ),
+                  child: const Divider(color: DIVIDER_COLOR, height: 1.0),
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(
@@ -207,7 +192,7 @@ class _TimetablePageState extends State<TimetablePage> {
           isTemp: isSelected,
           onTap: () {
             context.read<LectureDetailModel>().loadLecture(lecture);
-            Backdrop.of(context).show(_lectureDetailLayer);
+            Backdrop.of(context).show(LectureDetailLayer());
           },
           onLongPress: isSelected
               ? null
@@ -287,29 +272,10 @@ class _TimetablePageState extends State<TimetablePage> {
           ListTile(
             leading: const Icon(Icons.image),
             title: const Text("이미지 저장"),
-            onTap: () async {
+            onTap: () {
               final boundary = _paintKey.currentContext.findRenderObject()
                   as RenderRepaintBoundary;
-              final image = await boundary.toImage(pixelRatio: 3.0);
-              final byteData =
-                  await image.toByteData(format: ImageByteFormat.png);
-
-              final timetableModel = context.read<TimetableModel>();
-              final fileName =
-                  "${timetableModel.selectedSemester.title.replaceAll(" ", "_")}_${timetableModel.selectedIndex + 1}_${_isExamTime ? "시험" : "수업"}.png";
-
-              if (Platform.isAndroid) {
-                await _channel
-                    .invokeMethod("writeImageAsBytes", <String, dynamic>{
-                  "fileName": fileName,
-                  "bytes": byteData.buffer.asUint8List(),
-                });
-              } else {
-                final directory = await getApplicationDocumentsDirectory();
-                final path = "${directory.path}/$fileName";
-                File(path).writeAsBytesSync(byteData.buffer.asUint8List());
-                OpenFile.open(path);
-              }
+              exportImage(boundary);
               Navigator.pop(context);
             },
           ),

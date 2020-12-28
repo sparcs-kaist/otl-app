@@ -10,7 +10,6 @@ class UserLayer extends StatelessWidget {
     final user = context.select<InfoModel, User>((model) => model.user);
 
     return Card(
-      margin: const EdgeInsets.only(),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(16.0)),
       ),
@@ -20,12 +19,13 @@ class UserLayer extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             _buildTitle("내 정보"),
-            _buildContent(context, "이름", "${user.firstName} ${user.lastName}"),
-            _buildContent(context, "메일", user.email),
+            _buildContent("이름 ", "${user.firstName} ${user.lastName}"),
+            _buildContent("메일 ", user.email),
             const Divider(color: DIVIDER_COLOR),
+            const SizedBox(height: 4.0),
             _buildTitle("학사 정보"),
-            _buildContent(context, "학번", user.studentId),
-            _buildContent(context, "전공",
+            _buildContent("학번 ", user.studentId),
+            _buildContent("전공 ",
                 user.majors.map((department) => department.name).join(", ")),
             const Divider(color: DIVIDER_COLOR),
           ],
@@ -34,16 +34,16 @@ class UserLayer extends StatelessWidget {
     );
   }
 
-  Widget _buildContent(BuildContext context, String name, String value) {
+  Widget _buildContent(String name, String value) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 8.0),
-      child: RichText(
-        text: TextSpan(
-          style: Theme.of(context).textTheme.bodyText2,
+      child: Text.rich(
+        TextSpan(
+          style: const TextStyle(fontSize: 12.0),
           children: <TextSpan>[
             TextSpan(
-              text: "$name ",
-              style: TextStyle(fontWeight: FontWeight.bold),
+              text: name,
+              style: const TextStyle(fontWeight: FontWeight.bold),
             ),
             TextSpan(text: value),
           ],

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:timeplanner_mobile/constants/color.dart';
 import 'package:timeplanner_mobile/models/lecture.dart';
 
 const TYPES = [
@@ -136,26 +137,26 @@ class TimetableSummary extends StatelessWidget {
   Widget _buildScore(String title, String content, bool highlight) {
     return SizedBox(
       width: 32,
-      child: RichText(
-        textAlign: TextAlign.center,
-        text: TextSpan(
+      child: Text.rich(
+        TextSpan(
           style: TextStyle(
             color: highlight
                 ? const Color(0xFFE05469).withOpacity(0.9)
-                : Colors.black87,
-            fontSize: 11.0,
+                : CONTENT_COLOR,
+            fontSize: 10.0,
           ),
           children: <TextSpan>[
             TextSpan(
               text: content,
               style: const TextStyle(
-                fontSize: 24.0,
+                fontSize: 22.0,
                 fontWeight: FontWeight.w300,
               ),
             ),
             TextSpan(text: "\n$title"),
           ],
         ),
+        textAlign: TextAlign.center,
       ),
     );
   }
@@ -164,11 +165,11 @@ class TimetableSummary extends StatelessWidget {
       List<String> titles, List<int> values, List<bool> highlights) {
     return SizedBox(
       width: 48,
-      child: RichText(
-        text: TextSpan(
+      child: Text.rich(
+        TextSpan(
           style: const TextStyle(
             height: 1.5,
-            fontSize: 13.0,
+            fontSize: 12.0,
           ),
           children: <TextSpan>[
             TextSpan(
@@ -176,7 +177,7 @@ class TimetableSummary extends StatelessWidget {
               style: TextStyle(
                   color: highlights[0]
                       ? const Color(0xFFE05469).withOpacity(0.9)
-                      : Colors.black87,
+                      : CONTENT_COLOR,
                   fontWeight: FontWeight.bold),
             ),
             TextSpan(
@@ -184,7 +185,7 @@ class TimetableSummary extends StatelessWidget {
               style: TextStyle(
                 color: highlights[0]
                     ? const Color(0xFFE05469).withOpacity(0.9)
-                    : Colors.black87,
+                    : CONTENT_COLOR,
               ),
             ),
             const TextSpan(text: "\n"),
@@ -193,7 +194,7 @@ class TimetableSummary extends StatelessWidget {
               style: TextStyle(
                   color: highlights[1]
                       ? const Color(0xFFE05469).withOpacity(0.9)
-                      : Colors.black87,
+                      : CONTENT_COLOR,
                   fontWeight: FontWeight.bold),
             ),
             TextSpan(
@@ -201,7 +202,7 @@ class TimetableSummary extends StatelessWidget {
               style: TextStyle(
                 color: highlights[1]
                     ? const Color(0xFFE05469).withOpacity(0.9)
-                    : Colors.black87,
+                    : CONTENT_COLOR,
               ),
             ),
           ],

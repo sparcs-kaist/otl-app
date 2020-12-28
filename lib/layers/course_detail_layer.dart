@@ -7,15 +7,21 @@ import 'package:timeplanner_mobile/models/lecture.dart';
 import 'package:timeplanner_mobile/models/professor.dart';
 import 'package:timeplanner_mobile/providers/course_detail_model.dart';
 import 'package:timeplanner_mobile/providers/info_model.dart';
-import 'package:timeplanner_mobile/widgets/filter.dart';
+import 'package:timeplanner_mobile/widgets/custom_header_delegate.dart';
 import 'package:timeplanner_mobile/widgets/review_block.dart';
 
 class CourseDetailLayer extends StatelessWidget {
+  static CourseDetailLayer instance;
+
+  final _scrollController = ScrollController();
+
+  factory CourseDetailLayer() => instance ??= CourseDetailLayer._internal();
+
+  CourseDetailLayer._internal();
+
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: Colors.white,
-      margin: const EdgeInsets.only(),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(16.0)),
       ),
@@ -56,44 +62,143 @@ class CourseDetailLayer extends StatelessWidget {
     );
   }
 
-  Widget _buildListView(BuildContext context, Course course) {
-    return ListView(
-      children: <Widget>[
-        _buildAttribute(course),
-        _buildScores(course),
-        const Divider(color: DIVIDER_COLOR),
-        Text(
-          "개설 이력",
-          style: const TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 12.0,
-            height: 1.3,
-          ),
+  CustomScrollView _buildListView(BuildContext context, Course course) {
+    return CustomScrollView(
+      controller: _scrollController,
+      slivers: <Widget>[
+        SliverList(
+          delegate: SliverChildListDelegate([
+            _buildAttribute(course),
+            _buildScores(context, course),
+            const Divider(color: DIVIDER_COLOR),
+            _buildProfessors(context, course),
+            const Divider(color: DIVIDER_COLOR),
+            Text(
+              "개설 이력",
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 12.0,
+                height: 1.3,
+              ),
+            ),
+            _buildHistory(context),
+            const Divider(color: DIVIDER_COLOR),
+          ]),
         ),
-        _buildHistory(context),
-        const Divider(color: DIVIDER_COLOR),
-        Text(
-          "과목 후기",
-          style: const TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 12.0,
-            height: 1.3,
-          ),
-        ),
+        _buildReviewHeader(),
         _buildReviews(context, course),
       ],
     );
   }
 
-  Widget _buildScores(Course course) {
+  SliverPersistentHeader _buildReviewHeader() {
+    final headerKey = GlobalKey();
+    return SliverPersistentHeader(
+      pinned: true,
+      delegate: CustomHeaderDelegate(
+        height: 24.0,
+        padding: const EdgeInsets.only(bottom: 4.0),
+        onTap: (shrinkOffset) async {
+          if (shrinkOffset > 0) {
+            _scrollController.animateTo(0,
+                duration: const Duration(milliseconds: 300),
+                curve: Curves.easeInOut);
+          } else {
+            await Scrollable.ensureVisible(headerKey.currentContext,
+                duration: const Duration(milliseconds: 300),
+                curve: Curves.easeInOut);
+            _scrollController.jumpTo(_scrollController.offset + 2);
+          }
+        },
+        builder: (shrinkOffset) => Row(
+          key: headerKey,
+          children: <Widget>[
+            Text(
+              "과목 후기",
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 12.0,
+                height: 1.3,
+              ),
+            ),
+            FittedBox(
+              child: (shrinkOffset > 0)
+                  ? const Icon(Icons.keyboard_arrow_up)
+                  : const Icon(Icons.keyboard_arrow_down),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  ChoiceChip _buildChoiceChip(
+      BuildContext context, String selectedFilter, Professor professor) {
+    return ChoiceChip(
+      label: (professor == null) ? const Text("전체") : Text(professor.name),
+      selected: (professor == null)
+          ? (selectedFilter == "ALL")
+          : (selectedFilter == professor.professorId.toString()),
+      onSelected: (isSelected) {
+        context.read<CourseDetailModel>().setFilter(
+            (professor != null && isSelected)
+                ? professor.professorId.toString()
+                : "ALL");
+      },
+    );
+  }
+
+  Widget _buildProfessors(BuildContext context, Course course) {
+    final courseDetailModel = context.watch<CourseDetailModel>();
+
+    return Row(
+      children: <Widget>[
+        Text(
+          "교수 ",
+          style: const TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 12.0,
+            height: 1.1,
+          ),
+        ),
+        Expanded(
+          child: SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 2.0),
+                  child: _buildChoiceChip(
+                      context, courseDetailModel.selectedFilter, null),
+                ),
+                ...courseDetailModel.professors
+                    .map((professor) => Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 2.0),
+                          child: _buildChoiceChip(context,
+                              courseDetailModel.selectedFilter, professor),
+                        ))
+                    .toList(),
+              ],
+            ),
+          ),
+        )
+      ],
+    );
+  }
+
+  Widget _buildScores(BuildContext context, Course course) {
+    final lecture = context.select<CourseDetailModel, dynamic>(
+            (model) => model.selectedLecture) ??
+        course;
+
     return Padding(
-      padding: const EdgeInsets.fromLTRB(8.0, 10.0, 8.0, 4.0),
+      padding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 4.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
-          _buildStatus("성적", course.gradeLetter),
-          _buildStatus("널널", course.loadLetter),
-          _buildStatus("강의", course.speechLetter),
+          _buildStatus("성적", lecture.gradeLetter),
+          _buildStatus("널널", lecture.loadLetter),
+          _buildStatus("강의", lecture.speechLetter),
         ],
       ),
     );
@@ -153,8 +258,8 @@ class CourseDetailLayer extends StatelessWidget {
 
   Widget _buildHistory(BuildContext context) {
     final years = context.select<InfoModel, Set<int>>((model) => model.years);
-    final lectures = context
-        .select<CourseDetailModel, List<Lecture>>((model) => model.lectures);
+    final courseDetailModel = context.watch<CourseDetailModel>();
+
     return Scrollbar(
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
@@ -162,7 +267,8 @@ class CourseDetailLayer extends StatelessWidget {
         reverse: true,
         child: Column(
           children: <Widget>[
-            _buildHistoryRow(lectures, years, 1),
+            _buildHistoryRow(courseDetailModel.lectures, years, 1,
+                courseDetailModel.selectedFilter),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 6.0),
               child: Row(
@@ -182,15 +288,16 @@ class CourseDetailLayer extends StatelessWidget {
                     .toList(),
               ),
             ),
-            _buildHistoryRow(lectures, years, 3),
+            _buildHistoryRow(courseDetailModel.lectures, years, 3,
+                courseDetailModel.selectedFilter),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildHistoryRow(
-      List<Lecture> lectures, Set<int> years, int semester) {
+  Widget _buildHistoryRow(List<Lecture> lectures, Set<int> years, int semester,
+      String selectedFilter) {
     return IntrinsicHeight(
       child: Row(
         children: years.map(
@@ -219,22 +326,34 @@ class CourseDetailLayer extends StatelessWidget {
                 Container(
                   width: 110.0,
                   margin: const EdgeInsets.symmetric(horizontal: 4.0),
-                  padding: const EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 2.0),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(4.0),
-                    color: BLOCK_COLOR,
-                  ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: ListTile.divideTiles(
                       color: BORDER_BOLD_COLOR,
-                      tiles: currentLectures.map((lecture) => Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 4.0),
-                            child: RichText(
-                              text: TextSpan(
+                      tiles: currentLectures.map((lecture) => Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.vertical(
+                                top: (currentLectures.first == lecture)
+                                    ? const Radius.circular(4.0)
+                                    : Radius.zero,
+                                bottom: (currentLectures.last == lecture)
+                                    ? const Radius.circular(4.0)
+                                    : Radius.zero,
+                              ),
+                              color: (lecture.professors.any((professor) =>
+                                      professor.professorId.toString() ==
+                                      selectedFilter))
+                                  ? SELECTED_COLOR
+                                  : BLOCK_COLOR,
+                            ),
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 10.0,
+                              vertical: 4.0,
+                            ),
+                            child: Text.rich(
+                              TextSpan(
                                 style: const TextStyle(
-                                  color: Colors.black87,
-                                  fontSize: 13.0,
+                                  fontSize: 12.0,
                                   height: 1.3,
                                 ),
                                 children: <TextSpan>[
@@ -263,33 +382,11 @@ class CourseDetailLayer extends StatelessWidget {
   }
 
   Widget _buildReviews(BuildContext context, Course course) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(bottom: 8.0),
-            child: Filter(
-              property: "교수",
-              items: {
-                "ALL": "전체",
-                for (final professor
-                    in context.select<CourseDetailModel, List<Professor>>(
-                        (model) => model.reviewProfessors))
-                  professor.professorId.toString(): professor.name
-              },
-              onChanged: (value) {
-                context.read<CourseDetailModel>().setFilter(value);
-              },
-            ),
-          ),
-          ...context.select<CourseDetailModel, List<Widget>>((model) => model
-              .reviews
+    return SliverList(
+      delegate: SliverChildListDelegate(context
+          .select<CourseDetailModel, List<Widget>>((model) => model.reviews
               .map((review) => ReviewBlock(review: review))
-              .toList()),
-        ],
-      ),
+              .toList())),
     );
   }
 

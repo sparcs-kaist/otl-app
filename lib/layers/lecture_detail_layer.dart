@@ -1,20 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_web_browser/flutter_web_browser.dart';
 import 'package:provider/provider.dart';
-import 'package:timeplanner_mobile/backdrop.dart';
 import 'package:timeplanner_mobile/constants/color.dart';
 import 'package:timeplanner_mobile/layers/course_detail_layer.dart';
 import 'package:timeplanner_mobile/models/lecture.dart';
-import 'package:timeplanner_mobile/models/review.dart';
 import 'package:timeplanner_mobile/providers/course_detail_model.dart';
 import 'package:timeplanner_mobile/providers/lecture_detail_model.dart';
 import 'package:timeplanner_mobile/providers/timetable_model.dart';
+import 'package:timeplanner_mobile/widgets/backdrop.dart';
 import 'package:timeplanner_mobile/widgets/custom_header_delegate.dart';
 import 'package:timeplanner_mobile/widgets/review_block.dart';
 
 class LectureDetailLayer extends StatelessWidget {
-  final _courseDetailLayer = CourseDetailLayer();
+  static LectureDetailLayer instance;
+
   final _scrollController = ScrollController();
+
+  factory LectureDetailLayer() => instance ??= LectureDetailLayer._internal();
+
+  LectureDetailLayer._internal();
 
   String _getSyllabusUrl(Lecture lecture) {
     return Uri.https("cais.kaist.ac.kr", "/syllabusInfo", {
@@ -29,8 +33,6 @@ class LectureDetailLayer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: Colors.white,
-      margin: const EdgeInsets.only(),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(16.0)),
       ),
@@ -152,7 +154,7 @@ class LectureDetailLayer extends StatelessWidget {
             context
                 .read<CourseDetailModel>()
                 .loadCourse(context.read<LectureDetailModel>().course);
-            Backdrop.of(context).show(_courseDetailLayer);
+            Backdrop.of(context).show(CourseDetailLayer());
           },
           child: const Text(
             "과목사전",
@@ -209,37 +211,38 @@ class LectureDetailLayer extends StatelessWidget {
   }
 
   SliverPersistentHeader _buildReviewHeader() {
-    final key = GlobalKey();
+    final headerKey = GlobalKey();
     return SliverPersistentHeader(
-      key: key,
       pinned: true,
       delegate: CustomHeaderDelegate(
-        height: 25.0,
-        padding: const EdgeInsets.only(bottom: 6.0),
+        height: 24.0,
+        padding: const EdgeInsets.only(bottom: 4.0),
         onTap: (shrinkOffset) async {
           if (shrinkOffset > 0) {
-            _scrollController.jumpTo(0);
+            _scrollController.animateTo(0,
+                duration: const Duration(milliseconds: 300),
+                curve: Curves.easeInOut);
           } else {
-            await Scrollable.ensureVisible(key.currentContext);
-            _scrollController.jumpTo(_scrollController.offset + 1);
+            await Scrollable.ensureVisible(headerKey.currentContext,
+                duration: const Duration(milliseconds: 300),
+                curve: Curves.easeInOut);
+            _scrollController.jumpTo(_scrollController.offset + 2);
           }
         },
         builder: (shrinkOffset) => Row(
+          key: headerKey,
           children: <Widget>[
-            RichText(
-              text: TextSpan(
-                text: "과목 후기",
-                style: const TextStyle(
-                  color: Colors.black87,
-                  fontSize: 13.0,
-                  fontWeight: FontWeight.bold,
-                ),
+            Text(
+              "과목 후기",
+              style: const TextStyle(
+                fontSize: 12.0,
+                fontWeight: FontWeight.bold,
               ),
             ),
             FittedBox(
-              child: Icon(shrinkOffset > 0
-                  ? Icons.keyboard_arrow_up
-                  : Icons.keyboard_arrow_down),
+              child: (shrinkOffset > 0)
+                  ? const Icon(Icons.keyboard_arrow_up)
+                  : const Icon(Icons.keyboard_arrow_down),
             ),
           ],
         ),
@@ -250,14 +253,14 @@ class LectureDetailLayer extends StatelessWidget {
   SliverList _buildReviews(BuildContext context) {
     return SliverList(
       delegate: SliverChildListDelegate(context
-          .select<LectureDetailModel, List<Review>>((model) => model.reviews)
-          .map((review) => ReviewBlock(
-                review: review,
-                maxLines: 3,
-                overflow: TextOverflow.ellipsis,
-                isSimple: true,
-              ))
-          .toList()),
+          .select<LectureDetailModel, List<Widget>>((model) => model.reviews
+              .map((review) => ReviewBlock(
+                    review: review,
+                    maxLines: 3,
+                    overflow: TextOverflow.ellipsis,
+                    isSimple: true,
+                  ))
+              .toList())),
     );
   }
 
@@ -293,13 +296,12 @@ class LectureDetailLayer extends StatelessWidget {
     );
   }
 
-  RichText _buildAttribute(Lecture lecture) {
-    return RichText(
-      text: TextSpan(
+  Widget _buildAttribute(Lecture lecture) {
+    return Text.rich(
+      TextSpan(
         style: const TextStyle(
-          color: Colors.black87,
           height: 1.5,
-          fontSize: 13.0,
+          fontSize: 12.0,
         ),
         children: <TextSpan>[
           TextSpan(

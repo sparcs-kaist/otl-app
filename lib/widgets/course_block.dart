@@ -29,12 +29,9 @@ class CourseBlock extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
-                RichText(
-                  text: TextSpan(
-                    style: const TextStyle(
-                      color: Colors.black87,
-                      fontSize: 13.0,
-                    ),
+                Text.rich(
+                  TextSpan(
+                    style: const TextStyle(fontSize: 12.0),
                     children: <TextSpan>[
                       TextSpan(
                         text: course.title,

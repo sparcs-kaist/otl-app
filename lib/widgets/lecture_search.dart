@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:timeplanner_mobile/backdrop.dart';
 import 'package:timeplanner_mobile/constants/color.dart';
 import 'package:timeplanner_mobile/layers/lecture_detail_layer.dart';
 import 'package:timeplanner_mobile/models/lecture.dart';
 import 'package:timeplanner_mobile/providers/lecture_detail_model.dart';
 import 'package:timeplanner_mobile/providers/search_model.dart';
 import 'package:timeplanner_mobile/providers/timetable_model.dart';
+import 'package:timeplanner_mobile/widgets/backdrop.dart';
 import 'package:timeplanner_mobile/widgets/course_lectures_block.dart';
 import 'package:timeplanner_mobile/widgets/filter.dart';
 
@@ -67,7 +67,6 @@ class LectureSearch extends StatefulWidget {
 }
 
 class _LectureSearchState extends State<LectureSearch> {
-  final _lectureDetailLayer = LectureDetailLayer();
   final _searchTextController = TextEditingController();
 
   FocusNode _focusNode;
@@ -92,7 +91,6 @@ class _LectureSearchState extends State<LectureSearch> {
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: const EdgeInsets.only(),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.zero,
       ),
@@ -120,14 +118,7 @@ class _LectureSearchState extends State<LectureSearch> {
                   },
                   style: const TextStyle(fontSize: 14.0),
                   decoration: const InputDecoration(
-                    border: InputBorder.none,
-                    contentPadding: EdgeInsets.only(),
-                    isDense: true,
                     hintText: "검색",
-                    hintStyle: TextStyle(
-                      color: PRIMARY_COLOR,
-                      fontSize: 14.0,
-                    ),
                     icon: Icon(
                       Icons.search,
                       color: PRIMARY_COLOR,
@@ -198,7 +189,7 @@ class _LectureSearchState extends State<LectureSearch> {
           ),
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
-            padding: const EdgeInsets.fromLTRB(12.0, 0.0, 12.0, 12.0),
+            padding: const EdgeInsets.fromLTRB(12.0, 0.0, 12.0, 8.0),
             child: Row(
               children: <Widget>[
                 Filter(
@@ -256,7 +247,7 @@ class _LectureSearchState extends State<LectureSearch> {
   Widget _buildCourse(BuildContext context, List<Lecture> course) {
     return Container(
       margin: const EdgeInsets.only(bottom: 6.0),
-      padding: const EdgeInsets.only(top: 8.0, bottom: 2.0),
+      padding: const EdgeInsets.only(top: 8.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(4.0),
         color: BLOCK_COLOR,
@@ -268,10 +259,10 @@ class _LectureSearchState extends State<LectureSearch> {
           color: BORDER_BOLD_COLOR,
           tiles: <Widget>[
             Padding(
-              padding: const EdgeInsets.fromLTRB(10, 0, 10, 6),
-              child: RichText(
-                text: TextSpan(
-                  style: const TextStyle(color: Colors.black87),
+              padding: const EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 6.0),
+              child: Text.rich(
+                TextSpan(
+                  style: const TextStyle(fontSize: 12.0),
                   children: <TextSpan>[
                     TextSpan(
                       text: course.first.commonTitle,
@@ -295,7 +286,7 @@ class _LectureSearchState extends State<LectureSearch> {
                   },
                   onLongPress: () {
                     context.read<LectureDetailModel>().loadLecture(lecture);
-                    Backdrop.of(context).show(_lectureDetailLayer);
+                    Backdrop.of(context).show(LectureDetailLayer());
                   },
                 )),
           ],

@@ -18,7 +18,8 @@ class SearchModel extends ChangeNotifier {
   Future<void> courseSearch(String keyword,
       {String department = "ALL",
       String type = "ALL",
-      String grade = "ALL"}) async {
+      String grade = "ALL",
+      String term = "ALL"}) async {
     _isSearching = true;
     notifyListeners();
 
@@ -29,6 +30,7 @@ class SearchModel extends ChangeNotifier {
         "department": department,
         "type": type,
         "grade": grade,
+        "term": term,
       });
 
       final rawCourses = response.data as List;

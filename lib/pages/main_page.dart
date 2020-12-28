@@ -32,13 +32,11 @@ class MainPage extends StatelessWidget {
     }
 
     return Card(
-      color: Colors.white,
-      margin: const EdgeInsets.only(),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(16.0)),
       ),
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 8.0),
+        padding: const EdgeInsets.symmetric(vertical: 4.0),
         child: Column(
           children: <Widget>[
             FutureBuilder<Response>(
@@ -72,10 +70,7 @@ class MainPage extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
-              child: const Divider(
-                color: DIVIDER_COLOR,
-                height: 1.0,
-              ),
+              child: const Divider(color: DIVIDER_COLOR, height: 1.0),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(
@@ -86,19 +81,15 @@ class MainPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
                   const SizedBox(height: 4.0),
-                  RichText(
-                    textAlign: TextAlign.center,
-                    text: TextSpan(
-                      style: const TextStyle(
-                        color: Colors.black87,
-                        fontSize: 13.0,
-                      ),
+                  Text.rich(
+                    TextSpan(
+                      style: const TextStyle(fontSize: 12.0),
                       children: <TextSpan>[
                         TextSpan(
                           text: infoModel.currentSchedule == null
                               ? "정보 없음"
                               : "D-$days일 $hours시간 $minutes분",
-                          style: const TextStyle(fontSize: 20.0),
+                          style: const TextStyle(fontSize: 18.0),
                         ),
                         const TextSpan(text: "\n"),
                         TextSpan(
@@ -126,8 +117,9 @@ class MainPage extends StatelessWidget {
                         ),
                       ],
                     ),
+                    textAlign: TextAlign.center,
                   ),
-                  const SizedBox(height: 8.0),
+                  const SizedBox(height: 4.0),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: <Widget>[
@@ -135,9 +127,9 @@ class MainPage extends StatelessWidget {
                         onTap: () {
                           launch("https://cais.kaist.ac.kr");
                         },
-                        child: const Text(
+                        child: Text(
                           "학사시스템 바로가기",
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: PRIMARY_COLOR,
                             fontSize: 11.0,
                           ),
@@ -150,10 +142,7 @@ class MainPage extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
-              child: const Divider(
-                color: DIVIDER_COLOR,
-                height: 1.0,
-              ),
+              child: const Divider(color: DIVIDER_COLOR, height: 1.0),
             ),
           ],
         ),

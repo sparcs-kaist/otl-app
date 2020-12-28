@@ -10,6 +10,7 @@ import 'package:timeplanner_mobile/providers/lecture_detail_model.dart';
 import 'package:timeplanner_mobile/providers/review_model.dart';
 import 'package:timeplanner_mobile/providers/search_model.dart';
 import 'package:timeplanner_mobile/providers/timetable_model.dart';
+import 'package:timeplanner_mobile/utils/create_material_color.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -44,7 +45,7 @@ class TimeplannerApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: "Timeplanner Mobile",
+      title: "OTL",
       theme: _buildTheme(),
       home: context.select<InfoModel, bool>((model) => model.hasData)
           ? TimeplannerHome()
@@ -52,39 +53,42 @@ class TimeplannerApp extends StatelessWidget {
     );
   }
 
-  MaterialColor createMaterialColor(Color color) {
-    List strengths = <double>[.05];
-    Map swatch = <int, Color>{};
-    final int r = color.red, g = color.green, b = color.blue;
-
-    for (int i = 1; i < 10; i++) {
-      strengths.add(0.1 * i);
-    }
-    strengths.forEach((strength) {
-      final double ds = 0.5 - strength;
-      swatch[(strength * 1000).round()] = Color.fromRGBO(
-        r + ((ds < 0 ? r : (255 - r)) * ds).round(),
-        g + ((ds < 0 ? g : (255 - g)) * ds).round(),
-        b + ((ds < 0 ? b : (255 - b)) * ds).round(),
-        1,
-      );
-    });
-    return MaterialColor(color.value, swatch);
-  }
-
   ThemeData _buildTheme() {
     final base = ThemeData(
       primarySwatch: createMaterialColor(PRIMARY_COLOR),
-      canvasColor: BACKGROUND_COLOR,
-    );
-
-    return base.copyWith(
       appBarTheme: const AppBarTheme(
         color: BACKGROUND_COLOR,
         elevation: 0.0,
       ),
+      canvasColor: Colors.white,
       iconTheme: const IconThemeData(color: CONTENT_COLOR),
+      inputDecorationTheme: const InputDecorationTheme(
+        border: InputBorder.none,
+        contentPadding: EdgeInsets.only(),
+        isDense: true,
+        hintStyle: TextStyle(
+          color: PRIMARY_COLOR,
+          fontSize: 14.0,
+        ),
+      ),
       primaryIconTheme: const IconThemeData(color: CONTENT_COLOR),
+    );
+
+    return base.copyWith(
+      cardTheme: base.cardTheme.copyWith(margin: const EdgeInsets.only()),
+      chipTheme: base.chipTheme.copyWith(
+        backgroundColor: BLOCK_COLOR,
+        pressElevation: 0.0,
+        secondarySelectedColor: SELECTED_COLOR,
+        labelStyle: const TextStyle(
+          color: CONTENT_COLOR,
+          fontSize: 12.0,
+        ),
+        secondaryLabelStyle: const TextStyle(
+          color: CONTENT_COLOR,
+          fontSize: 12.0,
+        ),
+      ),
       textTheme: base.textTheme.apply(
         bodyColor: CONTENT_COLOR,
         displayColor: CONTENT_COLOR,

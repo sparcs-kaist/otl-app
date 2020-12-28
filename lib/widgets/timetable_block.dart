@@ -15,7 +15,7 @@ class TimetableBlock extends StatelessWidget {
   TimetableBlock(
       {Key key,
       @required this.lecture,
-      this.fontSize = 10.0,
+      this.fontSize = 9.0,
       this.onTap,
       this.onLongPress,
       this.isTemp = false,
@@ -32,7 +32,7 @@ class TimetableBlock extends StatelessWidget {
       contents.add(TextSpan(
         text: lecture.title,
         style: TextStyle(
-          color: Colors.black87,
+          color: CONTENT_COLOR,
           fontSize: fontSize,
         ),
       ));
@@ -65,8 +65,8 @@ class TimetableBlock extends StatelessWidget {
           onLongPress: onLongPress,
           child: Padding(
             padding: const EdgeInsets.all(4.0),
-            child: RichText(
-              text: TextSpan(
+            child: Text.rich(
+              TextSpan(
                 style: TextStyle(
                   color: Colors.black54,
                   fontSize: fontSize - 1,

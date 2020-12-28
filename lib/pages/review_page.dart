@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:timeplanner_mobile/constants/url.dart';
+import 'package:timeplanner_mobile/dio_provider.dart';
+import 'package:timeplanner_mobile/layers/course_detail_layer.dart';
+import 'package:timeplanner_mobile/models/course.dart';
+import 'package:timeplanner_mobile/providers/course_detail_model.dart';
 import 'package:timeplanner_mobile/providers/review_model.dart';
+import 'package:timeplanner_mobile/widgets/backdrop.dart';
 import 'package:timeplanner_mobile/widgets/review_block.dart';
 
 class ReviewPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: const EdgeInsets.only(),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(16.0)),
       ),
@@ -33,7 +38,7 @@ class ReviewPage extends StatelessWidget {
                   fontSize: 14.0,
                 ),
               ),
-              const SizedBox(height: 10.0),
+              const SizedBox(height: 8.0),
               Expanded(
                 child: RefreshIndicator(
                   onRefresh: () async {
@@ -43,7 +48,22 @@ class ReviewPage extends StatelessWidget {
                     child: ListView(
                       children: context.select<ReviewModel, List<Widget>>(
                           (model) => model.reviews
-                              .map((review) => ReviewBlock(review: review))
+                              .map((review) => ReviewBlock(
+                                    review: review,
+                                    onTap: () async {
+                                      final response = await DioProvider()
+                                          .dio
+                                          .get(API_COURSE_URL +
+                                              "/" +
+                                              review.course.id.toString());
+                                      context
+                                          .read<CourseDetailModel>()
+                                          .loadCourse(
+                                              Course.fromJson(response.data));
+                                      Backdrop.of(context)
+                                          .show(CourseDetailLayer());
+                                    },
+                                  ))
                               .toList()),
                     ),
                   ),

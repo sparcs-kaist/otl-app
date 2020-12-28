@@ -51,6 +51,11 @@ final grades = {
   "ETC": "기타",
 };
 
+final terms = {
+  "ALL": "전체",
+  "3": "3년 이내",
+};
+
 class CourseSearch extends StatefulWidget {
   final void Function(Course) onCourseTap;
 
@@ -67,6 +72,7 @@ class _CourseSearchState extends State<CourseSearch> {
   String _department = departments.keys.first;
   String _type = types.keys.first;
   String _grade = grades.keys.first;
+  String _term = terms.keys.first;
 
   @override
   void initState() {
@@ -93,19 +99,15 @@ class _CourseSearchState extends State<CourseSearch> {
             focusNode: _focusNode,
             onSubmitted: (value) {
               context.read<SearchModel>().courseSearch(value,
-                  department: _department, type: _type, grade: _grade);
+                  department: _department,
+                  type: _type,
+                  grade: _grade,
+                  term: _term);
               _searchTextController.clear();
             },
             style: const TextStyle(fontSize: 14.0),
             decoration: const InputDecoration(
-              border: InputBorder.none,
-              contentPadding: EdgeInsets.only(),
-              isDense: true,
               hintText: "검색",
-              hintStyle: TextStyle(
-                color: PRIMARY_COLOR,
-                fontSize: 14.0,
-              ),
               icon: Icon(
                 Icons.search,
                 color: PRIMARY_COLOR,
@@ -115,7 +117,7 @@ class _CourseSearchState extends State<CourseSearch> {
         ),
         SingleChildScrollView(
           scrollDirection: Axis.horizontal,
-          padding: const EdgeInsets.fromLTRB(12.0, 0.0, 12.0, 12.0),
+          padding: const EdgeInsets.fromLTRB(12.0, 0.0, 12.0, 8.0),
           child: Row(
             children: <Widget>[
               Filter(
@@ -141,6 +143,15 @@ class _CourseSearchState extends State<CourseSearch> {
                 items: grades,
                 onChanged: (value) {
                   _grade = value;
+                  _focusNode.requestFocus();
+                },
+              ),
+              const SizedBox(width: 6.0),
+              Filter(
+                property: "기간",
+                items: terms,
+                onChanged: (value) {
+                  _term = value;
                   _focusNode.requestFocus();
                 },
               ),

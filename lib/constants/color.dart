@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 const PRIMARY_COLOR = Color(0xFFE54C65);
 const BACKGROUND_COLOR = Color(0xFFF9F0F0);
 const BLOCK_COLOR = Color(0xFFEEEEEE);
+const SELECTED_COLOR = Color(0xFFDDDDDD);
 const CONTENT_COLOR = Color(0xFF333333);
 const DIVIDER_COLOR = Color(0xFFEDD1DC);
 const BORDER_COLOR = Color(0xFFE8E8E8);
