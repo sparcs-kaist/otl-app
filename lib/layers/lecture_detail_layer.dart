@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_web_browser/flutter_web_browser.dart';
 import 'package:provider/provider.dart';
 import 'package:timeplanner_mobile/constants/color.dart';
-import 'package:timeplanner_mobile/layers/course_detail_layer.dart';
 import 'package:timeplanner_mobile/models/lecture.dart';
 import 'package:timeplanner_mobile/providers/course_detail_model.dart';
 import 'package:timeplanner_mobile/providers/lecture_detail_model.dart';
@@ -12,13 +11,7 @@ import 'package:timeplanner_mobile/widgets/custom_header_delegate.dart';
 import 'package:timeplanner_mobile/widgets/review_block.dart';
 
 class LectureDetailLayer extends StatelessWidget {
-  static LectureDetailLayer instance;
-
   final _scrollController = ScrollController();
-
-  factory LectureDetailLayer() => instance ??= LectureDetailLayer._internal();
-
-  LectureDetailLayer._internal();
 
   String _getSyllabusUrl(Lecture lecture) {
     return Uri.https("cais.kaist.ac.kr", "/syllabusInfo", {
@@ -33,7 +26,7 @@ class LectureDetailLayer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      shape: RoundedRectangleBorder(
+      shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(16.0)),
       ),
       child: context.select<LectureDetailModel, bool>((model) => model.hasData)
@@ -154,7 +147,7 @@ class LectureDetailLayer extends StatelessWidget {
             context
                 .read<CourseDetailModel>()
                 .loadCourse(context.read<LectureDetailModel>().course);
-            Backdrop.of(context).show(CourseDetailLayer());
+            Backdrop.of(context).show(1);
           },
           child: const Text(
             "과목사전",

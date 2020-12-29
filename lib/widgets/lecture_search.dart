@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:timeplanner_mobile/constants/color.dart';
-import 'package:timeplanner_mobile/layers/lecture_detail_layer.dart';
 import 'package:timeplanner_mobile/models/lecture.dart';
 import 'package:timeplanner_mobile/providers/lecture_detail_model.dart';
 import 'package:timeplanner_mobile/providers/search_model.dart';
 import 'package:timeplanner_mobile/providers/timetable_model.dart';
 import 'package:timeplanner_mobile/widgets/backdrop.dart';
-import 'package:timeplanner_mobile/widgets/course_lectures_block.dart';
-import 'package:timeplanner_mobile/widgets/filter.dart';
+import 'package:timeplanner_mobile/widgets/lecture_group_block.dart';
+import 'package:timeplanner_mobile/widgets/search_filter.dart';
 
 final departments = {
   "ALL": "전체",
@@ -71,9 +70,9 @@ class _LectureSearchState extends State<LectureSearch> {
 
   FocusNode _focusNode;
   Lecture _selectedLecture;
-  String _department = departments.keys.first;
-  String _type = types.keys.first;
-  String _grade = grades.keys.first;
+  List<String> _department = [departments.keys.first];
+  List<String> _type = [types.keys.first];
+  List<String> _grade = [grades.keys.first];
 
   @override
   void initState() {
@@ -90,8 +89,10 @@ class _LectureSearchState extends State<LectureSearch> {
 
   @override
   Widget build(BuildContext context) {
+    final searchModel = context.watch<SearchModel>();
+
     return Card(
-      shape: RoundedRectangleBorder(
+      shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.zero,
       ),
       child: Column(
@@ -130,56 +131,10 @@ class _LectureSearchState extends State<LectureSearch> {
                 icon: const Icon(Icons.add),
                 onPressed: (_selectedLecture == null ||
                         context.select<TimetableModel, bool>((model) =>
-                            model.currentTimetable.lectures
-                                .where((lecture) =>
-                                    lecture.oldCode == _selectedLecture.oldCode)
-                                .length >
-                            0))
+                            model.currentTimetable.lectures.any((lecture) =>
+                                lecture.oldCode == _selectedLecture.oldCode)))
                     ? null
-                    : () async {
-                        bool result = await context
-                            .read<TimetableModel>()
-                            .updateTimetable(
-                              lecture: _selectedLecture,
-                              onOverlap: (lectures) async {
-                                bool result = false;
-
-                                await showDialog(
-                                  context: context,
-                                  barrierDismissible: false,
-                                  builder: (context) => AlertDialog(
-                                    title: const Text("수업 추가"),
-                                    content: const Text(
-                                        "시간이 겹치는 수업이 있습니다. 추가하시면 해당 수업은 삭제됩니다.\n시간표에 추가하시겠습니까?"),
-                                    actions: [
-                                      TextButton(
-                                        child: const Text("취소"),
-                                        onPressed: () {
-                                          result = false;
-                                          Navigator.pop(context);
-                                        },
-                                      ),
-                                      TextButton(
-                                        child: const Text("추가하기"),
-                                        onPressed: () {
-                                          result = true;
-                                          Navigator.pop(context);
-                                        },
-                                      ),
-                                    ],
-                                  ),
-                                );
-
-                                return result;
-                              },
-                            );
-
-                        if (result) {
-                          setState(() {
-                            widget.onAdded();
-                          });
-                        }
-                      },
+                    : _addLecture,
               ),
               IconButton(
                 icon: const Icon(Icons.close),
@@ -192,27 +147,30 @@ class _LectureSearchState extends State<LectureSearch> {
             padding: const EdgeInsets.fromLTRB(12.0, 0.0, 12.0, 8.0),
             child: Row(
               children: <Widget>[
-                Filter(
+                SearchFilter(
                   property: "학과",
                   items: departments,
+                  isMultiSelect: true,
                   onChanged: (value) {
                     _department = value;
                     _focusNode.requestFocus();
                   },
                 ),
                 const SizedBox(width: 6.0),
-                Filter(
+                SearchFilter(
                   property: "구분",
                   items: types,
+                  isMultiSelect: true,
                   onChanged: (value) {
                     _type = value;
                     _focusNode.requestFocus();
                   },
                 ),
                 const SizedBox(width: 6.0),
-                Filter(
+                SearchFilter(
                   property: "학년",
                   items: grades,
+                  isMultiSelect: true,
                   onChanged: (value) {
                     _grade = value;
                     _focusNode.requestFocus();
@@ -222,20 +180,14 @@ class _LectureSearchState extends State<LectureSearch> {
             ),
           ),
           Expanded(
-            child: context
-                    .select<SearchModel, bool>((model) => model.isSearching)
+            child: searchModel.isSearching
                 ? Center(
                     child: const CircularProgressIndicator(),
                   )
                 : Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 12.0),
                     child: Scrollbar(
-                      child: ListView(
-                        children: context.select<SearchModel, List<Widget>>(
-                            (model) => model.lectures
-                                .map((course) => _buildCourse(context, course))
-                                .toList()),
-                      ),
+                      child: _buildListView(searchModel.lectures),
                     ),
                   ),
           ),
@@ -244,53 +196,65 @@ class _LectureSearchState extends State<LectureSearch> {
     );
   }
 
-  Widget _buildCourse(BuildContext context, List<Lecture> course) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 6.0),
-      padding: const EdgeInsets.only(top: 8.0),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(4.0),
-        color: BLOCK_COLOR,
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: ListTile.divideTiles(
-          context: context,
-          color: BORDER_BOLD_COLOR,
-          tiles: <Widget>[
-            Padding(
-              padding: const EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 6.0),
-              child: Text.rich(
-                TextSpan(
-                  style: const TextStyle(fontSize: 12.0),
-                  children: <TextSpan>[
-                    TextSpan(
-                      text: course.first.commonTitle,
-                      style: const TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    const TextSpan(text: " "),
-                    TextSpan(text: course.first.oldCode),
-                  ],
-                ),
+  Future<void> _addLecture() async {
+    bool result = await context.read<TimetableModel>().updateTimetable(
+          lecture: _selectedLecture,
+          onOverlap: (lectures) async {
+            bool result = false;
+
+            await showDialog(
+              context: context,
+              barrierDismissible: false,
+              builder: (context) => AlertDialog(
+                title: const Text("수업 추가"),
+                content: const Text(
+                    "시간이 겹치는 수업이 있습니다. 추가하시면 해당 수업은 삭제됩니다.\n시간표에 추가하시겠습니까?"),
+                actions: [
+                  TextButton(
+                    child: const Text("취소"),
+                    onPressed: () {
+                      result = false;
+                      Navigator.pop(context);
+                    },
+                  ),
+                  TextButton(
+                    child: const Text("추가하기"),
+                    onPressed: () {
+                      result = true;
+                      Navigator.pop(context);
+                    },
+                  ),
+                ],
               ),
-            ),
-            ...course.map((lecture) => CourseLecturesBlock(
-                  lecture: lecture,
-                  isSelected: _selectedLecture == lecture,
-                  onTap: () {
-                    setState(() {
-                      _selectedLecture =
-                          (_selectedLecture == lecture) ? null : lecture;
-                      widget.onSelectionChanged(_selectedLecture);
-                    });
-                  },
-                  onLongPress: () {
-                    context.read<LectureDetailModel>().loadLecture(lecture);
-                    Backdrop.of(context).show(LectureDetailLayer());
-                  },
-                )),
-          ],
-        ).toList(),
+            );
+
+            return result;
+          },
+        );
+
+    if (result) {
+      setState(() {
+        widget.onAdded();
+      });
+    }
+  }
+
+  ListView _buildListView(List<List<Lecture>> lectures) {
+    return ListView.builder(
+      itemCount: lectures.length,
+      itemBuilder: (context, index) => LectureGroupBlock(
+        lectures: lectures[index],
+        selectedLecture: _selectedLecture,
+        onTap: (lecture) {
+          setState(() {
+            _selectedLecture = (_selectedLecture == lecture) ? null : lecture;
+            widget.onSelectionChanged(_selectedLecture);
+          });
+        },
+        onLongPress: (lecture) {
+          context.read<LectureDetailModel>().loadLecture(lecture);
+          Backdrop.of(context).show(2);
+        },
       ),
     );
   }

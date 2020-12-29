@@ -16,25 +16,81 @@ class SearchModel extends ChangeNotifier {
   bool get isSearching => _isSearching;
 
   Future<void> courseSearch(String keyword,
-      {String department = "ALL",
-      String type = "ALL",
-      String grade = "ALL",
-      String term = "ALL"}) async {
+      {List<String> department,
+      List<String> type,
+      List<String> grade,
+      String order = "DEF",
+      String term = "ALL",
+      double tune = 3}) async {
     _isSearching = true;
     notifyListeners();
 
     try {
-      final response =
-          await DioProvider().dio.get(API_COURSE_URL, queryParameters: {
-        "keyword": keyword,
-        "department": department,
-        "type": type,
-        "grade": grade,
-        "term": term,
-      });
+      final response = await DioProvider()
+          .dio
+          .getUri(Uri(path: API_COURSE_URL, queryParameters: {
+            "keyword": keyword,
+            "department": department,
+            "type": type,
+            "grade": grade,
+            "term": term,
+          }));
 
       final rawCourses = response.data as List;
       _courses = rawCourses.map((course) => Course.fromJson(course)).toList();
+
+      switch (order) {
+        case "RAT":
+          final avgRatings = _courses.fold<double>(
+                  0, (acc, val) => acc + val.grade + val.load + val.speech) /
+              _courses.length;
+          _courses.sort((a, b) {
+            final aRating = ((a.grade + a.load + a.speech) * a.reviewNum +
+                    avgRatings * tune) /
+                (a.reviewNum + tune);
+            final bRating = ((b.grade + b.load + b.speech) * b.reviewNum +
+                    avgRatings * tune) /
+                (b.reviewNum + tune);
+            return bRating.compareTo(aRating);
+          });
+          break;
+        case "GRA":
+          final avgRatings =
+              _courses.fold<double>(0, (acc, val) => acc + val.grade) /
+                  _courses.length;
+          _courses.sort((a, b) {
+            final aRating = (a.grade * a.reviewNum + avgRatings * tune) /
+                (a.reviewNum + tune);
+            final bRating = (b.grade * b.reviewNum + avgRatings * tune) /
+                (b.reviewNum + tune);
+            return bRating.compareTo(aRating);
+          });
+          break;
+        case "LOA":
+          final avgRatings =
+              _courses.fold<double>(0, (acc, val) => acc + val.load) /
+                  _courses.length;
+          _courses.sort((a, b) {
+            final aRating = (a.load * a.reviewNum + avgRatings * tune) /
+                (a.reviewNum + tune);
+            final bRating = (b.load * b.reviewNum + avgRatings * tune) /
+                (b.reviewNum + tune);
+            return bRating.compareTo(aRating);
+          });
+          break;
+        case "SPE":
+          final avgRatings =
+              _courses.fold<double>(0, (acc, val) => acc + val.speech) /
+                  _courses.length;
+          _courses.sort((a, b) {
+            final aRating = (a.speech * a.reviewNum + avgRatings * tune) /
+                (a.reviewNum + tune);
+            final bRating = (b.speech * b.reviewNum + avgRatings * tune) /
+                (b.reviewNum + tune);
+            return bRating.compareTo(aRating);
+          });
+          break;
+      }
     } catch (exception) {
       print(exception);
     }
@@ -44,22 +100,21 @@ class SearchModel extends ChangeNotifier {
   }
 
   Future<void> lectureSearch(Semester semester, String keyword,
-      {String department = "ALL",
-      String type = "ALL",
-      String grade = "ALL"}) async {
+      {List<String> department, List<String> type, List<String> grade}) async {
     _isSearching = true;
     notifyListeners();
 
     try {
-      final response =
-          await DioProvider().dio.get(API_LECTURE_URL, queryParameters: {
-        "year": semester.year,
-        "semester": semester.semester,
-        "keyword": keyword,
-        "department": department,
-        "type": type,
-        "grade": grade,
-      });
+      final response = await DioProvider()
+          .dio
+          .getUri(Uri(path: API_LECTURE_URL, queryParameters: {
+            "year": semester.year.toString(),
+            "semester": semester.semester.toString(),
+            "keyword": keyword,
+            "department": department,
+            "type": type,
+            "grade": grade,
+          }));
 
       final rawLectures = response.data as List;
       final lectures = rawLectures.map((lecture) => Lecture.fromJson(lecture));

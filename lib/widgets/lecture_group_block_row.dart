@@ -2,14 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:timeplanner_mobile/constants/color.dart';
 import 'package:timeplanner_mobile/models/lecture.dart';
 
-class CourseLecturesBlock extends StatelessWidget {
+class LectureGroupBlockRow extends StatelessWidget {
   final Lecture lecture;
   final VoidCallback onTap;
   final VoidCallback onLongPress;
+  final BorderRadius borderRadius;
   final bool isSelected;
 
-  CourseLecturesBlock(
-      {@required this.lecture, this.onTap, this.onLongPress, this.isSelected});
+  LectureGroupBlockRow(
+      {@required this.lecture,
+      this.onTap,
+      this.onLongPress,
+      this.borderRadius,
+      this.isSelected});
 
   @override
   Widget build(BuildContext context) {
@@ -18,9 +23,13 @@ class CourseLecturesBlock extends StatelessWidget {
       child: InkWell(
         onTap: onTap,
         onLongPress: onLongPress,
+        borderRadius: borderRadius,
         child: Container(
-          color: isSelected ? SELECTED_COLOR : null,
-          padding: const EdgeInsets.fromLTRB(18, 6, 10, 6),
+          decoration: BoxDecoration(
+            color: isSelected ? SELECTED_COLOR : null,
+            borderRadius: borderRadius,
+          ),
+          padding: const EdgeInsets.fromLTRB(16, 6, 8, 6),
           child: Text.rich(
             TextSpan(
               style: const TextStyle(fontSize: 12.0),

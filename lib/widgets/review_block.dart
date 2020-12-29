@@ -39,36 +39,34 @@ class ReviewBlock extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
-                isSimple
-                    ? const SizedBox.shrink()
-                    : Text.rich(
+                if (!isSimple) ...[
+                  Text.rich(
+                    TextSpan(
+                      style: const TextStyle(fontSize: 12.0),
+                      children: <TextSpan>[
                         TextSpan(
-                          style: const TextStyle(fontSize: 12.0),
-                          children: <TextSpan>[
-                            TextSpan(
-                              text: review.lecture.title,
-                              style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            const TextSpan(text: " "),
-                            TextSpan(text: review.lecture.professorsStrShort),
-                            const TextSpan(text: " "),
-                            TextSpan(text: review.lecture.year.toString()),
-                            TextSpan(
-                                text: [
-                              " ",
-                              " 봄",
-                              " 여름",
-                              " 가을",
-                              " 겨울",
-                            ][review.lecture.semester]),
-                          ],
+                          text: review.lecture.title,
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                      ),
-                isSimple
-                    ? const SizedBox.shrink()
-                    : const SizedBox(height: 4.0),
+                        const TextSpan(text: " "),
+                        TextSpan(text: review.lecture.professorsStrShort),
+                        const TextSpan(text: " "),
+                        TextSpan(text: review.lecture.year.toString()),
+                        TextSpan(
+                            text: [
+                          " ",
+                          " 봄",
+                          " 여름",
+                          " 가을",
+                          " 겨울",
+                        ][review.lecture.semester]),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 4.0),
+                ],
                 Text(
                   content.trim(),
                   maxLines: maxLines,

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
 import 'package:timeplanner_mobile/constants/color.dart';
-import 'package:timeplanner_mobile/layers/lecture_detail_layer.dart';
 import 'package:timeplanner_mobile/models/lecture.dart';
 import 'package:timeplanner_mobile/models/semester.dart';
 import 'package:timeplanner_mobile/providers/info_model.dart';
@@ -192,7 +191,7 @@ class _TimetablePageState extends State<TimetablePage> {
           isTemp: isSelected,
           onTap: () {
             context.read<LectureDetailModel>().loadLecture(lecture);
-            Backdrop.of(context).show(LectureDetailLayer());
+            Backdrop.of(context).show(2);
           },
           onLongPress: isSelected
               ? null

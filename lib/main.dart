@@ -56,10 +56,6 @@ class TimeplannerApp extends StatelessWidget {
   ThemeData _buildTheme() {
     final base = ThemeData(
       primarySwatch: createMaterialColor(PRIMARY_COLOR),
-      appBarTheme: const AppBarTheme(
-        color: BACKGROUND_COLOR,
-        elevation: 0.0,
-      ),
       canvasColor: Colors.white,
       iconTheme: const IconThemeData(color: CONTENT_COLOR),
       inputDecorationTheme: const InputDecorationTheme(
@@ -71,7 +67,6 @@ class TimeplannerApp extends StatelessWidget {
           fontSize: 14.0,
         ),
       ),
-      primaryIconTheme: const IconThemeData(color: CONTENT_COLOR),
     );
 
     return base.copyWith(

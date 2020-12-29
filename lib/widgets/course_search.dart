@@ -4,7 +4,7 @@ import 'package:timeplanner_mobile/constants/color.dart';
 import 'package:timeplanner_mobile/models/course.dart';
 import 'package:timeplanner_mobile/providers/search_model.dart';
 import 'package:timeplanner_mobile/widgets/course_block.dart';
-import 'package:timeplanner_mobile/widgets/filter.dart';
+import 'package:timeplanner_mobile/widgets/search_filter.dart';
 
 final departments = {
   "ALL": "전체",
@@ -51,8 +51,18 @@ final grades = {
   "ETC": "기타",
 };
 
+final orders = {
+  "DEF": "기본순",
+  "RAT": "평점순",
+  "GRA": "성적순",
+  "LOA": "널널순",
+  "SPE": "강의순",
+};
+
 final terms = {
   "ALL": "전체",
+  "1": "1년 이내",
+  "2": "2년 이내",
   "3": "3년 이내",
 };
 
@@ -69,9 +79,10 @@ class _CourseSearchState extends State<CourseSearch> {
   final _searchTextController = TextEditingController();
 
   FocusNode _focusNode;
-  String _department = departments.keys.first;
-  String _type = types.keys.first;
-  String _grade = grades.keys.first;
+  List<String> _department = [departments.keys.first];
+  List<String> _type = [types.keys.first];
+  List<String> _grade = [grades.keys.first];
+  String _order = orders.keys.first;
   String _term = terms.keys.first;
 
   @override
@@ -89,6 +100,8 @@ class _CourseSearchState extends State<CourseSearch> {
 
   @override
   Widget build(BuildContext context) {
+    final searchModel = context.watch<SearchModel>();
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -102,6 +115,7 @@ class _CourseSearchState extends State<CourseSearch> {
                   department: _department,
                   type: _type,
                   grade: _grade,
+                  order: _order,
                   term: _term);
               _searchTextController.clear();
             },
@@ -120,34 +134,46 @@ class _CourseSearchState extends State<CourseSearch> {
           padding: const EdgeInsets.fromLTRB(12.0, 0.0, 12.0, 8.0),
           child: Row(
             children: <Widget>[
-              Filter(
+              SearchFilter(
                 property: "학과",
                 items: departments,
+                isMultiSelect: true,
                 onChanged: (value) {
                   _department = value;
                   _focusNode.requestFocus();
                 },
               ),
               const SizedBox(width: 6.0),
-              Filter(
+              SearchFilter(
                 property: "구분",
                 items: types,
+                isMultiSelect: true,
                 onChanged: (value) {
                   _type = value;
                   _focusNode.requestFocus();
                 },
               ),
               const SizedBox(width: 6.0),
-              Filter(
+              SearchFilter(
                 property: "학년",
                 items: grades,
+                isMultiSelect: true,
                 onChanged: (value) {
                   _grade = value;
                   _focusNode.requestFocus();
                 },
               ),
               const SizedBox(width: 6.0),
-              Filter(
+              SearchFilter(
+                property: "정렬",
+                items: orders,
+                onChanged: (value) {
+                  _order = value;
+                  _focusNode.requestFocus();
+                },
+              ),
+              const SizedBox(width: 6.0),
+              SearchFilter(
                 property: "기간",
                 items: terms,
                 onChanged: (value) {
@@ -159,21 +185,20 @@ class _CourseSearchState extends State<CourseSearch> {
           ),
         ),
         Expanded(
-          child: context.select<SearchModel, bool>((model) => model.isSearching)
+          child: searchModel.isSearching
               ? Center(
                   child: const CircularProgressIndicator(),
                 )
               : Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 12.0),
                   child: Scrollbar(
-                    child: ListView(
-                      children: context.select<SearchModel, List<Widget>>(
-                          (model) => model.courses
-                              .map((course) => CourseBlock(
-                                    course: course,
-                                    onTap: () => widget.onCourseTap(course),
-                                  ))
-                              .toList()),
+                    child: ListView.builder(
+                      itemCount: searchModel.courses.length,
+                      itemBuilder: (context, index) => CourseBlock(
+                        course: searchModel.courses[index],
+                        onTap: () =>
+                            widget.onCourseTap(searchModel.courses[index]),
+                      ),
                     ),
                   ),
                 ),

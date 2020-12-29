@@ -8,21 +8,16 @@ import 'package:timeplanner_mobile/models/professor.dart';
 import 'package:timeplanner_mobile/providers/course_detail_model.dart';
 import 'package:timeplanner_mobile/providers/info_model.dart';
 import 'package:timeplanner_mobile/widgets/custom_header_delegate.dart';
+import 'package:timeplanner_mobile/widgets/lecture_group_simple_block.dart';
 import 'package:timeplanner_mobile/widgets/review_block.dart';
 
 class CourseDetailLayer extends StatelessWidget {
-  static CourseDetailLayer instance;
-
   final _scrollController = ScrollController();
-
-  factory CourseDetailLayer() => instance ??= CourseDetailLayer._internal();
-
-  CourseDetailLayer._internal();
 
   @override
   Widget build(BuildContext context) {
     return Card(
-      shape: RoundedRectangleBorder(
+      shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(16.0)),
       ),
       child: context.select<CourseDetailModel, bool>((model) => model.hasData)
@@ -56,13 +51,13 @@ class CourseDetailLayer extends StatelessWidget {
             style: const TextStyle(fontSize: 12.0),
           ),
           const SizedBox(height: 8.0),
-          Expanded(child: _buildListView(context, course)),
+          Expanded(child: _buildScrollView(context, course)),
         ],
       ),
     );
   }
 
-  CustomScrollView _buildListView(BuildContext context, Course course) {
+  CustomScrollView _buildScrollView(BuildContext context, Course course) {
     return CustomScrollView(
       controller: _scrollController,
       slivers: <Widget>[
@@ -302,9 +297,11 @@ class CourseDetailLayer extends StatelessWidget {
       child: Row(
         children: years.map(
           (year) {
-            final currentLectures = lectures.where((lecture) =>
-                lecture.year == year && lecture.semester == semester);
-            if (currentLectures.length == 0)
+            final filteredLectures = lectures
+                .where((lecture) =>
+                    lecture.year == year && lecture.semester == semester)
+                .toList();
+            if (filteredLectures.length == 0)
               return Container(
                 width: 110.0,
                 margin: const EdgeInsets.symmetric(
@@ -320,60 +317,10 @@ class CourseDetailLayer extends StatelessWidget {
                   ),
                 ),
               );
-            return Column(
-              children: <Widget>[
-                semester == 1 ? const Spacer() : const SizedBox.shrink(),
-                Container(
-                  width: 110.0,
-                  margin: const EdgeInsets.symmetric(horizontal: 4.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: ListTile.divideTiles(
-                      color: BORDER_BOLD_COLOR,
-                      tiles: currentLectures.map((lecture) => Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.vertical(
-                                top: (currentLectures.first == lecture)
-                                    ? const Radius.circular(4.0)
-                                    : Radius.zero,
-                                bottom: (currentLectures.last == lecture)
-                                    ? const Radius.circular(4.0)
-                                    : Radius.zero,
-                              ),
-                              color: (lecture.professors.any((professor) =>
-                                      professor.professorId.toString() ==
-                                      selectedFilter))
-                                  ? SELECTED_COLOR
-                                  : BLOCK_COLOR,
-                            ),
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 10.0,
-                              vertical: 4.0,
-                            ),
-                            child: Text.rich(
-                              TextSpan(
-                                style: const TextStyle(
-                                  fontSize: 12.0,
-                                  height: 1.3,
-                                ),
-                                children: <TextSpan>[
-                                  TextSpan(
-                                    text: lecture.classTitle,
-                                    style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  const TextSpan(text: " "),
-                                  TextSpan(text: lecture.professorsStrShort),
-                                ],
-                              ),
-                            ),
-                          )),
-                    ).toList(),
-                  ),
-                ),
-                semester == 3 ? const Spacer() : const SizedBox.shrink(),
-              ],
+            return LectureGroupSimpleBlock(
+              lectures: filteredLectures,
+              semester: semester,
+              filter: selectedFilter,
             );
           },
         ).toList(),

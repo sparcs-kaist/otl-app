@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:timeplanner_mobile/constants/color.dart';
+import 'package:timeplanner_mobile/layers/course_detail_layer.dart';
+import 'package:timeplanner_mobile/layers/lecture_detail_layer.dart';
 import 'package:timeplanner_mobile/layers/user_layer.dart';
 import 'package:timeplanner_mobile/pages/dictionary_page.dart';
 import 'package:timeplanner_mobile/pages/main_page.dart';
@@ -15,7 +17,6 @@ class TimeplannerHome extends StatefulWidget {
 }
 
 class _TimeplannerHomeState extends State<TimeplannerHome> {
-  final _userLayer = UserLayer();
   int _currentIndex = 0;
 
   @override
@@ -26,9 +27,32 @@ class _TimeplannerHomeState extends State<TimeplannerHome> {
           builder: (context) => IconButton(
             icon: const Icon(Icons.person),
             onPressed: () {
-              Backdrop.of(context).show(_userLayer);
+              Backdrop.of(context).show(0);
             },
           ),
+        ),
+        IconButton(
+          icon: const Icon(Icons.info),
+          onPressed: () {
+            showAboutDialog(
+                context: context,
+                applicationName: "",
+                applicationIcon: Image.asset("assets/logo.png", height: 48.0),
+                children: <Widget>[
+                  Text(
+                    "Online Timeplanner with Lectures",
+                    style: const TextStyle(fontSize: 14.0),
+                  ),
+                  const SizedBox(height: 8.0),
+                  Text(
+                    "E. ghwhsbsb@kaist.ac.kr\n(본 모바일 앱이 아닌 OTL 서비스 자체에 대한 문의는 SPARCS로 해주시기 바랍니다)",
+                    style: const TextStyle(
+                      fontSize: 14.0,
+                      height: 1.3,
+                    ),
+                  ),
+                ]);
+          },
         ),
       ],
       bottomNavigationBar: _buildBottomNavigationBar(),
@@ -54,6 +78,11 @@ class _TimeplannerHomeState extends State<TimeplannerHome> {
           ReviewPage(),
         ],
       ),
+      backLayers: <Widget>[
+        UserLayer(),
+        CourseDetailLayer(),
+        LectureDetailLayer(),
+      ],
     );
   }
 

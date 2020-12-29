@@ -18,6 +18,7 @@ class Backdrop extends InheritedWidget {
 
 class BackdropScaffold extends StatefulWidget {
   final Widget frontLayer;
+  final List<Widget> backLayers;
   final Widget bottomNavigationBar;
   final List<Widget> actions;
   final Widget expandedWidget;
@@ -25,6 +26,7 @@ class BackdropScaffold extends StatefulWidget {
 
   BackdropScaffold(
       {@required this.frontLayer,
+      @required this.backLayers,
       this.bottomNavigationBar,
       this.actions,
       this.expandedWidget,
@@ -36,8 +38,13 @@ class BackdropScaffold extends StatefulWidget {
 
 class _BackdropScaffoldState extends State<BackdropScaffold>
     with SingleTickerProviderStateMixin {
+  bool get isExpanded => widget.isExpanded && frontLayerVisible;
+  bool get frontLayerVisible =>
+      _controller.status == AnimationStatus.completed ||
+      _controller.status == AnimationStatus.forward;
+
   AnimationController _controller;
-  Widget _backLayer;
+  int _selectedIndex = 0;
 
   @override
   void initState() {
@@ -62,18 +69,11 @@ class _BackdropScaffoldState extends State<BackdropScaffold>
     super.dispose();
   }
 
-  bool get isExpanded => widget.isExpanded && frontLayerVisible;
-
-  bool get frontLayerVisible {
-    return _controller.status == AnimationStatus.completed ||
-        _controller.status == AnimationStatus.forward;
-  }
-
-  void show([Widget backLayer]) {
+  void show([int index = -1]) {
     setState(() {
-      _backLayer = backLayer;
+      if (index > -1) _selectedIndex = index;
       _controller.fling(
-          velocity: backLayer != null ? -_kFlingVelocity : _kFlingVelocity);
+          velocity: index > -1 ? -_kFlingVelocity : _kFlingVelocity);
     });
   }
 
@@ -90,7 +90,8 @@ class _BackdropScaffoldState extends State<BackdropScaffold>
     return Stack(
       children: <Widget>[
         AnimatedOpacity(
-          child: _backLayer ?? const SizedBox.expand(),
+          child:
+              IndexedStack(index: _selectedIndex, children: widget.backLayers),
           curve: Curves.easeInOut,
           duration: const Duration(milliseconds: 300),
           opacity: frontLayerVisible ? 0.0 : 1.0,
@@ -123,8 +124,13 @@ class _BackdropScaffoldState extends State<BackdropScaffold>
           : kToolbarHeight),
       child: Theme(
         data: Theme.of(context).copyWith(
-            primaryIconTheme: IconThemeData(
-                color: isExpanded ? Colors.white70 : CONTENT_COLOR)),
+            appBarTheme: AppBarTheme(
+          color: BACKGROUND_COLOR,
+          elevation: 0.0,
+          actionsIconTheme: IconThemeData(
+            color: isExpanded ? Colors.white70 : CONTENT_COLOR,
+          ),
+        )),
         child: AppBar(
           title: Image.asset(
             "assets/logo.png",
@@ -137,7 +143,7 @@ class _BackdropScaffoldState extends State<BackdropScaffold>
                   color: PRIMARY_COLOR,
                   height: 5,
                 ),
-                isExpanded ? widget.expandedWidget : const SizedBox.shrink(),
+                if (isExpanded) widget.expandedWidget,
               ],
             ),
           ),

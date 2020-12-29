@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:timeplanner_mobile/constants/url.dart';
 import 'package:timeplanner_mobile/dio_provider.dart';
-import 'package:timeplanner_mobile/layers/course_detail_layer.dart';
 import 'package:timeplanner_mobile/models/course.dart';
 import 'package:timeplanner_mobile/providers/course_detail_model.dart';
 import 'package:timeplanner_mobile/providers/review_model.dart';
@@ -12,8 +11,10 @@ import 'package:timeplanner_mobile/widgets/review_block.dart';
 class ReviewPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final reviews = context.watch<ReviewModel>().reviews;
+
     return Card(
-      shape: RoundedRectangleBorder(
+      shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(16.0)),
       ),
       child: NotificationListener<ScrollNotification>(
@@ -45,26 +46,21 @@ class ReviewPage extends StatelessWidget {
                     await context.read<ReviewModel>().clear();
                   },
                   child: Scrollbar(
-                    child: ListView(
-                      children: context.select<ReviewModel, List<Widget>>(
-                          (model) => model.reviews
-                              .map((review) => ReviewBlock(
-                                    review: review,
-                                    onTap: () async {
-                                      final response = await DioProvider()
-                                          .dio
-                                          .get(API_COURSE_URL +
-                                              "/" +
-                                              review.course.id.toString());
-                                      context
-                                          .read<CourseDetailModel>()
-                                          .loadCourse(
-                                              Course.fromJson(response.data));
-                                      Backdrop.of(context)
-                                          .show(CourseDetailLayer());
-                                    },
-                                  ))
-                              .toList()),
+                    child: ListView.builder(
+                      itemCount: reviews.length,
+                      itemBuilder: (context, index) => ReviewBlock(
+                        review: reviews[index],
+                        onTap: () async {
+                          final response = await DioProvider().dio.get(
+                              API_COURSE_URL +
+                                  "/" +
+                                  reviews[index].course.id.toString());
+                          context
+                              .read<CourseDetailModel>()
+                              .loadCourse(Course.fromJson(response.data));
+                          Backdrop.of(context).show(1);
+                        },
+                      ),
                     ),
                   ),
                 ),

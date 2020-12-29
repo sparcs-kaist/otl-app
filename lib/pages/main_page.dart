@@ -32,7 +32,7 @@ class MainPage extends StatelessWidget {
     }
 
     return Card(
-      shape: RoundedRectangleBorder(
+      shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(16.0)),
       ),
       child: Padding(

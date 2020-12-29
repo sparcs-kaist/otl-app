@@ -1,11 +1,11 @@
 const BASE_URL = "https://otl.kaist.ac.kr/";
 const MAIN_URL = BASE_URL + "main";
 
-const SESSION_URL = BASE_URL + "session/";
+const SESSION_URL = "session/";
 const SESSION_LOGIN_URL = SESSION_URL + "login/?next=" + MAIN_URL;
 const SESSION_INFO_URL = SESSION_URL + "info";
 
-const API_URL = BASE_URL + "api/";
+const API_URL = "api/";
 const API_SEMESTER_URL = API_URL + "semesters";
 const API_COURSE_URL = API_URL + "courses";
 const API_COURSE_LECTURE_URL = API_COURSE_URL + "/{id}/lectures";
