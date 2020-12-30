@@ -4,11 +4,13 @@ import 'package:provider/provider.dart';
 import 'package:timeplanner_mobile/constants/color.dart';
 import 'package:timeplanner_mobile/models/lecture.dart';
 import 'package:timeplanner_mobile/providers/course_detail_model.dart';
+import 'package:timeplanner_mobile/providers/info_model.dart';
 import 'package:timeplanner_mobile/providers/lecture_detail_model.dart';
 import 'package:timeplanner_mobile/providers/timetable_model.dart';
 import 'package:timeplanner_mobile/widgets/backdrop.dart';
 import 'package:timeplanner_mobile/widgets/custom_header_delegate.dart';
 import 'package:timeplanner_mobile/widgets/review_block.dart';
+import 'package:timeplanner_mobile/widgets/review_write_block.dart';
 
 class LectureDetailLayer extends StatelessWidget {
   final _scrollController = ScrollController();
@@ -144,9 +146,7 @@ class LectureDetailLayer extends StatelessWidget {
       children: <Widget>[
         InkWell(
           onTap: () {
-            context
-                .read<CourseDetailModel>()
-                .loadCourse(context.read<LectureDetailModel>().course);
+            context.read<CourseDetailModel>().loadCourse(lecture.course);
             Backdrop.of(context).show(1);
           },
           child: const Text(
@@ -198,7 +198,7 @@ class LectureDetailLayer extends StatelessWidget {
           ]),
         ),
         _buildReviewHeader(),
-        _buildReviews(context),
+        _buildReviews(context, lecture),
       ],
     );
   }
@@ -243,17 +243,32 @@ class LectureDetailLayer extends StatelessWidget {
     );
   }
 
-  SliverList _buildReviews(BuildContext context) {
+  SliverList _buildReviews(BuildContext context, Lecture lecture) {
+    final user = context.watch<InfoModel>().user;
+
     return SliverList(
-      delegate: SliverChildListDelegate(context
-          .select<LectureDetailModel, List<Widget>>((model) => model.reviews
-              .map((review) => ReviewBlock(
-                    review: review,
-                    maxLines: 3,
-                    overflow: TextOverflow.ellipsis,
-                    isSimple: true,
-                  ))
-              .toList())),
+      delegate: SliverChildListDelegate([
+        if (user.reviewWritableLectures.contains(lecture))
+          ReviewWriteBlock(
+            lecture: lecture,
+            existingReview: user.reviews.firstWhere(
+                (review) => review.lecture == lecture,
+                orElse: () => null),
+            onUploaded: (review) {
+              context.read<InfoModel>().getInfo();
+              context.read<LectureDetailModel>().updateLectureReviews(review);
+            },
+          ),
+        ...context
+            .select<LectureDetailModel, List<Widget>>((model) => model.reviews
+                .map((review) => ReviewBlock(
+                      review: review,
+                      maxLines: 3,
+                      overflow: TextOverflow.ellipsis,
+                      isSimple: true,
+                    ))
+                .toList()),
+      ]),
     );
   }
 

@@ -46,7 +46,7 @@ class LectureGroupSimpleBlock extends StatelessWidget {
                         onTap: () {
                           context
                               .read<LectureDetailModel>()
-                              .loadLecture(lecture);
+                              .loadLecture(lecture.id);
                           Backdrop.of(context).show(2);
                         },
                         borderRadius: BorderRadius.vertical(

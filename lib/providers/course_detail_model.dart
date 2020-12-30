@@ -40,11 +40,14 @@ class CourseDetailModel extends ChangeNotifier {
         .toList();
   }
 
-  Future<void> loadCourse(Course course) async {
+  Future<void> loadCourse(int courseId) async {
     _hasData = false;
     notifyListeners();
 
-    _course = course;
+    final response =
+        await DioProvider().dio.get(API_COURSE_URL + "/" + courseId.toString());
+
+    _course = Course.fromJson(response.data);
     _lectures = await getCourseLectures();
     _professors = _lectures
         .map((lecture) => lecture.professors)
@@ -56,6 +59,17 @@ class CourseDetailModel extends ChangeNotifier {
     _selectedFilter = "ALL";
 
     _hasData = true;
+    notifyListeners();
+  }
+
+  Future<void> updateCourseReviews(Review review) async {
+    int index = _reviews.indexOf(review);
+    if (index > -1) {
+      _reviews.removeAt(index);
+      _reviews.insert(index, review);
+    } else {
+      _reviews.insert(0, review);
+    }
     notifyListeners();
   }
 

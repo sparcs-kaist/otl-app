@@ -6,6 +6,7 @@ import 'package:timeplanner_mobile/models/lecture.dart';
 import 'package:timeplanner_mobile/models/semester.dart';
 import 'package:timeplanner_mobile/providers/info_model.dart';
 import 'package:timeplanner_mobile/providers/lecture_detail_model.dart';
+import 'package:timeplanner_mobile/providers/search_model.dart';
 import 'package:timeplanner_mobile/providers/timetable_model.dart';
 import 'package:timeplanner_mobile/utils/export_image.dart';
 import 'package:timeplanner_mobile/widgets/backdrop.dart';
@@ -77,6 +78,7 @@ class _TimetablePageState extends State<TimetablePage> {
                     setState(() {
                       _isSearchOpened = false;
                       _selectedLecture = null;
+                      context.read<SearchModel>().clear();
                     });
 
                     context
@@ -132,35 +134,24 @@ class _TimetablePageState extends State<TimetablePage> {
         Visibility(
           visible: _isSearchOpened,
           child: Expanded(
-            child: WillPopScope(
-              onWillPop: () async {
-                if (_isSearchOpened) {
-                  setState(() {
-                    _isSearchOpened = false;
-                    _selectedLecture = null;
-                  });
-                  return null;
-                }
-                return true;
+            child: LectureSearch(
+              onAdded: () {
+                setState(() {
+                  _selectedLecture = null;
+                });
               },
-              child: LectureSearch(
-                onAdded: () {
-                  setState(() {
-                    _selectedLecture = null;
-                  });
-                },
-                onClosed: () {
-                  setState(() {
-                    _isSearchOpened = false;
-                    _selectedLecture = null;
-                  });
-                },
-                onSelectionChanged: (lecture) {
-                  setState(() {
-                    _selectedLecture = lecture;
-                  });
-                },
-              ),
+              onClosed: () {
+                setState(() {
+                  _isSearchOpened = false;
+                  _selectedLecture = null;
+                  context.read<SearchModel>().clear();
+                });
+              },
+              onSelectionChanged: (lecture) {
+                setState(() {
+                  _selectedLecture = lecture;
+                });
+              },
             ),
           ),
         ),
@@ -190,7 +181,7 @@ class _TimetablePageState extends State<TimetablePage> {
           lecture: lecture,
           isTemp: isSelected,
           onTap: () {
-            context.read<LectureDetailModel>().loadLecture(lecture);
+            context.read<LectureDetailModel>().loadLecture(lecture.id);
             Backdrop.of(context).show(2);
           },
           onLongPress: isSelected

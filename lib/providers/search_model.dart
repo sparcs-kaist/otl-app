@@ -15,6 +15,12 @@ class SearchModel extends ChangeNotifier {
   bool _isSearching = false;
   bool get isSearching => _isSearching;
 
+  void clear() {
+    _courses = null;
+    _lectures = null;
+    notifyListeners();
+  }
+
   Future<void> courseSearch(String keyword,
       {List<String> department,
       List<String> type,

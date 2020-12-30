@@ -91,107 +91,113 @@ class _LectureSearchState extends State<LectureSearch> {
   Widget build(BuildContext context) {
     final searchModel = context.watch<SearchModel>();
 
-    return Card(
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.zero,
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Row(
-            children: <Widget>[
-              const SizedBox(width: 12.0),
-              Expanded(
-                child: TextField(
-                  autofocus: true,
-                  controller: _searchTextController,
-                  focusNode: _focusNode,
-                  onSubmitted: (value) {
-                    context.read<SearchModel>().lectureSearch(
-                        context.read<TimetableModel>().selectedSemester, value,
-                        department: _department, type: _type, grade: _grade);
-                    _searchTextController.clear();
+    return WillPopScope(
+      onWillPop: widget.onClosed,
+      child: Card(
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.zero,
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Row(
+              children: <Widget>[
+                const SizedBox(width: 12.0),
+                Expanded(
+                  child: TextField(
+                    autofocus: true,
+                    controller: _searchTextController,
+                    focusNode: _focusNode,
+                    onSubmitted: (value) {
+                      context.read<SearchModel>().lectureSearch(
+                          context.read<TimetableModel>().selectedSemester,
+                          value,
+                          department: _department,
+                          type: _type,
+                          grade: _grade);
+                      _searchTextController.clear();
 
-                    setState(() {
-                      _selectedLecture = null;
-                      widget.onSelectionChanged(_selectedLecture);
-                    });
-                  },
-                  style: const TextStyle(fontSize: 14.0),
-                  decoration: const InputDecoration(
-                    hintText: "검색",
-                    icon: Icon(
-                      Icons.search,
-                      color: PRIMARY_COLOR,
+                      setState(() {
+                        _selectedLecture = null;
+                        widget.onSelectionChanged(_selectedLecture);
+                      });
+                    },
+                    style: const TextStyle(fontSize: 14.0),
+                    decoration: const InputDecoration(
+                      hintText: "검색",
+                      icon: Icon(
+                        Icons.search,
+                        color: PRIMARY_COLOR,
+                      ),
                     ),
                   ),
                 ),
-              ),
-              IconButton(
-                icon: const Icon(Icons.add),
-                onPressed: (_selectedLecture == null ||
-                        context.select<TimetableModel, bool>((model) =>
-                            model.currentTimetable.lectures.any((lecture) =>
-                                lecture.oldCode == _selectedLecture.oldCode)))
-                    ? null
-                    : _addLecture,
-              ),
-              IconButton(
-                icon: const Icon(Icons.close),
-                onPressed: widget.onClosed,
-              ),
-            ],
-          ),
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            padding: const EdgeInsets.fromLTRB(12.0, 0.0, 12.0, 8.0),
-            child: Row(
-              children: <Widget>[
-                SearchFilter(
-                  property: "학과",
-                  items: departments,
-                  isMultiSelect: true,
-                  onChanged: (value) {
-                    _department = value;
-                    _focusNode.requestFocus();
-                  },
+                IconButton(
+                  icon: const Icon(Icons.add),
+                  onPressed: (_selectedLecture == null ||
+                          context.select<TimetableModel, bool>((model) =>
+                              model.currentTimetable.lectures.any((lecture) =>
+                                  lecture.oldCode == _selectedLecture.oldCode)))
+                      ? null
+                      : _addLecture,
                 ),
-                const SizedBox(width: 6.0),
-                SearchFilter(
-                  property: "구분",
-                  items: types,
-                  isMultiSelect: true,
-                  onChanged: (value) {
-                    _type = value;
-                    _focusNode.requestFocus();
-                  },
-                ),
-                const SizedBox(width: 6.0),
-                SearchFilter(
-                  property: "학년",
-                  items: grades,
-                  isMultiSelect: true,
-                  onChanged: (value) {
-                    _grade = value;
-                    _focusNode.requestFocus();
-                  },
+                IconButton(
+                  icon: const Icon(Icons.close),
+                  onPressed: widget.onClosed,
                 ),
               ],
             ),
-          ),
-          Expanded(
-            child: searchModel.isSearching
-                ? Center(
-                    child: const CircularProgressIndicator(),
-                  )
-                : Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 12.0),
-                    child: Scrollbar(
-                      child: _buildListView(searchModel.lectures),
-                    ),
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              padding: const EdgeInsets.fromLTRB(12.0, 0.0, 12.0, 8.0),
+              child: Row(
+                children: <Widget>[
+                  SearchFilter(
+                    property: "학과",
+                    items: departments,
+                    isMultiSelect: true,
+                    onChanged: (value) {
+                      _department = value;
+                      _focusNode.requestFocus();
+                    },
                   ),
-          ),
-        ],
+                  const SizedBox(width: 6.0),
+                  SearchFilter(
+                    property: "구분",
+                    items: types,
+                    isMultiSelect: true,
+                    onChanged: (value) {
+                      _type = value;
+                      _focusNode.requestFocus();
+                    },
+                  ),
+                  const SizedBox(width: 6.0),
+                  SearchFilter(
+                    property: "학년",
+                    items: grades,
+                    isMultiSelect: true,
+                    onChanged: (value) {
+                      _grade = value;
+                      _focusNode.requestFocus();
+                    },
+                  ),
+                ],
+              ),
+            ),
+            Expanded(
+              child: searchModel.isSearching
+                  ? Center(
+                      child: const CircularProgressIndicator(),
+                    )
+                  : Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                      child: Scrollbar(
+                        child: _buildListView(searchModel.lectures),
+                      ),
+                    ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -252,7 +258,7 @@ class _LectureSearchState extends State<LectureSearch> {
           });
         },
         onLongPress: (lecture) {
-          context.read<LectureDetailModel>().loadLecture(lecture);
+          context.read<LectureDetailModel>().loadLecture(lecture.id);
           Backdrop.of(context).show(2);
         },
       ),

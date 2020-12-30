@@ -15,6 +15,7 @@ const API_LECTURE_RELATED_REVIEWS_URL =
     API_LECTURE_URL + "/{id}/related-reviews";
 const API_REVIEW_URL = API_URL + "review/";
 const API_REVIEW_LATEST_URL = API_REVIEW_URL + "latest/";
+const API_REVIEW_INSERT_URL = API_REVIEW_URL + "insert/";
 
 const API_TIMETABLE_URL = API_URL + "timetable/";
 const API_TIMETABLE_LOAD_URL = API_TIMETABLE_URL + "table_load";

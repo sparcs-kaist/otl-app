@@ -13,7 +13,7 @@ class DictionaryPage extends StatelessWidget {
       ),
       child: CourseSearch(
         onCourseTap: (course) {
-          context.read<CourseDetailModel>().loadCourse(course);
+          context.read<CourseDetailModel>().loadCourse(course.id);
           Backdrop.of(context).show(1);
         },
       ),

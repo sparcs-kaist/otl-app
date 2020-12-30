@@ -18,11 +18,15 @@ class LectureDetailModel extends ChangeNotifier {
   List<Review> _reviews;
   List<Review> get reviews => _reviews;
 
-  Future<void> loadLecture(Lecture lecture) async {
+  Future<void> loadLecture(int lectureId) async {
     _hasData = false;
     notifyListeners();
 
-    _lecture = lecture;
+    final response = await DioProvider()
+        .dio
+        .get(API_LECTURE_URL + "/" + lectureId.toString());
+
+    _lecture = Lecture.fromJson(response.data);
     _course = await getLectureCourse();
     _reviews = await getLectureReviews();
 
@@ -42,5 +46,16 @@ class LectureDetailModel extends ChangeNotifier {
         .dio
         .get(API_COURSE_URL + "/" + _lecture.course.toString());
     return Course.fromJson(response.data);
+  }
+
+  Future<void> updateLectureReviews(Review review) async {
+    int index = _reviews.indexOf(review);
+    if (index > -1) {
+      _reviews.removeAt(index);
+      _reviews.insert(index, review);
+    } else {
+      _reviews.insert(0, review);
+    }
+    notifyListeners();
   }
 }

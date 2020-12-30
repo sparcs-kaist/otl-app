@@ -8,6 +8,10 @@ class UserLayer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final user = context.select<InfoModel, User>((model) => model.user);
+    final editableReviews = user.reviews
+        .where((review) => user.reviewWritableLectures
+            .any((lecture) => lecture.id == review.lecture.id))
+        .toList();
 
     return Card(
       shape: const RoundedRectangleBorder(
@@ -28,6 +32,15 @@ class UserLayer extends StatelessWidget {
             _buildContent("전공 ",
                 user.majors.map((department) => department.name).join(", ")),
             const Divider(color: DIVIDER_COLOR),
+            const SizedBox(height: 4.0),
+            _buildTitle("내가 들은 과목"),
+            _buildContent("작성 후기 ",
+                "${editableReviews.length}/${user.reviewWritableLectures.length}"),
+            _buildContent(
+                "추천 ",
+                editableReviews
+                    .fold<int>(0, (acc, val) => acc + val.like)
+                    .toString()),
           ],
         ),
       ),

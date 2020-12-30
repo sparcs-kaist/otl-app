@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:timeplanner_mobile/constants/url.dart';
-import 'package:timeplanner_mobile/dio_provider.dart';
-import 'package:timeplanner_mobile/models/course.dart';
 import 'package:timeplanner_mobile/providers/course_detail_model.dart';
 import 'package:timeplanner_mobile/providers/review_model.dart';
 import 'package:timeplanner_mobile/widgets/backdrop.dart';
@@ -51,13 +48,9 @@ class ReviewPage extends StatelessWidget {
                       itemBuilder: (context, index) => ReviewBlock(
                         review: reviews[index],
                         onTap: () async {
-                          final response = await DioProvider().dio.get(
-                              API_COURSE_URL +
-                                  "/" +
-                                  reviews[index].course.id.toString());
                           context
                               .read<CourseDetailModel>()
-                              .loadCourse(Course.fromJson(response.data));
+                              .loadCourse(reviews[index].course.id);
                           Backdrop.of(context).show(1);
                         },
                       ),
