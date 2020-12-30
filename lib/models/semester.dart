@@ -24,6 +24,12 @@ class Semester {
       this.beginning,
       this.courseDesciptionSubmission});
 
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is Semester && other.year == year && other.semester == semester);
+
+  int get hashCode => year.hashCode ^ semester.hashCode;
+
   Semester.fromJson(Map<String, dynamic> json) {
     end = DateTime.tryParse(json['end'] ?? "");
     gradePosting = DateTime.tryParse(json['gradePosting'] ?? "");

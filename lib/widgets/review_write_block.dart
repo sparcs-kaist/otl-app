@@ -9,10 +9,14 @@ import 'package:timeplanner_mobile/models/review.dart';
 class ReviewWriteBlock extends StatefulWidget {
   final Lecture lecture;
   final Review existingReview;
+  final bool isSimple;
   final void Function(Review) onUploaded;
 
   ReviewWriteBlock(
-      {@required this.lecture, this.existingReview, this.onUploaded});
+      {@required this.lecture,
+      this.existingReview,
+      this.isSimple = false,
+      this.onUploaded});
 
   @override
   _ReviewWriteBlockState createState() => _ReviewWriteBlockState();
@@ -61,33 +65,40 @@ class _ReviewWriteBlockState extends State<ReviewWriteBlock> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            Text.rich(
-              TextSpan(
-                style: const TextStyle(fontSize: 12.0),
-                children: <TextSpan>[
+            if (!widget.isSimple)
+              Padding(
+                padding: const EdgeInsets.only(bottom: 4.0),
+                child: Text.rich(
                   TextSpan(
-                    text: widget.lecture.title,
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: const TextStyle(fontSize: 12.0),
+                    children: <TextSpan>[
+                      TextSpan(
+                        text: widget.lecture.title,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const TextSpan(text: " "),
+                      TextSpan(text: widget.lecture.professorsStrShort),
+                      const TextSpan(text: " "),
+                      TextSpan(text: widget.lecture.year.toString()),
+                      TextSpan(
+                          text: [
+                        " ",
+                        " 봄",
+                        " 여름",
+                        " 가을",
+                        " 겨울",
+                      ][widget.lecture.semester]),
+                    ],
                   ),
-                  const TextSpan(text: " "),
-                  TextSpan(text: widget.lecture.professorsStrShort),
-                  const TextSpan(text: " "),
-                  TextSpan(text: widget.lecture.year.toString()),
-                  TextSpan(
-                      text: [
-                    " ",
-                    " 봄",
-                    " 여름",
-                    " 가을",
-                    " 겨울",
-                  ][widget.lecture.semester]),
-                ],
+                ),
               ),
-            ),
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8.0),
+              padding: const EdgeInsets.only(
+                top: 4.0,
+                bottom: 8.0,
+              ),
               child: DottedBorder(
                 color: const Color(0xFFAAAAAA),
                 child: SizedBox(
@@ -128,16 +139,13 @@ class _ReviewWriteBlockState extends State<ReviewWriteBlock> {
                   color: Colors.transparent,
                   child: InkWell(
                     onTap: _canUpload() ? _uploadReview : null,
-                    child: Padding(
-                      padding: const EdgeInsets.all(4.0),
-                      child: Text(
-                        (widget.existingReview == null) ? "업로드" : "수정",
-                        style: TextStyle(
-                          color: _canUpload()
-                              ? PRIMARY_COLOR
-                              : const Color(0xFFAAAAAA),
-                          fontSize: 12.0,
-                        ),
+                    child: Text(
+                      (widget.existingReview == null) ? "업로드" : "수정",
+                      style: TextStyle(
+                        color: _canUpload()
+                            ? PRIMARY_COLOR
+                            : const Color(0xFFAAAAAA),
+                        fontSize: 12.0,
                       ),
                     ),
                   ),

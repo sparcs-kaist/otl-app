@@ -45,6 +45,7 @@ class _BackdropScaffoldState extends State<BackdropScaffold>
 
   AnimationController _controller;
   int _selectedIndex = 0;
+  List<int> _indexStack = <int>[];
 
   @override
   void initState() {
@@ -71,9 +72,20 @@ class _BackdropScaffoldState extends State<BackdropScaffold>
 
   void show([int index = -1]) {
     setState(() {
-      if (index > -1) _selectedIndex = index;
-      _controller.fling(
-          velocity: index > -1 ? -_kFlingVelocity : _kFlingVelocity);
+      if (index > -1) {
+        if (frontLayerVisible)
+          _indexStack.clear();
+        else
+          _indexStack.add(_selectedIndex);
+        _selectedIndex = index;
+        _controller.fling(velocity: -_kFlingVelocity);
+      } else if (_indexStack.length > 0) {
+        _selectedIndex = _indexStack.last;
+        _indexStack.removeLast();
+        _controller.fling(velocity: -_kFlingVelocity);
+      } else {
+        _controller.fling(velocity: _kFlingVelocity);
+      }
     });
   }
 

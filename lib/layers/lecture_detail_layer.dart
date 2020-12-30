@@ -254,6 +254,7 @@ class LectureDetailLayer extends StatelessWidget {
             existingReview: user.reviews.firstWhere(
                 (review) => review.lecture == lecture,
                 orElse: () => null),
+            isSimple: true,
             onUploaded: (review) {
               context.read<InfoModel>().getInfo();
               context.read<LectureDetailModel>().updateLectureReviews(review);

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:timeplanner_mobile/constants/color.dart';
+import 'package:timeplanner_mobile/constants/url.dart';
+import 'package:timeplanner_mobile/dio_provider.dart';
 import 'package:timeplanner_mobile/models/review.dart';
 
-class ReviewBlock extends StatelessWidget {
+class ReviewBlock extends StatefulWidget {
   final Review review;
   final VoidCallback onTap;
   final int maxLines;
@@ -17,10 +19,25 @@ class ReviewBlock extends StatelessWidget {
       this.isSimple = false});
 
   @override
+  _ReviewBlockState createState() => _ReviewBlockState();
+}
+
+class _ReviewBlockState extends State<ReviewBlock> {
+  int _like;
+  bool _canUpload;
+
+  @override
+  void initState() {
+    super.initState();
+    _like = widget.review.like;
+    _canUpload = !widget.review.userspecificIsLiked;
+  }
+
+  @override
   Widget build(BuildContext context) {
-    String content = isSimple
-        ? review.content.replaceAll("\r\n", " ").replaceAll("\n", " ")
-        : review.content;
+    String content = widget.isSimple
+        ? widget.review.content.replaceAll("\r\n", " ").replaceAll("\n", " ")
+        : widget.review.content;
     while (content.contains("  ")) content = content.replaceAll("  ", " ");
 
     return Container(
@@ -33,27 +50,28 @@ class ReviewBlock extends StatelessWidget {
         color: Colors.transparent,
         child: InkWell(
           borderRadius: BorderRadius.circular(4.0),
-          onTap: onTap,
+          onTap: widget.onTap,
           child: Padding(
             padding: const EdgeInsets.fromLTRB(10.0, 8.0, 10.0, 6.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
-                if (!isSimple) ...[
+                if (!widget.isSimple) ...[
                   Text.rich(
                     TextSpan(
                       style: const TextStyle(fontSize: 12.0),
                       children: <TextSpan>[
                         TextSpan(
-                          text: review.lecture.title,
+                          text: widget.review.lecture.title,
                           style: const TextStyle(
                             fontWeight: FontWeight.bold,
                           ),
                         ),
                         const TextSpan(text: " "),
-                        TextSpan(text: review.lecture.professorsStrShort),
+                        TextSpan(
+                            text: widget.review.lecture.professorsStrShort),
                         const TextSpan(text: " "),
-                        TextSpan(text: review.lecture.year.toString()),
+                        TextSpan(text: widget.review.lecture.year.toString()),
                         TextSpan(
                             text: [
                           " ",
@@ -61,7 +79,7 @@ class ReviewBlock extends StatelessWidget {
                           " 여름",
                           " 가을",
                           " 겨울",
-                        ][review.lecture.semester]),
+                        ][widget.review.lecture.semester]),
                       ],
                     ),
                   ),
@@ -69,44 +87,67 @@ class ReviewBlock extends StatelessWidget {
                 ],
                 Text(
                   content.trim(),
-                  maxLines: maxLines,
-                  overflow: overflow,
+                  maxLines: widget.maxLines,
+                  overflow: widget.overflow,
                   style: const TextStyle(
                     color: const Color(0xFF555555),
                     height: 1.25,
                     fontSize: 12.0,
                   ),
                 ),
-                Text.rich(
-                  TextSpan(
-                    style: const TextStyle(
-                      height: 1.6,
-                      fontSize: 12.0,
+                Row(
+                  mainAxisAlignment: widget.isSimple
+                      ? MainAxisAlignment.end
+                      : MainAxisAlignment.start,
+                  children: <Widget>[
+                    Text.rich(
+                      TextSpan(
+                        style: const TextStyle(
+                          height: 1.6,
+                          fontSize: 12.0,
+                        ),
+                        children: <TextSpan>[
+                          TextSpan(text: "추천 "),
+                          TextSpan(
+                            text: _like.toString(),
+                            style: const TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          TextSpan(text: "  성적 "),
+                          TextSpan(
+                            text: widget.review.gradeLetter,
+                            style: const TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          TextSpan(text: "  널널 "),
+                          TextSpan(
+                            text: widget.review.loadLetter,
+                            style: const TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          TextSpan(text: "  강의 "),
+                          TextSpan(
+                            text: widget.review.speechLetter,
+                            style: const TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      ),
                     ),
-                    children: <TextSpan>[
-                      TextSpan(text: "추천 "),
-                      TextSpan(
-                        text: review.like.toString(),
-                        style: const TextStyle(fontWeight: FontWeight.bold),
+                    const Spacer(),
+                    if (!widget.isSimple)
+                      Material(
+                        color: Colors.transparent,
+                        child: InkWell(
+                          onTap: _canUpload ? _uploadLike : null,
+                          child: Text(
+                            "좋아요",
+                            style: TextStyle(
+                              color: _canUpload
+                                  ? PRIMARY_COLOR
+                                  : const Color(0xFFAAAAAA),
+                              fontSize: 12.0,
+                            ),
+                          ),
+                        ),
                       ),
-                      TextSpan(text: "  성적 "),
-                      TextSpan(
-                        text: review.gradeLetter,
-                        style: const TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      TextSpan(text: "  널널 "),
-                      TextSpan(
-                        text: review.loadLetter,
-                        style: const TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      TextSpan(text: "  강의 "),
-                      TextSpan(
-                        text: review.speechLetter,
-                        style: const TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                    ],
-                  ),
-                  textAlign: isSimple ? TextAlign.end : TextAlign.start,
+                  ],
                 ),
               ],
             ),
@@ -114,5 +155,16 @@ class ReviewBlock extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Future<void> _uploadLike() async {
+    setState(() {
+      _like++;
+      _canUpload = false;
+    });
+
+    await DioProvider().dio.post(API_REVIEW_LIKE_URL, data: {
+      "reviewid": widget.review.id,
+    });
   }
 }
