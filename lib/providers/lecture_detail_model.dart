@@ -12,13 +12,16 @@ class LectureDetailModel extends ChangeNotifier {
   Course _course;
   Course get course => _course;
 
+  bool _isUpdateEnabled = false;
+  bool get isUpdateEnabled => _isUpdateEnabled;
+
   bool _hasData = false;
   bool get hasData => _hasData;
 
   List<Review> _reviews;
   List<Review> get reviews => _reviews;
 
-  Future<void> loadLecture(int lectureId) async {
+  Future<void> loadLecture(int lectureId, bool isUpdateEnabled) async {
     _hasData = false;
     notifyListeners();
 
@@ -29,6 +32,7 @@ class LectureDetailModel extends ChangeNotifier {
     _lecture = Lecture.fromJson(response.data);
     _course = await getLectureCourse();
     _reviews = await getLectureReviews();
+    _isUpdateEnabled = isUpdateEnabled;
 
     _hasData = true;
     notifyListeners();

@@ -77,6 +77,7 @@ class _BackdropScaffoldState extends State<BackdropScaffold>
           _indexStack.clear();
         else
           _indexStack.add(_selectedIndex);
+        _indexStack.remove(index);
         _selectedIndex = index;
         _controller.fling(velocity: -_kFlingVelocity);
       } else if (_indexStack.length > 0) {
@@ -102,8 +103,10 @@ class _BackdropScaffoldState extends State<BackdropScaffold>
     return Stack(
       children: <Widget>[
         AnimatedOpacity(
-          child:
-              IndexedStack(index: _selectedIndex, children: widget.backLayers),
+          child: IndexedStack(
+            index: _selectedIndex,
+            children: widget.backLayers,
+          ),
           curve: Curves.easeInOut,
           duration: const Duration(milliseconds: 300),
           opacity: frontLayerVisible ? 0.0 : 1.0,

@@ -58,7 +58,7 @@ class TimetableModel extends ChangeNotifier {
           await DioProvider().dio.post(API_TIMETABLE_CREATE_URL, data: {
         "year": _selectedSemester.year,
         "semester": _selectedSemester.semester,
-        "lectures": lectures == null
+        "lectures": (lectures == null)
             ? []
             : lectures.map((lecture) => lecture.id).toList(),
       });
@@ -106,8 +106,8 @@ class TimetableModel extends ChangeNotifier {
               notifyListeners();
               return false;
             }
-            currentTimetable.lectures.remove(lecture);
           }
+          currentTimetable.lectures.removeWhere(overlappedLectures.contains);
         }
       }
 

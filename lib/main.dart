@@ -27,7 +27,7 @@ void main() {
       ChangeNotifierProxyProvider<InfoModel, TimetableModel>(
         create: (context) => TimetableModel(),
         update: (context, infoModel, timetableModel) {
-          if (infoModel.hasData && timetableModel.selectedSemester == null)
+          if (infoModel.hasData && !timetableModel.isLoaded)
             timetableModel.loadTimetable(semester: infoModel.semesters.last);
           return timetableModel;
         },

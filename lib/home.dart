@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:timeplanner_mobile/constants/color.dart';
-import 'package:timeplanner_mobile/layers/course_detail_layer.dart';
-import 'package:timeplanner_mobile/layers/lecture_detail_layer.dart';
-import 'package:timeplanner_mobile/layers/user_layer.dart';
+import 'package:timeplanner_mobile/pages/course_detail_page.dart';
 import 'package:timeplanner_mobile/pages/dictionary_page.dart';
+import 'package:timeplanner_mobile/pages/lecture_detail_page.dart';
 import 'package:timeplanner_mobile/pages/main_page.dart';
 import 'package:timeplanner_mobile/pages/review_page.dart';
 import 'package:timeplanner_mobile/pages/timetable_page.dart';
+import 'package:timeplanner_mobile/pages/user_page.dart';
 import 'package:timeplanner_mobile/providers/search_model.dart';
 import 'package:timeplanner_mobile/widgets/backdrop.dart';
 
@@ -45,7 +45,7 @@ class _TimeplannerHomeState extends State<TimeplannerHome> {
                   ),
                   const SizedBox(height: 8.0),
                   Text(
-                    "E. ghwhsbsb@kaist.ac.kr\n(본 모바일 앱이 아닌 OTL 서비스 자체에 대한 문의는 SPARCS로 해주시기 바랍니다)",
+                    "E. ghwhsbsb@kaist.ac.kr\n(본 모바일 앱이 아닌 OTL 서비스 자체에 대한 문의는 SPARCS로 해주시기 바랍니다.)",
                     style: const TextStyle(
                       fontSize: 14.0,
                       height: 1.3,
@@ -79,9 +79,9 @@ class _TimeplannerHomeState extends State<TimeplannerHome> {
         ],
       ),
       backLayers: <Widget>[
-        UserLayer(),
-        CourseDetailLayer(),
-        LectureDetailLayer(),
+        UserPage(),
+        CourseDetailPage(),
+        LectureDetailPage(),
       ],
     );
   }

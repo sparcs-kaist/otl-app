@@ -12,7 +12,7 @@ import 'package:timeplanner_mobile/widgets/lecture_group_simple_block.dart';
 import 'package:timeplanner_mobile/widgets/review_block.dart';
 import 'package:timeplanner_mobile/widgets/review_write_block.dart';
 
-class CourseDetailLayer extends StatelessWidget {
+class CourseDetailPage extends StatelessWidget {
   final _scrollController = ScrollController();
 
   @override

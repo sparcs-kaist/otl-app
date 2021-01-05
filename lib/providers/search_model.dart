@@ -15,8 +15,7 @@ class SearchModel extends ChangeNotifier {
   bool _isSearching = false;
   bool get isSearching => _isSearching;
 
-  void clear() {
-    _courses = null;
+  void lectureClear() {
     _lectures = null;
     notifyListeners();
   }
@@ -36,9 +35,9 @@ class SearchModel extends ChangeNotifier {
           .dio
           .getUri(Uri(path: API_COURSE_URL, queryParameters: {
             "keyword": keyword,
-            "department": department,
-            "type": type,
-            "grade": grade,
+            "department": department ?? "ALL",
+            "type": type ?? "ALL",
+            "grade": grade ?? "ALL",
             "term": term,
           }));
 

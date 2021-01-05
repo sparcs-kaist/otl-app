@@ -258,7 +258,7 @@ class _LectureSearchState extends State<LectureSearch> {
           });
         },
         onLongPress: (lecture) {
-          context.read<LectureDetailModel>().loadLecture(lecture.id);
+          context.read<LectureDetailModel>().loadLecture(lecture.id, true);
           Backdrop.of(context).show(2);
         },
       ),

@@ -12,7 +12,7 @@ import 'package:timeplanner_mobile/widgets/custom_header_delegate.dart';
 import 'package:timeplanner_mobile/widgets/review_block.dart';
 import 'package:timeplanner_mobile/widgets/review_write_block.dart';
 
-class LectureDetailLayer extends StatelessWidget {
+class LectureDetailPage extends StatelessWidget {
   final _scrollController = ScrollController();
 
   String _getSyllabusUrl(Lecture lecture) {
@@ -66,11 +66,14 @@ class LectureDetailLayer extends StatelessWidget {
           _buildButtons(context, lecture),
           const SizedBox(height: 8.0),
           Expanded(child: _buildScrollView(context, lecture)),
-          const Divider(color: DIVIDER_COLOR),
-          Align(
-            alignment: Alignment.centerRight,
-            child: _buildUpdateButton(context, lecture),
-          ),
+          if (context.select<LectureDetailModel, bool>(
+              (model) => model.isUpdateEnabled)) ...[
+            const Divider(color: DIVIDER_COLOR),
+            Align(
+              alignment: Alignment.centerRight,
+              child: _buildUpdateButton(context, lecture),
+            ),
+          ]
         ],
       ),
     );
@@ -282,13 +285,13 @@ class LectureDetailLayer extends StatelessWidget {
             children: <Widget>[
               _buildStatus("언어", lecture.isEnglish ? "Eng" : "한"),
               _buildStatus(
-                  lecture.credit > 0 ? "학점" : "AU",
-                  lecture.credit > 0
+                  (lecture.credit > 0) ? "학점" : "AU",
+                  (lecture.credit > 0)
                       ? lecture.credit.toString()
                       : lecture.creditAu.toString()),
               _buildStatus(
                   "경쟁률",
-                  lecture.limit == 0
+                  (lecture.limit == 0)
                       ? "0.0:1"
                       : "${(lecture.numPeople / lecture.limit).toStringAsFixed(1)}:1"),
             ],

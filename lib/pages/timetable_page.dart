@@ -78,7 +78,7 @@ class _TimetablePageState extends State<TimetablePage> {
                     setState(() {
                       _isSearchOpened = false;
                       _selectedLecture = null;
-                      context.read<SearchModel>().clear();
+                      context.read<SearchModel>().lectureClear();
                     });
 
                     context
@@ -90,17 +90,20 @@ class _TimetablePageState extends State<TimetablePage> {
                   child: ShaderMask(
                     blendMode: BlendMode.dstIn,
                     shaderCallback: (bounds) => LinearGradient(
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                        colors: <Color>[
-                          Colors.white,
-                          Colors.transparent,
-                        ],
-                        stops: <double>[
-                          0.95,
-                          1.0,
-                        ]).createShader(
-                        bounds.shift(Offset(-bounds.left, -bounds.top))),
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: <Color>[
+                        Colors.white,
+                        Colors.transparent,
+                      ],
+                      stops: <double>[
+                        0.95,
+                        1.0,
+                      ],
+                    ).createShader(bounds.shift(Offset(
+                      -bounds.left,
+                      -bounds.top,
+                    ))),
                     child: SingleChildScrollView(
                       child: RepaintBoundary(
                         key: _paintKey,
@@ -144,7 +147,7 @@ class _TimetablePageState extends State<TimetablePage> {
                 setState(() {
                   _isSearchOpened = false;
                   _selectedLecture = null;
-                  context.read<SearchModel>().clear();
+                  context.read<SearchModel>().lectureClear();
                 });
               },
               onSelectionChanged: (lecture) {
@@ -181,7 +184,7 @@ class _TimetablePageState extends State<TimetablePage> {
           lecture: lecture,
           isTemp: isSelected,
           onTap: () {
-            context.read<LectureDetailModel>().loadLecture(lecture.id);
+            context.read<LectureDetailModel>().loadLecture(lecture.id, true);
             Backdrop.of(context).show(2);
           },
           onLongPress: isSelected
