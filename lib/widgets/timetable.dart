@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:timeplanner_mobile/constants/color.dart';
+import 'package:timeplanner_mobile/models/classtime.dart';
 import 'package:timeplanner_mobile/models/lecture.dart';
 import 'package:timeplanner_mobile/models/time.dart';
 import 'package:timeplanner_mobile/widgets/timetable_block.dart';
@@ -19,7 +20,7 @@ class Timetable extends StatelessWidget {
 
   final _lectures = List.generate(7, (i) => Map<Time, Lecture>());
 
-  final TimetableBlock Function(Lecture) builder;
+  final TimetableBlock Function(Lecture, int) builder;
   final double fontSize;
   final EdgeInsetsGeometry dividerPadding;
   final int daysCount;
@@ -119,7 +120,8 @@ class Timetable extends StatelessWidget {
         padding: EdgeInsets.symmetric(
           horizontal: dividerPadding.horizontal / 3,
         ),
-        child: builder(lecture),
+        child: builder(lecture,
+            (time is Classtime) ? lecture.classtimes.indexOf(time) : 0),
       ),
     );
   }

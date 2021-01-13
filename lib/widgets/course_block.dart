@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:timeplanner_mobile/constants/color.dart';
+import 'package:timeplanner_mobile/extensions/course.dart';
 import 'package:timeplanner_mobile/models/course.dart';
 
 class CourseBlock extends StatelessWidget {

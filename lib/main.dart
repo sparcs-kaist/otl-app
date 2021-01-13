@@ -28,7 +28,8 @@ void main() {
         create: (context) => TimetableModel(),
         update: (context, infoModel, timetableModel) {
           if (infoModel.hasData && !timetableModel.isLoaded)
-            timetableModel.loadTimetable(semester: infoModel.semesters.last);
+            timetableModel.loadTimetable(
+                user: infoModel.user, semester: infoModel.semesters.last);
           return timetableModel;
         },
       ),

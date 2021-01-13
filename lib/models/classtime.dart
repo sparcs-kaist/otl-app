@@ -1,48 +1,48 @@
 import 'package:timeplanner_mobile/models/time.dart';
 
 class Classtime extends Time {
-  String building;
+  String buildingCode;
   String classroom;
-  String room;
-  String classroomShortEn;
   String classroomEn;
   String classroomShort;
+  String classroomShortEn;
+  String roomName;
 
   Classtime(
-      {this.building,
+      {this.buildingCode,
       this.classroom,
-      int begin,
-      int end,
-      this.room,
-      this.classroomShortEn,
-      int day,
       this.classroomEn,
-      this.classroomShort})
-      : super(begin: begin, end: end, day: day);
+      this.classroomShort,
+      this.classroomShortEn,
+      this.roomName,
+      int day,
+      int begin,
+      int end})
+      : super(day: day, begin: begin, end: end);
 
   Classtime.fromJson(Map<String, dynamic> json) {
-    building = json['building'];
+    buildingCode = json['building_code'];
     classroom = json['classroom'];
-    begin = json['begin'];
-    end = json['end'];
-    room = json['room'];
-    classroomShortEn = json['classroom_short_en'];
-    day = json['day'];
     classroomEn = json['classroom_en'];
     classroomShort = json['classroom_short'];
+    classroomShortEn = json['classroom_short_en'];
+    roomName = json['room_name'];
+    day = json['day'];
+    begin = json['begin'];
+    end = json['end'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = Map<String, dynamic>();
-    data['building'] = this.building;
+    data['building_code'] = this.buildingCode;
     data['classroom'] = this.classroom;
-    data['begin'] = this.begin;
-    data['end'] = this.end;
-    data['room'] = this.room;
-    data['classroom_short_en'] = this.classroomShortEn;
-    data['day'] = this.day;
     data['classroom_en'] = this.classroomEn;
     data['classroom_short'] = this.classroomShort;
+    data['classroom_short_en'] = this.classroomShortEn;
+    data['room_name'] = this.roomName;
+    data['day'] = this.day;
+    data['begin'] = this.begin;
+    data['end'] = this.end;
     return data;
   }
 }

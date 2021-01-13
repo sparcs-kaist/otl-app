@@ -7,6 +7,7 @@ import 'package:timeplanner_mobile/constants/url.dart';
 import 'package:timeplanner_mobile/dio_provider.dart';
 import 'package:timeplanner_mobile/models/semester.dart';
 import 'package:timeplanner_mobile/models/timetable.dart';
+import 'package:timeplanner_mobile/models/user.dart';
 import 'package:timeplanner_mobile/providers/info_model.dart';
 import 'package:timeplanner_mobile/widgets/timetable_block.dart';
 import 'package:timeplanner_mobile/widgets/today_timetable.dart';
@@ -34,7 +35,7 @@ class MainPage extends StatelessWidget {
           child: SingleChildScrollView(
             child: Column(
               children: <Widget>[
-                _buildTimetable(now, semester),
+                _buildTimetable(infoModel.user, semester, now),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8.0),
                   child: const Divider(color: DIVIDER_COLOR, height: 1.0),
@@ -127,14 +128,16 @@ class MainPage extends StatelessWidget {
     );
   }
 
-  Widget _buildTimetable(DateTime now, Semester semester) {
+  Widget _buildTimetable(User user, Semester semester, DateTime now) {
     return FutureBuilder<Response>(
       future: semester == null
           ? null
-          : DioProvider().dio.post(API_TIMETABLE_LOAD_URL, data: {
-              "year": semester.year,
-              "semester": semester.semester,
-            }),
+          : DioProvider().dio.get(
+              API_TIMETABLE_URL.replaceFirst("{user_id}", user.id.toString()),
+              queryParameters: {
+                  "year": semester.year,
+                  "semester": semester.semester,
+                }),
       builder: (context, snapshot) {
         Timetable timetable;
 
@@ -151,7 +154,10 @@ class MainPage extends StatelessWidget {
             child: TodayTimetable(
               lectures: snapshot.hasData ? timetable.lectures : [],
               now: now,
-              builder: (lecture) => TimetableBlock(lecture: lecture),
+              builder: (lecture, classTimeIndex) => TimetableBlock(
+                lecture: lecture,
+                classTimeIndex: classTimeIndex,
+              ),
             ),
           ),
         );

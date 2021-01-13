@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_web_browser/flutter_web_browser.dart';
 import 'package:provider/provider.dart';
 import 'package:timeplanner_mobile/constants/color.dart';
+import 'package:timeplanner_mobile/extensions/lecture.dart';
 import 'package:timeplanner_mobile/models/lecture.dart';
 import 'package:timeplanner_mobile/providers/course_detail_model.dart';
 import 'package:timeplanner_mobile/providers/info_model.dart';
@@ -85,41 +86,46 @@ class LectureDetailPage extends StatelessWidget {
 
     return InkWell(
       onTap: () {
-        context.read<TimetableModel>().updateTimetable(
-              lecture: lecture,
-              delete: isAdded,
-              onOverlap: (lectures) async {
-                bool result = false;
+        final timetableModel = context.read<TimetableModel>();
 
-                await showDialog(
-                  context: context,
-                  barrierDismissible: false,
-                  builder: (context) => AlertDialog(
-                    title: const Text("수업 추가"),
-                    content: const Text(
-                        "시간이 겹치는 수업이 있습니다. 추가하시면 해당 수업은 삭제됩니다.\n시간표에 추가하시겠습니까?"),
-                    actions: [
-                      TextButton(
-                        child: const Text("취소"),
-                        onPressed: () {
-                          result = false;
-                          Navigator.pop(context);
-                        },
-                      ),
-                      TextButton(
-                        child: const Text("추가하기"),
-                        onPressed: () {
-                          result = true;
-                          Navigator.pop(context);
-                        },
-                      ),
-                    ],
-                  ),
-                );
+        if (isAdded) {
+          timetableModel.removeLecture(lecture: lecture);
+        } else {
+          timetableModel.addLecture(
+            lecture: lecture,
+            onOverlap: (lectures) async {
+              bool result = false;
 
-                return result;
-              },
-            );
+              await showDialog(
+                context: context,
+                barrierDismissible: false,
+                builder: (context) => AlertDialog(
+                  title: const Text("수업 추가"),
+                  content: const Text(
+                      "시간이 겹치는 수업이 있습니다. 추가하시면 해당 수업은 삭제됩니다.\n시간표에 추가하시겠습니까?"),
+                  actions: [
+                    TextButton(
+                      child: const Text("취소"),
+                      onPressed: () {
+                        result = false;
+                        Navigator.pop(context);
+                      },
+                    ),
+                    TextButton(
+                      child: const Text("추가하기"),
+                      onPressed: () {
+                        result = true;
+                        Navigator.pop(context);
+                      },
+                    ),
+                  ],
+                ),
+              );
+
+              return result;
+            },
+          );
+        }
       },
       child: Row(
         mainAxisSize: MainAxisSize.min,
@@ -335,7 +341,11 @@ class LectureDetailPage extends StatelessWidget {
             text: "\n장소 ",
             style: const TextStyle(fontWeight: FontWeight.bold),
           ),
-          TextSpan(text: lecture.classroom),
+          TextSpan(
+              text: lecture.classtimes
+                  .map((classtime) => classtime.classroom)
+                  .toSet()
+                  .join(", ")),
           TextSpan(
             text: "\n정원 ",
             style: const TextStyle(fontWeight: FontWeight.bold),
@@ -345,7 +355,13 @@ class LectureDetailPage extends StatelessWidget {
             text: "\n시험 ",
             style: const TextStyle(fontWeight: FontWeight.bold),
           ),
-          TextSpan(text: lecture.exam),
+          TextSpan(
+              text: (lecture.examtimes.length == 0)
+                  ? "정보 없음"
+                  : lecture.examtimes
+                      .map((examtime) => examtime.str)
+                      .toSet()
+                      .join(", ")),
         ],
       ),
     );

@@ -1,28 +1,28 @@
 class Semester {
-  DateTime end;
-  DateTime gradePosting;
   int year;
-  DateTime courseDropDeadline;
-  DateTime courseRegistrationPeriodEnd;
   int semester;
-  DateTime courseAddDropPeriodEnd;
-  DateTime courseEvaluationDeadline;
-  DateTime courseRegistrationPeriodStart;
   DateTime beginning;
+  DateTime end;
   DateTime courseDesciptionSubmission;
+  DateTime courseRegistrationPeriodStart;
+  DateTime courseRegistrationPeriodEnd;
+  DateTime courseAddDropPeriodEnd;
+  DateTime courseDropDeadline;
+  DateTime courseEvaluationDeadline;
+  DateTime gradePosting;
 
   Semester(
-      {this.end,
-      this.gradePosting,
-      this.year,
-      this.courseDropDeadline,
-      this.courseRegistrationPeriodEnd,
+      {this.year,
       this.semester,
-      this.courseAddDropPeriodEnd,
-      this.courseEvaluationDeadline,
-      this.courseRegistrationPeriodStart,
       this.beginning,
-      this.courseDesciptionSubmission});
+      this.end,
+      this.courseDesciptionSubmission,
+      this.courseRegistrationPeriodStart,
+      this.courseRegistrationPeriodEnd,
+      this.courseAddDropPeriodEnd,
+      this.courseDropDeadline,
+      this.courseEvaluationDeadline,
+      this.gradePosting});
 
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -31,37 +31,37 @@ class Semester {
   int get hashCode => year.hashCode ^ semester.hashCode;
 
   Semester.fromJson(Map<String, dynamic> json) {
-    end = DateTime.tryParse(json['end'] ?? "");
-    gradePosting = DateTime.tryParse(json['gradePosting'] ?? "");
     year = json['year'];
-    courseDropDeadline = DateTime.tryParse(json['courseDropDeadline'] ?? "");
-    courseRegistrationPeriodEnd =
-        DateTime.tryParse(json['courseRegistrationPeriodEnd'] ?? "");
     semester = json['semester'];
-    courseAddDropPeriodEnd =
-        DateTime.tryParse(json['courseAddDropPeriodEnd'] ?? "");
-    courseEvaluationDeadline =
-        DateTime.tryParse(json['courseEvaluationDeadline'] ?? "");
-    courseRegistrationPeriodStart =
-        DateTime.tryParse(json['courseRegistrationPeriodStart'] ?? "");
     beginning = DateTime.tryParse(json['beginning'] ?? "");
+    end = DateTime.tryParse(json['end'] ?? "");
     courseDesciptionSubmission =
         DateTime.tryParse(json['courseDesciptionSubmission'] ?? "");
+    courseRegistrationPeriodStart =
+        DateTime.tryParse(json['courseRegistrationPeriodStart'] ?? "");
+    courseRegistrationPeriodEnd =
+        DateTime.tryParse(json['courseRegistrationPeriodEnd'] ?? "");
+    courseAddDropPeriodEnd =
+        DateTime.tryParse(json['courseAddDropPeriodEnd'] ?? "");
+    courseDropDeadline = DateTime.tryParse(json['courseDropDeadline'] ?? "");
+    courseEvaluationDeadline =
+        DateTime.tryParse(json['courseEvaluationDeadline'] ?? "");
+    gradePosting = DateTime.tryParse(json['gradePosting'] ?? "");
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = Map<String, dynamic>();
-    data['end'] = this.end;
-    data['gradePosting'] = this.gradePosting;
     data['year'] = this.year;
-    data['courseDropDeadline'] = this.courseDropDeadline;
-    data['courseRegistrationPeriodEnd'] = this.courseRegistrationPeriodEnd;
     data['semester'] = this.semester;
-    data['courseAddDropPeriodEnd'] = this.courseAddDropPeriodEnd;
-    data['courseEvaluationDeadline'] = this.courseEvaluationDeadline;
-    data['courseRegistrationPeriodStart'] = this.courseRegistrationPeriodStart;
     data['beginning'] = this.beginning;
+    data['end'] = this.end;
     data['courseDesciptionSubmission'] = this.courseDesciptionSubmission;
+    data['courseRegistrationPeriodStart'] = this.courseRegistrationPeriodStart;
+    data['courseRegistrationPeriodEnd'] = this.courseRegistrationPeriodEnd;
+    data['courseAddDropPeriodEnd'] = this.courseAddDropPeriodEnd;
+    data['courseDropDeadline'] = this.courseDropDeadline;
+    data['courseEvaluationDeadline'] = this.courseEvaluationDeadline;
+    data['gradePosting'] = this.gradePosting;
     return data;
   }
 }

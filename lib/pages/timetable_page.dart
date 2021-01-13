@@ -170,7 +170,7 @@ class _TimetablePageState extends State<TimetablePage> {
           ? lectures
           : [...lectures, _selectedLecture],
       isExamTime: _isExamTime,
-      builder: (lecture) {
+      builder: (lecture, classTimeIndex) {
         final isSelected = _selectedLecture == lecture;
         Key key;
 
@@ -182,6 +182,7 @@ class _TimetablePageState extends State<TimetablePage> {
         return TimetableBlock(
           key: key,
           lecture: lecture,
+          classTimeIndex: classTimeIndex,
           isTemp: isSelected,
           onTap: () {
             context.read<LectureDetailModel>().loadLecture(lecture.id, true);
@@ -220,7 +221,7 @@ class _TimetablePageState extends State<TimetablePage> {
                   if (result) {
                     context
                         .read<TimetableModel>()
-                        .updateTimetable(lecture: lecture, delete: true);
+                        .removeLecture(lecture: lecture);
                   }
                 },
         );

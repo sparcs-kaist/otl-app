@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:timeplanner_mobile/constants/color.dart';
+import 'package:timeplanner_mobile/extensions/lecture.dart';
 import 'package:timeplanner_mobile/models/lecture.dart';
 
 class TimetableBlock extends StatelessWidget {
   final Lecture lecture;
+  final int classTimeIndex;
   final double fontSize;
   final VoidCallback onTap;
   final VoidCallback onLongPress;
@@ -15,6 +17,7 @@ class TimetableBlock extends StatelessWidget {
   TimetableBlock(
       {Key key,
       @required this.lecture,
+      this.classTimeIndex = 0,
       this.fontSize = 9.0,
       this.onTap,
       this.onLongPress,
@@ -46,7 +49,8 @@ class TimetableBlock extends StatelessWidget {
     }
 
     if (showClassroom) {
-      contents.add(TextSpan(text: lecture.classroom));
+      contents
+          .add(TextSpan(text: lecture.classtimes[classTimeIndex].classroom));
       contents.add(const TextSpan(text: "\n"));
     }
 

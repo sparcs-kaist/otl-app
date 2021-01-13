@@ -1,7 +1,7 @@
 abstract class Time {
+  int day;
   int begin;
   int end;
-  int day;
 
-  Time({this.begin, this.end, this.day});
+  Time({this.day, this.begin, this.end});
 }

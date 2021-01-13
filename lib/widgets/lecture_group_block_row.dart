@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:timeplanner_mobile/constants/color.dart';
+import 'package:timeplanner_mobile/extensions/lecture.dart';
 import 'package:timeplanner_mobile/models/lecture.dart';
 
 class LectureGroupBlockRow extends StatelessWidget {

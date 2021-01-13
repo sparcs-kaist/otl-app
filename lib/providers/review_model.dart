@@ -27,7 +27,11 @@ class ReviewModel extends ChangeNotifier {
 
     try {
       final response =
-          await DioProvider().dio.get(API_REVIEW_LATEST_URL + _page.toString());
+          await DioProvider().dio.get(API_REVIEW_URL, queryParameters: {
+        "order": "-written_datetime",
+        "offset": _page * 10,
+        "limit": 10,
+      });
       final rawReviews = response.data as List;
       _reviews.addAll(rawReviews.map((review) => Review.fromJson(review)));
       _page++;

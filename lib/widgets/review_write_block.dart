@@ -1,8 +1,10 @@
+import 'package:dio/dio.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:timeplanner_mobile/constants/color.dart';
 import 'package:timeplanner_mobile/constants/url.dart';
 import 'package:timeplanner_mobile/dio_provider.dart';
+import 'package:timeplanner_mobile/extensions/lecture.dart';
 import 'package:timeplanner_mobile/models/lecture.dart';
 import 'package:timeplanner_mobile/models/review.dart';
 
@@ -180,14 +182,27 @@ class _ReviewWriteBlockState extends State<ReviewWriteBlock> {
       _isUploading = true;
     });
 
-    final response = await DioProvider()
-        .dio
-        .post(API_REVIEW_INSERT_URL + widget.lecture.id.toString(), data: {
-      "content": _contentTextController.text,
-      "gradescore": _scores["성적"],
-      "loadscore": _scores["널널"],
-      "speechscore": _scores["강의"],
-    });
+    Response response;
+
+    if (widget.existingReview == null) {
+      response = await DioProvider().dio.post(API_REVIEW_URL, data: {
+        "lecture": widget.lecture.id,
+        "content": _contentTextController.text,
+        "grade": _scores["성적"],
+        "load": _scores["널널"],
+        "speech": _scores["강의"],
+      });
+    } else {
+      response = await DioProvider().dio.patch(
+          API_REVIEW_URL + "/" + widget.existingReview.id.toString(),
+          data: {
+            "content": _contentTextController.text,
+            "grade": _scores["성적"],
+            "load": _scores["널널"],
+            "speech": _scores["강의"],
+          });
+    }
+
     final review = Review.fromJson(response.data);
     widget.onUploaded(review);
 

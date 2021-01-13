@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:timeplanner_mobile/constants/color.dart';
+import 'package:timeplanner_mobile/models/classtime.dart';
 import 'package:timeplanner_mobile/models/lecture.dart';
 import 'package:timeplanner_mobile/models/time.dart';
 import 'package:timeplanner_mobile/widgets/timetable_block.dart';
@@ -10,7 +11,7 @@ class TodayTimetable extends StatelessWidget {
   final _timebarKey = GlobalKey();
   final _lectures = Map<Time, Lecture>();
 
-  final TimetableBlock Function(Lecture) builder;
+  final TimetableBlock Function(Lecture, int) builder;
   final DateTime now;
   final double fontSize;
   final EdgeInsetsGeometry dividerPadding;
@@ -102,7 +103,8 @@ class TodayTimetable extends StatelessWidget {
         padding: EdgeInsets.symmetric(
           vertical: dividerPadding.vertical / 3,
         ),
-        child: builder(lecture),
+        child: builder(lecture,
+            (time is Classtime) ? lecture.classtimes.indexOf(time) : 0),
       ),
     );
   }

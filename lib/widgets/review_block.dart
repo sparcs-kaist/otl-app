@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:timeplanner_mobile/constants/color.dart';
 import 'package:timeplanner_mobile/constants/url.dart';
 import 'package:timeplanner_mobile/dio_provider.dart';
+import 'package:timeplanner_mobile/extensions/lecture.dart';
+import 'package:timeplanner_mobile/extensions/review.dart';
 import 'package:timeplanner_mobile/models/review.dart';
 
 class ReviewBlock extends StatefulWidget {
@@ -163,8 +165,8 @@ class _ReviewBlockState extends State<ReviewBlock> {
       _canUpload = false;
     });
 
-    await DioProvider().dio.post(API_REVIEW_LIKE_URL, data: {
-      "reviewid": widget.review.id,
-    });
+    await DioProvider().dio.post(
+        API_REVIEW_LIKE_URL.replaceFirst("{id}", widget.review.id.toString()),
+        data: {});
   }
 }

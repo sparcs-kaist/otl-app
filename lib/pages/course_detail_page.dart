@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
 import 'package:timeplanner_mobile/constants/color.dart';
+import 'package:timeplanner_mobile/extensions/course.dart';
+import 'package:timeplanner_mobile/extensions/lecture.dart';
 import 'package:timeplanner_mobile/models/course.dart';
 import 'package:timeplanner_mobile/models/lecture.dart';
 import 'package:timeplanner_mobile/models/professor.dart';
@@ -183,18 +185,20 @@ class CourseDetailPage extends StatelessWidget {
   }
 
   Widget _buildScores(BuildContext context, Course course) {
-    final lecture = context.select<CourseDetailModel, dynamic>(
-            (model) => model.selectedLecture) ??
-        course;
+    final lecture = context
+        .select<CourseDetailModel, Lecture>((model) => model.selectedLecture);
 
     return Padding(
       padding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 4.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
-          _buildStatus("성적", lecture.gradeLetter),
-          _buildStatus("널널", lecture.loadLetter),
-          _buildStatus("강의", lecture.speechLetter),
+          _buildStatus("성적",
+              (lecture == null) ? course.gradeLetter : lecture.gradeLetter),
+          _buildStatus(
+              "널널", (lecture == null) ? course.loadLetter : lecture.loadLetter),
+          _buildStatus("강의",
+              (lecture == null) ? course.speechLetter : lecture.speechLetter),
         ],
       ),
     );

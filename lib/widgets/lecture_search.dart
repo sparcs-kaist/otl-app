@@ -203,7 +203,7 @@ class _LectureSearchState extends State<LectureSearch> {
   }
 
   Future<void> _addLecture() async {
-    bool result = await context.read<TimetableModel>().updateTimetable(
+    bool result = await context.read<TimetableModel>().addLecture(
           lecture: _selectedLecture,
           onOverlap: (lectures) async {
             bool result = false;

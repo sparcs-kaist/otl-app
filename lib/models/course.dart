@@ -2,48 +2,36 @@ import 'package:timeplanner_mobile/models/department.dart';
 import 'package:timeplanner_mobile/models/professor.dart';
 
 class Course {
-  double load;
-  double grade;
-  String titleEn;
-  List<Professor> professors;
-  bool hasReview;
-  Department department;
   int id;
-  String professorsStr;
-  String title;
-  String speechLetter;
-  String typeEn;
-  bool userspecificIsRead;
-  String summary;
-  String professorsStrEn;
-  double speech;
   String oldCode;
-  String loadLetter;
-  String gradeLetter;
+  Department department;
   String type;
+  String typeEn;
+  String title;
+  String titleEn;
+  String summary;
   int reviewNum;
+  List<Professor> professors;
+  double grade;
+  double load;
+  double speech;
+  bool userspecificIsRead;
 
   Course(
-      {this.load,
-      this.grade,
-      this.titleEn,
-      this.professors,
-      this.hasReview,
-      this.department,
-      this.id,
-      this.professorsStr,
-      this.title,
-      this.speechLetter,
-      this.typeEn,
-      this.userspecificIsRead,
-      this.summary,
-      this.professorsStrEn,
-      this.speech,
+      {this.id,
       this.oldCode,
-      this.loadLetter,
-      this.gradeLetter,
+      this.department,
       this.type,
-      this.reviewNum});
+      this.typeEn,
+      this.title,
+      this.titleEn,
+      this.summary,
+      this.reviewNum,
+      this.professors,
+      this.grade,
+      this.load,
+      this.speech,
+      this.userspecificIsRead});
 
   bool operator ==(Object other) =>
       identical(this, other) || (other is Course && other.id == id);
@@ -51,61 +39,49 @@ class Course {
   int get hashCode => id.hashCode;
 
   Course.fromJson(Map<String, dynamic> json) {
-    load = json['load']?.toDouble();
-    grade = json['grade']?.toDouble();
+    id = json['id'];
+    oldCode = json['old_code'];
+    department = json['department'] != null
+        ? Department.fromJson(json['department'])
+        : null;
+    type = json['type'];
+    typeEn = json['type_en'];
+    title = json['title'];
     titleEn = json['title_en'];
+    summary = json['summary'];
+    reviewNum = json['review_num'];
     if (json['professors'] != null) {
       professors = List<Professor>();
       json['professors'].forEach((v) {
         professors.add(Professor.fromJson(v));
       });
     }
-    hasReview = json['has_review'];
-    department = json['department'] != null
-        ? Department.fromJson(json['department'])
-        : null;
-    id = json['id'];
-    professorsStr = json['professors_str'];
-    title = json['title'];
-    speechLetter = json['speech_letter'];
-    typeEn = json['type_en'];
-    userspecificIsRead = json['userspecific_is_read'];
-    summary = json['summary'];
-    professorsStrEn = json['professors_str_en'];
+    grade = json['grade']?.toDouble();
+    load = json['load']?.toDouble();
     speech = json['speech']?.toDouble();
-    oldCode = json['old_code'];
-    loadLetter = json['load_letter'];
-    gradeLetter = json['grade_letter'];
-    type = json['type'];
-    reviewNum = json['review_num'];
+    userspecificIsRead = json['userspecific_is_read'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = Map<String, dynamic>();
-    data['load'] = this.load;
-    data['grade'] = this.grade;
-    data['title_en'] = this.titleEn;
-    if (this.professors != null) {
-      data['professors'] = this.professors.map((v) => v.toJson()).toList();
-    }
-    data['has_review'] = this.hasReview;
+    data['id'] = this.id;
+    data['old_code'] = this.oldCode;
     if (this.department != null) {
       data['department'] = this.department.toJson();
     }
-    data['id'] = this.id;
-    data['professors_str'] = this.professorsStr;
-    data['title'] = this.title;
-    data['speech_letter'] = this.speechLetter;
-    data['type_en'] = this.typeEn;
-    data['userspecific_is_read'] = this.userspecificIsRead;
-    data['summary'] = this.summary;
-    data['professors_str_en'] = this.professorsStrEn;
-    data['speech'] = this.speech;
-    data['old_code'] = this.oldCode;
-    data['load_letter'] = this.loadLetter;
-    data['grade_letter'] = this.gradeLetter;
     data['type'] = this.type;
+    data['type_en'] = this.typeEn;
+    data['title'] = this.title;
+    data['title_en'] = this.titleEn;
+    data['summary'] = this.summary;
     data['review_num'] = this.reviewNum;
+    if (this.professors != null) {
+      data['professors'] = this.professors.map((v) => v.toJson()).toList();
+    }
+    data['grade'] = this.grade;
+    data['load'] = this.load;
+    data['speech'] = this.speech;
+    data['userspecific_is_read'] = this.userspecificIsRead;
     return data;
   }
 }
