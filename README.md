@@ -1,10 +1,12 @@
-# KAIST-OTL
+# OTL App
+Flutter App for KAIST OTL
 
-카이스트 학생들의 필수 서비스, OTL의 비공식 모바일 앱입니다.
+This repository has been archived for future use.
 
-이제 여러분은 보다 모바일에 최적화된 화면을 통해 시간표를 짜고, 강의에 대한 정보나 여러 리뷰를 찾아보거나 올릴 수 있습니다.
+## Credits
+- [Winrobrine](https://github.com/Winrobrine): Developer
 
-※ 본 어플리케이션은 카이스트의 어느 공식적인 부서나 단체와는 상관없이 개인이 혼자 개발한 비공식 프로젝트이며, 이에 대한 모든 책임은 개발자 개인에게 있음을 밝힙니다.
+## License
+Copyright (c) 2021 SPARCS.
+Distribution of this application without the authors' explicit written approval is strictly prohibited.
 
-E. ghwhsbsb@kaist.ac.kr
-(본 모바일 앱이 아닌 OTL 서비스 자체에 대한 문의는 SPARCS로 해주시기 바랍니다.)
