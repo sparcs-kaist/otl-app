@@ -40,37 +40,37 @@ class User {
     firstName = json['firstName'];
     lastName = json['lastName'];
     if (json['majors'] != null) {
-      majors = List<Department>();
+      majors = [];
       json['majors'].forEach((v) {
         majors.add(Department.fromJson(v));
       });
     }
     if (json['departments'] != null) {
-      departments = List<Department>();
+      departments = [];
       json['departments'].forEach((v) {
         departments.add(Department.fromJson(v));
       });
     }
     if (json['favorite_departments'] != null) {
-      favoriteDepartments = List<Department>();
+      favoriteDepartments = [];
       json['favorite_departments'].forEach((v) {
         favoriteDepartments.add(Department.fromJson(v));
       });
     }
     if (json['review_writable_lectures'] != null) {
-      reviewWritableLectures = List<Lecture>();
+      reviewWritableLectures = [];
       json['review_writable_lectures'].forEach((v) {
         reviewWritableLectures.add(Lecture.fromJson(v));
       });
     }
     if (json['my_timetable_lectures'] != null) {
-      myTimetableLectures = List<Lecture>();
+      myTimetableLectures = [];
       json['my_timetable_lectures'].forEach((v) {
         myTimetableLectures.add(Lecture.fromJson(v));
       });
     }
     if (json['reviews'] != null) {
-      reviews = List<Review>();
+      reviews = [];
       json['reviews'].forEach((v) {
         reviews.add(Review.fromJson(v));
       });

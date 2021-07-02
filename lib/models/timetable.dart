@@ -14,7 +14,7 @@ class Timetable {
   Timetable.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     if (json['lectures'] != null) {
-      lectures = List<Lecture>();
+      lectures = [];
       json['lectures'].forEach((v) {
         lectures.add(Lecture.fromJson(v));
       });
