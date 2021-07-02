@@ -1,0 +1,36 @@
+name: Build
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  format:
+    name: Format
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v1.4.0
+        with:
+          channel: 'stable' 
+      - name: Install dependencies
+        run: flutter pub get
+      - name: Format
+        run: flutter format . --set-exit-if-changed
+  
+  analyze:
+    name: Analyze
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v1.4.0
+        with:
+          channel: 'stable'
+      - name: Install dependencies
+        run: flutter pub get
+      - name: Analyze
+        run: flutter analyze
