@@ -51,7 +51,7 @@ class Course {
     summary = json['summary'];
     reviewNum = json['review_num'];
     if (json['professors'] != null) {
-      professors = List<Professor>();
+      professors = [];
       json['professors'].forEach((v) {
         professors.add(Professor.fromJson(v));
       });

@@ -100,7 +100,7 @@ class Lecture {
     classTitleEn = json['class_title_en'];
     reviewNum = json['review_num'];
     if (json['professors'] != null) {
-      professors = List<Professor>();
+      professors = [];
       json['professors'].forEach((v) {
         professors.add(Professor.fromJson(v));
       });
@@ -109,13 +109,13 @@ class Lecture {
     load = json['load']?.toDouble();
     speech = json['speech']?.toDouble();
     if (json['classtimes'] != null) {
-      classtimes = List<Classtime>();
+      classtimes = [];
       json['classtimes'].forEach((v) {
         classtimes.add(Classtime.fromJson(v));
       });
     }
     if (json['examtimes'] != null) {
-      examtimes = List<Examtime>();
+      examtimes = [];
       json['examtimes'].forEach((v) {
         examtimes.add(Examtime.fromJson(v));
       });
