@@ -1,15 +1,15 @@
-name: Build
+name: Deploy
 
 on:
   push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
+    tags:
+      - 'v**'
 
 jobs:
   build-android:
     name: Build Android
     runs-on: ubuntu-latest
+    environment: Production
     steps:
       - uses: actions/checkout@v2
       - name: Set up Flutter
@@ -36,7 +36,6 @@ jobs:
         run: mv build/app/outputs/flutter-apk/app-release.apk ./OTL.apk
       - name: Archive APK
         uses: actions/upload-artifact@v2
-        if: ${{ github.event_name == 'push' }}
         with:
           name: release-apk
           path: ./OTL.apk 
@@ -44,6 +43,7 @@ jobs:
   build-ios:
     name: Build iOS
     runs-on: macos-latest
+    environment: Production
     steps:
       - uses: actions/checkout@v2
       - name: Set up Flutter
