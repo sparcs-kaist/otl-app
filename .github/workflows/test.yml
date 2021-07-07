@@ -19,4 +19,4 @@ jobs:
       - name: Install dependencies
         run: flutter pub get
       - name: Test
-        run: flutter test
+        run: sh ./test/run.sh

@@ -65,5 +65,6 @@ lib/generated_plugin_registrant.dart
 **/ios/ServiceDefinitions.json
 **/ios/Runner/GeneratedPluginRegistrant.*
 
-# Coverage data
+# Test, Coverage
 /coverage/
+/test/coverage_helper_test.dart
