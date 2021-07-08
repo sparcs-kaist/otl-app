@@ -20,9 +20,9 @@ dependencies:
   flutter:
     sdk: flutter
 
-  dio: ^3.0.8
+  dio: ^4.0.0
   dotted_border: ^1.0.7
-  flutter_inappwebview: ^4.0.0+4
+  flutter_inappwebview: ^5.0.5
   flutter_web_browser: ^0.13.0
   intl: ^0.16.1
   multi_select_flutter: ^3.1.6
@@ -34,7 +34,9 @@ dependencies:
   equatable: ^2.0.3
 
 dev_dependencies:
-  test: ^1.16.5
+  test: ^1.16.6
+  flutter_test:
+    sdk: flutter
 
 flutter_icons:
   android: true

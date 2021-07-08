@@ -33,18 +33,19 @@ class _LoginPageState extends State<LoginPage> {
       maintainState: true,
       visible: _isVisible,
       child: InAppWebView(
-        initialUrl: BASE_URL + SESSION_LOGIN_URL,
+        initialUrlRequest:
+            URLRequest(url: Uri.https(BASE_URL, SESSION_LOGIN_URL)),
         initialOptions: InAppWebViewGroupOptions(),
         onLoadStart: (controller, url) {
-          if (url.startsWith(MAIN_URL)) {
+          if (url.authority == MAIN_URL) {
             setState(() {
               _isVisible = false;
             });
           }
         },
         onLoadStop: (controller, url) {
-          if (url.startsWith(MAIN_URL))
-            context.read<AuthModel>().authenticate(MAIN_URL);
+          if (url.authority == MAIN_URL)
+            context.read<AuthModel>().authenticate(Uri.https(MAIN_URL, ''));
         },
       ),
     );
