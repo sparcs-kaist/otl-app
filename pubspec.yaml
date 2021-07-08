@@ -31,11 +31,10 @@ dependencies:
   permission_handler: ^5.0.1+1
   provider: ^4.0.3
   url_launcher: ^5.7.10
+  equatable: ^2.0.3
 
 dev_dependencies:
-  flutter_test:
-    sdk: flutter
-  flutter_launcher_icons: ^0.8.1
+  test: ^1.16.5
 
 flutter_icons:
   android: true
