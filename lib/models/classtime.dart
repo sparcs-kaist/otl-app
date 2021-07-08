@@ -1,12 +1,12 @@
 import 'package:timeplanner_mobile/models/time.dart';
 
 class Classtime extends Time {
-  String buildingCode;
-  String classroom;
-  String classroomEn;
-  String classroomShort;
-  String classroomShortEn;
-  String roomName;
+  final String buildingCode;
+  final String classroom;
+  final String classroomEn;
+  final String classroomShort;
+  final String classroomShortEn;
+  final String roomName;
 
   Classtime(
       {this.buildingCode,
@@ -15,21 +15,26 @@ class Classtime extends Time {
       this.classroomShort,
       this.classroomShortEn,
       this.roomName,
-      int day,
-      int begin,
-      int end})
+      day,
+      begin,
+      end})
       : super(day: day, begin: begin, end: end);
 
-  Classtime.fromJson(Map<String, dynamic> json) {
-    buildingCode = json['building_code'];
-    classroom = json['classroom'];
-    classroomEn = json['classroom_en'];
-    classroomShort = json['classroom_short'];
-    classroomShortEn = json['classroom_short_en'];
-    roomName = json['room_name'];
-    day = json['day'];
-    begin = json['begin'];
-    end = json['end'];
+  @override
+  List<Object> get props =>
+      super.props..addAll([buildingCode, classroom, roomName]);
+
+  factory Classtime.fromJson(Map<String, dynamic> json) {
+    return Classtime(
+        buildingCode: json['building_code'],
+        classroom: json['classroom'],
+        classroomEn: json['classroom_en'],
+        classroomShort: json['classroom_short'],
+        classroomShortEn: json['classroom_short_en'],
+        roomName: json['room_name'],
+        day: json['day'],
+        begin: json['begin'],
+        end: json['end']);
   }
 
   Map<String, dynamic> toJson() {

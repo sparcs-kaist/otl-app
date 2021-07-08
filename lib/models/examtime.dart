@@ -1,18 +1,22 @@
 import 'package:timeplanner_mobile/models/time.dart';
 
 class Examtime extends Time {
-  String str;
-  String strEn;
+  final String str;
+  final String strEn;
 
   Examtime({this.str, this.strEn, int day, int begin, int end})
       : super(day: day, begin: begin, end: end);
 
-  Examtime.fromJson(Map<String, dynamic> json) {
-    str = json['str'];
-    strEn = json['str_en'];
-    day = json['day'];
-    begin = json['begin'];
-    end = json['end'];
+  @override
+  List<Object> get props => super.props..addAll([str, strEn]);
+
+  factory Examtime.fromJson(Map<String, dynamic> json) {
+    return Examtime(
+        str: json['str'],
+        strEn: json['str_en'],
+        day: json['day'],
+        begin: json['begin'],
+        end: json['end']);
   }
 
   Map<String, dynamic> toJson() {
