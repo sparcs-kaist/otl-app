@@ -5,7 +5,7 @@ import 'package:timeplanner_mobile/models/classtime.dart';
 void main() {
   group('Classtime', () {
     var buildingCode = 'buildingCode';
-      var json = """
+    var json = """
       {
         "building_code": "$buildingCode",
         "classroom": "",
