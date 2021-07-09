@@ -46,9 +46,7 @@ class _LoginPageState extends State<LoginPage> {
         },
         onLoadStop: (controller, url) {
           if (url.authority == AUTHORITY)
-            context
-                .read<AuthModel>()
-                .authenticate(Uri.https(AUTHORITY, '/'));
+            context.read<AuthModel>().authenticate(Uri.https(AUTHORITY, '/'));
         },
       ),
     );
