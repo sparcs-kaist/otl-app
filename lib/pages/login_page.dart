@@ -33,8 +33,9 @@ class _LoginPageState extends State<LoginPage> {
       maintainState: true,
       visible: _isVisible,
       child: InAppWebView(
-        initialUrlRequest:
-            URLRequest(url: Uri.https('otl.kaist.ac.kr', '/session/login/', {'next': BASE_URL})),
+        initialUrlRequest: URLRequest(
+            url: Uri.https(
+                'otl.kaist.ac.kr', '/session/login/', {'next': BASE_URL})),
         initialOptions: InAppWebViewGroupOptions(),
         onLoadStart: (controller, url) {
           if (url.authority == MAIN_URL) {
@@ -45,7 +46,9 @@ class _LoginPageState extends State<LoginPage> {
         },
         onLoadStop: (controller, url) {
           if (url.authority == MAIN_URL)
-            context.read<AuthModel>().authenticate(Uri.https('otl.kaist.ac.kr', '/'));
+            context
+                .read<AuthModel>()
+                .authenticate(Uri.https('otl.kaist.ac.kr', '/'));
         },
       ),
     );
