@@ -6,7 +6,7 @@ class AuthModel extends ChangeNotifier {
   bool _isLogined = false;
   bool get isLogined => _isLogined;
 
-  Future<void> authenticate(String url) async {
+  Future<void> authenticate(Uri url) async {
     try {
       final cookieManager = CookieManager.instance();
       final cookies = await cookieManager.getCookies(url: url);

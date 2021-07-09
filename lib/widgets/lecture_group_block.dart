@@ -17,6 +17,17 @@ class LectureGroupBlock extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (lectures.isEmpty) {
+      return Container(
+        margin: const EdgeInsets.only(bottom: 6.0),
+        padding: const EdgeInsets.only(top: 8.0),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(4.0),
+          color: BLOCK_COLOR,
+        ),
+        child: Text("There is no lecture."),
+      );
+    }
     return Container(
       margin: const EdgeInsets.only(bottom: 6.0),
       padding: const EdgeInsets.only(top: 8.0),
