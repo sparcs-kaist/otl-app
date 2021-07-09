@@ -27,6 +27,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Widget _buildBody(BuildContext context) {
+    const AUTHORITY = 'otl.kaist.ac.kr';
     return Visibility(
       maintainSize: true,
       maintainAnimation: true,
@@ -34,21 +35,20 @@ class _LoginPageState extends State<LoginPage> {
       visible: _isVisible,
       child: InAppWebView(
         initialUrlRequest: URLRequest(
-            url: Uri.https(
-                'otl.kaist.ac.kr', '/session/login/', {'next': BASE_URL})),
+            url: Uri.https(AUTHORITY, '/session/login/', {'next': BASE_URL})),
         initialOptions: InAppWebViewGroupOptions(),
         onLoadStart: (controller, url) {
-          if (url.authority == MAIN_URL) {
+          if (url.authority == AUTHORITY) {
             setState(() {
               _isVisible = false;
             });
           }
         },
         onLoadStop: (controller, url) {
-          if (url.authority == MAIN_URL)
+          if (url.authority == AUTHORITY)
             context
                 .read<AuthModel>()
-                .authenticate(Uri.https('otl.kaist.ac.kr', '/'));
+                .authenticate(Uri.https(AUTHORITY, '/'));
         },
       ),
     );
