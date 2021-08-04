@@ -13,8 +13,6 @@ void main() {
       driver.close();
     });
 
-    test('App', () async {
-
-    });
+    test('App', () async {});
   });
 }

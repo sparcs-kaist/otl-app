@@ -49,7 +49,7 @@ jobs:
           channel: 'stable'
       - name: Start Simulator
         run: |
-          xcrun xctrace list devices | awk '/iPhone 12 Pro/{print $6}' | tr -d '()' | read UDID
+          xcrun xctrace list devices | awk '/iPhone 12 Pro/ {print $NF}' | tr -d '()' | read UDID
           xcrun simctl boot "${UDID:?No Simulator with this name found}"
       - name: Test on iOS
         run: "flutter drive --target=test_driver/app.dart"
