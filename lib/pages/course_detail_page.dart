@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
-import 'package:timeplanner_mobile/constants/color.dart';
-import 'package:timeplanner_mobile/extensions/course.dart';
-import 'package:timeplanner_mobile/extensions/lecture.dart';
-import 'package:timeplanner_mobile/models/course.dart';
-import 'package:timeplanner_mobile/models/lecture.dart';
-import 'package:timeplanner_mobile/models/professor.dart';
-import 'package:timeplanner_mobile/providers/course_detail_model.dart';
-import 'package:timeplanner_mobile/providers/info_model.dart';
-import 'package:timeplanner_mobile/widgets/custom_header_delegate.dart';
-import 'package:timeplanner_mobile/widgets/lecture_group_simple_block.dart';
-import 'package:timeplanner_mobile/widgets/review_block.dart';
-import 'package:timeplanner_mobile/widgets/review_write_block.dart';
+import 'package:otlplus/constants/color.dart';
+import 'package:otlplus/extensions/course.dart';
+import 'package:otlplus/extensions/lecture.dart';
+import 'package:otlplus/models/course.dart';
+import 'package:otlplus/models/lecture.dart';
+import 'package:otlplus/models/professor.dart';
+import 'package:otlplus/providers/course_detail_model.dart';
+import 'package:otlplus/providers/info_model.dart';
+import 'package:otlplus/widgets/custom_header_delegate.dart';
+import 'package:otlplus/widgets/lecture_group_simple_block.dart';
+import 'package:otlplus/widgets/review_block.dart';
+import 'package:otlplus/widgets/review_write_block.dart';
 
 class CourseDetailPage extends StatelessWidget {
   final _scrollController = ScrollController();

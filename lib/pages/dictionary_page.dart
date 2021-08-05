@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:timeplanner_mobile/providers/course_detail_model.dart';
-import 'package:timeplanner_mobile/widgets/backdrop.dart';
-import 'package:timeplanner_mobile/widgets/course_search.dart';
+import 'package:otlplus/providers/course_detail_model.dart';
+import 'package:otlplus/widgets/backdrop.dart';
+import 'package:otlplus/widgets/course_search.dart';
 
 class DictionaryPage extends StatelessWidget {
   @override

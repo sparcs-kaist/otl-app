@@ -1,5 +1,5 @@
 import 'package:flutter_driver/driver_extension.dart';
-import 'package:timeplanner_mobile/main.dart' as app;
+import 'package:otlplus/main.dart' as app;
 
 void main() {
   // This line enables the extension.

@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
-import 'package:timeplanner_mobile/constants/url.dart';
+import 'package:otlplus/constants/url.dart';
 
 class DioProvider {
   static DioProvider _instance;

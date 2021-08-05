@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:timeplanner_mobile/constants/color.dart';
-import 'package:timeplanner_mobile/models/lecture.dart';
-import 'package:timeplanner_mobile/providers/lecture_detail_model.dart';
-import 'package:timeplanner_mobile/providers/search_model.dart';
-import 'package:timeplanner_mobile/providers/timetable_model.dart';
-import 'package:timeplanner_mobile/widgets/backdrop.dart';
-import 'package:timeplanner_mobile/widgets/lecture_group_block.dart';
-import 'package:timeplanner_mobile/widgets/search_filter.dart';
+import 'package:otlplus/constants/color.dart';
+import 'package:otlplus/models/lecture.dart';
+import 'package:otlplus/providers/lecture_detail_model.dart';
+import 'package:otlplus/providers/search_model.dart';
+import 'package:otlplus/providers/timetable_model.dart';
+import 'package:otlplus/widgets/backdrop.dart';
+import 'package:otlplus/widgets/lecture_group_block.dart';
+import 'package:otlplus/widgets/search_filter.dart';
 
 final departments = {
   "ALL": "전체",

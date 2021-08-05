@@ -1,5 +1,5 @@
-import 'package:timeplanner_mobile/models/course.dart';
-import 'package:timeplanner_mobile/models/professor.dart';
+import 'package:otlplus/models/course.dart';
+import 'package:otlplus/models/professor.dart';
 
 final scores = [
   "?",

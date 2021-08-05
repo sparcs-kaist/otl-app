@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
-import 'package:timeplanner_mobile/dio_provider.dart';
+import 'package:otlplus/dio_provider.dart';
 
 class AuthModel extends ChangeNotifier {
   bool _isLogined = false;

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:provider/provider.dart';
-import 'package:timeplanner_mobile/constants/url.dart';
-import 'package:timeplanner_mobile/providers/auth_model.dart';
+import 'package:otlplus/constants/url.dart';
+import 'package:otlplus/providers/auth_model.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -38,10 +38,12 @@ class _LoginPageState extends State<LoginPage> {
             url: Uri.https(AUTHORITY, '/session/login/', {'next': BASE_URL})),
         initialOptions: InAppWebViewGroupOptions(),
         onLoadStart: (controller, url) {
+          debugPrint('onLoadStart: $url');
           if (url.authority == AUTHORITY) {
             setState(() {
               _isVisible = false;
             });
+            debugPrint('setState');
           }
         },
         onLoadStop: (controller, url) {

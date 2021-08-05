@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:timeplanner_mobile/constants/color.dart';
-import 'package:timeplanner_mobile/pages/course_detail_page.dart';
-import 'package:timeplanner_mobile/pages/dictionary_page.dart';
-import 'package:timeplanner_mobile/pages/lecture_detail_page.dart';
-import 'package:timeplanner_mobile/pages/main_page.dart';
-import 'package:timeplanner_mobile/pages/review_page.dart';
-import 'package:timeplanner_mobile/pages/timetable_page.dart';
-import 'package:timeplanner_mobile/pages/user_page.dart';
-import 'package:timeplanner_mobile/providers/search_model.dart';
-import 'package:timeplanner_mobile/widgets/backdrop.dart';
+import 'package:otlplus/constants/color.dart';
+import 'package:otlplus/pages/course_detail_page.dart';
+import 'package:otlplus/pages/dictionary_page.dart';
+import 'package:otlplus/pages/lecture_detail_page.dart';
+import 'package:otlplus/pages/main_page.dart';
+import 'package:otlplus/pages/review_page.dart';
+import 'package:otlplus/pages/timetable_page.dart';
+import 'package:otlplus/pages/user_page.dart';
+import 'package:otlplus/providers/search_model.dart';
+import 'package:otlplus/widgets/backdrop.dart';
 
 class TimeplannerHome extends StatefulWidget {
   @override

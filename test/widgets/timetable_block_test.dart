@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:timeplanner_mobile/models/classtime.dart';
-import 'package:timeplanner_mobile/models/lecture.dart';
-import 'package:timeplanner_mobile/widgets/timetable_block.dart';
+import 'package:otlplus/models/classtime.dart';
+import 'package:otlplus/models/lecture.dart';
+import 'package:otlplus/widgets/timetable_block.dart';
 
 void main() {
   testWidgets('pump', (WidgetTester tester) async {

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:timeplanner_mobile/constants/color.dart';
-import 'package:timeplanner_mobile/models/classtime.dart';
-import 'package:timeplanner_mobile/models/lecture.dart';
-import 'package:timeplanner_mobile/models/time.dart';
-import 'package:timeplanner_mobile/widgets/timetable_block.dart';
+import 'package:otlplus/constants/color.dart';
+import 'package:otlplus/models/classtime.dart';
+import 'package:otlplus/models/lecture.dart';
+import 'package:otlplus/models/time.dart';
+import 'package:otlplus/widgets/timetable_block.dart';
 
 const DAYSOFWEEK = [
   "월요일",

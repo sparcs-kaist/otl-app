@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:timeplanner_mobile/models/course.dart';
-import 'package:timeplanner_mobile/models/department.dart';
-import 'package:timeplanner_mobile/models/professor.dart';
-import 'package:timeplanner_mobile/widgets/course_block.dart';
+import 'package:otlplus/models/course.dart';
+import 'package:otlplus/models/department.dart';
+import 'package:otlplus/models/professor.dart';
+import 'package:otlplus/widgets/course_block.dart';
 
 void main() {
   testWidgets('pump', (WidgetTester tester) async {

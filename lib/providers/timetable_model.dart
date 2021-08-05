@@ -1,12 +1,12 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:timeplanner_mobile/constants/url.dart';
-import 'package:timeplanner_mobile/dio_provider.dart';
-import 'package:timeplanner_mobile/models/lecture.dart';
-import 'package:timeplanner_mobile/models/semester.dart';
-import 'package:timeplanner_mobile/models/timetable.dart';
-import 'package:timeplanner_mobile/models/user.dart';
+import 'package:otlplus/constants/url.dart';
+import 'package:otlplus/dio_provider.dart';
+import 'package:otlplus/models/lecture.dart';
+import 'package:otlplus/models/semester.dart';
+import 'package:otlplus/models/timetable.dart';
+import 'package:otlplus/models/user.dart';
 
 class TimetableModel extends ChangeNotifier {
   User _user;

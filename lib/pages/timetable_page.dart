@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
-import 'package:timeplanner_mobile/constants/color.dart';
-import 'package:timeplanner_mobile/models/lecture.dart';
-import 'package:timeplanner_mobile/models/semester.dart';
-import 'package:timeplanner_mobile/providers/info_model.dart';
-import 'package:timeplanner_mobile/providers/lecture_detail_model.dart';
-import 'package:timeplanner_mobile/providers/search_model.dart';
-import 'package:timeplanner_mobile/providers/timetable_model.dart';
-import 'package:timeplanner_mobile/utils/export_image.dart';
-import 'package:timeplanner_mobile/widgets/backdrop.dart';
-import 'package:timeplanner_mobile/widgets/lecture_search.dart';
-import 'package:timeplanner_mobile/widgets/semester_picker.dart';
-import 'package:timeplanner_mobile/widgets/timetable.dart';
-import 'package:timeplanner_mobile/widgets/timetable_block.dart';
-import 'package:timeplanner_mobile/widgets/timetable_summary.dart';
-import 'package:timeplanner_mobile/widgets/timetable_tabs.dart';
+import 'package:otlplus/constants/color.dart';
+import 'package:otlplus/models/lecture.dart';
+import 'package:otlplus/models/semester.dart';
+import 'package:otlplus/providers/info_model.dart';
+import 'package:otlplus/providers/lecture_detail_model.dart';
+import 'package:otlplus/providers/search_model.dart';
+import 'package:otlplus/providers/timetable_model.dart';
+import 'package:otlplus/utils/export_image.dart';
+import 'package:otlplus/widgets/backdrop.dart';
+import 'package:otlplus/widgets/lecture_search.dart';
+import 'package:otlplus/widgets/semester_picker.dart';
+import 'package:otlplus/widgets/timetable.dart';
+import 'package:otlplus/widgets/timetable_block.dart';
+import 'package:otlplus/widgets/timetable_summary.dart';
+import 'package:otlplus/widgets/timetable_tabs.dart';
 
 class TimetablePage extends StatefulWidget {
   @override

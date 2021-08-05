@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:timeplanner_mobile/extensions/semester.dart';
-import 'package:timeplanner_mobile/models/semester.dart';
+import 'package:otlplus/extensions/semester.dart';
+import 'package:otlplus/models/semester.dart';
 
 class SemesterPicker extends StatefulWidget {
   final bool isExamTime;

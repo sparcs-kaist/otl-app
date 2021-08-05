@@ -1,6 +1,6 @@
-import 'package:timeplanner_mobile/models/classtime.dart';
-import 'package:timeplanner_mobile/models/examtime.dart';
-import 'package:timeplanner_mobile/models/professor.dart';
+import 'package:otlplus/models/classtime.dart';
+import 'package:otlplus/models/examtime.dart';
+import 'package:otlplus/models/professor.dart';
 
 class Lecture {
   int id;

@@ -1,4 +1,4 @@
-import 'package:timeplanner_mobile/models/review.dart';
+import 'package:otlplus/models/review.dart';
 
 final scores = [
   "?",

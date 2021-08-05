@@ -1,5 +1,5 @@
-import 'package:timeplanner_mobile/models/course.dart';
-import 'package:timeplanner_mobile/models/lecture.dart';
+import 'package:otlplus/models/course.dart';
+import 'package:otlplus/models/lecture.dart';
 
 class Review {
   int id;

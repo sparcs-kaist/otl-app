@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:timeplanner_mobile/constants/color.dart';
+import 'package:otlplus/constants/color.dart';
 
 class TimetableTabs extends StatefulWidget {
   final int index;

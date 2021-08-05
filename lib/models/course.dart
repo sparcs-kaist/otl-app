@@ -1,5 +1,5 @@
-import 'package:timeplanner_mobile/models/department.dart';
-import 'package:timeplanner_mobile/models/professor.dart';
+import 'package:otlplus/models/department.dart';
+import 'package:otlplus/models/professor.dart';
 
 class Course {
   int id;

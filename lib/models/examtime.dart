@@ -1,4 +1,4 @@
-import 'package:timeplanner_mobile/models/time.dart';
+import 'package:otlplus/models/time.dart';
 
 class Examtime extends Time {
   final String str;

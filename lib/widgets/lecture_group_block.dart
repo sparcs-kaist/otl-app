@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:timeplanner_mobile/constants/color.dart';
-import 'package:timeplanner_mobile/models/lecture.dart';
-import 'package:timeplanner_mobile/widgets/lecture_group_block_row.dart';
+import 'package:otlplus/constants/color.dart';
+import 'package:otlplus/models/lecture.dart';
+import 'package:otlplus/widgets/lecture_group_block_row.dart';
 
 class LectureGroupBlock extends StatelessWidget {
   final List<Lecture> lectures;

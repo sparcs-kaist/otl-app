@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:timeplanner_mobile/constants/color.dart';
-import 'package:timeplanner_mobile/extensions/semester.dart';
-import 'package:timeplanner_mobile/models/lecture.dart';
-import 'package:timeplanner_mobile/models/semester.dart';
-import 'package:timeplanner_mobile/models/user.dart';
-import 'package:timeplanner_mobile/providers/info_model.dart';
-import 'package:timeplanner_mobile/providers/lecture_detail_model.dart';
-import 'package:timeplanner_mobile/widgets/backdrop.dart';
-import 'package:timeplanner_mobile/widgets/lecture_simple_block.dart';
+import 'package:otlplus/constants/color.dart';
+import 'package:otlplus/extensions/semester.dart';
+import 'package:otlplus/models/lecture.dart';
+import 'package:otlplus/models/semester.dart';
+import 'package:otlplus/models/user.dart';
+import 'package:otlplus/providers/info_model.dart';
+import 'package:otlplus/providers/lecture_detail_model.dart';
+import 'package:otlplus/widgets/backdrop.dart';
+import 'package:otlplus/widgets/lecture_simple_block.dart';
 
 class UserPage extends StatelessWidget {
   @override
