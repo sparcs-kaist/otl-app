@@ -52,4 +52,4 @@ jobs:
       - name: Start Simulator
         run: xcrun simctl boot ${{ env.UDID }}
       - name: Test on iOS
-        run: "flutter drive --target=test_driver/app.dart"
+        run: "flutter drive -d test --target=test_driver/app.dart"
