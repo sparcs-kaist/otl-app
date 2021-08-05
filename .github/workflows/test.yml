@@ -22,3 +22,34 @@ jobs:
         run: flutter pub get
       - name: Test
         run: sh ./test/run.sh
+
+  integration-android:
+    name: Integration Test on Android
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v1.4.0
+        with:
+          channel: 'stable'
+      - name: Test on Android
+        uses: reactivecircus/android-emulator-runner@v2.19.1
+        with:
+          api-level: 28
+          script: flutter drive -d emulator-5554 --target=test_driver/app.dart
+
+  integration-ios:
+    name: Integration Test on iOS
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v1.4.0
+        with:
+          channel: 'stable'
+      - name: List Simulator
+        run: echo "UDID=$(xcrun xctrace list devices 2>&1 | awk '/iPhone 12 Pro/ {print $NF; exit}' | tr -d '()')" >> $GITHUB_ENV
+      - name: Start Simulator
+        run: xcrun simctl boot ${{ env.UDID }}
+      - name: Test on iOS
+        run: "flutter drive --target=test_driver/app.dart"
