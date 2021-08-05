@@ -33,7 +33,7 @@ jobs:
         with:
           channel: 'stable'
       - name: Test on Android
-        uses: reactivecircus/android-emulator-runner@v1
+        uses: reactivecircus/android-emulator-runner@v2.19.1
         with:
           api-level: 28
           script: flutter drive --target=test_driver/app.dart
