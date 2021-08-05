@@ -47,9 +47,9 @@ jobs:
         uses: subosito/flutter-action@v1.4.0
         with:
           channel: 'stable'
+      - name: List Simulator
+        run: echo "UDID=$(xcrun xctrace list devices 2>&1 | awk '/iPhone 12 Pro/ {print $NF; exit}' | tr -d '()')" >> $GITHUB_ENV
       - name: Start Simulator
-        run: |
-          xcrun xctrace list devices 2>&1 | awk '/iPhone 12 Pro/ {print $NF; exit}' | tr -d '()' | read UDID
-          xcrun simctl boot "${UDID:?No Simulator with this name found}"
+        run: xcrun simctl boot ${{ env.UDID }}
       - name: Test on iOS
         run: "flutter drive --target=test_driver/app.dart"
