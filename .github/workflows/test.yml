@@ -36,7 +36,7 @@ jobs:
         uses: reactivecircus/android-emulator-runner@v2.19.1
         with:
           api-level: 28
-          script: flutter drive -d test --target=test_driver/app.dart
+          script: flutter drive -d emulator-5554 --target=test_driver/app.dart
 
   integration-ios:
     name: Integration Test on iOS
