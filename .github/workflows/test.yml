@@ -36,7 +36,7 @@ jobs:
         uses: reactivecircus/android-emulator-runner@v2.19.1
         with:
           api-level: 28
-          script: flutter drive --target=test_driver/app.dart
+          script: flutter drive -d test --target=test_driver/app.dart
 
   integration-ios:
     name: Integration Test on iOS
@@ -52,4 +52,4 @@ jobs:
       - name: Start Simulator
         run: xcrun simctl boot ${{ env.UDID }}
       - name: Test on iOS
-        run: "flutter drive -d test --target=test_driver/app.dart"
+        run: "flutter drive --target=test_driver/app.dart"
