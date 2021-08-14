@@ -46,10 +46,10 @@ class _TimeplannerHomeState extends State<TimeplannerHome> {
                     style: const TextStyle(fontSize: 14.0),
                   ),
                   const SizedBox(height: 8.0),
-                  TextButton(
-                    onPressed: () => launch("mailto:$contactEmail"),
-                    child: Align(
-                        alignment: Alignment.centerLeft,
+                  Row(
+                    children: [
+                      InkWell(
+                        onTap: () => launch("mailto:$contactEmail"),
                         child: Text(
                           contactEmail,
                           style: const TextStyle(
@@ -57,8 +57,9 @@ class _TimeplannerHomeState extends State<TimeplannerHome> {
                             fontSize: 14.0,
                             height: 1.3,
                           ),
-                        )),
-                    style: TextButton.styleFrom(padding: EdgeInsets.zero),
+                        ),
+                      )
+                    ],
                   )
                 ]);
           },
