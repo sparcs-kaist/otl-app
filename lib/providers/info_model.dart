@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:timeplanner_mobile/constants/url.dart';
-import 'package:timeplanner_mobile/dio_provider.dart';
-import 'package:timeplanner_mobile/extensions/semester.dart';
-import 'package:timeplanner_mobile/models/semester.dart';
-import 'package:timeplanner_mobile/models/user.dart';
+import 'package:otlplus/constants/url.dart';
+import 'package:otlplus/dio_provider.dart';
+import 'package:otlplus/extensions/semester.dart';
+import 'package:otlplus/models/semester.dart';
+import 'package:otlplus/models/user.dart';
 
 const USED_SCHEDULE_FIELDS = [
   "beginning",

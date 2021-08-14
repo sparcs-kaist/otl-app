@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:timeplanner_mobile/constants/color.dart';
-import 'package:timeplanner_mobile/extensions/lecture.dart';
-import 'package:timeplanner_mobile/models/lecture.dart';
-import 'package:timeplanner_mobile/providers/lecture_detail_model.dart';
-import 'package:timeplanner_mobile/widgets/backdrop.dart';
+import 'package:otlplus/constants/color.dart';
+import 'package:otlplus/extensions/lecture.dart';
+import 'package:otlplus/models/lecture.dart';
+import 'package:otlplus/providers/lecture_detail_model.dart';
+import 'package:otlplus/widgets/backdrop.dart';
 
 class LectureGroupSimpleBlock extends StatelessWidget {
   final List<Lecture> lectures;

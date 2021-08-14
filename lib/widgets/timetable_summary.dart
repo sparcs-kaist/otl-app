@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:timeplanner_mobile/constants/color.dart';
-import 'package:timeplanner_mobile/models/lecture.dart';
+import 'package:otlplus/constants/color.dart';
+import 'package:otlplus/models/lecture.dart';
 
 const TYPES = [
   "Basic Required",

@@ -8,7 +8,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 const MethodChannel _channel =
-    const MethodChannel("me.blog.ghwhsbsb123.timeplanner_mobile");
+    const MethodChannel("me.blog.ghwhsbsb123.otlplus");
 
 Future<void> exportImage(RenderRepaintBoundary boundary) async {
   final image = await boundary.toImage(pixelRatio: 3.0);

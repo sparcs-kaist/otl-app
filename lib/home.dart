@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:timeplanner_mobile/constants/color.dart';
-import 'package:timeplanner_mobile/pages/course_detail_page.dart';
-import 'package:timeplanner_mobile/pages/dictionary_page.dart';
-import 'package:timeplanner_mobile/pages/lecture_detail_page.dart';
-import 'package:timeplanner_mobile/pages/main_page.dart';
-import 'package:timeplanner_mobile/pages/review_page.dart';
-import 'package:timeplanner_mobile/pages/timetable_page.dart';
-import 'package:timeplanner_mobile/pages/user_page.dart';
-import 'package:timeplanner_mobile/providers/search_model.dart';
-import 'package:timeplanner_mobile/widgets/backdrop.dart';
+import 'package:otlplus/constants/color.dart';
+import 'package:otlplus/pages/course_detail_page.dart';
+import 'package:otlplus/pages/dictionary_page.dart';
+import 'package:otlplus/pages/lecture_detail_page.dart';
+import 'package:otlplus/pages/main_page.dart';
+import 'package:otlplus/pages/review_page.dart';
+import 'package:otlplus/pages/timetable_page.dart';
+import 'package:otlplus/pages/user_page.dart';
+import 'package:otlplus/providers/search_model.dart';
+import 'package:otlplus/widgets/backdrop.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class TimeplannerHome extends StatefulWidget {
   @override
@@ -18,6 +19,7 @@ class TimeplannerHome extends StatefulWidget {
 
 class _TimeplannerHomeState extends State<TimeplannerHome> {
   int _currentIndex = 0;
+  String contactEmail = 'otlplus@kaist.ac.kr';
 
   @override
   Widget build(BuildContext context) {
@@ -40,17 +42,27 @@ class _TimeplannerHomeState extends State<TimeplannerHome> {
                 applicationIcon: Image.asset("assets/logo.png", height: 48.0),
                 children: <Widget>[
                   Text(
-                    "Online Timeplanner with Lectures",
+                    "Online Timeplanner with Lectures Plus @ KAIST",
                     style: const TextStyle(fontSize: 14.0),
                   ),
                   const SizedBox(height: 8.0),
-                  Text(
-                    "E. ghwhsbsb@kaist.ac.kr\n(본 모바일 앱이 아닌 OTL 서비스 자체에 대한 문의는 SPARCS로 해주시기 바랍니다.)",
-                    style: const TextStyle(
-                      fontSize: 14.0,
-                      height: 1.3,
-                    ),
-                  ),
+                  Row(
+                    children: [
+                      InkWell(
+                        onTap: () => launch("mailto:$contactEmail"),
+                        child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              contactEmail,
+                              style: const TextStyle(
+                                color: PRIMARY_COLOR,
+                                fontSize: 14.0,
+                                height: 1.3,
+                              ),
+                            )),
+                      )
+                    ],
+                  )
                 ]);
           },
         ),

@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:timeplanner_mobile/constants/color.dart';
-import 'package:timeplanner_mobile/home.dart';
-import 'package:timeplanner_mobile/pages/login_page.dart';
-import 'package:timeplanner_mobile/providers/auth_model.dart';
-import 'package:timeplanner_mobile/providers/course_detail_model.dart';
-import 'package:timeplanner_mobile/providers/info_model.dart';
-import 'package:timeplanner_mobile/providers/lecture_detail_model.dart';
-import 'package:timeplanner_mobile/providers/review_model.dart';
-import 'package:timeplanner_mobile/providers/search_model.dart';
-import 'package:timeplanner_mobile/providers/timetable_model.dart';
-import 'package:timeplanner_mobile/utils/create_material_color.dart';
+import 'package:otlplus/constants/color.dart';
+import 'package:otlplus/home.dart';
+import 'package:otlplus/pages/login_page.dart';
+import 'package:otlplus/providers/auth_model.dart';
+import 'package:otlplus/providers/course_detail_model.dart';
+import 'package:otlplus/providers/info_model.dart';
+import 'package:otlplus/providers/lecture_detail_model.dart';
+import 'package:otlplus/providers/review_model.dart';
+import 'package:otlplus/providers/search_model.dart';
+import 'package:otlplus/providers/timetable_model.dart';
+import 'package:otlplus/utils/create_material_color.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();

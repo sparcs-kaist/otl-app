@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:timeplanner_mobile/constants/color.dart';
-import 'package:timeplanner_mobile/extensions/course.dart';
-import 'package:timeplanner_mobile/models/course.dart';
+import 'package:otlplus/constants/color.dart';
+import 'package:otlplus/extensions/course.dart';
+import 'package:otlplus/models/course.dart';
 
 class CourseBlock extends StatelessWidget {
   final Course course;

@@ -1,6 +1,6 @@
-import 'package:timeplanner_mobile/models/department.dart';
-import 'package:timeplanner_mobile/models/lecture.dart';
-import 'package:timeplanner_mobile/models/review.dart';
+import 'package:otlplus/models/department.dart';
+import 'package:otlplus/models/lecture.dart';
+import 'package:otlplus/models/review.dart';
 
 class User {
   int id;

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:provider/provider.dart';
-import 'package:timeplanner_mobile/constants/url.dart';
-import 'package:timeplanner_mobile/providers/auth_model.dart';
+import 'package:otlplus/constants/url.dart';
+import 'package:otlplus/providers/auth_model.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -45,8 +45,13 @@ class _LoginPageState extends State<LoginPage> {
           }
         },
         onLoadStop: (controller, url) {
-          if (url.authority == AUTHORITY)
+          if (url.authority == AUTHORITY) {
             context.read<AuthModel>().authenticate(Uri.https(AUTHORITY, '/'));
+          } else if (url.authority == 'sparcssso.kaist.ac.kr') {
+            setState(() {
+              _isVisible = true;
+            });
+          }
         },
       ),
     );

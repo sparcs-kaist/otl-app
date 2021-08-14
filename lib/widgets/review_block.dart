@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:timeplanner_mobile/constants/color.dart';
-import 'package:timeplanner_mobile/constants/url.dart';
-import 'package:timeplanner_mobile/dio_provider.dart';
-import 'package:timeplanner_mobile/extensions/lecture.dart';
-import 'package:timeplanner_mobile/extensions/review.dart';
-import 'package:timeplanner_mobile/models/review.dart';
+import 'package:otlplus/constants/color.dart';
+import 'package:otlplus/constants/url.dart';
+import 'package:otlplus/dio_provider.dart';
+import 'package:otlplus/extensions/lecture.dart';
+import 'package:otlplus/extensions/review.dart';
+import 'package:otlplus/models/review.dart';
 
 class ReviewBlock extends StatefulWidget {
   final Review review;

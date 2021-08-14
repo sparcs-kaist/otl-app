@@ -1,8 +1,8 @@
 import 'dart:convert';
 import 'package:test/test.dart';
-import 'package:timeplanner_mobile/models/course.dart';
-import 'package:timeplanner_mobile/models/department.dart';
-import 'package:timeplanner_mobile/models/professor.dart';
+import 'package:otlplus/models/course.dart';
+import 'package:otlplus/models/department.dart';
+import 'package:otlplus/models/professor.dart';
 
 void main() {
   group('Course', () {

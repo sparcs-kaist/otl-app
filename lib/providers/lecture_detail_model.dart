@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:timeplanner_mobile/constants/url.dart';
-import 'package:timeplanner_mobile/dio_provider.dart';
-import 'package:timeplanner_mobile/models/course.dart';
-import 'package:timeplanner_mobile/models/lecture.dart';
-import 'package:timeplanner_mobile/models/review.dart';
+import 'package:otlplus/constants/url.dart';
+import 'package:otlplus/dio_provider.dart';
+import 'package:otlplus/models/course.dart';
+import 'package:otlplus/models/lecture.dart';
+import 'package:otlplus/models/review.dart';
 
 class LectureDetailModel extends ChangeNotifier {
   Lecture _lecture;

@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:timeplanner_mobile/constants/color.dart';
+import 'package:otlplus/constants/color.dart';
 
 const double _kFlingVelocity = 2.0;
 

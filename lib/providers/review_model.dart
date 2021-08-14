@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:timeplanner_mobile/constants/url.dart';
-import 'package:timeplanner_mobile/dio_provider.dart';
-import 'package:timeplanner_mobile/models/review.dart';
+import 'package:otlplus/constants/url.dart';
+import 'package:otlplus/dio_provider.dart';
+import 'package:otlplus/models/review.dart';
 
 class ReviewModel extends ChangeNotifier {
   int _page = 0;

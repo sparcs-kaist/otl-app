@@ -1,4 +1,4 @@
-import 'package:timeplanner_mobile/models/semester.dart';
+import 'package:otlplus/models/semester.dart';
 
 final semesterNames = ["봄", "여름", "가을", "겨울"];
 

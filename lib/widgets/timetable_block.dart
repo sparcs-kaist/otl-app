@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:timeplanner_mobile/constants/color.dart';
-import 'package:timeplanner_mobile/extensions/lecture.dart';
-import 'package:timeplanner_mobile/models/lecture.dart';
+import 'package:otlplus/constants/color.dart';
+import 'package:otlplus/extensions/lecture.dart';
+import 'package:otlplus/models/lecture.dart';
 
 class TimetableBlock extends StatelessWidget {
   final Lecture lecture;

@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:test/test.dart';
-import 'package:timeplanner_mobile/models/classtime.dart';
+import 'package:otlplus/models/classtime.dart';
 
 void main() {
   group('Classtime', () {

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:timeplanner_mobile/providers/course_detail_model.dart';
-import 'package:timeplanner_mobile/providers/review_model.dart';
-import 'package:timeplanner_mobile/widgets/backdrop.dart';
-import 'package:timeplanner_mobile/widgets/review_block.dart';
+import 'package:otlplus/providers/course_detail_model.dart';
+import 'package:otlplus/providers/review_model.dart';
+import 'package:otlplus/widgets/backdrop.dart';
+import 'package:otlplus/widgets/review_block.dart';
 
 class ReviewPage extends StatelessWidget {
   @override

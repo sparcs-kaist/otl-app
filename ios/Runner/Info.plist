@@ -41,5 +41,21 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>NSAppleMusicUsageDescription</key>
+	<string>사용자 요청 시 해당 기능을 사용합니다.</string>
+	<key>NSContactsUsageDescription</key>
+	<string>사용자 요청 시 해당 기능을 사용합니다.</string>
+	<key>NSCalendarsUsageDescription</key>
+	<string>사용자 요청 시 해당 기능을 사용합니다.</string>
+	<key>kTCCServiceMediaLibrary</key>
+	<string>사용자 요청 시 해당 기능을 사용합니다.</string>
+	<key>NSMotionUsageDescription</key>
+	<string>사용자 요청 시 해당 기능을 사용합니다.</string>
+	<key>NSSpeechRecognitionUsageDescription</key>
+	<string>사용자 요청 시 해당 기능을 사용합니다.</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>사용자 요청 시 해당 기능을 사용합니다.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>사용자 요청 시 해당 기능을 사용합니다.</string>
 </dict>
 </plist>

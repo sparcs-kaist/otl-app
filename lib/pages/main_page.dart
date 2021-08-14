@@ -2,15 +2,15 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import 'package:timeplanner_mobile/constants/color.dart';
-import 'package:timeplanner_mobile/constants/url.dart';
-import 'package:timeplanner_mobile/dio_provider.dart';
-import 'package:timeplanner_mobile/models/semester.dart';
-import 'package:timeplanner_mobile/models/timetable.dart';
-import 'package:timeplanner_mobile/models/user.dart';
-import 'package:timeplanner_mobile/providers/info_model.dart';
-import 'package:timeplanner_mobile/widgets/timetable_block.dart';
-import 'package:timeplanner_mobile/widgets/today_timetable.dart';
+import 'package:otlplus/constants/color.dart';
+import 'package:otlplus/constants/url.dart';
+import 'package:otlplus/dio_provider.dart';
+import 'package:otlplus/models/semester.dart';
+import 'package:otlplus/models/timetable.dart';
+import 'package:otlplus/models/user.dart';
+import 'package:otlplus/providers/info_model.dart';
+import 'package:otlplus/widgets/timetable_block.dart';
+import 'package:otlplus/widgets/today_timetable.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class MainPage extends StatelessWidget {
