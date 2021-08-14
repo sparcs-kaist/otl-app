@@ -3,6 +3,8 @@ name: Deploy
 on:
   push:
     branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
 jobs:
   build-android:
@@ -42,12 +44,12 @@ jobs:
         run: flutter build appbundle --release 
       - name: Rename AAB
         run: mv build/app/outputs/bundle/release/app-release.aab ./OTL.aab
-      - name: Upload APK
+      - name: Upload AAB
         uses: r0adkll/upload-google-play@v1.0.15
         with:
           serviceAccountJson: ${{ secrets.SERVICE_ACCOUNT_JSON }}
           packageName: org.sparcs.otlplus
-          releaseFile: ./OTL.aab
+          releaseFiles: OTL.aab
           track: internal
 
   build-ios:
