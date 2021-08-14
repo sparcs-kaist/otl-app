@@ -50,14 +50,16 @@ class _TimeplannerHomeState extends State<TimeplannerHome> {
                     children: [
                       InkWell(
                         onTap: () => launch("mailto:$contactEmail"),
-                        child: Text(
-                          contactEmail,
-                          style: const TextStyle(
-                            color: PRIMARY_COLOR,
-                            fontSize: 14.0,
-                            height: 1.3,
-                          ),
-                        ),
+                        child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              contactEmail,
+                              style: const TextStyle(
+                                color: PRIMARY_COLOR,
+                                fontSize: 14.0,
+                                height: 1.3,
+                              ),
+                            )),
                       )
                     ],
                   )
