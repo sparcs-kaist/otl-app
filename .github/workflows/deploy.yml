@@ -3,8 +3,6 @@ name: Deploy
 on:
   push:
     branches: [ main ]
-  pull_request:
-    branches: [ main ]
 
 jobs:
   build-android:
@@ -69,7 +67,7 @@ jobs:
       - name: Install dependencies
         run: flutter pub get
       - name: Test build iOS
-        run: flutter build ios --release
+        run: flutter build ios --release --no-codesign
       # - name: Build iOS
       #   run: flutter build ipa --release
       # - name: Archive
