@@ -36,19 +36,23 @@ jobs:
       - name: Archive APK
         uses: actions/upload-artifact@v2
         with:
-          name: release-apk
+          name: Android (.apk)
           path: ./OTL.apk 
       - name: Build AAB
         run: flutter build appbundle --release 
       - name: Rename AAB
         run: mv build/app/outputs/bundle/release/app-release.aab ./OTL.aab
-      - name: Upload APK
+      - name: Key to file
+        env:
+          JSON: ${{secrets.SERVICE_ACCOUNT_JSON}}
+        run: echo $JSON > private_key.json
+      - name: Upload AAB
         uses: r0adkll/upload-google-play@v1.0.15
         with:
-          serviceAccountJson: ${{ secrets.SERVICE_ACCOUNT_JSON }}
+          serviceAccountJson: private_key.json
           packageName: org.sparcs.otlplus
-          releaseFile: ./OTL.aab
-          track: internal
+          releaseFiles: OTL.aab
+          track: alpha
 
   build-ios:
     name: Build iOS
@@ -62,5 +66,12 @@ jobs:
           channel: 'stable'
       - name: Install dependencies
         run: flutter pub get
-      - name: Build iOS
+      - name: Test build iOS
         run: flutter build ios --release --no-codesign
+      # - name: Build iOS
+      #   run: flutter build ipa --release
+      # - name: Archive
+      #   uses: actions/upload-artifact@v2
+      #   with:
+      #     name: iOS (.xcarchive)
+      #     path: ./build/ios/archive/Runner.xcarchive
