@@ -54,7 +54,7 @@ jobs:
           serviceAccountJson: private_key.json
           packageName: org.sparcs.otlplus
           releaseFiles: OTL.aab
-          track: internal
+          track: alpha
 
   build-ios:
     name: Build iOS
@@ -68,10 +68,12 @@ jobs:
           channel: 'stable'
       - name: Install dependencies
         run: flutter pub get
-      - name: Build iOS
-        run: flutter build ipa --release
-      - name: Archive
-        uses: actions/upload-artifact@v2
-        with:
-          name: iOS (.xcarchive)
-          path: ./build/ios/archive/Runner.xcarchive
+      - name: Test build iOS
+        run: flutter build ios --release
+      # - name: Build iOS
+      #   run: flutter build ipa --release
+      # - name: Archive
+      #   uses: actions/upload-artifact@v2
+      #   with:
+      #     name: iOS (.xcarchive)
+      #     path: ./build/ios/archive/Runner.xcarchive
