@@ -55,28 +55,28 @@ class TimetableSummary extends StatelessWidget {
         0,
         (acc, lecture) =>
             acc +
-            ((lecture.reviewNum > 0)
+            ((lecture.reviewNum ?? 0 > 0)
                 ? (lecture.credit + lecture.creditAu)
                 : 0));
     double grade = lectures.fold<double>(
         0,
         (acc, lecture) =>
             acc +
-            ((lecture.reviewNum > 0)
+            ((lecture.reviewNum ?? 0 > 0)
                 ? (lecture.grade * (lecture.credit + lecture.creditAu))
                 : 0));
     double load = lectures.fold<double>(
         0,
         (acc, lecture) =>
             acc +
-            ((lecture.reviewNum > 0)
+            ((lecture.reviewNum ?? 0 > 0)
                 ? (lecture.load * (lecture.credit + lecture.creditAu))
                 : 0));
     double speech = lectures.fold<double>(
         0,
         (acc, lecture) =>
             acc +
-            ((lecture.reviewNum > 0)
+            ((lecture.reviewNum ?? 0 > 0)
                 ? (lecture.speech * (lecture.credit + lecture.creditAu))
                 : 0));
     final tempType =
