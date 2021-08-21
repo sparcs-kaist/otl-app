@@ -130,8 +130,8 @@ class _TimeplannerHomeState extends State<TimeplannerHome> {
     return BottomNavigationBar(
       currentIndex: _currentIndex,
       type: BottomNavigationBarType.fixed,
-      showSelectedLabels: false,
-      showUnselectedLabels: false,
+      showSelectedLabels: true,
+      showUnselectedLabels: true,
       onTap: (index) {
         setState(() {
           _currentIndex = index;
