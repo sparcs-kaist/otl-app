@@ -51,32 +51,32 @@ class TimetableSummary extends StatelessWidget {
         lectures.fold<int>(0, (acc, lecture) => acc + lecture.credit);
     int allAuCredit =
         lectures.fold<int>(0, (acc, lecture) => acc + lecture.creditAu);
-    int targetNum = lectures.fold<int>(
+    int targetNum = lectures.fold(
         0,
         (acc, lecture) =>
             acc +
-            ((lecture.reviewNum ?? 0 > 0)
+            ((lecture.reviewTotalWeight > 0)
                 ? (lecture.credit + lecture.creditAu)
                 : 0));
-    double grade = lectures.fold<double>(
+    double grade = lectures.fold(
         0,
         (acc, lecture) =>
             acc +
-            ((lecture.reviewNum ?? 0 > 0)
+            ((lecture.reviewTotalWeight > 0)
                 ? (lecture.grade * (lecture.credit + lecture.creditAu))
                 : 0));
-    double load = lectures.fold<double>(
+    double load = lectures.fold(
         0,
         (acc, lecture) =>
             acc +
-            ((lecture.reviewNum ?? 0 > 0)
+            ((lecture.reviewTotalWeight > 0)
                 ? (lecture.load * (lecture.credit + lecture.creditAu))
                 : 0));
-    double speech = lectures.fold<double>(
+    double speech = lectures.fold(
         0,
         (acc, lecture) =>
             acc +
-            ((lecture.reviewNum ?? 0 > 0)
+            ((lecture.reviewTotalWeight > 0)
                 ? (lecture.speech * (lecture.credit + lecture.creditAu))
                 : 0));
     final tempType =
@@ -87,16 +87,16 @@ class TimetableSummary extends StatelessWidget {
           (tempLecture.credit + tempLecture.creditAu);
       allCreditCredit += tempLecture.credit;
       allAuCredit += tempLecture.creditAu;
-      targetNum += ((tempLecture.reviewNum > 0)
+      targetNum += ((tempLecture.reviewTotalWeight > 0)
           ? (tempLecture.credit + tempLecture.creditAu)
           : 0);
-      grade += ((tempLecture.reviewNum > 0)
+      grade += ((tempLecture.reviewTotalWeight > 0)
           ? (tempLecture.grade * (tempLecture.credit + tempLecture.creditAu))
           : 0);
-      load += ((tempLecture.reviewNum > 0)
+      load += ((tempLecture.reviewTotalWeight > 0)
           ? (tempLecture.load * (tempLecture.credit + tempLecture.creditAu))
           : 0);
-      speech += ((tempLecture.reviewNum > 0)
+      speech += ((tempLecture.reviewTotalWeight > 0)
           ? (tempLecture.speech * (tempLecture.credit + tempLecture.creditAu))
           : 0);
     }
