@@ -27,7 +27,7 @@ class Lecture {
   String commonTitleEn;
   String classTitle;
   String classTitleEn;
-  int reviewNum;
+  int reviewTotalWeight;
   List<Professor> professors;
   double grade;
   double load;
@@ -60,7 +60,7 @@ class Lecture {
       this.commonTitleEn,
       this.classTitle,
       this.classTitleEn,
-      this.reviewNum,
+      this.reviewTotalWeight,
       this.professors,
       this.grade,
       this.load,
@@ -98,7 +98,7 @@ class Lecture {
     commonTitleEn = json['common_title_en'];
     classTitle = json['class_title'];
     classTitleEn = json['class_title_en'];
-    reviewNum = json['review_num'];
+    reviewTotalWeight = json['review_total_weight'];
     if (json['professors'] != null) {
       professors = [];
       json['professors'].forEach((v) {
@@ -148,7 +148,7 @@ class Lecture {
     data['common_title_en'] = this.commonTitleEn;
     data['class_title'] = this.classTitle;
     data['class_title_en'] = this.classTitleEn;
-    data['review_num'] = this.reviewNum;
+    data['review_total_weight'] = this.reviewTotalWeight;
     if (this.professors != null) {
       data['professors'] = this.professors.map((v) => v.toJson()).toList();
     }

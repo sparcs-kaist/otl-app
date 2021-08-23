@@ -14,8 +14,11 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Material(
+    return Scaffold(
+      appBar: AppBar(
+        toolbarHeight: 0,
+      ),
+      body: Material(
         child: Stack(
           children: <Widget>[
             Center(child: const CircularProgressIndicator()),
