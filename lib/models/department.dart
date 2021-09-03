@@ -1,10 +1,10 @@
 class Department {
-  int id;
-  String name;
-  String nameEn;
-  String code;
+  late int id;
+  late String name;
+  late String nameEn;
+  late String code;
 
-  Department({this.id, this.name, this.nameEn, this.code});
+  Department({required this.id, required this.name, required this.nameEn, required this.code});
 
   bool operator ==(Object other) =>
       identical(this, other) || (other is Department && other.id == id);

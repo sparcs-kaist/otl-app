@@ -30,9 +30,9 @@ const LETTERS = [
 
 class TimetableSummary extends StatelessWidget {
   final List<Lecture> lectures;
-  final Lecture tempLecture;
+  final Lecture? tempLecture;
 
-  TimetableSummary({@required this.lectures, this.tempLecture});
+  TimetableSummary({required this.lectures, this.tempLecture});
 
   int _indexOfType(String type) {
     final index = TYPES.indexOf(type);
@@ -80,24 +80,24 @@ class TimetableSummary extends StatelessWidget {
                 ? (lecture.speech * (lecture.credit + lecture.creditAu))
                 : 0));
     final tempType =
-        (tempLecture == null) ? 6 : _indexOfType(tempLecture.typeEn);
+        (tempLecture == null) ? 6 : _indexOfType(tempLecture!.typeEn);
 
     if (tempLecture != null) {
       currentTypeCredit[tempType] +=
-          (tempLecture.credit + tempLecture.creditAu);
-      allCreditCredit += tempLecture.credit;
-      allAuCredit += tempLecture.creditAu;
-      targetNum += ((tempLecture.reviewTotalWeight > 0)
-          ? (tempLecture.credit + tempLecture.creditAu)
+          (tempLecture!.credit + tempLecture!.creditAu);
+      allCreditCredit += tempLecture!.credit;
+      allAuCredit += tempLecture!.creditAu;
+      targetNum += ((tempLecture!.reviewTotalWeight > 0)
+          ? (tempLecture!.credit + tempLecture!.creditAu)
           : 0);
-      grade += ((tempLecture.reviewTotalWeight > 0)
-          ? (tempLecture.grade * (tempLecture.credit + tempLecture.creditAu))
+      grade += ((tempLecture!.reviewTotalWeight > 0)
+          ? (tempLecture!.grade * (tempLecture!.credit + tempLecture!.creditAu))
           : 0);
-      load += ((tempLecture.reviewTotalWeight > 0)
-          ? (tempLecture.load * (tempLecture.credit + tempLecture.creditAu))
+      load += ((tempLecture!.reviewTotalWeight > 0)
+          ? (tempLecture!.load * (tempLecture!.credit + tempLecture!.creditAu))
           : 0);
-      speech += ((tempLecture.reviewTotalWeight > 0)
-          ? (tempLecture.speech * (tempLecture.credit + tempLecture.creditAu))
+      speech += ((tempLecture!.reviewTotalWeight > 0)
+          ? (tempLecture!.speech * (tempLecture!.credit + tempLecture!.creditAu))
           : 0);
     }
 
@@ -117,21 +117,21 @@ class TimetableSummary extends StatelessWidget {
             [currentTypeCredit[4], currentTypeCredit[5]],
             [tempType == 4, tempType == 5]),
         _buildScore("학점", allCreditCredit.toString(),
-            tempLecture != null && tempLecture.credit > 0),
+            tempLecture != null && tempLecture!.credit > 0),
         _buildScore("AU", allAuCredit.toString(),
-            tempLecture != null && tempLecture.creditAu > 0),
+            tempLecture != null && tempLecture!.creditAu > 0),
         _buildScore(
             "성적",
             targetNum > 0 ? LETTERS[(grade / targetNum).round()] : "?",
-            tempLecture != null && tempLecture.grade > 0),
+            tempLecture != null && tempLecture!.grade > 0),
         _buildScore(
             "널널",
             targetNum > 0 ? LETTERS[(load / targetNum).round()] : "?",
-            tempLecture != null && tempLecture.load > 0),
+            tempLecture != null && tempLecture!.load > 0),
         _buildScore(
             "강의",
             targetNum > 0 ? LETTERS[(speech / targetNum).round()] : "?",
-            tempLecture != null && tempLecture.speech > 0),
+            tempLecture != null && tempLecture!.speech > 0),
       ],
     );
   }

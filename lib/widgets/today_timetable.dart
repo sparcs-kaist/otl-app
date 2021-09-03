@@ -15,12 +15,12 @@ class TodayTimetable extends StatelessWidget {
   final DateTime now;
   final double fontSize;
   final EdgeInsetsGeometry dividerPadding;
-  final int daysCount;
+  final int? daysCount;
 
   TodayTimetable(
-      {@required List<Lecture> lectures,
-      @required this.builder,
-      @required this.now,
+      {required List<Lecture> lectures,
+      required this.builder,
+      required this.now,
       this.fontSize = 10.0,
       this.dividerPadding = const EdgeInsets.symmetric(
         horizontal: 12.0,
@@ -34,9 +34,9 @@ class TodayTimetable extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (_timebarKey?.currentContext != null)
-        Scrollable.ensureVisible(_timebarKey.currentContext);
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      if (_timebarKey.currentContext != null)
+        Scrollable.ensureVisible(_timebarKey.currentContext!);
     });
 
     return Column(
@@ -90,7 +90,7 @@ class TodayTimetable extends StatelessWidget {
     );
   }
 
-  Widget _buildLectureBlock({@required Lecture lecture, @required Time time}) {
+  Widget _buildLectureBlock({required Lecture lecture, required Time time}) {
     final begin = time.begin / 30 - 18;
     final end = time.end / 30 - 18;
 

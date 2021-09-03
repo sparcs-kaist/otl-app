@@ -1,10 +1,10 @@
 class Professor {
-  String name;
-  String nameEn;
-  int professorId;
-  int reviewNum;
+  late String name;
+  late String nameEn;
+  late int professorId;
+  late int reviewTotalWeight;
 
-  Professor({this.name, this.nameEn, this.professorId, this.reviewNum});
+  Professor({required this.name, required this.nameEn, required this.professorId, required this.reviewTotalWeight});
 
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -16,7 +16,7 @@ class Professor {
     name = json['name'];
     nameEn = json['name_en'];
     professorId = json['professor_id'];
-    reviewNum = json['review_num'];
+    reviewTotalWeight = json['review_total_weight'];
   }
 
   Map<String, dynamic> toJson() {
@@ -24,7 +24,7 @@ class Professor {
     data['name'] = this.name;
     data['name_en'] = this.nameEn;
     data['professor_id'] = this.professorId;
-    data['review_num'] = this.reviewNum;
+    data['review_total_weight'] = this.reviewTotalWeight;
     return data;
   }
 }

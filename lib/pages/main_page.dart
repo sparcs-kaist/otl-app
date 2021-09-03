@@ -45,7 +45,7 @@ class MainPage extends StatelessWidget {
                     horizontal: 12.0,
                     vertical: 8.0,
                   ),
-                  child: _buildSchedule(now, infoModel.currentSchedule),
+                  child: _buildSchedule(now, infoModel.currentSchedule!),
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8.0),
@@ -60,7 +60,7 @@ class MainPage extends StatelessWidget {
   }
 
   Widget _buildSchedule(DateTime now, Map<String, dynamic> currentSchedule) {
-    int days, hours, minutes;
+    late int days, hours, minutes;
 
     if (currentSchedule != null) {
       final timeDiff = currentSchedule["time"].difference(now) as Duration;
@@ -139,10 +139,10 @@ class MainPage extends StatelessWidget {
                   "semester": semester.semester,
                 }),
       builder: (context, snapshot) {
-        Timetable timetable;
+        late Timetable timetable;
 
         if (snapshot.hasData) {
-          final rawTimetables = snapshot.data.data as List;
+          final rawTimetables = snapshot.data!.data as List;
           timetable = Timetable.fromJson(rawTimetables.first);
         }
 

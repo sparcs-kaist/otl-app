@@ -10,10 +10,10 @@ class TimetableTabs extends StatefulWidget {
 
   TimetableTabs(
       {this.index = 0,
-      @required this.length,
-      @required this.onTap,
-      @required this.onAddTap,
-      @required this.onSettingsTap});
+      required this.length,
+      required this.onTap,
+      required this.onAddTap,
+      required this.onSettingsTap});
 
   @override
   _TimetableTabsState createState() => _TimetableTabsState();

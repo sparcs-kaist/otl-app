@@ -225,7 +225,7 @@ class LectureDetailPage extends StatelessWidget {
                 duration: const Duration(milliseconds: 300),
                 curve: Curves.easeInOut);
           } else {
-            await Scrollable.ensureVisible(headerKey.currentContext,
+            await Scrollable.ensureVisible(headerKey.currentContext!,
                 duration: const Duration(milliseconds: 300),
                 curve: Curves.easeInOut);
             _scrollController.jumpTo(_scrollController.offset + 2);
@@ -262,7 +262,7 @@ class LectureDetailPage extends StatelessWidget {
             lecture: lecture,
             existingReview: user.reviews.firstWhere(
                 (review) => review.lecture == lecture,
-                orElse: () => null),
+                orElse: null),
             isSimple: true,
             onUploaded: (review) {
               context.read<InfoModel>().getInfo();
@@ -299,7 +299,7 @@ class LectureDetailPage extends StatelessWidget {
                   "경쟁률",
                   (lecture.limit == 0)
                       ? "0.0:1"
-                      : "${(lecture.numPeople / lecture.limit).toStringAsFixed(1)}:1"),
+                      : "${(lecture.numPeople/ lecture.limit).toStringAsFixed(1)}:1"),
             ],
           ),
           TableRow(

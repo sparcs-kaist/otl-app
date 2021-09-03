@@ -10,12 +10,12 @@ import 'package:otlplus/models/review.dart';
 
 class ReviewWriteBlock extends StatefulWidget {
   final Lecture lecture;
-  final Review existingReview;
+  final Review? existingReview;
   final bool isSimple;
-  final void Function(Review) onUploaded;
+  final void Function(Review)? onUploaded;
 
   ReviewWriteBlock(
-      {@required this.lecture,
+      {required this.lecture,
       this.existingReview,
       this.isSimple = false,
       this.onUploaded});
@@ -38,10 +38,10 @@ class _ReviewWriteBlockState extends State<ReviewWriteBlock> {
     super.initState();
 
     if (widget.existingReview != null) {
-      _scores["성적"] = widget.existingReview.grade;
-      _scores["널널"] = widget.existingReview.load;
-      _scores["강의"] = widget.existingReview.speech;
-      _contentTextController.text = widget.existingReview.content;
+      _scores["성적"] = widget.existingReview!.grade;
+      _scores["널널"] = widget.existingReview!.load;
+      _scores["강의"] = widget.existingReview!.speech;
+      _contentTextController.text = widget.existingReview!.content;
     }
   }
 
@@ -162,15 +162,15 @@ class _ReviewWriteBlockState extends State<ReviewWriteBlock> {
 
   bool _canUpload() {
     if (_isUploading) return false;
-    if (_scores["성적"] > 0 &&
-        _scores["널널"] > 0 &&
-        _scores["강의"] > 0 &&
+    if ((_scores["성적"] ?? -1) > 0 &&
+        (_scores["널널"] ?? -1) > 0 &&
+        (_scores["강의"] ?? -1) > 0 &&
         _contentTextController.text.isNotEmpty) {
       if (widget.existingReview != null) {
-        return widget.existingReview.content != _contentTextController.text ||
-            _scores["성적"] != widget.existingReview.grade ||
-            _scores["널널"] != widget.existingReview.load ||
-            _scores["강의"] != widget.existingReview.speech;
+        return widget.existingReview?.content != _contentTextController.text ||
+            _scores["성적"] != widget.existingReview?.grade ||
+            _scores["널널"] != widget.existingReview?.load ||
+            _scores["강의"] != widget.existingReview?.speech;
       }
       return true;
     }
@@ -194,7 +194,7 @@ class _ReviewWriteBlockState extends State<ReviewWriteBlock> {
       });
     } else {
       response = await DioProvider().dio.patch(
-          API_REVIEW_URL + "/" + widget.existingReview.id.toString(),
+          API_REVIEW_URL + "/" + widget.existingReview!.id.toString(),
           data: {
             "content": _contentTextController.text,
             "grade": _scores["성적"],
@@ -204,7 +204,7 @@ class _ReviewWriteBlockState extends State<ReviewWriteBlock> {
     }
 
     final review = Review.fromJson(response.data);
-    widget.onUploaded(review);
+    widget.onUploaded!(review);
 
     setState(() {
       _isUploading = false;

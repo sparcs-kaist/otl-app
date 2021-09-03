@@ -41,16 +41,16 @@ class _LoginPageState extends State<LoginPage> {
             url: Uri.https(AUTHORITY, '/session/login/', {'next': BASE_URL})),
         initialOptions: InAppWebViewGroupOptions(),
         onLoadStart: (controller, url) {
-          if (url.authority == AUTHORITY) {
+          if (url?.authority == AUTHORITY) {
             setState(() {
               _isVisible = false;
             });
           }
         },
         onLoadStop: (controller, url) {
-          if (url.authority == AUTHORITY) {
+          if (url?.authority == AUTHORITY) {
             context.read<AuthModel>().authenticate(Uri.https(AUTHORITY, '/'));
-          } else if (url.authority == 'sparcssso.kaist.ac.kr') {
+          } else if (url?.authority == 'sparcssso.kaist.ac.kr') {
             setState(() {
               _isVisible = true;
             });

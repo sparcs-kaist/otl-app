@@ -9,10 +9,10 @@ import 'package:otlplus/widgets/backdrop.dart';
 class LectureGroupSimpleBlock extends StatelessWidget {
   final List<Lecture> lectures;
   final int semester;
-  final String filter;
+  final String? filter;
 
   LectureGroupSimpleBlock(
-      {@required this.lectures, @required this.semester, this.filter});
+      {required this.lectures, required this.semester, this.filter});
 
   @override
   Widget build(BuildContext context) {

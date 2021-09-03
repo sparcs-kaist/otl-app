@@ -3,7 +3,7 @@ import 'package:test/test.dart';
 
 void main() {
   group('App', () {
-    FlutterDriver driver;
+    late FlutterDriver driver;
 
     setUpAll(() async {
       driver = await FlutterDriver.connect();

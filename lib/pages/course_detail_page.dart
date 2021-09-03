@@ -102,7 +102,7 @@ class CourseDetailPage extends StatelessWidget {
                 duration: const Duration(milliseconds: 300),
                 curve: Curves.easeInOut);
           } else {
-            await Scrollable.ensureVisible(headerKey.currentContext,
+            await Scrollable.ensureVisible(headerKey.currentContext!,
                 duration: const Duration(milliseconds: 300),
                 curve: Curves.easeInOut);
             _scrollController.jumpTo(_scrollController.offset + 2);
@@ -131,7 +131,7 @@ class CourseDetailPage extends StatelessWidget {
   }
 
   ChoiceChip _buildChoiceChip(
-      BuildContext context, String selectedFilter, Professor professor) {
+      BuildContext context, String selectedFilter, Professor? professor) {
     return ChoiceChip(
       label: (professor == null) ? const Text("전체") : Text(professor.name),
       selected: (professor == null)
@@ -186,7 +186,7 @@ class CourseDetailPage extends StatelessWidget {
 
   Widget _buildScores(BuildContext context, Course course) {
     final lecture = context
-        .select<CourseDetailModel, Lecture>((model) => model.selectedLecture);
+        .select<CourseDetailModel, Lecture?>((model) => model.selectedLecture);
 
     return Padding(
       padding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 4.0),
@@ -220,7 +220,7 @@ class CourseDetailPage extends StatelessWidget {
             ),
             Expanded(
               child: Text(
-                "${course.department.name}, ${course.type}",
+                "${course.department?.name}, ${course.type}",
                 style: const TextStyle(
                   fontSize: 12.0,
                   height: 1.1,
@@ -267,7 +267,7 @@ class CourseDetailPage extends StatelessWidget {
         reverse: true,
         child: Column(
           children: <Widget>[
-            _buildHistoryRow(courseDetailModel.lectures, years, 1,
+            _buildHistoryRow(courseDetailModel.lectures as List<Lecture>, years, 1,
                 courseDetailModel.selectedFilter),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 6.0),
@@ -288,7 +288,7 @@ class CourseDetailPage extends StatelessWidget {
                     .toList(),
               ),
             ),
-            _buildHistoryRow(courseDetailModel.lectures, years, 3,
+            _buildHistoryRow(courseDetailModel.lectures as List<Lecture>, years, 3,
                 courseDetailModel.selectedFilter),
           ],
         ),
@@ -350,7 +350,7 @@ class CourseDetailPage extends StatelessWidget {
                   lecture: lecture,
                   existingReview: user.reviews.firstWhere(
                       (review) => review.lecture == lecture,
-                      orElse: () => null),
+                      orElse: null),
                   isSimple: false,
                   onUploaded: (review) {
                     context.read<InfoModel>().getInfo();
@@ -361,7 +361,7 @@ class CourseDetailPage extends StatelessWidget {
                 ))
             .toList(),
         ...context.select<CourseDetailModel, List<Widget>>((model) => model
-            .reviews
+            .reviews!
             .map((review) => ReviewBlock(review: review))
             .toList()),
       ]),

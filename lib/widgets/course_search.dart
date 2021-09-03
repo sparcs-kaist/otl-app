@@ -67,7 +67,7 @@ final terms = {
 };
 
 class CourseSearch extends StatefulWidget {
-  final void Function(Course) onCourseTap;
+  final void Function(Course)? onCourseTap;
 
   CourseSearch({this.onCourseTap});
 
@@ -78,7 +78,7 @@ class CourseSearch extends StatefulWidget {
 class _CourseSearchState extends State<CourseSearch> {
   final _searchTextController = TextEditingController();
 
-  FocusNode _focusNode;
+  late FocusNode _focusNode;
   List<String> _department = [departments.keys.first];
   List<String> _type = [types.keys.first];
   List<String> _grade = [grades.keys.first];
@@ -193,11 +193,11 @@ class _CourseSearchState extends State<CourseSearch> {
                   padding: const EdgeInsets.symmetric(horizontal: 12.0),
                   child: Scrollbar(
                     child: ListView.builder(
-                      itemCount: searchModel.courses.length,
+                      itemCount: searchModel.courses?.length ?? 0,
                       itemBuilder: (context, index) => CourseBlock(
-                        course: searchModel.courses[index],
+                        course: searchModel.courses![index],
                         onTap: () =>
-                            widget.onCourseTap(searchModel.courses[index]),
+                            widget.onCourseTap!(searchModel.courses![index]),
                       ),
                     ),
                   ),

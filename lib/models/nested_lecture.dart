@@ -1,8 +1,6 @@
-import 'package:otlplus/models/classtime.dart';
-import 'package:otlplus/models/examtime.dart';
 import 'package:otlplus/models/professor.dart';
 
-class Lecture {
+class NestedLecture {
   late int id;
   late String title;
   late String titleEn;
@@ -29,13 +27,8 @@ class Lecture {
   late String classTitleEn;
   late int reviewTotalWeight;
   late List<Professor> professors;
-  late double grade;
-  late double load;
-  late double speech;
-  late List<Classtime> classtimes;
-  late List<Examtime> examtimes;
 
-  Lecture(
+  NestedLecture(
       {required this.id,
       required this.title,
       required this.titleEn,
@@ -61,19 +54,14 @@ class Lecture {
       required this.classTitle,
       required this.classTitleEn,
       required this.reviewTotalWeight,
-      required this.professors,
-      required this.grade,
-      required this.load,
-      required this.speech,
-      required this.classtimes,
-      required this.examtimes});
+      required this.professors});
 
   bool operator ==(Object other) =>
-      identical(this, other) || (other is Lecture && other.id == id);
+      identical(this, other) || (other is NestedLecture && other.id == id);
 
   int get hashCode => id.hashCode;
 
-  Lecture.fromJson(Map<String, dynamic> json) {
+  NestedLecture.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     title = json['title'];
     titleEn = json['title_en'];
@@ -103,21 +91,6 @@ class Lecture {
       professors = [];
       json['professors'].forEach((v) {
         professors.add(Professor.fromJson(v));
-      });
-    }
-    grade = json['grade']?.toDouble();
-    load = json['load']?.toDouble();
-    speech = json['speech']?.toDouble();
-    if (json['classtimes'] != null) {
-      classtimes = [];
-      json['classtimes'].forEach((v) {
-        classtimes.add(Classtime.fromJson(v));
-      });
-    }
-    if (json['examtimes'] != null) {
-      examtimes = [];
-      json['examtimes'].forEach((v) {
-        examtimes.add(Examtime.fromJson(v));
       });
     }
   }
@@ -150,11 +123,6 @@ class Lecture {
     data['class_title_en'] = this.classTitleEn;
     data['review_total_weight'] = this.reviewTotalWeight;
     data['professors'] = this.professors.map((v) => v.toJson()).toList();
-    data['grade'] = this.grade;
-    data['load'] = this.load;
-    data['speech'] = this.speech;
-    data['classtimes'] = this.classtimes.map((v) => v.toJson()).toList();
-    data['examtimes'] = this.examtimes.map((v) => v.toJson()).toList();
     return data;
   }
 }

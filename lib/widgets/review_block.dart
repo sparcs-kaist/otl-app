@@ -2,19 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:otlplus/constants/color.dart';
 import 'package:otlplus/constants/url.dart';
 import 'package:otlplus/dio_provider.dart';
-import 'package:otlplus/extensions/lecture.dart';
 import 'package:otlplus/extensions/review.dart';
 import 'package:otlplus/models/review.dart';
 
 class ReviewBlock extends StatefulWidget {
   final Review review;
-  final VoidCallback onTap;
-  final int maxLines;
-  final TextOverflow overflow;
+  final VoidCallback? onTap;
+  final int? maxLines;
+  final TextOverflow? overflow;
   final bool isSimple;
 
   ReviewBlock(
-      {@required this.review,
+      {required this.review,
       this.onTap,
       this.maxLines,
       this.overflow,
@@ -25,14 +24,12 @@ class ReviewBlock extends StatefulWidget {
 }
 
 class _ReviewBlockState extends State<ReviewBlock> {
-  int _like;
-  bool _canUpload;
+  late int _like;
 
   @override
   void initState() {
     super.initState();
     _like = widget.review.like;
-    _canUpload = !widget.review.userspecificIsLiked;
   }
 
   @override
@@ -71,7 +68,7 @@ class _ReviewBlockState extends State<ReviewBlock> {
                         ),
                         const TextSpan(text: " "),
                         TextSpan(
-                            text: widget.review.lecture.professorsStrShort),
+                            text: widget.review.lecture.professors.join(" ")),
                         const TextSpan(text: " "),
                         TextSpan(text: widget.review.lecture.year.toString()),
                         TextSpan(
@@ -137,13 +134,11 @@ class _ReviewBlockState extends State<ReviewBlock> {
                       Material(
                         color: Colors.transparent,
                         child: InkWell(
-                          onTap: _canUpload ? _uploadLike : null,
+                          onTap: _uploadLike,
                           child: Text(
                             "좋아요",
                             style: TextStyle(
-                              color: _canUpload
-                                  ? PRIMARY_COLOR
-                                  : const Color(0xFFAAAAAA),
+                              color: const Color(0xFFAAAAAA),
                               fontSize: 12.0,
                             ),
                           ),
@@ -162,7 +157,6 @@ class _ReviewBlockState extends State<ReviewBlock> {
   Future<void> _uploadLike() async {
     setState(() {
       _like++;
-      _canUpload = false;
     });
 
     await DioProvider().dio.post(

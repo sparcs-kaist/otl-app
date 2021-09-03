@@ -28,8 +28,8 @@ class _TimetablePageState extends State<TimetablePage> {
 
   bool _isSearchOpened = false;
   bool _isExamTime = false;
-  List<Semester> _semesters;
-  Lecture _selectedLecture;
+  late List<Semester> _semesters;
+  Lecture? _selectedLecture;
 
   @override
   void initState() {
@@ -50,9 +50,9 @@ class _TimetablePageState extends State<TimetablePage> {
     final lectures = context.select<TimetableModel, List<Lecture>>(
         (model) => model.currentTimetable.lectures);
 
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (_selectedKey?.currentContext != null)
-        Scrollable.ensureVisible(_selectedKey.currentContext);
+    WidgetsBinding.instance?.addPostFrameCallback((_) {
+      if (_selectedKey.currentContext != null)
+        Scrollable.ensureVisible(_selectedKey.currentContext!);
     });
 
     return Column(
@@ -143,12 +143,13 @@ class _TimetablePageState extends State<TimetablePage> {
                   _selectedLecture = null;
                 });
               },
-              onClosed: () {
+              onClosed: () async {
                 setState(() {
                   _isSearchOpened = false;
                   _selectedLecture = null;
                   context.read<SearchModel>().lectureClear();
                 });
+                return true;
               },
               onSelectionChanged: (lecture) {
                 setState(() {
@@ -168,11 +169,11 @@ class _TimetablePageState extends State<TimetablePage> {
     return Timetable(
       lectures: (_selectedLecture == null)
           ? lectures
-          : [...lectures, _selectedLecture],
+          : [...lectures, _selectedLecture!],
       isExamTime: _isExamTime,
       builder: (lecture, classTimeIndex) {
         final isSelected = _selectedLecture == lecture;
-        Key key;
+        Key? key;
 
         if (isSelected && isFirst) {
           key = _selectedKey;
@@ -267,7 +268,7 @@ class _TimetablePageState extends State<TimetablePage> {
             leading: const Icon(Icons.image),
             title: const Text("이미지 저장"),
             onTap: () {
-              final boundary = _paintKey.currentContext.findRenderObject()
+              final boundary = _paintKey.currentContext?.findRenderObject()
                   as RenderRepaintBoundary;
               exportImage(boundary);
               Navigator.pop(context);

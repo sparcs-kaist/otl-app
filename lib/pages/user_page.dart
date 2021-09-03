@@ -18,6 +18,8 @@ class UserPage extends StatelessWidget {
         .map((lecture) => Semester(
               year: lecture.year,
               semester: lecture.semester,
+              beginning: DateTime.now(),
+              end: DateTime.now()
             ))
         .toSet()
         .toList()

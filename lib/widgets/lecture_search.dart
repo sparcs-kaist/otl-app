@@ -55,9 +55,9 @@ final grades = {
 };
 
 class LectureSearch extends StatefulWidget {
-  final VoidCallback onAdded;
-  final VoidCallback onClosed;
-  final void Function(Lecture) onSelectionChanged;
+  final VoidCallback? onAdded;
+  final Future<bool> Function()? onClosed;
+  final void Function(Lecture?)? onSelectionChanged;
 
   LectureSearch({this.onAdded, this.onClosed, this.onSelectionChanged});
 
@@ -68,8 +68,8 @@ class LectureSearch extends StatefulWidget {
 class _LectureSearchState extends State<LectureSearch> {
   final _searchTextController = TextEditingController();
 
-  FocusNode _focusNode;
-  Lecture _selectedLecture;
+  late FocusNode _focusNode;
+  Lecture? _selectedLecture;
   List<String> _department = [departments.keys.first];
   List<String> _type = [types.keys.first];
   List<String> _grade = [grades.keys.first];
@@ -119,7 +119,9 @@ class _LectureSearchState extends State<LectureSearch> {
 
                       setState(() {
                         _selectedLecture = null;
-                        widget.onSelectionChanged(_selectedLecture);
+                        if (widget.onSelectionChanged != null) {
+                          widget.onSelectionChanged!(_selectedLecture);
+                        }
                       });
                     },
                     style: const TextStyle(fontSize: 14.0),
@@ -137,7 +139,7 @@ class _LectureSearchState extends State<LectureSearch> {
                   onPressed: (_selectedLecture == null ||
                           context.select<TimetableModel, bool>((model) =>
                               model.currentTimetable.lectures.any((lecture) =>
-                                  lecture.oldCode == _selectedLecture.oldCode)))
+                                  lecture.oldCode == _selectedLecture?.oldCode)))
                       ? null
                       : _addLecture,
                 ),
@@ -192,7 +194,7 @@ class _LectureSearchState extends State<LectureSearch> {
                   : Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 12.0),
                       child: Scrollbar(
-                        child: _buildListView(searchModel.lectures),
+                        child: _buildListView(searchModel.lectures ?? [[]]),
                       ),
                     ),
             ),
@@ -204,7 +206,7 @@ class _LectureSearchState extends State<LectureSearch> {
 
   Future<void> _addLecture() async {
     bool result = await context.read<TimetableModel>().addLecture(
-          lecture: _selectedLecture,
+          lecture: _selectedLecture!,
           onOverlap: (lectures) async {
             bool result = false;
 
@@ -240,7 +242,9 @@ class _LectureSearchState extends State<LectureSearch> {
 
     if (result) {
       setState(() {
-        widget.onAdded();
+        if (widget.onAdded != null) {
+          widget.onAdded!();
+        }
       });
     }
   }
@@ -254,7 +258,9 @@ class _LectureSearchState extends State<LectureSearch> {
         onTap: (lecture) {
           setState(() {
             _selectedLecture = (_selectedLecture == lecture) ? null : lecture;
-            widget.onSelectionChanged(_selectedLecture);
+            if (widget.onSelectionChanged != null) {
+              widget.onSelectionChanged!(_selectedLecture);
+            }
           });
         },
         onLongPress: (lecture) {

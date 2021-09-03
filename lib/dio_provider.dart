@@ -3,7 +3,7 @@ import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:otlplus/constants/url.dart';
 
 class DioProvider {
-  static DioProvider _instance;
+  static DioProvider? _instance;
   factory DioProvider() => _instance ??= DioProvider._internal();
 
   Dio _dio = Dio();

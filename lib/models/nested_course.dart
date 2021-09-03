@@ -1,7 +1,6 @@
 import 'package:otlplus/models/department.dart';
-import 'package:otlplus/models/professor.dart';
 
-class Course {
+class NestedCourse {
   late int id;
   late String oldCode;
   Department? department;
@@ -11,13 +10,8 @@ class Course {
   late String titleEn;
   late String summary;
   late int reviewTotalWeight;
-  late List<Professor> professors;
-  late double grade;
-  late double load;
-  late double speech;
-  late bool userspecificIsRead;
 
-  Course(
+  NestedCourse(
       {required this.id,
       required this.oldCode,
       this.department,
@@ -26,19 +20,14 @@ class Course {
       required this.title,
       required this.titleEn,
       required this.summary,
-      required this.reviewTotalWeight,
-      required this.professors,
-      required this.grade,
-      required this.load,
-      required this.speech,
-      required this.userspecificIsRead});
+      required this.reviewTotalWeight});
 
   bool operator ==(Object other) =>
-      identical(this, other) || (other is Course && other.id == id);
+      identical(this, other) || (other is NestedCourse && other.id == id);
 
   int get hashCode => id.hashCode;
 
-  Course.fromJson(Map<String, dynamic> json) {
+  NestedCourse.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     oldCode = json['old_code'];
     department = Department.fromJson(json['department']);
@@ -48,16 +37,6 @@ class Course {
     titleEn = json['title_en'];
     summary = json['summary'];
     reviewTotalWeight = json['review_total_weight'];
-    if (json['professors'] != null) {
-      professors = [];
-      json['professors'].forEach((v) {
-        professors.add(Professor.fromJson(v));
-      });
-    }
-    grade = json['grade']?.toDouble();
-    load = json['load']?.toDouble();
-    speech = json['speech']?.toDouble();
-    userspecificIsRead = json['userspecific_is_read'];
   }
 
   Map<String, dynamic> toJson() {
@@ -73,13 +52,6 @@ class Course {
     data['title_en'] = this.titleEn;
     data['summary'] = this.summary;
     data['review_total_weight'] = this.reviewTotalWeight;
-    if (this.professors != null) {
-      data['professors'] = this.professors.map((v) => v.toJson()).toList();
-    }
-    data['grade'] = this.grade;
-    data['load'] = this.load;
-    data['speech'] = this.speech;
-    data['userspecific_is_read'] = this.userspecificIsRead;
     return data;
   }
 }

@@ -1,10 +1,10 @@
 import 'package:otlplus/models/lecture.dart';
 
 class Timetable {
-  int id;
-  List<Lecture> lectures;
+  late int id;
+  late List<Lecture> lectures;
 
-  Timetable({this.id, this.lectures});
+  Timetable({required this.id, required this.lectures});
 
   bool operator ==(Object other) =>
       identical(this, other) || (other is Timetable && other.id == id);
@@ -24,9 +24,7 @@ class Timetable {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = Map<String, dynamic>();
     data['id'] = this.id;
-    if (this.lectures != null) {
-      data['lectures'] = this.lectures.map((v) => v.toJson()).toList();
-    }
+    data['lectures'] = this.lectures.map((v) => v.toJson()).toList();
     return data;
   }
 }

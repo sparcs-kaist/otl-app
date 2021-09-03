@@ -8,11 +8,11 @@ const double _kFlingVelocity = 2.0;
 class Backdrop extends InheritedWidget {
   final _BackdropScaffoldState state;
 
-  Backdrop({Key key, @required this.state, @required Widget child})
+  Backdrop({Key? key, required this.state, required Widget child})
       : super(key: key, child: child);
 
   static _BackdropScaffoldState of(BuildContext context) =>
-      context.dependOnInheritedWidgetOfExactType<Backdrop>().state;
+      context.dependOnInheritedWidgetOfExactType<Backdrop>()!.state;
 
   @override
   bool updateShouldNotify(Backdrop oldWidget) => state != oldWidget.state;
@@ -21,14 +21,14 @@ class Backdrop extends InheritedWidget {
 class BackdropScaffold extends StatefulWidget {
   final Widget frontLayer;
   final List<Widget> backLayers;
-  final Widget bottomNavigationBar;
-  final List<Widget> actions;
-  final Widget expandedWidget;
+  final Widget? bottomNavigationBar;
+  final List<Widget>? actions;
+  final Widget? expandedWidget;
   final bool isExpanded;
 
   BackdropScaffold(
-      {@required this.frontLayer,
-      @required this.backLayers,
+      {required this.frontLayer,
+      required this.backLayers,
       this.bottomNavigationBar,
       this.actions,
       this.expandedWidget,
@@ -45,7 +45,7 @@ class _BackdropScaffoldState extends State<BackdropScaffold>
       _controller.status == AnimationStatus.completed ||
       _controller.status == AnimationStatus.forward;
 
-  AnimationController _controller;
+  late AnimationController _controller;
   int _selectedIndex = 0;
   List<int> _indexStack = <int>[];
 
@@ -129,12 +129,12 @@ class _BackdropScaffoldState extends State<BackdropScaffold>
   Future<bool> _willPop() async {
     if (!frontLayerVisible) {
       show();
-      return null;
+      return false;
     }
     return true;
   }
 
-  Widget _buildAppBar() {
+  PreferredSizeWidget _buildAppBar() {
     var brightness = Brightness.dark;
     if (Platform.isIOS) {
       brightness = Brightness.light;
@@ -165,7 +165,7 @@ class _BackdropScaffoldState extends State<BackdropScaffold>
                   color: PRIMARY_COLOR,
                   height: 5,
                 ),
-                if (isExpanded) widget.expandedWidget,
+                if (isExpanded) widget.expandedWidget!,
               ],
             ),
           ),

@@ -1,21 +1,21 @@
 class Semester {
-  int year;
-  int semester;
-  DateTime beginning;
-  DateTime end;
-  DateTime courseDesciptionSubmission;
-  DateTime courseRegistrationPeriodStart;
-  DateTime courseRegistrationPeriodEnd;
-  DateTime courseAddDropPeriodEnd;
-  DateTime courseDropDeadline;
-  DateTime courseEvaluationDeadline;
-  DateTime gradePosting;
+  late int year;
+  late int semester;
+  late DateTime beginning;
+  late DateTime end;
+  DateTime? courseDesciptionSubmission;
+  DateTime? courseRegistrationPeriodStart;
+  DateTime? courseRegistrationPeriodEnd;
+  DateTime? courseAddDropPeriodEnd;
+  DateTime? courseDropDeadline;
+  DateTime? courseEvaluationDeadline;
+  DateTime? gradePosting;
 
   Semester(
-      {this.year,
-      this.semester,
-      this.beginning,
-      this.end,
+      {required this.year,
+      required this.semester,
+      required this.beginning,
+      required this.end,
       this.courseDesciptionSubmission,
       this.courseRegistrationPeriodStart,
       this.courseRegistrationPeriodEnd,
@@ -33,8 +33,8 @@ class Semester {
   Semester.fromJson(Map<String, dynamic> json) {
     year = json['year'];
     semester = json['semester'];
-    beginning = DateTime.tryParse(json['beginning'] ?? "");
-    end = DateTime.tryParse(json['end'] ?? "");
+    beginning = DateTime.parse(json['beginning']);
+    end = DateTime.parse(json['end']);
     courseDesciptionSubmission =
         DateTime.tryParse(json['courseDesciptionSubmission'] ?? "");
     courseRegistrationPeriodStart =

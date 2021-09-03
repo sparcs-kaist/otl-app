@@ -8,7 +8,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 const MethodChannel _channel =
-    const MethodChannel("me.blog.ghwhsbsb123.otlplus");
+    const MethodChannel("org.sparcs.otlplus");
 
 Future<void> exportImage(RenderRepaintBoundary boundary) async {
   final image = await boundary.toImage(pixelRatio: 3.0);
@@ -19,13 +19,13 @@ Future<void> exportImage(RenderRepaintBoundary boundary) async {
     if (await Permission.storage.request().isGranted) {
       _channel.invokeMethod("writeImageAsBytes", <String, dynamic>{
         "fileName": fileName,
-        "bytes": byteData.buffer.asUint8List(),
+        "bytes": byteData?.buffer.asUint8List(),
       });
     }
   } else {
     final directory = await getApplicationDocumentsDirectory();
     final path = "${directory.path}/$fileName";
-    File(path).writeAsBytesSync(byteData.buffer.asUint8List());
+    File(path).writeAsBytesSync(byteData?.buffer.asUint8List() as List<int>);
     OpenFile.open(path);
   }
 }
