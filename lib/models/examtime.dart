@@ -4,7 +4,12 @@ class Examtime extends Time {
   final String str;
   final String strEn;
 
-  Examtime({required this.str, required this.strEn, required int day, required int begin, required int end})
+  Examtime(
+      {required this.str,
+      required this.strEn,
+      required int day,
+      required int begin,
+      required int end})
       : super(day: day, begin: begin, end: end);
 
   @override

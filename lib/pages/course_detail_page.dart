@@ -267,8 +267,8 @@ class CourseDetailPage extends StatelessWidget {
         reverse: true,
         child: Column(
           children: <Widget>[
-            _buildHistoryRow(courseDetailModel.lectures as List<Lecture>, years, 1,
-                courseDetailModel.selectedFilter),
+            _buildHistoryRow(courseDetailModel.lectures as List<Lecture>, years,
+                1, courseDetailModel.selectedFilter),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 6.0),
               child: Row(
@@ -288,8 +288,8 @@ class CourseDetailPage extends StatelessWidget {
                     .toList(),
               ),
             ),
-            _buildHistoryRow(courseDetailModel.lectures as List<Lecture>, years, 3,
-                courseDetailModel.selectedFilter),
+            _buildHistoryRow(courseDetailModel.lectures as List<Lecture>, years,
+                3, courseDetailModel.selectedFilter),
           ],
         ),
       ),

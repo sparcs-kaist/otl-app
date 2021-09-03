@@ -16,11 +16,10 @@ class UserPage extends StatelessWidget {
     final user = context.watch<InfoModel>().user;
     final targetSemesters = user.reviewWritableLectures
         .map((lecture) => Semester(
-              year: lecture.year,
-              semester: lecture.semester,
-              beginning: DateTime.now(),
-              end: DateTime.now()
-            ))
+            year: lecture.year,
+            semester: lecture.semester,
+            beginning: DateTime.now(),
+            end: DateTime.now()))
         .toSet()
         .toList()
           ..sort((a, b) => ((a.year != b.year)

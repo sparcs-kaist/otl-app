@@ -21,9 +21,12 @@ final scores = [
 ];
 
 extension CourseExtension on Course {
-  String get gradeLetter => (reviewTotalWeight == 0) ? "?" : scores[grade.round()];
-  String get loadLetter => (reviewTotalWeight == 0) ? "?" : scores[load.round()];
-  String get speechLetter => (reviewTotalWeight == 0) ? "?" : scores[speech.round()];
+  String get gradeLetter =>
+      (reviewTotalWeight == 0) ? "?" : scores[grade.round()];
+  String get loadLetter =>
+      (reviewTotalWeight == 0) ? "?" : scores[load.round()];
+  String get speechLetter =>
+      (reviewTotalWeight == 0) ? "?" : scores[speech.round()];
   String get professorsStr {
     final professors = List<Professor>.from(this.professors)
       ..sort((a, b) => a.name.compareTo(b.name));

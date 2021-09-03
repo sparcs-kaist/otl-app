@@ -10,7 +10,10 @@ class SearchFilter extends StatefulWidget {
   final bool isMultiSelect;
 
   SearchFilter(
-      {required this.property, this.items, this.onChanged, this.isMultiSelect = false});
+      {required this.property,
+      this.items,
+      this.onChanged,
+      this.isMultiSelect = false});
 
   @override
   _SearchFilterState createState() => _SearchFilterState();
@@ -52,7 +55,8 @@ class _SearchFilterState extends State<SearchFilter> {
                         setState(() {
                           selectedItems = items;
                           if (widget.onChanged != null) {
-widget.onChanged!(selectedItems.map((item) => item.key).toList());
+                            widget.onChanged!(
+                                selectedItems.map((item) => item.key).toList());
                           }
                         });
                       }
@@ -81,9 +85,8 @@ widget.onChanged!(selectedItems.map((item) => item.key).toList());
           setState(() {
             selectedItem = item;
             if (widget.onChanged != null) {
-                            widget.onChanged!(selectedItem.key);
-                          }
-            
+              widget.onChanged!(selectedItem.key);
+            }
           });
         }
       },

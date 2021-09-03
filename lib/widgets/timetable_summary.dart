@@ -97,7 +97,8 @@ class TimetableSummary extends StatelessWidget {
           ? (tempLecture!.load * (tempLecture!.credit + tempLecture!.creditAu))
           : 0);
       speech += ((tempLecture!.reviewTotalWeight > 0)
-          ? (tempLecture!.speech * (tempLecture!.credit + tempLecture!.creditAu))
+          ? (tempLecture!.speech *
+              (tempLecture!.credit + tempLecture!.creditAu))
           : 0);
     }
 

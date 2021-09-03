@@ -45,12 +45,12 @@ class InfoModel extends ChangeNotifier {
 
   Future<void> getInfo() async {
     // try {
-      _semesters = await getSemesters();
-      _years = _semesters.map((semester) => semester.year).toSet();
-      _user = await getUser();
-      _currentSchedule = getCurrentSchedule();
-      _hasData = true;
-      notifyListeners();
+    _semesters = await getSemesters();
+    _years = _semesters.map((semester) => semester.year).toSet();
+    _user = await getUser();
+    _currentSchedule = getCurrentSchedule();
+    _hasData = true;
+    notifyListeners();
     // } catch (exception) {
     //   print(exception);
     // }

@@ -1,31 +1,31 @@
 import 'package:otlplus/models/professor.dart';
 
 class NestedLecture {
-  late int id;
-  late String title;
-  late String titleEn;
-  late int course;
-  late String oldCode;
-  late String classNo;
-  late int year;
-  late int semester;
-  late String code;
-  late int department;
-  late String departmentCode;
-  late String departmentName;
-  late String departmentNameEn;
-  late String type;
-  late String typeEn;
-  late int limit;
-  late int numPeople;
-  late bool isEnglish;
-  late int credit;
-  late int creditAu;
-  late String commonTitle;
-  late String commonTitleEn;
-  late String classTitle;
-  late String classTitleEn;
-  late int reviewTotalWeight;
+  final int id;
+  final String title;
+  final String titleEn;
+  final int course;
+  final String oldCode;
+  final String classNo;
+  final int year;
+  final int semester;
+  final String code;
+  final int department;
+  final String departmentCode;
+  final String departmentName;
+  final String departmentNameEn;
+  final String type;
+  final String typeEn;
+  final int limit;
+  final int numPeople;
+  final bool isEnglish;
+  final int credit;
+  final int creditAu;
+  final String commonTitle;
+  final String commonTitleEn;
+  final String classTitle;
+  final String classTitleEn;
+  final int reviewTotalWeight;
   late List<Professor> professors;
 
   NestedLecture(
@@ -61,32 +61,32 @@ class NestedLecture {
 
   int get hashCode => id.hashCode;
 
-  NestedLecture.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    title = json['title'];
-    titleEn = json['title_en'];
-    course = json['course'];
-    oldCode = json['old_code'];
-    classNo = json['class_no'];
-    year = json['year'];
-    semester = json['semester'];
-    code = json['code'];
-    department = json['department'];
-    departmentCode = json['department_code'];
-    departmentName = json['department_name'];
-    departmentNameEn = json['department_name_en'];
-    type = json['type'];
-    typeEn = json['type_en'];
-    limit = json['limit'];
-    numPeople = json['num_people'];
-    isEnglish = json['is_english'];
-    credit = json['credit'];
-    creditAu = json['credit_au'];
-    commonTitle = json['common_title'];
-    commonTitleEn = json['common_title_en'];
-    classTitle = json['class_title'];
-    classTitleEn = json['class_title_en'];
-    reviewTotalWeight = json['review_total_weight'];
+  NestedLecture.fromJson(Map<String, dynamic> json)
+      : id = json['id'],
+        title = json['title'],
+        titleEn = json['title_en'],
+        course = json['course'],
+        oldCode = json['old_code'],
+        classNo = json['class_no'],
+        year = json['year'],
+        semester = json['semester'],
+        code = json['code'],
+        department = json['department'],
+        departmentCode = json['department_code'],
+        departmentName = json['department_name'],
+        departmentNameEn = json['department_name_en'],
+        type = json['type'],
+        typeEn = json['type_en'],
+        limit = json['limit'],
+        numPeople = json['num_people'],
+        isEnglish = json['is_english'],
+        credit = json['credit'],
+        creditAu = json['credit_au'],
+        commonTitle = json['common_title'],
+        commonTitleEn = json['common_title_en'],
+        classTitle = json['class_title'],
+        classTitleEn = json['class_title_en'],
+        reviewTotalWeight = json['review_total_weight'] {
     if (json['professors'] != null) {
       professors = [];
       json['professors'].forEach((v) {

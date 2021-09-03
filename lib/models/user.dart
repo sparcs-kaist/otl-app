@@ -3,11 +3,11 @@ import 'package:otlplus/models/lecture.dart';
 import 'package:otlplus/models/review.dart';
 
 class User {
-  late int id;
-  late String email;
-  late String studentId;
-  late String firstName;
-  late String lastName;
+  final int id;
+  final String email;
+  final String studentId;
+  final String firstName;
+  final String lastName;
   late List<Department> majors;
   late List<Department> departments;
   late List<Lecture> myTimetableLectures;
@@ -33,12 +33,12 @@ class User {
 
   int get hashCode => id.hashCode;
 
-  User.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    email = json['email'];
-    studentId = json['student_id'];
-    firstName = json['firstName'];
-    lastName = json['lastName'];
+  User.fromJson(Map<String, dynamic> json)
+      : id = json['id'],
+        email = json['email'],
+        studentId = json['student_id'],
+        firstName = json['firstName'],
+        lastName = json['lastName'] {
     if (json['majors'] != null) {
       majors = [];
       json['majors'].forEach((v) {

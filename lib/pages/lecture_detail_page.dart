@@ -299,7 +299,7 @@ class LectureDetailPage extends StatelessWidget {
                   "경쟁률",
                   (lecture.limit == 0)
                       ? "0.0:1"
-                      : "${(lecture.numPeople/ lecture.limit).toStringAsFixed(1)}:1"),
+                      : "${(lecture.numPeople / lecture.limit).toStringAsFixed(1)}:1"),
             ],
           ),
           TableRow(

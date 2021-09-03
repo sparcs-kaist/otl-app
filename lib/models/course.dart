@@ -2,20 +2,20 @@ import 'package:otlplus/models/department.dart';
 import 'package:otlplus/models/professor.dart';
 
 class Course {
-  late int id;
-  late String oldCode;
-  Department? department;
-  late String type;
-  late String typeEn;
-  late String title;
-  late String titleEn;
-  late String summary;
-  late int reviewTotalWeight;
+  final int id;
+  final String oldCode;
+  final Department? department;
+  final String type;
+  final String typeEn;
+  final String title;
+  final String titleEn;
+  final String summary;
+  final int reviewTotalWeight;
   late List<Professor> professors;
-  late double grade;
-  late double load;
-  late double speech;
-  late bool userspecificIsRead;
+  final double grade;
+  final double load;
+  final double speech;
+  final bool userspecificIsRead;
 
   Course(
       {required this.id,
@@ -38,26 +38,26 @@ class Course {
 
   int get hashCode => id.hashCode;
 
-  Course.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    oldCode = json['old_code'];
-    department = Department.fromJson(json['department']);
-    type = json['type'];
-    typeEn = json['type_en'];
-    title = json['title'];
-    titleEn = json['title_en'];
-    summary = json['summary'];
-    reviewTotalWeight = json['review_total_weight'];
+  Course.fromJson(Map<String, dynamic> json)
+      : id = json['id'],
+        oldCode = json['old_code'],
+        department = Department.fromJson(json['department']),
+        type = json['type'],
+        typeEn = json['type_en'],
+        title = json['title'],
+        titleEn = json['title_en'],
+        summary = json['summary'],
+        reviewTotalWeight = json['review_total_weight'],
+        grade = json['grade']?.toDouble(),
+        load = json['load']?.toDouble(),
+        speech = json['speech']?.toDouble(),
+        userspecificIsRead = json['userspecific_is_read'] {
     if (json['professors'] != null) {
       professors = [];
       json['professors'].forEach((v) {
         professors.add(Professor.fromJson(v));
       });
     }
-    grade = json['grade']?.toDouble();
-    load = json['load']?.toDouble();
-    speech = json['speech']?.toDouble();
-    userspecificIsRead = json['userspecific_is_read'];
   }
 
   Map<String, dynamic> toJson() {

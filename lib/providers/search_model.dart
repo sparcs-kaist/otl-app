@@ -50,12 +50,14 @@ class SearchModel extends ChangeNotifier {
                   0, (acc, val) => acc + val.grade + val.load + val.speech) /
               _courses!.length;
           _courses!.sort((a, b) {
-            final aRating = ((a.grade + a.load + a.speech) * a.reviewTotalWeight +
-                    avgRatings * tune) /
-                (a.reviewTotalWeight + tune);
-            final bRating = ((b.grade + b.load + b.speech) * b.reviewTotalWeight +
-                    avgRatings * tune) /
-                (b.reviewTotalWeight + tune);
+            final aRating =
+                ((a.grade + a.load + a.speech) * a.reviewTotalWeight +
+                        avgRatings * tune) /
+                    (a.reviewTotalWeight + tune);
+            final bRating =
+                ((b.grade + b.load + b.speech) * b.reviewTotalWeight +
+                        avgRatings * tune) /
+                    (b.reviewTotalWeight + tune);
             return bRating.compareTo(aRating);
           });
           break;
@@ -64,10 +66,12 @@ class SearchModel extends ChangeNotifier {
               _courses!.fold<double>(0, (acc, val) => acc + val.grade) /
                   _courses!.length;
           _courses!.sort((a, b) {
-            final aRating = (a.grade * a.reviewTotalWeight + avgRatings * tune) /
-                (a.reviewTotalWeight + tune);
-            final bRating = (b.grade * b.reviewTotalWeight + avgRatings * tune) /
-                (b.reviewTotalWeight + tune);
+            final aRating =
+                (a.grade * a.reviewTotalWeight + avgRatings * tune) /
+                    (a.reviewTotalWeight + tune);
+            final bRating =
+                (b.grade * b.reviewTotalWeight + avgRatings * tune) /
+                    (b.reviewTotalWeight + tune);
             return bRating.compareTo(aRating);
           });
           break;
@@ -88,10 +92,12 @@ class SearchModel extends ChangeNotifier {
               _courses!.fold<double>(0, (acc, val) => acc + val.speech) /
                   _courses!.length;
           _courses!.sort((a, b) {
-            final aRating = (a.speech * a.reviewTotalWeight + avgRatings * tune) /
-                (a.reviewTotalWeight + tune);
-            final bRating = (b.speech * b.reviewTotalWeight + avgRatings * tune) /
-                (b.reviewTotalWeight + tune);
+            final aRating =
+                (a.speech * a.reviewTotalWeight + avgRatings * tune) /
+                    (a.reviewTotalWeight + tune);
+            final bRating =
+                (b.speech * b.reviewTotalWeight + avgRatings * tune) /
+                    (b.reviewTotalWeight + tune);
             return bRating.compareTo(aRating);
           });
           break;
@@ -105,7 +111,9 @@ class SearchModel extends ChangeNotifier {
   }
 
   Future<void> lectureSearch(Semester semester, String keyword,
-      {required List<String> department, required List<String> type, required List<String> grade}) async {
+      {required List<String> department,
+      required List<String> type,
+      required List<String> grade}) async {
     _isSearching = true;
     notifyListeners();
 

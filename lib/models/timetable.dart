@@ -1,7 +1,7 @@
 import 'package:otlplus/models/lecture.dart';
 
 class Timetable {
-  late int id;
+  final int id;
   late List<Lecture> lectures;
 
   Timetable({required this.id, required this.lectures});
@@ -11,8 +11,7 @@ class Timetable {
 
   int get hashCode => id.hashCode;
 
-  Timetable.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
+  Timetable.fromJson(Map<String, dynamic> json) : id = json['id'] {
     if (json['lectures'] != null) {
       lectures = [];
       json['lectures'].forEach((v) {

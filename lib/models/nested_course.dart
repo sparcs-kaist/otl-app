@@ -1,15 +1,15 @@
 import 'package:otlplus/models/department.dart';
 
 class NestedCourse {
-  late int id;
-  late String oldCode;
-  Department? department;
-  late String type;
-  late String typeEn;
-  late String title;
-  late String titleEn;
-  late String summary;
-  late int reviewTotalWeight;
+  final int id;
+  final String oldCode;
+  final Department? department;
+  final String type;
+  final String typeEn;
+  final String title;
+  final String titleEn;
+  final String summary;
+  final int reviewTotalWeight;
 
   NestedCourse(
       {required this.id,
@@ -27,17 +27,16 @@ class NestedCourse {
 
   int get hashCode => id.hashCode;
 
-  NestedCourse.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    oldCode = json['old_code'];
-    department = Department.fromJson(json['department']);
-    type = json['type'];
-    typeEn = json['type_en'];
-    title = json['title'];
-    titleEn = json['title_en'];
-    summary = json['summary'];
-    reviewTotalWeight = json['review_total_weight'];
-  }
+  NestedCourse.fromJson(Map<String, dynamic> json)
+      : id = json['id'],
+        oldCode = json['old_code'],
+        department = Department.fromJson(json['department']),
+        type = json['type'],
+        typeEn = json['type_en'],
+        title = json['title'],
+        titleEn = json['title_en'],
+        summary = json['summary'],
+        reviewTotalWeight = json['review_total_weight'];
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = Map<String, dynamic>();
