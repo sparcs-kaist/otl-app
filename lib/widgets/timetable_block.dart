@@ -7,16 +7,16 @@ class TimetableBlock extends StatelessWidget {
   final Lecture lecture;
   final int classTimeIndex;
   final double fontSize;
-  final VoidCallback onTap;
-  final VoidCallback onLongPress;
+  final VoidCallback? onTap;
+  final VoidCallback? onLongPress;
   final bool isTemp;
   final bool showTitle;
   final bool showProfessor;
   final bool showClassroom;
 
   TimetableBlock(
-      {Key key,
-      @required this.lecture,
+      {Key? key,
+      required this.lecture,
       this.classTimeIndex = 0,
       this.fontSize = 9.0,
       this.onTap,

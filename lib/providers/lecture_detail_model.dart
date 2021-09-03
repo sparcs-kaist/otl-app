@@ -6,10 +6,10 @@ import 'package:otlplus/models/lecture.dart';
 import 'package:otlplus/models/review.dart';
 
 class LectureDetailModel extends ChangeNotifier {
-  Lecture _lecture;
+  late Lecture _lecture;
   Lecture get lecture => _lecture;
 
-  Course _course;
+  late Course _course;
   Course get course => _course;
 
   bool _isUpdateEnabled = false;
@@ -18,7 +18,7 @@ class LectureDetailModel extends ChangeNotifier {
   bool _hasData = false;
   bool get hasData => _hasData;
 
-  List<Review> _reviews;
+  late List<Review> _reviews;
   List<Review> get reviews => _reviews;
 
   Future<void> loadLecture(int lectureId, bool isUpdateEnabled) async {

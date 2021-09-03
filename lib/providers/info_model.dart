@@ -28,32 +28,32 @@ const SCHEDULE_NAME = {
 };
 
 class InfoModel extends ChangeNotifier {
-  Set<int> _years;
+  late Set<int> _years;
   Set<int> get years => _years;
 
-  List<Semester> _semesters;
+  late List<Semester> _semesters;
   List<Semester> get semesters => _semesters;
 
-  User _user;
+  late User _user;
   User get user => _user;
 
-  Map<String, dynamic> _currentSchedule;
-  Map<String, dynamic> get currentSchedule => _currentSchedule;
+  late Map<String, dynamic>? _currentSchedule;
+  Map<String, dynamic>? get currentSchedule => _currentSchedule;
 
   bool _hasData = false;
   bool get hasData => _hasData;
 
   Future<void> getInfo() async {
-    try {
-      _semesters = await getSemesters();
-      _years = _semesters.map((semester) => semester.year).toSet();
-      _user = await getUser();
-      _currentSchedule = getCurrentSchedule();
-      _hasData = true;
-      notifyListeners();
-    } catch (exception) {
-      print(exception);
-    }
+    // try {
+    _semesters = await getSemesters();
+    _years = _semesters.map((semester) => semester.year).toSet();
+    _user = await getUser();
+    _currentSchedule = getCurrentSchedule();
+    _hasData = true;
+    notifyListeners();
+    // } catch (exception) {
+    //   print(exception);
+    // }
   }
 
   Future<List<Semester>> getSemesters() async {
@@ -67,7 +67,7 @@ class InfoModel extends ChangeNotifier {
     return User.fromJson(response.data);
   }
 
-  Map<String, dynamic> getCurrentSchedule() {
+  Map<String, dynamic>? getCurrentSchedule() {
     final now = DateTime.now();
     final schedules = _semesters
         .map((semester) => USED_SCHEDULE_FIELDS.map((field) {
@@ -82,8 +82,8 @@ class InfoModel extends ChangeNotifier {
         .expand((e) => e)
         .where((e) => e != null)
         .toList();
-    schedules.sort((a, b) => a["time"].compareTo(b["time"]));
-    return schedules.firstWhere((e) => e["time"].isAfter(now),
+    schedules.sort((a, b) => a!["time"].compareTo(b!["time"]));
+    return schedules.firstWhere((e) => e!["time"].isAfter(now),
         orElse: () => null);
   }
 }

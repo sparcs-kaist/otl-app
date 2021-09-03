@@ -1,22 +1,25 @@
 class Department {
-  int id;
-  String name;
-  String nameEn;
-  String code;
+  final int id;
+  final String name;
+  final String nameEn;
+  final String code;
 
-  Department({this.id, this.name, this.nameEn, this.code});
+  Department(
+      {required this.id,
+      required this.name,
+      required this.nameEn,
+      required this.code});
 
   bool operator ==(Object other) =>
       identical(this, other) || (other is Department && other.id == id);
 
   int get hashCode => id.hashCode;
 
-  Department.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    name = json['name'];
-    nameEn = json['name_en'];
-    code = json['code'];
-  }
+  Department.fromJson(Map<String, dynamic> json)
+      : id = json['id'],
+        name = json['name'],
+        nameEn = json['name_en'],
+        code = json['code'];
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = Map<String, dynamic>();

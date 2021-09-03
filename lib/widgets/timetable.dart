@@ -26,8 +26,8 @@ class Timetable extends StatelessWidget {
   final int daysCount;
 
   Timetable(
-      {@required List<Lecture> lectures,
-      @required this.builder,
+      {required List<Lecture> lectures,
+      required this.builder,
       bool isExamTime = false,
       this.fontSize = 10.0,
       this.dividerPadding = const EdgeInsets.symmetric(
@@ -107,7 +107,7 @@ class Timetable extends StatelessWidget {
     );
   }
 
-  Widget _buildLectureBlock({@required Lecture lecture, @required Time time}) {
+  Widget _buildLectureBlock({required Lecture lecture, required Time time}) {
     final begin = time.begin / 30 - 18;
     final end = time.end / 30 - 18;
 

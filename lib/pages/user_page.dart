@@ -16,9 +16,10 @@ class UserPage extends StatelessWidget {
     final user = context.watch<InfoModel>().user;
     final targetSemesters = user.reviewWritableLectures
         .map((lecture) => Semester(
-              year: lecture.year,
-              semester: lecture.semester,
-            ))
+            year: lecture.year,
+            semester: lecture.semester,
+            beginning: DateTime.now(),
+            end: DateTime.now()))
         .toSet()
         .toList()
           ..sort((a, b) => ((a.year != b.year)
@@ -89,7 +90,7 @@ class UserPage extends StatelessWidget {
   Widget _buildLectureBlock(BuildContext context, User user, Lecture lecture) {
     return LectureSimpleBlock(
       lecture: lecture,
-      hasReview: user.reviews.any((review) => review.lecture == lecture),
+      hasReview: user.reviews.any((review) => review.lecture.id == lecture.id),
       onTap: () {
         context.read<LectureDetailModel>().loadLecture(lecture.id, false);
         Backdrop.of(context).show(2);

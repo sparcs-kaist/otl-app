@@ -9,16 +9,16 @@ import 'package:otlplus/models/timetable.dart';
 import 'package:otlplus/models/user.dart';
 
 class TimetableModel extends ChangeNotifier {
-  User _user;
+  late User _user;
   User get user => _user;
 
   int _selectedIndex = 0;
   int get selectedIndex => _selectedIndex;
 
-  Semester _selectedSemester;
+  late Semester _selectedSemester;
   Semester get selectedSemester => _selectedSemester;
 
-  List<Timetable> _timetables;
+  late List<Timetable> _timetables;
   List<Timetable> get timetables => _timetables;
 
   Timetable get currentTimetable => _timetables[_selectedIndex];
@@ -31,7 +31,7 @@ class TimetableModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<bool> loadTimetable({User user, Semester semester}) async {
+  Future<bool> loadTimetable({User? user, Semester? semester}) async {
     try {
       if (user != null) _user = user;
       if (semester != null) _selectedSemester = semester;
@@ -58,7 +58,7 @@ class TimetableModel extends ChangeNotifier {
     return false;
   }
 
-  Future<bool> createTimetable({List<Lecture> lectures}) async {
+  Future<bool> createTimetable({List<Lecture>? lectures}) async {
     try {
       final response = await DioProvider().dio.post(
           API_TIMETABLE_URL.replaceFirst("{user_id}", user.id.toString()),
@@ -81,8 +81,8 @@ class TimetableModel extends ChangeNotifier {
   }
 
   Future<bool> addLecture(
-      {@required Lecture lecture,
-      FutureOr<bool> Function(Iterable<Lecture>) onOverlap}) async {
+      {required Lecture lecture,
+      required FutureOr<bool> Function(Iterable<Lecture>) onOverlap}) async {
     try {
       final overlappedLectures = currentTimetable.lectures.where(
           (timetableLecture) => lecture.classtimes.any((thisClasstime) =>
@@ -120,7 +120,7 @@ class TimetableModel extends ChangeNotifier {
     return false;
   }
 
-  Future<bool> removeLecture({@required Lecture lecture}) async {
+  Future<bool> removeLecture({required Lecture lecture}) async {
     try {
       final response = await DioProvider().dio.post(
           API_TIMETABLE_REMOVE_LECTURE_URL

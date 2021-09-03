@@ -5,15 +5,15 @@ import 'package:otlplus/widgets/lecture_group_block_row.dart';
 
 class LectureGroupBlock extends StatelessWidget {
   final List<Lecture> lectures;
-  final Lecture selectedLecture;
+  final Lecture? selectedLecture;
   final void Function(Lecture) onTap;
   final void Function(Lecture) onLongPress;
 
   LectureGroupBlock(
-      {@required this.lectures,
+      {required this.lectures,
       this.selectedLecture,
-      this.onTap,
-      this.onLongPress});
+      required this.onTap,
+      required this.onLongPress});
 
   @override
   Widget build(BuildContext context) {

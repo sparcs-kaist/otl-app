@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 class CustomHeaderDelegate extends SliverPersistentHeaderDelegate {
   final Widget Function(double) builder;
   final double height;
-  final EdgeInsetsGeometry padding;
+  final EdgeInsetsGeometry? padding;
   final void Function(double) onTap;
 
   CustomHeaderDelegate(
-      {@required this.builder,
-      @required this.height,
+      {required this.builder,
+      required this.height,
       this.padding,
-      this.onTap});
+      required this.onTap});
 
   @override
   Widget build(

@@ -6,12 +6,12 @@ class SemesterPicker extends StatefulWidget {
   final bool isExamTime;
   final List<Semester> semesters;
   final Function(int) onSemesterChanged;
-  final VoidCallback onTap;
+  final VoidCallback? onTap;
 
   SemesterPicker(
       {this.isExamTime = false,
-      @required this.semesters,
-      @required this.onSemesterChanged,
+      required this.semesters,
+      required this.onSemesterChanged,
       this.onTap});
 
   @override
@@ -19,7 +19,7 @@ class SemesterPicker extends StatefulWidget {
 }
 
 class _SemesterPickerState extends State<SemesterPicker> {
-  int _index;
+  late int _index;
 
   @override
   void initState() {

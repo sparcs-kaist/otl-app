@@ -23,7 +23,7 @@ class ReviewPage extends StatelessWidget {
                   scrollNotification.metrics.maxScrollExtent) {
             reviewModel.loadReviews();
           }
-          return null;
+          return true;
         },
         child: Padding(
           padding: const EdgeInsets.fromLTRB(12.0, 12.0, 12.0, 0.0),

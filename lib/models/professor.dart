@@ -1,10 +1,14 @@
 class Professor {
-  String name;
-  String nameEn;
-  int professorId;
-  int reviewNum;
+  final String name;
+  final String nameEn;
+  final int professorId;
+  final int reviewTotalWeight;
 
-  Professor({this.name, this.nameEn, this.professorId, this.reviewNum});
+  Professor(
+      {required this.name,
+      required this.nameEn,
+      required this.professorId,
+      required this.reviewTotalWeight});
 
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -12,19 +16,18 @@ class Professor {
 
   int get hashCode => professorId.hashCode;
 
-  Professor.fromJson(Map<String, dynamic> json) {
-    name = json['name'];
-    nameEn = json['name_en'];
-    professorId = json['professor_id'];
-    reviewNum = json['review_num'];
-  }
+  Professor.fromJson(Map<String, dynamic> json)
+      : name = json['name'],
+        nameEn = json['name_en'],
+        professorId = json['professor_id'],
+        reviewTotalWeight = json['review_total_weight'];
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = Map<String, dynamic>();
     data['name'] = this.name;
     data['name_en'] = this.nameEn;
     data['professor_id'] = this.professorId;
-    data['review_num'] = this.reviewNum;
+    data['review_total_weight'] = this.reviewTotalWeight;
     return data;
   }
 }

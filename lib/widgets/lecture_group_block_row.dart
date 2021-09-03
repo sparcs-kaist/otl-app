@@ -6,13 +6,13 @@ import 'package:otlplus/models/lecture.dart';
 class LectureGroupBlockRow extends StatelessWidget {
   final Lecture lecture;
   final VoidCallback onTap;
-  final VoidCallback onLongPress;
-  final BorderRadius borderRadius;
-  final bool isSelected;
+  final VoidCallback? onLongPress;
+  final BorderRadius? borderRadius;
+  final bool? isSelected;
 
   LectureGroupBlockRow(
-      {@required this.lecture,
-      this.onTap,
+      {required this.lecture,
+      required this.onTap,
       this.onLongPress,
       this.borderRadius,
       this.isSelected});
@@ -27,7 +27,7 @@ class LectureGroupBlockRow extends StatelessWidget {
         borderRadius: borderRadius,
         child: Container(
           decoration: BoxDecoration(
-            color: isSelected ? SELECTED_COLOR : null,
+            color: isSelected ?? false ? SELECTED_COLOR : null,
             borderRadius: borderRadius,
           ),
           padding: const EdgeInsets.fromLTRB(16, 6, 8, 6),

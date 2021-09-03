@@ -5,9 +5,9 @@ import 'package:otlplus/models/course.dart';
 
 class CourseBlock extends StatelessWidget {
   final Course course;
-  final VoidCallback onTap;
+  final VoidCallback? onTap;
 
-  CourseBlock({@required this.course, this.onTap});
+  CourseBlock({required this.course, this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +57,7 @@ class CourseBlock extends StatelessWidget {
                     ),
                     Expanded(
                       child: Text(
-                        "${course.department.name}, ${course.type}",
+                        "${course.department?.name}, ${course.type}",
                         style: const TextStyle(
                           fontSize: 12.0,
                           height: 1.1,

@@ -9,12 +9,12 @@ class Classtime extends Time {
   final String roomName;
 
   Classtime(
-      {this.buildingCode,
-      this.classroom,
-      this.classroomEn,
-      this.classroomShort,
-      this.classroomShortEn,
-      this.roomName,
+      {required this.buildingCode,
+      required this.classroom,
+      required this.classroomEn,
+      required this.classroomShort,
+      required this.classroomShortEn,
+      required this.roomName,
       day,
       begin,
       end})

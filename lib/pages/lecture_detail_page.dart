@@ -225,7 +225,7 @@ class LectureDetailPage extends StatelessWidget {
                 duration: const Duration(milliseconds: 300),
                 curve: Curves.easeInOut);
           } else {
-            await Scrollable.ensureVisible(headerKey.currentContext,
+            await Scrollable.ensureVisible(headerKey.currentContext!,
                 duration: const Duration(milliseconds: 300),
                 curve: Curves.easeInOut);
             _scrollController.jumpTo(_scrollController.offset + 2);
@@ -261,8 +261,8 @@ class LectureDetailPage extends StatelessWidget {
           ReviewWriteBlock(
             lecture: lecture,
             existingReview: user.reviews.firstWhere(
-                (review) => review.lecture == lecture,
-                orElse: () => null),
+                (review) => review.lecture.id == lecture.id,
+                orElse: null),
             isSimple: true,
             onUploaded: (review) {
               context.read<InfoModel>().getInfo();

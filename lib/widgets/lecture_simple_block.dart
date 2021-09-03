@@ -5,10 +5,10 @@ import 'package:otlplus/models/lecture.dart';
 class LectureSimpleBlock extends StatelessWidget {
   final Lecture lecture;
   final bool hasReview;
-  final VoidCallback onTap;
+  final VoidCallback? onTap;
 
   LectureSimpleBlock(
-      {@required this.lecture, this.hasReview = false, this.onTap});
+      {required this.lecture, this.hasReview = false, this.onTap});
 
   @override
   Widget build(BuildContext context) {

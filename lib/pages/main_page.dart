@@ -45,7 +45,7 @@ class MainPage extends StatelessWidget {
                     horizontal: 12.0,
                     vertical: 8.0,
                   ),
-                  child: _buildSchedule(now, infoModel.currentSchedule),
+                  child: _buildSchedule(now, infoModel.currentSchedule!),
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8.0),
@@ -60,14 +60,12 @@ class MainPage extends StatelessWidget {
   }
 
   Widget _buildSchedule(DateTime now, Map<String, dynamic> currentSchedule) {
-    int days, hours, minutes;
+    late int days, hours, minutes;
 
-    if (currentSchedule != null) {
-      final timeDiff = currentSchedule["time"].difference(now) as Duration;
-      days = timeDiff.inDays;
-      hours = timeDiff.inHours - timeDiff.inDays * 24;
-      minutes = timeDiff.inMinutes - timeDiff.inHours * 60;
-    }
+    final timeDiff = currentSchedule["time"].difference(now) as Duration;
+    days = timeDiff.inDays;
+    hours = timeDiff.inHours - timeDiff.inDays * 24;
+    minutes = timeDiff.inMinutes - timeDiff.inHours * 60;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -78,6 +76,7 @@ class MainPage extends StatelessWidget {
             style: const TextStyle(fontSize: 12.0),
             children: <TextSpan>[
               TextSpan(
+                // ignore: unnecessary_null_comparison
                 text: (currentSchedule == null)
                     ? "정보 없음"
                     : "D-$days일 $hours시간 $minutes분",
@@ -86,6 +85,7 @@ class MainPage extends StatelessWidget {
               const TextSpan(text: "\n"),
               TextSpan(
                 text:
+                    // ignore: unnecessary_null_comparison
                     (currentSchedule == null) ? "-" : currentSchedule["title"],
                 style: const TextStyle(
                   fontWeight: FontWeight.bold,
@@ -94,11 +94,13 @@ class MainPage extends StatelessWidget {
               ),
               const TextSpan(text: " "),
               TextSpan(
+                // ignore: unnecessary_null_comparison
                 text: (currentSchedule == null) ? "" : currentSchedule["name"],
                 style: const TextStyle(fontWeight: FontWeight.bold),
               ),
               const TextSpan(text: " "),
               TextSpan(
+                // ignore: unnecessary_null_comparison
                 text: (currentSchedule == null)
                     ? ""
                     : DateFormat("yyyy.MM.dd")
@@ -130,6 +132,7 @@ class MainPage extends StatelessWidget {
 
   Widget _buildTimetable(User user, Semester semester, DateTime now) {
     return FutureBuilder<Response>(
+      // ignore: unnecessary_null_comparison
       future: semester == null
           ? null
           : DioProvider().dio.get(
@@ -139,10 +142,10 @@ class MainPage extends StatelessWidget {
                   "semester": semester.semester,
                 }),
       builder: (context, snapshot) {
-        Timetable timetable;
+        late Timetable timetable;
 
         if (snapshot.hasData) {
-          final rawTimetables = snapshot.data.data as List;
+          final rawTimetables = snapshot.data!.data as List;
           timetable = Timetable.fromJson(rawTimetables.first);
         }
 

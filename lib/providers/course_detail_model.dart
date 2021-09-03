@@ -7,34 +7,34 @@ import 'package:otlplus/models/professor.dart';
 import 'package:otlplus/models/review.dart';
 
 class CourseDetailModel extends ChangeNotifier {
-  Course _course;
+  late Course _course;
   Course get course => _course;
 
-  String _selectedFilter;
+  late String _selectedFilter;
   String get selectedFilter => _selectedFilter;
 
-  Lecture get selectedLecture {
+  Lecture? get selectedLecture {
     if (_selectedFilter == "ALL") return null;
     return _lectures.firstWhere(
-        (lecture) => lecture.professors.any(
+        (lecture) => lecture!.professors.any(
             (professor) => professor.professorId.toString() == _selectedFilter),
-        orElse: () => null);
+        orElse: null);
   }
 
-  List<Lecture> _lectures;
-  List<Lecture> get lectures => _lectures;
+  late List<Lecture?> _lectures;
+  List<Lecture?> get lectures => _lectures;
 
-  List<Professor> _professors;
+  late List<Professor> _professors;
   List<Professor> get professors => _professors;
 
   bool _hasData = false;
   bool get hasData => _hasData;
 
-  List<Review> _reviews;
-  List<Review> get reviews {
+  late List<Review>? _reviews;
+  List<Review>? get reviews {
     if (_reviews == null) return [];
     if (_selectedFilter == "ALL") return _reviews;
-    return _reviews
+    return _reviews!
         .where((review) => review.lecture.professors.any(
             (professor) => professor.professorId.toString() == _selectedFilter))
         .toList();
@@ -50,7 +50,7 @@ class CourseDetailModel extends ChangeNotifier {
     _course = Course.fromJson(response.data);
     _lectures = await getCourseLectures();
     _professors = _lectures
-        .map((lecture) => lecture.professors)
+        .map((lecture) => lecture!.professors)
         .expand((e) => e)
         .toSet()
         .toList()
@@ -63,12 +63,12 @@ class CourseDetailModel extends ChangeNotifier {
   }
 
   Future<void> updateCourseReviews(Review review) async {
-    int index = _reviews.indexOf(review);
+    int index = _reviews!.indexOf(review);
     if (index > -1) {
-      _reviews.removeAt(index);
-      _reviews.insert(index, review);
+      _reviews!.removeAt(index);
+      _reviews!.insert(index, review);
     } else {
-      _reviews.insert(0, review);
+      _reviews!.insert(0, review);
     }
     notifyListeners();
   }
