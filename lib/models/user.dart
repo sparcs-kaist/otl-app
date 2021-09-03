@@ -86,27 +86,17 @@ class User {
     data['student_id'] = this.studentId;
     data['firstName'] = this.firstName;
     data['lastName'] = this.lastName;
-    if (this.majors != null) {
-      data['majors'] = this.majors.map((v) => v.toJson()).toList();
-    }
-    if (this.departments != null) {
-      data['departments'] = this.departments.map((v) => v.toJson()).toList();
-    }
+    data['majors'] = this.majors.map((v) => v.toJson()).toList();
+    data['departments'] = this.departments.map((v) => v.toJson()).toList();
     if (this.favoriteDepartments is List<Department>) {
       data['favorite_departments'] =
           this.favoriteDepartments!.map((v) => v.toJson()).toList();
     }
-    if (this.reviewWritableLectures != null) {
-      data['review_writable_lectures'] =
-          this.reviewWritableLectures.map((v) => v.toJson()).toList();
-    }
-    if (this.myTimetableLectures != null) {
-      data['my_timetable_lectures'] =
-          this.myTimetableLectures.map((v) => v.toJson()).toList();
-    }
-    if (this.reviews != null) {
-      data['reviews'] = this.reviews.map((v) => v.toJson()).toList();
-    }
+    data['review_writable_lectures'] =
+        this.reviewWritableLectures.map((v) => v.toJson()).toList();
+    data['my_timetable_lectures'] =
+        this.myTimetableLectures.map((v) => v.toJson()).toList();
+    data['reviews'] = this.reviews.map((v) => v.toJson()).toList();
     return data;
   }
 }

@@ -73,9 +73,7 @@ class Course {
     data['title_en'] = this.titleEn;
     data['summary'] = this.summary;
     data['review_total_weight'] = this.reviewTotalWeight;
-    if (this.professors != null) {
-      data['professors'] = this.professors.map((v) => v.toJson()).toList();
-    }
+    data['professors'] = this.professors.map((v) => v.toJson()).toList();
     data['grade'] = this.grade;
     data['load'] = this.load;
     data['speech'] = this.speech;

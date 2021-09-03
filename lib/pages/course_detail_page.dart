@@ -349,7 +349,7 @@ class CourseDetailPage extends StatelessWidget {
             .map((lecture) => ReviewWriteBlock(
                   lecture: lecture,
                   existingReview: user.reviews.firstWhere(
-                      (review) => review.lecture == lecture,
+                      (review) => review.lecture.id == lecture.id,
                       orElse: null),
                   isSimple: false,
                   onUploaded: (review) {
