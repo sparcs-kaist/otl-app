@@ -77,7 +77,8 @@ class SampleDepartment {
     "code": "$code"
   }""";
 
-  static final shared = Department(id: id, name: name, nameEn: nameEn, code: code);
+  static final shared =
+      Department(id: id, name: name, nameEn: nameEn, code: code);
 }
 
 class SampleCourse {
@@ -129,7 +130,15 @@ class SampleCourse {
       speech: speech,
       userspecificIsRead: userspecificIsRead);
 
-  static final nested = NestedCourse(id: id, oldCode: oldCode, type: type, typeEn: typeEn, title: title, titleEn: titleEn, summary: summary, reviewTotalWeight: reviewTotalWeight);
+  static final nested = NestedCourse(
+      id: id,
+      oldCode: oldCode,
+      type: type,
+      typeEn: typeEn,
+      title: title,
+      titleEn: titleEn,
+      summary: summary,
+      reviewTotalWeight: reviewTotalWeight);
 }
 
 class SampleExamtime {
@@ -209,11 +218,33 @@ class SampleLecture {
       classtimes: classtimes,
       examtimes: examtimes);
 
-  static final nested = NestedLecture(id: id, title: title, titleEn: titleEn, course: course, oldCode: oldCode, classNo: classNo, 
-  year: year, semester: semester, code: code, department: department, departmentCode: departmentCode, departmentName: departmentName, 
-  departmentNameEn: departmentNameEn, type: type, typeEn: typeEn, limit: limit, numPeople: numPeople, isEnglish: isEnglish, credit: credit, 
-  creditAu: creditAu, commonTitle: commonTitle, commonTitleEn: commonTitleEn, classTitle: classTitle, classTitleEn: classTitleEn, 
-  reviewTotalWeight: reviewTotalWeight, professors: professors);
+  static final nested = NestedLecture(
+      id: id,
+      title: title,
+      titleEn: titleEn,
+      course: course,
+      oldCode: oldCode,
+      classNo: classNo,
+      year: year,
+      semester: semester,
+      code: code,
+      department: department,
+      departmentCode: departmentCode,
+      departmentName: departmentName,
+      departmentNameEn: departmentNameEn,
+      type: type,
+      typeEn: typeEn,
+      limit: limit,
+      numPeople: numPeople,
+      isEnglish: isEnglish,
+      credit: credit,
+      creditAu: creditAu,
+      commonTitle: commonTitle,
+      commonTitleEn: commonTitleEn,
+      classTitle: classTitle,
+      classTitleEn: classTitleEn,
+      reviewTotalWeight: reviewTotalWeight,
+      professors: professors);
 }
 
 class SampleReview {
@@ -227,6 +258,14 @@ class SampleReview {
   static final load = 2;
   static final speech = 3;
 
-  static final shared = Review(id: id, course: course, lecture: lecture, content: content, like: like, isDeleted: isDeleted, grade: grade, load: load, 
-  speech: speech);
+  static final shared = Review(
+      id: id,
+      course: course,
+      lecture: lecture,
+      content: content,
+      like: like,
+      isDeleted: isDeleted,
+      grade: grade,
+      load: load,
+      speech: speech);
 }

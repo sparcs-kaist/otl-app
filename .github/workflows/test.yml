@@ -16,12 +16,10 @@ jobs:
         uses: subosito/flutter-action@v1.4.0
         with:
           channel: 'stable'
-      - name: Install lcov
-        run: sudo apt-get install -y lcov
       - name: Install dependencies
         run: flutter pub get
       - name: Test
-        run: sh ./test/run.sh
+        run: flutter test
 
   integration-android:
     name: Integration Test on Android

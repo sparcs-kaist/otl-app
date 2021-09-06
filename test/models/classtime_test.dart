@@ -5,13 +5,13 @@ import '../samples.dart';
 
 void main() {
   group('Classtime', () {
-
     test('constructor', () {
       expect(SampleClasstime.shared is Classtime, true);
     });
 
     test('fromJson', () {
-      final classtimeFromJson = Classtime.fromJson(jsonDecode(SampleClasstime.json));
+      final classtimeFromJson =
+          Classtime.fromJson(jsonDecode(SampleClasstime.json));
       expect(classtimeFromJson == SampleClasstime.shared, true);
     });
 

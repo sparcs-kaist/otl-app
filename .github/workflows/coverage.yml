@@ -1,0 +1,27 @@
+name: Coverage
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  coverage:
+    name: Upload coverage to Codecov
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v1.4.0
+        with:
+          channel: 'stable'
+      - name: Install lcov
+        run: sudo apt-get install -y lcov
+      - name: Install dependencies
+        run: flutter pub get
+      - name: Test
+        run: ./test/run.sh
+      - name: Upload
+        uses: codecov/codecov-action@v2
+        with:
+          files: ./coverage/lcov.info
+          fail_ci_if_error: true
