@@ -5,6 +5,7 @@ Online Timeplanner with Lectures Plus App @ KAIST
 [![Lint](https://github.com/sparcs-kaist/otl-app/actions/workflows/lint.yml/badge.svg)](https://github.com/sparcs-kaist/otl-app/actions/workflows/lint.yml)
 [![Build](https://github.com/sparcs-kaist/otl-app/actions/workflows/build.yml/badge.svg)](https://github.com/sparcs-kaist/otl-app/actions/workflows/build.yml)
 [![Test](https://github.com/sparcs-kaist/otl-app/actions/workflows/test.yml/badge.svg)](https://github.com/sparcs-kaist/otl-app/actions/workflows/test.yml)
+[![codecov](https://codecov.io/gh/sparcs-kaist/otl-app/branch/main/graph/badge.svg?token=6NJ2CXNXBT)](https://codecov.io/gh/sparcs-kaist/otl-app)
 [![Deploy](https://github.com/sparcs-kaist/otl-app/actions/workflows/deploy.yml/badge.svg)](https://github.com/sparcs-kaist/otl-app/actions/workflows/deploy.yml)
 
 ## Credits
