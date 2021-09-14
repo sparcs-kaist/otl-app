@@ -22,9 +22,8 @@ class UserPage extends StatelessWidget {
             end: DateTime.now()))
         .toSet()
         .toList()
-          ..sort((a, b) => ((a.year != b.year)
-              ? (b.year - a.year)
-              : (b.semester - a.semester)));
+      ..sort((a, b) =>
+          ((a.year != b.year) ? (b.year - a.year) : (b.semester - a.semester)));
 
     return Container(
       constraints: const BoxConstraints.expand(),
