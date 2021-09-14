@@ -1,6 +1,6 @@
 name: Coverage
 
-on: [push, pull_request]
+on: [push]
 
 env:
   FLUTTER_VERSION: '2.5'
