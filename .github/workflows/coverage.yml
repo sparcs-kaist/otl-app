@@ -2,6 +2,9 @@ name: Coverage
 
 on: [push, pull_request]
 
+env:
+  FLUTTER_VERSION: '2.5'
+
 jobs:
   coverage:
     name: Upload coverage to Codecov
@@ -11,7 +14,7 @@ jobs:
       - name: Set up Flutter
         uses: subosito/flutter-action@v1.4.0
         with:
-          channel: 'stable'
+          flutter-version: ${{ env.FLUTTER_VERSION }}
       - name: Install lcov
         run: sudo apt-get install -y lcov
       - name: Install dependencies
