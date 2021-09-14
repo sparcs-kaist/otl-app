@@ -25,11 +25,13 @@ class ReviewBlock extends StatefulWidget {
 
 class _ReviewBlockState extends State<ReviewBlock> {
   late int _like;
+  late bool _canUpload;
 
   @override
   void initState() {
     super.initState();
     _like = widget.review.like;
+    _canUpload = !widget.review.userspecificIsLiked;
   }
 
   @override
@@ -134,7 +136,7 @@ class _ReviewBlockState extends State<ReviewBlock> {
                       Material(
                         color: Colors.transparent,
                         child: InkWell(
-                          onTap: _uploadLike,
+                          onTap: _canUpload ? _uploadLike : null,
                           child: Text(
                             "좋아요",
                             style: TextStyle(
@@ -157,6 +159,7 @@ class _ReviewBlockState extends State<ReviewBlock> {
   Future<void> _uploadLike() async {
     setState(() {
       _like++;
+      _canUpload = false;
     });
 
     await DioProvider().dio.post(

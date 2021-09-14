@@ -54,7 +54,7 @@ class CourseDetailModel extends ChangeNotifier {
         .expand((e) => e)
         .toSet()
         .toList()
-          ..sort((a, b) => a.name.compareTo(b.name));
+      ..sort((a, b) => a.name.compareTo(b.name));
     _reviews = await getCourseReviews();
     _selectedFilter = "ALL";
 
