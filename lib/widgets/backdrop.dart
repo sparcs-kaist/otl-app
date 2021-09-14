@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:otlplus/constants/color.dart';
 
 const double _kFlingVelocity = 2.0;
@@ -135,11 +136,6 @@ class _BackdropScaffoldState extends State<BackdropScaffold>
   }
 
   PreferredSizeWidget _buildAppBar() {
-    var brightness = Brightness.dark;
-    if (Platform.isIOS) {
-      brightness = Brightness.light;
-    }
-
     return PreferredSize(
       preferredSize: Size.fromHeight(isExpanded
           ? MediaQuery.of(context).size.width / 1296 * 865 + 5
@@ -169,7 +165,6 @@ class _BackdropScaffoldState extends State<BackdropScaffold>
               ],
             ),
           ),
-          brightness: brightness,
           automaticallyImplyLeading: false,
           actions: frontLayerVisible
               ? widget.actions
