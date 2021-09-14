@@ -257,6 +257,7 @@ class SampleReview {
   static final grade = 1;
   static final load = 2;
   static final speech = 3;
+  static final userspecificIsLiked = true;
 
   static final shared = Review(
       id: id,
@@ -267,5 +268,6 @@ class SampleReview {
       isDeleted: isDeleted,
       grade: grade,
       load: load,
-      speech: speech);
+      speech: speech,
+      userspecificIsLiked: userspecificIsLiked);
 }

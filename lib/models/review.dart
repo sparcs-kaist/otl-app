@@ -11,6 +11,7 @@ class Review {
   final int grade;
   final int load;
   final int speech;
+  final bool userspecificIsLiked;
 
   Review(
       {required this.id,
@@ -21,7 +22,8 @@ class Review {
       required this.isDeleted,
       required this.grade,
       required this.load,
-      required this.speech});
+      required this.speech,
+      required this.userspecificIsLiked});
 
   bool operator ==(Object other) =>
       identical(this, other) || (other is Review && other.id == id);
@@ -37,7 +39,8 @@ class Review {
         isDeleted = json['is_deleted'],
         grade = json['grade'],
         load = json['load'],
-        speech = json['speech'];
+        speech = json['speech'],
+        userspecificIsLiked = json['userspecific_is_liked'];
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = Map<String, dynamic>();
@@ -50,6 +53,7 @@ class Review {
     data['grade'] = this.grade;
     data['load'] = this.load;
     data['speech'] = this.speech;
+    data['userspecific_is_liked'] = this.userspecificIsLiked;
     return data;
   }
 }
