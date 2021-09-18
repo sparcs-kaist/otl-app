@@ -70,7 +70,9 @@ class _ReviewBlockState extends State<ReviewBlock> {
                         ),
                         const TextSpan(text: " "),
                         TextSpan(
-                            text: widget.review.lecture.professors.map((professor) => professor.name).join(" ")),
+                            text: widget.review.lecture.professors
+                                .map((professor) => professor.name)
+                                .join(" ")),
                         const TextSpan(text: " "),
                         TextSpan(text: widget.review.lecture.year.toString()),
                         TextSpan(

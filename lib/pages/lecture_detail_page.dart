@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_web_browser/flutter_web_browser.dart';
+import 'package:otlplus/models/review.dart';
 import 'package:provider/provider.dart';
 import 'package:otlplus/constants/color.dart';
 import 'package:otlplus/extensions/lecture.dart';
@@ -254,15 +255,18 @@ class LectureDetailPage extends StatelessWidget {
 
   SliverList _buildReviews(BuildContext context, Lecture lecture) {
     final user = context.watch<InfoModel>().user;
+    Review? existingReview;
+    try {
+      existingReview =
+          user.reviews.firstWhere((review) => review.lecture.id == lecture.id);
+    } on StateError catch (_) {}
 
     return SliverList(
       delegate: SliverChildListDelegate([
         if (user.reviewWritableLectures.contains(lecture))
           ReviewWriteBlock(
             lecture: lecture,
-            existingReview: user.reviews.firstWhere(
-                (review) => review.lecture.id == lecture.id,
-                orElse: null),
+            existingReview: existingReview,
             isSimple: true,
             onUploaded: (review) {
               context.read<InfoModel>().getInfo();

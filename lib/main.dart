@@ -28,8 +28,11 @@ void main() {
         create: (context) => TimetableModel(),
         update: (context, infoModel, timetableModel) {
           if (infoModel.hasData)
-            timetableModel?.loadSemesters(user: infoModel.user, semesters: infoModel.semesters);
-          return (timetableModel is TimetableModel) ? timetableModel : TimetableModel();
+            timetableModel?.loadSemesters(
+                user: infoModel.user, semesters: infoModel.semesters);
+          return (timetableModel is TimetableModel)
+              ? timetableModel
+              : TimetableModel();
         },
       ),
       ChangeNotifierProvider(create: (context) => SearchModel()),
