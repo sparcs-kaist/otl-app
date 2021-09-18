@@ -1,4 +1,4 @@
-name: Pull Request Labels
+name: PR Labels
 
 on:
   pull_request:
@@ -6,6 +6,7 @@ on:
 
 jobs:
   label-type:
+    name: Type
     runs-on: ubuntu-latest
     steps:
       - uses: mheap/github-action-required-labels@v1.1.2
@@ -15,6 +16,7 @@ jobs:
           labels: "enhancement, bug, test, documentation, cicd"
   
   label-size:
+    name: Size
     runs-on: ubuntu-latest
     steps:
       - uses: codelytv/pr-size-labeler@v1.6.0
