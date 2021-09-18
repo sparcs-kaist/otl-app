@@ -12,35 +12,70 @@ class TimetableModel extends ChangeNotifier {
   late User _user;
   User get user => _user;
 
-  int _selectedIndex = 0;
-  int get selectedIndex => _selectedIndex;
+  late List<Semester> _semesters;
 
-  late Semester _selectedSemester;
-  Semester get selectedSemester => _selectedSemester;
+  late int _selectedSemesterIndex;
+  Semester get selectedSemester => _semesters[_selectedSemesterIndex];
 
   late List<Timetable> _timetables;
   List<Timetable> get timetables => _timetables;
 
-  Timetable get currentTimetable => _timetables[_selectedIndex];
+  int _selectedTimetableIndex = 0;
+  int get selectedIndex => _selectedTimetableIndex;
+
+  Timetable get currentTimetable => _timetables[_selectedTimetableIndex];
 
   bool _isLoaded = false;
   bool get isLoaded => _isLoaded;
 
+  void loadSemesters({required User user, required List<Semester> semesters}) {
+    _user = user;
+    _semesters = semesters;
+    _selectedSemesterIndex = semesters.length - 1;
+    notifyListeners();
+    _loadTimetable();
+  }
+
+  bool canGoPreviousSemester() {
+    return (_selectedSemesterIndex > 0);
+  }
+
+  bool goPreviousSemester() {
+    if (canGoPreviousSemester()) {
+      _selectedSemesterIndex--;
+      notifyListeners();
+      _loadTimetable();
+      return true;
+    }
+    return false;
+  }
+
+  bool canGoNextSemester() {
+    return (_selectedSemesterIndex < _semesters.length - 1);
+  }
+
+  bool goNextSemester() {
+    if (canGoNextSemester()) {
+      _selectedSemesterIndex++;
+      notifyListeners();
+      _loadTimetable();
+      return true;
+    }
+    return false;
+  }
+
   void setIndex(int index) {
-    _selectedIndex = index;
+    _selectedTimetableIndex = index;
     notifyListeners();
   }
 
-  Future<bool> loadTimetable({User? user, Semester? semester}) async {
+  Future<bool> _loadTimetable() async {
     try {
-      if (user != null) _user = user;
-      if (semester != null) _selectedSemester = semester;
-
       final response = await DioProvider().dio.get(
           API_TIMETABLE_URL.replaceFirst("{user_id}", _user.id.toString()),
           queryParameters: {
-            "year": _selectedSemester.year,
-            "semester": _selectedSemester.semester
+            "year": selectedSemester.year,
+            "semester": selectedSemester.semester
           });
 
       final rawTimetables = response.data as List;
@@ -48,7 +83,7 @@ class TimetableModel extends ChangeNotifier {
       _timetables = rawTimetables
           .map((timetable) => Timetable.fromJson(timetable))
           .toList();
-      _selectedIndex = 0;
+      _selectedTimetableIndex = 0;
       _isLoaded = true;
       notifyListeners();
       return true;
@@ -63,15 +98,15 @@ class TimetableModel extends ChangeNotifier {
       final response = await DioProvider().dio.post(
           API_TIMETABLE_URL.replaceFirst("{user_id}", user.id.toString()),
           data: {
-            "year": _selectedSemester.year,
-            "semester": _selectedSemester.semester,
+            "year": selectedSemester.year,
+            "semester": selectedSemester.semester,
             "lectures": (lectures == null)
                 ? []
                 : lectures.map((lecture) => lecture.id).toList(),
           });
       final timetable = Timetable.fromJson(response.data);
       _timetables.add(timetable);
-      _selectedIndex = _timetables.length - 1;
+      _selectedTimetableIndex = _timetables.length - 1;
       notifyListeners();
       return true;
     } catch (exception) {
@@ -111,7 +146,7 @@ class TimetableModel extends ChangeNotifier {
               .replaceFirst("{timetable_id}", currentTimetable.id.toString()),
           data: {"lecture": lecture.id});
       final timetable = Timetable.fromJson(response.data);
-      _timetables[_selectedIndex] = timetable;
+      _timetables[_selectedTimetableIndex] = timetable;
       notifyListeners();
       return true;
     } catch (exception) {
@@ -128,7 +163,7 @@ class TimetableModel extends ChangeNotifier {
               .replaceFirst("{timetable_id}", currentTimetable.id.toString()),
           data: {"lecture": lecture.id});
       final timetable = Timetable.fromJson(response.data);
-      _timetables[_selectedIndex] = timetable;
+      _timetables[_selectedTimetableIndex] = timetable;
       notifyListeners();
       return true;
     } catch (exception) {
@@ -148,7 +183,7 @@ class TimetableModel extends ChangeNotifier {
           data: {});
 
       _timetables.remove(currentTimetable);
-      if (_selectedIndex > 0) _selectedIndex--;
+      if (_selectedTimetableIndex > 0) _selectedTimetableIndex--;
       notifyListeners();
       return true;
     } catch (exception) {

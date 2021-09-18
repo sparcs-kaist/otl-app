@@ -20,17 +20,16 @@ void main() {
       ChangeNotifierProxyProvider<AuthModel, InfoModel>(
         create: (context) => InfoModel(),
         update: (context, authModel, infoModel) {
-          if (authModel.isLogined) infoModel!.getInfo();
-          return infoModel!;
+          if (authModel.isLogined) infoModel?.getInfo();
+          return (infoModel is InfoModel) ? infoModel : InfoModel();
         },
       ),
       ChangeNotifierProxyProvider<InfoModel, TimetableModel>(
         create: (context) => TimetableModel(),
         update: (context, infoModel, timetableModel) {
-          if (infoModel.hasData && !timetableModel!.isLoaded)
-            timetableModel.loadTimetable(
-                user: infoModel.user, semester: infoModel.semesters.last);
-          return timetableModel!;
+          if (infoModel.hasData)
+            timetableModel?.loadSemesters(user: infoModel.user, semesters: infoModel.semesters);
+          return (timetableModel is TimetableModel) ? timetableModel : TimetableModel();
         },
       ),
       ChangeNotifierProvider(create: (context) => SearchModel()),

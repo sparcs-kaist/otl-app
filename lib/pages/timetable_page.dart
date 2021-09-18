@@ -3,8 +3,6 @@ import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
 import 'package:otlplus/constants/color.dart';
 import 'package:otlplus/models/lecture.dart';
-import 'package:otlplus/models/semester.dart';
-import 'package:otlplus/providers/info_model.dart';
 import 'package:otlplus/providers/lecture_detail_model.dart';
 import 'package:otlplus/providers/search_model.dart';
 import 'package:otlplus/providers/timetable_model.dart';
@@ -28,14 +26,7 @@ class _TimetablePageState extends State<TimetablePage> {
 
   bool _isSearchOpened = false;
   bool _isExamTime = false;
-  late List<Semester> _semesters;
   Lecture? _selectedLecture;
-
-  @override
-  void initState() {
-    super.initState();
-    _semesters = context.read<InfoModel>().semesters;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -68,22 +59,17 @@ class _TimetablePageState extends State<TimetablePage> {
                 const SizedBox(height: 8.0),
                 SemesterPicker(
                   isExamTime: _isExamTime,
-                  semesters: _semesters,
                   onTap: () {
                     setState(() {
                       _isExamTime = !_isExamTime;
                     });
                   },
-                  onSemesterChanged: (index) {
+                  onSemesterChanged: () {
                     setState(() {
                       _isSearchOpened = false;
                       _selectedLecture = null;
-                      context.read<SearchModel>().lectureClear();
                     });
-
-                    context
-                        .read<TimetableModel>()
-                        .loadTimetable(semester: _semesters[index]);
+                    context.read<SearchModel>().lectureClear();
                   },
                 ),
                 Expanded(
