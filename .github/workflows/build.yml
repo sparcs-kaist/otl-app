@@ -10,9 +10,10 @@ env:
   FLUTTER_VERSION: '2.5'
 
 jobs:
-  build-android:
-    name: Build Android
+  android:
+    name: Android
     runs-on: ubuntu-latest
+    environment: CI
     steps:
       - uses: actions/checkout@v2
       - name: Set up Flutter
@@ -44,8 +45,8 @@ jobs:
           name: release-apk
           path: ./OTL.apk 
 
-  build-ios:
-    name: Build iOS
+  ios:
+    name: iOS
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v2

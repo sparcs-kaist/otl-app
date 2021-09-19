@@ -5,7 +5,7 @@ on:
     types: [opened, labeled, unlabeled, synchronize]
 
 jobs:
-  label-type:
+  type:
     name: Type
     runs-on: ubuntu-latest
     steps:
@@ -15,7 +15,7 @@ jobs:
           count: 1
           labels: "enhancement, bug, test, documentation, cicd"
   
-  label-size:
+  size:
     name: Size
     runs-on: ubuntu-latest
     steps:
