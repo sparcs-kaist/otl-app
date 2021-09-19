@@ -10,8 +10,8 @@ env:
   FLUTTER_VERSION: '2.5'
 
 jobs:
-  android:
-    name: Android
+  build-android:
+    name: Build Android
     runs-on: ubuntu-latest
     environment: CI
     steps:
@@ -45,8 +45,8 @@ jobs:
           name: release-apk
           path: ./OTL.apk 
 
-  ios:
-    name: iOS
+  build-ios:
+    name: Build iOS
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v2

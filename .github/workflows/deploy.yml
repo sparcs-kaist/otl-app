@@ -9,8 +9,8 @@ env:
   FLUTTER_VERSION: '2.5'
 
 jobs:
-  android:
-    name: Android
+  deploy-android:
+    name: Deploy Android
     runs-on: ubuntu-latest
     environment: Production
     steps:
@@ -58,8 +58,8 @@ jobs:
           releaseFiles: OTL.aab
           track: alpha
 
-  ios:
-    name: iOS
+  deploy-ios:
+    name: Deploy iOS
     runs-on: macos-latest
     environment: Production
     steps:

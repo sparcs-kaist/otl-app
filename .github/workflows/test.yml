@@ -11,7 +11,7 @@ env:
 
 jobs:
   unit:
-    name: Unit & Widget
+    name: Unit & Widget Test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -25,7 +25,7 @@ jobs:
         run: flutter test
 
   integration-android:
-    name: Integration on Android
+    name: Integration Test on Android
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v2
@@ -40,7 +40,7 @@ jobs:
           script: flutter drive -d emulator-5554 --target=test_driver/app.dart
 
   integration-ios:
-    name: Integration on iOS
+    name: Integration Test on iOS
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v2

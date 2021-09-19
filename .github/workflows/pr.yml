@@ -6,7 +6,7 @@ on:
 
 jobs:
   type:
-    name: Type
+    name: Type Labels
     runs-on: ubuntu-latest
     steps:
       - uses: mheap/github-action-required-labels@v1.1.2
@@ -16,7 +16,7 @@ jobs:
           labels: "enhancement, bug, test, documentation, cicd"
   
   size:
-    name: Size
+    name: Size Label
     runs-on: ubuntu-latest
     steps:
       - uses: codelytv/pr-size-labeler@v1.6.0
