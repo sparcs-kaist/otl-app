@@ -1,4 +1,4 @@
-package me.blog.ghwhsbsb123.timeplanner_mobile
+package org.sparcs.otlplus
 
 import android.content.ContentValues
 import android.content.Intent
@@ -14,7 +14,7 @@ import java.io.FileOutputStream
 import java.io.IOException
 
 class MainActivity : FlutterActivity() {
-    private val CHANNEL = "me.blog.ghwhsbsb123.timeplanner_mobile"
+    private val CHANNEL = "org.sparcs.otlplus"
 
     override fun configureFlutterEngine(@NonNull flutterEngine: FlutterEngine) {
         GeneratedPluginRegistrant.registerWith(flutterEngine)
