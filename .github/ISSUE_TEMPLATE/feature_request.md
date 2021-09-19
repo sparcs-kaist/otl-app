@@ -19,6 +19,20 @@ A clear and concise description of what the problem is. Ex. I'm always frustrate
 
 A clear and concise description of what you want to happen.
 
+## Screenshots
+If applicable, add screenshots to help explain your feature request.
+
+## Development Environment
+ - OS: [e.g. macOS]
+ - Output of ```flutter doctor```: 
+```
+```
+
+## Test Environment
+ - Device: [e.g. iPhone6]
+ - OS: [e.g. iOS8.1]
+ - App Version: [e.g. 1.1.0]
+
 ## Additional context
 
 Add any other context or screenshots about the feature request here.
