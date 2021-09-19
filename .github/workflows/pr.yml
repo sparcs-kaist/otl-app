@@ -5,8 +5,8 @@ on:
     types: [opened, labeled, unlabeled, synchronize]
 
 jobs:
-  label-type:
-    name: Type
+  type:
+    name: Type Labels
     runs-on: ubuntu-latest
     steps:
       - uses: mheap/github-action-required-labels@v1.1.2
@@ -15,8 +15,8 @@ jobs:
           count: 1
           labels: "enhancement, bug, test, documentation, cicd"
   
-  label-size:
-    name: Size
+  size:
+    name: Size Label
     runs-on: ubuntu-latest
     steps:
       - uses: codelytv/pr-size-labeler@v1.6.0
