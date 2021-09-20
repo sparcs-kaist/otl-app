@@ -1,3 +1,6 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_analytics/observer.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:otlplus/constants/color.dart';
@@ -40,11 +43,39 @@ void main() {
       ChangeNotifierProvider(create: (context) => CourseDetailModel()),
       ChangeNotifierProvider(create: (context) => LectureDetailModel()),
     ],
-    child: TimeplannerApp(),
+    child: OTLFirebaseApp(),
   ));
 }
 
-class TimeplannerApp extends StatelessWidget {
+class OTLFirebaseApp extends StatefulWidget {
+  // Create the initialization Future outside of `build`:
+  @override
+  _OTLFirebaseAppState createState() => _OTLFirebaseAppState();
+}
+
+class _OTLFirebaseAppState extends State<OTLFirebaseApp> {
+  final Future<FirebaseApp> _initialization = Firebase.initializeApp();
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder(
+      future: _initialization,
+      builder: (context, snapshot) {
+        if (snapshot.hasError) {
+          return Text("Error during initializing Firebase");
+        }
+        if (snapshot.connectionState == ConnectionState.done) {
+          return OTLMaterialApp();
+        }
+        return CircularProgressIndicator();
+      },
+    );
+  }
+}
+
+class OTLMaterialApp extends StatelessWidget {
+  final analytics = FirebaseAnalytics();
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -53,6 +84,9 @@ class TimeplannerApp extends StatelessWidget {
       home: context.select<InfoModel, bool>((model) => model.hasData)
           ? TimeplannerHome()
           : LoginPage(),
+      navigatorObservers: [
+        FirebaseAnalyticsObserver(analytics: analytics),
+      ],
     );
   }
 

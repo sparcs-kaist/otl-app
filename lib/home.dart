@@ -19,7 +19,7 @@ class TimeplannerHome extends StatefulWidget {
 
 class _TimeplannerHomeState extends State<TimeplannerHome> {
   int _currentIndex = 0;
-  String contactEmail = 'otlplus@kaist.ac.kr';
+  final contactEmail = 'otlplus@kaist.ac.kr';
 
   @override
   Widget build(BuildContext context) {
