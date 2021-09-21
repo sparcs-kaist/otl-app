@@ -259,7 +259,7 @@ class LectureDetailPage extends StatelessWidget {
     try {
       existingReview =
           user.reviews.firstWhere((review) => review.lecture.id == lecture.id);
-    } on StateError catch (_) {}
+    } on StateError {}
 
     return SliverList(
       delegate: SliverChildListDelegate([

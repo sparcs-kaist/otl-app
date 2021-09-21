@@ -1,4 +1,12 @@
+import 'dart:async';
+
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_analytics/observer.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:flutter/foundation.dart' show kDebugMode;
 import 'package:flutter/material.dart';
+import 'package:otlplus/providers/settings_model.dart';
 import 'package:provider/provider.dart';
 import 'package:otlplus/constants/color.dart';
 import 'package:otlplus/home.dart';
@@ -13,46 +21,74 @@ import 'package:otlplus/providers/timetable_model.dart';
 import 'package:otlplus/utils/create_material_color.dart';
 
 void main() {
-  WidgetsFlutterBinding.ensureInitialized();
-  runApp(MultiProvider(
-    providers: [
-      ChangeNotifierProvider(create: (context) => AuthModel()),
-      ChangeNotifierProxyProvider<AuthModel, InfoModel>(
-        create: (context) => InfoModel(),
-        update: (context, authModel, infoModel) {
-          if (authModel.isLogined) infoModel?.getInfo();
-          return (infoModel is InfoModel) ? infoModel : InfoModel();
-        },
-      ),
-      ChangeNotifierProxyProvider<InfoModel, TimetableModel>(
-        create: (context) => TimetableModel(),
-        update: (context, infoModel, timetableModel) {
-          if (infoModel.hasData)
-            timetableModel?.loadSemesters(
-                user: infoModel.user, semesters: infoModel.semesters);
-          return (timetableModel is TimetableModel)
-              ? timetableModel
-              : TimetableModel();
-        },
-      ),
-      ChangeNotifierProvider(create: (context) => SearchModel()),
-      ChangeNotifierProvider(create: (context) => ReviewModel()),
-      ChangeNotifierProvider(create: (context) => CourseDetailModel()),
-      ChangeNotifierProvider(create: (context) => LectureDetailModel()),
-    ],
-    child: TimeplannerApp(),
-  ));
+  runZonedGuarded<Future<void>>(() async {
+    WidgetsFlutterBinding.ensureInitialized();
+    await Firebase.initializeApp();
+    FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
+    if (kDebugMode) {
+      FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(false);
+    }
+
+    runApp(MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => AuthModel()),
+        ChangeNotifierProxyProvider<AuthModel, InfoModel>(
+          create: (context) => InfoModel(),
+          update: (context, authModel, infoModel) {
+            if (authModel.isLogined) infoModel?.getInfo();
+            return (infoModel is InfoModel) ? infoModel : InfoModel();
+          },
+        ),
+        ChangeNotifierProxyProvider<InfoModel, TimetableModel>(
+          create: (context) => TimetableModel(),
+          update: (context, infoModel, timetableModel) {
+            if (infoModel.hasData) {
+              timetableModel?.loadSemesters(
+                  user: infoModel.user, semesters: infoModel.semesters);
+            }
+            return (timetableModel is TimetableModel)
+                ? timetableModel
+                : TimetableModel();
+          },
+        ),
+        ChangeNotifierProvider(create: (_) => SearchModel()),
+        ChangeNotifierProvider(create: (_) => ReviewModel()),
+        ChangeNotifierProvider(create: (_) => CourseDetailModel()),
+        ChangeNotifierProvider(create: (_) => LectureDetailModel()),
+        ChangeNotifierProvider(create: (_) => SettingsModel())
+      ],
+      child: OTLFirebaseApp(),
+    ));
+  }, (error, stack) => FirebaseCrashlytics.instance.recordError(error, stack));
 }
 
-class TimeplannerApp extends StatelessWidget {
+class OTLFirebaseApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    try {
+      final sendCrashlytics =
+          context.watch<SettingsModel>().getSendCrashlytics();
+      final sendCrashlyticsAnonymously =
+          context.watch<SettingsModel>().getSendCrashlyticsAnonymously();
+      final hasData = context.watch<InfoModel>().hasData;
+
+      FirebaseCrashlytics.instance
+          .setCrashlyticsCollectionEnabled(sendCrashlytics);
+      if (!sendCrashlyticsAnonymously && hasData) {
+        FirebaseCrashlytics.instance
+            .setUserIdentifier(context.watch<InfoModel>().user.id.toString());
+      }
+    } on Error {}
+
     return MaterialApp(
       title: "OTL",
-      theme: _buildTheme(),
       home: context.select<InfoModel, bool>((model) => model.hasData)
-          ? TimeplannerHome()
+          ? OTLHome()
           : LoginPage(),
+      navigatorObservers: [
+        FirebaseAnalyticsObserver(analytics: FirebaseAnalytics()),
+      ],
+      theme: _buildTheme(),
     );
   }
 
