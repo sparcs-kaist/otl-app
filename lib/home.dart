@@ -1,4 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
+import 'package:otlplus/pages/settings_page.dart';
 import 'package:provider/provider.dart';
 import 'package:otlplus/constants/color.dart';
 import 'package:otlplus/pages/course_detail_page.dart';
@@ -10,62 +13,40 @@ import 'package:otlplus/pages/timetable_page.dart';
 import 'package:otlplus/pages/user_page.dart';
 import 'package:otlplus/providers/search_model.dart';
 import 'package:otlplus/widgets/backdrop.dart';
-import 'package:url_launcher/url_launcher.dart';
 
-class TimeplannerHome extends StatefulWidget {
+class OTLHome extends StatefulWidget {
   @override
-  _TimeplannerHomeState createState() => _TimeplannerHomeState();
+  _OTLHomeState createState() => _OTLHomeState();
 }
 
-class _TimeplannerHomeState extends State<TimeplannerHome> {
+class _OTLHomeState extends State<OTLHome> {
   int _currentIndex = 0;
-  final contactEmail = 'otlplus@kaist.ac.kr';
 
   @override
   Widget build(BuildContext context) {
     return BackdropScaffold(
       actions: <Widget>[
         Builder(
-          builder: (context) => IconButton(
-            icon: const Icon(Icons.person),
+          builder: (context) => PlatformIconButton(
             onPressed: () {
               Backdrop.of(context).show(0);
             },
+            materialIcon: Icon(Icons.person),
+            cupertinoIcon: Icon(CupertinoIcons.person),
           ),
         ),
-        IconButton(
-          icon: const Icon(Icons.info),
-          onPressed: () {
-            showAboutDialog(
-                context: context,
-                applicationName: "",
-                applicationIcon: Image.asset("assets/logo.png", height: 48.0),
-                children: <Widget>[
-                  Text(
-                    "Online Timeplanner with Lectures Plus @ KAIST",
-                    style: const TextStyle(fontSize: 14.0),
-                  ),
-                  const SizedBox(height: 8.0),
-                  Row(
-                    children: [
-                      InkWell(
-                        onTap: () => launch("mailto:$contactEmail"),
-                        child: Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              contactEmail,
-                              style: const TextStyle(
-                                color: PRIMARY_COLOR,
-                                fontSize: 14.0,
-                                height: 1.3,
-                              ),
-                            )),
-                      )
-                    ],
-                  )
-                ]);
+        PlatformIconButton(
+          onPressed: () => {
+            Navigator.push(
+                context,
+                platformPageRoute(
+                    context: context, builder: (_) => SettingsPage()))
           },
-        ),
+          materialIcon: Icon(Icons.settings),
+          cupertinoIcon: Icon(
+            CupertinoIcons.gear,
+          ),
+        )
       ],
       bottomNavigationBar: _buildBottomNavigationBar(),
       isExpanded: _currentIndex == 0,
