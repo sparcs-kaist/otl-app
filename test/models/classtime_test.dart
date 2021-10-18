@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:otlplus/models/classtime.dart';
 import 'package:test/test.dart';
-import '../samples.dart';
+import '../utils/samples.dart';
 
 void main() {
   group('Classtime', () {

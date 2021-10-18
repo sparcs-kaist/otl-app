@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:otlplus/models/course.dart';
 import 'package:test/test.dart';
 
-import '../samples.dart';
+import '../utils/samples.dart';
 
 void main() {
   group('Course', () {

@@ -3,13 +3,13 @@ import 'package:multi_select_flutter/multi_select_flutter.dart';
 
 class SearchFilter extends StatefulWidget {
   final String property;
-  final Map<String, String>? items;
+  final Map<String, String> items;
   final void Function(dynamic)? onChanged;
   final bool isMultiSelect;
 
   SearchFilter(
       {required this.property,
-      this.items,
+      required this.items,
       this.onChanged,
       this.isMultiSelect = false});
 
@@ -24,7 +24,7 @@ class _SearchFilterState extends State<SearchFilter> {
   @override
   void initState() {
     super.initState();
-    selectedItem = widget.items!.entries.first;
+    selectedItem = widget.items.entries.first;
     selectedItems = [selectedItem];
   }
 
@@ -37,7 +37,7 @@ class _SearchFilterState extends State<SearchFilter> {
           await showDialog(
               context: context,
               builder: (context) => MultiSelectDialog<MapEntry<String, String>>(
-                    items: widget.items!.entries
+                    items: widget.items.entries
                         .map((e) => MultiSelectItem<MapEntry<String, String>>(
                             e, e.value))
                         .toList(),
@@ -47,7 +47,7 @@ class _SearchFilterState extends State<SearchFilter> {
                     title: Text(widget.property),
                     onConfirm: (items) {
                       if (items.length > 0) {
-                        if (items.length == widget.items!.length - 1 ||
+                        if (items.length == widget.items.length - 1 ||
                             items.any((item) => item.key == selectedItem.key))
                           items = [selectedItem];
                         setState(() {
@@ -70,7 +70,7 @@ class _SearchFilterState extends State<SearchFilter> {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(6.0),
             ),
-            children: widget.items!.entries
+            children: widget.items.entries
                 .map((e) => SimpleDialogOption(
                       onPressed: () => Navigator.pop(context, e),
                       child: Text(e.value),
