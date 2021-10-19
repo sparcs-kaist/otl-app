@@ -78,11 +78,20 @@ class TimetableModel extends ChangeNotifier {
             "semester": selectedSemester.semester
           });
 
-      final rawTimetables = response.data as List;
+      List<dynamic> rawTimetables = response.data as List;
+
+      if (rawTimetables.isEmpty) {
+        _selectedTimetableIndex = -1;
+        _timetables = [];
+        await createTimetable();
+        await _loadTimetable();
+        return true;
+      }
 
       _timetables = rawTimetables
           .map((timetable) => Timetable.fromJson(timetable))
           .toList();
+
       _selectedTimetableIndex = 0;
       _isLoaded = true;
       notifyListeners();

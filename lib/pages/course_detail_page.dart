@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:otlplus/models/review.dart';
 import 'package:provider/provider.dart';
 import 'package:otlplus/constants/color.dart';
 import 'package:otlplus/extensions/course.dart';
@@ -346,20 +347,23 @@ class CourseDetailPage extends StatelessWidget {
                 (selectedFilter == "ALL" ||
                     lecture.professors.any((professor) =>
                         professor.professorId.toString() == selectedFilter)))
-            .map((lecture) => ReviewWriteBlock(
-                  lecture: lecture,
-                  existingReview: user.reviews.firstWhere(
-                      (review) => review.lecture.id == lecture.id,
-                      orElse: null),
-                  isSimple: false,
-                  onUploaded: (review) {
-                    context.read<InfoModel>().getInfo();
-                    context
-                        .read<CourseDetailModel>()
-                        .updateCourseReviews(review);
-                  },
-                ))
-            .toList(),
+            .map((lecture) {
+          Review? existingReview;
+          try {
+            existingReview = user.reviews.firstWhere(
+                (review) => review.lecture.id == lecture.id,
+                orElse: null);
+          } catch (_) {}
+          return ReviewWriteBlock(
+            lecture: lecture,
+            existingReview: existingReview,
+            isSimple: false,
+            onUploaded: (review) {
+              context.read<InfoModel>().getInfo();
+              context.read<CourseDetailModel>().updateCourseReviews(review);
+            },
+          );
+        }).toList(),
         ...context.select<CourseDetailModel, List<Widget>>((model) => model
             .reviews!
             .map((review) => ReviewBlock(review: review))
