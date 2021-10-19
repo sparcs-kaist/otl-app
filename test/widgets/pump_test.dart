@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:otlplus/models/timetable.dart';
+// import 'package:otlplus/models/timetable.dart';
 import 'package:otlplus/providers/search_model.dart';
 import 'package:otlplus/widgets/backdrop.dart';
 import 'package:otlplus/widgets/course_block.dart';
@@ -13,7 +13,7 @@ import 'package:otlplus/widgets/lecture_simple_block.dart';
 import 'package:otlplus/widgets/review_block.dart';
 import 'package:otlplus/widgets/review_write_block.dart';
 import 'package:otlplus/widgets/search_filter.dart';
-import 'package:otlplus/widgets/timetable.dart' as widget;
+// import 'package:otlplus/widgets/timetable.dart' as widget;
 import 'package:otlplus/widgets/timetable_block.dart';
 import 'package:otlplus/widgets/timetable_summary.dart';
 import 'package:otlplus/widgets/timetable_tabs.dart';
@@ -108,7 +108,7 @@ void main() {
   });
 
   testWidgets('pump Timetable', (WidgetTester tester) async {
-  //   await tester.pumpWidget(widget.Timetable(lectures: [], builder: (lecture,_)=> TimetableBlock(lecture: lecture)).scaffold);
+    //   await tester.pumpWidget(widget.Timetable(lectures: [], builder: (lecture,_)=> TimetableBlock(lecture: lecture)).scaffold);
   });
 
   testWidgets('pump TodayTimetable', (WidgetTester tester) async {

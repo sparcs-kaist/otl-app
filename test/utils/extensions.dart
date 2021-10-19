@@ -11,6 +11,11 @@ extension WidgetForTest on Widget {
         ),
       );
 
+  Widget materialAndNotifier<T extends ChangeNotifier>(T model) {
+    return ChangeNotifierProvider(
+        create: (_) => model, child: MaterialApp(home: this));
+  }
+
   Widget scaffoldAndNotifier<T extends ChangeNotifier>(T model) {
     return ChangeNotifierProvider<T>(
         create: (_) => model,
