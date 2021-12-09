@@ -70,10 +70,6 @@ void main() {
         .pumpWidget(LectureSimpleBlock(lecture: SampleLecture.shared).material);
   });
 
-  testWidgets('pump ReviewBlock', (WidgetTester tester) async {
-    await tester.pumpWidget(ReviewBlock(review: SampleReview.shared).material);
-  });
-
   testWidgets('pump ReviewWriteBlock', (WidgetTester tester) async {
     await tester.pumpWidget(ReviewWriteBlock(
       lecture: SampleLecture.shared,

@@ -6,7 +6,7 @@ import '../utils/samples.dart';
 void main() {
   group('Classtime', () {
     test('constructor', () {
-      expect(SampleClasstime.shared.runtimeType is Classtime, true);
+      expect(SampleClasstime.shared.runtimeType, Classtime);
     });
 
     test('fromJson', () {
