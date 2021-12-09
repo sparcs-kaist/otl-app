@@ -7,7 +7,7 @@ import '../utils/samples.dart';
 void main() {
   group('Course', () {
     test('constructor', () {
-      expect(SampleCourse.shared is Course, true);
+      expect(SampleCourse.shared.runtimeType is Course, true);
     });
 
     test('fromJson', () {
