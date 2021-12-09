@@ -134,7 +134,7 @@ class _ReviewBlockState extends State<ReviewBlock> {
                       ),
                     ),
                     const Spacer(),
-                    if (!widget.isSimple)
+                    if (!widget.isSimple) ...[
                       Material(
                         color: Colors.transparent,
                         child: InkWell(
@@ -148,19 +148,21 @@ class _ReviewBlockState extends State<ReviewBlock> {
                           ),
                         ),
                       ),
-                    Material(
-                      color: Colors.transparent,
-                      child: InkWell(
-                        onTap: _report,
-                        child: Text(
-                          "신고하기",
-                          style: TextStyle(
-                            color: const Color(0xFFAAAAAA),
-                            fontSize: 12.0,
+                      SizedBox(width: 8),
+                      Material(
+                        color: Colors.transparent,
+                        child: InkWell(
+                          onTap: _report,
+                          child: Text(
+                            "신고하기",
+                            style: TextStyle(
+                              color: const Color(0xFFAAAAAA),
+                              fontSize: 12.0,
+                            ),
                           ),
                         ),
-                      ),
-                    ),
+                      )
+                    ],
                   ],
                 ),
               ],
