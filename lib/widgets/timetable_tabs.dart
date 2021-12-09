@@ -38,7 +38,7 @@ class _TimetableTabsState extends State<TimetableTabs> {
             ),
           ),
         ),
-        _buildButton(Icons.add, widget.onAddTap),
+        _buildButton(Icons.playlist_add, widget.onAddTap),
         _buildButton(Icons.settings, widget.onSettingsTap),
       ],
     );
@@ -94,10 +94,15 @@ class _TimetableTabsState extends State<TimetableTabs> {
               horizontal: 12.0,
               vertical: 9.0,
             ),
-            child: Text(
-              i == widget.length ? "+" : "시간표 ${i + 1}",
-              style: const TextStyle(fontSize: 12.0),
-            ),
+            child: i == widget.length
+                ? Icon(
+                    Icons.library_add,
+                    size: 14,
+                  )
+                : Text(
+                    "시간표 ${i + 1}",
+                    style: const TextStyle(fontSize: 12.0),
+                  ),
           ),
         ),
       ),

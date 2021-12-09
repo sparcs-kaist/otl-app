@@ -10,7 +10,6 @@ import 'package:otlplus/widgets/lecture_group_block_row.dart';
 import 'package:otlplus/widgets/lecture_group_simple_block.dart';
 import 'package:otlplus/widgets/lecture_search.dart';
 import 'package:otlplus/widgets/lecture_simple_block.dart';
-import 'package:otlplus/widgets/review_block.dart';
 import 'package:otlplus/widgets/review_write_block.dart';
 import 'package:otlplus/widgets/search_filter.dart';
 // import 'package:otlplus/widgets/timetable.dart' as widget;
@@ -68,10 +67,6 @@ void main() {
   testWidgets('pump LectureSimpleBlock', (WidgetTester tester) async {
     await tester
         .pumpWidget(LectureSimpleBlock(lecture: SampleLecture.shared).material);
-  });
-
-  testWidgets('pump ReviewBlock', (WidgetTester tester) async {
-    await tester.pumpWidget(ReviewBlock(review: SampleReview.shared).material);
   });
 
   testWidgets('pump ReviewWriteBlock', (WidgetTester tester) async {

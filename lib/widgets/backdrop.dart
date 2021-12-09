@@ -189,7 +189,12 @@ class _BackdropScaffoldState extends State<BackdropScaffold>
             backgroundColor:
                 isExpanded ? const Color(0xFF9B4810) : BACKGROUND_COLOR,
             bottomNavigationBar: widget.bottomNavigationBar,
-            body: LayoutBuilder(builder: _buildStack),
+            body: GestureDetector(
+              onTap: () {
+                FocusScope.of(context).unfocus();
+              },
+              child: LayoutBuilder(builder: _buildStack),
+            ),
             resizeToAvoidBottomInset: false,
           ),
         ),

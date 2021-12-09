@@ -273,15 +273,20 @@ class LectureDetailPage extends StatelessWidget {
               context.read<LectureDetailModel>().updateLectureReviews(review);
             },
           ),
-        ...context
-            .select<LectureDetailModel, List<Widget>>((model) => model.reviews
+        ...context.select<LectureDetailModel, List<Widget>>((model) {
+          if (model.reviews.length == 0) {
+            return [Text("결과 없음")];
+          } else {
+            return model.reviews
                 .map((review) => ReviewBlock(
                       review: review,
                       maxLines: 3,
                       overflow: TextOverflow.ellipsis,
                       isSimple: true,
                     ))
-                .toList()),
+                .toList();
+          }
+        }),
       ]),
     );
   }

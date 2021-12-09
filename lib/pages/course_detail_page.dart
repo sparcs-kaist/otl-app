@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:otlplus/models/review.dart';
 import 'package:provider/provider.dart';
 import 'package:otlplus/constants/color.dart';
@@ -364,10 +363,16 @@ class CourseDetailPage extends StatelessWidget {
             },
           );
         }).toList(),
-        ...context.select<CourseDetailModel, List<Widget>>((model) => model
-            .reviews!
-            .map((review) => ReviewBlock(review: review))
-            .toList()),
+        ...context.select<CourseDetailModel, List<Widget>>((model) {
+          if (model.reviews?.isEmpty == true) {
+            return [Text("결과 없음")];
+          } else {
+            return model.reviews
+                    ?.map((review) => ReviewBlock(review: review))
+                    .toList() ??
+                [Text("결과 없음")];
+          }
+        }),
       ]),
     );
   }

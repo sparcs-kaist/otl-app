@@ -134,7 +134,7 @@ class _ReviewBlockState extends State<ReviewBlock> {
                       ),
                     ),
                     const Spacer(),
-                    if (!widget.isSimple)
+                    if (!widget.isSimple) ...[
                       Material(
                         color: Colors.transparent,
                         child: InkWell(
@@ -148,6 +148,21 @@ class _ReviewBlockState extends State<ReviewBlock> {
                           ),
                         ),
                       ),
+                      SizedBox(width: 8),
+                      Material(
+                        color: Colors.transparent,
+                        child: InkWell(
+                          onTap: _report,
+                          child: Text(
+                            "신고하기",
+                            style: TextStyle(
+                              color: const Color(0xFFAAAAAA),
+                              fontSize: 12.0,
+                            ),
+                          ),
+                        ),
+                      )
+                    ],
                   ],
                 ),
               ],
@@ -167,5 +182,23 @@ class _ReviewBlockState extends State<ReviewBlock> {
     await DioProvider().dio.post(
         API_REVIEW_LIKE_URL.replaceFirst("{id}", widget.review.id.toString()),
         data: {});
+  }
+
+  void _report() {
+    showDialog(
+        context: context,
+        builder: (_) => AlertDialog(
+              title: Text('안내'),
+              content: Text(
+                  '이 기능은 현재 개발중입니다. 부적절한 후기는 otlplus@sparcs.org로 신고해 주세요.'),
+              actions: <Widget>[
+                new TextButton(
+                  child: new Text("확인"),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                ),
+              ],
+            ));
   }
 }
