@@ -10,7 +10,10 @@ void main() {
   });
 
   testWidgets('hide buttons in ReviewBlock', (WidgetTester tester) async {
-    await tester.pumpWidget(ReviewBlock(review: SampleReview.shared, isSimple: true,).material);
+    await tester.pumpWidget(ReviewBlock(
+      review: SampleReview.shared,
+      isSimple: true,
+    ).material);
 
     final likeFinder = find.text('좋아요');
     final reportFinder = find.text('신고하기');
@@ -20,7 +23,10 @@ void main() {
   });
 
   testWidgets('show buttons in ReviewBlock', (WidgetTester tester) async {
-    await tester.pumpWidget(ReviewBlock(review: SampleReview.shared, isSimple: false,).material);
+    await tester.pumpWidget(ReviewBlock(
+      review: SampleReview.shared,
+      isSimple: false,
+    ).material);
 
     final likeFinder = find.text('좋아요');
     final reportFinder = find.text('신고하기');
