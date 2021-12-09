@@ -11,7 +11,7 @@ description: Online Timeplanner with Lectures Plus App @ KAIST
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 1.2.5+15
+version: 1.2.6+16
 
 environment:
   sdk: ">=2.14.0 <3.0.0"
@@ -20,28 +20,28 @@ dependencies:
   flutter:
     sdk: flutter
 
-  dio: ^4.0.1
-  dotted_border: ^2.0.0+1
+  dio: ^4.0.4
+  dotted_border: ^2.0.0+2
   flutter_inappwebview: ^5.3.2 # No desktop support
-  flutter_web_browser: ^0.15.0 # No desktop support
+  flutter_web_browser: ^0.16.0 # No desktop support
   intl: ^0.17.0
   multi_select_flutter: ^4.0.0
   open_file: ^3.2.1 # No desktop support
-  path_provider: ^2.0.6
-  permission_handler: ^8.2.5
+  path_provider: ^2.0.8
+  permission_handler: ^8.3.0
   provider: ^6.0.1
-  url_launcher: ^6.0.12
+  url_launcher: ^6.0.17
   equatable: ^2.0.3
-  shared_preferences: ^2.0.8
-  flutter_platform_widgets: ^1.9.5
-  cupertino_icons: ^1.0.3
+  shared_preferences: ^2.0.10
+  flutter_platform_widgets: ^1.11.1
+  cupertino_icons: ^1.0.4
   # Firebase
-  firebase_core: ^1.8.0
-  firebase_analytics: ^8.3.4
-  firebase_crashlytics: ^2.2.4
+  firebase_core: ^1.10.5
+  firebase_analytics: ^9.0.2
+  firebase_crashlytics: ^2.4.3
 
 dev_dependencies:
-  test: ^1.16.8
+  test: ^1.17.12
   flutter_test:
     sdk: flutter
   flutter_driver:

@@ -173,8 +173,9 @@ class LectureDetailPage extends StatelessWidget {
             url: _getSyllabusUrl(lecture),
             customTabsOptions: CustomTabsOptions(
               colorScheme: CustomTabsColorScheme.light,
-              toolbarColor: BACKGROUND_COLOR,
-              addDefaultShareMenuItem: true,
+              defaultColorSchemeParams:
+                  CustomTabsColorSchemeParams(toolbarColor: BACKGROUND_COLOR),
+              shareState: CustomTabsShareState.on,
               instantAppsEnabled: true,
               showTitle: true,
               urlBarHidingEnabled: true,
