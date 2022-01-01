@@ -45,7 +45,7 @@ final types = {
   "ETC": "기타",
 };
 
-final grades = {
+final levels = {
   "ALL": "전체",
   "100": "100번대",
   "200": "200번대",
@@ -72,7 +72,7 @@ class _LectureSearchState extends State<LectureSearch> {
   Lecture? _selectedLecture;
   List<String> _department = [departments.keys.first];
   List<String> _type = [types.keys.first];
-  List<String> _grade = [grades.keys.first];
+  List<String> _level = [levels.keys.first];
 
   @override
   void initState() {
@@ -114,7 +114,7 @@ class _LectureSearchState extends State<LectureSearch> {
                           value,
                           department: _department,
                           type: _type,
-                          grade: _grade);
+                          level: _level);
                       _searchTextController.clear();
 
                       setState(() {
@@ -177,10 +177,10 @@ class _LectureSearchState extends State<LectureSearch> {
                   const SizedBox(width: 6.0),
                   SearchFilter(
                     property: "학년",
-                    items: grades,
+                    items: levels,
                     isMultiSelect: true,
                     onChanged: (value) {
-                      _grade = value;
+                      _level = value;
                       _focusNode.requestFocus();
                     },
                   ),

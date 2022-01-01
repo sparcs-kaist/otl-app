@@ -23,7 +23,7 @@ class SearchModel extends ChangeNotifier {
   Future<void> courseSearch(String keyword,
       {List<String>? department,
       List<String>? type,
-      List<String>? grade,
+      List<String>? level,
       String order = "DEF",
       String term = "ALL",
       double tune = 3}) async {
@@ -37,7 +37,7 @@ class SearchModel extends ChangeNotifier {
             "keyword": keyword,
             "department": department ?? "ALL",
             "type": type ?? "ALL",
-            "grade": grade ?? "ALL",
+            "level": level ?? "ALL",
             "term": term,
           }));
 
@@ -113,7 +113,7 @@ class SearchModel extends ChangeNotifier {
   Future<void> lectureSearch(Semester semester, String keyword,
       {required List<String> department,
       required List<String> type,
-      required List<String> grade}) async {
+      required List<String> level}) async {
     _isSearching = true;
     notifyListeners();
 
@@ -126,7 +126,7 @@ class SearchModel extends ChangeNotifier {
             "keyword": keyword,
             "department": department,
             "type": type,
-            "grade": grade,
+            "level": level,
           }));
 
       final rawLectures = response.data as List;
