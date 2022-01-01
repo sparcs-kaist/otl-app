@@ -29,16 +29,16 @@ dependencies:
   open_file: ^3.2.1 # No desktop support
   path_provider: ^2.0.8
   permission_handler: ^8.3.0
-  provider: ^6.0.1
+  provider: ^6.0.2
   url_launcher: ^6.0.17
   equatable: ^2.0.3
-  shared_preferences: ^2.0.10
-  flutter_platform_widgets: ^1.11.1
+  shared_preferences: ^2.0.11
+  flutter_platform_widgets: ^1.12.1
   cupertino_icons: ^1.0.4
   # Firebase
-  firebase_core: ^1.10.5
-  firebase_analytics: ^9.0.2
-  firebase_crashlytics: ^2.4.3
+  firebase_core: ^1.10.6
+  firebase_analytics: ^9.0.4
+  firebase_crashlytics: ^2.4.4
 
 dev_dependencies:
   test: ^1.17.12
