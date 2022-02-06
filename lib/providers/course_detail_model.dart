@@ -52,7 +52,6 @@ class CourseDetailModel extends ChangeNotifier {
     _professors = _lectures
         .map((lecture) => lecture!.professors)
         .expand((e) => e)
-        .toSet()
         .toList()
       ..sort((a, b) => a.name.compareTo(b.name));
     _reviews = await getCourseReviews();
