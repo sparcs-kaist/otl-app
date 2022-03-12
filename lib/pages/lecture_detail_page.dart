@@ -279,6 +279,7 @@ class LectureDetailPage extends StatelessWidget {
             return [Text("결과 없음")];
           } else {
             return model.reviews
+                .reversed
                 .map((review) => ReviewBlock(
                       review: review,
                       maxLines: 3,
