@@ -48,7 +48,7 @@ class SampleProfessor {
   static final name = "오승빈";
   static final nameEn = "Seungbin Oh";
   static final professorId = 1;
-  static final reviewTotalWeight = 2;
+  static final reviewTotalWeight = 2.0;
 
   static final json = """{
     "name": "$name",
@@ -90,7 +90,7 @@ class SampleCourse {
   static final title = "title";
   static final titleEn = "titleEn";
   static final summary = "summary";
-  static final reviewTotalWeight = 2;
+  static final reviewTotalWeight = 2.0;
   static final professors = [SampleProfessor.shared];
   static final grade = 1.0;
   static final load = 2.0;
@@ -177,7 +177,7 @@ class SampleLecture {
   static final commonTitleEn = "";
   static final classTitle = "";
   static final classTitleEn = "";
-  static final reviewTotalWeight = 1;
+  static final reviewTotalWeight = 1.0;
   static final professors = [SampleProfessor.shared];
   static final grade = 2.0;
   static final load = 3.0;

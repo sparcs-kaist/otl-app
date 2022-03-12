@@ -10,7 +10,7 @@ class Course {
   final String title;
   final String titleEn;
   final String summary;
-  final int reviewTotalWeight;
+  final double reviewTotalWeight;
   late List<Professor> professors;
   final double grade;
   final double load;
