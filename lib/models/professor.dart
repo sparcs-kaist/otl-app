@@ -2,7 +2,7 @@ class Professor {
   final String name;
   final String nameEn;
   final int professorId;
-  final int reviewTotalWeight;
+  final double reviewTotalWeight;
 
   Professor(
       {required this.name,

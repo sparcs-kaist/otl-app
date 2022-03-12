@@ -25,7 +25,7 @@ class NestedLecture {
   final String commonTitleEn;
   final String classTitle;
   final String classTitleEn;
-  final int reviewTotalWeight;
+  final double reviewTotalWeight;
   late List<Professor> professors;
 
   NestedLecture(

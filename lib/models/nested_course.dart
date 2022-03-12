@@ -9,7 +9,7 @@ class NestedCourse {
   final String title;
   final String titleEn;
   final String summary;
-  final int reviewTotalWeight;
+  final double reviewTotalWeight;
 
   NestedCourse(
       {required this.id,

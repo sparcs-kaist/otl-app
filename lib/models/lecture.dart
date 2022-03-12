@@ -27,7 +27,7 @@ class Lecture {
   final String commonTitleEn;
   final String classTitle;
   final String classTitleEn;
-  final int reviewTotalWeight;
+  final double reviewTotalWeight;
   late List<Professor> professors;
   final double grade;
   final double load;
