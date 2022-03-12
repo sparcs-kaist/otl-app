@@ -21,6 +21,7 @@ final departments = {
   "MAS": "수리",
   "MS": "신소재",
   "NQE": "원양",
+  "TS": "융인",
   "CS": "전산",
   "EE": "전자",
   "AE": "항공",
@@ -42,7 +43,7 @@ final types = {
   "ETC": "기타",
 };
 
-final grades = {
+final levels = {
   "ALL": "전체",
   "100": "100번대",
   "200": "200번대",
@@ -81,7 +82,7 @@ class _CourseSearchState extends State<CourseSearch> {
   late FocusNode _focusNode;
   List<String> _department = [departments.keys.first];
   List<String> _type = [types.keys.first];
-  List<String> _grade = [grades.keys.first];
+  List<String> _level = [levels.keys.first];
   String _order = orders.keys.first;
   String _term = terms.keys.first;
 
@@ -114,7 +115,7 @@ class _CourseSearchState extends State<CourseSearch> {
               context.read<SearchModel>().courseSearch(value,
                   department: _department,
                   type: _type,
-                  grade: _grade,
+                  level: _level,
                   order: _order,
                   term: _term);
               _searchTextController.clear();
@@ -156,10 +157,10 @@ class _CourseSearchState extends State<CourseSearch> {
               const SizedBox(width: 6.0),
               SearchFilter(
                 property: "학년",
-                items: grades,
+                items: levels,
                 isMultiSelect: true,
                 onChanged: (value) {
-                  _grade = value;
+                  _level = value;
                   _focusNode.requestFocus();
                 },
               ),

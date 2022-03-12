@@ -18,6 +18,7 @@ class SettingsPage extends StatelessWidget {
             child: ListView(children: [
           ListTile(
             title: Text("오류 로그 전송"),
+            subtitle: Text("사용자의 제보 없이 자동으로 오류를 수집합니다."),
             trailing: PlatformSwitch(
               value: context.watch<SettingsModel>().getSendCrashlytics(),
               onChanged: (value) =>
@@ -28,6 +29,7 @@ class SettingsPage extends StatelessWidget {
             visible: context.watch<SettingsModel>().getSendCrashlytics(),
             child: ListTile(
               title: Text("익명으로 전송"),
+              subtitle: Text("오류 로그에 사용자 ID를 포함하지 않고 익명으로 전송합니다."),
               trailing: PlatformSwitch(
                   value: context
                       .watch<SettingsModel>()

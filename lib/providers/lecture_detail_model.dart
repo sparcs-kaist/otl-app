@@ -42,7 +42,7 @@ class LectureDetailModel extends ChangeNotifier {
     final response = await DioProvider().dio.get(API_LECTURE_RELATED_REVIEWS_URL
         .replaceFirst("{id}", _lecture.id.toString()));
     final rawReviews = response.data as List;
-    return rawReviews.map((review) => Review.fromJson(review)).toSet().toList();
+    return rawReviews.map((review) => Review.fromJson(review)).toList();
   }
 
   Future<Course> getLectureCourse() async {
