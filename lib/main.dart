@@ -18,10 +18,14 @@ import 'package:otlplus/providers/search_model.dart';
 import 'package:otlplus/providers/timetable_model.dart';
 import 'package:otlplus/utils/create_material_color.dart';
 
+import 'firebase_options.dart';
+
 void main() {
   runZonedGuarded<Future<void>>(() async {
     WidgetsFlutterBinding.ensureInitialized();
-    await Firebase.initializeApp();
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
     FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
     if (kDebugMode) {
       FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(false);
