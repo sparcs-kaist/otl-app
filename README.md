@@ -35,6 +35,10 @@ You need to start emulator/device.
 flutter drive --target=test_driver/app.dart
 ```
 
+## How to contribute?
+
+Please visit [CONTRIBUTING.md](https://github.com/sparcs-kaist/otl-app/blob/main/CONTRIBUTING.md)
+
 ## Credits
 
 - [Winrobrine](https://github.com/Winrobrine): Developer 2020
