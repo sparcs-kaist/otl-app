@@ -54,7 +54,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '446589104698',
     projectId: 'otl-plus-app',
     storageBucket: 'otl-plus-app.appspot.com',
-    iosClientId: '446589104698-779q1t4sght9akffsomaub8rut3skl4r.apps.googleusercontent.com',
+    iosClientId:
+        '446589104698-779q1t4sght9akffsomaub8rut3skl4r.apps.googleusercontent.com',
     iosBundleId: 'org.sparcs.otlplus',
   );
 }

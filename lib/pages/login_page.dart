@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:provider/provider.dart';
@@ -31,14 +33,19 @@ class _LoginPageState extends State<LoginPage> {
 
   Widget _buildBody(BuildContext context) {
     const AUTHORITY = 'otl.kaist.ac.kr';
+    Map<String, dynamic> query = {'next': BASE_URL};
+    if (Platform.isIOS) {
+      query['social_login'] = '0';
+    }
+
     return Visibility(
       maintainSize: true,
       maintainAnimation: true,
       maintainState: true,
       visible: _isVisible,
       child: InAppWebView(
-        initialUrlRequest: URLRequest(
-            url: Uri.https(AUTHORITY, '/session/login/', {'next': BASE_URL})),
+        initialUrlRequest:
+            URLRequest(url: Uri.https(AUTHORITY, '/session/login/', query)),
         initialOptions: InAppWebViewGroupOptions(),
         onLoadStart: (controller, url) {
           if (url?.authority == AUTHORITY) {
