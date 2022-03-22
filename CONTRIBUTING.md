@@ -10,7 +10,7 @@
 
 1. 본인의 Github ID를 붙여 브랜치를 생성합니다. ex. `sboh1214-dev`
 2. 담당한 Issue에 대한 코드를 작성합니다.
-3. 아래 명령어를 통해 코드를 Foramt, Lint, Test 합니다.
+3. 아래 명령어를 통해 코드를 Format, Lint, Test 합니다.
 ```bash
 flutter format .
 flutter analyze
