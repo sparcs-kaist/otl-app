@@ -2,10 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>NSUserTrackingUsageDescription</key>
-	<string>사용자 통계 수집을 위해 식별자를 수집합니다.</string>
-	<key>ITSAppUsesNonExemptEncryption</key>
-	<false/>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
@@ -19,13 +15,29 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>$(FLUTTER_BUILD_NAME)</string>
+	<string>$(MARKETING_VERSION)</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>$(FLUTTER_BUILD_NUMBER)</string>
+	<string>$(CURRENT_PROJECT_VERSION)</string>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSAppleMusicUsageDescription</key>
+	<string>사용자 요청 시 해당 기능을 사용합니다.</string>
+	<key>NSCalendarsUsageDescription</key>
+	<string>사용자 요청 시 해당 기능을 사용합니다.</string>
+	<key>NSContactsUsageDescription</key>
+	<string>사용자 요청 시 해당 기능을 사용합니다.</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>사용자 요청 시 해당 기능을 사용합니다.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>사용자 요청 시 해당 기능을 사용합니다.</string>
+	<key>NSMotionUsageDescription</key>
+	<string>사용자 요청 시 해당 기능을 사용합니다.</string>
+	<key>NSSpeechRecognitionUsageDescription</key>
+	<string>사용자 요청 시 해당 기능을 사용합니다.</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
@@ -45,21 +57,7 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-	<key>NSAppleMusicUsageDescription</key>
-	<string>사용자 요청 시 해당 기능을 사용합니다.</string>
-	<key>NSContactsUsageDescription</key>
-	<string>사용자 요청 시 해당 기능을 사용합니다.</string>
-	<key>NSCalendarsUsageDescription</key>
-	<string>사용자 요청 시 해당 기능을 사용합니다.</string>
 	<key>kTCCServiceMediaLibrary</key>
-	<string>사용자 요청 시 해당 기능을 사용합니다.</string>
-	<key>NSMotionUsageDescription</key>
-	<string>사용자 요청 시 해당 기능을 사용합니다.</string>
-	<key>NSSpeechRecognitionUsageDescription</key>
-	<string>사용자 요청 시 해당 기능을 사용합니다.</string>
-	<key>NSLocationAlwaysUsageDescription</key>
-	<string>사용자 요청 시 해당 기능을 사용합니다.</string>
-	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>사용자 요청 시 해당 기능을 사용합니다.</string>
 </dict>
 </plist>
