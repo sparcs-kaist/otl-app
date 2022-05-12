@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart' show kDebugMode;
@@ -23,6 +24,7 @@ import 'firebase_options.dart';
 void main() {
   runZonedGuarded<Future<void>>(() async {
     WidgetsFlutterBinding.ensureInitialized();
+    await EasyLocalization.ensureInitialized();
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
     );
@@ -31,36 +33,42 @@ void main() {
       FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(false);
     }
 
-    runApp(MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (context) => AuthModel()),
-        ChangeNotifierProxyProvider<AuthModel, InfoModel>(
-          create: (context) => InfoModel(),
-          update: (context, authModel, infoModel) {
-            if (authModel.isLogined) infoModel?.getInfo();
-            return (infoModel is InfoModel) ? infoModel : InfoModel();
-          },
-        ),
-        ChangeNotifierProxyProvider<InfoModel, TimetableModel>(
-          create: (context) => TimetableModel(),
-          update: (context, infoModel, timetableModel) {
-            if (infoModel.hasData) {
-              timetableModel?.loadSemesters(
-                  user: infoModel.user, semesters: infoModel.semesters);
-            }
-            return (timetableModel is TimetableModel)
-                ? timetableModel
-                : TimetableModel();
-          },
-        ),
-        ChangeNotifierProvider(create: (_) => SearchModel()),
-        ChangeNotifierProvider(create: (_) => ReviewModel()),
-        ChangeNotifierProvider(create: (_) => CourseDetailModel()),
-        ChangeNotifierProvider(create: (_) => LectureDetailModel()),
-        ChangeNotifierProvider(create: (_) => SettingsModel())
-      ],
-      child: OTLFirebaseApp(),
-    ));
+    runApp(
+      EasyLocalization(
+          supportedLocales: [Locale('en'), Locale('ko')],
+          path: 'assets/translations',
+          fallbackLocale: Locale('en'),
+          child: MultiProvider(
+            providers: [
+              ChangeNotifierProvider(create: (context) => AuthModel()),
+              ChangeNotifierProxyProvider<AuthModel, InfoModel>(
+                create: (context) => InfoModel(),
+                update: (context, authModel, infoModel) {
+                  if (authModel.isLogined) infoModel?.getInfo();
+                  return (infoModel is InfoModel) ? infoModel : InfoModel();
+                },
+              ),
+              ChangeNotifierProxyProvider<InfoModel, TimetableModel>(
+                create: (context) => TimetableModel(),
+                update: (context, infoModel, timetableModel) {
+                  if (infoModel.hasData) {
+                    timetableModel?.loadSemesters(
+                        user: infoModel.user, semesters: infoModel.semesters);
+                  }
+                  return (timetableModel is TimetableModel)
+                      ? timetableModel
+                      : TimetableModel();
+                },
+              ),
+              ChangeNotifierProvider(create: (_) => SearchModel()),
+              ChangeNotifierProvider(create: (_) => ReviewModel()),
+              ChangeNotifierProvider(create: (_) => CourseDetailModel()),
+              ChangeNotifierProvider(create: (_) => LectureDetailModel()),
+              ChangeNotifierProvider(create: (_) => SettingsModel())
+            ],
+            child: OTLFirebaseApp(),
+          )),
+    );
   }, (error, stack) => FirebaseCrashlytics.instance.recordError(error, stack));
 }
 
@@ -83,6 +91,9 @@ class OTLFirebaseApp extends StatelessWidget {
     } on Error {}
 
     return MaterialApp(
+      localizationsDelegates: context.localizationDelegates,
+      supportedLocales: context.supportedLocales,
+      locale: context.locale,
       title: "OTL",
       home: context.select<InfoModel, bool>((model) => model.hasData)
           ? OTLHome()
