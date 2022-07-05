@@ -115,7 +115,7 @@ class MainPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
             InkWell(
-              onTap: () => launch("https://cais.kaist.ac.kr"),
+              onTap: () => launchUrl(Uri.https("cais.kaist.ac.kr", "")),
               child: Text(
                 "학사시스템 바로가기",
                 style: const TextStyle(
