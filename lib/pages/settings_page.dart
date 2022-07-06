@@ -80,7 +80,7 @@ class SettingsPage extends StatelessWidget {
               Row(
                 children: [
                   InkWell(
-                    onTap: () => launch("mailto:$contactEmail"),
+                    onTap: () => launchUrl(Uri.parse("mailto:$contactEmail")),
                     child: Align(
                         alignment: Alignment.centerLeft,
                         child: Text(
