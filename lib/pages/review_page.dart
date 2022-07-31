@@ -6,6 +6,8 @@ import 'package:otlplus/widgets/backdrop.dart';
 import 'package:otlplus/widgets/review_block.dart';
 
 class ReviewPage extends StatelessWidget {
+  final _scrollController = ScrollController();
+  
   @override
   Widget build(BuildContext context) {
     final reviews = context.watch<ReviewModel>().reviews;
@@ -43,7 +45,9 @@ class ReviewPage extends StatelessWidget {
                     await context.read<ReviewModel>().clear();
                   },
                   child: Scrollbar(
+                    controller: _scrollController,
                     child: ListView.builder(
+                      controller: _scrollController,
                       itemCount: reviews.length,
                       itemBuilder: (context, index) => ReviewBlock(
                         review: reviews[index],

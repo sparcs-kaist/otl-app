@@ -78,6 +78,7 @@ class CourseSearch extends StatefulWidget {
 
 class _CourseSearchState extends State<CourseSearch> {
   final _searchTextController = TextEditingController();
+  final _scrollController = ScrollController();
 
   late FocusNode _focusNode;
   List<String> _department = [departments.keys.first];
@@ -193,7 +194,9 @@ class _CourseSearchState extends State<CourseSearch> {
               : Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 12.0),
                   child: Scrollbar(
+                    controller: _scrollController,
                     child: ListView.builder(
+                      controller: _scrollController,
                       itemCount: searchModel.courses?.length ?? 0,
                       itemBuilder: (context, index) => CourseBlock(
                         course: searchModel.courses![index],

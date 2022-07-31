@@ -67,6 +67,7 @@ class LectureSearch extends StatefulWidget {
 
 class _LectureSearchState extends State<LectureSearch> {
   final _searchTextController = TextEditingController();
+  final _scrollController = ScrollController();
 
   late FocusNode _focusNode;
   Lecture? _selectedLecture;
@@ -195,7 +196,8 @@ class _LectureSearchState extends State<LectureSearch> {
                   : Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 12.0),
                       child: Scrollbar(
-                        child: _buildListView(searchModel.lectures ?? [[]]),
+                        controller: _scrollController,
+                        child: _buildListView(searchModel.lectures ?? [[]], _scrollController),
                       ),
                     ),
             ),
@@ -250,8 +252,9 @@ class _LectureSearchState extends State<LectureSearch> {
     }
   }
 
-  ListView _buildListView(List<List<Lecture>> lectures) {
+  ListView _buildListView(List<List<Lecture>> lectures, ScrollController scrollController) {
     return ListView.builder(
+      controller: _scrollController,
       itemCount: lectures.length,
       itemBuilder: (context, index) => LectureGroupBlock(
         lectures: lectures[index],
