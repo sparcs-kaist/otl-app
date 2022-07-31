@@ -4,6 +4,7 @@ import 'package:otlplus/providers/course_detail_model.dart';
 import 'package:otlplus/providers/review_model.dart';
 import 'package:otlplus/widgets/backdrop.dart';
 import 'package:otlplus/widgets/review_block.dart';
+import 'package:otlplus/constants/color.dart';
 
 class ReviewPage extends StatelessWidget {
   final _scrollController = ScrollController();
@@ -46,18 +47,42 @@ class ReviewPage extends StatelessWidget {
                   },
                   child: Scrollbar(
                     controller: _scrollController,
-                    child: ListView.builder(
+                    child: CustomScrollView(
                       controller: _scrollController,
-                      itemCount: reviews.length,
-                      itemBuilder: (context, index) => ReviewBlock(
-                        review: reviews[index],
-                        onTap: () async {
-                          context
-                              .read<CourseDetailModel>()
-                              .loadCourse(reviews[index].course.id);
-                          Backdrop.of(context).show(1);
-                        },
-                      ),
+                      slivers: [
+                        SliverList(
+                          delegate: SliverChildBuilderDelegate(
+                            (context, index) {
+                              return ReviewBlock(
+                                review: reviews[index],
+                                onTap: () async {
+                                  context
+                                      .read<CourseDetailModel>()
+                                      .loadCourse(reviews[index].course.id);
+                                  Backdrop.of(context).show(1);
+                                },
+                              );
+                            }, childCount: reviews.length,
+                          ),
+                        ),
+                        SliverList(
+                          delegate: SliverChildListDelegate([
+                            Padding(
+                              padding: const EdgeInsets.only(top: 4.0, bottom: 12.0),
+                              child: const Center(
+                                child: SizedBox(
+                                  width: 24,
+                                  height: 24,
+                                  child: CircularProgressIndicator(
+                                    color: BORDER_BOLD_COLOR,
+                                    strokeWidth: 2,
+                                  ),
+                                ),
+                              ),
+                            )
+                          ])
+                        )
+                      ],
                     ),
                   ),
                 ),
