@@ -257,11 +257,14 @@ class CourseDetailPage extends StatelessWidget {
   }
 
   Widget _buildHistory(BuildContext context) {
+    final _scrollController = ScrollController();
     final years = context.select<InfoModel, Set<int>>((model) => model.years);
     final courseDetailModel = context.watch<CourseDetailModel>();
 
     return Scrollbar(
+      controller: _scrollController,
       child: SingleChildScrollView(
+        controller: _scrollController,
         scrollDirection: Axis.horizontal,
         padding: const EdgeInsets.symmetric(vertical: 8.0),
         reverse: true,
