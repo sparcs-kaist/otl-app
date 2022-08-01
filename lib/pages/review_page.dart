@@ -6,6 +6,8 @@ import 'package:otlplus/widgets/backdrop.dart';
 import 'package:otlplus/widgets/review_block.dart';
 
 class ReviewPage extends StatelessWidget {
+  final _scrollController = ScrollController();
+
   @override
   Widget build(BuildContext context) {
     final reviews = context.watch<ReviewModel>().reviews;
@@ -43,17 +45,44 @@ class ReviewPage extends StatelessWidget {
                     await context.read<ReviewModel>().clear();
                   },
                   child: Scrollbar(
-                    child: ListView.builder(
-                      itemCount: reviews.length,
-                      itemBuilder: (context, index) => ReviewBlock(
-                        review: reviews[index],
-                        onTap: () async {
-                          context
-                              .read<CourseDetailModel>()
-                              .loadCourse(reviews[index].course.id);
-                          Backdrop.of(context).show(1);
-                        },
-                      ),
+                    controller: _scrollController,
+                    child: CustomScrollView(
+                      controller: _scrollController,
+                      slivers: [
+                        SliverList(
+                          delegate: SliverChildBuilderDelegate(
+                            (context, index) {
+                              return ReviewBlock(
+                                review: reviews[index],
+                                onTap: () async {
+                                  context
+                                      .read<CourseDetailModel>()
+                                      .loadCourse(reviews[index].course.id);
+                                  Backdrop.of(context).show(1);
+                                },
+                              );
+                            },
+                            childCount: reviews.length,
+                          ),
+                        ),
+                        SliverList(
+                            delegate: SliverChildListDelegate([
+                          Padding(
+                            padding:
+                                const EdgeInsets.only(top: 4.0, bottom: 12.0),
+                            child: const Center(
+                              child: SizedBox(
+                                width: 24,
+                                height: 24,
+                                child: CircularProgressIndicator(
+                                  color: Colors.black12,
+                                  strokeWidth: 2,
+                                ),
+                              ),
+                            ),
+                          )
+                        ]))
+                      ],
                     ),
                   ),
                 ),
