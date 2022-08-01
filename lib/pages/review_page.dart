@@ -4,7 +4,6 @@ import 'package:otlplus/providers/course_detail_model.dart';
 import 'package:otlplus/providers/review_model.dart';
 import 'package:otlplus/widgets/backdrop.dart';
 import 'package:otlplus/widgets/review_block.dart';
-import 'package:otlplus/constants/color.dart';
 
 class ReviewPage extends StatelessWidget {
   final _scrollController = ScrollController();
@@ -62,26 +61,27 @@ class ReviewPage extends StatelessWidget {
                                   Backdrop.of(context).show(1);
                                 },
                               );
-                            }, childCount: reviews.length,
+                            },
+                            childCount: reviews.length,
                           ),
                         ),
                         SliverList(
-                          delegate: SliverChildListDelegate([
-                            Padding(
-                              padding: const EdgeInsets.only(top: 4.0, bottom: 12.0),
-                              child: const Center(
-                                child: SizedBox(
-                                  width: 24,
-                                  height: 24,
-                                  child: CircularProgressIndicator(
-                                    color: BORDER_BOLD_COLOR,
-                                    strokeWidth: 2,
-                                  ),
+                            delegate: SliverChildListDelegate([
+                          Padding(
+                            padding:
+                                const EdgeInsets.only(top: 4.0, bottom: 12.0),
+                            child: const Center(
+                              child: SizedBox(
+                                width: 24,
+                                height: 24,
+                                child: CircularProgressIndicator(
+                                  color: Colors.black12,
+                                  strokeWidth: 2,
                                 ),
                               ),
-                            )
-                          ])
-                        )
+                            ),
+                          )
+                        ]))
                       ],
                     ),
                   ),
