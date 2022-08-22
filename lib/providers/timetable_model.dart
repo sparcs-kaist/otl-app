@@ -11,6 +11,7 @@ import 'package:otlplus/models/user.dart';
 class TimetableModel extends ChangeNotifier {
   late User _user;
   User get user => _user;
+  List<Lecture> get myLectures => _user.myTimetableLectures;
 
   late List<Semester> _semesters;
 
@@ -88,9 +89,17 @@ class TimetableModel extends ChangeNotifier {
         return true;
       }
 
-      _timetables = rawTimetables
-          .map((timetable) => Timetable.fromJson(timetable))
-          .toList();
+      final myTimetable = Timetable(
+          id: 0,
+          lectures: myLectures
+              .where((lecture) =>
+                  lecture.year == selectedSemester.year &&
+                  lecture.semester == selectedSemester.semester)
+              .toList());
+      _timetables = [myTimetable] +
+          rawTimetables
+              .map((timetable) => Timetable.fromJson(timetable))
+              .toList();
 
       _selectedTimetableIndex = 0;
       _isLoaded = true;

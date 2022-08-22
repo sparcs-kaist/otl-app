@@ -34,7 +34,7 @@ class _TimetableTabsState extends State<TimetableTabs> {
             scrollDirection: Axis.horizontal,
             child: Row(
               children: List.generate(
-                  widget.length + 1, (i) => _buildTab(i, context)),
+                  widget.length + 2, (i) => _buildTab(i, context)),
             ),
           ),
         ),
@@ -71,6 +71,22 @@ class _TimetableTabsState extends State<TimetableTabs> {
   }
 
   Widget _buildTab(int i, BuildContext context) {
+    Widget item = Text(
+      "시간표 $i",
+      style: const TextStyle(fontSize: 12.0),
+    );
+    if (i == 0) {
+      item = Text(
+        "내 시간표",
+        style: const TextStyle(fontSize: 12.0),
+      );
+    } else if (i == widget.length + 1) {
+      item = Icon(
+        Icons.library_add,
+        size: 14,
+      );
+    }
+
     return Card(
       color: _index == i ? Colors.white : TAB_COLOR,
       margin: const EdgeInsets.only(right: 10.0),
@@ -90,20 +106,11 @@ class _TimetableTabsState extends State<TimetableTabs> {
                   });
                 },
           child: Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 12.0,
-              vertical: 9.0,
-            ),
-            child: i == widget.length
-                ? Icon(
-                    Icons.library_add,
-                    size: 14,
-                  )
-                : Text(
-                    "시간표 ${i + 1}",
-                    style: const TextStyle(fontSize: 12.0),
-                  ),
-          ),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 12.0,
+                vertical: 9.0,
+              ),
+              child: item),
         ),
       ),
     );

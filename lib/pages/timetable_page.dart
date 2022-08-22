@@ -225,10 +225,10 @@ class _TimetablePageState extends State<TimetablePage> {
       onTap: (i) {
         final timetableModel = context.read<TimetableModel>();
 
-        if (i > 0 && i == timetableModel.timetables.length)
+        if (i > 0 && i == timetableModel.timetables.length + 1)
           timetableModel.createTimetable();
         else
-          timetableModel.setIndex(i);
+          timetableModel.setIndex(i + 1);
       },
       onAddTap: () {
         if (_isSearchOpened) return;
