@@ -132,27 +132,27 @@ class MainPage extends StatelessWidget {
     );
   }
 
-  Widget _buildTimetable(User user, Semester semester, DateTime now) {  
-        List<Lecture> myLecturesList = user.myTimetableLectures
-          .where((lecture) =>
-              lecture.year == semester.year &&
-              lecture.semester == semester.semester)
-          .toList();
-        Timetable timetable = Timetable(id: 0, lectures: myLecturesList);
-        return Container(
-          height: 90,
-          padding: const EdgeInsets.all(8.0),
-          child: SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: TodayTimetable(
-              lectures: timetable.lectures,
-              now: now,
-              builder: (lecture, classTimeIndex) => TimetableBlock(
-                lecture: lecture,
-                classTimeIndex: classTimeIndex,
-              ),
-            ),
+  Widget _buildTimetable(User user, Semester semester, DateTime now) {
+    List<Lecture> myLecturesList = user.myTimetableLectures
+        .where((lecture) =>
+            lecture.year == semester.year &&
+            lecture.semester == semester.semester)
+        .toList();
+    Timetable timetable = Timetable(id: 0, lectures: myLecturesList);
+    return Container(
+      height: 90,
+      padding: const EdgeInsets.all(8.0),
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: TodayTimetable(
+          lectures: timetable.lectures,
+          now: now,
+          builder: (lecture, classTimeIndex) => TimetableBlock(
+            lecture: lecture,
+            classTimeIndex: classTimeIndex,
           ),
-        );
-      }
+        ),
+      ),
+    );
+  }
 }
