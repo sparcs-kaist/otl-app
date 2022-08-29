@@ -92,6 +92,13 @@ class TimetableModel extends ChangeNotifier {
           .map((timetable) => Timetable.fromJson(timetable))
           .toList();
 
+      List<Lecture> myLecturesList = _user.myTimetableLectures
+          .where((lecture) =>
+              lecture.year == selectedSemester.year &&
+              lecture.semester == selectedSemester.semester)
+          .toList();
+      Timetable myTimetable = Timetable(id: 0, lectures: myLecturesList);
+      _timetables.insert(0, myTimetable);
       _selectedTimetableIndex = 0;
       _isLoaded = true;
       notifyListeners();

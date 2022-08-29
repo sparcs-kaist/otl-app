@@ -270,17 +270,19 @@ class _TimetablePageState extends State<TimetablePage> {
               Navigator.pop(context);
             },
           ),
-          ListTile(
-            leading: const Icon(Icons.delete),
-            title: const Text("삭제"),
-            onTap: (context.select<TimetableModel, bool>(
-                    (model) => model.timetables.length <= 1))
-                ? null
-                : () {
+          context.select<TimetableModel, int>((model) => model.selectedIndex) ==
+                  0
+              ? SizedBox()
+              : ListTile(
+                  enabled: (context.select<TimetableModel, bool>(
+                      (model) => model.timetables.length > 2)),
+                  leading: const Icon(Icons.delete),
+                  title: const Text("삭제"),
+                  onTap: () {
                     context.read<TimetableModel>().deleteTimetable();
                     Navigator.pop(context);
                   },
-          ),
+                ),
         ],
       ),
     );

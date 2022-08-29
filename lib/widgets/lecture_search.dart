@@ -141,7 +141,8 @@ class _LectureSearchState extends State<LectureSearch> {
                           context.select<TimetableModel, bool>((model) =>
                               model.currentTimetable.lectures.any((lecture) =>
                                   lecture.oldCode ==
-                                  _selectedLecture?.oldCode)))
+                                  _selectedLecture?.oldCode) ||
+                              model.selectedIndex == 0))
                       ? null
                       : _addLecture,
                 ),
