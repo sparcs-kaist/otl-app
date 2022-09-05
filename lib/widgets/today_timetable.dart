@@ -34,7 +34,7 @@ class TodayTimetable extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    WidgetsBinding.instance!.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       if (_timebarKey.currentContext != null)
         Scrollable.ensureVisible(_timebarKey.currentContext!);
     });

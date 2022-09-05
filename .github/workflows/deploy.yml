@@ -6,7 +6,7 @@ on:
       - 'v*'
 
 env:
-  FLUTTER_VERSION: '2.10'
+  FLUTTER_VERSION: '3.0.5'
   JAVA_VERSION: '11'
 
 jobs:
@@ -39,20 +39,11 @@ jobs:
           echo "keyAlias=${{ secrets.ANDROID_KEY_ALIAS }}" >> android/key.properties   
       - name: Install dependencies
         run: flutter pub get
-      - name: Build APK
-        run: flutter build apk --release
-      - name: Rename APK
-        run: mv build/app/outputs/flutter-apk/app-release.apk ./OTL.apk
-      - name: Archive APK
-        uses: actions/upload-artifact@v2
-        with:
-          name: Android (.apk)
-          path: ./OTL.apk 
       - name: Build AAB
         run: flutter build appbundle --release 
       - name: Rename AAB
         run: mv build/app/outputs/bundle/release/app-release.aab ./OTL.aab
-      - name: Key to file
+      - name: Set Play Store service account
         env:
           JSON: ${{secrets.SERVICE_ACCOUNT_JSON}}
         run: echo $JSON > private_key.json

@@ -41,7 +41,7 @@ class _TimetablePageState extends State<TimetablePage> {
     final lectures = context.select<TimetableModel, List<Lecture>>(
         (model) => model.currentTimetable.lectures);
 
-    WidgetsBinding.instance?.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       if (_selectedKey.currentContext != null)
         Scrollable.ensureVisible(_selectedKey.currentContext!);
     });
