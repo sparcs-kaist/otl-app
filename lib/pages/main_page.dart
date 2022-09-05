@@ -1,10 +1,7 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:otlplus/constants/color.dart';
-import 'package:otlplus/constants/url.dart';
-import 'package:otlplus/dio_provider.dart';
 import 'package:otlplus/models/semester.dart';
 import 'package:otlplus/models/timetable.dart';
 import 'package:otlplus/models/user.dart';
@@ -12,6 +9,8 @@ import 'package:otlplus/providers/info_model.dart';
 import 'package:otlplus/widgets/timetable_block.dart';
 import 'package:otlplus/widgets/today_timetable.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+import '../models/lecture.dart';
 
 class MainPage extends StatelessWidget {
   @override
@@ -131,40 +130,26 @@ class MainPage extends StatelessWidget {
   }
 
   Widget _buildTimetable(User user, Semester semester, DateTime now) {
-    return FutureBuilder<Response>(
-      // ignore: unnecessary_null_comparison
-      future: semester == null
-          ? null
-          : DioProvider().dio.get(
-              API_TIMETABLE_URL.replaceFirst("{user_id}", user.id.toString()),
-              queryParameters: {
-                  "year": semester.year,
-                  "semester": semester.semester,
-                }),
-      builder: (context, snapshot) {
-        late Timetable timetable;
-
-        if (snapshot.hasData) {
-          final rawTimetables = snapshot.data!.data as List;
-          timetable = Timetable.fromJson(rawTimetables.first);
-        }
-
-        return Container(
-          height: 90,
-          padding: const EdgeInsets.all(8.0),
-          child: SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: TodayTimetable(
-              lectures: snapshot.hasData ? timetable.lectures : [],
-              now: now,
-              builder: (lecture, classTimeIndex) => TimetableBlock(
-                lecture: lecture,
-                classTimeIndex: classTimeIndex,
-              ),
-            ),
+    List<Lecture> myLecturesList = user.myTimetableLectures
+        .where((lecture) =>
+            lecture.year == semester.year &&
+            lecture.semester == semester.semester)
+        .toList();
+    Timetable timetable = Timetable(id: 0, lectures: myLecturesList);
+    return Container(
+      height: 90,
+      padding: const EdgeInsets.all(8.0),
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: TodayTimetable(
+          lectures: timetable.lectures,
+          now: now,
+          builder: (lecture, classTimeIndex) => TimetableBlock(
+            lecture: lecture,
+            classTimeIndex: classTimeIndex,
           ),
-        );
-      },
+        ),
+      ),
     );
   }
 }

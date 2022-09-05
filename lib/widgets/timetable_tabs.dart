@@ -100,7 +100,7 @@ class _TimetableTabsState extends State<TimetableTabs> {
                     size: 14,
                   )
                 : Text(
-                    "시간표 ${i + 1}",
+                    i == 0 ? "내 시간표" : "시간표 $i",
                     style: const TextStyle(fontSize: 12.0),
                   ),
           ),

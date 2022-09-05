@@ -69,7 +69,8 @@ class LectureDetailPage extends StatelessWidget {
           const SizedBox(height: 8.0),
           Expanded(child: _buildScrollView(context, lecture)),
           if (context.select<LectureDetailModel, bool>(
-              (model) => model.isUpdateEnabled)) ...[
+                  (model) => model.isUpdateEnabled) &&
+              context.read<TimetableModel>().selectedIndex != 0) ...[
             const Divider(color: DIVIDER_COLOR),
             Align(
               alignment: Alignment.centerRight,
