@@ -6,7 +6,7 @@ on:
       - 'v*'
 
 env:
-  FLUTTER_VERSION: '2.10'
+  FLUTTER_VERSION: '3.0.5'
   JAVA_VERSION: '11'
 
 jobs:
