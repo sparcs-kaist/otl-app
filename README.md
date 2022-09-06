@@ -66,6 +66,16 @@ You need to start emulator/device.
 flutter drive --target=test_driver/app.dart
 ```
 
+### Apple Silicon JDK 8 설치
+
+Apple Silicon은 aarch64로 컴파일된 JDK 8 버전을 설치하여야  
+`sdkmanager`와 같은 Android SDK tool들을 사용할 수 있습니다.
+
+```bash
+brew tap mdogan/zulu
+brew install zulu-jdk8
+```
+
 ## How to contribute?
 
 Please visit [CONTRIBUTING.md](https://github.com/sparcs-kaist/otl-app/blob/main/CONTRIBUTING.md)

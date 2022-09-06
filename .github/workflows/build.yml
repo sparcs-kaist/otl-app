@@ -13,7 +13,7 @@ env:
 jobs:
   build-android:
     name: Build Android
-    runs-on: ubuntu-latest
+    runs-on: macOS
     steps:
       - uses: actions/checkout@v2
       - name: Set up Java
