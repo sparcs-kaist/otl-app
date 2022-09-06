@@ -14,7 +14,6 @@ jobs:
   build-android:
     name: Build Android
     runs-on: ubuntu-latest
-    environment: CI
     steps:
       - uses: actions/checkout@v2
       - name: Set up Java
@@ -35,9 +34,9 @@ jobs:
       - name: Create key.properties
         run: |
           echo "storeFile=${{ steps.android_keystore.outputs.filePath }}" > android/key.properties
-          echo "storePassword=${{ secrets.ANDROID_KEYSTORE_PASSWORD }}" >> android/key.properties
-          echo "keyPassword=${{ secrets.ANDROID_KEY_PASSWORD }}" >> android/key.properties
-          echo "keyAlias=${{ secrets.ANDROID_KEY_ALIAS }}" >> android/key.properties   
+          echo "storePassword=123456" >> android/key.properties
+          echo "keyPassword=123456" >> android/key.properties
+          echo "keyAlias=upload" >> android/key.properties   
       - name: Install dependencies
         run: flutter pub get
       - name: Build APK
