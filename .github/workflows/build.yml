@@ -36,19 +36,11 @@ jobs:
           echo "storeFile=${{ steps.android_keystore.outputs.filePath }}" > android/key.properties
           echo "storePassword=123456" >> android/key.properties
           echo "keyPassword=123456" >> android/key.properties
-          echo "keyAlias=upload" >> android/key.properties   
+          echo "keyAlias=test" >> android/key.properties   
       - name: Install dependencies
         run: flutter pub get
       - name: Build APK
         run: flutter build apk --release
-      - name: Rename APK
-        run: mv build/app/outputs/flutter-apk/app-release.apk ./OTL.apk
-      - name: Archive APK
-        uses: actions/upload-artifact@v2
-        if: ${{ github.event_name == 'push' }}
-        with:
-          name: release-apk
-          path: ./OTL.apk 
 
   build-ios:
     name: Build iOS
