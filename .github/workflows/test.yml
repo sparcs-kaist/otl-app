@@ -3,6 +3,8 @@ name: Test
 on:
   push:
     branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
 env:
   FLUTTER_VERSION: '3.0.5'
@@ -40,7 +42,7 @@ jobs:
       - name: Test on Android
         uses: reactivecircus/android-emulator-runner@v2.19.1
         with:
-          api-level: 33
+          api-level: 31
           script: flutter drive -d emulator-5554 --target=test_driver/app.dart
 
   integration-ios:

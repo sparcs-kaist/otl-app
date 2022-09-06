@@ -8,6 +8,7 @@ Online Timeplanner with Lectures Plus App @ KAIST
 [![codecov](https://codecov.io/gh/sparcs-kaist/otl-app/branch/main/graph/badge.svg?token=6NJ2CXNXBT)](https://codecov.io/gh/sparcs-kaist/otl-app)
 
 ## Introduction
+
 OTL: Online Timeplanner with Lectures Plus App @ KAIST
 
 카이스트의 입학부터 졸업까지 모든 과목과 시간표는 OTL과 함께!
@@ -44,17 +45,23 @@ flutter run
 ### Test
 
 - Unit & Widget test
+
 ```bash
 flutter test
 ```
 
 - Unit & Widget test with coverage
+
+lcov가 필요합니다. macOS에서는 `brew install lcov`로 설치하실 수 있습니다.
+
 ```bash
 sh ./test/run.sh
 ```
 
 - Integration test
+
 You need to start emulator/device.
+
 ```bash
 flutter drive --target=test_driver/app.dart
 ```
@@ -72,5 +79,6 @@ Please visit [CONTRIBUTING.md](https://github.com/sparcs-kaist/otl-app/blob/main
 Thanks to every [contributors](https://github.com/sparcs-kaist/otl-app/graphs/contributors).
 
 ## License
+
 Copyright (c) 2021-2022 SPARCS.
 Distribution of this application without the authors' explicit written approval is strictly prohibited.
