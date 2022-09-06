@@ -27,7 +27,7 @@ jobs:
 
   integration-android:
     name: Integration Test on Android
-    runs-on: macos-latest
+    runs-on: macOS
     steps:
       - uses: actions/checkout@v2
       - name: Set up Java
@@ -47,7 +47,7 @@ jobs:
 
   integration-ios:
     name: Integration Test on iOS
-    runs-on: macos-latest
+    runs-on: macOS
     steps:
       - uses: actions/checkout@v2
       - name: Set up Flutter
