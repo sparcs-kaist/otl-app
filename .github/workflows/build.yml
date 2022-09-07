@@ -13,8 +13,7 @@ env:
 jobs:
   build-android:
     name: Build Android
-    runs-on: ubuntu-latest
-    environment: CI
+    runs-on: macOS
     steps:
       - uses: actions/checkout@v2
       - name: Set up Java
@@ -26,34 +25,20 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           flutter-version: ${{ env.FLUTTER_VERSION }}
-      - name: Download Android keystore
-        id: android_keystore
-        uses: timheuer/base64-to-file@v1.0.4
-        with:
-          fileName: key.jks
-          encodedString: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
       - name: Create key.properties
         run: |
-          echo "storeFile=${{ steps.android_keystore.outputs.filePath }}" > android/key.properties
-          echo "storePassword=${{ secrets.ANDROID_KEYSTORE_PASSWORD }}" >> android/key.properties
-          echo "keyPassword=${{ secrets.ANDROID_KEY_PASSWORD }}" >> android/key.properties
-          echo "keyAlias=${{ secrets.ANDROID_KEY_ALIAS }}" >> android/key.properties   
+          echo "storeFile=../ci.jks" > android/key.properties
+          echo "storePassword=123456" >> android/key.properties
+          echo "keyPassword=123456" >> android/key.properties
+          echo "keyAlias=ci" >> android/key.properties   
       - name: Install dependencies
         run: flutter pub get
       - name: Build APK
         run: flutter build apk --release
-      - name: Rename APK
-        run: mv build/app/outputs/flutter-apk/app-release.apk ./OTL.apk
-      - name: Archive APK
-        uses: actions/upload-artifact@v2
-        if: ${{ github.event_name == 'push' }}
-        with:
-          name: release-apk
-          path: ./OTL.apk 
 
   build-ios:
     name: Build iOS
-    runs-on: macos-latest
+    runs-on: macOS
     steps:
       - uses: actions/checkout@v2
       - name: Set up Flutter

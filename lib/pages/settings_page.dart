@@ -4,6 +4,7 @@ import 'package:otlplus/constants/color.dart';
 import 'package:otlplus/providers/settings_model.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter/foundation.dart' show kDebugMode;
 
 class SettingsPage extends StatelessWidget {
   final contactEmail = 'otlplus@kaist.ac.kr';
@@ -67,6 +68,14 @@ class SettingsPage extends StatelessWidget {
                 ),
               );
             },
+          ),
+          Visibility(
+            visible: kDebugMode,
+            child: ListTile(
+              title: Text("Throw Test Exception"),
+              subtitle: Text("for testing firebase crashlytics"),
+              onTap: () => throw Exception(),
+            ),
           ),
           AboutListTile(
             applicationName: "",

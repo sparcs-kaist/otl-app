@@ -25,7 +25,7 @@ jobs:
 
   integration-android:
     name: Integration Test on Android
-    runs-on: macos-latest
+    runs-on: macOS
     steps:
       - uses: actions/checkout@v2
       - name: Set up Java
@@ -40,12 +40,12 @@ jobs:
       - name: Test on Android
         uses: reactivecircus/android-emulator-runner@v2.19.1
         with:
-          api-level: 33
+          api-level: 28
           script: flutter drive -d emulator-5554 --target=test_driver/app.dart
 
   integration-ios:
     name: Integration Test on iOS
-    runs-on: macos-latest
+    runs-on: macOS
     steps:
       - uses: actions/checkout@v2
       - name: Set up Flutter

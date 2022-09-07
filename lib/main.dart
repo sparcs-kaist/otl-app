@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
-import 'package:flutter/foundation.dart' show kDebugMode;
 import 'package:flutter/material.dart';
 import 'package:otlplus/providers/settings_model.dart';
 import 'package:provider/provider.dart';
@@ -28,10 +27,7 @@ void main() {
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
     );
-    FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
-    if (kDebugMode) {
-      FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(false);
-    }
+    FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
 
     runApp(
       EasyLocalization(
@@ -69,7 +65,9 @@ void main() {
             child: OTLFirebaseApp(),
           )),
     );
-  }, (error, stack) => FirebaseCrashlytics.instance.recordError(error, stack));
+  },
+      (error, stack) =>
+          FirebaseCrashlytics.instance.recordError(error, stack, fatal: true));
 }
 
 class OTLFirebaseApp extends StatelessWidget {
