@@ -13,6 +13,7 @@ import 'package:otlplus/pages/timetable_page.dart';
 import 'package:otlplus/pages/user_page.dart';
 import 'package:otlplus/providers/search_model.dart';
 import 'package:otlplus/widgets/backdrop.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class OTLHome extends StatefulWidget {
   @override
@@ -95,8 +96,8 @@ class _OTLHomeState extends State<OTLHome> {
             });
           },
           style: const TextStyle(fontSize: 14.0),
-          decoration: const InputDecoration(
-            hintText: "검색",
+          decoration: InputDecoration(
+            hintText: tr("main.search"),
             icon: Icon(
               Icons.search,
               color: PRIMARY_COLOR,
@@ -118,22 +119,22 @@ class _OTLHomeState extends State<OTLHome> {
           _currentIndex = index;
         });
       },
-      items: const <BottomNavigationBarItem>[
+      items: <BottomNavigationBarItem>[
         BottomNavigationBarItem(
           icon: Icon(Icons.home_outlined),
-          label: "홈",
+          label: tr("main.home"),
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.table_chart_outlined),
-          label: "시간표",
+          label: tr("main.timetable"),
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.library_books_outlined),
-          label: "과목사전",
+          label: tr("main.dictionary"),
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.rate_review_outlined),
-          label: "과목후기",
+          label: tr("main.review"),
         ),
       ],
     );

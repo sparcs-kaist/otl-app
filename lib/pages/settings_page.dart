@@ -5,6 +5,7 @@ import 'package:otlplus/providers/settings_model.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter/foundation.dart' show kDebugMode;
+import 'package:easy_localization/easy_localization.dart';
 
 class SettingsPage extends StatelessWidget {
   final contactEmail = 'otlplus@kaist.ac.kr';
@@ -13,13 +14,13 @@ class SettingsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return PlatformScaffold(
         appBar: PlatformAppBar(
-          title: Text("설정"),
+          title: Text("main.settings").tr(),
         ),
         body: Material(
             child: ListView(children: [
           ListTile(
-            title: Text("오류 로그 전송"),
-            subtitle: Text("사용자의 제보 없이 자동으로 오류를 수집합니다."),
+            title: Text("settings.send_error_log").tr(),
+            subtitle: Text("settings.send_error_log_desc").tr(),
             trailing: PlatformSwitch(
               value: context.watch<SettingsModel>().getSendCrashlytics(),
               onChanged: (value) =>
@@ -29,8 +30,8 @@ class SettingsPage extends StatelessWidget {
           Visibility(
             visible: context.watch<SettingsModel>().getSendCrashlytics(),
             child: ListTile(
-              title: Text("익명으로 전송"),
-              subtitle: Text("오류 로그에 사용자 ID를 포함하지 않고 익명으로 전송합니다."),
+              title: Text("settings.send_anonymously").tr(),
+              subtitle: Text("settings.send_anonymously_desc").tr(),
               trailing: PlatformSwitch(
                   value: context
                       .watch<SettingsModel>()
@@ -43,21 +44,21 @@ class SettingsPage extends StatelessWidget {
             ),
           ),
           ListTile(
-            title: Text("모든 설정 데이터 초기화"),
+            title: Text("settings.reset_all").tr(),
             onTap: () {
               showDialog(
                 context: context,
                 builder: (context) => AlertDialog(
-                  title: Text('경고'),
-                  content: Text('정말 모든 설정 데이터를 초기화하시겠습니까? 로그인 정보는 초기화되지 않습니다.'),
+                  title: Text('common.alert').tr(),
+                  content: Text('settings.reset_all_desc').tr(),
                   actions: <Widget>[
                     TextButton(
-                        child: new Text("취소"),
+                        child: new Text("common.cancel").tr(),
                         onPressed: () {
                           Navigator.pop(context);
                         }),
                     TextButton(
-                        child: new Text("삭제"),
+                        child: new Text("common.delete").tr(),
                         onPressed: () {
                           context
                               .read<SettingsModel>()
@@ -72,8 +73,8 @@ class SettingsPage extends StatelessWidget {
           Visibility(
             visible: kDebugMode,
             child: ListTile(
-              title: Text("Throw Test Exception"),
-              subtitle: Text("for testing firebase crashlytics"),
+              title: Text("settings.throw_test").tr(),
+              subtitle: Text("settings.throw_test_desc").tr(),
               onTap: () => throw Exception(),
             ),
           ),

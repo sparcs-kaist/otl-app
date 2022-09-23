@@ -14,6 +14,7 @@ import 'package:otlplus/widgets/timetable.dart';
 import 'package:otlplus/widgets/timetable_block.dart';
 import 'package:otlplus/widgets/timetable_summary.dart';
 import 'package:otlplus/widgets/timetable_tabs.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class TimetablePage extends StatefulWidget {
   @override
@@ -184,18 +185,20 @@ class _TimetablePageState extends State<TimetablePage> {
                     context: context,
                     barrierDismissible: false,
                     builder: (context) => AlertDialog(
-                      title: const Text("삭제"),
-                      content: Text("'${lecture.title}' 수업을 삭제하시겠습니까?"),
+                      title: const Text("common.delete").tr(),
+                      content: Text("timetable.ask_delete_lecture").tr(
+                        args: [lecture.title],
+                      ),
                       actions: [
                         TextButton(
-                          child: const Text("취소"),
+                          child: const Text("common.cancel").tr(),
                           onPressed: () {
                             result = false;
                             Navigator.pop(context);
                           },
                         ),
                         TextButton(
-                          child: const Text("삭제"),
+                          child: const Text("common.delete").tr(),
                           onPressed: () {
                             result = true;
                             Navigator.pop(context);

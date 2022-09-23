@@ -1,1 +1,31 @@
-{}
+{
+  "common": {
+    "alert": "Alert",
+    "cancel": "Cancel",
+    "delete": "Delete"
+  },
+  "main": {
+    "search": "Search",
+    "home": "Home",
+    "timetable": "Timetable",
+    "dictionary": "Dictionary",
+    "review": "Review",
+    "settings": "Settings",
+    "no_info": "No information",
+    "remained_datetime": "D-{} days {} hours {} minutes",
+    "goto_cais": "Go to CAIS"
+  },
+  "timetable": {
+    "ask_delete_lecture": "Are you delete class '{}'?"
+  },
+  "settings": {
+    "send_error_log": "Send error log",
+    "send_error_log_desc": "Automatically collect logs without user reporting",
+    "send_anonymously": "Send anonymously",
+    "send_anonymously_desc": "Not including user ID in error logs",
+    "reset_all": "Reset all settings",
+    "reset_all_desc": "Are you really want to reset all data except login data?",
+    "throw_test": "Throw Test Exception",
+    "throw_test_desc": "for testing firebase crashlytics"
+  }
+}

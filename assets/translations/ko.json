@@ -1,1 +1,31 @@
-{}
+{
+  "common": {
+    "alert": "경고",
+    "cancel": "취소",
+    "delete": "삭제"
+  },
+  "main": {
+    "search": "검색",
+    "home": "홈",
+    "timetable": "시간표",
+    "dictionary": "과목사전",
+    "review": "과목후기",
+    "settings": "설정",
+    "no_info": "정보 없음",
+    "remained_datetime": "D-{}일 {}시간 {}분",
+    "goto_cais": "학사시스템 바로가기"
+  },
+  "timetable": {
+    "ask_delete_lecture": "'{}' 수업을 삭제하시겠습니까?"
+  },
+  "settings": {
+    "send_error_log": "오류 로그 전송",
+    "send_error_log_desc": "사용자의 제보 없이 자동으로 오류를 수집합니다.",
+    "send_anonymously": "익명으로 전송",
+    "send_anonymously_desc": "오류 로그에 사용자 ID를 포함하지 않고 익명으로 전송합니다.",
+    "reset_all": "모든 설정 데이터 초기화",
+    "reset_all_desc": "정말 모든 설정 데이터를 초기화하시겠습니까? 로그인 정보는 초기화되지 않습니다.",
+    "throw_test": "테스트 오류 발생",
+    "throw_test_desc": "Firebase crashlytics 테스트용"
+  }
+}
