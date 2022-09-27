@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:otlplus/constants/color.dart';
 import 'package:otlplus/models/semester.dart';
@@ -9,6 +8,7 @@ import 'package:otlplus/providers/info_model.dart';
 import 'package:otlplus/widgets/timetable_block.dart';
 import 'package:otlplus/widgets/today_timetable.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 import '../models/lecture.dart';
 
@@ -77,8 +77,12 @@ class MainPage extends StatelessWidget {
               TextSpan(
                 // ignore: unnecessary_null_comparison
                 text: (currentSchedule == null)
-                    ? "정보 없음"
-                    : "D-$days일 $hours시간 $minutes분",
+                    ? "main.no_info".tr()
+                    : "main.remained_datetime".tr(args: [
+                        days.toString(),
+                        hours.toString(),
+                        minutes.toString()
+                      ]),
                 style: const TextStyle(fontSize: 18.0),
               ),
               const TextSpan(text: "\n"),
@@ -116,7 +120,7 @@ class MainPage extends StatelessWidget {
             InkWell(
               onTap: () => launchUrl(Uri.https("cais.kaist.ac.kr", "")),
               child: Text(
-                "학사시스템 바로가기",
+                "main.goto_cais".tr(),
                 style: const TextStyle(
                   color: PRIMARY_COLOR,
                   fontSize: 11.0,

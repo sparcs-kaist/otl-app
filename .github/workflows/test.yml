@@ -58,3 +58,5 @@ jobs:
         run: xcrun simctl boot ${{ env.UDID }}
       - name: Test on iOS
         run: "flutter drive --target=test_driver/app.dart"
+      - name: Quit iOS Simulators
+        run: xcrun simctl shutdown all

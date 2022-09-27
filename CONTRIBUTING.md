@@ -8,7 +8,7 @@
 
 ## Pull requests
 
-1. 본인의 Github ID를 붙여 브랜치를 생성합니다. ex. `sboh1214-dev`
+1. PR의 목적을 나타내는 브랜치를 생성합니다. ex. `feat/my-timetable`, `bugfix/review`
 2. 담당한 Issue에 대한 코드를 작성합니다.
 3. 아래 명령어를 통해 코드를 Format, Lint, Test 합니다.
 
@@ -26,7 +26,7 @@ flutter test
 Resolve #14, Fix #13, #16, Update github actions
 ```
 
-5. `enhancement`, `bug`, `documentation` 중 해당되는 종류를 태그로 달고 담당자에게 리뷰를 요청합니다.
+5. `enhancement`, `bug`, `documentation`, `g11n` 중 해당되는 종류를 태그로 달고 담당자에게 리뷰를 요청합니다.
 6. Github actions 통과, 리뷰 후 머지합니다.
 
 ## Releases
