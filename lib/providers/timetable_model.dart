@@ -20,7 +20,7 @@ class TimetableModel extends ChangeNotifier {
   late List<Timetable> _timetables;
   List<Timetable> get timetables => _timetables;
 
-  int _selectedTimetableIndex = 0;
+  int _selectedTimetableIndex = 1;
   int get selectedIndex => _selectedTimetableIndex;
 
   Timetable get currentTimetable => _timetables[_selectedTimetableIndex];
@@ -99,7 +99,7 @@ class TimetableModel extends ChangeNotifier {
           .toList();
       Timetable myTimetable = Timetable(id: 0, lectures: myLecturesList);
       _timetables.insert(0, myTimetable);
-      _selectedTimetableIndex = 0;
+      _selectedTimetableIndex = _selectedTimetableIndex == 0 ? 0 : 1;
       _isLoaded = true;
       notifyListeners();
       return true;
