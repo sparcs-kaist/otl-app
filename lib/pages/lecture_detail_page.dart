@@ -282,7 +282,6 @@ class LectureDetailPage extends StatelessWidget {
             return model.reviews.reversed
                 .map((review) => ReviewBlock(
                       review: review,
-                      isSimple: true,
                     ))
                 .toList();
           }
