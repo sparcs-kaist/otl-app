@@ -10,10 +10,8 @@ class ReviewBlock extends StatefulWidget {
   final Review review;
   final VoidCallback? onTap;
   final int maxLines = 5;
-  // final TextOverflow? overflow;
-  final bool isSimple;
 
-  ReviewBlock({required this.review, this.onTap, this.isSimple = false});
+  ReviewBlock({required this.review, this.onTap});
 
   @override
   _ReviewBlockState createState() => _ReviewBlockState();
