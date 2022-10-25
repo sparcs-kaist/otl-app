@@ -282,8 +282,6 @@ class LectureDetailPage extends StatelessWidget {
             return model.reviews.reversed
                 .map((review) => ReviewBlock(
                       review: review,
-                      maxLines: 3,
-                      overflow: TextOverflow.ellipsis,
                       isSimple: true,
                     ))
                 .toList();

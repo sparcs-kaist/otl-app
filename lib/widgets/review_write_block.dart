@@ -146,7 +146,7 @@ class _ReviewWriteBlockState extends State<ReviewWriteBlock> {
                       style: TextStyle(
                         color: _canUpload()
                             ? PRIMARY_COLOR
-                            : const Color(0xFFAAAAAA),
+                            : const Color(0xFF555555),
                         fontSize: 12.0,
                       ),
                     ),
