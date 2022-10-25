@@ -38,6 +38,7 @@ class ExpandableTextState extends State<ExpandableText> {
               })
       ],
     );
+    String shortenText = widget.text.replaceAll('\r\n\r\n', '\r\n').replaceAll('\n\n', '\r\n');
     Widget result = LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
         assert(constraints.hasBoundedWidth);
@@ -47,7 +48,7 @@ class ExpandableTextState extends State<ExpandableText> {
           maxLines: widget.maxLines,
         );
         textPainter.text = TextSpan(
-          text: widget.text.replaceAll('\r\n\r\n', '\r\n'),
+          text: shortenText,
           style: widget.style,
         );
         textPainter.layout(
@@ -63,8 +64,7 @@ class ExpandableTextState extends State<ExpandableText> {
           textSpan = TextSpan(
             text: _expanded
                 ? widget.text
-                : widget.text
-                    .replaceAll('\r\n\r\n', '\r\n')
+                : shortenText
                     .substring(0, endIndex - 8)
                     .trim(),
             style: widget.style,
