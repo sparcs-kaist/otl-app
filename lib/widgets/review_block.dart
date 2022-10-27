@@ -4,20 +4,14 @@ import 'package:otlplus/constants/url.dart';
 import 'package:otlplus/dio_provider.dart';
 import 'package:otlplus/extensions/review.dart';
 import 'package:otlplus/models/review.dart';
+import 'package:otlplus/widgets/expandable_text.dart';
 
 class ReviewBlock extends StatefulWidget {
   final Review review;
   final VoidCallback? onTap;
-  final int? maxLines;
-  final TextOverflow? overflow;
-  final bool isSimple;
+  final int maxLines = 5;
 
-  ReviewBlock(
-      {required this.review,
-      this.onTap,
-      this.maxLines,
-      this.overflow,
-      this.isSimple = false});
+  ReviewBlock({required this.review, this.onTap});
 
   @override
   _ReviewBlockState createState() => _ReviewBlockState();
@@ -36,10 +30,7 @@ class _ReviewBlockState extends State<ReviewBlock> {
 
   @override
   Widget build(BuildContext context) {
-    String content = widget.isSimple
-        ? widget.review.content.replaceAll("\r\n", " ").replaceAll("\n", " ")
-        : widget.review.content;
-    while (content.contains("  ")) content = content.replaceAll("  ", " ");
+    String content = widget.review.content;
 
     return Container(
       margin: const EdgeInsets.only(bottom: 6.0),
@@ -57,41 +48,38 @@ class _ReviewBlockState extends State<ReviewBlock> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
-                if (!widget.isSimple) ...[
-                  Text.rich(
-                    TextSpan(
-                      style: const TextStyle(fontSize: 12.0),
-                      children: <TextSpan>[
-                        TextSpan(
-                          text: widget.review.lecture.title,
-                          style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                          ),
+                Text.rich(
+                  TextSpan(
+                    style: const TextStyle(fontSize: 12.0),
+                    children: <TextSpan>[
+                      TextSpan(
+                        text: widget.review.lecture.title,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
                         ),
-                        const TextSpan(text: " "),
-                        TextSpan(
-                            text: widget.review.lecture.professors
-                                .map((professor) => professor.name)
-                                .join(" ")),
-                        const TextSpan(text: " "),
-                        TextSpan(text: widget.review.lecture.year.toString()),
-                        TextSpan(
-                            text: [
-                          " ",
-                          " 봄",
-                          " 여름",
-                          " 가을",
-                          " 겨울",
-                        ][widget.review.lecture.semester]),
-                      ],
-                    ),
+                      ),
+                      const TextSpan(text: " "),
+                      TextSpan(
+                          text: widget.review.lecture.professors
+                              .map((professor) => professor.name)
+                              .join(" ")),
+                      const TextSpan(text: " "),
+                      TextSpan(text: widget.review.lecture.year.toString()),
+                      TextSpan(
+                          text: [
+                        " ",
+                        " 봄",
+                        " 여름",
+                        " 가을",
+                        " 겨울",
+                      ][widget.review.lecture.semester]),
+                    ],
                   ),
-                  const SizedBox(height: 4.0),
-                ],
-                Text(
+                ),
+                const SizedBox(height: 4.0),
+                ExpandableText(
                   content.trim(),
                   maxLines: widget.maxLines,
-                  overflow: widget.overflow,
                   style: const TextStyle(
                     color: const Color(0xFF555555),
                     height: 1.25,
@@ -99,9 +87,7 @@ class _ReviewBlockState extends State<ReviewBlock> {
                   ),
                 ),
                 Row(
-                  mainAxisAlignment: widget.isSimple
-                      ? MainAxisAlignment.end
-                      : MainAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
                     Text.rich(
                       TextSpan(
@@ -134,35 +120,33 @@ class _ReviewBlockState extends State<ReviewBlock> {
                       ),
                     ),
                     const Spacer(),
-                    if (!widget.isSimple) ...[
-                      Material(
-                        color: Colors.transparent,
-                        child: InkWell(
-                          onTap: _canUpload ? _uploadLike : null,
-                          child: Text(
-                            "좋아요",
-                            style: TextStyle(
-                              color: const Color(0xFFAAAAAA),
-                              fontSize: 12.0,
-                            ),
+                    Material(
+                      color: Colors.transparent,
+                      child: InkWell(
+                        onTap: _canUpload ? _uploadLike : null,
+                        child: Text(
+                          "좋아요",
+                          style: TextStyle(
+                            color: const Color(0xFFE54C65),
+                            fontSize: 12.0,
                           ),
                         ),
                       ),
-                      SizedBox(width: 8),
-                      Material(
-                        color: Colors.transparent,
-                        child: InkWell(
-                          onTap: _report,
-                          child: Text(
-                            "신고하기",
-                            style: TextStyle(
-                              color: const Color(0xFFAAAAAA),
-                              fontSize: 12.0,
-                            ),
+                    ),
+                    SizedBox(width: 8),
+                    Material(
+                      color: Colors.transparent,
+                      child: InkWell(
+                        onTap: _report,
+                        child: Text(
+                          "신고하기",
+                          style: TextStyle(
+                            color: const Color(0xFF555555),
+                            fontSize: 12.0,
                           ),
                         ),
-                      )
-                    ],
+                      ),
+                    ),
                   ],
                 ),
               ],
