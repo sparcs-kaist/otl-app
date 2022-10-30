@@ -38,6 +38,9 @@ otlplus@sparcs.org
 
 You need to install `flutter`
 
+Flutter 버전은 `.github/workflows/build.yml` 에 나와있는 FLUTTER_VERSION과 동일하게 설치해 주세요.
+[fvm](https://fvm.app) 등 사용 권장
+
 ```bash
 flutter run
 ```
