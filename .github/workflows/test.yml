@@ -3,11 +3,9 @@ name: Test
 on:
   push:
     branches: [ main ]
-  pull_request:
-    branches: [ main ]
 
 env:
-  FLUTTER_VERSION: '3.0.5'
+  FLUTTER_VERSION: '3.3.6'
   JAVA_VERSION: '11'
 
 jobs:
