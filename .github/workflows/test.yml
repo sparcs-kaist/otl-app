@@ -55,7 +55,7 @@ jobs:
         with:
           flutter-version: ${{ env.FLUTTER_VERSION }}
       - name: List Simulator
-        run: echo "UDID=$(xcrun xctrace list devices 2>&1 | awk '/iPhone 13 Pro/ {print $NF; exit}' | tr -d '()')" >> $GITHUB_ENV
+        run: echo "UDID=$(xcrun xctrace list devices 2>&1 | awk '/iPhone 14 Pro/ {print $NF; exit}' | tr -d '()')" >> $GITHUB_ENV
       - name: Start Simulator
         run: xcrun simctl boot ${{ env.UDID }}
       - name: Test on iOS
