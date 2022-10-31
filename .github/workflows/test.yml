@@ -5,7 +5,7 @@ on:
     branches: [ main ]
 
 env:
-  FLUTTER_VERSION: '3.0.5'
+  FLUTTER_VERSION: '3.3.6'
   JAVA_VERSION: '11'
 
 jobs:
@@ -53,7 +53,7 @@ jobs:
         with:
           flutter-version: ${{ env.FLUTTER_VERSION }}
       - name: List Simulator
-        run: echo "UDID=$(xcrun xctrace list devices 2>&1 | awk '/iPhone 12 Pro/ {print $NF; exit}' | tr -d '()')" >> $GITHUB_ENV
+        run: echo "UDID=$(xcrun xctrace list devices 2>&1 | awk '/iPhone 14 Pro/ {print $NF; exit}' | tr -d '()')" >> $GITHUB_ENV
       - name: Start Simulator
         run: xcrun simctl boot ${{ env.UDID }}
       - name: Test on iOS
