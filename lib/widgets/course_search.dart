@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:provider/provider.dart';
 import 'package:otlplus/constants/color.dart';
 import 'package:otlplus/models/course.dart';
@@ -131,6 +132,48 @@ class _CourseSearchState extends State<CourseSearch> {
             ),
           ),
         ),
+        TextButton(
+            onPressed: () {
+              showBarModalBottomSheet(
+                  context: context,
+                  backgroundColor: Color(0xFFF7F0F0),
+                  builder: (context) {
+                    return Container(
+                      padding: EdgeInsets.fromLTRB(28, 24, 28, 24),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          Row(
+                            children: [
+                              Expanded(
+                                  child: TextButton(
+                                onPressed: () {},
+                                child: Text(
+                                  "초기화",
+                                  style: TextStyle(color: Color(0xFFD45869)),
+                                ),
+                                style: TextButton.styleFrom(
+                                    backgroundColor: Color(0xFFFFFFFF)),
+                              )),
+                              SizedBox(width: 10),
+                              Expanded(
+                                  child: TextButton(
+                                onPressed: () {},
+                                child: Text(
+                                  "검색",
+                                  style: TextStyle(color: Color(0xFFFFFFFF)),
+                                ),
+                                style: TextButton.styleFrom(
+                                    backgroundColor: Color(0xFFD45869)),
+                              ))
+                            ],
+                          )
+                        ],
+                      ),
+                    );
+                  });
+            },
+            child: Text("Preview")),
         SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           padding: const EdgeInsets.fromLTRB(12.0, 0.0, 12.0, 8.0),
