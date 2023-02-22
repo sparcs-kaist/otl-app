@@ -3,6 +3,7 @@ import 'package:flutter/rendering.dart';
 import 'package:otlplus/utils/build_page_route.dart';
 import 'package:otlplus/providers/lecture_search_model.dart';
 import 'package:otlplus/widgets/lecture_search.dart';
+import 'package:otlplus/widgets/map_view.dart';
 import 'package:provider/provider.dart';
 import 'package:otlplus/constants/color.dart';
 import 'package:otlplus/models/lecture.dart';
@@ -50,13 +51,16 @@ class _TimetablePageState extends State<TimetablePage> {
 
     return Column(
       children: <Widget>[
-        _buildTimetableTabs(context),
         Expanded(
           child: ColoredBox(
             color: Colors.white,
             child: Column(
               children: <Widget>[
-                const SizedBox(height: 8.0),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 12.0),
+                  child: _buildTimetableTabs(context),
+                ),
+                const SizedBox(height: 2.0),
                 SemesterPicker(
                   isExamTime: _isExamTime,
                   onTap: () {
@@ -69,7 +73,7 @@ class _TimetablePageState extends State<TimetablePage> {
                     context.read<LectureSearchModel>().lectureClear();
                   },
                 ),
-                Expanded(
+                /*Expanded(
                   child: ShaderMask(
                     blendMode: BlendMode.dstIn,
                     shaderCallback: (bounds) => LinearGradient(
@@ -98,12 +102,15 @@ class _TimetablePageState extends State<TimetablePage> {
                       ),
                     ),
                   ),
-                ),
-                Padding(
+                ),*/
+                Expanded(
+                  child: MapView(lectures: lectures),
+                )
+                /*Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8.0),
                   child: const Divider(color: DIVIDER_COLOR, height: 1.0),
-                ),
-                Padding(
+                ),*/
+                /*Padding(
                   padding: const EdgeInsets.symmetric(
                     horizontal: 8.0,
                     vertical: 12.0,
@@ -112,7 +119,7 @@ class _TimetablePageState extends State<TimetablePage> {
                     lectures: lectures,
                     tempLecture: bottomSheetModel.selectedLecture,
                   ),
-                ),
+                ),*/
               ],
             ),
           ),
@@ -158,6 +165,7 @@ class _TimetablePageState extends State<TimetablePage> {
           lecture: lecture,
           classTimeIndex: classTimeIndex,
           isTemp: isSelected,
+          isExamTime: _isExamTime,
           onTap: () {
             context.read<LectureDetailModel>().loadLecture(lecture.id, true);
             Navigator.push(context, buildLectureDetailPageRoute());
@@ -208,29 +216,36 @@ class _TimetablePageState extends State<TimetablePage> {
     final timetableModel = context.watch<TimetableModel>();
 
     return TimetableTabs(
-      index: timetableModel.selectedIndex,
-      length: timetableModel.timetables.length,
-      onTap: (i) {
-        final timetableModel = context.read<TimetableModel>();
+        index: timetableModel.selectedIndex,
+        length: timetableModel.timetables.length,
+        onTap: (i) {
+          final timetableModel = context.read<TimetableModel>();
 
-        if (i > 0 && i == timetableModel.timetables.length)
-          timetableModel.createTimetable();
-        else
-          timetableModel.setIndex(i);
-      },
-      onAddTap: () {
-        context.read<LectureSearchModel>().setSelectedLecture(null);
-        context.read<LectureSearchModel>().lectureClear();
-      },
-      onSettingsTap: () {
-        showModalBottomSheet(
+          if (i > 0 && i == timetableModel.timetables.length)
+            timetableModel.createTimetable();
+          else
+            timetableModel.setIndex(i);
+        },
+        onCopyTap: () {
+          final timetableModel = context.read<TimetableModel>();
+          timetableModel.createTimetable(
+              lectures: timetableModel.currentTimetable.lectures);
+          /*if (_isSearchOpened) return;
+        setState(() {
+          _isSearchOpened = true;
+          _selectedLecture = null;
+        });*/
+        },
+        onDeleteTap: () {
+          context.read<TimetableModel>().deleteTimetable();
+          /*showModalBottomSheet(
             context: context,
-            builder: (context) => _buildSettingsSheet(context));
-      },
-    );
+            builder: (context) => _buildSettingsSheet(context));*/
+        },
+        onReorder: (oldIndex, newIndex) {});
   }
 
-  Widget _buildSettingsSheet(BuildContext context) {
+  /*Widget _buildSettingsSheet(BuildContext context) {
     return Container(
       color: Colors.white,
       child: Wrap(
@@ -271,5 +286,5 @@ class _TimetablePageState extends State<TimetablePage> {
         ],
       ),
     );
-  }
+  }*/
 }

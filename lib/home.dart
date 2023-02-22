@@ -71,7 +71,7 @@ class _OTLHomeState extends State<OTLHome> with SingleTickerProviderStateMixin {
       child: AppBar(
         title: appBarPadding(
           Image.asset(
-            "assets/logo.png",
+            "assets/images/logo.png",
             height: 27.0,
           ),
         ),
@@ -114,7 +114,7 @@ class _OTLHomeState extends State<OTLHome> with SingleTickerProviderStateMixin {
     return AppBar(
       title: appBarPadding(
         Image.asset(
-          "assets/logo.png",
+          "assets/images/logo.png",
           height: 27,
         ),
       ),
@@ -185,7 +185,7 @@ class _OTLHomeState extends State<OTLHome> with SingleTickerProviderStateMixin {
     return AppBar(
       title: appBarPadding(
         Image.asset(
-          "assets/logo.png",
+          "assets/images/logo.png",
           height: 27,
         ),
       ),
@@ -239,7 +239,7 @@ class _OTLHomeState extends State<OTLHome> with SingleTickerProviderStateMixin {
       alignment: Alignment.center,
       children: <Widget>[
         Image.asset(
-          "assets/bg.4556cdee.jpg",
+          "assets/images/bg.4556cdee.jpg",
           fit: BoxFit.cover,
           color: const Color(0xFF9B4810).withOpacity(0.2),
           colorBlendMode: BlendMode.srcATop,

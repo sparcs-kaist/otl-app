@@ -113,7 +113,8 @@ class SettingsPage extends StatelessWidget {
             ),
             AboutListTile(
               applicationName: "",
-              applicationIcon: Image.asset("assets/logo.png", height: 48.0),
+              applicationIcon:
+                  Image.asset("assets/images/logo.png", height: 48.0),
               aboutBoxChildren: <Widget>[
                 Text(
                   "Online Timeplanner with Lectures Plus @ KAIST",

@@ -29,7 +29,7 @@ class Timetable extends StatelessWidget {
       {required List<Lecture> lectures,
       required this.builder,
       bool isExamTime = false,
-      this.fontSize = 10.0,
+      this.fontSize = 12.0,
       this.dividerPadding = const EdgeInsets.symmetric(
         horizontal: 1.0,
         vertical: 10.0,
@@ -112,10 +112,10 @@ class Timetable extends StatelessWidget {
     final end = time.end / 30 - 18;
 
     return Positioned(
-      top: _dividerHeight * (begin + 0.5) + 1,
+      top: _dividerHeight * (begin + 0.5) + 2,
       left: 0,
       right: 0,
-      height: _dividerHeight * (end - begin) - 2,
+      height: _dividerHeight * (end - begin) - 4,
       child: Padding(
         padding: EdgeInsets.symmetric(
           horizontal: dividerPadding.horizontal / 3,

@@ -34,11 +34,10 @@ class _SemesterPickerState extends State<SemesterPicker> {
     return InkWell(
       onTap: widget.onTap,
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.symmetric(horizontal: 8),
         child: Text(
-          context.watch<TimetableModel>().selectedSemester.title +
-              (widget.isExamTime ? " 시험" : " 수업"),
-          style: const TextStyle(fontSize: 14.0),
+          context.watch<TimetableModel>().selectedSemester.title,
+          style: const TextStyle(fontSize: 18.0, fontWeight: FontWeight.w700),
           textAlign: TextAlign.center,
         ),
       ),
@@ -53,14 +52,12 @@ class _SemesterPickerState extends State<SemesterPicker> {
               widget.onSemesterChanged();
             }
           : null,
-      child: Padding(
-        padding: const EdgeInsets.all(4.0),
-        child: Icon(
-          Icons.chevron_left,
-          color: context.watch<TimetableModel>().canGoPreviousSemester()
-              ? theme.iconTheme.color
-              : theme.disabledColor,
-        ),
+      child: Icon(
+        Icons.chevron_left_rounded,
+        color: context.watch<TimetableModel>().canGoPreviousSemester()
+            ? theme.iconTheme.color
+            : theme.disabledColor,
+        size: 32,
       ),
     );
   }
@@ -73,14 +70,12 @@ class _SemesterPickerState extends State<SemesterPicker> {
               widget.onSemesterChanged();
             }
           : null,
-      child: Padding(
-        padding: const EdgeInsets.all(4.0),
-        child: Icon(
-          Icons.chevron_right,
-          color: context.watch<TimetableModel>().canGoNextSemester()
-              ? theme.iconTheme.color
-              : theme.disabledColor,
-        ),
+      child: Icon(
+        Icons.chevron_right_rounded,
+        color: context.watch<TimetableModel>().canGoNextSemester()
+            ? theme.iconTheme.color
+            : theme.disabledColor,
+        size: 32,
       ),
     );
   }

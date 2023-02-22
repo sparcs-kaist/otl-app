@@ -10,6 +10,7 @@ class TimetableBlock extends StatelessWidget {
   final VoidCallback? onTap;
   final VoidCallback? onLongPress;
   final bool isTemp;
+  final bool isExamTime;
   final bool showTitle;
   final bool showProfessor;
   final bool showClassroom;
@@ -22,6 +23,7 @@ class TimetableBlock extends StatelessWidget {
       this.onTap,
       this.onLongPress,
       this.isTemp = false,
+      this.isExamTime = false,
       this.showTitle = true,
       this.showProfessor = false,
       this.showClassroom = true})
@@ -50,7 +52,7 @@ class TimetableBlock extends StatelessWidget {
 
     if (showClassroom) {
       contents
-          .add(TextSpan(text: lecture.classtimes[classTimeIndex].classroom));
+          .add(TextSpan(text: lecture.classtimes[classTimeIndex].classroomShort));
       contents.add(const TextSpan(text: "\n"));
     }
 
@@ -59,7 +61,9 @@ class TimetableBlock extends StatelessWidget {
         borderRadius: BorderRadius.circular(2.0),
         color: isTemp
             ? const Color(0xFFE05469).withOpacity(0.9)
-            : TIMETABLE_BLOCK_COLORS[lecture.course % 16],
+            : isExamTime
+                ? SELECTED_COLOR
+                : TIMETABLE_BLOCK_COLORS[lecture.course % 16],
       ),
       child: Material(
         color: Colors.transparent,
