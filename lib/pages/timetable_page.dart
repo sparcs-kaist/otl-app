@@ -237,12 +237,88 @@ class _TimetablePageState extends State<TimetablePage> {
         });*/
         },
         onDeleteTap: () {
-          context.read<TimetableModel>().deleteTimetable();
+          showDialog(
+            context: context,
+            barrierColor: Colors.black.withOpacity(0.2),
+            builder: (context) =>
+                _buildDeleteDialog(context, timetableModel.selectedIndex),
+          );
           /*showModalBottomSheet(
             context: context,
             builder: (context) => _buildSettingsSheet(context));*/
         },
         onReorder: (oldIndex, newIndex) {});
+  }
+
+  Widget _buildDeleteDialog(BuildContext context, int i) {
+    return Dialog(
+      elevation: 5,
+      insetPadding: EdgeInsets.symmetric(
+          horizontal: (MediaQuery.of(context).size.width - 228) / 2),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
+      ),
+      clipBehavior: Clip.hardEdge,
+      child: Container(
+        height: 96,
+        child: Column(
+          children: [
+            Expanded(
+              child: Center(
+                child: Text(
+                  '시간표 $i을(를) 정말 삭제하시겠습니까?',
+                  style: TextStyle(
+                    fontSize: 12,
+                  ),
+                ),
+              ),
+            ),
+            Row(
+              children: [
+                Expanded(
+                  child: GestureDetector(
+                    onTap: () {
+                      context.read<TimetableModel>().deleteTimetable();
+                      Navigator.pop(context);
+                    },
+                    child: Container(
+                      height: 40,
+                      alignment: Alignment.center,
+                      color: PRIMARY_COLOR,
+                      child: Text(
+                        '삭제',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 12,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: GestureDetector(
+                    onTap: () => Navigator.pop(context),
+                    child: Container(
+                      height: 40,
+                      alignment: Alignment.center,
+                      color: Color(0xFFD9D9D9),
+                      child: Text(
+                        '취소',
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            )
+          ],
+        ),
+      ),
+    );
   }
 
   /*Widget _buildSettingsSheet(BuildContext context) {
