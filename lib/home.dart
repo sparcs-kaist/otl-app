@@ -4,6 +4,9 @@ import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:otlplus/pages/liked_review_page.dart';
 import 'package:otlplus/pages/my_review_page.dart';
 import 'package:otlplus/pages/settings_page.dart';
+import 'package:otlplus/widgets/bottom_search_sheet/bottom_search_sheet.dart';
+import 'package:otlplus/widgets/bottom_search_sheet/search_sheet_body.dart';
+import 'package:otlplus/widgets/bottom_search_sheet/search_sheet_header.dart';
 import 'package:provider/provider.dart';
 import 'package:otlplus/constants/color.dart';
 import 'package:otlplus/pages/course_detail_page.dart';
@@ -65,13 +68,29 @@ class _OTLHomeState extends State<OTLHome> {
           _buildSearch(),
         ],
       ),
-      frontLayer: IndexedStack(
-        index: _currentIndex,
-        children: <Widget>[
-          MainPage(),
-          TimetablePage(),
-          DictionaryPage(),
-          ReviewPage(),
+      frontLayer: Stack(
+        alignment: Alignment.bottomCenter,
+        children: [
+          Column(
+            children: [
+              Expanded(
+                child: IndexedStack(
+                  index: _currentIndex,
+                  children: <Widget>[
+                    MainPage(),
+                    TimetablePage(),
+                    DictionaryPage(),
+                    ReviewPage(),
+                  ],
+                ),
+              ),
+              Container(
+                height: 68,
+                color: Colors.white,
+              )
+            ],
+          ),
+          BottomSearchSheet(),
         ],
       ),
       backLayers: <Widget>[
@@ -114,6 +133,7 @@ class _OTLHomeState extends State<OTLHome> {
 
   BottomNavigationBar _buildBottomNavigationBar() {
     return BottomNavigationBar(
+      
       currentIndex: _currentIndex,
       type: BottomNavigationBarType.fixed,
       showSelectedLabels: true,

@@ -32,43 +32,64 @@ class LectureGroupBlock extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: 6.0),
       padding: const EdgeInsets.only(top: 8.0),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(4.0),
-        color: BLOCK_COLOR,
+        borderRadius: BorderRadius.circular(5.0),
+        color: Colors.white,
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: ListTile.divideTiles(
-          context: context,
-          color: BORDER_BOLD_COLOR,
-          tiles: <Widget>[
-            Padding(
-              padding: const EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 6.0),
-              child: Text.rich(
-                TextSpan(
-                  style: const TextStyle(fontSize: 12.0),
-                  children: <TextSpan>[
-                    TextSpan(
-                      text: lectures.first.commonTitle,
-                      style: const TextStyle(fontWeight: FontWeight.bold),
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(10.0, 6.0, 10.0, 10.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text.rich(
+                  TextSpan(
+                    style: const TextStyle(fontSize: 12.0),
+                    children: <TextSpan>[
+                      TextSpan(
+                        text: lectures.first.commonTitle,
+                        style: const TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      const TextSpan(text: " "),
+                      TextSpan(text: lectures.first.oldCode),
+                    ],
+                  ),
+                ),
+                Text.rich(
+                  TextSpan(
+                    style: const TextStyle(
+                      fontSize: 10.0,
+                      color: Color(0xFF999999),
                     ),
-                    const TextSpan(text: " "),
-                    TextSpan(text: lectures.first.oldCode),
-                  ],
+                    children: <TextSpan>[
+                      TextSpan(
+                        text: lectures.first.departmentCode,
+                      ),
+                      const TextSpan(text: " / "),
+                      TextSpan(text: lectures.first.type),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(vertical: 4),
+              child: SizedBox(
+                height: 1,
+                child: ColoredBox(
+                  color: Color(0xFFDADADA),
                 ),
               ),
             ),
             ...lectures.map((lecture) => LectureGroupBlockRow(
-                  lecture: lecture,
-                  isSelected: selectedLecture == lecture,
-                  borderRadius: (lectures.last == lecture)
-                      ? const BorderRadius.vertical(
-                          bottom: Radius.circular(4.0))
-                      : null,
-                  onTap: () => onTap(lecture),
-                  onLongPress: () => onLongPress(lecture),
-                )),
-          ],
-        ).toList(),
+              lecture: lecture,
+              isSelected: selectedLecture == lecture,
+              onTap: () => onTap(lecture),
+              onLongPress: () => onLongPress(lecture),
+            )),
+          ]
+        ),
       ),
     );
   }
