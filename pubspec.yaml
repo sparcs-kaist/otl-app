@@ -40,6 +40,7 @@ dependencies:
   firebase_core: ^1.24.0
   firebase_analytics: ^9.3.8
   firebase_crashlytics: ^2.9.0
+  sheet: ^0.0.4+1
 
 dev_dependencies:
   test: ^1.19.5
