@@ -47,9 +47,6 @@ void main() {
   testWidgets('pump LectureGroupBlock', (WidgetTester tester) async {
     await tester.pumpWidget(LectureGroupBlock(
         lectures: [SampleLecture.shared],
-        onTap: (_) {
-          return;
-        },
         onLongPress: (_) {
           return;
         }).material);

@@ -2,17 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:otlplus/constants/color.dart';
 import 'package:otlplus/models/lecture.dart';
 import 'package:otlplus/widgets/lecture_group_block_row.dart';
+import 'package:otlplus/providers/bottom_sheet_model.dart';
+import 'package:provider/provider.dart';
 
 class LectureGroupBlock extends StatelessWidget {
   final List<Lecture> lectures;
-  final Lecture? selectedLecture;
-  final void Function(Lecture) onTap;
   final void Function(Lecture) onLongPress;
 
   LectureGroupBlock(
       {required this.lectures,
-      this.selectedLecture,
-      required this.onTap,
       required this.onLongPress});
 
   @override
@@ -36,7 +34,7 @@ class LectureGroupBlock extends StatelessWidget {
         color: Colors.white,
       ),
       child: Padding(
-        padding: const EdgeInsets.fromLTRB(10.0, 6.0, 10.0, 10.0),
+        padding: const EdgeInsets.fromLTRB(10.0, 6.0, 10.0, 6.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
@@ -84,8 +82,16 @@ class LectureGroupBlock extends StatelessWidget {
             ),
             ...lectures.map((lecture) => LectureGroupBlockRow(
               lecture: lecture,
-              isSelected: selectedLecture == lecture,
-              onTap: () => onTap(lecture),
+              isSelected: context.watch<BottomSheetModel>().selectedLecture == lecture,
+              onTap: () {
+                if(context.read<BottomSheetModel>().selectedLecture != lecture) {
+                  context.read<BottomSheetModel>().setSelectedLecture(lecture);
+                  context.read<BottomSheetModel>().setExtended(1);
+                }
+                else {
+                  context.read<BottomSheetModel>().setSelectedLecture(null);
+                }
+              },
               onLongPress: () => onLongPress(lecture),
             )),
           ]

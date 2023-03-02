@@ -23,7 +23,6 @@ class SearchSheetResult extends StatefulWidget {
 
 class _SearchSheetResultState extends State<SearchSheetResult> {
   final _scrollController = ScrollController();
-  Lecture? _selectedLecture;
 
   @override
   Widget build(BuildContext context) {
@@ -39,23 +38,21 @@ class _SearchSheetResultState extends State<SearchSheetResult> {
   ListView _buildListView(
       List<List<Lecture>> lectures) {
     return ListView.builder(
-      itemCount: lectures.length,
-      itemBuilder: (context, index) => LectureGroupBlock(
-        lectures: lectures[index],
-        selectedLecture: _selectedLecture,
-        onTap: (lecture) {
-          setState(() {
-            _selectedLecture = (_selectedLecture == lecture) ? null : lecture;
-            // if (widget.onSelectionChanged != null) {
-            //   widget.onSelectionChanged!(_selectedLecture);
-            // }
-          });
-        },
-        onLongPress: (lecture) {
-          // context.read<LectureDetailModel>().loadLecture(lecture.id, true);
-          // Backdrop.of(context).show(2);
-        },
-      ),
+      itemCount: lectures.length + 1,
+      itemBuilder: (context, index) {
+        if(index < lectures.length) {
+          return LectureGroupBlock(
+            lectures: lectures[index],
+            onLongPress: (lecture) {
+              // context.read<LectureDetailModel>().loadLecture(lecture.id, true);
+              // Backdrop.of(context).show(2);
+            },
+          );
+        }
+        else {
+          return SizedBox(height: MediaQuery.of(context).viewPadding.bottom);
+        }
+      }
     );
   }
 }
