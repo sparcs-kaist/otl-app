@@ -4,6 +4,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
+import 'package:otlplus/providers/bottom_sheet_model.dart';
 import 'package:otlplus/providers/settings_model.dart';
 import 'package:provider/provider.dart';
 import 'package:otlplus/constants/color.dart';
@@ -57,10 +58,11 @@ void main() {
                 },
               ),
               ChangeNotifierProvider(create: (_) => SearchModel()),
+              ChangeNotifierProvider(create: (_) => BottomSheetModel()),
               ChangeNotifierProvider(create: (_) => ReviewModel()),
               ChangeNotifierProvider(create: (_) => CourseDetailModel()),
               ChangeNotifierProvider(create: (_) => LectureDetailModel()),
-              ChangeNotifierProvider(create: (_) => SettingsModel())
+              ChangeNotifierProvider(create: (_) => SettingsModel()),
             ],
             child: OTLFirebaseApp(),
           )),

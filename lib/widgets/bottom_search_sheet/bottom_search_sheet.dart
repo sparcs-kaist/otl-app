@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:otlplus/constants/color.dart';
+import 'package:otlplus/providers/bottom_sheet_model.dart';
 import 'package:otlplus/widgets/bottom_search_sheet/search_sheet_body.dart';
 import 'package:otlplus/widgets/bottom_search_sheet/search_sheet_header.dart';
 import 'package:otlplus/providers/search_model.dart';
@@ -71,7 +72,6 @@ class BottomSearchSheet extends StatefulWidget {
 }
 
 class _BottomSearchSheetState extends State<BottomSearchSheet> {
-  SheetController _scrollController = SheetController();
   final _textController = TextEditingController();
   late FocusNode _focusNode;
   Map<String, dynamic> filter = defaultFilter;
@@ -96,7 +96,6 @@ class _BottomSearchSheetState extends State<BottomSearchSheet> {
   @override
   Widget build(BuildContext context) {
     final searchModel = context.watch<SearchModel>();
-
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
         return Sheet(
@@ -105,16 +104,17 @@ class _BottomSearchSheetState extends State<BottomSearchSheet> {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20)),
           ),
-          controller: _scrollController,
+          controller: context.watch<BottomSheetModel>().scrollController,
           physics: SnapSheetPhysics(
             relative: true,
-            stops: <double>[headerHeight / (headerHeight + contentHeight), 1],
+            stops: <double>[(headerHeight + kBottomNavigationBarHeight + MediaQuery.of(context).viewPadding.bottom) / (headerHeight + contentHeight), 1],
             parent: const BouncingSheetPhysics(
               overflowViewport: false,
             ),
           ),
           initialExtent: headerHeight,
           maxExtent: headerHeight + contentHeight,
+          minExtent: headerHeight + kBottomNavigationBarHeight + MediaQuery.of(context).viewPadding.bottom,
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -126,7 +126,7 @@ class _BottomSearchSheetState extends State<BottomSearchSheet> {
                     //     child: Text('hi'),
                     //   );
                     // });
-                    _scrollController.relativeAnimateTo(
+                    context.read<BottomSheetModel>().scrollController.relativeAnimateTo(
                       1,
                       duration: Duration(milliseconds: 128),
                       curve: Curves.ease
@@ -178,94 +178,5 @@ class _BottomSearchSheetState extends State<BottomSearchSheet> {
         );
       }
     );
-              // CustomScrollView(
-              //   physics: ClampingScrollPhysics(),
-              //   slivers: [
-              //     SliverPersistentHeader(
-              //       pinned: true,
-              //       delegate: _HeaderDelegate(
-              //         height: headerHeight,
-              //         child: Focus(
-              //           onFocusChange: (hasFocus) {
-              //             if(hasFocus) {
-              //               _scrollController.animateTo(
-              //                 min(constraints.maxHeight - 64, headerHeight + contentHeight), 
-              //                 duration: Duration(milliseconds: 40),
-              //                 curve: Curves.easeInOutCubic
-              //               );
-              //             }
-              //           },
-              //           child: header
-              //         ),
-              //       ),
-              //     ),
-              //     SliverFillRemaining(
-              //       child: content,
-              //     )
-              //   ],
-              // ),
   }
 }
-
-
-// class _HeaderDelegate extends SliverPersistentHeaderDelegate {
-//   const _HeaderDelegate({required this.child, required this.height});
-//   final Widget child;
-//   final double height;
-
-//   @override
-//   Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
-//     return child;
-//   }
-
-//   @override
-//   double get maxExtent => this.height;
-
-//   @override
-//   double get minExtent => this.height;
-
-//   @override
-//   bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) {
-//     return false;
-//   }
-// }
-
-// Map<String, Map<String, bool>> selectedOptions = {
-  //   'departments': {
-  //     "HSS": true,
-  //     "CE": true,
-  //     "MSB": true,
-  //     "ME": true,
-  //     "PH": true,
-  //     "BiS": true,
-  //     "IE": true,
-  //     "ID": true,
-  //     "BS": true,
-  //     "CBE": true,
-  //     "MAS": true,
-  //     "MS": true,
-  //     "NQE": true,
-  //     "TS": true,
-  //     "CS": true,
-  //     "EE": true,
-  //     "AE": true,
-  //     "CH": true,
-  //   },
-  //   'types': {
-  //     "BR": true,
-  //     "BE": true,
-  //     "MR": true,
-  //     "ME": true,
-  //     "MGC": true,
-  //     "HSE": true,
-  //     "GR": true,
-  //     "EG": true,
-  //     "OE": true,
-  //   },
-  //   'levels': {
-  //     "100": true,
-  //     "200": true,
-  //     "300": true,
-  //     "400": true,
-  //   },
-  // };

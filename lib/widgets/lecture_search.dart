@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:otlplus/providers/bottom_sheet_model.dart';
 import 'package:provider/provider.dart';
 import 'package:otlplus/constants/color.dart';
 import 'package:otlplus/models/lecture.dart';
@@ -70,7 +71,6 @@ class _LectureSearchState extends State<LectureSearch> {
   final _scrollController = ScrollController();
 
   late FocusNode _focusNode;
-  Lecture? _selectedLecture;
   List<String> _department = [departments.keys.first];
   List<String> _type = [types.keys.first];
   List<String> _level = [levels.keys.first];
@@ -117,13 +117,13 @@ class _LectureSearchState extends State<LectureSearch> {
                           type: _type,
                           level: _level);
                       _searchTextController.clear();
-
-                      setState(() {
-                        _selectedLecture = null;
-                        if (widget.onSelectionChanged != null) {
-                          widget.onSelectionChanged!(_selectedLecture);
-                        }
-                      });
+                      context.read<BottomSheetModel>().setSelectedLecture(null);
+                      // setState(() {
+                      //   _selectedLecture = null;
+                      //   if (widget.onSelectionChanged != null) {
+                      //     widget.onSelectionChanged!(_selectedLecture);
+                      //   }
+                      // });
                     },
                     style: const TextStyle(fontSize: 14.0),
                     decoration: const InputDecoration(
@@ -137,11 +137,11 @@ class _LectureSearchState extends State<LectureSearch> {
                 ),
                 IconButton(
                   icon: const Icon(Icons.add),
-                  onPressed: (_selectedLecture == null ||
+                  onPressed: (context.read<BottomSheetModel>().selectedLecture == null ||
                           context.select<TimetableModel, bool>((model) =>
                               model.currentTimetable.lectures.any((lecture) =>
                                   lecture.oldCode ==
-                                  _selectedLecture?.oldCode) ||
+                                  context.read<BottomSheetModel>().selectedLecture?.oldCode) ||
                               model.selectedIndex == 0))
                       ? null
                       : _addLecture,
@@ -211,7 +211,7 @@ class _LectureSearchState extends State<LectureSearch> {
 
   Future<void> _addLecture() async {
     bool result = await context.read<TimetableModel>().addLecture(
-          lecture: _selectedLecture!,
+          lecture: context.read<BottomSheetModel>().selectedLecture!,
           onOverlap: (lectures) async {
             bool result = false;
 
@@ -261,15 +261,6 @@ class _LectureSearchState extends State<LectureSearch> {
       itemCount: lectures.length,
       itemBuilder: (context, index) => LectureGroupBlock(
         lectures: lectures[index],
-        selectedLecture: _selectedLecture,
-        onTap: (lecture) {
-          setState(() {
-            _selectedLecture = (_selectedLecture == lecture) ? null : lecture;
-            if (widget.onSelectionChanged != null) {
-              widget.onSelectionChanged!(_selectedLecture);
-            }
-          });
-        },
         onLongPress: (lecture) {
           context.read<LectureDetailModel>().loadLecture(lecture.id, true);
           Backdrop.of(context).show(2);

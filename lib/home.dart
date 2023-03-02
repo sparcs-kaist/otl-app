@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:otlplus/pages/settings_page.dart';
+import 'package:otlplus/providers/bottom_sheet_model.dart';
 import 'package:otlplus/widgets/bottom_search_sheet/bottom_search_sheet.dart';
 import 'package:otlplus/widgets/bottom_search_sheet/search_sheet_body.dart';
 import 'package:otlplus/widgets/bottom_search_sheet/search_sheet_header.dart';
@@ -17,6 +18,7 @@ import 'package:otlplus/pages/user_page.dart';
 import 'package:otlplus/providers/search_model.dart';
 import 'package:otlplus/widgets/backdrop.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:sheet/sheet.dart';
 
 class OTLHome extends StatefulWidget {
   @override
@@ -25,6 +27,42 @@ class OTLHome extends StatefulWidget {
 
 class _OTLHomeState extends State<OTLHome> {
   int _currentIndex = 0;
+  late SheetController sheetScrollController;
+  double hideAppbar = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      sheetScrollController = context.read<BottomSheetModel>().scrollController;
+      sheetScrollController.addListener(scrollListener);
+    });
+  }
+
+  @override
+  void dispose() {
+    sheetScrollController.removeListener(scrollListener);
+    super.dispose();
+  }
+
+  void scrollListener() {
+    if(sheetScrollController.animation.value <0.4) {
+      setState(() {
+        hideAppbar = 0;
+      });
+    }
+    if(sheetScrollController.animation.value < 0.6) {
+      double temp = (sheetScrollController.animation.value - 0.4) * 5;
+      setState(() {
+        hideAppbar = temp < 0 ? 0 : (temp > 1 ? 1 : temp);
+      });
+    }
+    else {
+      setState(() {
+        hideAppbar = 1;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +90,6 @@ class _OTLHomeState extends State<OTLHome> {
           ),
         )
       ],
-      bottomNavigationBar: _buildBottomNavigationBar(),
       isExpanded: _currentIndex == 0,
       expandedWidget: Stack(
         alignment: Alignment.center,
@@ -85,10 +122,23 @@ class _OTLHomeState extends State<OTLHome> {
               Container(
                 height: 68,
                 color: Colors.white,
+              ),
+              Container(
+                height: kBottomNavigationBarHeight + MediaQuery.of(context).viewPadding.bottom,
+                color: Colors.white,
               )
             ],
           ),
           BottomSearchSheet(),
+          AnimatedContainer(
+            duration: Duration(milliseconds: 100),
+            height: (1 - hideAppbar) * (kBottomNavigationBarHeight + MediaQuery.of(context).viewPadding.bottom),
+            child: Wrap(
+              children: <Widget>[
+                _buildBottomNavigationBar(),
+              ],
+            )
+          ),
         ],
       ),
       backLayers: <Widget>[
@@ -129,7 +179,6 @@ class _OTLHomeState extends State<OTLHome> {
 
   BottomNavigationBar _buildBottomNavigationBar() {
     return BottomNavigationBar(
-      
       currentIndex: _currentIndex,
       type: BottomNavigationBarType.fixed,
       showSelectedLabels: true,

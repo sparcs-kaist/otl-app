@@ -30,7 +30,7 @@ class _SearchSheetBodyState extends State<SearchSheetBody> {
     return SizedBox(
       height: 500,
       child: Padding(
-        padding: EdgeInsets.fromLTRB(24, 0, 24, 24),
+        padding: EdgeInsets.fromLTRB(24, 0, 24, MediaQueryData.fromWindow(WidgetsBinding.instance.window).padding.top),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
