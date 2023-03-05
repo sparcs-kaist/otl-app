@@ -2,10 +2,14 @@ import 'dart:ui';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:otlplus/constants/color.dart';
+import 'package:otlplus/providers/bottom_sheet_model.dart';
+import 'package:provider/provider.dart';
+import 'package:sheet/sheet.dart';
 
 class SearchSheetHeader extends StatefulWidget {
   SearchSheetHeader({
@@ -22,12 +26,48 @@ class SearchSheetHeader extends StatefulWidget {
 
 class _SearchSheetHeaderState extends State<SearchSheetHeader> {
 
+  late SheetController sheetScrollController;
+
+  @override
+  void initState() {
+    sheetScrollController = context.read<BottomSheetModel>().scrollController;
+    sheetScrollController.addListener(scrollListener);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    sheetScrollController.removeListener(scrollListener);
+    super.dispose();
+  }
+
+  void scrollListener() {
+    if(widget.focusNode.hasFocus) {
+      widget.focusNode.unfocus();
+    }
+    else {
+      if(sheetScrollController.animation.value == 1) {
+        FocusScope.of(context).requestFocus(widget.focusNode);
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       behavior: HitTestBehavior.translucent,
-      onTap: () {
-        widget.focusNode.requestFocus();
+      
+      onTap: widget.focusNode.hasFocus ? null : () {
+        context.read<BottomSheetModel>().scrollController.relativeAnimateTo(
+          1,
+          duration: Duration(milliseconds: 300),
+          curve: Curves.ease,
+        )
+        .then(
+          (_) {
+            FocusScope.of(context).requestFocus(widget.focusNode);
+          }
+        );
       },
       child: SizedBox(
         height: 68,
@@ -50,21 +90,23 @@ class _SearchSheetHeaderState extends State<SearchSheetHeader> {
                   child: Center(
                     child: Padding(
                       padding: EdgeInsets.symmetric(horizontal: 12),
-                      child: TextField(
-                        controller: widget.textController,
-                        focusNode: widget.focusNode,
-                        onSubmitted: (value) {
-                          print(value);
-                        },
-                        style: const TextStyle(fontSize: 15.0),
-                        decoration:  InputDecoration(
-                          suffixIconColor: Colors.black45,
-                          hintText: "과목명, 교수님 성함 등을 검색해 보세요",
-                          hintStyle: TextStyle(color: Colors.black54),
-                          icon: Icon(
-                            Icons.search,
-                            color: Color(0xFFD45869),
-                            size: 24,
+                      child: AbsorbPointer(
+                        child: TextField(
+                          controller: widget.textController,
+                          focusNode: widget.focusNode,
+                          onSubmitted: (value) {
+                            print(value);
+                          },
+                          style: const TextStyle(fontSize: 15.0),
+                          decoration:  InputDecoration(
+                            suffixIconColor: Colors.black45,
+                            hintText: "과목명, 교수님 성함 등을 검색해 보세요",
+                            hintStyle: TextStyle(color: Colors.black54),
+                            icon: Icon(
+                              Icons.search,
+                              color: Color(0xFFD45869),
+                              size: 24,
+                            ),
                           ),
                         ),
                       ),
