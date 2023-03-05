@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
@@ -28,42 +30,12 @@ class OTLHome extends StatefulWidget {
 class _OTLHomeState extends State<OTLHome> {
   int _currentIndex = 0;
   late SheetController sheetScrollController;
-  double hideAppbar = 0;
 
   @override
   void initState() {
+    sheetScrollController = context.read<BottomSheetModel>().scrollController;
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      sheetScrollController = context.read<BottomSheetModel>().scrollController;
-      sheetScrollController.addListener(scrollListener);
-    });
   }
-
-  @override
-  void dispose() {
-    sheetScrollController.removeListener(scrollListener);
-    super.dispose();
-  }
-
-  void scrollListener() {
-    if(sheetScrollController.animation.value <0.4) {
-      setState(() {
-        hideAppbar = 0;
-      });
-    }
-    if(sheetScrollController.animation.value < 0.6) {
-      double temp = (sheetScrollController.animation.value - 0.4) * 5;
-      setState(() {
-        hideAppbar = temp < 0 ? 0 : (temp > 1 ? 1 : temp);
-      });
-    }
-    else {
-      setState(() {
-        hideAppbar = 1;
-      });
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return BackdropScaffold(
@@ -130,14 +102,19 @@ class _OTLHomeState extends State<OTLHome> {
             ],
           ),
           BottomSearchSheet(),
-          AnimatedContainer(
-            duration: Duration(milliseconds: 100),
-            height: (1 - hideAppbar) * (kBottomNavigationBarHeight + MediaQuery.of(context).viewPadding.bottom),
+          AnimatedBuilder(
+            animation: sheetScrollController,
+            builder: (_, child) { 
+              return Transform.translate(
+                offset: Offset(0, max(0, min(sheetScrollController.animation.value * 5 - 2, 1)) * (kBottomNavigationBarHeight + MediaQuery.of(context).viewPadding.bottom)),
+                child: child,
+              );
+            },
             child: Wrap(
               children: <Widget>[
                 _buildBottomNavigationBar(),
               ],
-            )
+            ),
           ),
         ],
       ),
