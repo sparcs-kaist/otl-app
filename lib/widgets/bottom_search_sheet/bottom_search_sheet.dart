@@ -118,26 +118,7 @@ class _BottomSearchSheetState extends State<BottomSearchSheet> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Focus(
-                onFocusChange: (hasFocus) {
-                  if(hasFocus) {
-                    // showDialog(context: context, builder: (BuildContext bdx) {
-                    //   return Container(
-                    //     child: Text('hi'),
-                    //   );
-                    // });
-                    context.read<BottomSheetModel>().scrollController.relativeAnimateTo(
-                      1,
-                      duration: Duration(milliseconds: 128),
-                      curve: Curves.ease
-                    );
-                    setState(() {
-                      searched = false;
-                    });
-                  }
-                },
-                child: SearchSheetHeader(focusNode: _focusNode, textController: _textController)
-              ),
+              SearchSheetHeader(focusNode: _focusNode, textController: _textController),
               Flexible(
                 flex: 1,
                 fit: FlexFit.loose,

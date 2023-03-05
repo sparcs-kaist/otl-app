@@ -43,23 +43,20 @@ class _SearchSheetBodyState extends State<SearchSheetBody> {
                 ),
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-                  child: SingleChildScrollView(
-                    child: Column(
-                      children: <Widget>[
-                        ...widget.filter.entries.map((e) => Padding(
-                          padding: EdgeInsets.only(bottom: 8),
-                          child: _RadioSelect(
-                              crossAxisCount: 4,
-                              title: e.value["label"],
-                              selectList: e.value["options"],
-                              setSelected: (String option, bool value) {
-                                widget.setFilter(e.key, option, value);
-                              },
-                            ),
-                        )
-                        ).toList()
-                      ],
-                    ),
+                  child: ListView.separated(
+                    itemCount: widget.filter.entries.length,
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      return _RadioSelect(
+                          crossAxisCount: 4,
+                          title: widget.filter.values.elementAt(index)["label"],
+                          selectList: widget.filter.values.elementAt(index)["options"],
+                          setSelected: (String option, bool value) {
+                            widget.setFilter(widget.filter.keys.elementAt(index), option, value);
+                          },
+                        );
+                    },
+                    separatorBuilder: (context, index) => SizedBox(height: 8,)
                   ),
                 ),
               ),
@@ -199,26 +196,31 @@ class __RadioSelectState extends State<_RadioSelect> {
               ],
             ),
           ),
-          GridView.builder(
-            itemCount: widget.selectList.length,
-            shrinkWrap: true,
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: widget.crossAxisCount,
-              crossAxisSpacing: 4,
-              mainAxisSpacing: 4,
-              childAspectRatio: 2.2 * 4 / widget.crossAxisCount,
+          MediaQuery.removePadding(
+            context: context,
+            removeTop: true,
+            removeBottom: true,
+            child: GridView.builder(
+              itemCount: widget.selectList.length,
+              shrinkWrap: true,
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: widget.crossAxisCount,
+                crossAxisSpacing: 4,
+                mainAxisSpacing: 4,
+                childAspectRatio: 2.2 * 4 / widget.crossAxisCount,
+              ),
+              physics: NeverScrollableScrollPhysics(),
+              itemBuilder: (BuildContext context, int index) {
+                MapEntry<String, dynamic> option = widget.selectList.entries.toList().elementAt(index);
+                return _RadioSelectButton(
+                  option: option.value,
+                  setToggle: (v) {
+                    widget.setSelected(option.key, v);
+                    // widget.setSelected!((toggle!..removeWhere((key, value) => !value)).keys.toList());
+                  },
+                );
+              }
             ),
-            physics: NeverScrollableScrollPhysics(),
-            itemBuilder: (BuildContext context, int index) {
-              MapEntry<String, dynamic> option = widget.selectList.entries.toList().elementAt(index);
-              return _RadioSelectButton(
-                option: option.value,
-                setToggle: (v) {
-                  widget.setSelected(option.key, v);
-                  // widget.setSelected!((toggle!..removeWhere((key, value) => !value)).keys.toList());
-                },
-              );
-            }
           ),
         ],
       ),

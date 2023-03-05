@@ -7,6 +7,7 @@ class BottomSheetModel extends ChangeNotifier {
   SheetController get scrollController => _scrollController;
   // print(_scrollController.animation.value);
 
+
   Lecture? _selectedLecture;
   Lecture? get selectedLecture => _selectedLecture;
 
@@ -27,5 +28,7 @@ class BottomSheetModel extends ChangeNotifier {
     _extended = state;
     notifyListeners();
   }
+
+
   
 }
