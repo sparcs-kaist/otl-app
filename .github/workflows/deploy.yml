@@ -6,7 +6,7 @@ on:
       - 'v*'
 
 env:
-  FLUTTER_VERSION: '3.3.6'
+  FLUTTER_VERSION: '3.7'
   JAVA_VERSION: '11'
 
 jobs:
@@ -57,7 +57,7 @@ jobs:
 
   deploy-ios:
     name: Deploy iOS
-    runs-on: macOS
+    runs-on: macos-latest
     environment: Production
     steps:
       - uses: actions/checkout@v2
