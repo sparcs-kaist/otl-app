@@ -102,6 +102,7 @@ class OTLFirebaseApp extends StatelessWidget {
 
   ThemeData _buildTheme() {
     final base = ThemeData(
+      fontFamily: 'NotoSansKR',
       primarySwatch: createMaterialColor(PRIMARY_COLOR),
       canvasColor: Colors.white,
       iconTheme: const IconThemeData(color: CONTENT_COLOR),

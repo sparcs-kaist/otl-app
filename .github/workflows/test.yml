@@ -5,7 +5,7 @@ on:
     branches: [ main ]
 
 env:
-  FLUTTER_VERSION: '3.3.6'
+  FLUTTER_VERSION: '3.7'
   JAVA_VERSION: '11'
 
 jobs:
@@ -25,7 +25,7 @@ jobs:
 
   integration-android:
     name: Integration Test on Android
-    runs-on: macOS
+    runs-on: macos-latest
     steps:
       - uses: actions/checkout@v2
       - name: Set up Java
@@ -45,7 +45,7 @@ jobs:
 
   integration-ios:
     name: Integration Test on iOS
-    runs-on: macOS
+    runs-on: macos-latest
     steps:
       - uses: actions/checkout@v2
       - name: Set up Flutter

@@ -66,5 +66,7 @@
 	<false/>
 	<key>kTCCServiceMediaLibrary</key>
 	<string>사용자 요청 시 해당 기능을 사용합니다.</string>
+	<key>UIApplicationSupportsIndirectInputEvents</key>
+	<true/>
 </dict>
 </plist>
