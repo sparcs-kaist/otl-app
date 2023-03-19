@@ -32,7 +32,7 @@ OTL: Online Timeplanner with Lectures Plus App @ KAIST
 문의사항 & 피드백
 otlplus@sparcs.org
 
-## Quick Start
+## How to develop
 
 ### Run
 
@@ -83,6 +83,49 @@ iOS Integration Test에서 Simulator 시작을 하지 못하는 에러가 발생
 `.github/workflows/test.yml`의 Simulator 아이폰 버전을 하나 올려주면 됩니다.
 ex) `/iPhone 12 Pro/` --> `/iPhone 13 Pro/`
 
+## How to deploy
+
+### Fastlane 설정
+
+공식 홈페이지를 참고하였습니다.
+[Continuous Delivery using fastlane with Flutter](https://flutter.io/docs/deployment/fastlane-cd)
+
+```bash
+gem install bundler
+```
+
+### Credentials
+
+- `android/fastlane/otlplus-fastlane.json` : Google Play 서비스 계정 JSON 파일
+- `android/fastlane/upload-keystore.jks` : Android App Signing Key for Upload Google Play
+- `android/key.properties` : 아래와 같이 Signing Key 정보를 입력합니다.
+
+```env
+storeFile=../fastlane/upload-keystore.jks
+storePassword=********
+keyPassword=********
+keyAlias=upload
+```
+
+- `ios/fastlane/.env.default` : 아래와 같이 Apple ID 계정 정보를 입력합니다.
+
+```env
+FASTLANE_USER=****@****.***
+FASTLANE_PASSWORD=********
+FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD=****-****-****-****
+```
+
+### 알파 버전 배포
+
+- Android: Google Play 스토어 `비공개 테스트 - Alpha` 트랙으로 업로드
+- iOS: TestFlight로 업로드
+
+```bash
+cd android && bundle exec fastlane alpha && cd ../ios && bundle exec fastlane alpha
+```
+
+배포 후 `pubspec.yaml`과 iOS Xcode 프로젝트 관련 파일들의 변경사항을 Discard 합니다.
+
 ## How to contribute?
 
 Please visit [CONTRIBUTING.md](https://github.com/sparcs-kaist/otl-app/blob/main/CONTRIBUTING.md)
@@ -98,5 +141,5 @@ Thanks to every [contributors](https://github.com/sparcs-kaist/otl-app/graphs/co
 
 ## License
 
-Copyright (c) 2021-2022 SPARCS.
+Copyright (c) 2021-2023 SPARCS.
 Distribution of this application without the authors' explicit written approval is strictly prohibited.
