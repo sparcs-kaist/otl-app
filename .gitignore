@@ -69,3 +69,17 @@ lib/generated_plugin_registrant.dart
 # Test, Coverage
 /coverage/
 /test/coverage_helper_test.dart
+
+# Fastlane
+**/fastlane/report.xml
+**/fastlane/Preview.html
+**/fastlane/screenshots
+**/fastlane/test_output
+**/fastlane/README.md
+**/ios/Runner.app.dSYM.zip
+**/ios/Runner.ipa
+
+# Fastlane related secrets
+/android/fastlane/otlplus-fastlane.json
+/android/fastlane/upload-keystore.jks
+/ios/fastlane/.env.default

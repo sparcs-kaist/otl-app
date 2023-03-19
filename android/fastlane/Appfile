@@ -1,0 +1,2 @@
+json_key_file("fastlane/otlplus-fastlane.json")
+package_name("org.sparcs.otlplus")

@@ -1,0 +1,55 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+
+default_platform(:ios)
+
+platform :ios do
+  desc "Push a new beta build to TestFlight"
+  lane :alpha do
+    increment_build_number(
+      build_number: Time.now.strftime("%y%m%d.%H%M"),
+      xcodeproj: "Runner.xcodeproj",
+    )
+    sh "flutter pub get"
+    sh "bundle exec pod install"
+
+    get_certificates(
+      output_path: "./build",
+    )
+    get_provisioning_profile(
+      output_path: "./build",
+      filename: "provisioning.mobileprovision",
+    )
+    update_project_provisioning(
+      xcodeproj: "Runner.xcodeproj",
+      target_filter: "Runner",
+      profile: "./build/provisioning.mobileprovision",
+      build_configuration: "Release",
+    )
+    update_project_team( # Set the right team on your project
+      teamid: CredentialsManager::AppfileConfig.try_fetch_value(:team_id)
+    )
+
+    build_app(
+      workspace: "Runner.xcworkspace",
+      scheme: "Runner",
+      clean: true,
+      export_method: "app-store",
+    )
+    upload_to_testflight(
+      skip_waiting_for_build_processing: true,
+    )
+  end
+end
