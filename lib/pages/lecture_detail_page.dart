@@ -286,7 +286,7 @@ class LectureDetailPage extends StatelessWidget {
                 .toList();
           }
         }),
-      ]),
+      ].reversed.toList()),
     );
   }
 

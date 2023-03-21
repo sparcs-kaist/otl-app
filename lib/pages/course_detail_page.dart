@@ -376,7 +376,7 @@ class CourseDetailPage extends StatelessWidget {
                 [Text("결과 없음")];
           }
         }),
-      ]),
+      ].reversed.toList()),
     );
   }
 
