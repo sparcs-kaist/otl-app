@@ -35,6 +35,7 @@ flutter test
 4. PR을 생성합니다. Feature request Issue는 `Resolve`, Bug report Issue는 `Fix`로 제목을 정합니다.
 
 아래와 같이 PR 제목을 생성 후 머지하면 자동으로 Issue가 닫히게 됩니다.
+**PR 제목은 반드시 대문자로 시작합니다.**
 
 ```
 Resolve #14, Fix #13, #16, Update github actions
