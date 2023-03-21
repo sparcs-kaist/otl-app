@@ -133,9 +133,11 @@ Please visit [CONTRIBUTING.md](https://github.com/sparcs-kaist/otl-app/blob/main
 ## Credits
 
 - [Winrobrine](https://github.com/Winrobrine): Developer 2020
-- [Seungbin Oh](https://github.com/sboh1214): Developer 2021-2022
-- [Star](https://github.com/snaoyam): Developer 2022
-- [SungyeopJeong](https://github.com/SungyeopJeong): Developer 2022
+- [Seungbin Oh](https://github.com/sboh1214): Developer 2021-2023
+- [Star](https://github.com/snaoyam): Developer 2022-2023
+- [SungyeopJeong](https://github.com/SungyeopJeong): Developer 2022-2023
+- [Seungho Jang](https://github.com/hoosong0235): Developer 2023
+- [Soongyu Kwon](https://github.com/s8ngyu): Developer 2023
 
 Thanks to every [contributors](https://github.com/sparcs-kaist/otl-app/graphs/contributors).
 
