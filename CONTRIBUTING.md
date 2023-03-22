@@ -38,7 +38,8 @@ flutter test
 **PR 제목은 반드시 대문자로 시작합니다.**
 
 ```
-Resolve #14, Fix #13, #16, chore: update github actions
+Resolve #14, Fix #13, #16, update github actions
+Add fastlane for android and ios
 ```
 
 5. `feat`, `bug`, `chore`, `g11n` 중 해당되는 종류를 태그로 달고 담당자에게 리뷰를 요청합니다.
