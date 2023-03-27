@@ -423,14 +423,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.1"
-  open_file:
+  open_file_safe:
     dependency: "direct main"
     description:
-      name: open_file
-      sha256: "5cd0288033d613ee7908aa974b7ff00805ae55d253f64d311603cf2e30613ca8"
+      name: open_file_safe
+      sha256: "99a43b36307bf6946bdc3b54514bc5081af53f46feaec782c840a116b681647d"
       url: "https://pub.dev"
     source: hosted
-    version: "3.2.1"
+    version: "3.2.3"
   package_config:
     dependency: transitive
     description:

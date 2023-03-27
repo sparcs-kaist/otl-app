@@ -32,7 +32,7 @@ OTL: Online Timeplanner with Lectures Plus App @ KAIST
 문의사항 & 피드백
 otlplus@sparcs.org
 
-## Quick Start
+## How to develop
 
 ### Run
 
@@ -76,13 +76,6 @@ brew tap mdogan/zulu
 brew install zulu-jdk8
 ```
 
-### Error on iOS Test
-
-CI 환경에서 사용하는 mac의 메이저 버전을 업데이트 한 후
-iOS Integration Test에서 Simulator 시작을 하지 못하는 에러가 발생합니다.
-`.github/workflows/test.yml`의 Simulator 아이폰 버전을 하나 올려주면 됩니다.
-ex) `/iPhone 12 Pro/` --> `/iPhone 13 Pro/`
-
 ## How to contribute?
 
 Please visit [CONTRIBUTING.md](https://github.com/sparcs-kaist/otl-app/blob/main/CONTRIBUTING.md)
@@ -90,13 +83,15 @@ Please visit [CONTRIBUTING.md](https://github.com/sparcs-kaist/otl-app/blob/main
 ## Credits
 
 - [Winrobrine](https://github.com/Winrobrine): Developer 2020
-- [Seungbin Oh](https://github.com/sboh1214): Developer 2021-2022
-- [Star](https://github.com/snaoyam): Developer 2022
-- [SungyeopJeong](https://github.com/SungyeopJeong): Developer 2022
+- [Seungbin Oh](https://github.com/sboh1214): Developer 2021-2023
+- [Star](https://github.com/snaoyam): Developer 2022-2023
+- [SungyeopJeong](https://github.com/SungyeopJeong): Developer 2022-2023
+- [Seungho Jang](https://github.com/hoosong0235): Developer 2023
+- [Soongyu Kwon](https://github.com/s8ngyu): Developer 2023
 
 Thanks to every [contributors](https://github.com/sparcs-kaist/otl-app/graphs/contributors).
 
 ## License
 
-Copyright (c) 2021-2022 SPARCS.
+Copyright (c) 2021-2023 SPARCS.
 Distribution of this application without the authors' explicit written approval is strictly prohibited.
