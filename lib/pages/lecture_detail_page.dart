@@ -279,7 +279,7 @@ class LectureDetailPage extends StatelessWidget {
           if (model.reviews.length == 0) {
             return [Text("결과 없음")];
           } else {
-            return model.reviews.reversed
+            return model.reviews
                 .map((review) => ReviewBlock(
                       review: review,
                     ))
