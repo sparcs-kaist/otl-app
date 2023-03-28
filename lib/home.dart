@@ -38,47 +38,47 @@ class _OTLHomeState extends State<OTLHome> {
   }
   @override
   Widget build(BuildContext context) {
-    return BackdropScaffold(
-      actions: <Widget>[
-        Builder(
-          builder: (context) => PlatformIconButton(
-            onPressed: () {
-              Backdrop.of(context).show(0);
-            },
-            materialIcon: Icon(Icons.person),
-            cupertinoIcon: Icon(CupertinoIcons.person),
+    return Stack(
+      alignment: Alignment.bottomCenter,
+      children: [
+        BackdropScaffold(
+          actions: <Widget>[
+            Builder(
+              builder: (context) => PlatformIconButton(
+                onPressed: () {
+                  Backdrop.of(context).show(0);
+                },
+                materialIcon: Icon(Icons.person),
+                cupertinoIcon: Icon(CupertinoIcons.person),
+              ),
+            ),
+            PlatformIconButton(
+              onPressed: () => {
+                Navigator.push(
+                    context,
+                    platformPageRoute(
+                        context: context, builder: (_) => SettingsPage()))
+              },
+              materialIcon: Icon(Icons.settings),
+              cupertinoIcon: Icon(
+                CupertinoIcons.gear,
+              ),
+            )
+          ],
+          isExpanded: _currentIndex == 0,
+          expandedWidget: Stack(
+            alignment: Alignment.center,
+            children: <Widget>[
+              Image.asset(
+                "assets/bg.4556cdee.jpg",
+                fit: BoxFit.cover,
+                color: const Color(0xFF9B4810).withOpacity(0.2),
+                colorBlendMode: BlendMode.srcATop,
+              ),
+              _buildSearch(),
+            ],
           ),
-        ),
-        PlatformIconButton(
-          onPressed: () => {
-            Navigator.push(
-                context,
-                platformPageRoute(
-                    context: context, builder: (_) => SettingsPage()))
-          },
-          materialIcon: Icon(Icons.settings),
-          cupertinoIcon: Icon(
-            CupertinoIcons.gear,
-          ),
-        )
-      ],
-      isExpanded: _currentIndex == 0,
-      expandedWidget: Stack(
-        alignment: Alignment.center,
-        children: <Widget>[
-          Image.asset(
-            "assets/bg.4556cdee.jpg",
-            fit: BoxFit.cover,
-            color: const Color(0xFF9B4810).withOpacity(0.2),
-            colorBlendMode: BlendMode.srcATop,
-          ),
-          _buildSearch(),
-        ],
-      ),
-      frontLayer: Stack(
-        alignment: Alignment.bottomCenter,
-        children: [
-          Column(
+          frontLayer: Column(
             children: [
               Expanded(
                 child: IndexedStack(
@@ -101,27 +101,27 @@ class _OTLHomeState extends State<OTLHome> {
               )
             ],
           ),
-          BottomSearchSheet(),
-          AnimatedBuilder(
-            animation: sheetScrollController,
-            builder: (_, child) { 
-              return Transform.translate(
-                offset: Offset(0, max(0, min(sheetScrollController.animation.value * 5 - 2, 1)) * (kBottomNavigationBarHeight + MediaQuery.of(context).viewPadding.bottom)),
-                child: child,
-              );
-            },
-            child: Wrap(
-              children: <Widget>[
-                _buildBottomNavigationBar(),
-              ],
-            ),
+          backLayers: <Widget>[
+            UserPage(),
+            CourseDetailPage(),
+            LectureDetailPage(),
+          ],
+        ),
+        BottomSearchSheet(),
+        AnimatedBuilder(
+          animation: sheetScrollController,
+          builder: (_, child) { 
+            return Transform.translate(
+              offset: Offset(0, max(0, min(sheetScrollController.animation.value * 5 - 2, 1)) * (kBottomNavigationBarHeight + MediaQuery.of(context).viewPadding.bottom)),
+              child: child,
+            );
+          },
+          child: Wrap(
+            children: <Widget>[
+              _buildBottomNavigationBar(),
+            ],
           ),
-        ],
-      ),
-      backLayers: <Widget>[
-        UserPage(),
-        CourseDetailPage(),
-        LectureDetailPage(),
+        ),
       ],
     );
   }

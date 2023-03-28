@@ -74,15 +74,19 @@ class BottomSearchSheet extends StatefulWidget {
 class _BottomSearchSheetState extends State<BottomSearchSheet> {
   final _textController = TextEditingController();
   late FocusNode _focusNode;
+  late SheetController sheetScrollController;
   Map<String, dynamic> filter = defaultFilter;
 
   final double headerHeight = 68;
   final double contentHeight = 500;
   final Color? backgroundColor = OTL_LIGHTPINK;
   bool searched = false;
+  bool keyboardCanPop = true;
 
   @override
   void initState() {
+    sheetScrollController = context.read<BottomSheetModel>().scrollController;
+    sheetScrollController.addListener(scrollListener);
     super.initState();
     _focusNode = FocusNode();
   }
@@ -90,74 +94,89 @@ class _BottomSearchSheetState extends State<BottomSearchSheet> {
   void dispose() {
     _textController.dispose();
     _focusNode.dispose();
+    sheetScrollController.removeListener(scrollListener);
     super.dispose();
+  }
+
+  void scrollListener() {
+    if(_focusNode.hasFocus) {
+      if(sheetScrollController.animation.value < 0.8) {
+        _focusNode.unfocus();
+      }
+    }
+    // else {
+    //   if(sheetScrollController.animation.value == 1) {
+    //     _focusNode.requestFocus();
+    //   }
+    // }
   }
   
   @override
   Widget build(BuildContext context) {
     final searchModel = context.watch<SearchModel>();
-    return LayoutBuilder(
-      builder: (BuildContext context, BoxConstraints constraints) {
-        return Sheet(
-          backgroundColor: backgroundColor,
-          clipBehavior: Clip.hardEdge,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20)),
+    return Listener(
+      // onPointerDown: (event) {
+      //   _focusNode.unfocus();
+      // },
+      child: Sheet(
+        backgroundColor: backgroundColor,
+        clipBehavior: Clip.hardEdge,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20)),
+        ),
+        controller: context.watch<BottomSheetModel>().scrollController,
+        physics: SnapSheetPhysics(
+          relative: true,
+          stops: <double>[(headerHeight + kBottomNavigationBarHeight + MediaQuery.of(context).viewPadding.bottom) / (headerHeight + contentHeight), 1],
+          parent: const BouncingSheetPhysics(
+            overflowViewport: false,
           ),
-          controller: context.watch<BottomSheetModel>().scrollController,
-          physics: SnapSheetPhysics(
-            relative: true,
-            stops: <double>[(headerHeight + kBottomNavigationBarHeight + MediaQuery.of(context).viewPadding.bottom) / (headerHeight + contentHeight), 1],
-            parent: const BouncingSheetPhysics(
-              overflowViewport: false,
-            ),
-          ),
-          initialExtent: headerHeight,
-          maxExtent: headerHeight + contentHeight,
-          minExtent: headerHeight + kBottomNavigationBarHeight + MediaQuery.of(context).viewPadding.bottom,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              SearchSheetHeader(focusNode: _focusNode, textController: _textController),
-              Flexible(
-                flex: 1,
-                fit: FlexFit.loose,
-                child: searched
-                  ? searchModel.isSearching
-                    ? Center(
-                        child: const CircularProgressIndicator(),
-                      )
-                    : SearchSheetResult(
-                      result: searchModel.lectures
+        ),
+        initialExtent: headerHeight,
+        maxExtent: headerHeight + contentHeight,
+        minExtent: headerHeight + kBottomNavigationBarHeight + MediaQuery.of(context).viewPadding.bottom,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            SearchSheetHeader(focusNode: _focusNode, textController: _textController),
+            Flexible(
+              flex: 1,
+              fit: FlexFit.loose,
+              child: searched
+                ? searchModel.isSearching
+                  ? Center(
+                      child: const CircularProgressIndicator(),
                     )
-                  : SearchSheetBody(textController: _textController, 
-                    filter: filter, 
-                    setFilter: (division, option, value) {
-                      setState(() {
-                        filter[division]["options"][option]["selected"] = value;
-                      });
-                    },
-                    onSumitted: () {
-                      context.read<SearchModel>().lectureSearch(
-                        context.read<TimetableModel>().selectedSemester,
-                        _textController.text,
-                        department: (filter["departments"]["options"] as Map).values.every((element) => element["selected"] == true) ? ["ALL"] : 
-                          (filter["departments"]["options"] as Map).entries.where((element) => element.value["selected"] == true).map((e) => e.key as String).toList(),
-                        type: (filter["types"]["options"] as Map).values.every((element) => element["selected"] == true) ? ["ALL"] :
-                          (filter["types"]["options"] as Map).entries.where((element) => element.value["selected"] == true).map((e) => e.key as String).toList(),
-                        level: (filter["levels"]["options"] as Map).values.every((element) => element["selected"] == true) ? ["ALL"] :
-                          (filter["levels"]["options"] as Map).entries.where((element) => element.value["selected"] == true).map((e) => e.key as String).toList(),
-                      );
-                      setState(() {
-                        searched = true;
-                      });
-                    }
+                  : SearchSheetResult(
+                    result: searchModel.lectures
                   )
-              ),
-            ],
-          ),
-        );
-      }
+                : SearchSheetBody(textController: _textController, 
+                  filter: filter, 
+                  setFilter: (division, option, value) {
+                    setState(() {
+                      filter[division]["options"][option]["selected"] = value;
+                    });
+                  },
+                  onSumitted: () {
+                    context.read<SearchModel>().lectureSearch(
+                      context.read<TimetableModel>().selectedSemester,
+                      _textController.text,
+                      department: (filter["departments"]["options"] as Map).values.every((element) => element["selected"] == true) ? ["ALL"] : 
+                        (filter["departments"]["options"] as Map).entries.where((element) => element.value["selected"] == true).map((e) => e.key as String).toList(),
+                      type: (filter["types"]["options"] as Map).values.every((element) => element["selected"] == true) ? ["ALL"] :
+                        (filter["types"]["options"] as Map).entries.where((element) => element.value["selected"] == true).map((e) => e.key as String).toList(),
+                      level: (filter["levels"]["options"] as Map).values.every((element) => element["selected"] == true) ? ["ALL"] :
+                        (filter["levels"]["options"] as Map).entries.where((element) => element.value["selected"] == true).map((e) => e.key as String).toList(),
+                    );
+                    setState(() {
+                      searched = true;
+                    });
+                  }
+                )
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
