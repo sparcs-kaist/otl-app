@@ -25,6 +25,8 @@ class SearchSheetBody extends StatefulWidget {
 }
 
 class _SearchSheetBodyState extends State<SearchSheetBody> {
+  final ScrollController _scrollController = ScrollController();
+  
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -43,20 +45,31 @@ class _SearchSheetBodyState extends State<SearchSheetBody> {
                 ),
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-                  child: ListView.separated(
-                    itemCount: widget.filter.entries.length,
-                    shrinkWrap: true,
-                    itemBuilder: (context, index) {
-                      return _RadioSelect(
-                          crossAxisCount: 4,
-                          title: widget.filter.values.elementAt(index)["label"],
-                          selectList: widget.filter.values.elementAt(index)["options"],
-                          setSelected: (String option, bool value) {
-                            widget.setFilter(widget.filter.keys.elementAt(index), option, value);
-                          },
-                        );
+                  child: NotificationListener<ScrollUpdateNotification>(
+                    onNotification: (scroll) {
+                      // print(scroll.metrics.pixels);
+                      // if(scroll.metrics.pixels < 0) {
+                      //   _scrollController.
+                      // }
+                      return true;
                     },
-                    separatorBuilder: (context, index) => SizedBox(height: 8,)
+                    child: ListView.separated(
+                      controller: _scrollController,
+                      itemCount: widget.filter.entries.length,
+                      shrinkWrap: true,
+                      padding: EdgeInsets.zero,
+                      itemBuilder: (context, index) {
+                        return _RadioSelect(
+                            crossAxisCount: 4,
+                            title: widget.filter.values.elementAt(index)["label"],
+                            selectList: widget.filter.values.elementAt(index)["options"],
+                            setSelected: (String option, bool value) {
+                              widget.setFilter(widget.filter.keys.elementAt(index), option, value);
+                            },
+                          );
+                      },
+                      separatorBuilder: (context, index) => SizedBox(height: 8,)
+                    ),
                   ),
                 ),
               ),

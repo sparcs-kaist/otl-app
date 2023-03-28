@@ -26,32 +26,6 @@ class SearchSheetHeader extends StatefulWidget {
 
 class _SearchSheetHeaderState extends State<SearchSheetHeader> {
 
-  late SheetController sheetScrollController;
-
-  @override
-  void initState() {
-    sheetScrollController = context.read<BottomSheetModel>().scrollController;
-    sheetScrollController.addListener(scrollListener);
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    sheetScrollController.removeListener(scrollListener);
-    super.dispose();
-  }
-
-  void scrollListener() {
-    if(widget.focusNode.hasFocus) {
-      widget.focusNode.unfocus();
-    }
-    else {
-      if(sheetScrollController.animation.value == 1) {
-        FocusScope.of(context).requestFocus(widget.focusNode);
-      }
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -65,7 +39,7 @@ class _SearchSheetHeaderState extends State<SearchSheetHeader> {
         )
         .then(
           (_) {
-            FocusScope.of(context).requestFocus(widget.focusNode);
+            widget.focusNode.requestFocus();
           }
         );
       },

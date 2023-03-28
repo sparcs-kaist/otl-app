@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:otlplus/providers/bottom_sheet_model.dart';
+import 'package:otlplus/providers/search_model.dart';
 import 'package:provider/provider.dart';
 import 'package:otlplus/constants/color.dart';
 import 'package:otlplus/models/lecture.dart';
 import 'package:otlplus/providers/lecture_detail_model.dart';
-import 'package:otlplus/providers/search_model.dart';
 import 'package:otlplus/providers/timetable_model.dart';
 import 'package:otlplus/utils/export_image.dart';
 import 'package:otlplus/widgets/backdrop.dart';
-import 'package:otlplus/widgets/lecture_search.dart';
 import 'package:otlplus/widgets/semester_picker.dart';
 import 'package:otlplus/widgets/timetable.dart';
 import 'package:otlplus/widgets/timetable_block.dart';
