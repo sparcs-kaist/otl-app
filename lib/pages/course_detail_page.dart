@@ -370,13 +370,13 @@ class CourseDetailPage extends StatelessWidget {
           if (model.reviews?.isEmpty == true) {
             return [Text("결과 없음")];
           } else {
-            return model.reviews?.reversed
-                    .map((review) => ReviewBlock(review: review))
+            return model.reviews
+                    ?.map((review) => ReviewBlock(review: review))
                     .toList() ??
                 [Text("결과 없음")];
           }
         }),
-      ].reversed.toList()),
+      ]),
     );
   }
 
