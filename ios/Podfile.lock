@@ -70,12 +70,14 @@ PODS:
   - Flutter (1.0.0)
   - flutter_web_browser (0.17.1):
     - Flutter
-  - GoogleAppMeasurement (10.6.0):
-    - GoogleAppMeasurement/AdIdSupport (= 10.6.0)
-    - GoogleUtilities/AppDelegateSwizzler (~> 7.8)
-    - GoogleUtilities/MethodSwizzler (~> 7.8)
-    - GoogleUtilities/Network (~> 7.8)
-    - "GoogleUtilities/NSData+zlib (~> 7.8)"
+  - flutter_widgetkit (0.0.1):
+    - Flutter
+  - GoogleAppMeasurement (9.6.0):
+    - GoogleAppMeasurement/AdIdSupport (= 9.6.0)
+    - GoogleUtilities/AppDelegateSwizzler (~> 7.7)
+    - GoogleUtilities/MethodSwizzler (~> 7.7)
+    - GoogleUtilities/Network (~> 7.7)
+    - "GoogleUtilities/NSData+zlib (~> 7.7)"
     - nanopb (< 2.30910.0, >= 2.30908.0)
   - GoogleAppMeasurement/AdIdSupport (10.6.0):
     - GoogleAppMeasurement/WithoutAdIdSupport (= 10.6.0)
@@ -144,7 +146,8 @@ DEPENDENCIES:
   - firebase_crashlytics (from `.symlinks/plugins/firebase_crashlytics/ios`)
   - Flutter (from `Flutter`)
   - flutter_web_browser (from `.symlinks/plugins/flutter_web_browser/ios`)
-  - open_file_safe (from `.symlinks/plugins/open_file_safe/ios`)
+  - flutter_widgetkit (from `.symlinks/plugins/flutter_widgetkit/ios`)
+  - open_file (from `.symlinks/plugins/open_file/ios`)
   - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/ios`)
   - permission_handler (from `.symlinks/plugins/permission_handler/ios`)
   - shared_preferences_foundation (from `.symlinks/plugins/shared_preferences_foundation/ios`)
@@ -180,8 +183,10 @@ EXTERNAL SOURCES:
     :path: Flutter
   flutter_web_browser:
     :path: ".symlinks/plugins/flutter_web_browser/ios"
-  open_file_safe:
-    :path: ".symlinks/plugins/open_file_safe/ios"
+  flutter_widgetkit:
+    :path: ".symlinks/plugins/flutter_widgetkit/ios"
+  open_file:
+    :path: ".symlinks/plugins/open_file/ios"
   path_provider_foundation:
     :path: ".symlinks/plugins/path_provider_foundation/ios"
   permission_handler:
@@ -209,7 +214,8 @@ SPEC CHECKSUMS:
   FirebaseSessions: 34e5c084da010ef3802cbc062b822e513c9e6318
   Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
   flutter_web_browser: 7bccaafbb0c5b8862afe7bcd158f15557109f61f
-  GoogleAppMeasurement: 686b48c3c895f3c55c70719041913d5d150b74f6
+  flutter_widgetkit: a0e9b0d50ee9bec366dad36c639509daaafc397a
+  GoogleAppMeasurement: 6de2b1a69e4326eb82ee05d138f6a5cb7311bcb1
   GoogleDataTransport: ea169759df570f4e37bdee1623ec32a7e64e67c4
   GoogleUtilities: c2bdc4cf2ce786c4d2e6b3bcfd599a25ca78f06f
   nanopb: b552cce312b6c8484180ef47159bc0f65a1f0431
