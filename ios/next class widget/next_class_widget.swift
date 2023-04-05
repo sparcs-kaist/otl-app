@@ -10,34 +10,96 @@ import WidgetKit
 import SwiftUI
 import Intents
 
+struct Timetable: Decodable, Hashable {
+    let id: Int
+    let lectures: [Lecture]
+}
+
+struct Lecture: Decodable, Hashable {
+    let id: Int
+    let title: String
+    let title_en: String
+    let course: Int
+    let old_code: String
+    let class_no: String
+    let year: Int
+    let semester: Int
+    let code: String
+    let department: Int
+    let department_code: String
+    let department_name: String
+    let department_name_en: String
+    let type: String
+    let type_en: String
+    let limit: Int
+    let num_people: Int
+    let is_english: Bool
+    let credit: Int
+    let credit_au: Int
+    let common_title: String
+    let common_title_en: String
+    let class_title: String
+    let class_title_en: String
+    let review_total_weight: Double
+    let grade: Double
+    let speech: Double
+    let professors: [Professor]
+    let classtimes: [Classtime]
+    let examtimes: [Examtime]
+}
+
+struct Professor: Decodable, Hashable {
+    let name: String
+    let name_en: String
+    let professor_id: Int
+    let review_total_weight: Double
+}
+
+struct Classtime: Decodable, Hashable {
+    let building_code: String
+    let classroom: String
+    let classroom_en: String
+    let classroom_short: String
+    let classroom_short_en: String
+    let room_name: String
+    let day: Int
+    let begin: Int
+    let end: Int
+}
+
+struct Examtime: Decodable, Hashable {
+    let str: String
+    let str_en: String
+    let day: Int
+    let begin: Int
+    let end: Int
+}
+
 struct Provider: IntentTimelineProvider {
-    func placeholder(in context: Context) -> SimpleEntry {
-        SimpleEntry(date: Date(), configuration: ConfigurationIntent())
+    func placeholder(in context: Context) -> WidgetEntry {
+        WidgetEntry(date: Date(), timetableData: nil, configuration: ConfigurationIntent())
     }
 
-    func getSnapshot(for configuration: ConfigurationIntent, in context: Context, completion: @escaping (SimpleEntry) -> ()) {
-        let entry = SimpleEntry(date: Date(), configuration: configuration)
+    func getSnapshot(for configuration: ConfigurationIntent, in context: Context, completion: @escaping (WidgetEntry) -> ()) {
+        let entry = WidgetEntry(date: Date(), timetableData: nil, configuration: configuration)
         completion(entry)
     }
 
     func getTimeline(for configuration: ConfigurationIntent, in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
-        var entries: [SimpleEntry] = []
-
         // Generate a timeline consisting of five entries an hour apart, starting from the current date.
-        let currentDate = Date()
-        for hourOffset in 0 ..< 5 {
-            let entryDate = Calendar.current.date(byAdding: .hour, value: hourOffset, to: currentDate)!
-            let entry = SimpleEntry(date: entryDate, configuration: configuration)
-            entries.append(entry)
-        }
-
-        let timeline = Timeline(entries: entries, policy: .atEnd)
+        let sharedDefaults = UserDefaults.init(suiteName: "group.org.sparcs.otlplus")
+        
+        let data = try? JSONDecoder().decode([Timetable].self, from: (sharedDefaults?.string(forKey: "widgetData")?.data(using: .utf8)) ?? Data())
+        let entryDate = Calendar.current.date(byAdding: .hour, value: 24, to: Date())!
+        let entry = WidgetEntry(date: entryDate, timetableData: data, configuration: configuration)
+        let timeline = Timeline(entries: [entry], policy: .atEnd)
         completion(timeline)
     }
 }
 
-struct SimpleEntry: TimelineEntry {
+struct WidgetEntry: TimelineEntry {
     let date: Date
+    let timetableData: [Timetable]?
     let configuration: ConfigurationIntent
 }
 
@@ -45,7 +107,7 @@ struct next_class_widgetEntryView : View {
     var entry: Provider.Entry
 
     var body: some View {
-        Text("다음 수업 위젯")
+        Text(entry.timetableData?[0].lectures[0].common_title ?? "error")
     }
 }
 
@@ -64,7 +126,7 @@ struct next_class_widget: Widget {
 
 struct next_class_widget_Previews: PreviewProvider {
     static var previews: some View {
-        next_class_widgetEntryView(entry: SimpleEntry(date: Date(), configuration: ConfigurationIntent()))
+        next_class_widgetEntryView(entry: WidgetEntry(date: Date(), timetableData: nil, configuration: ConfigurationIntent()))
             .previewContext(WidgetPreviewContext(family: .systemSmall))
     }
 }
