@@ -107,7 +107,43 @@ struct next_class_widgetEntryView : View {
     var entry: Provider.Entry
 
     var body: some View {
-        Text(entry.timetableData?[0].lectures[0].common_title ?? "error")
+//        Text(entry.timetableData?[0].lectures[0].common_title ?? "error")
+        ZStack {
+            Color(red: 249.0/255, green: 240.0/255, blue: 240.0/255)
+            VStack {
+                HStack {
+                    VStack(alignment: .leading) {
+                        Text("다음 강의")
+                            .font(.custom("NotoSansKR-Bold", size: 12))
+                            .foregroundColor(Color(red: 229.0/255, green: 76.0/255, blue: 100.0/255))
+                        Text("10분 후")
+                            .font(.custom("NotoSansKR-Bold", size: 20))
+                            .offset(y: -2)
+                    }
+                    Spacer()
+                }
+                
+                Spacer()
+                
+                HStack {
+                    Rectangle()
+                        .fill(Color(red: 181.0/255, green: 72.0/255, blue: 150.0/255))
+                        .frame(width: 2, height: 60)
+                        .cornerRadius(1)
+
+                    VStack(alignment: .leading) {
+                        Text("네트워크 개론")
+                            .font(.custom("NotoSansKR-Bold", size: 16))
+                        Text("E11 창의학습관 303호")
+                            .font(.custom("NotoSansKR-Regular", size: 12))
+                        Text("10:00-11:30")
+                            .font(.custom("NotoSansKR-Medium", size: 12))
+                            .foregroundColor(.gray)
+                    }
+                    Spacer()
+                }
+            }.padding([.top, .leading, .bottom], 16)
+        }
     }
 }
 
