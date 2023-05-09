@@ -8,26 +8,34 @@ const POSITION_OF_LOCATIONS = {
   'E2': {'left': 0.60, 'top': 0.81},
   'E3': {'left': 0.67, 'top': 0.75},
   'E6': {'left': 0.68, 'top': 0.63},
+  'E6-5': {'left': 0.63, 'top': 0.58},
   'E7': {'left': 0.77, 'top': 0.61},
   'E11': {'left': 0.53, 'top': 0.58},
   'E16': {'left': 0.53, 'top': 0.49},
   'N1': {'left': 0.88, 'top': 0.39},
+  'N2': {'left': 0.71, 'top': 0.45},
   'N3': {'left': 0.53, 'top': 0.45},
   'N4': {'left': 0.62, 'top': 0.41},
   'N5': {'left': 0.74, 'top': 0.39},
   'N7': {'left': 0.33, 'top': 0.41},
+  'N7-2': {'left': 0.29, 'top': 0.42},
   'N22': {'left': 0.79, 'top': 0.35},
   'N24': {'left': 0.76, 'top': 0.31},
   'N25': {'left': 0.59, 'top': 0.36},
   'N27': {'left': 0.57, 'top': 0.24},
   'W1': {'left': 0.31, 'top': 0.84},
+  'W1-1': {'left': 0.28, 'top': 0.88},
+  'W1-2': {'left': 0.34, 'top': 0.85},
+  'W1-3': {'left': 0.35, 'top': 0.81},
   'W8': {'left': 0.35, 'top': 0.55},
   'W16': {'left': 0.40, 'top': 0.87},
 };
 
-class MapView extends StatelessWidget {
+class MapView extends StatefulWidget {
 
   final Map<String, List<Lecture>> _lectures = {};
+
+  Map<String, List<Lecture>> get lectures => _lectures;
 
   MapView({required List<Lecture> lectures}) {
     for(Lecture lecture in lectures) {
@@ -38,14 +46,36 @@ class MapView extends StatelessWidget {
   }
 
   @override
+  State<MapView> createState() => _MapViewState();
+}
+
+class _MapViewState extends State<MapView> {
+  late double _width, _height;
+  late List<String> _pinOrder, _blockOrder;
+
+  @override
+  void initState() {
+    super.initState();
+    _blockOrder = POSITION_OF_LOCATIONS.keys.toList();
+    _blockOrder.add('정보 없음');
+    _pinOrder = [..._blockOrder];
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final List<String> keys = _lectures.keys.toList()..sort();
-    double width = MediaQuery.of(context).size.width - 64;
-    double height = width * 131 / 146;
+    final List<String> pinKeys, blockKeys;
+    pinKeys = widget.lectures.keys.toList()..sort((a, b) {
+      return _pinOrder.indexOf(a).compareTo(_pinOrder.indexOf(b));
+    });
+    blockKeys = widget.lectures.keys.toList()..sort((a, b) {
+      return _blockOrder.indexOf(a).compareTo(_blockOrder.indexOf(b));
+    });
+    _width = MediaQuery.of(context).size.width - 64;
+    _height = _width * 131 / 146;
     return Column(
       children: [
         Container(
-          height: height + 36,
+          height: _height + 36,
           padding: const EdgeInsets.fromLTRB(32, 12, 32, 24),
           child: Stack(
             clipBehavior: Clip.none,
@@ -56,15 +86,15 @@ class MapView extends StatelessWidget {
               ),
             ].followedBy(
               List.generate(
-                keys.length, (i) => _buildMapPin(context, keys[i]),
+                pinKeys.length, (i) => _buildMapPin(context, pinKeys[i]),
               )
             ).toList(),
           ),
         ),
         Expanded(
           child: ListView.builder(
-            itemCount: keys.length,
-            itemBuilder: (_, i) => _buildBuildingBlock(keys[i]),
+            itemCount: blockKeys.length,
+            itemBuilder: (_, i) => _buildBuildingBlock(blockKeys[i]),
           ),
         ),
       ],
@@ -72,11 +102,9 @@ class MapView extends StatelessWidget {
   }
 
   Widget _buildMapPin(BuildContext context, String buildingCode) {
-    double width = MediaQuery.of(context).size.width - 64;
-    double height = width * 131 / 146;
     return Positioned(
-      left: width * (POSITION_OF_LOCATIONS[buildingCode]?['left'] ?? 0.0) - 5,
-      top: height * (POSITION_OF_LOCATIONS[buildingCode]?['top'] ?? 1.0) - 16,
+      left: _width * (POSITION_OF_LOCATIONS[buildingCode]?['left'] ?? 0.0) - 5,
+      top: _height * (POSITION_OF_LOCATIONS[buildingCode]?['top'] ?? 1.0) - 16,
       child: Stack(
         clipBehavior: Clip.none,
         children: [
@@ -131,14 +159,14 @@ class MapView extends StatelessWidget {
                   ),
               ].followedBy(
                 List.generate(
-                  _lectures[buildingCode]!.length,
+                  widget.lectures[buildingCode]!.length,
                   (i) => Padding(
                     padding: const EdgeInsets.only(left: 1),
                     child: Container(
                       width: 9,
                       height: 9,
                       decoration: BoxDecoration(
-                        color: _darken(TIMETABLE_BLOCK_COLORS[_lectures[buildingCode]![i].course % 16]),
+                        color: _darken(TIMETABLE_BLOCK_COLORS[widget.lectures[buildingCode]![i].course % 16]),
                         shape: BoxShape.circle,
                       ),
                     ),
@@ -154,7 +182,7 @@ class MapView extends StatelessWidget {
 
   String _codeToName(String buildingCode) {
     if (buildingCode == '정보 없음') return buildingCode;
-    Classtime first = _lectures[buildingCode]![0].classtimes[0];
+    Classtime first = widget.lectures[buildingCode]![0].classtimes[0];
     String buildingName = first.classroom;
     buildingName = buildingName.replaceAll('($buildingCode)', '');
     buildingName = buildingName.replaceAll(first.roomName, ''); 
@@ -165,30 +193,44 @@ class MapView extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.fromLTRB(16, 0, 16, 12),
       child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
         decoration: BoxDecoration(
           color: BLOCK_COLOR,
           borderRadius: BorderRadius.circular(10),
         ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              _codeToName(buildingCode),
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 12,
-                height: 17 / 12,
-              ),
+        child: Material(
+          color: Colors.transparent,
+          child: InkWell(
+            onTap: () {
+              setState(() {
+                _pinOrder.remove(buildingCode);
+                _pinOrder.add(buildingCode);
+              });
+            },
+            borderRadius: BorderRadius.circular(10),
+            child: Container(
+              padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    _codeToName(buildingCode),
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 12,
+                      height: 17 / 12,
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                ].followedBy(
+                  List.generate(
+                    widget.lectures[buildingCode]!.length,
+                    (i) => _buildLectureBlock(i, buildingCode),
+                  ),
+                ).toList(),
+              )
             ),
-            const SizedBox(height: 4),
-          ].followedBy(
-            List.generate(
-              _lectures[buildingCode]!.length,
-              (i) => _buildLectureBlock(i, buildingCode),
-            ),
-          ).toList(),
-        )
+          ),
+        ),
       ),
     );
   }
@@ -201,7 +243,7 @@ class MapView extends StatelessWidget {
   }
 
   Widget _buildLectureBlock(int i, String buildingCode) {
-    Lecture lecture = _lectures[buildingCode]![i];
+    Lecture lecture = widget.lectures[buildingCode]![i];
     String roomName = lecture.classtimes[0].roomName;
     return Padding(
       padding: EdgeInsets.only(top: i == 0 ? 0 : 6),
