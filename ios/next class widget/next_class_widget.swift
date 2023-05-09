@@ -107,7 +107,6 @@ struct next_class_widgetEntryView : View {
     var entry: Provider.Entry
 
     var body: some View {
-//        Text(entry.timetableData?[0].lectures[0].common_title ?? "error")
         ZStack {
             Color(red: 249.0/255, green: 240.0/255, blue: 240.0/255)
             VStack {
@@ -116,9 +115,11 @@ struct next_class_widgetEntryView : View {
                         Text("다음 강의")
                             .font(.custom("NotoSansKR-Bold", size: 12))
                             .foregroundColor(Color(red: 229.0/255, green: 76.0/255, blue: 100.0/255))
-                        Text("10분 후")
+                        Text(getNextClassTimeLeft(timetable: entry.timetableData![Int(entry.configuration.nextClassTimetable?.identifier ?? "0") ?? 0], date: entry.date))
                             .font(.custom("NotoSansKR-Bold", size: 20))
                             .offset(y: -2)
+                            .minimumScaleFactor(0.5)
+                            .lineLimit(1)
                     }
                     Spacer()
                 }
@@ -127,23 +128,159 @@ struct next_class_widgetEntryView : View {
                 
                 HStack {
                     Rectangle()
-                        .fill(Color(red: 181.0/255, green: 72.0/255, blue: 150.0/255))
+                        .fill(getNextClassColour(timetable: entry.timetableData![Int(entry.configuration.nextClassTimetable?.identifier ?? "0") ?? 0], date: entry.date))
                         .frame(width: 2, height: 60)
                         .cornerRadius(1)
 
                     VStack(alignment: .leading) {
-                        Text("네트워크 개론")
+                        Text(getNextClassName(timetable: entry.timetableData![Int(entry.configuration.nextClassTimetable?.identifier ?? "0") ?? 0], date: entry.date))
                             .font(.custom("NotoSansKR-Bold", size: 16))
-                        Text("E11 창의학습관 303호")
+                            .minimumScaleFactor(0.5)
+                            .lineLimit(2)
+                        Text(getNextClassPlace(timetabe: entry.timetableData![Int(entry.configuration.nextClassTimetable?.identifier ?? "0") ?? 0], date: entry.date))
                             .font(.custom("NotoSansKR-Regular", size: 12))
-                        Text("10:00-11:30")
+                            .minimumScaleFactor(0.5)
+                            .lineLimit(1)
+                        Text(getNextClassTime(timetable: entry.timetableData![Int(entry.configuration.nextClassTimetable?.identifier ?? "0") ?? 0], date: entry.date))
                             .font(.custom("NotoSansKR-Medium", size: 12))
                             .foregroundColor(.gray)
                     }
                     Spacer()
                 }
-            }.padding([.top, .leading, .bottom], 16)
+            }.padding(.all, 16)
         }
+    }
+    
+    func getNextClass(timetable: Timetable, date: Date) -> (Int, Lecture) {
+        var lecture: Lecture = timetable.lectures[0]
+        var lday = -5
+        var begin = 10000
+        var index = 0
+        let calendar = Calendar.current
+        let day = calendar.component(.weekday, from: date) - 2
+        let minutes = calendar.component(.minute, from: date) + calendar.component(.hour, from: date) * 60
+        
+        for l in timetable.lectures {
+            for i in 0..<l.classtimes.count {
+                let c = l.classtimes[i]
+                if c.day == day && c.begin >= minutes && begin >= c.begin {
+                    lday = c.day
+                    begin = c.begin
+                    index = i
+                    lecture = l
+                }
+            }
+        }
+        
+        if lday == -5 {
+            for l in timetable.lectures {
+                for i in 0..<l.classtimes.count {
+                    let c = l.classtimes[i]
+                    if c.day > day && begin >= c.begin {
+                        lday = c.day
+                        begin = c.begin
+                        index = i
+                        lecture = l
+                    }
+                }
+            }
+        }
+        
+        if lday == -5 {
+            lday = 10
+            for l in timetable.lectures {
+                for i in 0..<l.classtimes.count {
+                    let c = l.classtimes[i]
+                    if lday >= c.day && begin >= c.begin {
+                        lday = c.day
+                        begin = c.begin
+                        index = i
+                        lecture = l
+                    }
+                }
+            }
+        }
+        
+        return (index, lecture)
+    }
+    
+    func getNextClassName(timetable: Timetable, date: Date) -> String {
+        let c = getNextClass(timetable: timetable, date: date)
+        let lecture: Lecture = c.1
+        
+        return lecture.common_title
+    }
+    
+    func getNextClassPlace(timetabe: Timetable, date: Date) -> String {
+        let c = getNextClass(timetable: timetabe, date: date)
+        let index = c.0
+        let lecture: Lecture = c.1
+        
+        return lecture.classtimes[index].classroom
+    }
+    
+    func getNextClassTime(timetable: Timetable, date: Date) -> String {
+        let c = getNextClass(timetable: timetable, date: date)
+        let index = c.0
+        let lecture: Lecture = c.1
+        let begin = lecture.classtimes[index].begin
+        let end = lecture.classtimes[index].end
+        
+        return String(format:"%02d:%02d-%02d:%02d", begin/60, begin%60, end/60, end%60)
+    }
+    
+    func getNextClassTimeLeft(timetable: Timetable, date: Date) -> String {
+        let c = getNextClass(timetable: timetable, date: date)
+        let index = c.0
+        let lecture: Lecture = c.1
+        
+        let calendar = Calendar.current
+        let day = calendar.component(.weekday, from: date) - 2
+        let minutes = calendar.component(.minute, from: date) + calendar.component(.hour, from: date) * 60
+        
+        let begin = lecture.classtimes[index].begin
+        let lday = lecture.classtimes[index].day
+        
+        if lday == day {
+            let left = begin - minutes
+            if left / 60 == 0 {
+                return "\(left)분 후"
+            } else {
+                return "\(left/60)시간 \(left%60)분 후"
+            }
+        } else if lday == day+1 {
+            return "내일"
+        } else if lday > day+1 {
+            return "이번주"
+        } else {
+            return "다음주"
+        }
+    }
+    
+    func getNextClassColour(timetable: Timetable, date: Date) -> Color {
+        let c = getNextClass(timetable: timetable, date: date)
+        let course = c.1.course
+
+        let colours = [
+            [242.0, 206.0, 206.0],
+            [244.0, 179.0, 174.0],
+            [242.0, 188.0, 160.0],
+            [240.0, 211.0, 171.0],
+            [241.0, 225.0, 169.0],
+            [244.0, 242.0, 179.0],
+            [219.0, 244.0, 190.0],
+            [190.0, 237.0, 215.0],
+            [183.0, 226.0, 222.0],
+            [201.0, 234.0, 244.0],
+            [180.0, 211.0, 237.0],
+            [185.0, 197.0, 237.0],
+            [204.0, 198.0, 237.0],
+            [216.0, 193.0, 240.0],
+            [235.0, 202.0, 239.0],
+            [244.0, 186.0, 219.0]
+        ]
+        
+        return Color(red: Double(colours[course % 16][0]/255), green:Double(colours[course % 16][1]/255), blue:Double(colours[course % 16][2]/255))
     }
 }
 
