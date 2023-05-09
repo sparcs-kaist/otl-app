@@ -16,6 +16,7 @@ class LikedReviewPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print('build');
     final user = context.watch<InfoModel>().user;
     final reviews = context.watch<LikedReviewModel>().likedReviews(user);
 
