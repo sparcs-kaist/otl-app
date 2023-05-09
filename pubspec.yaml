@@ -20,7 +20,7 @@ dependencies:
   flutter:
     sdk: flutter
 
-  dio: ^4.0.6
+  dio: ^5.1.0
   dotted_border: ^2.0.0+3
   flutter_web_browser: ^0.17.1
   webview_flutter: ^3.0.4
@@ -37,9 +37,9 @@ dependencies:
   cupertino_icons: ^1.0.5
   easy_localization: ^3.0.1
   # Firebase
-  firebase_core: ^1.24.0
-  firebase_analytics: ^9.3.8
-  firebase_crashlytics: ^2.9.0
+  firebase_core: ^2.8.0
+  firebase_analytics: ^10.1.6
+  firebase_crashlytics: ^3.0.17
 
 dev_dependencies:
   test: ^1.19.5
