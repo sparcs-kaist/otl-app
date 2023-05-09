@@ -40,9 +40,12 @@ class MapView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final List<String> keys = _lectures.keys.toList()..sort();
-    return ListView(
-      children: <Widget>[
-        Padding(
+    double width = MediaQuery.of(context).size.width - 64;
+    double height = width * 131 / 146;
+    return Column(
+      children: [
+        Container(
+          height: height + 36,
           padding: const EdgeInsets.fromLTRB(32, 12, 32, 24),
           child: Stack(
             clipBehavior: Clip.none,
@@ -58,11 +61,13 @@ class MapView extends StatelessWidget {
             ).toList(),
           ),
         ),
-      ].followedBy(
-        List.generate(
-          keys.length, (i) => _buildBuildingBlock(keys[i]),
+        Expanded(
+          child: ListView.builder(
+            itemCount: keys.length,
+            itemBuilder: (_, i) => _buildBuildingBlock(keys[i]),
+          ),
         ),
-      ).toList(),
+      ],
     );
   }
 
@@ -180,28 +185,12 @@ class MapView extends StatelessWidget {
           ].followedBy(
             List.generate(
               _lectures[buildingCode]!.length,
-              (i) => _buildLectureBlock(i, _lectures[buildingCode]![i]),
+              (i) => _buildLectureBlock(i, buildingCode),
             ),
           ).toList(),
         )
       ),
     );
-  }
-
-  String _minToTime(int minutes) {
-    String hour = (minutes ~/ 60).toString().padLeft(2, '0');
-    String minute = (minutes % 60).toString().padLeft(2, '0');
-    return '$hour:$minute';
-  }
-
-  String _timesToText(List<Classtime> classtimes) {
-    Map<String, String> timeNDay = {};
-    classtimes.forEach((classtime) {
-      String time = '${_minToTime(classtime.begin)} - ${_minToTime(classtime.end)}';
-      if (timeNDay.containsKey(time)) timeNDay[time] = timeNDay[time]! + DAYSOFWEEK[classtime.day][0];
-      else timeNDay[time] = DAYSOFWEEK[classtime.day][0];
-    });
-    return timeNDay.entries.map((entry) => '${entry.value} ${entry.key}').join('\n');
   }
 
   Color _darken(Color originalColor) {
@@ -211,10 +200,9 @@ class MapView extends StatelessWidget {
     return color.withSaturation(saturation).withLightness(lightness).toColor();
   }
 
-  Widget _buildLectureBlock(int i, Lecture lecture) {
-    String roomName = lecture.classtimes[0].roomName.split(' ')[0];
-    if (roomName.isEmpty) roomName = '-';
-    else roomName += RegExp(r'^[0-9]+$').hasMatch(roomName) ? '호' : '';
+  Widget _buildLectureBlock(int i, String buildingCode) {
+    Lecture lecture = _lectures[buildingCode]![i];
+    String roomName = lecture.classtimes[0].roomName;
     return Padding(
       padding: EdgeInsets.only(top: i == 0 ? 0 : 6),
       child: Row(
@@ -239,44 +227,28 @@ class MapView extends StatelessWidget {
                 fontSize: 12,
                 height: 17 / 12,
               ),
+              maxLines: 5,
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(14, 1, 14, 0),
-            child: Row(
-              children: List.generate(
-                lecture.classtimes[0].roomName.contains('비대면') ? 3 : 1,
-                (i) =>  i != 1 
-                  ? Container(
-                      width: 42,
-                      height: 16,
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                        color: TIMETABLE_BLOCK_COLORS[lecture.course % 16],
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: Text(
-                        i == 0 ? roomName : '비대면',
-                        style: TextStyle(
-                          fontSize: 10,
-                        ),
-                      ),
-                    )
-                  : const SizedBox(width: 4),
+          if (roomName.isNotEmpty)
+            Padding(
+              padding: const EdgeInsets.fromLTRB(16, 2, 0, 0),
+              child: Container(
+                height: 16,
+                padding: const EdgeInsets.symmetric(horizontal: 5),
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  color: TIMETABLE_BLOCK_COLORS[lecture.course % 16],
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Text(
+                  (buildingCode == '정보 없음') ? lecture.classtimes[0].classroom : roomName,
+                  style: TextStyle(
+                    fontSize: 10,
+                  ),
+                ),
               ),
             ),
-          ),
-          SizedBox(
-            width: 105, // 95 by figma
-            child: Text(
-              _timesToText(lecture.classtimes),
-              style: TextStyle(
-                fontSize: 12,
-                height: 17 / 12,
-              ),
-              textAlign: TextAlign.end,
-            ),
-          ),
         ],
       ),
     );
