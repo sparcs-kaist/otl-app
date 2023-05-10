@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:otlplus/constants/color.dart';
 import 'package:otlplus/extensions/semester.dart';
 import 'package:otlplus/models/lecture.dart';
 import 'package:otlplus/models/semester.dart';
 import 'package:otlplus/models/user.dart';
+import 'package:otlplus/pages/lecture_detail_page.dart';
 import 'package:otlplus/providers/info_model.dart';
 import 'package:otlplus/providers/lecture_detail_model.dart';
-import 'package:otlplus/widgets/backdrop.dart';
 import 'package:otlplus/widgets/lecture_simple_block.dart';
 import 'package:provider/provider.dart';
 
 class MyReviewPage extends StatelessWidget {
+  static String route = 'my_review_page';
+
   const MyReviewPage({Key? key}) : super(key: key);
 
   @override
@@ -26,55 +29,99 @@ class MyReviewPage extends StatelessWidget {
       ..sort((a, b) =>
           ((a.year != b.year) ? (b.year - a.year) : (b.semester - a.semester)));
 
-    return Container(
-      constraints: const BoxConstraints.expand(),
-      child: Card(
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(top: Radius.circular(16.0)),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: <Widget>[
-                Text(
-                  "내가 들은 과목",
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 14.0,
+    return Scaffold(
+      appBar: _buildAppBar(context),
+      body: Container(
+        constraints: const BoxConstraints.expand(),
+        child: Card(
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(top: Radius.circular(16.0)),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: <Widget>[
+                  Text(
+                    "내가 들은 과목",
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 14.0,
+                    ),
+                    textAlign: TextAlign.center,
                   ),
-                  textAlign: TextAlign.center,
-                ),
-                ...targetSemesters
-                    .map((semester) => Column(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: <Widget>[
-                            Padding(
-                              padding: const EdgeInsets.only(bottom: 6.0),
-                              child: Text(
-                                semester.title,
-                                style: const TextStyle(
-                                  fontSize: 12.0,
-                                  fontWeight: FontWeight.bold,
+                  ...targetSemesters
+                      .map((semester) => Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: <Widget>[
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 6.0),
+                                child: Text(
+                                  semester.title,
+                                  style: const TextStyle(
+                                    fontSize: 12.0,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
                               ),
-                            ),
-                            ..._buildLectureBlocks(
-                                context,
-                                user,
-                                user.reviewWritableLectures
-                                    .where((lecture) =>
-                                        lecture.year == semester.year &&
-                                        lecture.semester == semester.semester)
-                                    .toList()),
-                            const SizedBox(height: 8.0),
-                          ],
-                        ))
-                    .toList(),
+                              ..._buildLectureBlocks(
+                                  context,
+                                  user,
+                                  user.reviewWritableLectures
+                                      .where((lecture) =>
+                                          lecture.year == semester.year &&
+                                          lecture.semester == semester.semester)
+                                      .toList()),
+                              const SizedBox(height: 8.0),
+                            ],
+                          ))
+                      .toList(),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  PreferredSizeWidget _buildAppBar(BuildContext context) {
+    return PreferredSize(
+      preferredSize: Size.fromHeight(kToolbarHeight),
+      child: Theme(
+        data: Theme.of(context).copyWith(
+            appBarTheme: AppBarTheme(
+          color: BACKGROUND_COLOR,
+          elevation: 0.0,
+          actionsIconTheme: IconThemeData(
+            color: CONTENT_COLOR,
+          ),
+        )),
+        child: AppBar(
+          title: Image.asset(
+            "assets/logo.png",
+            height: 27,
+          ),
+          flexibleSpace: SafeArea(
+            child: Column(
+              children: [
+                Container(
+                  color: PRIMARY_COLOR,
+                  height: 5,
+                ),
               ],
             ),
           ),
+          automaticallyImplyLeading: false,
+          actions: <Widget>[
+            IconButton(
+              icon: const Icon(Icons.close),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+          ],
         ),
       ),
     );
@@ -119,7 +166,8 @@ class MyReviewPage extends StatelessWidget {
       hasReview: user.reviews.any((review) => review.lecture.id == lecture.id),
       onTap: () {
         context.read<LectureDetailModel>().loadLecture(lecture.id, false);
-        Backdrop.of(context).show(2);
+        // Backdrop.of(context).show(2);
+        Navigator.pushNamed(context, LectureDetailPage.route);
       },
     );
   }

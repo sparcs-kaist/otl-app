@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:otlplus/constants/color.dart';
 import 'package:otlplus/models/semester.dart';
+import 'package:otlplus/pages/course_detail_page.dart';
 import 'package:otlplus/providers/hall_of_fame_model.dart';
 import 'package:otlplus/providers/info_model.dart';
 import 'package:provider/provider.dart';
 import 'package:otlplus/providers/course_detail_model.dart';
 import 'package:otlplus/providers/review_model.dart';
-import 'package:otlplus/widgets/backdrop.dart';
 import 'package:otlplus/widgets/review_block.dart';
 
 class ReviewPage extends StatefulWidget {
@@ -215,7 +215,8 @@ class _ReviewPageState extends State<ReviewPage> {
                         context
                             .read<CourseDetailModel>()
                             .loadCourse(latestReviews[index].course.id);
-                        Backdrop.of(context).show(1);
+                        // Backdrop.of(context).show(1);
+                        Navigator.pushNamed(context, CourseDetailPage.route);
                       },
                     );
                   },
@@ -267,7 +268,8 @@ class _ReviewPageState extends State<ReviewPage> {
                         context
                             .read<CourseDetailModel>()
                             .loadCourse(hallOfFames[index].course.id);
-                        Backdrop.of(context).show(1);
+                        // Backdrop.of(context).show(1);
+                        Navigator.pushNamed(context, CourseDetailPage.route);
                       },
                     );
                   },

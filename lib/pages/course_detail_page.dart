@@ -15,19 +15,65 @@ import 'package:otlplus/widgets/review_block.dart';
 import 'package:otlplus/widgets/review_write_block.dart';
 
 class CourseDetailPage extends StatelessWidget {
+  static String route = 'course_detail_page';
+
   final _scrollController = ScrollController();
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(16.0)),
+    return Scaffold(
+      appBar: _buildAppBar(context),
+      body: Card(
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(top: Radius.circular(16.0)),
+        ),
+        child: context.select<CourseDetailModel, bool>((model) => model.hasData)
+            ? _buildBody(context)
+            : Center(
+                child: const CircularProgressIndicator(),
+              ),
       ),
-      child: context.select<CourseDetailModel, bool>((model) => model.hasData)
-          ? _buildBody(context)
-          : Center(
-              child: const CircularProgressIndicator(),
+    );
+  }
+
+  PreferredSizeWidget _buildAppBar(BuildContext context) {
+    return PreferredSize(
+      preferredSize: Size.fromHeight(kToolbarHeight),
+      child: Theme(
+        data: Theme.of(context).copyWith(
+            appBarTheme: AppBarTheme(
+          color: BACKGROUND_COLOR,
+          elevation: 0.0,
+          actionsIconTheme: IconThemeData(
+            color: CONTENT_COLOR,
+          ),
+        )),
+        child: AppBar(
+          title: Image.asset(
+            "assets/logo.png",
+            height: 27,
+          ),
+          flexibleSpace: SafeArea(
+            child: Column(
+              children: [
+                Container(
+                  color: PRIMARY_COLOR,
+                  height: 5,
+                ),
+              ],
             ),
+          ),
+          automaticallyImplyLeading: false,
+          actions: <Widget>[
+            IconButton(
+              icon: const Icon(Icons.close),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        ),
+      ),
     );
   }
 

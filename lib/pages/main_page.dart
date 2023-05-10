@@ -13,6 +13,8 @@ import 'package:easy_localization/easy_localization.dart';
 import '../models/lecture.dart';
 
 class MainPage extends StatelessWidget {
+  // static String route = 'main_page';
+
   @override
   Widget build(BuildContext context) {
     final now = DateTime.now();

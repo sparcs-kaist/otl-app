@@ -1,85 +1,134 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
-import 'package:otlplus/pages/liked_review_page.dart';
-import 'package:otlplus/pages/my_review_page.dart';
 import 'package:otlplus/pages/settings_page.dart';
 import 'package:provider/provider.dart';
 import 'package:otlplus/constants/color.dart';
-import 'package:otlplus/pages/course_detail_page.dart';
 import 'package:otlplus/pages/dictionary_page.dart';
-import 'package:otlplus/pages/lecture_detail_page.dart';
 import 'package:otlplus/pages/main_page.dart';
 import 'package:otlplus/pages/review_page.dart';
 import 'package:otlplus/pages/timetable_page.dart';
 import 'package:otlplus/pages/user_page.dart';
 import 'package:otlplus/providers/search_model.dart';
-import 'package:otlplus/widgets/backdrop.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 class OTLHome extends StatefulWidget {
+  static String route = 'home';
+
   @override
   _OTLHomeState createState() => _OTLHomeState();
 }
 
-class _OTLHomeState extends State<OTLHome> {
+class _OTLHomeState extends State<OTLHome> with SingleTickerProviderStateMixin {
   int _currentIndex = 0;
+  bool get frontLayerVisible =>
+      _controller.status == AnimationStatus.completed ||
+      _controller.status == AnimationStatus.forward;
+  late AnimationController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      duration: const Duration(milliseconds: 300),
+      value: 1.0,
+      vsync: this,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
-    return BackdropScaffold(
-      actions: <Widget>[
-        Builder(
-          builder: (context) => PlatformIconButton(
-            onPressed: () {
-              Backdrop.of(context).show(0);
-            },
-            materialIcon: Icon(Icons.person),
-            cupertinoIcon: Icon(CupertinoIcons.person),
-          ),
-        ),
-        PlatformIconButton(
-          onPressed: () => {
-            Navigator.push(
-                context,
-                platformPageRoute(
-                    context: context, builder: (_) => SettingsPage()))
-          },
-          materialIcon: Icon(Icons.settings),
-          cupertinoIcon: Icon(
-            CupertinoIcons.gear,
-          ),
-        )
-      ],
+    return Scaffold(
+      appBar: _buildAppBar(),
+      backgroundColor:
+          _currentIndex == 0 ? const Color(0xFF9B4810) : BACKGROUND_COLOR,
       bottomNavigationBar: _buildBottomNavigationBar(),
-      isExpanded: _currentIndex == 0,
-      expandedWidget: Stack(
-        alignment: Alignment.center,
-        children: <Widget>[
-          Image.asset(
-            "assets/bg.4556cdee.jpg",
-            fit: BoxFit.cover,
-            color: const Color(0xFF9B4810).withOpacity(0.2),
-            colorBlendMode: BlendMode.srcATop,
+      body: GestureDetector(
+        onTap: () {
+          FocusScope.of(context).unfocus();
+        },
+        child: LayoutBuilder(builder: _buildStack),
+      ),
+      resizeToAvoidBottomInset: false,
+    );
+  }
+
+  PreferredSizeWidget _buildAppBar() {
+    return PreferredSize(
+      preferredSize: Size.fromHeight(_currentIndex == 0
+          ? MediaQuery.of(context).size.width / 1296 * 865 + 5
+          : kToolbarHeight),
+      child: Theme(
+        data: Theme.of(context).copyWith(
+            appBarTheme: AppBarTheme(
+          color: BACKGROUND_COLOR,
+          elevation: 0.0,
+          actionsIconTheme: IconThemeData(
+            color: _currentIndex == 0 ? Colors.white70 : CONTENT_COLOR,
           ),
-          _buildSearch(),
-        ],
+        )),
+        child: AppBar(
+            title: Image.asset(
+              "assets/logo.png",
+              height: 27,
+            ),
+            flexibleSpace: SafeArea(
+              child: Column(
+                children: [
+                  Container(
+                    color: PRIMARY_COLOR,
+                    height: 5,
+                  ),
+                  if (_currentIndex == 0) _buildExpandedWidget(),
+                ],
+              ),
+            ),
+            automaticallyImplyLeading: false,
+            actions: <Widget>[
+              Builder(
+                builder: (context) => PlatformIconButton(
+                  onPressed: () {
+                    // Backdrop.of(context).show(0);
+                    Navigator.push(
+                      context,
+                      _buildUserPageRoute(),
+                    );
+                  },
+                  materialIcon: Icon(Icons.person),
+                  cupertinoIcon: Icon(CupertinoIcons.person),
+                ),
+              ),
+              PlatformIconButton(
+                onPressed: () => {
+                  Navigator.push(
+                    context,
+                    platformPageRoute(
+                      context: context,
+                      builder: (_) => SettingsPage(),
+                    ),
+                  )
+                },
+                materialIcon: Icon(Icons.settings),
+                cupertinoIcon: Icon(
+                  CupertinoIcons.gear,
+                ),
+              )
+            ]),
       ),
-      frontLayer: IndexedStack(
-        index: _currentIndex,
-        children: <Widget>[
-          MainPage(),
-          TimetablePage(),
-          DictionaryPage(),
-          ReviewPage(),
-        ],
-      ),
-      backLayers: <Widget>[
-        UserPage(),
-        CourseDetailPage(),
-        LectureDetailPage(),
-        MyReviewPage(),
-        LikedReviewPage(),
+    );
+  }
+
+  Widget _buildExpandedWidget() {
+    return Stack(
+      alignment: Alignment.center,
+      children: <Widget>[
+        Image.asset(
+          "assets/bg.4556cdee.jpg",
+          fit: BoxFit.cover,
+          color: const Color(0xFF9B4810).withOpacity(0.2),
+          colorBlendMode: BlendMode.srcATop,
+        ),
+        _buildSearch(),
       ],
     );
   }
@@ -112,6 +161,39 @@ class _OTLHomeState extends State<OTLHome> {
     );
   }
 
+  Widget _buildStack(BuildContext context, BoxConstraints constraints) {
+    final layerTop = constraints.biggest.height;
+    final layerAnimation = RelativeRectTween(
+      begin: RelativeRect.fromLTRB(0, layerTop, 0, -layerTop),
+      end: RelativeRect.fromLTRB(0, 0, 0, 0),
+    ).animate(CurvedAnimation(
+      parent: _controller,
+      curve: Curves.easeInOut,
+    ));
+
+    return Stack(
+      children: <Widget>[
+        PositionedTransition(
+          rect: layerAnimation,
+          child: AnimatedOpacity(
+            child: IndexedStack(
+              index: _currentIndex,
+              children: <Widget>[
+                MainPage(),
+                TimetablePage(),
+                DictionaryPage(),
+                ReviewPage(),
+              ],
+            ),
+            curve: Curves.easeInOut,
+            duration: const Duration(milliseconds: 300),
+            opacity: frontLayerVisible ? 1.0 : 0.0,
+          ),
+        ),
+      ],
+    );
+  }
+
   BottomNavigationBar _buildBottomNavigationBar() {
     return BottomNavigationBar(
       currentIndex: _currentIndex,
@@ -141,6 +223,28 @@ class _OTLHomeState extends State<OTLHome> {
           label: tr("main.review"),
         ),
       ],
+    );
+  }
+
+  Route _buildUserPageRoute() {
+    return PageRouteBuilder(
+      pageBuilder: (context, animation, secondaryAnimation) => UserPage(),
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        const begin = Offset(0.0, 1.0);
+        const end = Offset.zero;
+
+        // final tween = Tween(begin: begin, end: end);
+        // final offsetAnimation = animation.drive(tween);
+
+        final curveTween = CurveTween(curve: Curves.ease);
+        final tween = Tween(begin: begin, end: end).chain(curveTween);
+        final offsetAnimation = animation.drive(tween);
+
+        return SlideTransition(
+          position: offsetAnimation,
+          child: child,
+        );
+      },
     );
   }
 }

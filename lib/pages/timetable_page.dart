@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:otlplus/pages/lecture_detail_page.dart';
 import 'package:provider/provider.dart';
 import 'package:otlplus/constants/color.dart';
 import 'package:otlplus/models/lecture.dart';
@@ -7,7 +8,6 @@ import 'package:otlplus/providers/lecture_detail_model.dart';
 import 'package:otlplus/providers/search_model.dart';
 import 'package:otlplus/providers/timetable_model.dart';
 import 'package:otlplus/utils/export_image.dart';
-import 'package:otlplus/widgets/backdrop.dart';
 import 'package:otlplus/widgets/lecture_search.dart';
 import 'package:otlplus/widgets/semester_picker.dart';
 import 'package:otlplus/widgets/timetable.dart';
@@ -17,6 +17,8 @@ import 'package:otlplus/widgets/timetable_tabs.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 class TimetablePage extends StatefulWidget {
+  // static String route = 'timetable_page';
+
   @override
   _TimetablePageState createState() => _TimetablePageState();
 }
@@ -174,7 +176,8 @@ class _TimetablePageState extends State<TimetablePage> {
           isTemp: isSelected,
           onTap: () {
             context.read<LectureDetailModel>().loadLecture(lecture.id, true);
-            Backdrop.of(context).show(2);
+            // Backdrop.of(context).show(2);
+            Navigator.pushNamed(context, LectureDetailPage.route);
           },
           onLongPress: isSelected
               ? null

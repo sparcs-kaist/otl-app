@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:otlplus/pages/lecture_detail_page.dart';
 import 'package:provider/provider.dart';
 import 'package:otlplus/constants/color.dart';
 import 'package:otlplus/extensions/lecture.dart';
 import 'package:otlplus/models/lecture.dart';
 import 'package:otlplus/providers/lecture_detail_model.dart';
-import 'package:otlplus/widgets/backdrop.dart';
 
 class LectureGroupSimpleBlock extends StatelessWidget {
   final List<Lecture> lectures;
@@ -48,7 +48,8 @@ class LectureGroupSimpleBlock extends StatelessWidget {
                           context
                               .read<LectureDetailModel>()
                               .loadLecture(lecture.id, false);
-                          Backdrop.of(context).show(2);
+                          // Backdrop.of(context).show(2);
+                          Navigator.pushNamed(context, LectureDetailPage.route);
                         },
                         borderRadius: BorderRadius.vertical(
                           top: (lectures.first == lecture)

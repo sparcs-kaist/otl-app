@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:otlplus/pages/course_detail_page.dart';
 import 'package:provider/provider.dart';
 import 'package:otlplus/providers/course_detail_model.dart';
-import 'package:otlplus/widgets/backdrop.dart';
 import 'package:otlplus/widgets/course_search.dart';
 
 class DictionaryPage extends StatelessWidget {
+  // static String route = 'dictionary_page';
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -14,7 +16,8 @@ class DictionaryPage extends StatelessWidget {
       child: CourseSearch(
         onCourseTap: (course) {
           context.read<CourseDetailModel>().loadCourse(course.id);
-          Backdrop.of(context).show(1);
+          // Backdrop.of(context).show(1);
+          Navigator.pushNamed(context, CourseDetailPage.route);
         },
       ),
     );

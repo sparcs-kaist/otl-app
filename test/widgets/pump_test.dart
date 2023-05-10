@@ -1,8 +1,6 @@
-import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 // import 'package:otlplus/models/timetable.dart';
 import 'package:otlplus/providers/search_model.dart';
-import 'package:otlplus/widgets/backdrop.dart';
 import 'package:otlplus/widgets/course_block.dart';
 import 'package:otlplus/widgets/course_search.dart';
 import 'package:otlplus/widgets/lecture_group_block.dart';
@@ -22,12 +20,6 @@ import '../utils/extensions.dart';
 import '../utils/samples.dart';
 
 void main() {
-  testWidgets('pump BackdropScaffold', (WidgetTester tester) async {
-    await tester.pumpWidget(
-        BackdropScaffold(frontLayer: Text(""), backLayers: [Text("")])
-            .material);
-  });
-
   testWidgets('pump CourseBlock', (WidgetTester tester) async {
     await tester.pumpWidget(CourseBlock(course: SampleCourse.shared).material);
   });
