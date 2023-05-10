@@ -17,7 +17,6 @@ class MyReviewPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('build');
     final user = context.watch<InfoModel>().user;
     final targetSemesters = user.reviewWritableLectures
         .map((lecture) => Semester(
