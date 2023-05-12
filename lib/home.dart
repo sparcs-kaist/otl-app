@@ -85,27 +85,22 @@ class _OTLHomeState extends State<OTLHome> with SingleTickerProviderStateMixin {
             ),
             automaticallyImplyLeading: false,
             actions: <Widget>[
-              Builder(
-                builder: (context) => PlatformIconButton(
-                  onPressed: () {
-                    // Backdrop.of(context).show(0);
-                    Navigator.push(
-                      context,
-                      _buildUserPageRoute(),
-                    );
-                  },
-                  materialIcon: Icon(Icons.person),
-                  cupertinoIcon: Icon(CupertinoIcons.person),
-                ),
+              PlatformIconButton(
+                onPressed: () {
+                  // Backdrop.of(context).show(0);
+                  Navigator.push(
+                    context,
+                    _buildUserPageRoute(),
+                  );
+                },
+                materialIcon: Icon(Icons.person),
+                cupertinoIcon: Icon(CupertinoIcons.person),
               ),
               PlatformIconButton(
                 onPressed: () => {
                   Navigator.push(
                     context,
-                    platformPageRoute(
-                      context: context,
-                      builder: (_) => SettingsPage(),
-                    ),
+                    _buildSettingsPageRoute(),
                   )
                 },
                 materialIcon: Icon(Icons.settings),
@@ -228,14 +223,28 @@ class _OTLHomeState extends State<OTLHome> with SingleTickerProviderStateMixin {
 
   Route _buildUserPageRoute() {
     return PageRouteBuilder(
-      pageBuilder: (context, animation, secondaryAnimation) => UserPage(),
-      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+      pageBuilder: (_, animation, __) => UserPage(),
+      transitionsBuilder: (_, animation, __, child) {
         const begin = Offset(0.0, 1.0);
         const end = Offset.zero;
+        final curveTween = CurveTween(curve: Curves.ease);
+        final tween = Tween(begin: begin, end: end).chain(curveTween);
+        final offsetAnimation = animation.drive(tween);
 
-        // final tween = Tween(begin: begin, end: end);
-        // final offsetAnimation = animation.drive(tween);
+        return SlideTransition(
+          position: offsetAnimation,
+          child: child,
+        );
+      },
+    );
+  }
 
+  Route _buildSettingsPageRoute() {
+    return PageRouteBuilder(
+      pageBuilder: (_, animation, __) => SettingsPage(),
+      transitionsBuilder: (_, animation, __, child) {
+        const begin = Offset(0.0, 1.0);
+        const end = Offset.zero;
         final curveTween = CurveTween(curve: Curves.ease);
         final tween = Tween(begin: begin, end: end).chain(curveTween);
         final offsetAnimation = animation.drive(tween);
