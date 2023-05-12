@@ -11,42 +11,20 @@
 		2DAD2A5367C379DF7800BE5C /* Pods_Runner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1192CE4F13ED3097A8AFDA65 /* Pods_Runner.framework */; };
 		3B3967161E833CAA004F5970 /* AppFrameworkInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3B3967151E833CAA004F5970 /* AppFrameworkInfo.plist */; };
 		74858FAF1ED2DC5600515810 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74858FAE1ED2DC5600515810 /* AppDelegate.swift */; };
-		8B4D0B8B29D1F73E0021310C /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BB3DDFE29D1F25A001AD191 /* WidgetKit.framework */; };
-		8B4D0B8C29D1F73E0021310C /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BB3DE0029D1F25B001AD191 /* SwiftUI.framework */; };
-		8B4D0B8F29D1F73E0021310C /* today_classes_widgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B4D0B8E29D1F73E0021310C /* today_classes_widgetBundle.swift */; };
-		8B4D0B9129D1F73E0021310C /* today_classes_widget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B4D0B9029D1F73E0021310C /* today_classes_widget.swift */; };
-		8B4D0B9329D1F73E0021310C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8B4D0B9229D1F73E0021310C /* Assets.xcassets */; };
-		8B4D0B9729D1F73E0021310C /* today classes widgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 8B4D0B8A29D1F73E0021310C /* today classes widgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		8B4D0BA129D1F7F60021310C /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BB3DDFE29D1F25A001AD191 /* WidgetKit.framework */; };
-		8B4D0BA229D1F7F60021310C /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BB3DE0029D1F25B001AD191 /* SwiftUI.framework */; };
-		8B4D0BA529D1F7F60021310C /* week_classes_widgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B4D0BA429D1F7F60021310C /* week_classes_widgetBundle.swift */; };
-		8B4D0BA729D1F7F60021310C /* week_classes_widget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B4D0BA629D1F7F60021310C /* week_classes_widget.swift */; };
-		8B4D0BA929D1F7F60021310C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8B4D0BA829D1F7F60021310C /* Assets.xcassets */; };
-		8B4D0BAD29D1F7F60021310C /* week classes widgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 8B4D0BA029D1F7F60021310C /* week classes widgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		8B76C8E42A0E834A007E1947 /* TodayClassesWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B76C8E32A0E834A007E1947 /* TodayClassesWidget.swift */; };
+		8B76C8E62A0E837F007E1947 /* WidgetBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B76C8E52A0E837F007E1947 /* WidgetBase.swift */; };
 		8B949A0129FF4CC1009D4750 /* NotoSansKR-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = 8B949A0029FF4CC1009D4750 /* NotoSansKR-Black.otf */; };
 		8B949A0229FF4CC1009D4750 /* NotoSansKR-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = 8B949A0029FF4CC1009D4750 /* NotoSansKR-Black.otf */; };
-		8B949A0329FF4CC1009D4750 /* NotoSansKR-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = 8B949A0029FF4CC1009D4750 /* NotoSansKR-Black.otf */; };
-		8B949A0429FF4CC1009D4750 /* NotoSansKR-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = 8B949A0029FF4CC1009D4750 /* NotoSansKR-Black.otf */; };
 		8B949A0629FF4CD0009D4750 /* NotoSansKR-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 8B949A0529FF4CD0009D4750 /* NotoSansKR-Bold.otf */; };
 		8B949A0729FF4CD0009D4750 /* NotoSansKR-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 8B949A0529FF4CD0009D4750 /* NotoSansKR-Bold.otf */; };
-		8B949A0829FF4CD0009D4750 /* NotoSansKR-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 8B949A0529FF4CD0009D4750 /* NotoSansKR-Bold.otf */; };
-		8B949A0929FF4CD0009D4750 /* NotoSansKR-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 8B949A0529FF4CD0009D4750 /* NotoSansKR-Bold.otf */; };
 		8B949A0B29FF4CD7009D4750 /* NotoSansKR-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 8B949A0A29FF4CD7009D4750 /* NotoSansKR-Light.otf */; };
 		8B949A0C29FF4CD7009D4750 /* NotoSansKR-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 8B949A0A29FF4CD7009D4750 /* NotoSansKR-Light.otf */; };
-		8B949A0D29FF4CD7009D4750 /* NotoSansKR-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 8B949A0A29FF4CD7009D4750 /* NotoSansKR-Light.otf */; };
-		8B949A0E29FF4CD7009D4750 /* NotoSansKR-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 8B949A0A29FF4CD7009D4750 /* NotoSansKR-Light.otf */; };
 		8B949A1029FF4CDF009D4750 /* NotoSansKR-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 8B949A0F29FF4CDF009D4750 /* NotoSansKR-Medium.otf */; };
 		8B949A1129FF4CDF009D4750 /* NotoSansKR-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 8B949A0F29FF4CDF009D4750 /* NotoSansKR-Medium.otf */; };
-		8B949A1229FF4CDF009D4750 /* NotoSansKR-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 8B949A0F29FF4CDF009D4750 /* NotoSansKR-Medium.otf */; };
-		8B949A1329FF4CDF009D4750 /* NotoSansKR-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 8B949A0F29FF4CDF009D4750 /* NotoSansKR-Medium.otf */; };
 		8B949A1529FF4CE6009D4750 /* NotoSansKR-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 8B949A1429FF4CE6009D4750 /* NotoSansKR-Regular.otf */; };
 		8B949A1629FF4CE6009D4750 /* NotoSansKR-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 8B949A1429FF4CE6009D4750 /* NotoSansKR-Regular.otf */; };
-		8B949A1729FF4CE6009D4750 /* NotoSansKR-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 8B949A1429FF4CE6009D4750 /* NotoSansKR-Regular.otf */; };
-		8B949A1829FF4CE6009D4750 /* NotoSansKR-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 8B949A1429FF4CE6009D4750 /* NotoSansKR-Regular.otf */; };
 		8B949A1A29FF4CED009D4750 /* NotoSansKR-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = 8B949A1929FF4CED009D4750 /* NotoSansKR-Thin.otf */; };
 		8B949A1B29FF4CED009D4750 /* NotoSansKR-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = 8B949A1929FF4CED009D4750 /* NotoSansKR-Thin.otf */; };
-		8B949A1C29FF4CED009D4750 /* NotoSansKR-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = 8B949A1929FF4CED009D4750 /* NotoSansKR-Thin.otf */; };
-		8B949A1D29FF4CED009D4750 /* NotoSansKR-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = 8B949A1929FF4CED009D4750 /* NotoSansKR-Thin.otf */; };
 		8BB345822A012C99008A0E30 /* Intents.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BB345812A012C99008A0E30 /* Intents.framework */; };
 		8BB345852A012C99008A0E30 /* IntentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BB345842A012C99008A0E30 /* IntentHandler.swift */; };
 		8BB345892A012C99008A0E30 /* OTLPlusIntents.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 8BB345802A012C99008A0E30 /* OTLPlusIntents.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -66,20 +44,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		8B4D0B9529D1F73E0021310C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 97C146E61CF9000F007C117D /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 8B4D0B8929D1F73E0021310C;
-			remoteInfo = "today classes widgetExtension";
-		};
-		8B4D0BAB29D1F7F60021310C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 97C146E61CF9000F007C117D /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 8B4D0B9F29D1F7F60021310C;
-			remoteInfo = "week classes widgetExtension";
-		};
 		8BB345872A012C99008A0E30 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 97C146E61CF9000F007C117D /* Project object */;
@@ -105,8 +69,6 @@
 			files = (
 				8BB345892A012C99008A0E30 /* OTLPlusIntents.appex in Embed Foundation Extensions */,
 				8BB3DE0F29D1F25B001AD191 /* next class widgetExtension.appex in Embed Foundation Extensions */,
-				8B4D0B9729D1F73E0021310C /* today classes widgetExtension.appex in Embed Foundation Extensions */,
-				8B4D0BAD29D1F7F60021310C /* week classes widgetExtension.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -133,17 +95,8 @@
 		74858FAE1ED2DC5600515810 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		76D656FDF089F15187A13F7D /* Pods-Runner.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.debug.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.debug.xcconfig"; sourceTree = "<group>"; };
 		7AFA3C8E1D35360C0083082E /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Release.xcconfig; path = Flutter/Release.xcconfig; sourceTree = "<group>"; };
-		8B4D0B8A29D1F73E0021310C /* today classes widgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "today classes widgetExtension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
-		8B4D0B8E29D1F73E0021310C /* today_classes_widgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = today_classes_widgetBundle.swift; sourceTree = "<group>"; };
-		8B4D0B9029D1F73E0021310C /* today_classes_widget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = today_classes_widget.swift; sourceTree = "<group>"; };
-		8B4D0B9229D1F73E0021310C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		8B4D0B9429D1F73E0021310C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8B4D0BA029D1F7F60021310C /* week classes widgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "week classes widgetExtension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
-		8B4D0BA429D1F7F60021310C /* week_classes_widgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = week_classes_widgetBundle.swift; sourceTree = "<group>"; };
-		8B4D0BA629D1F7F60021310C /* week_classes_widget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = week_classes_widget.swift; sourceTree = "<group>"; };
-		8B4D0BA829D1F7F60021310C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		8B4D0BAA29D1F7F60021310C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8B4D0BB229D1F80D0021310C /* week classes widgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "week classes widgetExtension.entitlements"; sourceTree = "<group>"; };
+		8B76C8E32A0E834A007E1947 /* TodayClassesWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayClassesWidget.swift; sourceTree = "<group>"; };
+		8B76C8E52A0E837F007E1947 /* WidgetBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetBase.swift; sourceTree = "<group>"; };
 		8B949A0029FF4CC1009D4750 /* NotoSansKR-Black.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Black.otf"; sourceTree = "<group>"; };
 		8B949A0529FF4CD0009D4750 /* NotoSansKR-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Bold.otf"; sourceTree = "<group>"; };
 		8B949A0A29FF4CD7009D4750 /* NotoSansKR-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Light.otf"; sourceTree = "<group>"; };
@@ -164,8 +117,6 @@
 		8BB3DE0829D1F25B001AD191 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8BB3DE0A29D1F25B001AD191 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8BB3DE4729D1F286001AD191 /* next class widgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "next class widgetExtension.entitlements"; sourceTree = "<group>"; };
-		8BB3DE4829D1F295001AD191 /* today classes widgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "today classes widgetExtension.entitlements"; sourceTree = "<group>"; };
-		8BB3DE4929D1F2B1001AD191 /* week class widgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "week class widgetExtension.entitlements"; sourceTree = "<group>"; };
 		9740EEB21CF90195004384FC /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Debug.xcconfig; path = Flutter/Debug.xcconfig; sourceTree = "<group>"; };
 		9740EEB31CF90195004384FC /* Generated.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Generated.xcconfig; path = Flutter/Generated.xcconfig; sourceTree = "<group>"; };
 		97C146EE1CF9000F007C117D /* Runner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Runner.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -178,24 +129,6 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		8B4D0B8729D1F73E0021310C /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				8B4D0B8C29D1F73E0021310C /* SwiftUI.framework in Frameworks */,
-				8B4D0B8B29D1F73E0021310C /* WidgetKit.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		8B4D0B9D29D1F7F60021310C /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				8B4D0BA229D1F7F60021310C /* SwiftUI.framework in Frameworks */,
-				8B4D0BA129D1F7F60021310C /* WidgetKit.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		8BB3457D2A012C99008A0E30 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -234,28 +167,6 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		8B4D0B8D29D1F73E0021310C /* today classes widget */ = {
-			isa = PBXGroup;
-			children = (
-				8B4D0B8E29D1F73E0021310C /* today_classes_widgetBundle.swift */,
-				8B4D0B9029D1F73E0021310C /* today_classes_widget.swift */,
-				8B4D0B9229D1F73E0021310C /* Assets.xcassets */,
-				8B4D0B9429D1F73E0021310C /* Info.plist */,
-			);
-			path = "today classes widget";
-			sourceTree = "<group>";
-		};
-		8B4D0BA329D1F7F60021310C /* week classes widget */ = {
-			isa = PBXGroup;
-			children = (
-				8B4D0BA429D1F7F60021310C /* week_classes_widgetBundle.swift */,
-				8B4D0BA629D1F7F60021310C /* week_classes_widget.swift */,
-				8B4D0BA829D1F7F60021310C /* Assets.xcassets */,
-				8B4D0BAA29D1F7F60021310C /* Info.plist */,
-			);
-			path = "week classes widget";
-			sourceTree = "<group>";
-		};
 		8B949A1E29FF4CF2009D4750 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
@@ -284,6 +195,8 @@
 			children = (
 				8BB3DE0329D1F25B001AD191 /* next_class_widgetBundle.swift */,
 				8BB3DE0529D1F25B001AD191 /* next_class_widget.swift */,
+				8B76C8E32A0E834A007E1947 /* TodayClassesWidget.swift */,
+				8B76C8E52A0E837F007E1947 /* WidgetBase.swift */,
 				8BB3DE0729D1F25B001AD191 /* next_class_widget.intentdefinition */,
 				8BB3DE0829D1F25B001AD191 /* Assets.xcassets */,
 				8BB3DE0A29D1F25B001AD191 /* Info.plist */,
@@ -305,15 +218,10 @@
 		97C146E51CF9000F007C117D = {
 			isa = PBXGroup;
 			children = (
-				8B4D0BB229D1F80D0021310C /* week classes widgetExtension.entitlements */,
-				8BB3DE4929D1F2B1001AD191 /* week class widgetExtension.entitlements */,
-				8BB3DE4829D1F295001AD191 /* today classes widgetExtension.entitlements */,
 				8BB3DE4729D1F286001AD191 /* next class widgetExtension.entitlements */,
 				9740EEB11CF90186004384FC /* Flutter */,
 				97C146F01CF9000F007C117D /* Runner */,
 				8BB3DE0229D1F25B001AD191 /* next class widget */,
-				8B4D0B8D29D1F73E0021310C /* today classes widget */,
-				8B4D0BA329D1F7F60021310C /* week classes widget */,
 				8BB345832A012C99008A0E30 /* OTLPlusIntents */,
 				97C146EF1CF9000F007C117D /* Products */,
 				39D0B0698705DDCE085402CF /* Pods */,
@@ -326,8 +234,6 @@
 			children = (
 				97C146EE1CF9000F007C117D /* Runner.app */,
 				8BB3DDFD29D1F25A001AD191 /* next class widgetExtension.appex */,
-				8B4D0B8A29D1F73E0021310C /* today classes widgetExtension.appex */,
-				8B4D0BA029D1F7F60021310C /* week classes widgetExtension.appex */,
 				8BB345802A012C99008A0E30 /* OTLPlusIntents.appex */,
 			);
 			name = Products;
@@ -372,40 +278,6 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		8B4D0B8929D1F73E0021310C /* today classes widgetExtension */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 8B4D0B9829D1F73E0021310C /* Build configuration list for PBXNativeTarget "today classes widgetExtension" */;
-			buildPhases = (
-				8B4D0B8629D1F73E0021310C /* Sources */,
-				8B4D0B8729D1F73E0021310C /* Frameworks */,
-				8B4D0B8829D1F73E0021310C /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "today classes widgetExtension";
-			productName = "today classes widgetExtension";
-			productReference = 8B4D0B8A29D1F73E0021310C /* today classes widgetExtension.appex */;
-			productType = "com.apple.product-type.app-extension";
-		};
-		8B4D0B9F29D1F7F60021310C /* week classes widgetExtension */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 8B4D0BAE29D1F7F60021310C /* Build configuration list for PBXNativeTarget "week classes widgetExtension" */;
-			buildPhases = (
-				8B4D0B9C29D1F7F60021310C /* Sources */,
-				8B4D0B9D29D1F7F60021310C /* Frameworks */,
-				8B4D0B9E29D1F7F60021310C /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "week classes widgetExtension";
-			productName = "week classes widgetExtension";
-			productReference = 8B4D0BA029D1F7F60021310C /* week classes widgetExtension.appex */;
-			productType = "com.apple.product-type.app-extension";
-		};
 		8BB3457F2A012C99008A0E30 /* OTLPlusIntents */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8BB3458A2A012C99008A0E30 /* Build configuration list for PBXNativeTarget "OTLPlusIntents" */;
@@ -459,8 +331,6 @@
 			);
 			dependencies = (
 				8BB3DE0E29D1F25B001AD191 /* PBXTargetDependency */,
-				8B4D0B9629D1F73E0021310C /* PBXTargetDependency */,
-				8B4D0BAC29D1F7F60021310C /* PBXTargetDependency */,
 				8BB345882A012C99008A0E30 /* PBXTargetDependency */,
 			);
 			name = Runner;
@@ -478,12 +348,6 @@
 				LastUpgradeCheck = 1300;
 				ORGANIZATIONNAME = "The Chromium Authors";
 				TargetAttributes = {
-					8B4D0B8929D1F73E0021310C = {
-						CreatedOnToolsVersion = 14.2;
-					};
-					8B4D0B9F29D1F7F60021310C = {
-						CreatedOnToolsVersion = 14.2;
-					};
 					8BB3457F2A012C99008A0E30 = {
 						CreatedOnToolsVersion = 14.3;
 					};
@@ -511,42 +375,12 @@
 			targets = (
 				97C146ED1CF9000F007C117D /* Runner */,
 				8BB3DDFC29D1F25A001AD191 /* next class widgetExtension */,
-				8B4D0B8929D1F73E0021310C /* today classes widgetExtension */,
-				8B4D0B9F29D1F7F60021310C /* week classes widgetExtension */,
 				8BB3457F2A012C99008A0E30 /* OTLPlusIntents */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		8B4D0B8829D1F73E0021310C /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				8B4D0B9329D1F73E0021310C /* Assets.xcassets in Resources */,
-				8B949A1C29FF4CED009D4750 /* NotoSansKR-Thin.otf in Resources */,
-				8B949A0829FF4CD0009D4750 /* NotoSansKR-Bold.otf in Resources */,
-				8B949A1229FF4CDF009D4750 /* NotoSansKR-Medium.otf in Resources */,
-				8B949A0D29FF4CD7009D4750 /* NotoSansKR-Light.otf in Resources */,
-				8B949A1729FF4CE6009D4750 /* NotoSansKR-Regular.otf in Resources */,
-				8B949A0329FF4CC1009D4750 /* NotoSansKR-Black.otf in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		8B4D0B9E29D1F7F60021310C /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				8B4D0BA929D1F7F60021310C /* Assets.xcassets in Resources */,
-				8B949A1D29FF4CED009D4750 /* NotoSansKR-Thin.otf in Resources */,
-				8B949A0929FF4CD0009D4750 /* NotoSansKR-Bold.otf in Resources */,
-				8B949A1329FF4CDF009D4750 /* NotoSansKR-Medium.otf in Resources */,
-				8B949A0E29FF4CD7009D4750 /* NotoSansKR-Light.otf in Resources */,
-				8B949A1829FF4CE6009D4750 /* NotoSansKR-Regular.otf in Resources */,
-				8B949A0429FF4CC1009D4750 /* NotoSansKR-Black.otf in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		8BB3457E2A012C99008A0E30 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -716,24 +550,6 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		8B4D0B8629D1F73E0021310C /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				8B4D0B9129D1F73E0021310C /* today_classes_widget.swift in Sources */,
-				8B4D0B8F29D1F73E0021310C /* today_classes_widgetBundle.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		8B4D0B9C29D1F7F60021310C /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				8B4D0BA729D1F7F60021310C /* week_classes_widget.swift in Sources */,
-				8B4D0BA529D1F7F60021310C /* week_classes_widgetBundle.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		8BB3457C2A012C99008A0E30 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -749,7 +565,9 @@
 			files = (
 				8BB3DE0B29D1F25B001AD191 /* next_class_widget.intentdefinition in Sources */,
 				8BB3DE0429D1F25B001AD191 /* next_class_widgetBundle.swift in Sources */,
+				8B76C8E62A0E837F007E1947 /* WidgetBase.swift in Sources */,
 				8BB3458E2A012CF0008A0E30 /* IntentHandler.swift in Sources */,
+				8B76C8E42A0E834A007E1947 /* TodayClassesWidget.swift in Sources */,
 				8BB3DE0629D1F25B001AD191 /* next_class_widget.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -767,16 +585,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		8B4D0B9629D1F73E0021310C /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 8B4D0B8929D1F73E0021310C /* today classes widgetExtension */;
-			targetProxy = 8B4D0B9529D1F73E0021310C /* PBXContainerItemProxy */;
-		};
-		8B4D0BAC29D1F7F60021310C /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 8B4D0B9F29D1F7F60021310C /* week classes widgetExtension */;
-			targetProxy = 8B4D0BAB29D1F7F60021310C /* PBXContainerItemProxy */;
-		};
 		8BB345882A012C99008A0E30 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 8BB3457F2A012C99008A0E30 /* OTLPlusIntents */;
@@ -894,250 +702,6 @@
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
-			};
-			name = Profile;
-		};
-		8B4D0B9929D1F73E0021310C /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_ENTITLEMENTS = "today classes widgetExtension.entitlements";
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = U8TCH8B3WQ;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "today classes widget/Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "today classes widget";
-				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2023 The Chromium Authors. All rights reserved.";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				MARKETING_VERSION = 1.0;
-				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
-				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = "org.sparcs.otlplus.today-classes-widget";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		8B4D0B9A29D1F73E0021310C /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_ENTITLEMENTS = "today classes widgetExtension.entitlements";
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = U8TCH8B3WQ;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "today classes widget/Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "today classes widget";
-				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2023 The Chromium Authors. All rights reserved.";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				MARKETING_VERSION = 1.0;
-				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = "org.sparcs.otlplus.today-classes-widget";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
-		};
-		8B4D0B9B29D1F73E0021310C /* Profile */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_ENTITLEMENTS = "today classes widgetExtension.entitlements";
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = U8TCH8B3WQ;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "today classes widget/Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "today classes widget";
-				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2023 The Chromium Authors. All rights reserved.";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				MARKETING_VERSION = 1.0;
-				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = "org.sparcs.otlplus.today-classes-widget";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Profile;
-		};
-		8B4D0BAF29D1F7F60021310C /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_ENTITLEMENTS = "week classes widgetExtension.entitlements";
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = U8TCH8B3WQ;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "week classes widget/Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "week classes widget";
-				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2023 The Chromium Authors. All rights reserved.";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				MARKETING_VERSION = 1.0;
-				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
-				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = "org.sparcs.otlplus.week-classes-widget";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		8B4D0BB029D1F7F60021310C /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_ENTITLEMENTS = "week classes widgetExtension.entitlements";
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = U8TCH8B3WQ;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "week classes widget/Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "week classes widget";
-				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2023 The Chromium Authors. All rights reserved.";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				MARKETING_VERSION = 1.0;
-				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = "org.sparcs.otlplus.week-classes-widget";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
-		};
-		8B4D0BB129D1F7F60021310C /* Profile */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_ENTITLEMENTS = "week classes widgetExtension.entitlements";
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = U8TCH8B3WQ;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "week classes widget/Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "week classes widget";
-				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2023 The Chromium Authors. All rights reserved.";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				MARKETING_VERSION = 1.0;
-				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = "org.sparcs.otlplus.week-classes-widget";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Profile;
 		};
@@ -1570,26 +1134,6 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		8B4D0B9829D1F73E0021310C /* Build configuration list for PBXNativeTarget "today classes widgetExtension" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				8B4D0B9929D1F73E0021310C /* Debug */,
-				8B4D0B9A29D1F73E0021310C /* Release */,
-				8B4D0B9B29D1F73E0021310C /* Profile */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		8B4D0BAE29D1F7F60021310C /* Build configuration list for PBXNativeTarget "week classes widgetExtension" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				8B4D0BAF29D1F7F60021310C /* Debug */,
-				8B4D0BB029D1F7F60021310C /* Release */,
-				8B4D0BB129D1F7F60021310C /* Profile */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		8BB3458A2A012C99008A0E30 /* Build configuration list for PBXNativeTarget "OTLPlusIntents" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

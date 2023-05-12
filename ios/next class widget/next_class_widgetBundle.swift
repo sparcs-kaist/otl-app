@@ -13,5 +13,6 @@ import SwiftUI
 struct next_class_widgetBundle: WidgetBundle {
     var body: some Widget {
         next_class_widget()
+        TodayClassesWidget()
     }
 }
