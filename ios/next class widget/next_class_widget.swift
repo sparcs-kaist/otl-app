@@ -13,11 +13,11 @@ import Intents
 struct Provider: IntentTimelineProvider {
     typealias Entry = WidgetEntry
     func placeholder(in context: Context) -> WidgetEntry {
-        WidgetEntry(date: Date(), timetableData: nil, configuration: ConfigurationIntent())
+        WidgetEntry(date: Date(), timetableData: nil, todayLectures: nil, configuration: ConfigurationIntent())
     }
 
     func getSnapshot(for configuration: ConfigurationIntent, in context: Context, completion: @escaping (WidgetEntry) -> ()) {
-        let entry = WidgetEntry(date: Date(), timetableData: nil, configuration: configuration)
+        let entry = WidgetEntry(date: Date(), timetableData: nil, todayLectures: nil, configuration: configuration)
         completion(entry)
     }
 
@@ -26,16 +26,20 @@ struct Provider: IntentTimelineProvider {
         let sharedDefaults = UserDefaults.init(suiteName: "group.org.sparcs.otlplus")
         
         let data = try? JSONDecoder().decode([Timetable].self, from: (sharedDefaults?.string(forKey: "widgetData")?.data(using: .utf8)) ?? Data())
-        let entryDate = Calendar.current.date(byAdding: .hour, value: 24, to: Date())!
-        let entry = WidgetEntry(date: entryDate, timetableData: data, configuration: configuration)
+//        let entryDate = Calendar.current.date(byAdding: .hour, value: 24, to: Date())!
+        let entryDate = Date()
+        let entry = WidgetEntry(date: entryDate, timetableData: data, todayLectures: getTodayLectures(timetable: data?[Int(configuration.nextClassTimetable?.identifier ?? "0") ?? 0], date: entryDate), configuration: configuration)
         let timeline = Timeline(entries: [entry], policy: .atEnd)
         completion(timeline)
     }
 }
 
+
+
 struct WidgetEntry: TimelineEntry {
     let date: Date
     let timetableData: [Timetable]?
+    let todayLectures: [(Int, Lecture)]?
     let configuration: ConfigurationIntent
 }
 
@@ -235,7 +239,7 @@ struct next_class_widget: Widget {
 
 struct next_class_widget_Previews: PreviewProvider {
     static var previews: some View {
-        next_class_widgetEntryView(entry: WidgetEntry(date: Date(), timetableData: nil, configuration: ConfigurationIntent()))
+        next_class_widgetEntryView(entry: WidgetEntry(date: Date(), timetableData: nil, todayLectures: nil, configuration: ConfigurationIntent()))
             .previewContext(WidgetPreviewContext(family: .systemSmall))
     }
 }
