@@ -132,27 +132,6 @@ func getTodayLectures(timetable: Timetable?, date: Date) -> [(Int, Lecture)] {
     return tmp
 }
 
-func getDayWithWeekDay(weekday: Int) -> Int {
-    switch weekday {
-    case 1:
-        return 6
-    case 2:
-        return 0
-    case 3:
-        return 1
-    case 4:
-        return 2
-    case 5:
-        return 3
-    case 6:
-        return 4
-    case 7:
-        return 5
-    default:
-        return 0
-    }
-}
-
 struct TodayClassesLectureView: View {
     let lectureName: String
     let lecturePlace: String

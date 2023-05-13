@@ -114,3 +114,24 @@ func getColourForCourse(course: Int) -> Color {
     
     return Color(red: Double(colours[course % 16][0]/255), green:Double(colours[course % 16][1]/255), blue:Double(colours[course % 16][2]/255))
 }
+
+func getDayWithWeekDay(weekday: Int) -> Int {
+    switch weekday {
+    case 1:
+        return 6
+    case 2:
+        return 0
+    case 3:
+        return 1
+    case 4:
+        return 2
+    case 5:
+        return 3
+    case 6:
+        return 4
+    case 7:
+        return 5
+    default:
+        return 0
+    }
+}
