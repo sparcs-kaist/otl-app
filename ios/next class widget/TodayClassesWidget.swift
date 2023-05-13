@@ -37,7 +37,7 @@ struct TodayClassesWidgetEntryView : View {
                                             .frame(width: 40)
                                             .multilineTextAlignment(.center)
                                             .font(.system(size: 12, weight: number%6==0 ? .bold : .regular))
-                                        Line()
+                                        VerticalLine()
                                             .stroke(style: StrokeStyle(lineWidth: 1))
                                             .frame(width: 1)
                                             .foregroundColor(Color(red: 0, green: 0, blue: 0, opacity: 0.25))
@@ -47,7 +47,7 @@ struct TodayClassesWidgetEntryView : View {
                                         VStack {
                                             Spacer()
                                                 .frame(height: 24)
-                                            Line()
+                                            VerticalLine()
                                                 .stroke(style: StrokeStyle(lineWidth: 1, dash: [2]))
                                                 .frame(width: 1)
                                                 .foregroundColor(Color(red: 0, green: 0, blue: 0, opacity: 0.25))
@@ -108,29 +108,6 @@ func getLecturesDataForToayClassesWidget(data: [(Int, Lecture)]) -> [TodayClasse
     return tmp
 }
 
-func getColourForCourse(course: Int) -> Color {
-    let colours = [
-        [242.0, 206.0, 206.0],
-        [244.0, 179.0, 174.0],
-        [242.0, 188.0, 160.0],
-        [240.0, 211.0, 171.0],
-        [241.0, 225.0, 169.0],
-        [244.0, 242.0, 179.0],
-        [219.0, 244.0, 190.0],
-        [190.0, 237.0, 215.0],
-        [183.0, 226.0, 222.0],
-        [201.0, 234.0, 244.0],
-        [180.0, 211.0, 237.0],
-        [185.0, 197.0, 237.0],
-        [204.0, 198.0, 237.0],
-        [216.0, 193.0, 240.0],
-        [235.0, 202.0, 239.0],
-        [244.0, 186.0, 219.0]
-    ]
-    
-    return Color(red: Double(colours[course % 16][0]/255), green:Double(colours[course % 16][1]/255), blue:Double(colours[course % 16][2]/255))
-}
-
 func getTodayLectures(timetable: Timetable?, date: Date) -> [(Int, Lecture)] {
     var tmp: [(Int, Lecture)] = [(Int, Lecture)]()
     if (timetable == nil) {
@@ -138,29 +115,21 @@ func getTodayLectures(timetable: Timetable?, date: Date) -> [(Int, Lecture)] {
     }
     
     let calendar = Calendar.current
-//    let day = getDayWithWeekDay(weekday: calendar.component(.weekday, from: date))
-    let day = 0
+    var day = getDayWithWeekDay(weekday: calendar.component(.weekday, from: date))
     
-    for l in timetable!.lectures {
-        for i in 0..<l.classtimes.count {
-            let c = l.classtimes[i]
-            if c.day == day {
-                tmp.append((i, l))
+    while tmp.count == 0 {
+        for l in timetable!.lectures {
+            for i in 0..<l.classtimes.count {
+                let c = l.classtimes[i]
+                if c.day == day {
+                    tmp.append((i, l))
+                }
             }
         }
+        day = (day >= 7) ? 0 : day + 1
     }
     
     return tmp
-}
-
-func playWithTime(date: Date) -> String {
-    let calendar = Calendar.current
-    let day = calendar.component(.weekday, from: date)
-    
-    let m = Double(90)
-    let c = (0.9388*m*10).rounded()/10
-    
-    return "\(c)"
 }
 
 func getDayWithWeekDay(weekday: Int) -> Int {
@@ -206,15 +175,6 @@ struct TodayClassesLectureView: View {
             }.padding(.horizontal, 8)
         }
         .padding(.horizontal, 2)
-    }
-}
-
-struct Line: Shape {
-    func path(in rect: CGRect) -> Path {
-        var path = Path()
-        path.move(to: CGPoint(x: 0, y: 0))
-        path.addLine(to: CGPoint(x: 0, y: rect.height))
-        return path
     }
 }
 
