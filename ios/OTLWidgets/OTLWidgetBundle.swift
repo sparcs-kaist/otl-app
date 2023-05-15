@@ -10,9 +10,9 @@ import WidgetKit
 import SwiftUI
 
 @main
-struct next_class_widgetBundle: WidgetBundle {
+struct OTLWidgetBundle : WidgetBundle {
     var body: some Widget {
-        next_class_widget()
+        NextClassWidget()
         TodayClassesWidget()
         WeekClassesWidget()
     }

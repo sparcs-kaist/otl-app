@@ -30,15 +30,15 @@
 		8BB345852A012C99008A0E30 /* IntentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BB345842A012C99008A0E30 /* IntentHandler.swift */; };
 		8BB345892A012C99008A0E30 /* OTLPlusIntents.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 8BB345802A012C99008A0E30 /* OTLPlusIntents.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		8BB3458E2A012CF0008A0E30 /* IntentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BB345842A012C99008A0E30 /* IntentHandler.swift */; };
-		8BB3458F2A012CF8008A0E30 /* next_class_widget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 8BB3DE0729D1F25B001AD191 /* next_class_widget.intentdefinition */; };
+		8BB3458F2A012CF8008A0E30 /* Configuration.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 8BB3DE0729D1F25B001AD191 /* Configuration.intentdefinition */; };
 		8BB3DDFF29D1F25B001AD191 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BB3DDFE29D1F25A001AD191 /* WidgetKit.framework */; };
 		8BB3DE0129D1F25B001AD191 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BB3DE0029D1F25B001AD191 /* SwiftUI.framework */; };
-		8BB3DE0429D1F25B001AD191 /* next_class_widgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BB3DE0329D1F25B001AD191 /* next_class_widgetBundle.swift */; };
-		8BB3DE0629D1F25B001AD191 /* next_class_widget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BB3DE0529D1F25B001AD191 /* next_class_widget.swift */; };
+		8BB3DE0429D1F25B001AD191 /* OTLWidgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BB3DE0329D1F25B001AD191 /* OTLWidgetBundle.swift */; };
+		8BB3DE0629D1F25B001AD191 /* NextClassWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BB3DE0529D1F25B001AD191 /* NextClassWidget.swift */; };
 		8BB3DE0929D1F25B001AD191 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8BB3DE0829D1F25B001AD191 /* Assets.xcassets */; };
-		8BB3DE0B29D1F25B001AD191 /* next_class_widget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 8BB3DE0729D1F25B001AD191 /* next_class_widget.intentdefinition */; };
-		8BB3DE0C29D1F25B001AD191 /* next_class_widget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 8BB3DE0729D1F25B001AD191 /* next_class_widget.intentdefinition */; };
-		8BB3DE0F29D1F25B001AD191 /* next class widgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 8BB3DDFD29D1F25A001AD191 /* next class widgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		8BB3DE0B29D1F25B001AD191 /* Configuration.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 8BB3DE0729D1F25B001AD191 /* Configuration.intentdefinition */; };
+		8BB3DE0C29D1F25B001AD191 /* Configuration.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 8BB3DE0729D1F25B001AD191 /* Configuration.intentdefinition */; };
+		8BB3DE0F29D1F25B001AD191 /* OTLWidgetsExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 8BB3DDFD29D1F25A001AD191 /* OTLWidgetsExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		97C146FC1CF9000F007C117D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FA1CF9000F007C117D /* Main.storyboard */; };
 		97C146FE1CF9000F007C117D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FD1CF9000F007C117D /* Assets.xcassets */; };
 		97C147011CF9000F007C117D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FF1CF9000F007C117D /* LaunchScreen.storyboard */; };
@@ -69,7 +69,7 @@
 			dstSubfolderSpec = 13;
 			files = (
 				8BB345892A012C99008A0E30 /* OTLPlusIntents.appex in Embed Foundation Extensions */,
-				8BB3DE0F29D1F25B001AD191 /* next class widgetExtension.appex in Embed Foundation Extensions */,
+				8BB3DE0F29D1F25B001AD191 /* OTLWidgetsExtension.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -110,15 +110,15 @@
 		8BB345842A012C99008A0E30 /* IntentHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntentHandler.swift; sourceTree = "<group>"; };
 		8BB345862A012C99008A0E30 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8BB345902A01704E008A0E30 /* OTLPlusIntents.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = OTLPlusIntents.entitlements; sourceTree = "<group>"; };
-		8BB3DDFD29D1F25A001AD191 /* next class widgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "next class widgetExtension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8BB3DDFD29D1F25A001AD191 /* OTLWidgetsExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = OTLWidgetsExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		8BB3DDFE29D1F25A001AD191 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		8BB3DE0029D1F25B001AD191 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
-		8BB3DE0329D1F25B001AD191 /* next_class_widgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = next_class_widgetBundle.swift; sourceTree = "<group>"; };
-		8BB3DE0529D1F25B001AD191 /* next_class_widget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = next_class_widget.swift; sourceTree = "<group>"; };
-		8BB3DE0729D1F25B001AD191 /* next_class_widget.intentdefinition */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; path = next_class_widget.intentdefinition; sourceTree = "<group>"; };
+		8BB3DE0329D1F25B001AD191 /* OTLWidgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTLWidgetBundle.swift; sourceTree = "<group>"; };
+		8BB3DE0529D1F25B001AD191 /* NextClassWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextClassWidget.swift; sourceTree = "<group>"; };
+		8BB3DE0729D1F25B001AD191 /* Configuration.intentdefinition */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; path = Configuration.intentdefinition; sourceTree = "<group>"; };
 		8BB3DE0829D1F25B001AD191 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8BB3DE0A29D1F25B001AD191 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8BB3DE4729D1F286001AD191 /* next class widgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "next class widgetExtension.entitlements"; sourceTree = "<group>"; };
+		8BB3DE4729D1F286001AD191 /* OTLWidgetsExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = OTLWidgetsExtension.entitlements; sourceTree = "<group>"; };
 		9740EEB21CF90195004384FC /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Debug.xcconfig; path = Flutter/Debug.xcconfig; sourceTree = "<group>"; };
 		9740EEB31CF90195004384FC /* Generated.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Generated.xcconfig; path = Flutter/Generated.xcconfig; sourceTree = "<group>"; };
 		97C146EE1CF9000F007C117D /* Runner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Runner.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -192,19 +192,19 @@
 			path = OTLPlusIntents;
 			sourceTree = "<group>";
 		};
-		8BB3DE0229D1F25B001AD191 /* next class widget */ = {
+		8BB3DE0229D1F25B001AD191 /* OTLWidgets */ = {
 			isa = PBXGroup;
 			children = (
-				8BB3DE0329D1F25B001AD191 /* next_class_widgetBundle.swift */,
-				8BB3DE0529D1F25B001AD191 /* next_class_widget.swift */,
+				8BB3DE0329D1F25B001AD191 /* OTLWidgetBundle.swift */,
+				8BB3DE0529D1F25B001AD191 /* NextClassWidget.swift */,
 				8B76C8E32A0E834A007E1947 /* TodayClassesWidget.swift */,
 				8B1EA3B72A0FFF3B00387753 /* WeekClassesWidget.swift */,
 				8B76C8E52A0E837F007E1947 /* WidgetBase.swift */,
-				8BB3DE0729D1F25B001AD191 /* next_class_widget.intentdefinition */,
+				8BB3DE0729D1F25B001AD191 /* Configuration.intentdefinition */,
 				8BB3DE0829D1F25B001AD191 /* Assets.xcassets */,
 				8BB3DE0A29D1F25B001AD191 /* Info.plist */,
 			);
-			path = "next class widget";
+			path = OTLWidgets;
 			sourceTree = "<group>";
 		};
 		9740EEB11CF90186004384FC /* Flutter */ = {
@@ -221,10 +221,10 @@
 		97C146E51CF9000F007C117D = {
 			isa = PBXGroup;
 			children = (
-				8BB3DE4729D1F286001AD191 /* next class widgetExtension.entitlements */,
+				8BB3DE4729D1F286001AD191 /* OTLWidgetsExtension.entitlements */,
 				9740EEB11CF90186004384FC /* Flutter */,
 				97C146F01CF9000F007C117D /* Runner */,
-				8BB3DE0229D1F25B001AD191 /* next class widget */,
+				8BB3DE0229D1F25B001AD191 /* OTLWidgets */,
 				8BB345832A012C99008A0E30 /* OTLPlusIntents */,
 				97C146EF1CF9000F007C117D /* Products */,
 				39D0B0698705DDCE085402CF /* Pods */,
@@ -236,7 +236,7 @@
 			isa = PBXGroup;
 			children = (
 				97C146EE1CF9000F007C117D /* Runner.app */,
-				8BB3DDFD29D1F25A001AD191 /* next class widgetExtension.appex */,
+				8BB3DDFD29D1F25A001AD191 /* OTLWidgetsExtension.appex */,
 				8BB345802A012C99008A0E30 /* OTLPlusIntents.appex */,
 			);
 			name = Products;
@@ -298,9 +298,9 @@
 			productReference = 8BB345802A012C99008A0E30 /* OTLPlusIntents.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
-		8BB3DDFC29D1F25A001AD191 /* next class widgetExtension */ = {
+		8BB3DDFC29D1F25A001AD191 /* OTLWidgetsExtension */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 8BB3DE1429D1F25B001AD191 /* Build configuration list for PBXNativeTarget "next class widgetExtension" */;
+			buildConfigurationList = 8BB3DE1429D1F25B001AD191 /* Build configuration list for PBXNativeTarget "OTLWidgetsExtension" */;
 			buildPhases = (
 				8BB3DDF929D1F25A001AD191 /* Sources */,
 				8BB3DDFA29D1F25A001AD191 /* Frameworks */,
@@ -310,9 +310,9 @@
 			);
 			dependencies = (
 			);
-			name = "next class widgetExtension";
+			name = OTLWidgetsExtension;
 			productName = "next class widgetExtension";
-			productReference = 8BB3DDFD29D1F25A001AD191 /* next class widgetExtension.appex */;
+			productReference = 8BB3DDFD29D1F25A001AD191 /* OTLWidgetsExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
 		97C146ED1CF9000F007C117D /* Runner */ = {
@@ -377,7 +377,7 @@
 			projectRoot = "";
 			targets = (
 				97C146ED1CF9000F007C117D /* Runner */,
-				8BB3DDFC29D1F25A001AD191 /* next class widgetExtension */,
+				8BB3DDFC29D1F25A001AD191 /* OTLWidgetsExtension */,
 				8BB3457F2A012C99008A0E30 /* OTLPlusIntents */,
 			);
 		};
@@ -557,7 +557,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8BB3458F2A012CF8008A0E30 /* next_class_widget.intentdefinition in Sources */,
+				8BB3458F2A012CF8008A0E30 /* Configuration.intentdefinition in Sources */,
 				8BB345852A012C99008A0E30 /* IntentHandler.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -566,13 +566,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8BB3DE0B29D1F25B001AD191 /* next_class_widget.intentdefinition in Sources */,
+				8BB3DE0B29D1F25B001AD191 /* Configuration.intentdefinition in Sources */,
 				8B1EA3B82A0FFF3B00387753 /* WeekClassesWidget.swift in Sources */,
-				8BB3DE0429D1F25B001AD191 /* next_class_widgetBundle.swift in Sources */,
+				8BB3DE0429D1F25B001AD191 /* OTLWidgetBundle.swift in Sources */,
 				8B76C8E62A0E837F007E1947 /* WidgetBase.swift in Sources */,
 				8BB3458E2A012CF0008A0E30 /* IntentHandler.swift in Sources */,
 				8B76C8E42A0E834A007E1947 /* TodayClassesWidget.swift in Sources */,
-				8BB3DE0629D1F25B001AD191 /* next_class_widget.swift in Sources */,
+				8BB3DE0629D1F25B001AD191 /* NextClassWidget.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -580,7 +580,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8BB3DE0C29D1F25B001AD191 /* next_class_widget.intentdefinition in Sources */,
+				8BB3DE0C29D1F25B001AD191 /* Configuration.intentdefinition in Sources */,
 				74858FAF1ED2DC5600515810 /* AppDelegate.swift in Sources */,
 				1498D2341E8E89220040F4C2 /* GeneratedPluginRegistrant.m in Sources */,
 			);
@@ -596,7 +596,7 @@
 		};
 		8BB3DE0E29D1F25B001AD191 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 8BB3DDFC29D1F25A001AD191 /* next class widgetExtension */;
+			target = 8BB3DDFC29D1F25A001AD191 /* OTLWidgetsExtension */;
 			targetProxy = 8BB3DE0D29D1F25B001AD191 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -836,7 +836,7 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_ENTITLEMENTS = "next class widgetExtension.entitlements";
+				CODE_SIGN_ENTITLEMENTS = OTLWidgetsExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -844,7 +844,7 @@
 				DEVELOPMENT_TEAM = U8TCH8B3WQ;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "next class widget/Info.plist";
+				INFOPLIST_FILE = OTLWidgets/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "next class widget";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2023 The Chromium Authors. All rights reserved.";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
@@ -856,7 +856,7 @@
 				MARKETING_VERSION = 1.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = "org.sparcs.otlplus.next-class-widget";
+				PRODUCT_BUNDLE_IDENTIFIER = org.sparcs.otlplus.otlwidgets;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
@@ -878,14 +878,14 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_ENTITLEMENTS = "next class widgetExtension.entitlements";
+				CODE_SIGN_ENTITLEMENTS = OTLWidgetsExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = U8TCH8B3WQ;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "next class widget/Info.plist";
+				INFOPLIST_FILE = OTLWidgets/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "next class widget";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2023 The Chromium Authors. All rights reserved.";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
@@ -896,7 +896,7 @@
 				);
 				MARKETING_VERSION = 1.0;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = "org.sparcs.otlplus.next-class-widget";
+				PRODUCT_BUNDLE_IDENTIFIER = org.sparcs.otlplus.otlwidgets;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
@@ -918,14 +918,14 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_ENTITLEMENTS = "next class widgetExtension.entitlements";
+				CODE_SIGN_ENTITLEMENTS = OTLWidgetsExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = U8TCH8B3WQ;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "next class widget/Info.plist";
+				INFOPLIST_FILE = OTLWidgets/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "next class widget";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2023 The Chromium Authors. All rights reserved.";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
@@ -936,7 +936,7 @@
 				);
 				MARKETING_VERSION = 1.0;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = "org.sparcs.otlplus.next-class-widget";
+				PRODUCT_BUNDLE_IDENTIFIER = org.sparcs.otlplus.otlwidgets;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
@@ -1148,7 +1148,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		8BB3DE1429D1F25B001AD191 /* Build configuration list for PBXNativeTarget "next class widgetExtension" */ = {
+		8BB3DE1429D1F25B001AD191 /* Build configuration list for PBXNativeTarget "OTLWidgetsExtension" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				8BB3DE1129D1F25B001AD191 /* Debug */,

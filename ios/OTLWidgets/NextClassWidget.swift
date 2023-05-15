@@ -1,5 +1,5 @@
 //
-//  next_class_widget.swift
+//  NextClassWidget.swift
 //  next class widget
 //
 //  Created by Soongyu Kwon on 28/03/2023.
@@ -48,7 +48,7 @@ struct WidgetEntry: TimelineEntry {
     let configuration: ConfigurationIntent
 }
 
-struct next_class_widgetEntryView : View {
+struct NextClassWidgetEntryView : View {
     var entry: Provider.Entry
 
     var body: some View {
@@ -229,12 +229,12 @@ struct next_class_widgetEntryView : View {
     }
 }
 
-struct next_class_widget: Widget {
+struct NextClassWidget: Widget {
     let kind: String = "next_class_widget"
 
     var body: some WidgetConfiguration {
         IntentConfiguration(kind: kind, intent: ConfigurationIntent.self, provider: Provider()) { entry in
-            next_class_widgetEntryView(entry: entry)
+            NextClassWidgetEntryView(entry: entry)
         }
         .configurationDisplayName("다음 수업")
         .description("다음에 시작할 수업을 확인합니다.")
@@ -242,9 +242,9 @@ struct next_class_widget: Widget {
     }
 }
 
-struct next_class_widget_Previews: PreviewProvider {
+struct NextClassWidgetPreviews: PreviewProvider {
     static var previews: some View {
-        next_class_widgetEntryView(entry: WidgetEntry(date: Date(), timetableData: nil, todayLectures: nil, configuration: ConfigurationIntent()))
+        NextClassWidgetEntryView(entry: WidgetEntry(date: Date(), timetableData: nil, todayLectures: nil, configuration: ConfigurationIntent()))
             .previewContext(WidgetPreviewContext(family: .systemSmall))
     }
 }
