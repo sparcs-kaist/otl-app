@@ -17,7 +17,12 @@ struct Provider: IntentTimelineProvider {
     }
 
     func getSnapshot(for configuration: ConfigurationIntent, in context: Context, completion: @escaping (WidgetEntry) -> ()) {
-        let entry = WidgetEntry(date: Date(), timetableData: nil, todayLectures: nil, configuration: configuration)
+        let sharedDefaults = UserDefaults.init(suiteName: "group.org.sparcs.otlplus")
+        
+        let data = try? JSONDecoder().decode([Timetable].self, from: (sharedDefaults?.string(forKey: "widgetData")?.data(using: .utf8)) ?? Data())
+//        let entryDate = Calendar.current.date(byAdding: .hour, value: 24, to: Date())!
+        let entryDate = Date()
+        let entry = WidgetEntry(date: entryDate, timetableData: data, todayLectures: getTodayLectures(timetable: data?[Int(configuration.nextClassTimetable?.identifier ?? "0") ?? 0], date: entryDate), configuration: configuration)
         completion(entry)
     }
 
