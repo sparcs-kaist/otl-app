@@ -42,14 +42,6 @@ class LikedReviewPage extends StatelessWidget {
               padding: const EdgeInsets.fromLTRB(12.0, 12.0, 12.0, 0.0),
               child: Column(
                 children: <Widget>[
-                  Text(
-                    "좋아요한 후기",
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 14.0,
-                    ),
-                  ),
-                  const SizedBox(height: 8.0),
                   Expanded(
                     child: RefreshIndicator(
                       onRefresh: () async {
@@ -70,9 +62,9 @@ class LikedReviewPage extends StatelessWidget {
                                           .read<CourseDetailModel>()
                                           .loadCourse(reviews[index].course.id);
                                       // Backdrop.of(context).show(1);
-                                      Navigator.pushNamed(
+                                      Navigator.push(
                                         context,
-                                        CourseDetailPage.route,
+                                        _buildCourseDetailPageRoute(),
                                       );
                                     },
                                   );
@@ -124,10 +116,24 @@ class LikedReviewPage extends StatelessWidget {
           ),
         )),
         child: AppBar(
-          title: Image.asset(
-            "assets/logo.png",
-            height: 27,
+          leading: IconButton(
+            icon: const Icon(
+              Icons.arrow_back_ios,
+              color: Colors.black,
+            ),
+            onPressed: () {
+              Navigator.pop(context);
+            },
           ),
+          title: Text(
+            '좋아요한 후기',
+            style: TextStyle(
+              color: Colors.black,
+              fontWeight: FontWeight.bold,
+              fontSize: 14.0,
+            ),
+          ),
+          centerTitle: true,
           flexibleSpace: SafeArea(
             child: Column(
               children: [
@@ -139,16 +145,26 @@ class LikedReviewPage extends StatelessWidget {
             ),
           ),
           automaticallyImplyLeading: false,
-          actions: <Widget>[
-            IconButton(
-              icon: const Icon(Icons.close),
-              onPressed: () {
-                Navigator.pop(context);
-              },
-            ),
-          ],
         ),
       ),
+    );
+  }
+
+  Route _buildCourseDetailPageRoute() {
+    return PageRouteBuilder(
+      pageBuilder: (_, animation, __) => CourseDetailPage(),
+      transitionsBuilder: (_, animation, __, child) {
+        const begin = Offset(1.0, 0.0);
+        const end = Offset.zero;
+        final curveTween = CurveTween(curve: Curves.ease);
+        final tween = Tween(begin: begin, end: end).chain(curveTween);
+        final offsetAnimation = animation.drive(tween);
+
+        return SlideTransition(
+          position: offsetAnimation,
+          child: child,
+        );
+      },
     );
   }
 }

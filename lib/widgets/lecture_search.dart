@@ -273,9 +273,27 @@ class _LectureSearchState extends State<LectureSearch> {
         onLongPress: (lecture) {
           context.read<LectureDetailModel>().loadLecture(lecture.id, true);
           // Backdrop.of(context).show(2);
-          Navigator.pushNamed(context, LectureDetailPage.route);
+          Navigator.push(context, _buildLectureDetailPageRoute());
         },
       ),
+    );
+  }
+
+  Route _buildLectureDetailPageRoute() {
+    return PageRouteBuilder(
+      pageBuilder: (_, animation, __) => LectureDetailPage(),
+      transitionsBuilder: (_, animation, __, child) {
+        const begin = Offset(1.0, 0.0);
+        const end = Offset.zero;
+        final curveTween = CurveTween(curve: Curves.ease);
+        final tween = Tween(begin: begin, end: end).chain(curveTween);
+        final offsetAnimation = animation.drive(tween);
+
+        return SlideTransition(
+          position: offsetAnimation,
+          child: child,
+        );
+      },
     );
   }
 }

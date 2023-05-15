@@ -37,6 +37,9 @@ class CourseDetailPage extends StatelessWidget {
   }
 
   PreferredSizeWidget _buildAppBar(BuildContext context) {
+    final course =
+        context.select<CourseDetailModel, Course>((model) => model.course);
+
     return PreferredSize(
       preferredSize: Size.fromHeight(kToolbarHeight),
       child: Theme(
@@ -49,10 +52,24 @@ class CourseDetailPage extends StatelessWidget {
           ),
         )),
         child: AppBar(
-          title: Image.asset(
-            "assets/logo.png",
-            height: 27,
+          leading: IconButton(
+            icon: const Icon(
+              Icons.arrow_back_ios,
+              color: Colors.black,
+            ),
+            onPressed: () {
+              Navigator.pop(context);
+            },
           ),
+          title: Text(
+            course.title,
+            style: TextStyle(
+              color: Colors.black,
+              fontWeight: FontWeight.bold,
+              fontSize: 14.0,
+            ),
+          ),
+          centerTitle: true,
           flexibleSpace: SafeArea(
             child: Column(
               children: [
@@ -64,14 +81,6 @@ class CourseDetailPage extends StatelessWidget {
             ),
           ),
           automaticallyImplyLeading: false,
-          actions: <Widget>[
-            IconButton(
-              icon: const Icon(Icons.close),
-              onPressed: () {
-                Navigator.pop(context);
-              },
-            ),
-          ],
         ),
       ),
     );
@@ -85,19 +94,27 @@ class CourseDetailPage extends StatelessWidget {
       padding: const EdgeInsets.all(12.0),
       child: Column(
         children: <Widget>[
-          Text(
-            course.title,
-            style: const TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 13.0,
-            ),
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: 4.0),
-          Text(
-            course.oldCode,
-            textAlign: TextAlign.center,
-            style: const TextStyle(fontSize: 12.0),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Text(
+                "과목코드 ",
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 12.0,
+                  height: 1.1,
+                ),
+              ),
+              Expanded(
+                child: Text(
+                  course.oldCode,
+                  style: const TextStyle(
+                    fontSize: 12.0,
+                    height: 1.1,
+                  ),
+                ),
+              ),
+            ],
           ),
           const SizedBox(height: 8.0),
           Expanded(child: _buildScrollView(context, course)),

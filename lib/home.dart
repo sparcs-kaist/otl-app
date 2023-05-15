@@ -88,21 +88,14 @@ class _OTLHomeState extends State<OTLHome> with SingleTickerProviderStateMixin {
               PlatformIconButton(
                 onPressed: () {
                   // Backdrop.of(context).show(0);
-                  Navigator.push(
-                    context,
-                    _buildUserPageRoute(),
-                  );
+                  Navigator.push(context, _buildUserPageRoute());
                 },
                 materialIcon: Icon(Icons.person),
                 cupertinoIcon: Icon(CupertinoIcons.person),
               ),
               PlatformIconButton(
-                onPressed: () => {
-                  Navigator.push(
-                    context,
-                    _buildSettingsPageRoute(),
-                  )
-                },
+                onPressed: () =>
+                    {Navigator.push(context, _buildSettingsPageRoute())},
                 materialIcon: Icon(Icons.settings),
                 cupertinoIcon: Icon(
                   CupertinoIcons.gear,

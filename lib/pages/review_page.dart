@@ -184,6 +184,9 @@ class _ReviewPageState extends State<ReviewPage> {
                     shape: MaterialStatePropertyAll(
                       StadiumBorder(),
                     ),
+                    padding: MaterialStatePropertyAll(
+                      EdgeInsets.symmetric(horizontal: 12), // vertical: 6
+                    ),
                   ),
                 ),
                 SizedBox(width: 10),
@@ -216,7 +219,7 @@ class _ReviewPageState extends State<ReviewPage> {
                             .read<CourseDetailModel>()
                             .loadCourse(latestReviews[index].course.id);
                         // Backdrop.of(context).show(1);
-                        Navigator.pushNamed(context, CourseDetailPage.route);
+                        Navigator.push(context, _buildCourseDetailPageRoute());
                       },
                     );
                   },
@@ -269,7 +272,7 @@ class _ReviewPageState extends State<ReviewPage> {
                             .read<CourseDetailModel>()
                             .loadCourse(hallOfFames[index].course.id);
                         // Backdrop.of(context).show(1);
-                        Navigator.pushNamed(context, CourseDetailPage.route);
+                        Navigator.push(context, _buildCourseDetailPageRoute());
                       },
                     );
                   },
@@ -296,6 +299,24 @@ class _ReviewPageState extends State<ReviewPage> {
           ),
         ),
       ),
+    );
+  }
+
+  Route _buildCourseDetailPageRoute() {
+    return PageRouteBuilder(
+      pageBuilder: (_, animation, __) => CourseDetailPage(),
+      transitionsBuilder: (_, animation, __, child) {
+        const begin = Offset(1.0, 0.0);
+        const end = Offset.zero;
+        final curveTween = CurveTween(curve: Curves.ease);
+        final tween = Tween(begin: begin, end: end).chain(curveTween);
+        final offsetAnimation = animation.drive(tween);
+
+        return SlideTransition(
+          position: offsetAnimation,
+          child: child,
+        );
+      },
     );
   }
 }

@@ -149,10 +149,15 @@ class SettingsPage extends StatelessWidget {
           ),
         )),
         child: AppBar(
-          title: Image.asset(
-            "assets/logo.png",
-            height: 27,
+          title: Text(
+            '설정',
+            style: TextStyle(
+              color: Colors.black,
+              fontWeight: FontWeight.bold,
+              fontSize: 14.0,
+            ),
           ),
+          centerTitle: true,
           flexibleSpace: SafeArea(
             child: Column(
               children: [

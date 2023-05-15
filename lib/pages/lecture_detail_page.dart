@@ -48,6 +48,9 @@ class LectureDetailPage extends StatelessWidget {
   }
 
   PreferredSizeWidget _buildAppBar(BuildContext context) {
+    final lecture =
+        context.select<LectureDetailModel, Lecture>((model) => model.lecture);
+
     return PreferredSize(
       preferredSize: Size.fromHeight(kToolbarHeight),
       child: Theme(
@@ -60,10 +63,24 @@ class LectureDetailPage extends StatelessWidget {
           ),
         )),
         child: AppBar(
-          title: Image.asset(
-            "assets/logo.png",
-            height: 27,
+          leading: IconButton(
+            icon: const Icon(
+              Icons.arrow_back_ios,
+              color: Colors.black,
+            ),
+            onPressed: () {
+              Navigator.pop(context);
+            },
           ),
+          title: Text(
+            lecture.title,
+            style: TextStyle(
+              color: Colors.black,
+              fontWeight: FontWeight.bold,
+              fontSize: 14.0,
+            ),
+          ),
+          centerTitle: true,
           flexibleSpace: SafeArea(
             child: Column(
               children: [
@@ -75,14 +92,6 @@ class LectureDetailPage extends StatelessWidget {
             ),
           ),
           automaticallyImplyLeading: false,
-          actions: <Widget>[
-            IconButton(
-              icon: const Icon(Icons.close),
-              onPressed: () {
-                Navigator.pop(context);
-              },
-            ),
-          ],
         ),
       ),
     );
@@ -96,22 +105,6 @@ class LectureDetailPage extends StatelessWidget {
       padding: const EdgeInsets.all(12.0),
       child: Column(
         children: <Widget>[
-          Text(
-            lecture.title,
-            style: const TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 13.0,
-            ),
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: 4.0),
-          Text(
-            lecture.classNo.isEmpty
-                ? lecture.oldCode
-                : "${lecture.oldCode} (${lecture.classNo})",
-            textAlign: TextAlign.center,
-            style: const TextStyle(fontSize: 12.0),
-          ),
           _buildButtons(context, lecture),
           const SizedBox(height: 8.0),
           Expanded(child: _buildScrollView(context, lecture)),
@@ -206,7 +199,7 @@ class LectureDetailPage extends StatelessWidget {
           onTap: () {
             context.read<CourseDetailModel>().loadCourse(lecture.course);
             // Backdrop.of(context).show(1);
-            Navigator.pushNamed(context, CourseDetailPage.route);
+            Navigator.push(context, _buildCourseDetailPageRoute());
           },
           child: const Text(
             "과목사전",
@@ -379,7 +372,12 @@ class LectureDetailPage extends StatelessWidget {
         ),
         children: <TextSpan>[
           TextSpan(
-            text: "구분 ",
+            text: "과목코드 ",
+            style: const TextStyle(fontWeight: FontWeight.bold),
+          ),
+          TextSpan(text: lecture.oldCode),
+          TextSpan(
+            text: "\n구분 ",
             style: const TextStyle(fontWeight: FontWeight.bold),
           ),
           TextSpan(text: lecture.type),
@@ -441,6 +439,24 @@ class LectureDetailPage extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+
+  Route _buildCourseDetailPageRoute() {
+    return PageRouteBuilder(
+      pageBuilder: (_, animation, __) => CourseDetailPage(),
+      transitionsBuilder: (_, animation, __, child) {
+        const begin = Offset(1.0, 0.0);
+        const end = Offset.zero;
+        final curveTween = CurveTween(curve: Curves.ease);
+        final tween = Tween(begin: begin, end: end).chain(curveTween);
+        final offsetAnimation = animation.drive(tween);
+
+        return SlideTransition(
+          position: offsetAnimation,
+          child: child,
+        );
+      },
     );
   }
 }

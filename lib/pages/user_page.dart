@@ -73,6 +73,52 @@ class UserPage extends StatelessWidget {
     );
   }
 
+  PreferredSizeWidget _buildAppBar(BuildContext context) {
+    return PreferredSize(
+      preferredSize: Size.fromHeight(kToolbarHeight),
+      child: Theme(
+        data: Theme.of(context).copyWith(
+            appBarTheme: AppBarTheme(
+          color: BACKGROUND_COLOR,
+          elevation: 0.0,
+          actionsIconTheme: IconThemeData(
+            color: CONTENT_COLOR,
+          ),
+        )),
+        child: AppBar(
+          title: Text(
+            '내 정보',
+            style: TextStyle(
+              color: Colors.black,
+              fontWeight: FontWeight.bold,
+              fontSize: 14.0,
+            ),
+          ),
+          centerTitle: true,
+          flexibleSpace: SafeArea(
+            child: Column(
+              children: [
+                Container(
+                  color: PRIMARY_COLOR,
+                  height: 5,
+                ),
+              ],
+            ),
+          ),
+          automaticallyImplyLeading: false,
+          actions: <Widget>[
+            IconButton(
+              icon: const Icon(Icons.close),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
   Widget _buildContent(String name, String value) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 8.0),
@@ -98,9 +144,11 @@ class UserPage extends StatelessWidget {
         TextButton(
           onPressed: () {
             // Backdrop.of(context).show(index);
-            Navigator.pushNamed(
+            Navigator.push(
               context,
-              index == 3 ? MyReviewPage.route : LikedReviewPage.route,
+              index == 3
+                  ? _buildMyReviewPageRoute()
+                  : _buildLikedReviewPageRoute(),
             );
           },
           child: Text(
@@ -119,44 +167,39 @@ class UserPage extends StatelessWidget {
     );
   }
 
-  PreferredSizeWidget _buildAppBar(BuildContext context) {
-    return PreferredSize(
-      preferredSize: Size.fromHeight(kToolbarHeight),
-      child: Theme(
-        data: Theme.of(context).copyWith(
-            appBarTheme: AppBarTheme(
-          color: BACKGROUND_COLOR,
-          elevation: 0.0,
-          actionsIconTheme: IconThemeData(
-            color: CONTENT_COLOR,
-          ),
-        )),
-        child: AppBar(
-          title: Image.asset(
-            "assets/logo.png",
-            height: 27,
-          ),
-          flexibleSpace: SafeArea(
-            child: Column(
-              children: [
-                Container(
-                  color: PRIMARY_COLOR,
-                  height: 5,
-                ),
-              ],
-            ),
-          ),
-          automaticallyImplyLeading: false,
-          actions: <Widget>[
-            IconButton(
-              icon: const Icon(Icons.close),
-              onPressed: () {
-                Navigator.pop(context);
-              },
-            ),
-          ],
-        ),
-      ),
+  Route _buildMyReviewPageRoute() {
+    return PageRouteBuilder(
+      pageBuilder: (_, animation, __) => MyReviewPage(),
+      transitionsBuilder: (_, animation, __, child) {
+        const begin = Offset(1.0, 0.0);
+        const end = Offset.zero;
+        final curveTween = CurveTween(curve: Curves.ease);
+        final tween = Tween(begin: begin, end: end).chain(curveTween);
+        final offsetAnimation = animation.drive(tween);
+
+        return SlideTransition(
+          position: offsetAnimation,
+          child: child,
+        );
+      },
+    );
+  }
+
+  Route _buildLikedReviewPageRoute() {
+    return PageRouteBuilder(
+      pageBuilder: (_, animation, __) => LikedReviewPage(),
+      transitionsBuilder: (_, animation, __, child) {
+        const begin = Offset(1.0, 0.0);
+        const end = Offset.zero;
+        final curveTween = CurveTween(curve: Curves.ease);
+        final tween = Tween(begin: begin, end: end).chain(curveTween);
+        final offsetAnimation = animation.drive(tween);
+
+        return SlideTransition(
+          position: offsetAnimation,
+          child: child,
+        );
+      },
     );
   }
 }

@@ -43,14 +43,6 @@ class MyReviewPage extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
-                  Text(
-                    "내가 들은 과목",
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 14.0,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
                   ...targetSemesters
                       .map((semester) => Column(
                             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -99,10 +91,24 @@ class MyReviewPage extends StatelessWidget {
           ),
         )),
         child: AppBar(
-          title: Image.asset(
-            "assets/logo.png",
-            height: 27,
+          leading: IconButton(
+            icon: const Icon(
+              Icons.arrow_back_ios,
+              color: Colors.black,
+            ),
+            onPressed: () {
+              Navigator.pop(context);
+            },
           ),
+          title: Text(
+            '내가 들은 과목',
+            style: TextStyle(
+              color: Colors.black,
+              fontWeight: FontWeight.bold,
+              fontSize: 14.0,
+            ),
+          ),
+          centerTitle: true,
           flexibleSpace: SafeArea(
             child: Column(
               children: [
@@ -114,14 +120,6 @@ class MyReviewPage extends StatelessWidget {
             ),
           ),
           automaticallyImplyLeading: false,
-          actions: <Widget>[
-            IconButton(
-              icon: const Icon(Icons.close),
-              onPressed: () {
-                Navigator.pop(context);
-              },
-            ),
-          ],
         ),
       ),
     );
@@ -167,7 +165,25 @@ class MyReviewPage extends StatelessWidget {
       onTap: () {
         context.read<LectureDetailModel>().loadLecture(lecture.id, false);
         // Backdrop.of(context).show(2);
-        Navigator.pushNamed(context, LectureDetailPage.route);
+        Navigator.push(context, _buildLectureDetailPageRoute());
+      },
+    );
+  }
+
+  Route _buildLectureDetailPageRoute() {
+    return PageRouteBuilder(
+      pageBuilder: (_, animation, __) => LectureDetailPage(),
+      transitionsBuilder: (_, animation, __, child) {
+        const begin = Offset(1.0, 0.0);
+        const end = Offset.zero;
+        final curveTween = CurveTween(curve: Curves.ease);
+        final tween = Tween(begin: begin, end: end).chain(curveTween);
+        final offsetAnimation = animation.drive(tween);
+
+        return SlideTransition(
+          position: offsetAnimation,
+          child: child,
+        );
       },
     );
   }
