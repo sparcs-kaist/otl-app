@@ -53,7 +53,7 @@ struct WeekClassesWidgetEntryView : View {
                         .frame(height: 33)
                         .offset(y: -5)
                     Color(red: 249.0/255, green: 240.0/255, blue: 240.0/255)
-                        .frame(width: proxy.size.width-50, height: 37)
+                        .frame(width: proxy.size.width-45, height: 37)
                         .offset(x: 10)
                     HStack {
                         Spacer()
@@ -73,7 +73,7 @@ struct WeekClassesWidgetEntryView : View {
 
     func getOffsetByDate(date: Date) -> CGFloat {
         var tmp = 0
-        let hour = Calendar.current.component(.hour, from: Date())
+        let hour = Calendar.current.component(.hour, from: date)
         
         if hour > 9 {
             tmp = hour >= 18 ? -387 : -43*(hour-9)
@@ -129,7 +129,7 @@ struct TimeLabelView: View {
             ForEach(9..<25) { number in
                 HStack(spacing: 2) {
                     Text("\(number%12 == 0 ? 12 : number%12)")
-                        .frame(width: 13, height: 18, alignment: .trailing)
+                        .frame(width: 14, height: 18, alignment: .trailing)
                         .font(.custom("NotoSansKR-Regular", size: 12))
                     HorizontalLine()
                         .stroke(style: StrokeStyle(lineWidth: 1))

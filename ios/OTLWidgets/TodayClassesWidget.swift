@@ -77,7 +77,7 @@ struct TodayClassesWidgetEntryView : View {
     
     func getOffsetByDate(date: Date) -> CGFloat {
         var tmp = 0
-        let hour = Calendar.current.component(.hour, from: Date())
+        let hour = Calendar.current.component(.hour, from: date)
         
         if hour > 9 {
             tmp = hour >= 19 ? -570 : -57*(hour-9)

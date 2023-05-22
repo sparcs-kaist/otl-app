@@ -20,7 +20,7 @@ struct Provider: IntentTimelineProvider {
         let sharedDefaults = UserDefaults.init(suiteName: "group.org.sparcs.otlplus")
         
         let data = try? JSONDecoder().decode([Timetable].self, from: (sharedDefaults?.string(forKey: "widgetData")?.data(using: .utf8)) ?? Data())
-//        let entryDate = Calendar.current.date(byAdding: .hour, value: 24, to: Date())!
+
         let entryDate = Date()
         let entry = WidgetEntry(date: entryDate, timetableData: data, todayLectures: getTodayLectures(timetable: data?[Int(configuration.nextClassTimetable?.identifier ?? "0") ?? 0], date: entryDate), configuration: configuration)
         completion(entry)
@@ -28,13 +28,18 @@ struct Provider: IntentTimelineProvider {
 
     func getTimeline(for configuration: ConfigurationIntent, in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
         // Generate a timeline consisting of five entries an hour apart, starting from the current date.
+        var entries: [WidgetEntry] = [WidgetEntry]()
         let sharedDefaults = UserDefaults.init(suiteName: "group.org.sparcs.otlplus")
-        
         let data = try? JSONDecoder().decode([Timetable].self, from: (sharedDefaults?.string(forKey: "widgetData")?.data(using: .utf8)) ?? Data())
-//        let entryDate = Calendar.current.date(byAdding: .hour, value: 24, to: Date())!
-        let entryDate = Date()
-        let entry = WidgetEntry(date: entryDate, timetableData: data, todayLectures: getTodayLectures(timetable: data?[Int(configuration.nextClassTimetable?.identifier ?? "0") ?? 0], date: entryDate), configuration: configuration)
-        let timeline = Timeline(entries: [entry], policy: .atEnd)
+        
+        let currentDate = Date()
+        for minutesOffset in 0..<5 {
+            let entryDate = Calendar.current.date(byAdding: .minute, value: minutesOffset*15, to: currentDate)!
+            let entry = WidgetEntry(date: entryDate, timetableData: data, todayLectures: getTodayLectures(timetable: data?[Int(configuration.nextClassTimetable?.identifier ?? "0") ?? 0], date: entryDate), configuration: configuration)
+            entries.append(entry)
+        }
+        
+        let timeline = Timeline(entries: entries, policy: .atEnd)
         completion(timeline)
     }
 }
@@ -78,7 +83,7 @@ struct NextClassWidgetEntryView : View {
                         .cornerRadius(1)
 
                     VStack(alignment: .leading) {
-                        Text(getNextClassName(timetable: entry.timetableData![Int(entry.configuration.nextClassTimetable?.identifier ?? "0") ?? 0], date: entry.date))
+                        Text(entry.date, style: .time)
                             .font(.custom("NotoSansKR-Bold", size: 16))
                             .minimumScaleFactor(0.5)
                             .lineLimit(2)
