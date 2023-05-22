@@ -57,7 +57,7 @@ struct TodayClassesWidgetEntryView : View {
                                 }
                             }
                             if (entry.timetableData != nil) {
-                                ForEach(getLecturesDataForToayClassesWidget(data: entry.todayLectures!), id: \.self) { data in
+                                ForEach(getLecturesData(data: entry.todayLectures!), id: \.self) { data in
                                     VStack {
                                         Spacer()
                                             .frame(height: 24)
@@ -88,50 +88,24 @@ struct TodayClassesWidgetEntryView : View {
         
         return CGFloat(tmp)
     }
-}
-
-
-
-func getLecturesDataForToayClassesWidget(data: [(Int, Lecture)]) -> [TodayClassesWidgetData] {
-    var tmp = [TodayClassesWidgetData]()
     
-    for (i, l) in data {
-        let c = l.classtimes[i]
+    func getLecturesData(data: [(Int, Lecture)]) -> [TodayClassesWidgetData] {
+        var tmp = [TodayClassesWidgetData]()
         
-        let title = l.title
-        let place = c.classroom_short
-        let width = (0.9388*Double(c.end-c.begin)*10).rounded()/10
-        let x = 20 + (Double(c.begin-540)*0.95*10).rounded()/10
-        let colour = getColourForCourse(course: l.course)
+        for (i, l) in data {
+            let c = l.classtimes[i]
+            
+            let title = l.title
+            let place = c.classroom_short
+            let width = (0.9388*Double(c.end-c.begin)*10).rounded()/10
+            let x = 20 + (Double(c.begin-540)*0.95*10).rounded()/10
+            let colour = getColourForCourse(course: l.course)
+            
+            tmp.append(TodayClassesWidgetData(title: title, place: place, width: width, x: x, colour: colour))
+        }
         
-        tmp.append(TodayClassesWidgetData(title: title, place: place, width: width, x: x, colour: colour))
-    }
-    
-    return tmp
-}
-
-func getTodayLectures(timetable: Timetable?, date: Date) -> [(Int, Lecture)] {
-    var tmp: [(Int, Lecture)] = [(Int, Lecture)]()
-    if (timetable == nil) {
         return tmp
     }
-    
-    let calendar = Calendar.current
-    var day = getDayWithWeekDay(weekday: calendar.component(.weekday, from: date))
-    
-    while tmp.count == 0 {
-        for l in timetable!.lectures {
-            for i in 0..<l.classtimes.count {
-                let c = l.classtimes[i]
-                if c.day == day {
-                    tmp.append((i, l))
-                }
-            }
-        }
-        day = (day >= 7) ? 0 : day + 1
-    }
-    
-    return tmp
 }
 
 struct TodayClassesLectureView: View {

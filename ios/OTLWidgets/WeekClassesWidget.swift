@@ -34,7 +34,7 @@ struct WeekClassesWidgetEntryView : View {
                                 ForEach(0..<5) { number in
                                     ZStack(alignment: .topLeading) {
                                         TableLineView()
-                                        ForEach(getLecturesDataForWeekClassesWidget(data: getLecturesForDay(timetable: entry.timetableData?[Int(entry.configuration.nextClassTimetable?.identifier ?? "0") ?? 0], day: number)), id: \.self) { data in
+                                        ForEach(getLecturesData(data: getLecturesForDay(timetable: entry.timetableData?[Int(entry.configuration.nextClassTimetable?.identifier ?? "0") ?? 0], day: number)), id: \.self) { data in
                                             WeekClassesLectureView(lectureName: data.title, colour: data.colour)
                                                 .frame(height: data.height)
                                                 .offset(y: data.y)
@@ -81,45 +81,27 @@ struct WeekClassesWidgetEntryView : View {
         
         return CGFloat(tmp)
     }
-}
-
-func getLecturesDataForWeekClassesWidget(data: [(Int, Lecture)]) -> [WeekClassesWidgetData] {
-    var tmp = [WeekClassesWidgetData]()
     
-    for (i, l) in data {
-        let c = l.classtimes[i]
+    func getLecturesData(data: [(Int, Lecture)]) -> [WeekClassesWidgetData] {
+        var tmp = [WeekClassesWidgetData]()
         
-        let title = l.title
-        let minute = c.end - c.begin
-        var height = 0.6833 * Double(minute)
-        if minute/30 != 0 {
-            height = height + Double(minute/30 - 1)
+        for (i, l) in data {
+            let c = l.classtimes[i]
+            
+            let title = l.title
+            let minute = c.end - c.begin
+            var height = 0.6833 * Double(minute)
+            if minute/30 != 0 {
+                height = height + Double(minute/30 - 1)
+            }
+            let y = 0.7166 * Double(c.begin - 540) + 5
+            let colour = getColourForCourse(course: l.course)
+            
+            tmp.append(WeekClassesWidgetData(title: title, height: height, y: y, colour: colour))
         }
-        let y = 0.7166 * Double(c.begin - 540) + 5
-        let colour = getColourForCourse(course: l.course)
         
-        tmp.append(WeekClassesWidgetData(title: title, height: height, y: y, colour: colour))
-    }
-    
-    return tmp
-}
-
-func getLecturesForDay(timetable: Timetable?, day: Int) -> [(Int, Lecture)] {
-    var tmp: [(Int, Lecture)] = [(Int, Lecture)]()
-    if (timetable == nil) {
         return tmp
     }
-    
-    for l in timetable!.lectures {
-        for i in 0..<l.classtimes.count {
-            let c = l.classtimes[i]
-            if c.day == day {
-                tmp.append((i, l))
-            }
-        }
-    }
-    
-    return tmp
 }
 
 

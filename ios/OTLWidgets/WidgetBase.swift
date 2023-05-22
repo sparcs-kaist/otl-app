@@ -135,3 +135,45 @@ func getDayWithWeekDay(weekday: Int) -> Int {
         return 0
     }
 }
+
+func getTodayLectures(timetable: Timetable?, date: Date) -> [(Int, Lecture)] {
+    var tmp: [(Int, Lecture)] = [(Int, Lecture)]()
+    if (timetable == nil) {
+        return tmp
+    }
+    
+    let calendar = Calendar.current
+    var day = getDayWithWeekDay(weekday: calendar.component(.weekday, from: date))
+    
+    while tmp.count == 0 {
+        for l in timetable!.lectures {
+            for i in 0..<l.classtimes.count {
+                let c = l.classtimes[i]
+                if c.day == day {
+                    tmp.append((i, l))
+                }
+            }
+        }
+        day = (day >= 7) ? 0 : day + 1
+    }
+    
+    return tmp
+}
+
+func getLecturesForDay(timetable: Timetable?, day: Int) -> [(Int, Lecture)] {
+    var tmp: [(Int, Lecture)] = [(Int, Lecture)]()
+    if (timetable == nil) {
+        return tmp
+    }
+    
+    for l in timetable!.lectures {
+        for i in 0..<l.classtimes.count {
+            let c = l.classtimes[i]
+            if c.day == day {
+                tmp.append((i, l))
+            }
+        }
+    }
+    
+    return tmp
+}
