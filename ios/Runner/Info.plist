@@ -51,12 +51,9 @@
 	</array>
 	<key>UIAppFonts</key>
 	<array>
-		<string>NotoSansKR-Black.otf</string>
 		<string>NotoSansKR-Bold.otf</string>
-		<string>NotoSansKR-Light.otf</string>
 		<string>NotoSansKR-Medium.otf</string>
 		<string>NotoSansKR-Regular.otf</string>
-		<string>NotoSansKR-Thin.otf</string>
 	</array>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
