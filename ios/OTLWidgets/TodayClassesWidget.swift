@@ -56,15 +56,17 @@ struct TodayClassesWidgetEntryView : View {
                                     }
                                 }
                             }
-                            ForEach(getLecturesDataForToayClassesWidget(data: entry.todayLectures!), id: \.self) { data in
-                                VStack {
-                                    Spacer()
-                                        .frame(height: 24)
-                                    TodayClassesLectureView(lectureName: data.title, lecturePlace: data.place, colour: data.colour)
-                                        .frame(width: data.width)
-                                        .offset(x: data.x)
-                                    Spacer()
-                                        .frame(height: 2)
+                            if (entry.timetableData != nil) {
+                                ForEach(getLecturesDataForToayClassesWidget(data: entry.todayLectures!), id: \.self) { data in
+                                    VStack {
+                                        Spacer()
+                                            .frame(height: 24)
+                                        TodayClassesLectureView(lectureName: data.title, lecturePlace: data.place, colour: data.colour)
+                                            .frame(width: data.width)
+                                            .offset(x: data.x)
+                                        Spacer()
+                                            .frame(height: 2)
+                                    }
                                 }
                             }
                         }

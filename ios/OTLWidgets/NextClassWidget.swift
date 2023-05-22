@@ -57,47 +57,92 @@ struct NextClassWidgetEntryView : View {
     var entry: Provider.Entry
 
     var body: some View {
-        ZStack {
-            Color(red: 249.0/255, green: 240.0/255, blue: 240.0/255)
-            VStack {
-                HStack {
-                    VStack(alignment: .leading) {
-                        Text("다음 강의")
-                            .font(.custom("NotoSansKR-Bold", size: 12))
-                            .foregroundColor(Color(red: 229.0/255, green: 76.0/255, blue: 100.0/255))
-                        Text(getNextClassTimeLeft(timetable: entry.timetableData![Int(entry.configuration.nextClassTimetable?.identifier ?? "0") ?? 0], date: entry.date))
-                            .font(.custom("NotoSansKR-Bold", size: 20))
-                            .offset(y: -2)
-                            .minimumScaleFactor(0.5)
-                            .lineLimit(1)
+        if (entry.timetableData != nil) {
+            ZStack {
+                Color(red: 249.0/255, green: 240.0/255, blue: 240.0/255)
+                VStack {
+                    HStack {
+                        VStack(alignment: .leading) {
+                            Text("다음 강의")
+                                .font(.custom("NotoSansKR-Bold", size: 12))
+                                .foregroundColor(Color(red: 229.0/255, green: 76.0/255, blue: 100.0/255))
+                            Text(getNextClassTimeLeft(timetable: entry.timetableData![Int(entry.configuration.nextClassTimetable?.identifier ?? "0") ?? 0], date: entry.date))
+                                .font(.custom("NotoSansKR-Bold", size: 20))
+                                .offset(y: -2)
+                                .minimumScaleFactor(0.5)
+                                .lineLimit(1)
+                        }
+                        Spacer()
                     }
+                    
                     Spacer()
-                }
-                
-                Spacer()
-                
-                HStack {
-                    Rectangle()
-                        .fill(getNextClassColour(timetable: entry.timetableData![Int(entry.configuration.nextClassTimetable?.identifier ?? "0") ?? 0], date: entry.date))
-                        .frame(width: 2, height: 60)
-                        .cornerRadius(1)
+                    
+                    HStack {
+                        Rectangle()
+                            .fill(getNextClassColour(timetable: entry.timetableData![Int(entry.configuration.nextClassTimetable?.identifier ?? "0") ?? 0], date: entry.date))
+                            .frame(width: 2, height: 60)
+                            .cornerRadius(1)
 
-                    VStack(alignment: .leading) {
-                        Text(getNextClassName(timetable: entry.timetableData![Int(entry.configuration.nextClassTimetable?.identifier ?? "0") ?? 0], date: entry.date))
-                            .font(.custom("NotoSansKR-Bold", size: 16))
-                            .minimumScaleFactor(0.5)
-                            .lineLimit(2)
-                        Text(getNextClassPlace(timetabe: entry.timetableData![Int(entry.configuration.nextClassTimetable?.identifier ?? "0") ?? 0], date: entry.date))
-                            .font(.custom("NotoSansKR-Regular", size: 12))
-                            .minimumScaleFactor(0.5)
-                            .lineLimit(1)
-                        Text(getNextClassTime(timetable: entry.timetableData![Int(entry.configuration.nextClassTimetable?.identifier ?? "0") ?? 0], date: entry.date))
-                            .font(.custom("NotoSansKR-Medium", size: 12))
-                            .foregroundColor(.gray)
+                        VStack(alignment: .leading) {
+                            Text(getNextClassName(timetable: entry.timetableData![Int(entry.configuration.nextClassTimetable?.identifier ?? "0") ?? 0], date: entry.date))
+                                .font(.custom("NotoSansKR-Bold", size: 16))
+                                .minimumScaleFactor(0.5)
+                                .lineLimit(2)
+                            Text(getNextClassPlace(timetabe: entry.timetableData![Int(entry.configuration.nextClassTimetable?.identifier ?? "0") ?? 0], date: entry.date))
+                                .font(.custom("NotoSansKR-Regular", size: 12))
+                                .minimumScaleFactor(0.5)
+                                .lineLimit(1)
+                            Text(getNextClassTime(timetable: entry.timetableData![Int(entry.configuration.nextClassTimetable?.identifier ?? "0") ?? 0], date: entry.date))
+                                .font(.custom("NotoSansKR-Medium", size: 12))
+                                .foregroundColor(.gray)
+                        }
+                        Spacer()
                     }
+                }.padding(.all, 16)
+            }
+        } else {
+            ZStack {
+                Color(red: 249.0/255, green: 240.0/255, blue: 240.0/255)
+                VStack {
+                    HStack {
+                        VStack(alignment: .leading) {
+                            Text("다음 강의")
+                                .font(.custom("NotoSansKR-Bold", size: 12))
+                                .foregroundColor(Color(red: 229.0/255, green: 76.0/255, blue: 100.0/255))
+                            Text("오류")
+                                .font(.custom("NotoSansKR-Bold", size: 20))
+                                .offset(y: -2)
+                                .minimumScaleFactor(0.5)
+                                .lineLimit(1)
+                        }
+                        Spacer()
+                    }
+                    
                     Spacer()
-                }
-            }.padding(.all, 16)
+                    
+                    HStack {
+                        Rectangle()
+                            .fill(getColourForCourse(course: 1))
+                            .frame(width: 2, height: 60)
+                            .cornerRadius(1)
+
+                        VStack(alignment: .leading) {
+                            Text("로그인해 주세요")
+                                .font(.custom("NotoSansKR-Bold", size: 16))
+                                .minimumScaleFactor(0.5)
+                                .lineLimit(2)
+                            Text("시간표 불러오기 실패")
+                                .font(.custom("NotoSansKR-Regular", size: 12))
+                                .minimumScaleFactor(0.5)
+                                .lineLimit(1)
+                            Text("데이터 없음")
+                                .font(.custom("NotoSansKR-Medium", size: 12))
+                                .foregroundColor(.gray)
+                        }
+                        Spacer()
+                    }
+                }.padding(.all, 16)
+            }
         }
     }
     
