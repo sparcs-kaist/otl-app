@@ -83,7 +83,7 @@ struct NextClassWidgetEntryView : View {
                         .cornerRadius(1)
 
                     VStack(alignment: .leading) {
-                        Text(entry.date, style: .time)
+                        Text(getNextClassName(timetable: entry.timetableData![Int(entry.configuration.nextClassTimetable?.identifier ?? "0") ?? 0], date: entry.date))
                             .font(.custom("NotoSansKR-Bold", size: 16))
                             .minimumScaleFactor(0.5)
                             .lineLimit(2)
@@ -103,50 +103,38 @@ struct NextClassWidgetEntryView : View {
     
     func getNextClass(timetable: Timetable, date: Date) -> (Int, Lecture) {
         var lecture: Lecture = timetable.lectures[0]
-        var lday = -5
-        var begin = 10000
+        var begin = 1440
         var index = 0
+        
         let calendar = Calendar.current
         let day = getDayWithWeekDay(weekday: calendar.component(.weekday, from: date))
-        let minutes = calendar.component(.minute, from: date) + calendar.component(.hour, from: date) * 60
+        var minutes = calendar.component(.minute, from: date) + calendar.component(.hour, from: date) * 60
         
-        for l in timetable.lectures {
-            for i in 0..<l.classtimes.count {
-                let c = l.classtimes[i]
-                if c.day == day && c.begin >= minutes && begin >= c.begin {
-                    lday = c.day
-                    begin = c.begin
+        var lectures: [(Int, Lecture)] = getLecturesForDay(timetable: timetable, day: day)
+        
+        for (i, l) in lectures {
+            if l.classtimes[i].begin >= minutes && begin >= l.classtimes[i].begin {
+                begin = l.classtimes[i].begin
+                index = i
+                lecture = l
+            }
+        }
+        
+        if begin == 1440 {
+            var tmrDate = calendar.date(byAdding: .day, value: 1, to: date)!
+            lectures = getLecturesForDay(timetable: timetable, day: getDayWithWeekDay(weekday: calendar.component(.weekday, from: tmrDate)))
+            minutes = 0
+            
+            while lectures.count == 0 {
+                var tmrDate = calendar.date(byAdding: .day, value: 1, to: tmrDate)!
+                lectures = getLecturesForDay(timetable: timetable, day: getDayWithWeekDay(weekday: calendar.component(.weekday, from: tmrDate)))
+            }
+            
+            for (i, l) in lectures {
+                if l.classtimes[i].begin >= minutes && begin >= l.classtimes[i].begin {
+                    begin = l.classtimes[i].begin
                     index = i
                     lecture = l
-                }
-            }
-        }
-        
-        if lday == -5 {
-            for l in timetable.lectures {
-                for i in 0..<l.classtimes.count {
-                    let c = l.classtimes[i]
-                    if c.day > day && begin >= c.begin {
-                        lday = c.day
-                        begin = c.begin
-                        index = i
-                        lecture = l
-                    }
-                }
-            }
-        }
-        
-        if lday == -5 {
-            lday = 10
-            for l in timetable.lectures {
-                for i in 0..<l.classtimes.count {
-                    let c = l.classtimes[i]
-                    if lday >= c.day && begin >= c.begin {
-                        lday = c.day
-                        begin = c.begin
-                        index = i
-                        lecture = l
-                    }
                 }
             }
         }
@@ -185,7 +173,7 @@ struct NextClassWidgetEntryView : View {
         let lecture: Lecture = c.1
         
         let calendar = Calendar.current
-        let day = calendar.component(.weekday, from: date) - 2
+        let day = getDayWithWeekDay(weekday: calendar.component(.weekday, from: date))
         let minutes = calendar.component(.minute, from: date) + calendar.component(.hour, from: date) * 60
         
         let begin = lecture.classtimes[index].begin
