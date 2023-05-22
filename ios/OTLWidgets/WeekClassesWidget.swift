@@ -1,6 +1,6 @@
 //
 //  WeekClassesWidget.swift
-//  next class widgetExtension
+//  OTLWidgetsExtension
 //
 //  Created by Soongyu Kwon on 14/05/2023.
 //  Copyright © 2023 The Chromium Authors. All rights reserved.
@@ -47,20 +47,27 @@ struct WeekClassesWidgetEntryView : View {
                         .offset(y: getOffsetByDate(date: entry.date))
                 }
             }.padding(16)
-            ZStack {
-                Color(red: 249.0/255, green: 240.0/255, blue: 240.0/255)
-                    .frame(height: 33)
-                HStack(alignment: .bottom) {
-                    Spacer()
-                        .frame(width: 23)
-                    ForEach(["월", "화", "수", "목", "금"], id: \.self) { text in
+            GeometryReader { proxy in
+                ZStack {
+                    Color(red: 249.0/255, green: 240.0/255, blue: 240.0/255)
+                        .frame(height: 33)
+                        .offset(y: -5)
+                    Color(red: 249.0/255, green: 240.0/255, blue: 240.0/255)
+                        .frame(width: proxy.size.width-50, height: 37)
+                        .offset(x: 10)
+                    HStack {
                         Spacer()
-                        Text(text)
-                        Spacer()
-                    }
-                }.font(.custom("NotoSansKR-Regular", size: 12))
-                    .offset(y: 10)
-            }.padding(.horizontal, 16)
+                            .frame(width: 18)
+                        ForEach(["월", "화", "수", "목", "금"], id: \.self) { text in
+                            Spacer()
+                            Text(text)
+                                .offset(y: -2)
+                            Spacer()
+                        }
+                    }.font(.custom("NotoSansKR-Regular", size: 12))
+                        .offset(y: 10)
+                }.padding(.horizontal, 16)
+            }
         }
     }
 
@@ -122,7 +129,7 @@ struct TimeLabelView: View {
             ForEach(9..<25) { number in
                 HStack(spacing: 2) {
                     Text("\(number%12 == 0 ? 12 : number%12)")
-                        .frame(width: 15, height: 18, alignment: .trailing)
+                        .frame(width: 13, height: 18, alignment: .trailing)
                         .font(.custom("NotoSansKR-Regular", size: 12))
                     HorizontalLine()
                         .stroke(style: StrokeStyle(lineWidth: 1))
@@ -131,8 +138,6 @@ struct TimeLabelView: View {
                 }
                 if number != 24 {
                     HStack(spacing: 2) {
-                        Spacer()
-                            .frame(width: 19)
                         HorizontalLine()
                             .stroke(style: StrokeStyle(lineWidth: 1, dash: [2]))
                             .frame(width: 0, height: 1)

@@ -1,6 +1,6 @@
 //
 //  NextClassWidget.swift
-//  next class widget
+//  OTLWidgetsExtension
 //
 //  Created by Soongyu Kwon on 28/03/2023.
 //  Copyright © 2023 The Chromium Authors. All rights reserved.
@@ -102,7 +102,7 @@ struct NextClassWidgetEntryView : View {
         var begin = 10000
         var index = 0
         let calendar = Calendar.current
-        let day = calendar.component(.weekday, from: date) - 2
+        let day = getDayWithWeekDay(weekday: calendar.component(.weekday, from: date))
         let minutes = calendar.component(.minute, from: date) + calendar.component(.hour, from: date) * 60
         
         for l in timetable.lectures {

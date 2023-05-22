@@ -1,6 +1,6 @@
 //
 //  TodayClassesWidget.swift
-//  next class widgetExtension
+//  OTLWidgetsExtension
 //
 //  Created by Soongyu Kwon on 12/05/2023.
 //  Copyright © 2023 The Chromium Authors. All rights reserved.
