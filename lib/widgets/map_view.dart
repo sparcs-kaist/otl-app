@@ -33,15 +33,18 @@ const POSITION_OF_LOCATIONS = {
 
 class MapView extends StatefulWidget {
 
-  final Map<String, List<Lecture>> _lectures = {};
+  final Map<String, List<Map<Lecture, Classtime>>> _lectures = {};
 
-  Map<String, List<Lecture>> get lectures => _lectures;
+  Map<String, List<Map<Lecture, Classtime>>> get lectures => _lectures;
 
   MapView({required List<Lecture> lectures}) {
     for(Lecture lecture in lectures) {
-      String buildingCode = lecture.classtimes[0].buildingCode;
-      if (buildingCode == '') buildingCode = '정보 없음';
-      _lectures[buildingCode] = _lectures[buildingCode]?.followedBy([lecture]).toList() ?? [lecture];
+      for(Classtime classtime in lecture.classtimes) {
+        String buildingCode = classtime.buildingCode;
+        if (buildingCode == '') buildingCode = '기타';
+        if ((_lectures[buildingCode]?.indexWhere((element) => element.values.first.classroom == classtime.classroom) ?? -1) == -1)
+          _lectures[buildingCode] = _lectures[buildingCode]?.followedBy([{lecture: classtime}]).toList() ?? [{lecture: classtime}];
+      }
     }
   }
 
@@ -57,7 +60,7 @@ class _MapViewState extends State<MapView> {
   void initState() {
     super.initState();
     _blockOrder = POSITION_OF_LOCATIONS.keys.toList();
-    _blockOrder.add('정보 없음');
+    _blockOrder.add('기타');
     _pinOrder = [..._blockOrder];
   }
 
@@ -146,7 +149,7 @@ class _MapViewState extends State<MapView> {
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                if (buildingCode != '정보 없음')
+                if (buildingCode != '기타')
                   Padding(
                     padding: const EdgeInsets.only(right: 1),
                     child: Text(
@@ -166,7 +169,7 @@ class _MapViewState extends State<MapView> {
                       width: 9,
                       height: 9,
                       decoration: BoxDecoration(
-                        color: _darken(TIMETABLE_BLOCK_COLORS[widget.lectures[buildingCode]![i].course % 16]),
+                        color: _darken(TIMETABLE_BLOCK_COLORS[widget.lectures[buildingCode]![i].keys.first.course % 16]),
                         shape: BoxShape.circle,
                       ),
                     ),
@@ -181,8 +184,8 @@ class _MapViewState extends State<MapView> {
   }
 
   String _codeToName(String buildingCode) {
-    if (buildingCode == '정보 없음') return buildingCode;
-    Classtime first = widget.lectures[buildingCode]![0].classtimes[0];
+    if (buildingCode == '기타') return buildingCode;
+    Classtime first = widget.lectures[buildingCode]![0].values.first;
     String buildingName = first.classroom;
     buildingName = buildingName.replaceAll('($buildingCode)', '');
     buildingName = buildingName.replaceAll(first.roomName, ''); 
@@ -243,8 +246,8 @@ class _MapViewState extends State<MapView> {
   }
 
   Widget _buildLectureBlock(int i, String buildingCode) {
-    Lecture lecture = widget.lectures[buildingCode]![i];
-    String roomName = lecture.classtimes[0].roomName;
+    Lecture lecture = widget.lectures[buildingCode]![i].keys.first;
+    Classtime classtime = widget.lectures[buildingCode]![i].values.first;
     return Padding(
       padding: EdgeInsets.only(top: i == 0 ? 0 : 6),
       child: Row(
@@ -272,7 +275,7 @@ class _MapViewState extends State<MapView> {
               maxLines: 5,
             ),
           ),
-          if (roomName.isNotEmpty)
+          if (classtime.roomName.isNotEmpty)
             Padding(
               padding: const EdgeInsets.fromLTRB(16, 2, 0, 0),
               child: Container(
@@ -284,7 +287,7 @@ class _MapViewState extends State<MapView> {
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Text(
-                  (buildingCode == '정보 없음') ? lecture.classtimes[0].classroom : roomName,
+                  (buildingCode == '기타') ? classtime.classroom : classtime.roomName,
                   style: TextStyle(
                     fontSize: 10,
                   ),
