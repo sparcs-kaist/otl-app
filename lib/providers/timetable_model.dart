@@ -27,6 +27,9 @@ class TimetableModel extends ChangeNotifier {
 
   Timetable get currentTimetable => _timetables[_selectedTimetableIndex];
 
+  int _selectedModeIndex = 0;
+  int get selectedMode => _selectedModeIndex;
+
   bool _isLoaded = false;
   bool get isLoaded => _isLoaded;
 
@@ -89,6 +92,11 @@ class TimetableModel extends ChangeNotifier {
 
   void setIndex(int index) {
     _selectedTimetableIndex = index;
+    notifyListeners();
+  }
+
+  void setMode(int index) {
+    _selectedModeIndex = index;
     notifyListeners();
   }
 

@@ -4,6 +4,7 @@ import 'package:otlplus/utils/build_page_route.dart';
 import 'package:otlplus/providers/lecture_search_model.dart';
 import 'package:otlplus/widgets/lecture_search.dart';
 import 'package:otlplus/widgets/map_view.dart';
+import 'package:otlplus/widgets/mode_dropdown.dart';
 import 'package:provider/provider.dart';
 import 'package:otlplus/constants/color.dart';
 import 'package:otlplus/models/lecture.dart';
@@ -28,7 +29,8 @@ class _TimetablePageState extends State<TimetablePage> {
   final _selectedKey = GlobalKey();
   final _paintKey = GlobalKey();
 
-  bool _isExamTime = false;
+  bool _isSearchOpened = false;
+  Lecture? _selectedLecture;
 
   @override
   Widget build(BuildContext context) {
@@ -43,6 +45,7 @@ class _TimetablePageState extends State<TimetablePage> {
     final bottomSheetModel = context.watch<LectureSearchModel>();
     final lectures = context.select<TimetableModel, List<Lecture>>(
         (model) => model.currentTimetable.lectures);
+    final mode = context.read<TimetableModel>().selectedMode;
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (_selectedKey.currentContext != null)
@@ -56,56 +59,105 @@ class _TimetablePageState extends State<TimetablePage> {
             color: Colors.white,
             child: Column(
               children: <Widget>[
+                Stack(
+                  clipBehavior: Clip.none,
+                  alignment: Alignment.center,
+                  children: [
+                    Container(
+                      height: kToolbarHeight,
+                      child: Theme(
+                        data: Theme.of(context).copyWith(
+                            appBarTheme: AppBarTheme(
+                          color: BACKGROUND_COLOR,
+                          elevation: 0.0,
+                        )),
+                        child: AppBar(
+                          title: Image.asset(
+                            "assets/images/logo.png",
+                            height: 27,
+                          ),
+                          flexibleSpace: SafeArea(
+                            child: Column(
+                              children: [
+                                Container(
+                                  color: PRIMARY_COLOR,
+                                  height: 5,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    SemesterPicker(
+                      onSemesterChanged: () {
+                        setState(() {
+                          _isSearchOpened = false;
+                          _selectedLecture = null;
+                        });
+                        context.read<LectureSearchModel>().lectureClear();
+                      },
+                    ),
+                    Positioned(
+                      right: 16,
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 5),
+                        child: ModeDropdown(
+                          dropdownIndex: mode,
+                          onTap: (mode) =>
+                              context.read<TimetableModel>().setMode(mode),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 12.0),
                   child: _buildTimetableTabs(context),
                 ),
-                const SizedBox(height: 2.0),
-                SemesterPicker(
-                  isExamTime: _isExamTime,
-                  onTap: () {
-                    setState(() {
-                      _isExamTime = !_isExamTime;
-                    });
-                  },
-                  onSemesterChanged: () {
-                    context.read<LectureSearchModel>().setSelectedLecture(null);
-                    context.read<LectureSearchModel>().lectureClear();
-                  },
-                ),
-                /*Expanded(
-                  child: ShaderMask(
-                    blendMode: BlendMode.dstIn,
-                    shaderCallback: (bounds) => LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      colors: <Color>[
-                        Colors.white,
-                        Colors.transparent,
-                      ],
-                      stops: <double>[
-                        0.95,
-                        1.0,
-                      ],
-                    ).createShader(bounds.shift(Offset(
-                      -bounds.left,
-                      -bounds.top,
-                    ))),
-                    child: SingleChildScrollView(
-                      child: RepaintBoundary(
-                        key: _paintKey,
-                        child: Container(
-                          color: Colors.white,
-                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                          child: _buildTimetable(context, lectures),
+                const SizedBox(height: 2),
+                () {
+                  switch (mode) {
+                    case 0:
+                    case 1:
+                      return Expanded(
+                        child: ShaderMask(
+                          blendMode: BlendMode.dstIn,
+                          shaderCallback: (bounds) => LinearGradient(
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                            colors: <Color>[
+                              Colors.white,
+                              Colors.transparent,
+                            ],
+                            stops: <double>[
+                              0.95,
+                              1.0,
+                            ],
+                          ).createShader(bounds.shift(Offset(
+                            -bounds.left,
+                            -bounds.top,
+                          ))),
+                          child: SingleChildScrollView(
+                            child: RepaintBoundary(
+                              key: _paintKey,
+                              child: Container(
+                                color: Colors.white,
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 8.0),
+                                child: _buildTimetable(
+                                    context, lectures, mode == 1),
+                              ),
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
-                  ),
-                ),*/
-                Expanded(
-                  child: MapView(lectures: lectures),
-                )
+                      );
+                    default:
+                      return Expanded(
+                        child: MapView(lectures: lectures),
+                      );
+                  }
+                }(),
                 /*Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8.0),
                   child: const Divider(color: DIVIDER_COLOR, height: 1.0),
@@ -142,15 +194,16 @@ class _TimetablePageState extends State<TimetablePage> {
     );
   }
 
-  Timetable _buildTimetable(BuildContext context, List<Lecture> lectures) {
+  Timetable _buildTimetable(
+      BuildContext context, List<Lecture> lectures, bool isExamTime) {
     bool isFirst = true;
     final bottomSheetModel = context.watch<LectureSearchModel>();
 
     return Timetable(
       lectures: (bottomSheetModel.selectedLecture == null)
           ? lectures
-          : [...lectures, bottomSheetModel.selectedLecture!],
-      isExamTime: _isExamTime,
+          : [...lectures, _selectedLecture!],
+      isExamTime: isExamTime,
       builder: (lecture, classTimeIndex) {
         final isSelected = bottomSheetModel.selectedLecture == lecture;
         Key? key;
@@ -165,7 +218,7 @@ class _TimetablePageState extends State<TimetablePage> {
           lecture: lecture,
           classTimeIndex: classTimeIndex,
           isTemp: isSelected,
-          isExamTime: _isExamTime,
+          isExamTime: isExamTime,
           onTap: () {
             context.read<LectureDetailModel>().loadLecture(lecture.id, true);
             Navigator.push(context, buildLectureDetailPageRoute());
@@ -216,38 +269,39 @@ class _TimetablePageState extends State<TimetablePage> {
     final timetableModel = context.watch<TimetableModel>();
 
     return TimetableTabs(
-        index: timetableModel.selectedIndex,
-        length: timetableModel.timetables.length,
-        onTap: (i) {
-          final timetableModel = context.read<TimetableModel>();
+      index: timetableModel.selectedIndex,
+      length: timetableModel.timetables.length,
+      onTap: (i) {
+        final timetableModel = context.read<TimetableModel>();
 
-          if (i > 0 && i == timetableModel.timetables.length)
-            timetableModel.createTimetable();
-          else
-            timetableModel.setIndex(i);
-        },
-        onCopyTap: () {
-          final timetableModel = context.read<TimetableModel>();
-          timetableModel.createTimetable(
-              lectures: timetableModel.currentTimetable.lectures);
-          /*if (_isSearchOpened) return;
+        if (i > 0 && i == timetableModel.timetables.length)
+          timetableModel.createTimetable();
+        else
+          timetableModel.setIndex(i);
+      },
+      onCopyTap: () {
+        final timetableModel = context.read<TimetableModel>();
+        timetableModel.createTimetable(
+            lectures: timetableModel.currentTimetable.lectures);
+        /*if (_isSearchOpened) return;
         setState(() {
           _isSearchOpened = true;
           _selectedLecture = null;
         });*/
-        },
-        onDeleteTap: () {
-          showGeneralDialog(
-            context: context,
-            barrierColor: Colors.black.withOpacity(0.2),
-            pageBuilder: (context, _, __) =>
-                _buildDeleteDialog(context, timetableModel.selectedIndex),
-          );
-          /*showModalBottomSheet(
+      },
+      onDeleteTap: () {
+        showGeneralDialog(
+          context: context,
+          barrierColor: Colors.black.withOpacity(0.2),
+          pageBuilder: (context, _, __) =>
+              _buildDeleteDialog(context, timetableModel.selectedIndex),
+        );
+        /*showModalBottomSheet(
             context: context,
             builder: (context) => _buildSettingsSheet(context));*/
-        },
-        onReorder: (oldIndex, newIndex) {});
+      },
+      onReorder: (oldIndex, newIndex) {},
+    );
   }
 
   Widget _buildDeleteDialog(BuildContext context, int i) {

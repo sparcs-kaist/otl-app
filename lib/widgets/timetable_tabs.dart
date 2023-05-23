@@ -149,8 +149,6 @@ class _TimetableTabsState extends State<TimetableTabs> {
                       padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 4.5),
                       child: SvgPicture.asset(
                         'assets/icons/icon_copy_tab.svg',
-                        width: 10,
-                        height: 10,
                       ),
                     ),
                   ),
@@ -162,8 +160,6 @@ class _TimetableTabsState extends State<TimetableTabs> {
                       child: SvgPicture.asset(
                         'assets/icons/icon_remove_tab.svg',
                         color: Colors.white.withOpacity((widget.length > 2 && i != 0) ? 1 : 0.5),
-                        width: 10,
-                        height: 10,
                       ),
                     ),
                   )
@@ -186,8 +182,6 @@ class _TimetableTabsState extends State<TimetableTabs> {
                 alignment: Alignment.center,
                 child: SvgPicture.asset(
                   'assets/icons/icon_add_tab.svg',
-                  width: 10,
-                  height: 10,
                 ),
               ),
             );
