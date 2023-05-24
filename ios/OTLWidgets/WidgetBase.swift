@@ -136,6 +136,27 @@ func getDayWithWeekDay(weekday: Int) -> Int {
     }
 }
 
+func getDayInString(day: Int) -> String {
+    switch day {
+    case 0:
+        return "월"
+    case 1:
+        return "화"
+    case 2:
+        return "수"
+    case 3:
+        return "목"
+    case 4:
+        return "금"
+    case 5:
+        return "토"
+    case 6:
+        return "일"
+    default:
+        return "월"
+    }
+}
+
 func getTodayLectures(timetable: Timetable?, date: Date) -> [(Int, Lecture)] {
     var tmp: [(Int, Lecture)] = [(Int, Lecture)]()
     if (timetable == nil) {

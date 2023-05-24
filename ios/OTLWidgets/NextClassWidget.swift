@@ -92,8 +92,9 @@ struct NextClassWidgetEntryView : View {
                                 .font(.custom("NotoSansKR-Regular", size: 12))
                                 .minimumScaleFactor(0.5)
                                 .lineLimit(1)
-                            Text(getTime(timetable: entry.timetableData![Int(entry.configuration.nextClassTimetable?.identifier ?? "0") ?? 0], date: entry.date))
+                            Text(getProfessor(timetable: entry.timetableData![Int(entry.configuration.nextClassTimetable?.identifier ?? "0") ?? 0], date: entry.date))
                                 .font(.custom("NotoSansKR-Medium", size: 12))
+                                .minimumScaleFactor(0.5)
                                 .foregroundColor(.gray)
                         }
                         Spacer()
@@ -137,6 +138,7 @@ struct NextClassWidgetEntryView : View {
                                 .lineLimit(1)
                             Text("데이터 없음")
                                 .font(.custom("NotoSansKR-Medium", size: 12))
+                                .minimumScaleFactor(0.5)
                                 .foregroundColor(.gray)
                         }
                         Spacer()
@@ -194,22 +196,19 @@ struct NextClassWidgetEntryView : View {
         return lecture.common_title
     }
     
+    func getProfessor(timetable: Timetable, date: Date) -> String {
+        let c = getNextClass(timetable: timetable, date: date)
+        let lecture: Lecture = c.1
+        
+        return "\(lecture.professors[0].name) 교수님"
+    }
+    
     func getPlace(timetabe: Timetable, date: Date) -> String {
         let c = getNextClass(timetable: timetabe, date: date)
         let index = c.0
         let lecture: Lecture = c.1
         
         return lecture.classtimes[index].classroom
-    }
-    
-    func getTime(timetable: Timetable, date: Date) -> String {
-        let c = getNextClass(timetable: timetable, date: date)
-        let index = c.0
-        let lecture: Lecture = c.1
-        let begin = lecture.classtimes[index].begin
-        let end = lecture.classtimes[index].end
-        
-        return String(format:"%02d:%02d-%02d:%02d", begin/60, begin%60, end/60, end%60)
     }
     
     func getTimeLeft(timetable: Timetable, date: Date) -> String {
@@ -219,26 +218,19 @@ struct NextClassWidgetEntryView : View {
         
         let calendar = Calendar.current
         let day = getDayWithWeekDay(weekday: calendar.component(.weekday, from: date))
-        let minutes = calendar.component(.minute, from: date) + calendar.component(.hour, from: date) * 60
+        
         
         let begin = lecture.classtimes[index].begin
         let lday = lecture.classtimes[index].day
         
         if lday == day {
-//            let left = begin - minutes
-//            if left / 60 == 0 {
-//                return "\(left)분 후"
-//            } else {
-//                return "\(left/60)시간 \(left%60)분 후"
-//            }
-            // TODO: something better than "Today"
-            return "오늘"
+            return String(format:"오늘 %02d:%02d", begin/60, begin%60)
         } else if lday == day+1 {
-            return "내일"
+            return String(format:"내일 %02d:%02d", begin/60, begin%60)
         } else if lday > day+1 {
-            return "이번주"
+            return String(format:"%s요일 %02d:%02d", getDayInString(day: lday), begin/60, begin%60)
         } else {
-            return "다음주"
+            return String(format:"다음주 %s요일", getDayInString(day: lday))
         }
     }
     
