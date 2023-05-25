@@ -169,7 +169,7 @@ struct WeekClassesLectureView: View {
                 .padding(.vertical, 2)
             Text(lectureName)
                 .font(.custom("NotoSansKR-Regular", size: 10))
-                .padding([.leading, .top], 4)
+                .padding([.leading, .top, .trailing], 4)
         }
     }
 }
