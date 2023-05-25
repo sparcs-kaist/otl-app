@@ -69,6 +69,8 @@ struct TodayClassesWidgetEntryView : View {
                                     }
                                 }
                             }
+                            ExactTimeLine()
+                                .offset(x: getXByDate(date: entry.date))
                         }
                     }.padding(.vertical, 16)
                         .offset(x: getOffsetByDate(date: entry.date))
@@ -87,6 +89,20 @@ struct TodayClassesWidgetEntryView : View {
         
         
         return CGFloat(tmp)
+    }
+    
+    func getXByDate(date: Date) -> CGFloat {
+        var tmp = 0.0
+        let hour = Calendar.current.component(.hour, from: date)
+        let minutes = Calendar.current.component(.minute, from: date) + hour * 60
+        
+        if minutes <= 540 {
+            return -100
+        }
+        
+        tmp = 13.5 + 0.95 * Double(minutes - 540)
+        
+        return tmp
     }
     
     func getLecturesData(data: [(Int, Lecture)]) -> [TodayClassesWidgetData] {
@@ -130,6 +146,19 @@ struct TodayClassesLectureView: View {
             }.padding(.horizontal, 8)
         }
         .padding(.horizontal, 2)
+    }
+}
+
+struct ExactTimeLine: View {
+    var body: some View {
+        ZStack(alignment: .top) {
+            Circle()
+                .fill(Color(red: 229.0/255, green: 76.0/255, blue: 99.0/255))
+                .frame(width: 12, height: 12)
+            Rectangle()
+                .fill(Color(red: 229.0/255, green: 76.0/255, blue: 99.0/255))
+                .frame(width: 2)
+        }
     }
 }
 
