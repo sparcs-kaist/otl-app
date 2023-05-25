@@ -54,12 +54,18 @@ struct WidgetEntry: TimelineEntry {
 }
 
 struct NextClassWidgetEntryView : View {
+    @Environment(\.colorScheme) var colorScheme
+    
     var entry: Provider.Entry
+    
+    var widgetBackground: some View {
+        colorScheme == .dark ? Color(red: 51.0/255, green: 51.0/255, blue: 51.0/255) : Color(red: 249.0/255, green: 240.0/255, blue: 240.0/255)
+    }
 
     var body: some View {
         if (entry.timetableData != nil) {
             ZStack(alignment: .leading) {
-                Color(red: 249.0/255, green: 240.0/255, blue: 240.0/255)
+                widgetBackground
                 VStack(alignment: .leading) {
                     Text("다음 강의")
                         .font(.custom("NotoSansKR-Bold", size: 12))
@@ -93,7 +99,7 @@ struct NextClassWidgetEntryView : View {
             }
         } else {
             ZStack(alignment: .leading) {
-                Color(red: 249.0/255, green: 240.0/255, blue: 240.0/255)
+                widgetBackground
                 VStack(alignment: .leading) {
                     Text("다음 강의")
                         .font(.custom("NotoSansKR-Bold", size: 12))

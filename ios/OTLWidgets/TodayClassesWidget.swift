@@ -21,11 +21,17 @@ struct TodayClassesWidgetData: Hashable {
 
 
 struct TodayClassesWidgetEntryView : View {
+    @Environment(\.colorScheme) var colorScheme
+    
     var entry: Provider.Entry
+    
+    var widgetBackground: some View {
+        colorScheme == .dark ? Color(red: 51.0/255, green: 51.0/255, blue: 51.0/255) : Color(red: 249.0/255, green: 240.0/255, blue: 240.0/255)
+    }
 
     var body: some View {
         ZStack {
-            Color(red: 249.0/255, green: 240.0/255, blue: 240.0/255)
+            widgetBackground
             Color.clear
                 .overlay(
                     Group {
@@ -40,7 +46,7 @@ struct TodayClassesWidgetEntryView : View {
                                         VerticalLine()
                                             .stroke(style: StrokeStyle(lineWidth: 1))
                                             .frame(width: 1)
-                                            .foregroundColor(Color(red: 0, green: 0, blue: 0, opacity: 0.25))
+                                            .foregroundColor(colorScheme == .dark ? Color.white.opacity(0.25) : Color.black.opacity(0.25))
                                     }
                                     if number != 24 {
                                         Spacer()
@@ -50,7 +56,7 @@ struct TodayClassesWidgetEntryView : View {
                                             VerticalLine()
                                                 .stroke(style: StrokeStyle(lineWidth: 1, dash: [2]))
                                                 .frame(width: 1)
-                                                .foregroundColor(Color(red: 0, green: 0, blue: 0, opacity: 0.25))
+                                                .foregroundColor(colorScheme == .dark ? Color.white.opacity(0.25) : Color.black.opacity(0.25))
                                         }
                                         Spacer()
                                     }
@@ -137,6 +143,7 @@ struct TodayClassesLectureView: View {
                 VStack(alignment: .leading) {
                     Text(lectureName)
                         .font(.custom("NotoSansKR-Regular", size: 12))
+                        .foregroundColor(.black)
                     Text(lecturePlace)
                         .font(.custom("NotoSansKR-Regular", size: 12))
                         .foregroundColor(Color(red: 102.0/255, green: 102.0/255, blue: 102.0/255))

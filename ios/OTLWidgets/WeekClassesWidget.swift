@@ -18,11 +18,17 @@ struct WeekClassesWidgetData: Hashable {
 }
 
 struct WeekClassesWidgetEntryView : View {
+    @Environment(\.colorScheme) var colorScheme
+    
     var entry: Provider.Entry
+    
+    var widgetBackground: some View {
+        colorScheme == .dark ? Color(red: 51.0/255, green: 51.0/255, blue: 51.0/255) : Color(red: 249.0/255, green: 240.0/255, blue: 240.0/255)
+    }
 
     var body: some View {
         ZStack(alignment: .top) {
-            Color(red: 249.0/255, green: 240.0/255, blue: 240.0/255)
+            widgetBackground
             Group {
                 VStack(spacing: 0) {
                     Spacer()
@@ -49,10 +55,10 @@ struct WeekClassesWidgetEntryView : View {
             }.padding(16)
             GeometryReader { proxy in
                 ZStack {
-                    Color(red: 249.0/255, green: 240.0/255, blue: 240.0/255)
+                    widgetBackground
                         .frame(height: 33)
                         .offset(y: -5)
-                    Color(red: 249.0/255, green: 240.0/255, blue: 240.0/255)
+                    widgetBackground
                         .frame(width: proxy.size.width-45, height: 37)
                         .offset(x: 10)
                     HStack {
@@ -106,6 +112,8 @@ struct WeekClassesWidgetEntryView : View {
 
 
 struct TimeLabelView: View {
+    @Environment(\.colorScheme) var colorScheme
+    
     var body: some View {
         VStack(spacing: 12) {
             ForEach(9..<25) { number in
@@ -116,14 +124,14 @@ struct TimeLabelView: View {
                     HorizontalLine()
                         .stroke(style: StrokeStyle(lineWidth: 1))
                         .frame(width: 0, height: 1)
-                        .foregroundColor(Color(red: 0, green: 0, blue: 0, opacity: 0.25))
+                        .foregroundColor(colorScheme == .dark ? Color.white.opacity(0.25) : Color.black.opacity(0.25))
                 }
                 if number != 24 {
                     HStack(spacing: 2) {
                         HorizontalLine()
                             .stroke(style: StrokeStyle(lineWidth: 1, dash: [2]))
                             .frame(width: 0, height: 1)
-                            .foregroundColor(Color(red: 0, green: 0, blue: 0, opacity: 0.25))
+                            .foregroundColor(colorScheme == .dark ? Color.white.opacity(0.25) : Color.black.opacity(0.25))
                     }
                 }
             }
@@ -132,6 +140,8 @@ struct TimeLabelView: View {
 }
 
 struct TableLineView: View {
+    @Environment(\.colorScheme) var colorScheme
+    
     var body: some View {
         VStack(spacing: 12) {
             ForEach(9..<25) { number in
@@ -142,14 +152,14 @@ struct TableLineView: View {
                     HorizontalLine()
                         .stroke(style: StrokeStyle(lineWidth: 1))
                         .frame(height: 1)
-                        .foregroundColor(Color(red: 0, green: 0, blue: 0, opacity: 0.25))
+                        .foregroundColor(colorScheme == .dark ? Color.white.opacity(0.25) : Color.black.opacity(0.25))
                 }
                 if number != 24 {
                     HStack(spacing: 0) {
                         HorizontalLine()
                             .stroke(style: StrokeStyle(lineWidth: 1, dash: [2]))
                             .frame(height: 1)
-                            .foregroundColor(Color(red: 0, green: 0, blue: 0, opacity: 0.25))
+                            .foregroundColor(colorScheme == .dark ? Color.white.opacity(0.25) : Color.black.opacity(0.25))
                     }
                 }
             }
@@ -169,6 +179,7 @@ struct WeekClassesLectureView: View {
                 .padding(.vertical, 2)
             Text(lectureName)
                 .font(.custom("NotoSansKR-Regular", size: 10))
+                .foregroundColor(.black)
                 .padding([.leading, .top, .trailing], 4)
         }
     }
