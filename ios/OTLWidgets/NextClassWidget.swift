@@ -214,9 +214,9 @@ struct NextClassWidgetEntryView : View {
         } else if lday == day+1 {
             return String(format:"내일 %02d:%02d", begin/60, begin%60)
         } else if lday > day+1 {
-            return String(format:"%s요일 %02d:%02d", getDayInString(day: lday), begin/60, begin%60)
+            return String(format:"\(getDayInString(day: lday))요일 %02d:%02d", begin/60, begin%60)
         } else {
-            return String(format:"다음주 %s요일", getDayInString(day: lday))
+            return "다음주 \(getDayInString(day: lday))요일"
         }
     }
     
