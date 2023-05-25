@@ -58,92 +58,72 @@ struct NextClassWidgetEntryView : View {
 
     var body: some View {
         if (entry.timetableData != nil) {
-            ZStack {
+            ZStack(alignment: .leading) {
                 Color(red: 249.0/255, green: 240.0/255, blue: 240.0/255)
-                VStack {
-                    HStack {
-                        VStack(alignment: .leading) {
-                            Text("다음 강의")
-                                .font(.custom("NotoSansKR-Bold", size: 12))
-                                .foregroundColor(Color(red: 229.0/255, green: 76.0/255, blue: 100.0/255))
-                            Text(getTimeLeft(timetable: entry.timetableData![Int(entry.configuration.nextClassTimetable?.identifier ?? "0") ?? 0], date: entry.date))
-                                .font(.custom("NotoSansKR-Bold", size: 20))
-                                .offset(y: -2)
-                                .minimumScaleFactor(0.5)
-                                .lineLimit(1)
-                        }
-                        Spacer()
-                    }
+                VStack(alignment: .leading) {
+                    Text("다음 강의")
+                        .font(.custom("NotoSansKR-Bold", size: 12))
+                        .foregroundColor(Color(red: 229.0/255, green: 76.0/255, blue: 100.0/255))
+                    Text(getTimeLeft(timetable: entry.timetableData![Int(entry.configuration.nextClassTimetable?.identifier ?? "0") ?? 0], date: entry.date))
+                        .font(.custom("NotoSansKR-Bold", size: 20))
+                        .offset(y: -2)
+                        .minimumScaleFactor(0.5)
+                        .lineLimit(1)
                     
                     Spacer()
                     
                     HStack {
-                        Rectangle()
+                        Circle()
                             .fill(getColour(timetable: entry.timetableData![Int(entry.configuration.nextClassTimetable?.identifier ?? "0") ?? 0], date: entry.date))
-                            .frame(width: 2, height: 60)
-                            .cornerRadius(1)
-
-                        VStack(alignment: .leading) {
-                            Text(getName(timetable: entry.timetableData![Int(entry.configuration.nextClassTimetable?.identifier ?? "0") ?? 0], date: entry.date))
-                                .font(.custom("NotoSansKR-Bold", size: 16))
-                                .minimumScaleFactor(0.5)
-                                .lineLimit(2)
-                            Text(getPlace(timetabe: entry.timetableData![Int(entry.configuration.nextClassTimetable?.identifier ?? "0") ?? 0], date: entry.date))
-                                .font(.custom("NotoSansKR-Regular", size: 12))
-                                .minimumScaleFactor(0.5)
-                                .lineLimit(1)
-                            Text(getProfessor(timetable: entry.timetableData![Int(entry.configuration.nextClassTimetable?.identifier ?? "0") ?? 0], date: entry.date))
-                                .font(.custom("NotoSansKR-Medium", size: 12))
-                                .minimumScaleFactor(0.5)
-                                .foregroundColor(.gray)
-                        }
-                        Spacer()
-                    }
-                }.padding(.all, 16)
+                            .frame(width: 12, height: 12)
+                        Text(getName(timetable: entry.timetableData![Int(entry.configuration.nextClassTimetable?.identifier ?? "0") ?? 0], date: entry.date))
+                            .font(.custom("NotoSansKR-Bold", size: 16))
+                            .minimumScaleFactor(0.5)
+                            .lineLimit(2)
+                    }.offset(y: 8)
+                    Text(getPlace(timetabe: entry.timetableData![Int(entry.configuration.nextClassTimetable?.identifier ?? "0") ?? 0], date: entry.date))
+                        .font(.custom("NotoSansKR-Regular", size: 12))
+                        .minimumScaleFactor(0.5)
+                        .lineLimit(1)
+                    Text(getProfessor(timetable: entry.timetableData![Int(entry.configuration.nextClassTimetable?.identifier ?? "0") ?? 0], date: entry.date))
+                        .font(.custom("NotoSansKR-Medium", size: 12))
+                        .minimumScaleFactor(0.5)
+                        .foregroundColor(.gray)
+                }.padding()
             }
         } else {
-            ZStack {
+            ZStack(alignment: .leading) {
                 Color(red: 249.0/255, green: 240.0/255, blue: 240.0/255)
-                VStack {
-                    HStack {
-                        VStack(alignment: .leading) {
-                            Text("다음 강의")
-                                .font(.custom("NotoSansKR-Bold", size: 12))
-                                .foregroundColor(Color(red: 229.0/255, green: 76.0/255, blue: 100.0/255))
-                            Text("오류")
-                                .font(.custom("NotoSansKR-Bold", size: 20))
-                                .offset(y: -2)
-                                .minimumScaleFactor(0.5)
-                                .lineLimit(1)
-                        }
-                        Spacer()
-                    }
+                VStack(alignment: .leading) {
+                    Text("다음 강의")
+                        .font(.custom("NotoSansKR-Bold", size: 12))
+                        .foregroundColor(Color(red: 229.0/255, green: 76.0/255, blue: 100.0/255))
+                    Text("오류")
+                        .font(.custom("NotoSansKR-Bold", size: 20))
+                        .offset(y: -2)
+                        .minimumScaleFactor(0.5)
+                        .lineLimit(1)
                     
                     Spacer()
                     
                     HStack {
-                        Rectangle()
+                        Circle()
                             .fill(getColourForCourse(course: 1))
-                            .frame(width: 2, height: 60)
-                            .cornerRadius(1)
-
-                        VStack(alignment: .leading) {
-                            Text("로그인해 주세요")
-                                .font(.custom("NotoSansKR-Bold", size: 16))
-                                .minimumScaleFactor(0.5)
-                                .lineLimit(2)
-                            Text("시간표 불러오기 실패")
-                                .font(.custom("NotoSansKR-Regular", size: 12))
-                                .minimumScaleFactor(0.5)
-                                .lineLimit(1)
-                            Text("데이터 없음")
-                                .font(.custom("NotoSansKR-Medium", size: 12))
-                                .minimumScaleFactor(0.5)
-                                .foregroundColor(.gray)
-                        }
-                        Spacer()
-                    }
-                }.padding(.all, 16)
+                            .frame(width: 12, height: 12)
+                        Text("로그인해 주세요")
+                            .font(.custom("NotoSansKR-Bold", size: 16))
+                            .minimumScaleFactor(0.5)
+                            .lineLimit(2)
+                    }.offset(y: 8)
+                    Text("시간표 불러오기 실패")
+                        .font(.custom("NotoSansKR-Regular", size: 12))
+                        .minimumScaleFactor(0.5)
+                        .lineLimit(1)
+                    Text("데이터 없음")
+                        .font(.custom("NotoSansKR-Medium", size: 12))
+                        .minimumScaleFactor(0.5)
+                        .foregroundColor(.gray)
+                }.padding()
             }
         }
     }
