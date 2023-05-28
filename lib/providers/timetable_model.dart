@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_widgetkit/flutter_widgetkit.dart';
@@ -105,7 +104,8 @@ class TimetableModel extends ChangeNotifier {
       _selectedTimetableIndex = _selectedTimetableIndex == 0 ? 0 : 1;
       _isLoaded = true;
       notifyListeners();
-      WidgetKit.setItem('widgetData', jsonEncode(_timetables), 'group.org.sparcs.otlplus');
+      WidgetKit.setItem(
+          'widgetData', jsonEncode(_timetables), 'group.org.sparcs.otlplus');
       WidgetKit.reloadAllTimelines();
       return true;
     } catch (exception) {
