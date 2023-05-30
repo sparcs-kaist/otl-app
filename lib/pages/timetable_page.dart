@@ -329,6 +329,23 @@ class _TimetablePageState extends State<TimetablePage> {
                   children: [
                     Expanded(
                       child: GestureDetector(
+                        onTap: () => Navigator.pop(context),
+                        child: Container(
+                          height: 40,
+                          alignment: Alignment.center,
+                          color: BLOCK_COLOR,
+                          child: Text(
+                            '취소',
+                            style: TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: GestureDetector(
                         onTap: () {
                           context.read<TimetableModel>().deleteTimetable();
                           Navigator.pop(context);
@@ -341,23 +358,6 @@ class _TimetablePageState extends State<TimetablePage> {
                             '삭제',
                             style: TextStyle(
                               color: Colors.white,
-                              fontSize: 12,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      child: GestureDetector(
-                        onTap: () => Navigator.pop(context),
-                        child: Container(
-                          height: 40,
-                          alignment: Alignment.center,
-                          color: Color(0xFFD9D9D9),
-                          child: Text(
-                            '취소',
-                            style: TextStyle(
                               fontSize: 12,
                               fontWeight: FontWeight.w700,
                             ),
