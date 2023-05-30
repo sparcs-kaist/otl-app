@@ -158,11 +158,11 @@ class _TimetablePageState extends State<TimetablePage> {
                       );
                   }
                 }(),
-                /*Padding(
+                Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8.0),
                   child: const Divider(color: DIVIDER_COLOR, height: 1.0),
-                ),*/
-                /*Padding(
+                ),
+                Padding(
                   padding: const EdgeInsets.symmetric(
                     horizontal: 8.0,
                     vertical: 12.0,
@@ -171,7 +171,7 @@ class _TimetablePageState extends State<TimetablePage> {
                     lectures: lectures,
                     tempLecture: bottomSheetModel.selectedLecture,
                   ),
-                ),*/
+                ),
               ],
             ),
           ),
