@@ -33,13 +33,14 @@ dependencies:
   url_launcher: ^6.1.8
   equatable: ^2.0.5
   shared_preferences: ^2.0.17
-  flutter_platform_widgets: ^2.2.6
+  flutter_platform_widgets: ^3.3.4
   cupertino_icons: ^1.0.5
   easy_localization: ^3.0.1
   # Firebase
   firebase_core: ^2.8.0
   firebase_analytics: ^10.1.6
   firebase_crashlytics: ^3.0.17
+  flutter_widgetkit: ^1.0.3
 
 dev_dependencies:
   test: ^1.19.5
