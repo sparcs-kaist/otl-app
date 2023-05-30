@@ -59,120 +59,120 @@ class _TimetablePageState extends State<TimetablePage> {
             color: Colors.white,
             child: Column(
               children: <Widget>[
-                Stack(
-                  clipBehavior: Clip.none,
-                  alignment: Alignment.center,
-                  children: [
-                    Container(
-                      height: kToolbarHeight,
-                      child: Theme(
-                        data: Theme.of(context).copyWith(
-                            appBarTheme: AppBarTheme(
-                          color: BACKGROUND_COLOR,
-                          elevation: 0.0,
-                        )),
-                        child: AppBar(
-                          title: Image.asset(
-                            "assets/images/logo.png",
-                            height: 27,
-                          ),
-                          flexibleSpace: SafeArea(
-                            child: Column(
-                              children: [
-                                Container(
-                                  color: PRIMARY_COLOR,
-                                  height: 5,
-                                ),
-                              ],
+                Container(
+                  height: kToolbarHeight,
+                  color: BACKGROUND_COLOR,
+                  child: Column(
+                    children: [
+                      Container(
+                        color: PRIMARY_COLOR,
+                        height: 5,
+                      ),
+                      Expanded(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(left: 16),
+                              child: SemesterPicker(
+                                onSemesterChanged: () {
+                                  setState(() {
+                                    _isSearchOpened = false;
+                                    _selectedLecture = null;
+                                  });
+                                  context
+                                      .read<LectureSearchModel>()
+                                      .lectureClear();
+                                },
+                              ),
                             ),
-                          ),
+                            ModeControl(
+                              dropdownIndex: mode,
+                              onTap: (mode) =>
+                                  context.read<TimetableModel>().setMode(mode),
+                            ),
+                          ],
                         ),
-                      ),
-                    ),
-                    SemesterPicker(
-                      onSemesterChanged: () {
-                        setState(() {
-                          _isSearchOpened = false;
-                          _selectedLecture = null;
-                        });
-                        context.read<LectureSearchModel>().lectureClear();
-                      },
-                    ),
-                    Positioned(
-                      right: 16,
-                      child: Padding(
-                        padding: const EdgeInsets.only(top: 5),
-                        child: ModeDropdown(
-                          dropdownIndex: mode,
-                          onTap: (mode) =>
-                              context.read<TimetableModel>().setMode(mode),
-                        ),
-                      ),
-                    ),
-                  ],
+                      )
+                    ],
+                  ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 12.0),
-                  child: _buildTimetableTabs(context),
+                Container(
+                  color: BACKGROUND_COLOR,
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(vertical: 12.0),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius:
+                          BorderRadius.only(topLeft: Radius.circular(16)),
+                    ),
+                    child: _buildTimetableTabs(context),
+                  ),
                 ),
                 const SizedBox(height: 2),
+              ].followedBy(
                 () {
                   switch (mode) {
                     case 0:
                     case 1:
-                      return Expanded(
-                        child: ShaderMask(
-                          blendMode: BlendMode.dstIn,
-                          shaderCallback: (bounds) => LinearGradient(
-                            begin: Alignment.topCenter,
-                            end: Alignment.bottomCenter,
-                            colors: <Color>[
-                              Colors.white,
-                              Colors.transparent,
-                            ],
-                            stops: <double>[
-                              0.95,
-                              1.0,
-                            ],
-                          ).createShader(bounds.shift(Offset(
-                            -bounds.left,
-                            -bounds.top,
-                          ))),
-                          child: SingleChildScrollView(
-                            child: RepaintBoundary(
-                              key: _paintKey,
-                              child: Container(
-                                color: Colors.white,
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 8.0),
-                                child: _buildTimetable(
-                                    context, lectures, mode == 1),
+                      return [
+                        Expanded(
+                          child: ShaderMask(
+                            blendMode: BlendMode.dstIn,
+                            shaderCallback: (bounds) => LinearGradient(
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter,
+                              colors: <Color>[
+                                Colors.white,
+                                Colors.transparent,
+                              ],
+                              stops: <double>[
+                                0.95,
+                                1.0,
+                              ],
+                            ).createShader(bounds.shift(Offset(
+                              -bounds.left,
+                              -bounds.top,
+                            ))),
+                            child: SingleChildScrollView(
+                              child: RepaintBoundary(
+                                key: _paintKey,
+                                child: Container(
+                                  color: Colors.white,
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 8.0),
+                                  child: _buildTimetable(
+                                      context, lectures, mode == 1),
+                                ),
                               ),
                             ),
                           ),
                         ),
-                      );
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                          child:
+                              const Divider(color: DIVIDER_COLOR, height: 1.0),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 8.0,
+                            vertical: 12.0,
+                          ),
+                          child: TimetableSummary(
+                            lectures: lectures,
+                            tempLecture: _selectedLecture,
+                          ),
+                        ),
+                      ];
                     default:
-                      return Expanded(
-                        child: MapView(lectures: lectures),
-                      );
+                      return [
+                        Expanded(
+                          child: MapView(lectures: lectures),
+                        )
+                      ];
                   }
                 }(),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                  child: const Divider(color: DIVIDER_COLOR, height: 1.0),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 8.0,
-                    vertical: 12.0,
-                  ),
-                  child: TimetableSummary(
-                    lectures: lectures,
-                    tempLecture: bottomSheetModel.selectedLecture,
-                  ),
-                ),
-              ],
+              ).toList(),
             ),
           ),
         ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:otlplus/extensions/semester.dart';
 import 'package:otlplus/providers/timetable_model.dart';
@@ -22,6 +23,7 @@ class _SemesterPickerState extends State<SemesterPicker> {
 
     return Row(
       mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.end,
       children: <Widget>[
         _buildLeftButton(theme),
         _buildTitle(context),
@@ -52,13 +54,8 @@ class _SemesterPickerState extends State<SemesterPicker> {
               widget.onSemesterChanged();
             }
           : null,
-      child: Icon(
-        Icons.chevron_left_rounded,
-        color: context.watch<TimetableModel>().canGoPreviousSemester()
-            ? theme.iconTheme.color
-            : theme.disabledColor,
-        size: 32,
-      ),
+      child: SvgPicture.asset(
+          'assets/icons/icon_left_arrow_${context.watch<TimetableModel>().canGoPreviousSemester() ? 'active' : 'inactive'}.svg'),
     );
   }
 
@@ -70,13 +67,8 @@ class _SemesterPickerState extends State<SemesterPicker> {
               widget.onSemesterChanged();
             }
           : null,
-      child: Icon(
-        Icons.chevron_right_rounded,
-        color: context.watch<TimetableModel>().canGoNextSemester()
-            ? theme.iconTheme.color
-            : theme.disabledColor,
-        size: 32,
-      ),
+      child: SvgPicture.asset(
+          'assets/icons/icon_right_arrow_${context.watch<TimetableModel>().canGoNextSemester() ? 'active' : 'inactive'}.svg'),
     );
   }
 }
