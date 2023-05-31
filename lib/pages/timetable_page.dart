@@ -293,6 +293,8 @@ class _TimetablePageState extends State<TimetablePage> {
         showGeneralDialog(
           context: context,
           barrierColor: Colors.black.withOpacity(0.2),
+          barrierDismissible: true,
+          barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
           pageBuilder: (context, _, __) =>
               _buildDeleteDialog(context, timetableModel.selectedIndex),
         );
@@ -305,11 +307,10 @@ class _TimetablePageState extends State<TimetablePage> {
   }
 
   Widget _buildDeleteDialog(BuildContext context, int i) {
-    return Material(
-      color: Colors.transparent,
-      child: Center(
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(10),
+    return Center(
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(10),
+        child: Material(
           child: IntrinsicWidth(
             child: Column(
               mainAxisSize: MainAxisSize.min,
