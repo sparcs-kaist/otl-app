@@ -81,12 +81,9 @@ class IntentHandler: INExtension, ConfigurationIntentHandling {
         var data: [Timetable]? = try? JSONDecoder().decode([Timetable].self, from: (sharedDefaults?.string(forKey: "widgetData")?.data(using: .utf8)) ?? Data())
         var tables: [NextClassTimetable] = []
         
-        for i in 0..<data!.count {
-            if i == 0 {
-                tables.append(NextClassTimetable(identifier: "\(i)", display: "내 시간표"))
-            } else {
-                tables.append(NextClassTimetable(identifier: "\(i)", display: "내 시간표 \(i)"))
-            }
+        tables.append(NextClassTimetable(identifier: "0", display: "내 시간표"))
+        for i in 1..<data!.count {
+            tables.append(NextClassTimetable(identifier: "\(i)", display: "내 시간표 \(i)"))
         }
         
         let collection = INObjectCollection(items: tables)
