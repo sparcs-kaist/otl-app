@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:otlplus/constants/url.dart';
 import 'package:otlplus/dio_provider.dart';
 import 'package:otlplus/models/review.dart';
+import 'package:otlplus/models/semester.dart';
 
 class HallOfFameModel extends ChangeNotifier {
   int _page = 0;
@@ -11,26 +12,25 @@ class HallOfFameModel extends ChangeNotifier {
   bool get isLoading => _isLoading;
 
   List<Review> _hallOfFames = <Review>[];
-  List<Review> hallOfFames(int year, int semester) {
-    if (_hallOfFames.length == 0 && !_isLoading)
-      loadHallOfFames(year, semester);
+  List<Review> hallOfFames(Semester s) {
+    if (_hallOfFames.length == 0 && !_isLoading) loadHallOfFames(s);
     return _hallOfFames;
   }
 
-  Future<void> clear(int year, int semester) async {
+  Future<void> clear(Semester s) async {
     _hallOfFames.clear();
     _page = 0;
-    await loadHallOfFames(year, semester);
+    await loadHallOfFames(s);
   }
 
-  Future<void> loadHallOfFames(int year, int semester) async {
+  Future<void> loadHallOfFames(Semester s) async {
     _isLoading = true;
 
     try {
       final response =
           await DioProvider().dio.get(API_REVIEW_URL, queryParameters: {
-        "lecture_year": year,
-        "lecture_semester": semester,
+        "lecture_year": s.year,
+        "lecture_semester": s.semester,
         "order": "-like",
         "offset": _page * 10,
         "limit": 10,
