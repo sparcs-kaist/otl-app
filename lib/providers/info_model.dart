@@ -43,6 +43,11 @@ class InfoModel extends ChangeNotifier {
   bool _hasData = false;
   bool get hasData => _hasData;
 
+  void logout() {
+    _hasData = false;
+    notifyListeners();
+  }
+
   Future<void> getInfo() async {
     // try {
     _semesters = await getSemesters();

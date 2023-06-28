@@ -19,4 +19,8 @@ class DioProvider {
     _dio.options.headers["X-CSRFToken"] =
         cookies.firstWhere((cookie) => cookie.name == "csrftoken").value;
   }
+
+  void logout() {
+    _dio.options.headers.clear();
+  }
 }
