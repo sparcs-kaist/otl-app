@@ -44,6 +44,7 @@ class _BackdropScaffoldState extends State<BackdropScaffold>
       _controller.status == AnimationStatus.forward;
 
   late AnimationController _controller;
+  bool _showBottomNavigationBar = true;
   int _selectedIndex = 0;
   List<int> _indexStack = <int>[];
 
@@ -73,6 +74,7 @@ class _BackdropScaffoldState extends State<BackdropScaffold>
   void show([int index = -1]) {
     setState(() {
       if (index > -1) {
+        _showBottomNavigationBar = false;
         if (frontLayerVisible)
           _indexStack.clear();
         else
@@ -85,6 +87,7 @@ class _BackdropScaffoldState extends State<BackdropScaffold>
         _indexStack.removeLast();
         _controller.fling(velocity: -_kFlingVelocity);
       } else {
+        _showBottomNavigationBar = true;
         _controller.fling(velocity: _kFlingVelocity);
       }
     });
@@ -188,7 +191,8 @@ class _BackdropScaffoldState extends State<BackdropScaffold>
             appBar: _buildAppBar(),
             backgroundColor:
                 isExpanded ? const Color(0xFF9B4810) : BACKGROUND_COLOR,
-            bottomNavigationBar: widget.bottomNavigationBar,
+            bottomNavigationBar:
+                _showBottomNavigationBar ? widget.bottomNavigationBar : null,
             body: GestureDetector(
               onTap: () {
                 FocusScope.of(context).unfocus();

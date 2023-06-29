@@ -1,29 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:otlplus/constants/color.dart';
-import 'package:otlplus/extensions/semester.dart';
-import 'package:otlplus/models/lecture.dart';
-import 'package:otlplus/models/semester.dart';
-import 'package:otlplus/models/user.dart';
 import 'package:otlplus/providers/info_model.dart';
-import 'package:otlplus/providers/lecture_detail_model.dart';
 import 'package:otlplus/widgets/backdrop.dart';
-import 'package:otlplus/widgets/lecture_simple_block.dart';
 
 class UserPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final user = context.watch<InfoModel>().user;
-    final targetSemesters = user.reviewWritableLectures
-        .map((lecture) => Semester(
-            year: lecture.year,
-            semester: lecture.semester,
-            beginning: DateTime.now(),
-            end: DateTime.now()))
-        .toSet()
-        .toList()
-      ..sort((a, b) =>
-          ((a.year != b.year) ? (b.year - a.year) : (b.semester - a.semester)));
 
     return Container(
       constraints: const BoxConstraints.expand(),
@@ -51,83 +35,14 @@ class UserPage extends StatelessWidget {
                         .join(", ")),
                 const Divider(color: DIVIDER_COLOR),
                 const SizedBox(height: 4.0),
-                _buildTitle("내가 들은 과목"),
-                ...targetSemesters
-                    .map((semester) => Column(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: <Widget>[
-                            Padding(
-                              padding: const EdgeInsets.only(bottom: 6.0),
-                              child: Text(
-                                semester.title,
-                                style: const TextStyle(
-                                  fontSize: 12.0,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                            ..._buildLectureBlocks(
-                                context,
-                                user,
-                                user.reviewWritableLectures
-                                    .where((lecture) =>
-                                        lecture.year == semester.year &&
-                                        lecture.semester == semester.semester)
-                                    .toList()),
-                            const SizedBox(height: 8.0),
-                          ],
-                        ))
-                    .toList(),
+                _buildTextButton(context, '내가 들은 과목', 3),
+                _buildTextButton(context, '좋아요한 후기', 4),
               ],
             ),
           ),
         ),
       ),
     );
-  }
-
-  Widget _buildLectureBlock(BuildContext context, User user, Lecture lecture) {
-    return LectureSimpleBlock(
-      lecture: lecture,
-      hasReview: user.reviews.any((review) => review.lecture.id == lecture.id),
-      onTap: () {
-        context.read<LectureDetailModel>().loadLecture(lecture.id, false);
-        Backdrop.of(context).show(2);
-      },
-    );
-  }
-
-  List<Widget> _buildLectureBlocks(
-      BuildContext context, User user, List<Lecture> lectures) {
-    final blocks = <Widget>[];
-    for (int i = 0; i < lectures.length ~/ 2; i++) {
-      blocks.add(IntrinsicHeight(
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            Expanded(
-              child: _buildLectureBlock(context, user, lectures[i * 2]),
-            ),
-            Expanded(
-              child: _buildLectureBlock(context, user, lectures[i * 2 + 1]),
-            ),
-          ],
-        ),
-      ));
-    }
-
-    if (blocks.length * 2 < lectures.length) {
-      blocks.add(Row(
-        children: <Widget>[
-          Expanded(
-            child: _buildLectureBlock(context, user, lectures.last),
-          ),
-          Expanded(child: const SizedBox()),
-        ],
-      ));
-    }
-
-    return blocks;
   }
 
   Widget _buildContent(String name, String value) {
@@ -145,6 +60,28 @@ class UserPage extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+
+  Widget _buildTextButton(BuildContext context, String name, int index) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        TextButton(
+          onPressed: () => Backdrop.of(context).show(index),
+          child: Text(
+            name,
+            style: TextStyle(
+              fontSize: 12.0,
+              fontWeight: FontWeight.bold,
+              color: PRIMARY_COLOR,
+            ),
+          ),
+          style: ButtonStyle(
+            shape: MaterialStatePropertyAll(StadiumBorder()),
+          ),
+        ),
+      ],
     );
   }
 

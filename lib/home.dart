@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
+import 'package:otlplus/pages/liked_review_page.dart';
+import 'package:otlplus/pages/my_review_page.dart';
 import 'package:otlplus/pages/settings_page.dart';
 import 'package:provider/provider.dart';
 import 'package:otlplus/constants/color.dart';
@@ -76,6 +78,8 @@ class _OTLHomeState extends State<OTLHome> {
         UserPage(),
         CourseDetailPage(),
         LectureDetailPage(),
+        MyReviewPage(),
+        LikedReviewPage(),
       ],
     );
   }
