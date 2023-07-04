@@ -201,7 +201,7 @@ struct WeekClassesWidget: Widget {
 
 struct WeekClassesWidgetPreviews: PreviewProvider {
     static var previews: some View {
-        WeekClassesWidgetEntryView(entry: WidgetEntry(date: Date(), timetableData: nil, todayLectures: nil, configuration: ConfigurationIntent()))
+        WeekClassesWidgetEntryView(entry: WidgetEntry(date: Date(), timetableData: nil, configuration: ConfigurationIntent()))
             .previewContext(WidgetPreviewContext(family: .systemLarge))
     }
 }

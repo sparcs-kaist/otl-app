@@ -13,7 +13,7 @@ import Intents
 struct Provider: IntentTimelineProvider {
     typealias Entry = WidgetEntry
     func placeholder(in context: Context) -> WidgetEntry {
-        WidgetEntry(date: Date(), timetableData: nil, todayLectures: nil, configuration: ConfigurationIntent())
+        WidgetEntry(date: Date(), timetableData: nil, configuration: ConfigurationIntent())
     }
 
     func getSnapshot(for configuration: ConfigurationIntent, in context: Context, completion: @escaping (WidgetEntry) -> ()) {
@@ -22,7 +22,7 @@ struct Provider: IntentTimelineProvider {
         let data = try? JSONDecoder().decode([Timetable].self, from: (sharedDefaults?.string(forKey: "widgetData")?.data(using: .utf8)) ?? Data())
 
         let entryDate = Date()
-        let entry = WidgetEntry(date: entryDate, timetableData: data, todayLectures: getTodayLectures(timetable: data?[Int(configuration.nextClassTimetable?.identifier ?? "0") ?? 0], date: entryDate), configuration: configuration)
+        let entry = WidgetEntry(date: entryDate, timetableData: data, configuration: configuration)
         completion(entry)
     }
 
@@ -35,7 +35,7 @@ struct Provider: IntentTimelineProvider {
         let currentDate = Date()
         for minutesOffset in 0..<5 {
             let entryDate = Calendar.current.date(byAdding: .minute, value: minutesOffset*15, to: currentDate)!
-            let entry = WidgetEntry(date: entryDate, timetableData: data, todayLectures: getTodayLectures(timetable: data?[Int(configuration.nextClassTimetable?.identifier ?? "0") ?? 0], date: entryDate), configuration: configuration)
+            let entry = WidgetEntry(date: entryDate, timetableData: data, configuration: configuration)
             entries.append(entry)
         }
         
@@ -49,7 +49,6 @@ struct Provider: IntentTimelineProvider {
 struct WidgetEntry: TimelineEntry {
     let date: Date
     let timetableData: [Timetable]?
-    let todayLectures: [(Int, Lecture)]?
     let configuration: ConfigurationIntent
 }
 
@@ -63,7 +62,7 @@ struct NextClassWidgetEntryView : View {
     }
 
     var body: some View {
-        if (entry.timetableData != nil) {
+        if (entry.timetableData != nil && entry.timetableData![Int(entry.configuration.nextClassTimetable?.identifier ?? "0") ?? 0].lectures.count > 0) {
             ZStack(alignment: .leading) {
                 widgetBackground
                 VStack(alignment: .leading) {
@@ -243,7 +242,7 @@ struct NextClassWidget: Widget {
 
 struct NextClassWidgetPreviews: PreviewProvider {
     static var previews: some View {
-        NextClassWidgetEntryView(entry: WidgetEntry(date: Date(), timetableData: nil, todayLectures: nil, configuration: ConfigurationIntent()))
+        NextClassWidgetEntryView(entry: WidgetEntry(date: Date(), timetableData: nil, configuration: ConfigurationIntent()))
             .previewContext(WidgetPreviewContext(family: .systemSmall))
     }
 }

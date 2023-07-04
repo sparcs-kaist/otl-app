@@ -63,7 +63,7 @@ struct TodayClassesWidgetEntryView : View {
                                 }
                             }
                             if (entry.timetableData != nil) {
-                                ForEach(getLecturesData(data: entry.todayLectures!), id: \.self) { data in
+                                ForEach(getLecturesData(data: getLecturesForDay(timetable: entry.timetableData?[Int(entry.configuration.nextClassTimetable?.identifier ?? "0") ?? 0], day: getDayWithWeekDay(weekday: Calendar.current.component(.weekday, from: entry.date)))), id: \.self) { data in
                                     VStack {
                                         Spacer()
                                             .frame(height: 24)
@@ -184,7 +184,7 @@ struct TodayClassesWidget: Widget {
 
 struct TodayClassesWidgetPreviews: PreviewProvider {
     static var previews: some View {
-        TodayClassesWidgetEntryView(entry: WidgetEntry(date: Date(), timetableData: nil, todayLectures: nil, configuration: ConfigurationIntent()))
+        TodayClassesWidgetEntryView(entry: WidgetEntry(date: Date(), timetableData: nil, configuration: ConfigurationIntent()))
             .previewContext(WidgetPreviewContext(family: .systemMedium))
     }
 }
