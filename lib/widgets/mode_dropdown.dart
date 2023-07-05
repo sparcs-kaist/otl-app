@@ -227,8 +227,9 @@ class _ModeControlState extends State<ModeControl> {
                   padding: EdgeInsets.symmetric(vertical: 4, horizontal: 12),
                   child: SvgPicture.asset(
                     'assets/icons/icon_${_iconList[index]}_mode.svg',
-                    color:
-                        (index == widget.dropdownIndex) ? Colors.white : PRIMARY_COLOR,
+                    color: (index == widget.dropdownIndex)
+                        ? Colors.white
+                        : PRIMARY_COLOR,
                   ),
                 ),
               );

@@ -110,69 +110,18 @@ class _TimetablePageState extends State<TimetablePage> {
                   ),
                 ),
                 const SizedBox(height: 2),
-              ].followedBy(
-                () {
-                  switch (mode) {
-                    case 0:
-                    case 1:
-                      return [
-                        Expanded(
-                          child: ShaderMask(
-                            blendMode: BlendMode.dstIn,
-                            shaderCallback: (bounds) => LinearGradient(
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomCenter,
-                              colors: <Color>[
-                                Colors.white,
-                                Colors.transparent,
-                              ],
-                              stops: <double>[
-                                0.95,
-                                1.0,
-                              ],
-                            ).createShader(bounds.shift(Offset(
-                              -bounds.left,
-                              -bounds.top,
-                            ))),
-                            child: SingleChildScrollView(
-                              child: RepaintBoundary(
-                                key: _paintKey,
-                                child: Container(
-                                  color: Colors.white,
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 8.0),
-                                  child: _buildTimetable(
-                                      context, lectures, mode == 1),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                          child:
-                              const Divider(color: DIVIDER_COLOR, height: 1.0),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 8.0,
-                            vertical: 12.0,
-                          ),
-                          child: TimetableSummary(
-                            lectures: lectures,
-                            tempLecture: _selectedLecture,
-                          ),
-                        ),
-                      ];
-                    default:
-                      return [
-                        Expanded(
-                          child: MapView(lectures: lectures),
-                        )
-                      ];
-                  }
-                }(),
-              ).toList(),
+                Expanded(
+                  child: () {
+                    switch (mode) {
+                      case 0:
+                      case 1:
+                        return _buildTimetableMode(context, lectures, mode == 1);
+                      default:
+                        return MapView(lectures: lectures);
+                    }
+                  }(),
+                )
+              ],
             ),
           ),
         ),
@@ -188,6 +137,58 @@ class _TimetablePageState extends State<TimetablePage> {
                 return true;
               },
             ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildTimetableMode(
+      BuildContext context, List<Lecture> lectures, bool isExamTime) {
+    return Column(
+      children: [
+        Expanded(
+          child: ShaderMask(
+            blendMode: BlendMode.dstIn,
+            shaderCallback: (bounds) => LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: <Color>[
+                Colors.white,
+                Colors.transparent,
+              ],
+              stops: <double>[
+                0.95,
+                1.0,
+              ],
+            ).createShader(bounds.shift(Offset(
+              -bounds.left,
+              -bounds.top,
+            ))),
+            child: SingleChildScrollView(
+              child: RepaintBoundary(
+                key: _paintKey,
+                child: Container(
+                  color: Colors.white,
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: _buildTimetable(context, lectures, isExamTime),
+                ),
+              ),
+            ),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+          child: const Divider(color: DIVIDER_COLOR, height: 1.0),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 8.0,
+            vertical: 12.0,
+          ),
+          child: TimetableSummary(
+            lectures: lectures,
+            tempLecture: _selectedLecture,
           ),
         ),
       ],
@@ -294,7 +295,8 @@ class _TimetablePageState extends State<TimetablePage> {
           context: context,
           barrierColor: Colors.black.withOpacity(0.2),
           barrierDismissible: true,
-          barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
+          barrierLabel:
+              MaterialLocalizations.of(context).modalBarrierDismissLabel,
           pageBuilder: (context, _, __) =>
               _buildDeleteDialog(context, timetableModel.selectedIndex),
         );
