@@ -25,19 +25,6 @@ platform :ios do
     sh "flutter pub get"
     sh "bundle exec pod install"
 
-    get_certificates(
-      output_path: "./build",
-    )
-    get_provisioning_profile(
-      output_path: "./build",
-      filename: "provisioning.mobileprovision",
-    )
-    update_project_provisioning(
-      xcodeproj: "Runner.xcodeproj",
-      target_filter: "Runner",
-      profile: "./build/provisioning.mobileprovision",
-      build_configuration: "Release",
-    )
     update_project_team( # Set the right team on your project
       teamid: CredentialsManager::AppfileConfig.try_fetch_value(:team_id)
     )
