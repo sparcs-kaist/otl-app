@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:otlplus/providers/auth_model.dart';
 import 'package:provider/provider.dart';
 import 'package:otlplus/constants/color.dart';
 import 'package:otlplus/providers/info_model.dart';
@@ -37,6 +38,28 @@ class UserPage extends StatelessWidget {
                 const SizedBox(height: 4.0),
                 _buildTextButton(context, '내가 들은 과목', 3),
                 _buildTextButton(context, '좋아요한 후기', 4),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    TextButton(
+                      onPressed: () {
+                        context.read<AuthModel>().logout();
+                        context.read<InfoModel>().logout();
+                      },
+                      child: Text(
+                        '로그아웃',
+                        style: TextStyle(
+                          fontSize: 12.0,
+                          fontWeight: FontWeight.bold,
+                          color: PRIMARY_COLOR,
+                        ),
+                      ),
+                      style: ButtonStyle(
+                        shape: MaterialStatePropertyAll(StadiumBorder()),
+                      ),
+                    ),
+                  ],
+                ),
               ],
             ),
           ),

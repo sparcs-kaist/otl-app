@@ -17,4 +17,17 @@ class AuthModel extends ChangeNotifier {
       print(exception);
     }
   }
+
+  void logout() {
+    try {
+      final cookieManager = WebviewCookieManager();
+      // cookieManager.removeCookie(url);
+      cookieManager.clearCookies();
+      DioProvider().logout();
+      _isLogined = false;
+      notifyListeners();
+    } catch (exception) {
+      print(exception);
+    }
+  }
 }
