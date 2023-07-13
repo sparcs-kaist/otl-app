@@ -82,6 +82,24 @@ struct TodayClassesWidgetEntryView : View {
                         .offset(x: getOffsetByDate(date: entry.date))
                     , alignment: .leading
                 )
+            if (entry.timetableData == nil) {
+                ZStack {
+                    Color.clear
+                        .background(.ultraThinMaterial)
+                    VStack {
+                        Image("lock")
+                            .resizable()
+                        .frame(width: 44, height: 44)
+                        Button(action: {}) {
+                            Text("로그인하러 가기")
+                                .font(.custom("NotoSansKR-Bold", size: 12))
+                        }
+                            .buttonStyle(.borderedProminent)
+                            .cornerRadius(30)
+                            .tint(Color(red: 229.0/255, green: 76.0/255, blue: 100.0/255))
+                    }
+                }
+            }
         }
     }
     

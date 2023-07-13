@@ -103,7 +103,7 @@ struct NextClassWidgetEntryView : View {
                     Text("다음 강의")
                         .font(.custom("NotoSansKR-Bold", size: 12))
                         .foregroundColor(Color(red: 229.0/255, green: 76.0/255, blue: 100.0/255))
-                    Text("오류")
+                    Text("정보 없음")
                         .font(.custom("NotoSansKR-Bold", size: 20))
                         .offset(y: -2)
                         .minimumScaleFactor(0.5)
@@ -115,20 +115,38 @@ struct NextClassWidgetEntryView : View {
                         Circle()
                             .fill(getColourForCourse(course: 1))
                             .frame(width: 12, height: 12)
-                        Text("로그인해 주세요")
+                        Text("정보 없음")
                             .font(.custom("NotoSansKR-Bold", size: 16))
                             .minimumScaleFactor(0.5)
                             .lineLimit(2)
                     }.offset(y: 8)
-                    Text("시간표 불러오기 실패")
+                    Text("정보 없음")
                         .font(.custom("NotoSansKR-Regular", size: 12))
                         .minimumScaleFactor(0.5)
                         .lineLimit(1)
-                    Text("데이터 없음")
+                    Text("정보 없음")
                         .font(.custom("NotoSansKR-Medium", size: 12))
                         .minimumScaleFactor(0.5)
                         .foregroundColor(.gray)
                 }.padding()
+                if (entry.timetableData == nil) {
+                    ZStack {
+                        Color.clear
+                            .background(.ultraThinMaterial)
+                        VStack {
+                            Image("lock")
+                                .resizable()
+                            .frame(width: 44, height: 44)
+                            Button(action: {}) {
+                                Text("로그인하러 가기")
+                                    .font(.custom("NotoSansKR-Bold", size: 12))
+                            }
+                                .buttonStyle(.borderedProminent)
+                                .cornerRadius(30)
+                                .tint(Color(red: 229.0/255, green: 76.0/255, blue: 100.0/255))
+                        }
+                    }
+                }
             }
         }
     }
