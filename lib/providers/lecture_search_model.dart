@@ -14,13 +14,7 @@ class LectureSearchModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  bool _resultOpened = false;
-  bool get resultOpened => _resultOpened;
-
-  void setOpened(bool state) {
-    _resultOpened = state;
-    notifyListeners();
-  }
+  bool get resultOpened => _lectures != null || _isSearching;
 
   List<List<Lecture>>? _lectures;
   List<List<Lecture>>? get lectures => _lectures ?? [];

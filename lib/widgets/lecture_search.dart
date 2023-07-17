@@ -41,7 +41,8 @@ class _LectureSearchState extends State<LectureSearch> {
                     borderRadius: BorderRadius.all(Radius.circular(8.0)),
                     child: GestureDetector(
                       onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => LectureSearchPage())),
+                          builder: (context) =>
+                              LectureSearchPage(openKeyboard: false))),
                       child: ColoredBox(
                         color: Color(0xFFF9F0F0),
                         child: Padding(

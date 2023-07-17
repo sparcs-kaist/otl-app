@@ -64,7 +64,6 @@ class _TimetablePageState extends State<TimetablePage> {
                   },
                   onSemesterChanged: () {
                     context.read<LectureSearchModel>().setSelectedLecture(null);
-                    context.read<LectureSearchModel>().setOpened(false);
                     context.read<LectureSearchModel>().lectureClear();
                   },
                 ),
@@ -122,7 +121,6 @@ class _TimetablePageState extends State<TimetablePage> {
             child: LectureSearch(
               onClosed: () async {
                 setState(() {
-                  context.read<LectureSearchModel>().setOpened(false);
                   context.read<LectureSearchModel>().setSelectedLecture(null);
                   context.read<LectureSearchModel>().lectureClear();
                 });
@@ -220,7 +218,7 @@ class _TimetablePageState extends State<TimetablePage> {
       },
       onAddTap: () {
         context.read<LectureSearchModel>().setSelectedLecture(null);
-        context.read<LectureSearchModel>().setOpened(false);
+        context.read<LectureSearchModel>().lectureClear();
       },
       onSettingsTap: () {
         showModalBottomSheet(

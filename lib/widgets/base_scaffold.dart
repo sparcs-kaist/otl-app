@@ -8,6 +8,7 @@ class BaseScaffold extends StatefulWidget {
   final Widget? middle;
   final Widget? trailing;
   final Widget? bottomNavigationBar;
+  final Function()? onBack;
   final Color sheetBackgroundColor;
   final bool resizeToAvoidBottomInset;
 
@@ -18,6 +19,7 @@ class BaseScaffold extends StatefulWidget {
       this.middle,
       this.trailing,
       this.bottomNavigationBar,
+      this.onBack,
       this.sheetBackgroundColor = Colors.white,
       this.resizeToAvoidBottomInset = false})
       : super(key: key);
@@ -62,7 +64,7 @@ class _BaseScaffoldState extends State<BaseScaffold> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           if (navigator != null && navigator.canPop())
-                            _BackButton(),
+                            _BackButton(onBack: widget.onBack),
                           if (widget.leading != null) widget.leading!,
                         ],
                       ),
@@ -104,12 +106,14 @@ class _BaseScaffoldState extends State<BaseScaffold> {
 }
 
 class _BackButton extends StatelessWidget {
-  const _BackButton({Key? key}) : super(key: key);
+  final Function()? onBack;
+  const _BackButton({Key? key, this.onBack}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
+        onBack?.call();
         Navigator.maybePop(context);
       },
       child: Padding(

@@ -7,11 +7,9 @@ class SearchTextfield extends StatefulWidget {
     Key? key,
     required this.textController,
     required this.focusNode,
-    this.autofocus = false,
   }) : super(key: key);
   final TextEditingController textController;
   final FocusNode focusNode;
-  final bool autofocus;
 
   @override
   State<SearchTextfield> createState() => _SearchTextfieldState();
@@ -53,7 +51,6 @@ class _SearchTextfieldState extends State<SearchTextfield> {
                     child: TextField(
                       controller: widget.textController,
                       focusNode: widget.focusNode,
-                      autofocus: widget.autofocus,
                       onSubmitted: (value) {
                         widget.focusNode.unfocus();
                       },

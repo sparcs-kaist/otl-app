@@ -9,7 +9,9 @@ import 'package:otlplus/widgets/search_textfield.dart';
 import 'package:provider/provider.dart';
 
 class LectureSearchPage extends StatefulWidget {
-  const LectureSearchPage({Key? key}) : super(key: key);
+  final bool openKeyboard;
+  const LectureSearchPage({Key? key, this.openKeyboard = false})
+      : super(key: key);
 
   @override
   State<LectureSearchPage> createState() => _LectureSearchPageState();
@@ -36,6 +38,11 @@ class _LectureSearchPageState extends State<LectureSearchPage> {
 
   @override
   Widget build(BuildContext context) {
+    if (widget.openKeyboard) {
+      Future.delayed(const Duration(milliseconds: 200), () {
+        _focusNode.requestFocus();
+      });
+    }
     return BaseScaffold(
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -48,7 +55,6 @@ class _LectureSearchPageState extends State<LectureSearchPage> {
                   SearchTextfield(
                     textController: _searchTextController,
                     focusNode: _focusNode,
-                    autofocus: true,
                   ),
                   SizedBox(height: 16),
                   Flexible(
@@ -123,7 +129,6 @@ class _LectureSearchPageState extends State<LectureSearchPage> {
                               });
                             }
                           });
-                          context.read<LectureSearchModel>().setOpened(true);
                           context.read<LectureSearchModel>().lectureSearch(
                                 context.read<TimetableModel>().selectedSemester,
                                 _searchTextController.text,
@@ -166,6 +171,9 @@ class _LectureSearchPageState extends State<LectureSearchPage> {
           ],
         ),
       ),
+      onBack: () {
+        context.read<LectureSearchModel>().lectureClear();
+      },
       resizeToAvoidBottomInset: false,
       sheetBackgroundColor: BACKGROUND_COLOR,
     );

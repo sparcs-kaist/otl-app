@@ -43,8 +43,8 @@ class _TimetableTabsState extends State<TimetableTabs> {
         ),
         _buildButton(Icons.search, () {
           context.read<LectureSearchModel>().resetLectureFilter();
-          Navigator.of(context).push(
-              MaterialPageRoute(builder: (context) => LectureSearchPage()));
+          Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => LectureSearchPage(openKeyboard: true)));
         }),
         _buildButton(Icons.playlist_add, widget.onAddTap),
         _buildButton(Icons.settings, widget.onSettingsTap),
