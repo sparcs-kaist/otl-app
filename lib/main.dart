@@ -6,7 +6,6 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:otlplus/providers/hall_of_fame_model.dart';
 import 'package:otlplus/providers/liked_review_model.dart';
-import 'package:otlplus/providers/bottom_sheet_model.dart';
 import 'package:otlplus/providers/settings_model.dart';
 import 'package:provider/provider.dart';
 import 'package:otlplus/constants/color.dart';
@@ -17,7 +16,7 @@ import 'package:otlplus/providers/course_detail_model.dart';
 import 'package:otlplus/providers/info_model.dart';
 import 'package:otlplus/providers/lecture_detail_model.dart';
 import 'package:otlplus/providers/review_model.dart';
-import 'package:otlplus/providers/search_model.dart';
+import 'package:otlplus/providers/lecture_search_model.dart';
 import 'package:otlplus/providers/timetable_model.dart';
 import 'package:otlplus/utils/create_material_color.dart';
 
@@ -59,8 +58,7 @@ void main() {
                       : TimetableModel();
                 },
               ),
-              ChangeNotifierProvider(create: (_) => SearchModel()),
-              ChangeNotifierProvider(create: (_) => BottomSheetModel()),
+              ChangeNotifierProvider(create: (_) => LectureSearchModel()),
               ChangeNotifierProvider(create: (_) => ReviewModel()),
               ChangeNotifierProvider(create: (_) => LikedReviewModel()),
               ChangeNotifierProvider(create: (_) => HallOfFameModel()),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:otlplus/providers/bottom_sheet_model.dart';
-import 'package:otlplus/providers/search_model.dart';
+import 'package:otlplus/providers/lecture_search_model.dart';
+import 'package:otlplus/widgets/lecture_search.dart';
 import 'package:provider/provider.dart';
 import 'package:otlplus/constants/color.dart';
 import 'package:otlplus/models/lecture.dart';
@@ -26,7 +26,6 @@ class _TimetablePageState extends State<TimetablePage> {
   final _paintKey = GlobalKey();
 
   bool _isExamTime = false;
-  // Lecture? _selectedLecture;
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +37,7 @@ class _TimetablePageState extends State<TimetablePage> {
   }
 
   Widget _buildBody(BuildContext context) {
-    final bottomSheetModel = context.watch<BottomSheetModel>();
+    final bottomSheetModel = context.watch<LectureSearchModel>();
     final lectures = context.select<TimetableModel, List<Lecture>>(
         (model) => model.currentTimetable.lectures);
 
@@ -64,9 +63,9 @@ class _TimetablePageState extends State<TimetablePage> {
                     });
                   },
                   onSemesterChanged: () {
-                    context.read<BottomSheetModel>().setSelectedLecture(null);
-                    context.read<BottomSheetModel>().setExtended(0);
-                    context.read<SearchModel>().lectureClear();
+                    context.read<LectureSearchModel>().setSelectedLecture(null);
+                    context.read<LectureSearchModel>().setOpened(false);
+                    context.read<LectureSearchModel>().lectureClear();
                   },
                 ),
                 Expanded(
@@ -118,11 +117,17 @@ class _TimetablePageState extends State<TimetablePage> {
           ),
         ),
         Visibility(
-          visible: context.watch<BottomSheetModel>().extended == 1,
+          visible: context.watch<LectureSearchModel>().resultOpened,
           child: Expanded(
-            child: ColoredBox(
-              color: Colors.white,
-              child: Container(),
+            child: LectureSearch(
+              onClosed: () async {
+                setState(() {
+                  context.read<LectureSearchModel>().setOpened(false);
+                  context.read<LectureSearchModel>().setSelectedLecture(null);
+                  context.read<LectureSearchModel>().lectureClear();
+                });
+                return true;
+              },
             ),
           ),
         ),
@@ -132,7 +137,7 @@ class _TimetablePageState extends State<TimetablePage> {
 
   Timetable _buildTimetable(BuildContext context, List<Lecture> lectures) {
     bool isFirst = true;
-    final bottomSheetModel = context.watch<BottomSheetModel>();
+    final bottomSheetModel = context.watch<LectureSearchModel>();
 
     return Timetable(
       lectures: (bottomSheetModel.selectedLecture == null)
@@ -161,7 +166,6 @@ class _TimetablePageState extends State<TimetablePage> {
               ? null
               : () async {
                   bool result = false;
-
                   await showDialog(
                     context: context,
                     barrierDismissible: false,
@@ -215,8 +219,8 @@ class _TimetablePageState extends State<TimetablePage> {
           timetableModel.setIndex(i);
       },
       onAddTap: () {
-        context.read<BottomSheetModel>().setSelectedLecture(null);
-        context.read<BottomSheetModel>().setExtended(0);
+        context.read<LectureSearchModel>().setSelectedLecture(null);
+        context.read<LectureSearchModel>().setOpened(false);
       },
       onSettingsTap: () {
         showModalBottomSheet(

@@ -1,15 +1,9 @@
-import 'dart:math';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:otlplus/pages/liked_review_page.dart';
 import 'package:otlplus/pages/my_review_page.dart';
 import 'package:otlplus/pages/settings_page.dart';
-import 'package:otlplus/providers/bottom_sheet_model.dart';
-import 'package:otlplus/widgets/bottom_search_sheet/bottom_search_sheet.dart';
-import 'package:otlplus/widgets/bottom_search_sheet/search_sheet_body.dart';
-import 'package:otlplus/widgets/bottom_search_sheet/search_sheet_header.dart';
 import 'package:provider/provider.dart';
 import 'package:otlplus/constants/color.dart';
 import 'package:otlplus/pages/course_detail_page.dart';
@@ -19,10 +13,8 @@ import 'package:otlplus/pages/main_page.dart';
 import 'package:otlplus/pages/review_page.dart';
 import 'package:otlplus/pages/timetable_page.dart';
 import 'package:otlplus/pages/user_page.dart';
-import 'package:otlplus/providers/search_model.dart';
 import 'package:otlplus/widgets/backdrop.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:sheet/sheet.dart';
 
 class OTLHome extends StatefulWidget {
   @override
@@ -31,13 +23,6 @@ class OTLHome extends StatefulWidget {
 
 class _OTLHomeState extends State<OTLHome> {
   int _currentIndex = 0;
-  late SheetController sheetScrollController;
-
-  @override
-  void initState() {
-    sheetScrollController = context.read<BottomSheetModel>().scrollController;
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -95,10 +80,6 @@ class _OTLHomeState extends State<OTLHome> {
                 ),
               ),
               Container(
-                height: 68,
-                color: Colors.white,
-              ),
-              Container(
                 height: kBottomNavigationBarHeight +
                     MediaQuery.of(context).viewPadding.bottom,
                 color: Colors.white,
@@ -111,28 +92,7 @@ class _OTLHomeState extends State<OTLHome> {
             LectureDetailPage(),
           ],
         ),
-        BottomSearchSheet(),
-        AnimatedBuilder(
-          animation: sheetScrollController,
-          builder: (_, child) {
-            return Transform.translate(
-              offset: Offset(
-                  0,
-                  max(
-                          0,
-                          min(sheetScrollController.animation.value * 5 - 2,
-                              1)) *
-                      (kBottomNavigationBarHeight +
-                          MediaQuery.of(context).viewPadding.bottom)),
-              child: child,
-            );
-          },
-          child: Wrap(
-            children: <Widget>[
-              _buildBottomNavigationBar(),
-            ],
-          ),
-        ),
+        _buildBottomNavigationBar(),
       ],
     );
   }
@@ -148,7 +108,6 @@ class _OTLHomeState extends State<OTLHome> {
         child: TextField(
           onSubmitted: (value) {
             setState(() {
-              context.read<SearchModel>().courseSearch(value);
               _currentIndex = 2;
             });
           },
@@ -165,7 +124,7 @@ class _OTLHomeState extends State<OTLHome> {
     );
   }
 
-  BottomNavigationBar _buildBottomNavigationBar() {
+  Widget _buildBottomNavigationBar() {
     return BottomNavigationBar(
       currentIndex: _currentIndex,
       type: BottomNavigationBarType.fixed,

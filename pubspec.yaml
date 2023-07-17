@@ -41,7 +41,6 @@ dependencies:
   firebase_analytics: ^10.1.6
   firebase_crashlytics: ^3.0.17
   flutter_widgetkit: ^1.0.3
-  sheet: ^0.0.4+1
 
 dependency_overrides:
     firebase_core_platform_interface: 4.5.1
@@ -101,6 +100,9 @@ flutter:
           weight: 700
         - asset: assets/fonts/NotoSansKR-Black.otf
           weight: 900
+    - family:  Icons
+      fonts:
+        - asset: assets/fonts/Icons.ttf
 
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
