@@ -4,7 +4,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:otlplus/providers/lecture_search_model.dart';
 import 'package:otlplus/widgets/backdrop.dart';
 import 'package:otlplus/widgets/course_block.dart';
-import 'package:otlplus/widgets/course_search.dart';
 import 'package:otlplus/widgets/lecture_group_block.dart';
 import 'package:otlplus/widgets/lecture_group_block_row.dart';
 import 'package:otlplus/widgets/lecture_group_simple_block.dart';
@@ -30,11 +29,6 @@ void main() {
 
   testWidgets('pump CourseBlock', (WidgetTester tester) async {
     await tester.pumpWidget(CourseBlock(course: SampleCourse.shared).material);
-  });
-
-  testWidgets('pump CourseSearch', (WidgetTester tester) async {
-    await tester
-        .pumpWidget(CourseSearch().scaffoldAndNotifier(LectureSearchModel()));
   });
 
   testWidgets('pump LectureGroupBlockRow', (WidgetTester tester) async {

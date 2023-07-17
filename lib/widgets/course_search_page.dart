@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:otlplus/constants/color.dart';
 import 'package:otlplus/models/code_label_pair.dart';
-import 'package:otlplus/providers/lecture_search_model.dart';
+import 'package:otlplus/providers/course_search_model.dart';
 import 'package:otlplus/providers/timetable_model.dart';
 import 'package:otlplus/widgets/base_scaffold.dart';
 import 'package:otlplus/widgets/search_filter_panel.dart';
 import 'package:otlplus/widgets/search_textfield.dart';
 import 'package:provider/provider.dart';
 
-class LectureSearchPage extends StatefulWidget {
+class CourseSearchPage extends StatefulWidget {
   final bool openKeyboard;
-  const LectureSearchPage({Key? key, this.openKeyboard = false})
+  const CourseSearchPage({Key? key, this.openKeyboard = false})
       : super(key: key);
 
   @override
-  State<LectureSearchPage> createState() => _LectureSearchPageState();
+  State<CourseSearchPage> createState() => _CourseSearchPageState();
 }
 
-class _LectureSearchPageState extends State<LectureSearchPage> {
+class _CourseSearchPageState extends State<CourseSearchPage> {
   final _searchTextController = TextEditingController();
   late FocusNode _focusNode;
 
@@ -25,7 +25,7 @@ class _LectureSearchPageState extends State<LectureSearchPage> {
   void initState() {
     super.initState();
     _searchTextController.text =
-        context.read<LectureSearchModel>().lectureSearchText;
+        context.read<CourseSearchModel>().courseSearchText;
     _focusNode = FocusNode();
   }
 
@@ -55,15 +55,14 @@ class _LectureSearchPageState extends State<LectureSearchPage> {
                   SearchTextfield(
                     textController: _searchTextController,
                     focusNode: _focusNode,
-                    backgroundColor: Colors.white,
                   ),
                   SizedBox(height: 16),
                   Flexible(
                     child: SearchFilterPanel(
-                      filter: context.watch<LectureSearchModel>().lectureFilter,
+                      filter: context.watch<CourseSearchModel>().courseFilter,
                       setFilter: context
-                          .read<LectureSearchModel>()
-                          .setLectureFilterSelected,
+                          .read<CourseSearchModel>()
+                          .setCourseFilterSelected,
                     ),
                   ),
                   SizedBox(height: 16),
@@ -83,8 +82,8 @@ class _LectureSearchPageState extends State<LectureSearchPage> {
                         onTap: () {
                           _searchTextController.clear();
                           context
-                              .read<LectureSearchModel>()
-                              .resetLectureFilter();
+                              .read<CourseSearchModel>()
+                              .resetCourseFilter();
                           _focusNode.requestFocus();
                         },
                         child: ColoredBox(
@@ -114,11 +113,11 @@ class _LectureSearchPageState extends State<LectureSearchPage> {
                       child: GestureDetector(
                         onTap: () {
                           context
-                              .read<LectureSearchModel>()
-                              .setLectureSearchText(_searchTextController.text);
+                              .read<CourseSearchModel>()
+                              .setCourseSearchText(_searchTextController.text);
                           context
-                              .read<LectureSearchModel>()
-                              .lectureFilter
+                              .read<CourseSearchModel>()
+                              .courseFilter
                               .forEach((key, value) {
                             if ((value['options'] as List<List<CodeLabelPair>>)
                                 .expand((i) => i)
@@ -130,24 +129,28 @@ class _LectureSearchPageState extends State<LectureSearchPage> {
                               });
                             }
                           });
-                          context.read<LectureSearchModel>().lectureSearch(
-                                context.read<TimetableModel>().selectedSemester,
+                          context.read<CourseSearchModel>().courseSearch(
                                 _searchTextController.text,
                                 department: ((context
-                                            .read<LectureSearchModel>()
-                                            .lectureFilter['departments']![
+                                            .read<CourseSearchModel>()
+                                            .courseFilter['departments']![
                                         'options'] as List<List<CodeLabelPair>>)
                                     .expand((i) => i)).toList(),
                                 type: ((context
-                                            .read<LectureSearchModel>()
-                                            .lectureFilter['types']!['options']
+                                            .read<CourseSearchModel>()
+                                            .courseFilter['types']!['options']
                                         as List<List<CodeLabelPair>>)
                                     .expand((i) => i)).toList(),
                                 level: ((context
-                                            .read<LectureSearchModel>()
-                                            .lectureFilter['levels']!['options']
+                                            .read<CourseSearchModel>()
+                                            .courseFilter['levels']!['options']
                                         as List<List<CodeLabelPair>>)
                                     .expand((i) => i)).toList(),
+                                term: ((context
+                                            .read<CourseSearchModel>()
+                                            .courseFilter['terms']!['options']
+                                        as List<List<CodeLabelPair>>)
+                                    .expand((i) => i)).firstWhere((i) => i.selected == true),
                               );
                           Navigator.of(context).pop();
                         },
@@ -173,7 +176,7 @@ class _LectureSearchPageState extends State<LectureSearchPage> {
         ),
       ),
       onBack: () {
-        context.read<LectureSearchModel>().lectureClear();
+        // context.read<CourseSearchModel>().courseClear();
       },
       resizeToAvoidBottomInset: false,
       sheetBackgroundColor: BACKGROUND_COLOR,

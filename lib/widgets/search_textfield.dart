@@ -5,11 +5,13 @@ import 'package:otlplus/constants/icon.dart';
 class SearchTextfield extends StatefulWidget {
   const SearchTextfield({
     Key? key,
-    required this.textController,
-    required this.focusNode,
+    this.textController,
+    this.focusNode,
+    this.backgroundColor,
   }) : super(key: key);
-  final TextEditingController textController;
-  final FocusNode focusNode;
+  final TextEditingController? textController;
+  final FocusNode? focusNode;
+  final Color? backgroundColor;
 
   @override
   State<SearchTextfield> createState() => _SearchTextfieldState();
@@ -21,7 +23,7 @@ class _SearchTextfieldState extends State<SearchTextfield> {
     return ClipRRect(
       borderRadius: BorderRadius.all(Radius.circular(8)),
       child: ColoredBox(
-        color: Colors.white,
+        color: widget.backgroundColor ?? Colors.transparent,
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 8),
           child: SizedBox(
@@ -52,10 +54,10 @@ class _SearchTextfieldState extends State<SearchTextfield> {
                       controller: widget.textController,
                       focusNode: widget.focusNode,
                       onSubmitted: (value) {
-                        widget.focusNode.unfocus();
+                        widget.focusNode?.unfocus();
                       },
                       style: const TextStyle(
-                        fontSize: 14.0,
+                        fontSize: 16.0,
                       ),
                       decoration: InputDecoration(
                         suffixIconColor: Colors.black45,
