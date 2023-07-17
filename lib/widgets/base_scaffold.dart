@@ -11,6 +11,7 @@ class BaseScaffold extends StatefulWidget {
   final Function()? onBack;
   final Color sheetBackgroundColor;
   final bool resizeToAvoidBottomInset;
+  final bool disableBackButton;
 
   const BaseScaffold(
       {Key? key,
@@ -21,7 +22,8 @@ class BaseScaffold extends StatefulWidget {
       this.bottomNavigationBar,
       this.onBack,
       this.sheetBackgroundColor = Colors.white,
-      this.resizeToAvoidBottomInset = false})
+      this.resizeToAvoidBottomInset = false,
+      this.disableBackButton = false})
       : super(key: key);
 
   @override
@@ -37,54 +39,57 @@ class _BaseScaffoldState extends State<BaseScaffold> {
       appBar: _buildAppBar(),
       backgroundColor: BACKGROUND_COLOR,
       bottomNavigationBar: widget.bottomNavigationBar,
-      body: SafeArea(
-        top: false,
-        maintainBottomViewPadding: true,
-        child: AnimatedPadding(
-          padding: widget.resizeToAvoidBottomInset
-              ? EdgeInsets.only(
-                  bottom: MediaQuery.of(context).viewInsets.bottom)
-              : EdgeInsets.zero,
-          duration: const Duration(milliseconds: 100),
-          curve: Curves.decelerate,
-          child: Padding(
-            padding: widget.resizeToAvoidBottomInset
-                ? EdgeInsets.only(
-                    bottom:
-                        MediaQuery.of(context).viewInsets.bottom == 0 ? 0 : 8)
-                : EdgeInsets.zero,
-            child: Column(
-              children: [
-                SizedBox(
-                    height: kToolbarHeight,
-                    child: NavigationToolbar(
-                      centerMiddle: true,
-                      leading: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          if (navigator != null && navigator.canPop())
-                            _BackButton(onBack: widget.onBack),
-                          if (widget.leading != null) widget.leading!,
-                        ],
-                      ),
-                      middle: widget.middle,
-                      trailing: widget.trailing,
-                    )),
-                Expanded(
-                    child: ClipRRect(
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(16),
-                      topRight: Radius.circular(16)),
-                  child: ColoredBox(
-                    color: widget.sheetBackgroundColor,
-                    child: SizedBox(width: double.infinity, child: widget.body),
+      body: Column(
+        children: [
+          SizedBox(
+              height: kToolbarHeight,
+              child: NavigationToolbar(
+                centerMiddle: true,
+                leading: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    if (navigator != null && navigator.canPop() && widget.disableBackButton == false)
+                      _BackButton(onBack: widget.onBack),
+                    if (widget.leading != null) widget.leading!,
+                  ],
+                ),
+                middle: widget.middle,
+                trailing: widget.trailing,
+              )),
+          Expanded(
+              child: ClipRRect(
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(16),
+                topRight: Radius.circular(16)),
+            child: ColoredBox(
+              color: widget.sheetBackgroundColor,
+              child: SizedBox(
+                width: double.infinity,
+                child: SafeArea(
+                  top: false,
+                  maintainBottomViewPadding: true,
+                  child: AnimatedPadding(
+                    padding: widget.resizeToAvoidBottomInset
+                        ? EdgeInsets.only(
+                            bottom: MediaQuery.of(context).viewInsets.bottom)
+                        : EdgeInsets.zero,
+                    duration: const Duration(milliseconds: 100),
+                    curve: Curves.decelerate,
+                    child: Padding(
+                      padding: widget.resizeToAvoidBottomInset
+                          ? EdgeInsets.only(
+                              bottom:
+                                  MediaQuery.of(context).viewInsets.bottom == 0 ? 0 : 8)
+                          : EdgeInsets.zero,
+                      child: widget.body,
+                    ),
                   ),
-                ))
-              ],
+                )
+              ),
             ),
-          ),
-        ),
+          ))
+        ],
       ),
       resizeToAvoidBottomInset: false,
     );
