@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:otlplus/constants/color.dart';
 import 'package:otlplus/providers/lecture_search_model.dart';
-import 'package:otlplus/widgets/lecture_search_page.dart';
+import 'package:otlplus/pages/lecture_search_page.dart';
 import 'package:provider/provider.dart';
 
 class TimetableTabs extends StatefulWidget {

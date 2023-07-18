@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:otlplus/constants/icon.dart';
-import 'package:otlplus/widgets/lecture_search_page.dart';
+import 'package:otlplus/pages/lecture_search_page.dart';
 import 'package:provider/provider.dart';
 import 'package:otlplus/constants/color.dart';
 import 'package:otlplus/models/lecture.dart';

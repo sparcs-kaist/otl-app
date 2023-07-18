@@ -159,7 +159,7 @@ class CourseSearchModel extends ChangeNotifier {
     ];
     return Text.rich(
       TextSpan(
-        style: TextStyle(fontSize: 14, height: 1.4, letterSpacing: 0.15),
+        style: TextStyle(fontSize: 14, height: 1.2, letterSpacing: 0.15),
         children: [
           TextSpan(
               text: keyword,

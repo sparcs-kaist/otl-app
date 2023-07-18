@@ -4,6 +4,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
+import 'package:otlplus/providers/course_search_model.dart';
 import 'package:otlplus/providers/hall_of_fame_model.dart';
 import 'package:otlplus/providers/liked_review_model.dart';
 import 'package:otlplus/providers/settings_model.dart';
@@ -59,6 +60,7 @@ void main() {
                 },
               ),
               ChangeNotifierProvider(create: (_) => LectureSearchModel()),
+              ChangeNotifierProvider(create: (_) => CourseSearchModel()),
               ChangeNotifierProvider(create: (_) => ReviewModel()),
               ChangeNotifierProvider(create: (_) => LikedReviewModel()),
               ChangeNotifierProvider(create: (_) => HallOfFameModel()),

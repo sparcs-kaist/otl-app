@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:otlplus/constants/color.dart';
 import 'package:otlplus/models/code_label_pair.dart';
 import 'package:otlplus/providers/course_search_model.dart';
-import 'package:otlplus/providers/timetable_model.dart';
 import 'package:otlplus/widgets/base_scaffold.dart';
 import 'package:otlplus/widgets/search_filter_panel.dart';
 import 'package:otlplus/widgets/search_textfield.dart';
@@ -53,6 +52,7 @@ class _CourseSearchPageState extends State<CourseSearchPage> {
               child: Column(
                 children: [
                   SearchTextfield(
+                    backgroundColor: Colors.white,
                     textController: _searchTextController,
                     focusNode: _focusNode,
                   ),

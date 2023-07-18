@@ -6,7 +6,7 @@ import 'package:otlplus/providers/course_search_model.dart';
 import 'package:otlplus/widgets/backdrop.dart';
 import 'package:otlplus/widgets/base_scaffold.dart';
 import 'package:otlplus/widgets/course_block.dart';
-import 'package:otlplus/widgets/course_search_page.dart';
+import 'package:otlplus/pages/course_search_page.dart';
 import 'package:provider/provider.dart';
 
 class DictionaryPage extends StatefulWidget {
@@ -61,7 +61,7 @@ class _DictionaryPageState extends State<DictionaryPage> {
                     style: TextStyle(
                       color: Color(0xFFAAAAAA),
                       fontSize: 16,
-                      height: 1.4,
+                      height: 1.2,
                     )
                   ),
                 )
