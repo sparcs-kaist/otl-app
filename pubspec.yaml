@@ -42,9 +42,6 @@ dependencies:
   firebase_crashlytics: ^3.0.17
   flutter_widgetkit: ^1.0.3
 
-dependency_overrides:
-    firebase_core_platform_interface: 4.5.1
-
 dev_dependencies:
   test: ^1.19.5
   flutter_test:
