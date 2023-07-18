@@ -37,8 +37,8 @@ class CourseDetailPage extends StatelessWidget {
   }
 
   PreferredSizeWidget _buildAppBar(BuildContext context) {
-    final course =
-        context.select<CourseDetailModel, Course>((model) => model.course);
+    final CourseDetailModel courseDetailModel =
+        context.watch<CourseDetailModel>();
 
     return PreferredSize(
       preferredSize: Size.fromHeight(kToolbarHeight),
@@ -62,7 +62,7 @@ class CourseDetailPage extends StatelessWidget {
             },
           ),
           title: Text(
-            course.title,
+            courseDetailModel.hasData ? courseDetailModel.course.title : '',
             style: TextStyle(
               color: Colors.black,
               fontWeight: FontWeight.bold,
