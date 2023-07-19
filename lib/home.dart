@@ -87,7 +87,6 @@ class _OTLHomeState extends State<OTLHome> with SingleTickerProviderStateMixin {
             actions: <Widget>[
               PlatformIconButton(
                 onPressed: () {
-                  // Backdrop.of(context).show(0);
                   Navigator.push(context, _buildUserPageRoute());
                 },
                 materialIcon: Icon(Icons.person),

@@ -17,7 +17,7 @@ import 'package:otlplus/widgets/timetable_tabs.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 class TimetablePage extends StatefulWidget {
-  // static String route = 'timetable_page';
+  static String route = 'timetable_page';
 
   @override
   _TimetablePageState createState() => _TimetablePageState();
@@ -176,7 +176,6 @@ class _TimetablePageState extends State<TimetablePage> {
           isTemp: isSelected,
           onTap: () {
             context.read<LectureDetailModel>().loadLecture(lecture.id, true);
-            // Backdrop.of(context).show(2);
             Navigator.push(context, _buildLectureDetailPageRoute());
           },
           onLongPress: isSelected

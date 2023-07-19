@@ -198,7 +198,6 @@ class LectureDetailPage extends StatelessWidget {
         InkWell(
           onTap: () {
             context.read<CourseDetailModel>().loadCourse(lecture.course);
-            // Backdrop.of(context).show(1);
             Navigator.push(context, _buildCourseDetailPageRoute());
           },
           child: const Text(

@@ -10,7 +10,7 @@ import 'package:otlplus/providers/review_model.dart';
 import 'package:otlplus/widgets/review_block.dart';
 
 class ReviewPage extends StatefulWidget {
-  // static String route = 'review_page';
+  static String route = 'review_page';
 
   @override
   State<ReviewPage> createState() => _ReviewPageState();
@@ -220,7 +220,6 @@ class _ReviewPageState extends State<ReviewPage> {
                         context
                             .read<CourseDetailModel>()
                             .loadCourse(latestReviews[index].course.id);
-                        // Backdrop.of(context).show(1);
                         Navigator.push(context, _buildCourseDetailPageRoute());
                       },
                     );
@@ -273,7 +272,6 @@ class _ReviewPageState extends State<ReviewPage> {
                         context
                             .read<CourseDetailModel>()
                             .loadCourse(hallOfFames[index].course.id);
-                        // Backdrop.of(context).show(1);
                         Navigator.push(context, _buildCourseDetailPageRoute());
                       },
                     );

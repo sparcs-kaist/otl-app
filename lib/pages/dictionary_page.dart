@@ -5,7 +5,7 @@ import 'package:otlplus/providers/course_detail_model.dart';
 import 'package:otlplus/widgets/course_search.dart';
 
 class DictionaryPage extends StatelessWidget {
-  // static String route = 'dictionary_page';
+  static String route = 'dictionary_page';
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +16,6 @@ class DictionaryPage extends StatelessWidget {
       child: CourseSearch(
         onCourseTap: (course) {
           context.read<CourseDetailModel>().loadCourse(course.id);
-          // Backdrop.of(context).show(1);
           Navigator.push(context, _buildCourseDetailPageRoute());
         },
       ),

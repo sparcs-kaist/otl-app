@@ -61,7 +61,6 @@ class LikedReviewPage extends StatelessWidget {
                                       context
                                           .read<CourseDetailModel>()
                                           .loadCourse(reviews[index].course.id);
-                                      // Backdrop.of(context).show(1);
                                       Navigator.push(
                                         context,
                                         _buildCourseDetailPageRoute(),

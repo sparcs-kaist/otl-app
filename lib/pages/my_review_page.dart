@@ -164,7 +164,6 @@ class MyReviewPage extends StatelessWidget {
       hasReview: user.reviews.any((review) => review.lecture.id == lecture.id),
       onTap: () {
         context.read<LectureDetailModel>().loadLecture(lecture.id, false);
-        // Backdrop.of(context).show(2);
         Navigator.push(context, _buildLectureDetailPageRoute());
       },
     );
