@@ -15,84 +15,91 @@ class CourseSearchModel extends ChangeNotifier {
   }
 
   Map<String, FilterGroupInfo> _courseFilter = {
-    "departments": FilterGroupInfo("학과", true, [
+    "departments": FilterGroupInfo(label: "학과", isMultiSelect: true, options: [
       [
-        CodeLabelPair("HSS", "인문"),
-        CodeLabelPair("CE", "건환"),
-        CodeLabelPair("MSB", "기경"),
-        CodeLabelPair("ME", "기계"),
+        CodeLabelPair(code: "HSS", label: "인문"),
+        CodeLabelPair(code: "CE", label: "건환"),
+        CodeLabelPair(code: "MSB", label: "기경"),
+        CodeLabelPair(code: "ME", label: "기계"),
       ],
       [
-        CodeLabelPair("PH", "물리"),
-        CodeLabelPair("BiS", "바공"),
-        CodeLabelPair("IE", "산공"),
-        CodeLabelPair("ID", "산디"),
+        CodeLabelPair(code: "PH", label: "물리"),
+        CodeLabelPair(code: "BiS", label: "바공"),
+        CodeLabelPair(code: "IE", label: "산공"),
+        CodeLabelPair(code: "ID", label: "산디"),
       ],
       [
-        CodeLabelPair("BS", "생명"),
-        CodeLabelPair("CBE", "생화공"),
-        CodeLabelPair("MAS", "수리"),
-        CodeLabelPair("MS", "신소재"),
+        CodeLabelPair(code: "BS", label: "생명"),
+        CodeLabelPair(code: "CBE", label: "생화공"),
+        CodeLabelPair(code: "MAS", label: "수리"),
+        CodeLabelPair(code: "MS", label: "신소재"),
       ],
       [
-        CodeLabelPair("NQE", "원양"),
-        CodeLabelPair("TS", "융인"),
-        CodeLabelPair("CS", "전산"),
-        CodeLabelPair("EE", "전자"),
+        CodeLabelPair(code: "NQE", label: "원양"),
+        CodeLabelPair(code: "TS", label: "융인"),
+        CodeLabelPair(code: "CS", label: "전산"),
+        CodeLabelPair(code: "EE", label: "전자"),
       ],
       [
-        CodeLabelPair("AE", "항공"),
-        CodeLabelPair("CH", "화학"),
-        CodeLabelPair("ETC", "기타"),
+        CodeLabelPair(code: "AE", label: "항공"),
+        CodeLabelPair(code: "CH", label: "화학"),
+        CodeLabelPair(code: "ETC", label: "기타"),
       ]
     ]),
-    "types": FilterGroupInfo("구분", true, [
+    "types": FilterGroupInfo(label: "구분", isMultiSelect: true, options: [
       [
-        CodeLabelPair("BR", "기필"),
-        CodeLabelPair("BE", "기선"),
-        CodeLabelPair("MR", "전필"),
-        CodeLabelPair("ME", "전선"),
+        CodeLabelPair(code: "BR", label: "기필"),
+        CodeLabelPair(code: "BE", label: "기선"),
+        CodeLabelPair(code: "MR", label: "전필"),
+        CodeLabelPair(code: "ME", label: "전선"),
       ],
       [
-        CodeLabelPair("MGC", "교필"),
-        CodeLabelPair("HSE", "인선"),
-        CodeLabelPair("GR", "공통"),
-        CodeLabelPair("EG", "석박"),
+        CodeLabelPair(code: "MGC", label: "교필"),
+        CodeLabelPair(code: "HSE", label: "인선"),
+        CodeLabelPair(code: "GR", label: "공통"),
+        CodeLabelPair(code: "EG", label: "석박"),
       ],
       [
-        CodeLabelPair("OE", "자선"),
-        CodeLabelPair("ETC", "기타"),
+        CodeLabelPair(code: "OE", label: "자선"),
+        CodeLabelPair(code: "ETC", label: "기타"),
       ]
     ]),
-    "levels": FilterGroupInfo("학년", true, [
+    "levels": FilterGroupInfo(label: "학년", isMultiSelect: true, options: [
       [
-        CodeLabelPair("100", "100번"),
-        CodeLabelPair("200", "200번"),
-        CodeLabelPair("300", "300번")
+        CodeLabelPair(code: "100", label: "100번"),
+        CodeLabelPair(code: "200", label: "200번"),
+        CodeLabelPair(code: "300", label: "300번")
       ],
-      [CodeLabelPair("400", "400번"), CodeLabelPair("ETC", "500번 이상")]
+      [
+        CodeLabelPair(code: "400", label: "400번"),
+        CodeLabelPair(code: "ETC", label: "500번 이상")
+      ]
     ]),
     // "orders": {
     //   "label": "정렬",
     //   "isMultiSelect": false,
     //   "options": [
     //     [
-    //       CodeLabelPair("DEF", "기본순", true),
-    //       CodeLabelPair("RAT", "평점순", false),
+    //       CodeLabelPair(code: "DEF", label: "기본순", true),
+    //       CodeLabelPair(code: "RAT", label: "평점순", false),
     //     ],
     //     [
-    //       CodeLabelPair("GRA", "성적순", false),
-    //       CodeLabelPair("LOA", "널널순", false),
-    //       CodeLabelPair("SPE", "강의순", false),
+    //       CodeLabelPair(code: "GRA", label: "성적순", false),
+    //       CodeLabelPair(code: "LOA", label: "널널순", false),
+    //       CodeLabelPair(code: "SPE", label: "강의순", false),
     //     ]
     //   ]
     // },
-    "terms": FilterGroupInfo("기간", false, [
-      [CodeLabelPair("ALL", "전체", true)],
-      [CodeLabelPair("3", "3년이내", false)],
-      [CodeLabelPair("2", "2년이내", false)],
-      [CodeLabelPair("1", "1년이내", false)],
-    ])
+    "terms": FilterGroupInfo(
+        label: "기간",
+        isMultiSelect: false,
+        type: "slider",
+        options: [
+          [CodeLabelPair(code: "ALL", label: "전체", selected: true)],
+          [CodeLabelPair(code: "3", label: "3년이내", selected: false)],
+          [CodeLabelPair(code: "2", label: "2년이내", selected: false)],
+          [CodeLabelPair(code: "1", label: "1년이내", selected: false)],
+        ])
   };
   get courseFilter => _courseFilter;
 
@@ -104,7 +111,7 @@ class CourseSearchModel extends ChangeNotifier {
         e.options.forEach((b) => b.forEach((c) => c.selected = true));
       else {
         e.options.forEach((b) => b.forEach((c) => c.selected = false));
-        e.options[0][0].selected = true;
+        e.options.first.first.selected = true;
       }
     });
     updateCourseSearchquery();
@@ -134,7 +141,7 @@ class CourseSearchModel extends ChangeNotifier {
   void updateCourseSearchquery() {
     List<String> _selectedFilters = (_courseFilter.map((k, v) => MapEntry(
         k,
-        (v.isMultiSelect == false && v.options[0][0].selected == true) ||
+        (v.isMultiSelect == false && v.options.first.first.selected == true) ||
                 v.options.expand((i) => i).every((i) => i.selected == true)
             ? Iterable<String>.empty()
             : v.options
@@ -205,7 +212,7 @@ class CourseSearchModel extends ChangeNotifier {
             j.selected = true;
           });
         else
-          v.options[0][0].selected = true;
+          v.options.first.first.selected = true;
       }
     });
     List<CodeLabelPair> dep = _courseFilter['departments']!
