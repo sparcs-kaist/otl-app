@@ -82,13 +82,12 @@ struct WeekClassesWidgetEntryView : View {
                         Image("lock")
                             .resizable()
                         .frame(width: 44, height: 44)
-                        Button(action: {}) {
-                            Text("로그인하러 가기")
-                                .font(.custom("NotoSansKR-Bold", size: 12))
-                        }
-                            .buttonStyle(.borderedProminent)
-                            .cornerRadius(30)
-                            .tint(Color(red: 229.0/255, green: 76.0/255, blue: 100.0/255))
+                        Text("로그인하러 가기")
+                            .font(.custom("NotoSansKR-Bold", size: 12))
+                            .padding(.horizontal, 10.0)
+                            .padding(.vertical, 4)
+                            .foregroundColor(.white)
+                            .background(RoundedRectangle(cornerRadius: 30).foregroundColor(Color(red: 229.0/255, green: 76.0/255, blue: 100.0/255)))
                     }
                 }
             }
