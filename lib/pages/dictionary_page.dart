@@ -4,7 +4,7 @@ import 'package:otlplus/constants/color.dart';
 import 'package:otlplus/constants/icon.dart';
 import 'package:otlplus/providers/course_detail_model.dart';
 import 'package:otlplus/providers/course_search_model.dart';
-import 'package:otlplus/widgets/base_scaffold.dart';
+import 'package:otlplus/widgets/base_layout.dart';
 import 'package:otlplus/widgets/course_block.dart';
 import 'package:otlplus/pages/course_search_page.dart';
 import 'package:provider/provider.dart';
@@ -25,17 +25,15 @@ class _DictionaryPageState extends State<DictionaryPage> {
   Widget build(BuildContext context) {
     final searchModel = context.watch<CourseSearchModel>();
 
-    return BaseScaffold(
-        sheetBackgroundColor: Colors.white,
-        disableBackButton: true,
-        leading: SizedBox(
+    return BaseLayout(
+        middle: SizedBox(
             width: MediaQuery.of(context).size.width,
             child: GestureDetector(
               behavior: HitTestBehavior.opaque,
               onTap: () {
                 Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) =>
-                        CourseSearchPage(openKeyboard: true)));
+                        CourseSearchPage(openKeyboard: false)));
               },
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
