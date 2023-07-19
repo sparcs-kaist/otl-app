@@ -132,11 +132,10 @@ class _SelectorState extends State<Selector> {
               switch (widget.type) {
                 case "radio":
                   return RadioSelection(
-                    selectList: widget.selectList,
-                    isMultiSelect: widget.isMultiSelect,
-                    setFilter: widget.setFilter,
-                    crossAxisCount: 4
-                  );
+                      selectList: widget.selectList,
+                      isMultiSelect: widget.isMultiSelect,
+                      setFilter: widget.setFilter,
+                      crossAxisCount: 4);
                 case "slider":
                   return SilderSelection(
                     selectList: widget.selectList,
@@ -160,7 +159,7 @@ class RadioSelection extends StatefulWidget {
     this.isMultiSelect = true,
     required this.setFilter,
     this.crossAxisCount = 4,
-    Key? key, 
+    Key? key,
   }) : super(key: key);
   final List<List<CodeLabelPair>> selectList;
   final bool isMultiSelect;
@@ -185,8 +184,8 @@ class _RadioSelectionState extends State<RadioSelection> {
               setOption: (b) {
                 if (!widget.isMultiSelect) {
                   b = true;
-                  widget.selectList.forEach((e) => e.forEach(
-                      (c) => widget.setFilter(c.code, false)));
+                  widget.selectList.forEach(
+                      (e) => e.forEach((c) => widget.setFilter(c.code, false)));
                 }
                 widget.setFilter(w.code, b);
               }),
@@ -253,12 +252,12 @@ class _RadioSelectButtonState extends State<RadioSelectButton> {
 }
 
 class SilderSelection extends StatefulWidget {
-  const SilderSelection({
-    required this.selectList,
-    this.isMultiSelect = true,
-    required this.setFilter,
-    Key? key
-  }) : super(key: key);
+  const SilderSelection(
+      {required this.selectList,
+      this.isMultiSelect = true,
+      required this.setFilter,
+      Key? key})
+      : super(key: key);
   final List<List<CodeLabelPair>> selectList;
   final bool isMultiSelect;
   final Function(String code, bool selected) setFilter;
@@ -270,43 +269,59 @@ class SilderSelection extends StatefulWidget {
 class _SilderSelectionState extends State<SilderSelection> {
   double _textWidth(String text, TextStyle style) {
     final TextPainter textPainter = TextPainter(
-        text: TextSpan(text: text, style: style), maxLines: 1, textDirection: TextDirection.rtl, textScaleFactor: MediaQuery.of(context).textScaleFactor)
+        text: TextSpan(text: text, style: style),
+        maxLines: 1,
+        textDirection: TextDirection.rtl,
+        textScaleFactor: MediaQuery.of(context).textScaleFactor)
       ..layout(minWidth: 0, maxWidth: double.infinity);
     return textPainter.size.width;
   }
+
   double _value = 0;
-  
+
   TextStyle labelTextStyle = TextStyle(
     fontSize: 12,
   );
   @override
   void initState() {
     super.initState();
-    _value = widget.selectList.reversed.toList().indexWhere((e) => e.first.selected == true).toDouble();
+    _value = widget.selectList.reversed
+        .toList()
+        .indexWhere((e) => e.first.selected == true)
+        .toDouble();
   }
 
   @override
   Widget build(BuildContext context) {
-    
     final divisions = widget.selectList.length - 1;
     return Padding(
       padding: EdgeInsets.only(left: 2, right: 10),
-      child: LayoutBuilder(builder: (BuildContext context, BoxConstraints constraints) {
-        double leftPadding = _textWidth(widget.selectList.reversed.first.first.label, labelTextStyle) / 2;
-        double rightPadding = _textWidth(widget.selectList.reversed.last.first.label, labelTextStyle) / 2;
-        double divisionWidth = (constraints.maxWidth - leftPadding - rightPadding) / divisions;
+      child: LayoutBuilder(
+          builder: (BuildContext context, BoxConstraints constraints) {
+        double leftPadding = _textWidth(
+                widget.selectList.reversed.first.first.label, labelTextStyle) /
+            2;
+        double rightPadding = _textWidth(
+                widget.selectList.reversed.last.first.label, labelTextStyle) /
+            2;
+        double divisionWidth =
+            (constraints.maxWidth - leftPadding - rightPadding) / divisions;
         return Column(
           children: [
             Padding(
-              padding: EdgeInsets.only(left: leftPadding - 8, right: rightPadding - 8),
+              padding: EdgeInsets.only(
+                  left: leftPadding - 8, right: rightPadding - 8),
               child: SliderTheme(
                 data: SliderThemeData(
-                  thumbShape: CustomSliderThumbShape(outerThumbRadius: 10, innerThumbRadius: 7, outerThumbColor: Color(0xFFF6C5CD), innerThumbColor: Colors.white),
-                  trackHeight: 5.0,
-                  trackShape: RoundRectangularSliderTrackShape(),
-                  tickMarkShape: SliderTickMarkShape.noTickMark,
-                  overlayShape: SliderComponentShape.noThumb
-                ),
+                    thumbShape: CustomSliderThumbShape(
+                        outerThumbRadius: 10,
+                        innerThumbRadius: 7,
+                        outerThumbColor: Color(0xFFF6C5CD),
+                        innerThumbColor: Colors.white),
+                    trackHeight: 5.0,
+                    trackShape: RoundRectangularSliderTrackShape(),
+                    tickMarkShape: SliderTickMarkShape.noTickMark,
+                    overlayShape: SliderComponentShape.noThumb),
                 child: Slider(
                   value: _value,
                   min: 0.0,
@@ -321,10 +336,15 @@ class _SilderSelectionState extends State<SilderSelection> {
                   },
                   onChangeEnd: ((double value) {
                     if (!widget.isMultiSelect) {
-                      widget.selectList.forEach((e) => e.forEach(
-                          (c) => widget.setFilter(c.code, false)));
+                      widget.selectList.forEach((e) =>
+                          e.forEach((c) => widget.setFilter(c.code, false)));
                     }
-                    widget.setFilter(widget.selectList.reversed.elementAt(value.toInt()).first.code, true);
+                    widget.setFilter(
+                        widget.selectList.reversed
+                            .elementAt(value.toInt())
+                            .first
+                            .code,
+                        true);
                   }),
                 ),
               ),
@@ -332,22 +352,37 @@ class _SilderSelectionState extends State<SilderSelection> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: List.generate(
-                divisions * 2 + 1,
-                (index) => 
-                index % 2 == 0 ?
-                  Column(
-                    children: [
-                      Text(
-                        widget.selectList.reversed.elementAt(index ~/ 2).first.label,
-                        style: labelTextStyle,
-                        textAlign: TextAlign.center,
-                      ),
-                    ],
-                  ) :
-                  Spacer(
-                    flex: (divisionWidth - (_textWidth(widget.selectList.reversed.elementAt(index ~/ 2).first.label, labelTextStyle) + _textWidth(widget.selectList.reversed.elementAt((index ~/ 2) + 1).first.label, labelTextStyle)) / 2).toInt(),
-                  )
-              ),
+                  divisions * 2 + 1,
+                  (index) => index % 2 == 0
+                      ? Column(
+                          children: [
+                            Text(
+                              widget.selectList.reversed
+                                  .elementAt(index ~/ 2)
+                                  .first
+                                  .label,
+                              style: labelTextStyle,
+                              textAlign: TextAlign.center,
+                            ),
+                          ],
+                        )
+                      : Spacer(
+                          flex: (divisionWidth -
+                                  (_textWidth(
+                                              widget.selectList.reversed
+                                                  .elementAt(index ~/ 2)
+                                                  .first
+                                                  .label,
+                                              labelTextStyle) +
+                                          _textWidth(
+                                              widget.selectList.reversed
+                                                  .elementAt((index ~/ 2) + 1)
+                                                  .first
+                                                  .label,
+                                              labelTextStyle)) /
+                                      2)
+                              .toInt(),
+                        )),
             ),
           ],
         );
@@ -356,7 +391,8 @@ class _SilderSelectionState extends State<SilderSelection> {
   }
 }
 
-class RoundRectangularSliderTrackShape extends SliderTrackShape with BaseSliderTrackShape {
+class RoundRectangularSliderTrackShape extends SliderTrackShape
+    with BaseSliderTrackShape {
   const RoundRectangularSliderTrackShape();
 
   @override
@@ -376,10 +412,16 @@ class RoundRectangularSliderTrackShape extends SliderTrackShape with BaseSliderT
       return;
     }
 
-    final ColorTween activeTrackColorTween = ColorTween(begin: sliderTheme.disabledActiveTrackColor, end: sliderTheme.activeTrackColor);
-    final ColorTween inactiveTrackColorTween = ColorTween(begin: sliderTheme.disabledInactiveTrackColor, end: sliderTheme.inactiveTrackColor);
-    final Paint activePaint = Paint()..color = activeTrackColorTween.evaluate(enableAnimation)!;
-    final Paint inactivePaint = Paint()..color = inactiveTrackColorTween.evaluate(enableAnimation)!;
+    final ColorTween activeTrackColorTween = ColorTween(
+        begin: sliderTheme.disabledActiveTrackColor,
+        end: sliderTheme.activeTrackColor);
+    final ColorTween inactiveTrackColorTween = ColorTween(
+        begin: sliderTheme.disabledInactiveTrackColor,
+        end: sliderTheme.inactiveTrackColor);
+    final Paint activePaint = Paint()
+      ..color = activeTrackColorTween.evaluate(enableAnimation)!;
+    final Paint inactivePaint = Paint()
+      ..color = inactiveTrackColorTween.evaluate(enableAnimation)!;
     final Paint leftTrackPaint;
     final Paint rightTrackPaint;
     switch (textDirection) {
@@ -402,11 +444,13 @@ class RoundRectangularSliderTrackShape extends SliderTrackShape with BaseSliderT
     );
     final Radius trackRadius = Radius.circular(trackRect.height / 2);
 
-    final RRect leftTrackSegment = RRect.fromLTRBR(trackRect.left, trackRect.top, thumbCenter.dx, trackRect.bottom, trackRadius);
+    final RRect leftTrackSegment = RRect.fromLTRBR(trackRect.left,
+        trackRect.top, thumbCenter.dx, trackRect.bottom, trackRadius);
     if (!leftTrackSegment.isEmpty) {
       context.canvas.drawRRect(leftTrackSegment, leftTrackPaint);
     }
-    final RRect rightTrackSegment = RRect.fromLTRBR(thumbCenter.dx, trackRect.top, trackRect.right, trackRect.bottom, trackRadius);
+    final RRect rightTrackSegment = RRect.fromLTRBR(thumbCenter.dx,
+        trackRect.top, trackRect.right, trackRect.bottom, trackRadius);
     if (!rightTrackSegment.isEmpty) {
       context.canvas.drawRRect(rightTrackSegment, rightTrackPaint);
     }
@@ -456,9 +500,16 @@ class CustomSliderThumbShape extends SliderComponentShape {
       end: pressedElevation,
     );
 
-    final double evaluatedElevation = elevationTween.evaluate(activationAnimation);
+    final double evaluatedElevation =
+        elevationTween.evaluate(activationAnimation);
     final Path path = Path()
-      ..addArc(Rect.fromCenter(center: center, width: 2 * outerThumbRadius, height: 2 * outerThumbRadius), 0, math.pi * 2);
+      ..addArc(
+          Rect.fromCenter(
+              center: center,
+              width: 2 * outerThumbRadius,
+              height: 2 * outerThumbRadius),
+          0,
+          math.pi * 2);
 
     bool paintShadows = true;
 
@@ -467,15 +518,15 @@ class CustomSliderThumbShape extends SliderComponentShape {
     }
 
     canvas
-    ..drawCircle(
-      center,
-      outerThumbRadius,
-      Paint()..color = outerThumbColor,
-    )
-    ..drawCircle(
-      center,
-      innerThumbRadius,
-      Paint()..color = innerThumbColor,
-    );
+      ..drawCircle(
+        center,
+        outerThumbRadius,
+        Paint()..color = outerThumbColor,
+      )
+      ..drawCircle(
+        center,
+        innerThumbRadius,
+        Paint()..color = innerThumbColor,
+      );
   }
 }
