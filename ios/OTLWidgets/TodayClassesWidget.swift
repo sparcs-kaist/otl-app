@@ -63,7 +63,7 @@ struct TodayClassesWidgetEntryView : View {
                                 }
                             }
                             if (entry.timetableData != nil) {
-                                ForEach(getLecturesData(data: entry.todayLectures!), id: \.self) { data in
+                                ForEach(getLecturesData(data: getLecturesForDay(timetable: entry.timetableData?[Int(entry.configuration.nextClassTimetable?.identifier ?? "0") ?? 0], day: getDayWithWeekDay(weekday: Calendar.current.component(.weekday, from: entry.date)))), id: \.self) { data in
                                     VStack {
                                         Spacer()
                                             .frame(height: 24)
@@ -82,6 +82,23 @@ struct TodayClassesWidgetEntryView : View {
                         .offset(x: getOffsetByDate(date: entry.date))
                     , alignment: .leading
                 )
+            if (entry.timetableData == nil) {
+                ZStack {
+                    Color.clear
+                        .background(.ultraThinMaterial)
+                    VStack {
+                        Image("lock")
+                            .resizable()
+                        .frame(width: 44, height: 44)
+                        Text("로그인하러 가기")
+                            .font(.custom("NotoSansKR-Bold", size: 12))
+                            .padding(.horizontal, 10.0)
+                            .padding(.vertical, 4)
+                            .foregroundColor(.white)
+                            .background(RoundedRectangle(cornerRadius: 30).foregroundColor(Color(red: 229.0/255, green: 76.0/255, blue: 100.0/255)))
+                    }
+                }
+            }
         }
     }
     
@@ -184,7 +201,7 @@ struct TodayClassesWidget: Widget {
 
 struct TodayClassesWidgetPreviews: PreviewProvider {
     static var previews: some View {
-        TodayClassesWidgetEntryView(entry: WidgetEntry(date: Date(), timetableData: nil, todayLectures: nil, configuration: ConfigurationIntent()))
+        TodayClassesWidgetEntryView(entry: WidgetEntry(date: Date(), timetableData: nil, configuration: ConfigurationIntent()))
             .previewContext(WidgetPreviewContext(family: .systemMedium))
     }
 }

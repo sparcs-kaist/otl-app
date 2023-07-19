@@ -13,29 +13,29 @@ import Intents
 struct Provider: IntentTimelineProvider {
     typealias Entry = WidgetEntry
     func placeholder(in context: Context) -> WidgetEntry {
-        WidgetEntry(date: Date(), timetableData: nil, todayLectures: nil, configuration: ConfigurationIntent())
+        WidgetEntry(date: Date(), timetableData: nil, configuration: ConfigurationIntent())
     }
 
     func getSnapshot(for configuration: ConfigurationIntent, in context: Context, completion: @escaping (WidgetEntry) -> ()) {
-        let sharedDefaults = UserDefaults.init(suiteName: "group.org.sparcs.otlplus")
+        let sharedDefaults = UserDefaults.init(suiteName: "group.org.sparcs.otl")
         
         let data = try? JSONDecoder().decode([Timetable].self, from: (sharedDefaults?.string(forKey: "widgetData")?.data(using: .utf8)) ?? Data())
 
         let entryDate = Date()
-        let entry = WidgetEntry(date: entryDate, timetableData: data, todayLectures: getTodayLectures(timetable: data?[Int(configuration.nextClassTimetable?.identifier ?? "0") ?? 0], date: entryDate), configuration: configuration)
+        let entry = WidgetEntry(date: entryDate, timetableData: data, configuration: configuration)
         completion(entry)
     }
 
     func getTimeline(for configuration: ConfigurationIntent, in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
         // Generate a timeline consisting of five entries an hour apart, starting from the current date.
         var entries: [WidgetEntry] = [WidgetEntry]()
-        let sharedDefaults = UserDefaults.init(suiteName: "group.org.sparcs.otlplus")
+        let sharedDefaults = UserDefaults.init(suiteName: "group.org.sparcs.otl")
         let data = try? JSONDecoder().decode([Timetable].self, from: (sharedDefaults?.string(forKey: "widgetData")?.data(using: .utf8)) ?? Data())
         
         let currentDate = Date()
         for minutesOffset in 0..<5 {
             let entryDate = Calendar.current.date(byAdding: .minute, value: minutesOffset*15, to: currentDate)!
-            let entry = WidgetEntry(date: entryDate, timetableData: data, todayLectures: getTodayLectures(timetable: data?[Int(configuration.nextClassTimetable?.identifier ?? "0") ?? 0], date: entryDate), configuration: configuration)
+            let entry = WidgetEntry(date: entryDate, timetableData: data, configuration: configuration)
             entries.append(entry)
         }
         
@@ -49,7 +49,6 @@ struct Provider: IntentTimelineProvider {
 struct WidgetEntry: TimelineEntry {
     let date: Date
     let timetableData: [Timetable]?
-    let todayLectures: [(Int, Lecture)]?
     let configuration: ConfigurationIntent
 }
 
@@ -63,7 +62,7 @@ struct NextClassWidgetEntryView : View {
     }
 
     var body: some View {
-        if (entry.timetableData != nil) {
+        if (entry.timetableData != nil && entry.timetableData![Int(entry.configuration.nextClassTimetable?.identifier ?? "0") ?? 0].lectures.count > 0) {
             ZStack(alignment: .leading) {
                 widgetBackground
                 VStack(alignment: .leading) {
@@ -104,7 +103,7 @@ struct NextClassWidgetEntryView : View {
                     Text("다음 강의")
                         .font(.custom("NotoSansKR-Bold", size: 12))
                         .foregroundColor(Color(red: 229.0/255, green: 76.0/255, blue: 100.0/255))
-                    Text("오류")
+                    Text("정보 없음")
                         .font(.custom("NotoSansKR-Bold", size: 20))
                         .offset(y: -2)
                         .minimumScaleFactor(0.5)
@@ -116,20 +115,37 @@ struct NextClassWidgetEntryView : View {
                         Circle()
                             .fill(getColourForCourse(course: 1))
                             .frame(width: 12, height: 12)
-                        Text("로그인해 주세요")
+                        Text("정보 없음")
                             .font(.custom("NotoSansKR-Bold", size: 16))
                             .minimumScaleFactor(0.5)
                             .lineLimit(2)
                     }.offset(y: 8)
-                    Text("시간표 불러오기 실패")
+                    Text("정보 없음")
                         .font(.custom("NotoSansKR-Regular", size: 12))
                         .minimumScaleFactor(0.5)
                         .lineLimit(1)
-                    Text("데이터 없음")
+                    Text("정보 없음")
                         .font(.custom("NotoSansKR-Medium", size: 12))
                         .minimumScaleFactor(0.5)
                         .foregroundColor(.gray)
                 }.padding()
+                if (entry.timetableData == nil) {
+                    ZStack {
+                        Color.clear
+                            .background(.ultraThinMaterial)
+                        VStack {
+                            Image("lock")
+                                .resizable()
+                            .frame(width: 44, height: 44)
+                            Text("로그인하러 가기")
+                                .font(.custom("NotoSansKR-Bold", size: 12))
+                                .padding(.horizontal, 10.0)
+                                .padding(.vertical, 4)
+                                .foregroundColor(.white)
+                                .background(RoundedRectangle(cornerRadius: 30).foregroundColor(Color(red: 229.0/255, green: 76.0/255, blue: 100.0/255)))
+                        }
+                    }
+                }
             }
         }
     }
@@ -243,7 +259,7 @@ struct NextClassWidget: Widget {
 
 struct NextClassWidgetPreviews: PreviewProvider {
     static var previews: some View {
-        NextClassWidgetEntryView(entry: WidgetEntry(date: Date(), timetableData: nil, todayLectures: nil, configuration: ConfigurationIntent()))
+        NextClassWidgetEntryView(entry: WidgetEntry(date: Date(), timetableData: nil, configuration: ConfigurationIntent()))
             .previewContext(WidgetPreviewContext(family: .systemSmall))
     }
 }
