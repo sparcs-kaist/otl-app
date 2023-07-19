@@ -4,9 +4,9 @@ import 'package:otlplus/extensions/semester.dart';
 import 'package:otlplus/models/lecture.dart';
 import 'package:otlplus/models/semester.dart';
 import 'package:otlplus/models/user.dart';
-import 'package:otlplus/pages/lecture_detail_page.dart';
 import 'package:otlplus/providers/info_model.dart';
 import 'package:otlplus/providers/lecture_detail_model.dart';
+import 'package:otlplus/utils/build_page_route.dart';
 import 'package:otlplus/widgets/lecture_simple_block.dart';
 import 'package:provider/provider.dart';
 
@@ -164,25 +164,7 @@ class MyReviewPage extends StatelessWidget {
       hasReview: user.reviews.any((review) => review.lecture.id == lecture.id),
       onTap: () {
         context.read<LectureDetailModel>().loadLecture(lecture.id, false);
-        Navigator.push(context, _buildLectureDetailPageRoute());
-      },
-    );
-  }
-
-  Route _buildLectureDetailPageRoute() {
-    return PageRouteBuilder(
-      pageBuilder: (_, animation, __) => LectureDetailPage(),
-      transitionsBuilder: (_, animation, __, child) {
-        const begin = Offset(1.0, 0.0);
-        const end = Offset.zero;
-        final curveTween = CurveTween(curve: Curves.ease);
-        final tween = Tween(begin: begin, end: end).chain(curveTween);
-        final offsetAnimation = animation.drive(tween);
-
-        return SlideTransition(
-          position: offsetAnimation,
-          child: child,
-        );
+        Navigator.push(context, buildLectureDetailPageRoute());
       },
     );
   }

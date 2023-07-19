@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:otlplus/constants/color.dart';
-import 'package:otlplus/pages/course_detail_page.dart';
 import 'package:otlplus/providers/course_detail_model.dart';
 import 'package:otlplus/providers/info_model.dart';
 import 'package:otlplus/providers/liked_review_model.dart';
+import 'package:otlplus/utils/build_page_route.dart';
 import 'package:otlplus/widgets/review_block.dart';
 import 'package:provider/provider.dart';
 
@@ -63,7 +63,7 @@ class LikedReviewPage extends StatelessWidget {
                                           .loadCourse(reviews[index].course.id);
                                       Navigator.push(
                                         context,
-                                        _buildCourseDetailPageRoute(),
+                                        buildCourseDetailPageRoute(),
                                       );
                                     },
                                   );
@@ -146,24 +146,6 @@ class LikedReviewPage extends StatelessWidget {
           automaticallyImplyLeading: false,
         ),
       ),
-    );
-  }
-
-  Route _buildCourseDetailPageRoute() {
-    return PageRouteBuilder(
-      pageBuilder: (_, animation, __) => CourseDetailPage(),
-      transitionsBuilder: (_, animation, __, child) {
-        const begin = Offset(1.0, 0.0);
-        const end = Offset.zero;
-        final curveTween = CurveTween(curve: Curves.ease);
-        final tween = Tween(begin: begin, end: end).chain(curveTween);
-        final offsetAnimation = animation.drive(tween);
-
-        return SlideTransition(
-          position: offsetAnimation,
-          child: child,
-        );
-      },
     );
   }
 }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:otlplus/pages/lecture_detail_page.dart';
+import 'package:otlplus/utils/build_page_route.dart';
 import 'package:provider/provider.dart';
 import 'package:otlplus/constants/color.dart';
 import 'package:otlplus/models/lecture.dart';
@@ -272,27 +272,9 @@ class _LectureSearchState extends State<LectureSearch> {
         },
         onLongPress: (lecture) {
           context.read<LectureDetailModel>().loadLecture(lecture.id, true);
-          Navigator.push(context, _buildLectureDetailPageRoute());
+          Navigator.push(context, buildLectureDetailPageRoute());
         },
       ),
-    );
-  }
-
-  Route _buildLectureDetailPageRoute() {
-    return PageRouteBuilder(
-      pageBuilder: (_, animation, __) => LectureDetailPage(),
-      transitionsBuilder: (_, animation, __, child) {
-        const begin = Offset(1.0, 0.0);
-        const end = Offset.zero;
-        final curveTween = CurveTween(curve: Curves.ease);
-        final tween = Tween(begin: begin, end: end).chain(curveTween);
-        final offsetAnimation = animation.drive(tween);
-
-        return SlideTransition(
-          position: offsetAnimation,
-          child: child,
-        );
-      },
     );
   }
 }

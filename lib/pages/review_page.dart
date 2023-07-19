@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:otlplus/constants/color.dart';
 import 'package:otlplus/models/semester.dart';
-import 'package:otlplus/pages/course_detail_page.dart';
 import 'package:otlplus/providers/hall_of_fame_model.dart';
 import 'package:otlplus/providers/info_model.dart';
+import 'package:otlplus/utils/build_page_route.dart';
 import 'package:provider/provider.dart';
 import 'package:otlplus/providers/course_detail_model.dart';
 import 'package:otlplus/providers/review_model.dart';
@@ -220,7 +220,7 @@ class _ReviewPageState extends State<ReviewPage> {
                         context
                             .read<CourseDetailModel>()
                             .loadCourse(latestReviews[index].course.id);
-                        Navigator.push(context, _buildCourseDetailPageRoute());
+                        Navigator.push(context, buildCourseDetailPageRoute());
                       },
                     );
                   },
@@ -272,7 +272,7 @@ class _ReviewPageState extends State<ReviewPage> {
                         context
                             .read<CourseDetailModel>()
                             .loadCourse(hallOfFames[index].course.id);
-                        Navigator.push(context, _buildCourseDetailPageRoute());
+                        Navigator.push(context, buildCourseDetailPageRoute());
                       },
                     );
                   },
@@ -299,24 +299,6 @@ class _ReviewPageState extends State<ReviewPage> {
           ),
         ),
       ),
-    );
-  }
-
-  Route _buildCourseDetailPageRoute() {
-    return PageRouteBuilder(
-      pageBuilder: (_, animation, __) => CourseDetailPage(),
-      transitionsBuilder: (_, animation, __, child) {
-        const begin = Offset(1.0, 0.0);
-        const end = Offset.zero;
-        final curveTween = CurveTween(curve: Curves.ease);
-        final tween = Tween(begin: begin, end: end).chain(curveTween);
-        final offsetAnimation = animation.drive(tween);
-
-        return SlideTransition(
-          position: offsetAnimation,
-          child: child,
-        );
-      },
     );
   }
 }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:otlplus/pages/course_detail_page.dart';
+import 'package:otlplus/utils/build_page_route.dart';
 import 'package:provider/provider.dart';
 import 'package:otlplus/providers/course_detail_model.dart';
 import 'package:otlplus/widgets/course_search.dart';
@@ -16,27 +16,9 @@ class DictionaryPage extends StatelessWidget {
       child: CourseSearch(
         onCourseTap: (course) {
           context.read<CourseDetailModel>().loadCourse(course.id);
-          Navigator.push(context, _buildCourseDetailPageRoute());
+          Navigator.push(context, buildCourseDetailPageRoute());
         },
       ),
-    );
-  }
-
-  Route _buildCourseDetailPageRoute() {
-    return PageRouteBuilder(
-      pageBuilder: (_, animation, __) => CourseDetailPage(),
-      transitionsBuilder: (_, animation, __, child) {
-        const begin = Offset(1.0, 0.0);
-        const end = Offset.zero;
-        final curveTween = CurveTween(curve: Curves.ease);
-        final tween = Tween(begin: begin, end: end).chain(curveTween);
-        final offsetAnimation = animation.drive(tween);
-
-        return SlideTransition(
-          position: offsetAnimation,
-          child: child,
-        );
-      },
     );
   }
 }

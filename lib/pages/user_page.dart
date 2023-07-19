@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:otlplus/providers/auth_model.dart';
+import 'package:otlplus/utils/build_page_route.dart';
 import 'package:provider/provider.dart';
 import 'package:otlplus/constants/color.dart';
 import 'package:otlplus/providers/info_model.dart';
-
-import 'liked_review_page.dart';
-import 'my_review_page.dart';
 
 class UserPage extends StatelessWidget {
   @override
@@ -26,12 +24,8 @@ class UserPage extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
-                  // _buildTitle("내 정보"),
                   _buildContent("이름 ", "${user.firstName} ${user.lastName}"),
                   _buildContent("메일 ", user.email),
-                  // const Divider(color: DIVIDER_COLOR),
-                  // const SizedBox(height: 4.0),
-                  // _buildTitle("학사 정보"),
                   _buildContent("학번 ", user.studentId),
                   _buildContent(
                       "전공 ",
@@ -147,8 +141,8 @@ class UserPage extends StatelessWidget {
             Navigator.push(
               context,
               index == 3
-                  ? _buildMyReviewPageRoute()
-                  : _buildLikedReviewPageRoute(),
+                  ? buildMyReviewPageRoute()
+                  : buildLikedReviewPageRoute(),
             );
           },
           child: Text(
@@ -164,42 +158,6 @@ class UserPage extends StatelessWidget {
           ),
         ),
       ],
-    );
-  }
-
-  Route _buildMyReviewPageRoute() {
-    return PageRouteBuilder(
-      pageBuilder: (_, animation, __) => MyReviewPage(),
-      transitionsBuilder: (_, animation, __, child) {
-        const begin = Offset(1.0, 0.0);
-        const end = Offset.zero;
-        final curveTween = CurveTween(curve: Curves.ease);
-        final tween = Tween(begin: begin, end: end).chain(curveTween);
-        final offsetAnimation = animation.drive(tween);
-
-        return SlideTransition(
-          position: offsetAnimation,
-          child: child,
-        );
-      },
-    );
-  }
-
-  Route _buildLikedReviewPageRoute() {
-    return PageRouteBuilder(
-      pageBuilder: (_, animation, __) => LikedReviewPage(),
-      transitionsBuilder: (_, animation, __, child) {
-        const begin = Offset(1.0, 0.0);
-        const end = Offset.zero;
-        final curveTween = CurveTween(curve: Curves.ease);
-        final tween = Tween(begin: begin, end: end).chain(curveTween);
-        final offsetAnimation = animation.drive(tween);
-
-        return SlideTransition(
-          position: offsetAnimation,
-          child: child,
-        );
-      },
     );
   }
 }

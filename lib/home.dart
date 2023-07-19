@@ -1,14 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
-import 'package:otlplus/pages/settings_page.dart';
+import 'package:otlplus/utils/build_page_route.dart';
 import 'package:provider/provider.dart';
 import 'package:otlplus/constants/color.dart';
 import 'package:otlplus/pages/dictionary_page.dart';
 import 'package:otlplus/pages/main_page.dart';
 import 'package:otlplus/pages/review_page.dart';
 import 'package:otlplus/pages/timetable_page.dart';
-import 'package:otlplus/pages/user_page.dart';
 import 'package:otlplus/providers/search_model.dart';
 import 'package:easy_localization/easy_localization.dart';
 
@@ -87,14 +86,14 @@ class _OTLHomeState extends State<OTLHome> with SingleTickerProviderStateMixin {
             actions: <Widget>[
               PlatformIconButton(
                 onPressed: () {
-                  Navigator.push(context, _buildUserPageRoute());
+                  Navigator.push(context, buildUserPageRoute());
                 },
                 materialIcon: Icon(Icons.person),
                 cupertinoIcon: Icon(CupertinoIcons.person),
               ),
               PlatformIconButton(
                 onPressed: () =>
-                    {Navigator.push(context, _buildSettingsPageRoute())},
+                    {Navigator.push(context, buildSettingsPageRoute())},
                 materialIcon: Icon(Icons.settings),
                 cupertinoIcon: Icon(
                   CupertinoIcons.gear,
@@ -210,42 +209,6 @@ class _OTLHomeState extends State<OTLHome> with SingleTickerProviderStateMixin {
           label: tr("main.review"),
         ),
       ],
-    );
-  }
-
-  Route _buildUserPageRoute() {
-    return PageRouteBuilder(
-      pageBuilder: (_, animation, __) => UserPage(),
-      transitionsBuilder: (_, animation, __, child) {
-        const begin = Offset(0.0, 1.0);
-        const end = Offset.zero;
-        final curveTween = CurveTween(curve: Curves.ease);
-        final tween = Tween(begin: begin, end: end).chain(curveTween);
-        final offsetAnimation = animation.drive(tween);
-
-        return SlideTransition(
-          position: offsetAnimation,
-          child: child,
-        );
-      },
-    );
-  }
-
-  Route _buildSettingsPageRoute() {
-    return PageRouteBuilder(
-      pageBuilder: (_, animation, __) => SettingsPage(),
-      transitionsBuilder: (_, animation, __, child) {
-        const begin = Offset(0.0, 1.0);
-        const end = Offset.zero;
-        final curveTween = CurveTween(curve: Curves.ease);
-        final tween = Tween(begin: begin, end: end).chain(curveTween);
-        final offsetAnimation = animation.drive(tween);
-
-        return SlideTransition(
-          position: offsetAnimation,
-          child: child,
-        );
-      },
     );
   }
 }
