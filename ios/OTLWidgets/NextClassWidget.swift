@@ -17,7 +17,7 @@ struct Provider: IntentTimelineProvider {
     }
 
     func getSnapshot(for configuration: ConfigurationIntent, in context: Context, completion: @escaping (WidgetEntry) -> ()) {
-        let sharedDefaults = UserDefaults.init(suiteName: "group.org.sparcs.otlplus")
+        let sharedDefaults = UserDefaults.init(suiteName: "group.org.sparcs.otl")
         
         let data = try? JSONDecoder().decode([Timetable].self, from: (sharedDefaults?.string(forKey: "widgetData")?.data(using: .utf8)) ?? Data())
 
@@ -29,7 +29,7 @@ struct Provider: IntentTimelineProvider {
     func getTimeline(for configuration: ConfigurationIntent, in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
         // Generate a timeline consisting of five entries an hour apart, starting from the current date.
         var entries: [WidgetEntry] = [WidgetEntry]()
-        let sharedDefaults = UserDefaults.init(suiteName: "group.org.sparcs.otlplus")
+        let sharedDefaults = UserDefaults.init(suiteName: "group.org.sparcs.otl")
         let data = try? JSONDecoder().decode([Timetable].self, from: (sharedDefaults?.string(forKey: "widgetData")?.data(using: .utf8)) ?? Data())
         
         let currentDate = Date()

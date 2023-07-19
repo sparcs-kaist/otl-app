@@ -77,7 +77,7 @@ class IntentHandler: INExtension, ConfigurationIntentHandling {
     }
     
     func provideNextClassTimetableOptionsCollection(for intent: ConfigurationIntent, with completion: @escaping (INObjectCollection<NextClassTimetable>?, Error?) -> Void) {
-        let sharedDefaults = UserDefaults.init(suiteName: "group.org.sparcs.otlplus")
+        let sharedDefaults = UserDefaults.init(suiteName: "group.org.sparcs.otl")
         var data: [Timetable]? = try? JSONDecoder().decode([Timetable].self, from: (sharedDefaults?.string(forKey: "widgetData")?.data(using: .utf8)) ?? Data())
         var tables: [NextClassTimetable] = []
         

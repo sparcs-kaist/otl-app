@@ -105,7 +105,7 @@ class TimetableModel extends ChangeNotifier {
       _isLoaded = true;
       notifyListeners();
       WidgetKit.setItem(
-          'widgetData', jsonEncode(_timetables), 'group.org.sparcs.otlplus');
+          'widgetData', jsonEncode(_timetables), 'group.org.sparcs.otl');
       WidgetKit.reloadAllTimelines();
       return true;
     } catch (exception) {
