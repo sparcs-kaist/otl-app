@@ -107,17 +107,11 @@ class OTLFirebaseApp extends StatelessWidget {
       home: context.select<InfoModel, bool>((model) => model.hasData)
           ? OTLHome()
           : LoginPage(),
-      // initialRoute: context.select<InfoModel, bool>((model) => model.hasData)
-      //     ? OTLHome.route
-      //     : LoginPage.route,
       routes: {
-        // OTLHome.route: (_) => OTLHome(),
-        // LoginPage.route: (_) => LoginPage(),
         LikedReviewPage.route: (_) => LikedReviewPage(),
         MyReviewPage.route: (_) => MyReviewPage(),
         LectureDetailPage.route: (_) => LectureDetailPage(),
         CourseDetailPage.route: (_) => CourseDetailPage(),
-        // UserPage.route: (_) => UserPage(),
       },
       theme: _buildTheme(),
     );
