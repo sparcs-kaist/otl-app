@@ -2,8 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:otlplus/constants/icon.dart';
-import 'package:otlplus/pages/liked_review_page.dart';
-import 'package:otlplus/pages/my_review_page.dart';
 import 'package:otlplus/pages/settings_page.dart';
 import 'package:otlplus/providers/course_search_model.dart';
 import 'package:otlplus/pages/course_search_page.dart';
@@ -108,56 +106,58 @@ class _OTLHomeState extends State<OTLHome> {
         child: ColoredBox(
           color: Colors.white,
           child: SizedBox(
-            width: MediaQuery.of(context).size.width,
-            child: GestureDetector(
-              onTap: () {
-                context.read<CourseSearchModel>().resetCourseFilter();
-                Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => CourseSearchPage(openKeyboard: true))).then((e) {
+              width: MediaQuery.of(context).size.width,
+              child: GestureDetector(
+                behavior: HitTestBehavior.opaque,
+                onTap: () {
+                  context.read<CourseSearchModel>().resetCourseFilter();
+                  Navigator.of(context)
+                      .push(MaterialPageRoute(
+                          builder: (context) =>
+                              CourseSearchPage(openKeyboard: true)))
+                      .then((e) {
                     setState(() {
                       _currentIndex = 2;
                     });
                   });
-              },
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                      width: 24,
-                      height: 24,
-                      child: Center(
-                        child: Padding(
-                          padding: EdgeInsets.only(top: 1),
-                          child: Icon(
-                            CustomIcons.search,
-                            color: PRIMARY_COLOR,
-                            size: 24,
+                },
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 12.0, vertical: 8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        width: 24,
+                        height: 24,
+                        child: Center(
+                          child: Padding(
+                            padding: EdgeInsets.only(top: 1),
+                            child: Icon(
+                              CustomIcons.search,
+                              color: PRIMARY_COLOR,
+                              size: 24,
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    SizedBox(
-                      width: 8,
-                    ),
-                    Flexible(
-                      flex: 1,
-                      child: Text(
-                        "과목명, 교수님 성함 등을 검색해 보세요",
-                        style: TextStyle(
-                          color: Color(0xFFAAAAAA),
-                          fontSize: 16,
-                          height: 1.2,
-                        )
+                      SizedBox(
+                        width: 8,
                       ),
-                    )
-                  ],
+                      Flexible(
+                        flex: 1,
+                        child: Text("과목명, 교수님 성함 등을 검색해 보세요",
+                            style: TextStyle(
+                              color: Color(0xFFAAAAAA),
+                              fontSize: 14,
+                              height: 1.2,
+                            )),
+                      )
+                    ],
+                  ),
                 ),
-              ),
-            )
-          ),
+              )),
         ),
       ),
     );

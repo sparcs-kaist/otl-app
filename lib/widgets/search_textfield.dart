@@ -8,10 +8,12 @@ class SearchTextfield extends StatefulWidget {
     this.textController,
     this.focusNode,
     this.backgroundColor,
+    this.autoFocus = false,
   }) : super(key: key);
   final TextEditingController? textController;
   final FocusNode? focusNode;
   final Color? backgroundColor;
+  final bool? autoFocus;
 
   @override
   State<SearchTextfield> createState() => _SearchTextfieldState();
@@ -51,6 +53,7 @@ class _SearchTextfieldState extends State<SearchTextfield> {
                   Flexible(
                     flex: 1,
                     child: TextField(
+                      autofocus: widget.autoFocus ?? false,
                       controller: widget.textController,
                       focusNode: widget.focusNode,
                       onSubmitted: (value) {

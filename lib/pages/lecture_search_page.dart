@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:otlplus/constants/color.dart';
-import 'package:otlplus/models/code_label_pair.dart';
 import 'package:otlplus/providers/lecture_search_model.dart';
 import 'package:otlplus/providers/timetable_model.dart';
 import 'package:otlplus/widgets/base_scaffold.dart';
@@ -26,6 +25,11 @@ class _LectureSearchPageState extends State<LectureSearchPage> {
     super.initState();
     _searchTextController.text =
         context.read<LectureSearchModel>().lectureSearchText;
+    _searchTextController.addListener(() {
+      context
+          .read<LectureSearchModel>()
+          .setLectureSearchText(_searchTextController.text);
+    });
     _focusNode = FocusNode();
   }
 
@@ -38,11 +42,6 @@ class _LectureSearchPageState extends State<LectureSearchPage> {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.openKeyboard) {
-      Future.delayed(const Duration(milliseconds: 200), () {
-        _focusNode.requestFocus();
-      });
-    }
     return BaseScaffold(
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -53,6 +52,7 @@ class _LectureSearchPageState extends State<LectureSearchPage> {
               child: Column(
                 children: [
                   SearchTextfield(
+                    autoFocus: widget.openKeyboard,
                     textController: _searchTextController,
                     focusNode: _focusNode,
                     backgroundColor: Colors.white,
@@ -112,44 +112,15 @@ class _LectureSearchPageState extends State<LectureSearchPage> {
                       clipBehavior: Clip.hardEdge,
                       borderRadius: BorderRadius.all(Radius.circular(8)),
                       child: GestureDetector(
-                        onTap: () {
-                          context
+                        onTap: () async {
+                          if (await context
                               .read<LectureSearchModel>()
-                              .setLectureSearchText(_searchTextController.text);
-                          context
-                              .read<LectureSearchModel>()
-                              .lectureFilter
-                              .forEach((key, value) {
-                            if ((value['options'] as List<List<CodeLabelPair>>)
-                                .expand((i) => i)
-                                .every((i) => i.selected == false)) {
-                              (value['options'] as List<List<CodeLabelPair>>)
-                                  .expand((i) => i)
-                                  .forEach((i) {
-                                i.selected = true;
-                              });
-                            }
-                          });
-                          context.read<LectureSearchModel>().lectureSearch(
+                              .lectureSearch(
                                 context.read<TimetableModel>().selectedSemester,
-                                _searchTextController.text,
-                                department: ((context
-                                            .read<LectureSearchModel>()
-                                            .lectureFilter['departments']![
-                                        'options'] as List<List<CodeLabelPair>>)
-                                    .expand((i) => i)).toList(),
-                                type: ((context
-                                            .read<LectureSearchModel>()
-                                            .lectureFilter['types']!['options']
-                                        as List<List<CodeLabelPair>>)
-                                    .expand((i) => i)).toList(),
-                                level: ((context
-                                            .read<LectureSearchModel>()
-                                            .lectureFilter['levels']!['options']
-                                        as List<List<CodeLabelPair>>)
-                                    .expand((i) => i)).toList(),
-                              );
-                          Navigator.of(context).pop();
+                              ))
+                            Navigator.of(context).pop();
+                          else
+                            _focusNode.requestFocus();
                         },
                         child: ColoredBox(
                           color: PRIMARY_COLOR,
@@ -173,7 +144,7 @@ class _LectureSearchPageState extends State<LectureSearchPage> {
         ),
       ),
       onBack: () {
-        context.read<LectureSearchModel>().lectureClear();
+        // context.read<LectureSearchModel>().lectureClear();
       },
       resizeToAvoidBottomInset: false,
       sheetBackgroundColor: BACKGROUND_COLOR,

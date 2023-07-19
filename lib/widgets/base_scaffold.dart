@@ -49,7 +49,9 @@ class _BaseScaffoldState extends State<BaseScaffold> {
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    if (navigator != null && navigator.canPop() && widget.disableBackButton == false)
+                    if (navigator != null &&
+                        navigator.canPop() &&
+                        widget.disableBackButton == false)
                       _BackButton(onBack: widget.onBack),
                     if (widget.leading != null) widget.leading!,
                   ],
@@ -60,33 +62,34 @@ class _BaseScaffoldState extends State<BaseScaffold> {
           Expanded(
               child: ClipRRect(
             borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(16),
-                topRight: Radius.circular(16)),
+                topLeft: Radius.circular(16), topRight: Radius.circular(16)),
             child: ColoredBox(
               color: widget.sheetBackgroundColor,
               child: SizedBox(
-                width: double.infinity,
-                child: SafeArea(
-                  top: false,
-                  maintainBottomViewPadding: true,
-                  child: AnimatedPadding(
-                    padding: widget.resizeToAvoidBottomInset
-                        ? EdgeInsets.only(
-                            bottom: MediaQuery.of(context).viewInsets.bottom)
-                        : EdgeInsets.zero,
-                    duration: const Duration(milliseconds: 100),
-                    curve: Curves.decelerate,
-                    child: Padding(
+                  width: double.infinity,
+                  child: SafeArea(
+                    top: false,
+                    maintainBottomViewPadding: true,
+                    child: AnimatedPadding(
                       padding: widget.resizeToAvoidBottomInset
                           ? EdgeInsets.only(
-                              bottom:
-                                  MediaQuery.of(context).viewInsets.bottom == 0 ? 0 : 8)
+                              bottom: MediaQuery.of(context).viewInsets.bottom)
                           : EdgeInsets.zero,
-                      child: widget.body,
+                      duration: const Duration(milliseconds: 100),
+                      curve: Curves.decelerate,
+                      child: Padding(
+                        padding: widget.resizeToAvoidBottomInset
+                            ? EdgeInsets.only(
+                                bottom:
+                                    MediaQuery.of(context).viewInsets.bottom ==
+                                            0
+                                        ? 0
+                                        : 8)
+                            : EdgeInsets.zero,
+                        child: widget.body,
+                      ),
                     ),
-                  ),
-                )
-              ),
+                  )),
             ),
           ))
         ],

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:otlplus/models/code_label_pair.dart';
+import 'package:otlplus/models/filter.dart';
 
 class SearchFilterPanel extends StatefulWidget {
-  final Map<String, dynamic> filter;
+  final Map<String, FilterGroupInfo> filter;
   final Function(String varient, String code, bool selected) setFilter;
 
   SearchFilterPanel({
@@ -35,11 +35,10 @@ class _SearchFilterPanelState extends State<SearchFilterPanel> {
                   padding: EdgeInsets.only(bottom: 15),
                   child: _RadioSelect(
                     crossAxisCount: 4,
-                    title: widget.filter.values.elementAt(index)["label"],
-                    selectList:
-                        widget.filter.values.elementAt(index)["options"],
+                    title: widget.filter.values.elementAt(index).label,
+                    selectList: widget.filter.values.elementAt(index).options,
                     isMultiSelect:
-                        widget.filter.values.elementAt(index)["isMultiSelect"],
+                        widget.filter.values.elementAt(index).isMultiSelect,
                     setFilter: (String code, bool selected) {
                       widget.setFilter(
                           widget.filter.keys.elementAt(index), code, selected);

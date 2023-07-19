@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:otlplus/constants/color.dart';
-import 'package:otlplus/models/code_label_pair.dart';
 import 'package:otlplus/providers/course_search_model.dart';
 import 'package:otlplus/widgets/base_scaffold.dart';
 import 'package:otlplus/widgets/search_filter_panel.dart';
@@ -25,6 +24,11 @@ class _CourseSearchPageState extends State<CourseSearchPage> {
     super.initState();
     _searchTextController.text =
         context.read<CourseSearchModel>().courseSearchText;
+    _searchTextController.addListener(() {
+      context
+          .read<CourseSearchModel>()
+          .setCourseSearchText(_searchTextController.text);
+    });
     _focusNode = FocusNode();
   }
 
@@ -37,11 +41,6 @@ class _CourseSearchPageState extends State<CourseSearchPage> {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.openKeyboard) {
-      Future.delayed(const Duration(milliseconds: 200), () {
-        _focusNode.requestFocus();
-      });
-    }
     return BaseScaffold(
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -52,6 +51,8 @@ class _CourseSearchPageState extends State<CourseSearchPage> {
               child: Column(
                 children: [
                   SearchTextfield(
+                    autoFocus:
+                        _searchTextController.text == '' && widget.openKeyboard,
                     backgroundColor: Colors.white,
                     textController: _searchTextController,
                     focusNode: _focusNode,
@@ -81,9 +82,7 @@ class _CourseSearchPageState extends State<CourseSearchPage> {
                       child: GestureDetector(
                         onTap: () {
                           _searchTextController.clear();
-                          context
-                              .read<CourseSearchModel>()
-                              .resetCourseFilter();
+                          context.read<CourseSearchModel>().resetCourseFilter();
                           _focusNode.requestFocus();
                         },
                         child: ColoredBox(
@@ -111,48 +110,13 @@ class _CourseSearchPageState extends State<CourseSearchPage> {
                       clipBehavior: Clip.hardEdge,
                       borderRadius: BorderRadius.all(Radius.circular(8)),
                       child: GestureDetector(
-                        onTap: () {
-                          context
+                        onTap: () async {
+                          if (await context
                               .read<CourseSearchModel>()
-                              .setCourseSearchText(_searchTextController.text);
-                          context
-                              .read<CourseSearchModel>()
-                              .courseFilter
-                              .forEach((key, value) {
-                            if ((value['options'] as List<List<CodeLabelPair>>)
-                                .expand((i) => i)
-                                .every((i) => i.selected == false)) {
-                              (value['options'] as List<List<CodeLabelPair>>)
-                                  .expand((i) => i)
-                                  .forEach((i) {
-                                i.selected = true;
-                              });
-                            }
-                          });
-                          context.read<CourseSearchModel>().courseSearch(
-                                _searchTextController.text,
-                                department: ((context
-                                            .read<CourseSearchModel>()
-                                            .courseFilter['departments']![
-                                        'options'] as List<List<CodeLabelPair>>)
-                                    .expand((i) => i)).toList(),
-                                type: ((context
-                                            .read<CourseSearchModel>()
-                                            .courseFilter['types']!['options']
-                                        as List<List<CodeLabelPair>>)
-                                    .expand((i) => i)).toList(),
-                                level: ((context
-                                            .read<CourseSearchModel>()
-                                            .courseFilter['levels']!['options']
-                                        as List<List<CodeLabelPair>>)
-                                    .expand((i) => i)).toList(),
-                                term: ((context
-                                            .read<CourseSearchModel>()
-                                            .courseFilter['terms']!['options']
-                                        as List<List<CodeLabelPair>>)
-                                    .expand((i) => i)).firstWhere((i) => i.selected == true),
-                              );
-                          Navigator.of(context).pop();
+                              .courseSearch())
+                            Navigator.of(context).pop();
+                          else
+                            _focusNode.requestFocus();
                         },
                         child: ColoredBox(
                           color: PRIMARY_COLOR,
