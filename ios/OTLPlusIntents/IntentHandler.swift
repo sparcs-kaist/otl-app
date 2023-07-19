@@ -83,7 +83,7 @@ class IntentHandler: INExtension, ConfigurationIntentHandling {
         
         tables.append(NextClassTimetable(identifier: "0", display: "내 시간표"))
         for i in 1..<data!.count {
-            tables.append(NextClassTimetable(identifier: "\(i)", display: "내 시간표 \(i)"))
+            tables.append(NextClassTimetable(identifier: "\(i)", display: "시간표 \(i)"))
         }
         
         let collection = INObjectCollection(items: tables)
