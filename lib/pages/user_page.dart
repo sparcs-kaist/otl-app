@@ -49,6 +49,7 @@ class UserPage extends StatelessWidget {
                         onPressed: () {
                           context.read<AuthModel>().logout();
                           context.read<InfoModel>().logout();
+                          Navigator.pop(context);
                         },
                         child: Text(
                           '로그아웃',

@@ -36,13 +36,11 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Widget _buildBody(BuildContext context) {
-    print('_buildBody start');
     const AUTHORITY = 'otl.kaist.ac.kr';
     Map<String, dynamic> query = {'next': BASE_URL};
     if (Platform.isIOS) {
       query['social_login'] = '0';
     }
-    print('_buildBody start 1');
     return Visibility(
       maintainSize: true,
       maintainAnimation: true,
@@ -52,7 +50,6 @@ class _LoginPageState extends State<LoginPage> {
         initialUrl: Uri.https(AUTHORITY, '/session/login/', query).toString(),
         javascriptMode: JavascriptMode.unrestricted,
         onPageStarted: (url) {
-          print('_buildBody start 2');
           if (Uri.parse(url).authority == AUTHORITY) {
             setState(() {
               _isVisible = false;
@@ -60,7 +57,6 @@ class _LoginPageState extends State<LoginPage> {
           }
         },
         onPageFinished: (url) {
-          print('_buildBody start 3');
           String authority = Uri.parse(url).authority;
           if (authority == AUTHORITY) {
             context.read<AuthModel>().authenticate('https://$AUTHORITY');
