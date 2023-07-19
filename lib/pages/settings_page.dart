@@ -12,15 +12,24 @@ class SettingsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return PlatformScaffold(
-        appBar: PlatformAppBar(
-          title: Text("main.settings").tr(),
-        ),
+    return Scaffold(
+        appBar: _buildAppBar(context),
         body: Material(
             child: ListView(children: [
           ListTile(
-            title: Text("settings.send_error_log").tr(),
-            subtitle: Text("settings.send_error_log_desc").tr(),
+            title: Text(
+              "settings.send_error_log",
+              style: const TextStyle(
+                fontSize: 12.0,
+                fontWeight: FontWeight.bold,
+              ),
+            ).tr(),
+            subtitle: Text(
+              "settings.send_error_log_desc",
+              style: const TextStyle(
+                fontSize: 12.0,
+              ),
+            ).tr(),
             trailing: PlatformSwitch(
               value: context.watch<SettingsModel>().getSendCrashlytics(),
               onChanged: (value) =>
@@ -30,8 +39,15 @@ class SettingsPage extends StatelessWidget {
           Visibility(
             visible: context.watch<SettingsModel>().getSendCrashlytics(),
             child: ListTile(
-              title: Text("settings.send_anonymously").tr(),
-              subtitle: Text("settings.send_anonymously_desc").tr(),
+              title: Text("settings.send_anonymously",
+                  style: const TextStyle(
+                    fontSize: 12.0,
+                    fontWeight: FontWeight.bold,
+                  )).tr(),
+              subtitle: Text("settings.send_anonymously_desc",
+                  style: const TextStyle(
+                    fontSize: 12.0,
+                  )).tr(),
               trailing: PlatformSwitch(
                   value: context
                       .watch<SettingsModel>()
@@ -44,7 +60,11 @@ class SettingsPage extends StatelessWidget {
             ),
           ),
           ListTile(
-            title: Text("settings.reset_all").tr(),
+            title: Text("settings.reset_all",
+                style: const TextStyle(
+                  fontSize: 12.0,
+                  fontWeight: FontWeight.bold,
+                )).tr(),
             onTap: () {
               showDialog(
                 context: context,
@@ -73,8 +93,15 @@ class SettingsPage extends StatelessWidget {
           Visibility(
             visible: kDebugMode,
             child: ListTile(
-              title: Text("settings.throw_test").tr(),
-              subtitle: Text("settings.throw_test_desc").tr(),
+              title: Text("settings.throw_test",
+                  style: const TextStyle(
+                    fontSize: 12.0,
+                    fontWeight: FontWeight.bold,
+                  )).tr(),
+              subtitle: Text("settings.throw_test_desc",
+                  style: const TextStyle(
+                    fontSize: 12.0,
+                  )).tr(),
               onTap: () => throw Exception(),
             ),
           ),
@@ -107,5 +134,51 @@ class SettingsPage extends StatelessWidget {
             ],
           ),
         ])));
+  }
+
+  PreferredSizeWidget _buildAppBar(BuildContext context) {
+    return PreferredSize(
+      preferredSize: Size.fromHeight(kToolbarHeight),
+      child: Theme(
+        data: Theme.of(context).copyWith(
+            appBarTheme: AppBarTheme(
+          color: BACKGROUND_COLOR,
+          elevation: 0.0,
+          actionsIconTheme: IconThemeData(
+            color: CONTENT_COLOR,
+          ),
+        )),
+        child: AppBar(
+          title: Text(
+            '설정',
+            style: TextStyle(
+              color: Colors.black,
+              fontWeight: FontWeight.bold,
+              fontSize: 14.0,
+            ),
+          ),
+          centerTitle: true,
+          flexibleSpace: SafeArea(
+            child: Column(
+              children: [
+                Container(
+                  color: PRIMARY_COLOR,
+                  height: 5,
+                ),
+              ],
+            ),
+          ),
+          automaticallyImplyLeading: false,
+          actions: <Widget>[
+            IconButton(
+              icon: const Icon(Icons.close),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }

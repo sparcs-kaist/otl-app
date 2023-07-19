@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:otlplus/utils/build_page_route.dart';
 import 'package:provider/provider.dart';
 import 'package:otlplus/constants/color.dart';
 import 'package:otlplus/models/lecture.dart';
 import 'package:otlplus/providers/lecture_detail_model.dart';
 import 'package:otlplus/providers/search_model.dart';
 import 'package:otlplus/providers/timetable_model.dart';
-import 'package:otlplus/widgets/backdrop.dart';
 import 'package:otlplus/widgets/lecture_group_block.dart';
 import 'package:otlplus/widgets/search_filter.dart';
 
@@ -272,7 +272,7 @@ class _LectureSearchState extends State<LectureSearch> {
         },
         onLongPress: (lecture) {
           context.read<LectureDetailModel>().loadLecture(lecture.id, true);
-          Backdrop.of(context).show(2);
+          Navigator.push(context, buildLectureDetailPageRoute());
         },
       ),
     );

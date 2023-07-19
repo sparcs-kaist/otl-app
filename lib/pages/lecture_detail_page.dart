@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_web_browser/flutter_web_browser.dart';
 import 'package:otlplus/models/review.dart';
+import 'package:otlplus/utils/build_page_route.dart';
 import 'package:provider/provider.dart';
 import 'package:otlplus/constants/color.dart';
 import 'package:otlplus/extensions/lecture.dart';
@@ -9,12 +10,13 @@ import 'package:otlplus/providers/course_detail_model.dart';
 import 'package:otlplus/providers/info_model.dart';
 import 'package:otlplus/providers/lecture_detail_model.dart';
 import 'package:otlplus/providers/timetable_model.dart';
-import 'package:otlplus/widgets/backdrop.dart';
 import 'package:otlplus/widgets/custom_header_delegate.dart';
 import 'package:otlplus/widgets/review_block.dart';
 import 'package:otlplus/widgets/review_write_block.dart';
 
 class LectureDetailPage extends StatelessWidget {
+  static String route = 'lecture_detail_page';
+
   final _scrollController = ScrollController();
 
   String _getSyllabusUrl(Lecture lecture) {
@@ -29,15 +31,69 @@ class LectureDetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(16.0)),
+    return Scaffold(
+      appBar: _buildAppBar(context),
+      body: Card(
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(top: Radius.circular(16.0)),
+        ),
+        child:
+            context.select<LectureDetailModel, bool>((model) => model.hasData)
+                ? _buildBody(context)
+                : Center(
+                    child: const CircularProgressIndicator(),
+                  ),
       ),
-      child: context.select<LectureDetailModel, bool>((model) => model.hasData)
-          ? _buildBody(context)
-          : Center(
-              child: const CircularProgressIndicator(),
+    );
+  }
+
+  PreferredSizeWidget _buildAppBar(BuildContext context) {
+    final LectureDetailModel lectureDetailModel =
+        context.watch<LectureDetailModel>();
+
+    return PreferredSize(
+      preferredSize: Size.fromHeight(kToolbarHeight),
+      child: Theme(
+        data: Theme.of(context).copyWith(
+            appBarTheme: AppBarTheme(
+          color: BACKGROUND_COLOR,
+          elevation: 0.0,
+          actionsIconTheme: IconThemeData(
+            color: CONTENT_COLOR,
+          ),
+        )),
+        child: AppBar(
+          leading: IconButton(
+            icon: const Icon(
+              Icons.arrow_back_ios,
+              color: Colors.black,
             ),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
+          title: Text(
+            lectureDetailModel.hasData ? lectureDetailModel.lecture.title : '',
+            style: TextStyle(
+              color: Colors.black,
+              fontWeight: FontWeight.bold,
+              fontSize: 14.0,
+            ),
+          ),
+          centerTitle: true,
+          flexibleSpace: SafeArea(
+            child: Column(
+              children: [
+                Container(
+                  color: PRIMARY_COLOR,
+                  height: 5,
+                ),
+              ],
+            ),
+          ),
+          automaticallyImplyLeading: false,
+        ),
+      ),
     );
   }
 
@@ -49,22 +105,6 @@ class LectureDetailPage extends StatelessWidget {
       padding: const EdgeInsets.all(12.0),
       child: Column(
         children: <Widget>[
-          Text(
-            lecture.title,
-            style: const TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 13.0,
-            ),
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: 4.0),
-          Text(
-            lecture.classNo.isEmpty
-                ? lecture.oldCode
-                : "${lecture.oldCode} (${lecture.classNo})",
-            textAlign: TextAlign.center,
-            style: const TextStyle(fontSize: 12.0),
-          ),
           _buildButtons(context, lecture),
           const SizedBox(height: 8.0),
           Expanded(child: _buildScrollView(context, lecture)),
@@ -158,7 +198,7 @@ class LectureDetailPage extends StatelessWidget {
         InkWell(
           onTap: () {
             context.read<CourseDetailModel>().loadCourse(lecture.course);
-            Backdrop.of(context).show(1);
+            Navigator.push(context, buildCourseDetailPageRoute());
           },
           child: const Text(
             "과목사전",
@@ -331,7 +371,12 @@ class LectureDetailPage extends StatelessWidget {
         ),
         children: <TextSpan>[
           TextSpan(
-            text: "구분 ",
+            text: "과목코드 ",
+            style: const TextStyle(fontWeight: FontWeight.bold),
+          ),
+          TextSpan(text: lecture.oldCode),
+          TextSpan(
+            text: "\n구분 ",
             style: const TextStyle(fontWeight: FontWeight.bold),
           ),
           TextSpan(text: lecture.type),

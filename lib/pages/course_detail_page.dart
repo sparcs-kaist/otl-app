@@ -15,19 +15,74 @@ import 'package:otlplus/widgets/review_block.dart';
 import 'package:otlplus/widgets/review_write_block.dart';
 
 class CourseDetailPage extends StatelessWidget {
+  static String route = 'course_detail_page';
+
   final _scrollController = ScrollController();
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(16.0)),
+    return Scaffold(
+      appBar: _buildAppBar(context),
+      body: Card(
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(top: Radius.circular(16.0)),
+        ),
+        child: context.select<CourseDetailModel, bool>((model) => model.hasData)
+            ? _buildBody(context)
+            : Center(
+                child: const CircularProgressIndicator(),
+              ),
       ),
-      child: context.select<CourseDetailModel, bool>((model) => model.hasData)
-          ? _buildBody(context)
-          : Center(
-              child: const CircularProgressIndicator(),
+    );
+  }
+
+  PreferredSizeWidget _buildAppBar(BuildContext context) {
+    final CourseDetailModel courseDetailModel =
+        context.watch<CourseDetailModel>();
+
+    return PreferredSize(
+      preferredSize: Size.fromHeight(kToolbarHeight),
+      child: Theme(
+        data: Theme.of(context).copyWith(
+            appBarTheme: AppBarTheme(
+          color: BACKGROUND_COLOR,
+          elevation: 0.0,
+          actionsIconTheme: IconThemeData(
+            color: CONTENT_COLOR,
+          ),
+        )),
+        child: AppBar(
+          leading: IconButton(
+            icon: const Icon(
+              Icons.arrow_back_ios,
+              color: Colors.black,
             ),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
+          title: Text(
+            courseDetailModel.hasData ? courseDetailModel.course.title : '',
+            style: TextStyle(
+              color: Colors.black,
+              fontWeight: FontWeight.bold,
+              fontSize: 14.0,
+            ),
+          ),
+          centerTitle: true,
+          flexibleSpace: SafeArea(
+            child: Column(
+              children: [
+                Container(
+                  color: PRIMARY_COLOR,
+                  height: 5,
+                ),
+              ],
+            ),
+          ),
+          automaticallyImplyLeading: false,
+        ),
+      ),
     );
   }
 
@@ -39,19 +94,27 @@ class CourseDetailPage extends StatelessWidget {
       padding: const EdgeInsets.all(12.0),
       child: Column(
         children: <Widget>[
-          Text(
-            course.title,
-            style: const TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 13.0,
-            ),
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: 4.0),
-          Text(
-            course.oldCode,
-            textAlign: TextAlign.center,
-            style: const TextStyle(fontSize: 12.0),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Text(
+                "과목코드 ",
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 12.0,
+                  height: 1.1,
+                ),
+              ),
+              Expanded(
+                child: Text(
+                  course.oldCode,
+                  style: const TextStyle(
+                    fontSize: 12.0,
+                    height: 1.1,
+                  ),
+                ),
+              ),
+            ],
           ),
           const SizedBox(height: 8.0),
           Expanded(child: _buildScrollView(context, course)),

@@ -3,13 +3,15 @@ import 'package:otlplus/constants/color.dart';
 import 'package:otlplus/models/semester.dart';
 import 'package:otlplus/providers/hall_of_fame_model.dart';
 import 'package:otlplus/providers/info_model.dart';
+import 'package:otlplus/utils/build_page_route.dart';
 import 'package:provider/provider.dart';
 import 'package:otlplus/providers/course_detail_model.dart';
 import 'package:otlplus/providers/review_model.dart';
-import 'package:otlplus/widgets/backdrop.dart';
 import 'package:otlplus/widgets/review_block.dart';
 
 class ReviewPage extends StatefulWidget {
+  static String route = 'review_page';
+
   @override
   State<ReviewPage> createState() => _ReviewPageState();
 }
@@ -184,6 +186,9 @@ class _ReviewPageState extends State<ReviewPage> {
                     shape: MaterialStatePropertyAll(
                       StadiumBorder(),
                     ),
+                    padding: MaterialStatePropertyAll(
+                      EdgeInsets.symmetric(horizontal: 12), // vertical: 6
+                    ),
                   ),
                 ),
                 SizedBox(width: 10),
@@ -215,7 +220,7 @@ class _ReviewPageState extends State<ReviewPage> {
                         context
                             .read<CourseDetailModel>()
                             .loadCourse(latestReviews[index].course.id);
-                        Backdrop.of(context).show(1);
+                        Navigator.push(context, buildCourseDetailPageRoute());
                       },
                     );
                   },
@@ -267,7 +272,7 @@ class _ReviewPageState extends State<ReviewPage> {
                         context
                             .read<CourseDetailModel>()
                             .loadCourse(hallOfFames[index].course.id);
-                        Backdrop.of(context).show(1);
+                        Navigator.push(context, buildCourseDetailPageRoute());
                       },
                     );
                   },

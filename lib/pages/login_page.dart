@@ -7,6 +7,8 @@ import 'package:otlplus/providers/auth_model.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class LoginPage extends StatefulWidget {
+  static String route = 'login_page';
+
   @override
   _LoginPageState createState() => _LoginPageState();
 }
@@ -23,7 +25,9 @@ class _LoginPageState extends State<LoginPage> {
       body: Material(
         child: Stack(
           children: <Widget>[
-            Center(child: const CircularProgressIndicator()),
+            Center(
+              child: const CircularProgressIndicator(),
+            ),
             _buildBody(context),
           ],
         ),
@@ -37,7 +41,6 @@ class _LoginPageState extends State<LoginPage> {
     if (Platform.isIOS) {
       query['social_login'] = '0';
     }
-
     return Visibility(
       maintainSize: true,
       maintainAnimation: true,
