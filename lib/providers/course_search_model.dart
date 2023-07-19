@@ -6,7 +6,7 @@ import 'package:otlplus/models/course.dart';
 
 class CourseSearchModel extends ChangeNotifier {
   List<Course>? _courses;
-  List<Course>? get courses => _courses ?? [];
+  List<Course>? get courses => _courses;
 
   String _courseSearchText = '';
   String get courseSearchText => _courseSearchText;

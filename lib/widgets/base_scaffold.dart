@@ -68,6 +68,7 @@ class _BaseScaffoldState extends State<BaseScaffold> {
               child: SizedBox(
                   width: double.infinity,
                   child: SafeArea(
+                    minimum: EdgeInsets.only(bottom: 16),
                     top: false,
                     maintainBottomViewPadding: true,
                     child: AnimatedPadding(
