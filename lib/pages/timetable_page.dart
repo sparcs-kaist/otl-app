@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:otlplus/utils/build_page_route.dart';
+import 'package:otlplus/providers/lecture_search_model.dart';
+import 'package:otlplus/widgets/lecture_search.dart';
 import 'package:provider/provider.dart';
 import 'package:otlplus/constants/color.dart';
 import 'package:otlplus/models/lecture.dart';
 import 'package:otlplus/providers/lecture_detail_model.dart';
-import 'package:otlplus/providers/search_model.dart';
 import 'package:otlplus/providers/timetable_model.dart';
 import 'package:otlplus/utils/export_image.dart';
-import 'package:otlplus/widgets/lecture_search.dart';
 import 'package:otlplus/widgets/semester_picker.dart';
 import 'package:otlplus/widgets/timetable.dart';
 import 'package:otlplus/widgets/timetable_block.dart';
@@ -27,9 +27,7 @@ class _TimetablePageState extends State<TimetablePage> {
   final _selectedKey = GlobalKey();
   final _paintKey = GlobalKey();
 
-  bool _isSearchOpened = false;
   bool _isExamTime = false;
-  Lecture? _selectedLecture;
 
   @override
   Widget build(BuildContext context) {
@@ -41,6 +39,7 @@ class _TimetablePageState extends State<TimetablePage> {
   }
 
   Widget _buildBody(BuildContext context) {
+    final bottomSheetModel = context.watch<LectureSearchModel>();
     final lectures = context.select<TimetableModel, List<Lecture>>(
         (model) => model.currentTimetable.lectures);
 
@@ -53,10 +52,8 @@ class _TimetablePageState extends State<TimetablePage> {
       children: <Widget>[
         _buildTimetableTabs(context),
         Expanded(
-          child: Card(
-            shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.zero,
-            ),
+          child: ColoredBox(
+            color: Colors.white,
             child: Column(
               children: <Widget>[
                 const SizedBox(height: 8.0),
@@ -68,11 +65,8 @@ class _TimetablePageState extends State<TimetablePage> {
                     });
                   },
                   onSemesterChanged: () {
-                    setState(() {
-                      _isSearchOpened = false;
-                      _selectedLecture = null;
-                    });
-                    context.read<SearchModel>().lectureClear();
+                    context.read<LectureSearchModel>().setSelectedLecture(null);
+                    context.read<LectureSearchModel>().lectureClear();
                   },
                 ),
                 Expanded(
@@ -116,7 +110,7 @@ class _TimetablePageState extends State<TimetablePage> {
                   ),
                   child: TimetableSummary(
                     lectures: lectures,
-                    tempLecture: _selectedLecture,
+                    tempLecture: bottomSheetModel.selectedLecture,
                   ),
                 ),
               ],
@@ -124,26 +118,15 @@ class _TimetablePageState extends State<TimetablePage> {
           ),
         ),
         Visibility(
-          visible: _isSearchOpened,
+          visible: context.watch<LectureSearchModel>().resultOpened,
           child: Expanded(
             child: LectureSearch(
-              onAdded: () {
-                setState(() {
-                  _selectedLecture = null;
-                });
-              },
               onClosed: () async {
                 setState(() {
-                  _isSearchOpened = false;
-                  _selectedLecture = null;
-                  context.read<SearchModel>().lectureClear();
+                  context.read<LectureSearchModel>().setSelectedLecture(null);
+                  context.read<LectureSearchModel>().lectureClear();
                 });
                 return true;
-              },
-              onSelectionChanged: (lecture) {
-                setState(() {
-                  _selectedLecture = lecture;
-                });
               },
             ),
           ),
@@ -154,14 +137,15 @@ class _TimetablePageState extends State<TimetablePage> {
 
   Timetable _buildTimetable(BuildContext context, List<Lecture> lectures) {
     bool isFirst = true;
+    final bottomSheetModel = context.watch<LectureSearchModel>();
 
     return Timetable(
-      lectures: (_selectedLecture == null)
+      lectures: (bottomSheetModel.selectedLecture == null)
           ? lectures
-          : [...lectures, _selectedLecture!],
+          : [...lectures, bottomSheetModel.selectedLecture!],
       isExamTime: _isExamTime,
       builder: (lecture, classTimeIndex) {
-        final isSelected = _selectedLecture == lecture;
+        final isSelected = bottomSheetModel.selectedLecture == lecture;
         Key? key;
 
         if (isSelected && isFirst) {
@@ -182,7 +166,6 @@ class _TimetablePageState extends State<TimetablePage> {
               ? null
               : () async {
                   bool result = false;
-
                   await showDialog(
                     context: context,
                     barrierDismissible: false,
@@ -236,11 +219,8 @@ class _TimetablePageState extends State<TimetablePage> {
           timetableModel.setIndex(i);
       },
       onAddTap: () {
-        if (_isSearchOpened) return;
-        setState(() {
-          _isSearchOpened = true;
-          _selectedLecture = null;
-        });
+        context.read<LectureSearchModel>().setSelectedLecture(null);
+        context.read<LectureSearchModel>().lectureClear();
       },
       onSettingsTap: () {
         showModalBottomSheet(

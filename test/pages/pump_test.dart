@@ -12,7 +12,7 @@ import 'package:otlplus/providers/course_detail_model.dart';
 // import 'package:otlplus/providers/info_model.dart';
 import 'package:otlplus/providers/lecture_detail_model.dart';
 // import 'package:otlplus/providers/review_model.dart';
-import 'package:otlplus/providers/search_model.dart';
+import 'package:otlplus/providers/lecture_search_model.dart';
 // import 'package:otlplus/providers/settings_model.dart';
 import 'package:otlplus/providers/timetable_model.dart';
 
@@ -25,7 +25,8 @@ void main() {
   });
 
   testWidgets("pump DictionaryPage", (WidgetTester tester) async {
-    tester.pumpWidget(DictionaryPage().scaffoldAndNotifier(SearchModel()));
+    tester
+        .pumpWidget(DictionaryPage().scaffoldAndNotifier(LectureSearchModel()));
   });
 
   testWidgets("pump LectureDetailPage", (WidgetTester tester) async {

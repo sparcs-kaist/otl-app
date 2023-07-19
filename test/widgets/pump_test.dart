@@ -1,8 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 // import 'package:otlplus/models/timetable.dart';
-import 'package:otlplus/providers/search_model.dart';
+import 'package:otlplus/providers/lecture_search_model.dart';
 import 'package:otlplus/widgets/course_block.dart';
-import 'package:otlplus/widgets/course_search.dart';
 import 'package:otlplus/widgets/lecture_group_block.dart';
 import 'package:otlplus/widgets/lecture_group_block_row.dart';
 import 'package:otlplus/widgets/lecture_group_simple_block.dart';
@@ -24,24 +23,14 @@ void main() {
     await tester.pumpWidget(CourseBlock(course: SampleCourse.shared).material);
   });
 
-  testWidgets('pump CourseSearch', (WidgetTester tester) async {
-    await tester.pumpWidget(CourseSearch().scaffoldAndNotifier(SearchModel()));
-  });
-
   testWidgets('pump LectureGroupBlockRow', (WidgetTester tester) async {
-    await tester.pumpWidget(LectureGroupBlockRow(
-        lecture: SampleLecture.shared,
-        onTap: () {
-          return;
-        }).material);
+    await tester.pumpWidget(
+        LectureGroupBlockRow(lecture: SampleLecture.shared).material);
   });
 
   testWidgets('pump LectureGroupBlock', (WidgetTester tester) async {
     await tester.pumpWidget(LectureGroupBlock(
         lectures: [SampleLecture.shared],
-        onTap: (_) {
-          return;
-        },
         onLongPress: (_) {
           return;
         }).material);
@@ -53,7 +42,8 @@ void main() {
   });
 
   testWidgets('pump LectureSearch', (WidgetTester tester) async {
-    await tester.pumpWidget(LectureSearch().scaffoldAndNotifier(SearchModel()));
+    await tester
+        .pumpWidget(LectureSearch().scaffoldAndNotifier(LectureSearchModel()));
   });
 
   testWidgets('pump LectureSimpleBlock', (WidgetTester tester) async {
