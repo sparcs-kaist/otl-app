@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:otlplus/constants/text_styles.dart';
+<<<<<<< HEAD
 import 'package:otlplus/utils/build_page_route.dart';
+=======
+>>>>>>> e08b898 (add colorstyles, textstyles and refactor main_page.dart)
 import 'package:provider/provider.dart';
 import 'package:otlplus/constants/color.dart';
 import 'package:otlplus/models/semester.dart';
@@ -44,19 +47,35 @@ class MainPage extends StatelessWidget {
                 children: <Widget>[
                   _buildTimetable(infoModel.user, semester, now),
                   const SizedBox(height: 24.0),
+<<<<<<< HEAD
                   _buildDivider(),
                   const SizedBox(height: 24.0),
                   _buildSchedule(now, infoModel.currentSchedule!),
                   const SizedBox(height: 24.0),
                   _buildDivider(),
+=======
+                  const Divider(color: grayD, height: 1.0),
+                  const SizedBox(height: 24.0),
+                  _buildSchedule(now, infoModel.currentSchedule!),
+                  const SizedBox(height: 24.0),
+                  const Divider(color: grayD, height: 1.0),
+>>>>>>> e08b898 (add colorstyles, textstyles and refactor main_page.dart)
                 ],
               ),
               Column(
                 children: <Widget>[
+<<<<<<< HEAD
                   _buildLogo(),
                   const SizedBox(height: 4.0),
                   _buildCopyRight(),
                   _buildTextButtons(context),
+=======
+                  _buildTextButtons(),
+                  // const SizedBox(height: 8.0),
+                  _buildLogo(),
+                  const SizedBox(height: 8.0),
+                  _buildCopyRight(),
+>>>>>>> e08b898 (add colorstyles, textstyles and refactor main_page.dart)
                 ],
               )
             ],
@@ -161,6 +180,22 @@ class MainPage extends StatelessWidget {
           ),
           textAlign: TextAlign.center,
         ),
+<<<<<<< HEAD
+=======
+        // const SizedBox(height: 4.0),
+        // Row(
+        //   mainAxisAlignment: MainAxisAlignment.end,
+        //   children: <Widget>[
+        //     TextButton(
+        //       onPressed: () => launchUrl(Uri.https("cais.kaist.ac.kr", "")),
+        //       child: Text(
+        //         "main.goto_cais".tr(),
+        //         style: labelRegular.copyWith(color: pinksMain),
+        //       ),
+        //     ),
+        //   ],
+        // ),
+>>>>>>> e08b898 (add colorstyles, textstyles and refactor main_page.dart)
       ],
     );
   }
