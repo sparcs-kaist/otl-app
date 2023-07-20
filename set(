@@ -1,0 +1,2114 @@
+[33mcommit d6030fefbe5973b5ab08a7e8cd71c06a3512cebc[m[33m ([m[1;36mHEAD -> [m[1;32mfeat@seungho[m[33m)[m
+Author: 장승호 <hoosong0235@kaist.ac.kr>
+Date:   Thu Jul 20 20:01:26 2023 +0900
+
+    add colorstyles, textstyles and refactor main_page.dart
+
+[33mcommit ecc4d88117c7cc12a6387e6855b7ff18620a7c00[m
+Author: 장승호 <hoosong0235@kaist.ac.kr>
+Date:   Thu Jul 20 18:39:54 2023 +0900
+
+    expand gesturedetector in dictionary, add animation
+
+[33mcommit d8fdb603322b92dea823ccf19be86172629bf733[m
+Author: 장승호 <hoosong0235@kaist.ac.kr>
+Date:   Thu Jul 20 18:34:44 2023 +0900
+
+    remove unnecessary import
+
+[33mcommit fc4ae23a3a5b0a0cd4b0df5f549177e3f5f8e42e[m
+Author: 장승호 <hoosong0235@kaist.ac.kr>
+Date:   Thu Jul 20 18:34:04 2023 +0900
+
+    fix: dictionary double app bar bug
+
+[33mcommit c4ace3fa96bb84a07ea2bf374376545ad701b9dd[m[33m ([m[1;31morigin/feat@seungho[m[33m, [m[1;31morigin/feat@search-page[m[33m)[m
+Author: star <snaoyam@gmail.com>
+Date:   Thu Jul 20 02:52:03 2023 +0900
+
+    fix: base layout
+
+[33mcommit 668468a4923e720397e60cacbf967282f156efe2[m
+Author: star <snaoyam@gmail.com>
+Date:   Thu Jul 20 02:49:51 2023 +0900
+
+    fix: bottom padding in search page
+
+[33mcommit 0ccce6e3930e9d2d67e97eca6ef4a22f2ab5ff71[m
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Wed Jul 19 21:59:12 2023 +0900
+
+    Squashed commit of the following:
+    
+    commit f25396f00e42ee2f12fc99f70530a0d5804323c5
+    Author: star <snaoyam@gmail.com>
+    Date:   Wed Jul 19 21:46:39 2023 +0900
+    
+        fix: format code
+    
+    commit d55a95183b5cf23a094b46e36c5a665920b0ce67
+    Author: star <snaoyam@gmail.com>
+    Date:   Wed Jul 19 21:44:02 2023 +0900
+    
+        fix: add slider selector
+    
+    commit d5af7c1c15b28fbf1bc769568dc63b1378b32027
+    Author: star <snaoyam@gmail.com>
+    Date:   Wed Jul 19 09:12:38 2023 +0900
+    
+        fix: add FilterGroupInfo class
+    
+    commit 771a25c27c4b5c485d2dbde9b4414bbf1a568208
+    Author: star <snaoyam@gmail.com>
+    Date:   Tue Jul 18 12:57:21 2023 +0900
+    
+        fix: firebase not initialized error
+    
+    commit 79c1759fc147e7ff5ce6d7a5b05dc837dfbed54a
+    Author: star <snaoyam@gmail.com>
+    Date:   Tue Jul 18 11:38:50 2023 +0900
+    
+        fix: remove firebase dependency override
+    
+    commit 3ea127388d623edb337cfee0b18179f51ff95741
+    Author: star <snaoyam@gmail.com>
+    Date:   Mon Jul 17 23:24:14 2023 +0900
+    
+        feat: dictionary page
+    
+    commit 8d4a0ad1916645c1748c13799bcca246dbfa421c
+    Author: star <snaoyam@gmail.com>
+    Date:   Mon Jul 17 22:28:45 2023 +0900
+    
+        fix: baseScaffold bottom background color
+    
+    commit d0d01b1d9532a342bd7e247b058df5ef7e711db8
+    Author: star <snaoyam@gmail.com>
+    Date:   Mon Jul 17 14:57:04 2023 +0900
+    
+        fix: add delay to keyboard popup
+    
+    commit 5ba6eede00dd975531880feb76efa5725889124e
+    Author: star <snaoyam@gmail.com>
+    Date:   Mon Jul 17 14:07:06 2023 +0900
+    
+        feat: lecture search page
+    
+    commit fdadc719ba80462ff2fd75437c53ee6d0f0d1077
+    Author: star <snaoyam@gmail.com>
+    Date:   Wed Jul 5 17:26:23 2023 +0900
+    
+        fead: add BaseScaffold
+    
+    commit 9c2a95595e7da232f56326ec0bda4268ee979e25
+    Author: Seungbin Oh <sboh1214@gmail.com>
+    Date:   Tue Mar 28 20:51:39 2023 +0900
+    
+        chore: add firebase overrride
+    
+    commit 5270273e25071fd9777daa6a2b77aabc531b4592
+    Author: star <snaoyam@gmail.com>
+    Date:   Tue Mar 28 20:15:11 2023 +0900
+    
+        Fix keyboard on Bottom Sheet
+    
+    commit 778eaa92120a5be2c566463c98509307cc868de3
+    Author: star <snaoyam@gmail.com>
+    Date:   Sun Mar 5 23:38:21 2023 +0900
+    
+        Fix textfield focusing
+    
+    commit d66bc05b0dc518730691d2f54589ece076f4d310
+    Author: star <snaoyam@gmail.com>
+    Date:   Sun Mar 5 21:38:37 2023 +0900
+    
+        Fix bottom sheet scroll lag
+    
+    commit 5316c85e4c64465b05188b54201f147cc57f12ce
+    Author: star <snaoyam@gmail.com>
+    Date:   Thu Mar 2 23:41:39 2023 +0900
+    
+        Add bottom nav bar hiding
+    
+    commit 4c9fe8d5ec6e8a56ce0995adc0a50e1e694d68e7
+    Author: star <snaoyam@gmail.com>
+    Date:   Wed Mar 1 19:12:24 2023 +0900
+    
+        Add Bottom Search Sheet
+
+[33mcommit 276214616b7f3653075b84832e31051256db5881[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m)[m
+Merge: 1377fd0 484beb2
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Wed Jul 19 21:10:03 2023 +0900
+
+    Merge pull request #93 from sparcs-kaist/feat@ios-widget-no-data-design
+    
+    Add "로그인하러 가기" button when there's no existing data in iOS Widgets
+
+[33mcommit 484beb247eacf4db4f9ceebc40f8776958d6c787[m
+Author: Soongyu Kwon <me@soongyu.me>
+Date:   Wed Jul 19 15:59:23 2023 +0900
+
+    fix: proper timetable naming
+
+[33mcommit 6cce93a3eaf0691e75eb3b36cb3234fcfda13b66[m
+Author: Soongyu Kwon <me@soongyu.me>
+Date:   Wed Jul 19 15:53:08 2023 +0900
+
+    fix: proper app groups
+
+[33mcommit 872645bf90f5f83b35e9d228cb2b2fa810801c25[m
+Author: Soongyu Kwon <me@soongyu.me>
+Date:   Wed Jul 19 14:24:04 2023 +0900
+
+    fix: crash on iOS 17
+
+[33mcommit a30f1b6482e710ac86be344cd5bfd368b85bbe27[m
+Author: Soongyu Kwon <me@soongyu.me>
+Date:   Thu Jul 13 18:53:04 2023 +0900
+
+    add: "로그인하러 가기" button when there's no data to show
+
+[33mcommit 07c59d17f5567af342002a0cd6446230b2ed37f8[m
+Author: Soongyu Kwon <me@soongyu.me>
+Date:   Thu Jul 13 17:34:36 2023 +0900
+
+    update: widget deployment target to 15.0
+
+[33mcommit 57d349f86f7dbde5dad4c215a15ade068989fe49[m
+Author: Soongyu Kwon <me@soongyu.me>
+Date:   Thu Jul 13 17:33:33 2023 +0900
+
+    add: lock image asset
+
+[33mcommit 5630736ff773bd3fe0603ed695a20fbe21088d3a[m
+Author: Soongyu Kwon <me@soongyu.me>
+Date:   Tue Jul 4 14:31:21 2023 +0900
+
+    fix: empty timetable handling
+
+[33mcommit 1377fd0ba810123a9e1d82ada82e6ad01b4ca7ae[m
+Merge: ad11b86 a11dd95
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Wed Jul 19 20:36:55 2023 +0900
+
+    Merge pull request #94 from sparcs-kaist/feat@scaffold-navigation-migration
+    
+    Feat@scaffold navigation migration
+
+[33mcommit a11dd95f6be54645e75a3453ac6b0936fe4cdaef[m
+Author: 장승호 <hoosong0235@kaist.ac.kr>
+Date:   Wed Jul 19 19:27:41 2023 +0900
+
+    remove comment
+
+[33mcommit f7125b9ea3ad3f40f9fd88f1910ddc21c873a187[m
+Author: 장승호 <hoosong0235@kaist.ac.kr>
+Date:   Wed Jul 19 19:26:51 2023 +0900
+
+    add build_page_route.dart
+
+[33mcommit 238cffde8e5bf03d8794823632e4a903c8ba10fd[m
+Author: 장승호 <hoosong0235@kaist.ac.kr>
+Date:   Wed Jul 19 18:41:59 2023 +0900
+
+    remove unnecessary comments
+
+[33mcommit e7f873a370bcb7179ba3c30d50406ace792ebc65[m
+Author: 장승호 <hoosong0235@kaist.ac.kr>
+Date:   Wed Jul 19 18:26:51 2023 +0900
+
+    fix: logout
+
+[33mcommit 71411aef077aeacf9abf68a61cac2ca2a21c10ad[m
+Author: 장승호 <hoosong0235@kaist.ac.kr>
+Date:   Tue Jul 18 12:51:22 2023 +0900
+
+    resolve uninitialized error
+
+[33mcommit caa4b8eb52c357f4532baa9eebebe9f8ab8ad15c[m
+Author: 장승호 <hoosong0235@kaist.ac.kr>
+Date:   Thu May 11 04:07:34 2023 +0900
+
+    feat: migration from backdrop, show to scaffold, navigation
+
+[33mcommit b6f349dbc63044aba7b897c0c638e913c683c410[m
+Author: 장승호 <hoosong0235@kaist.ac.kr>
+Date:   Tue May 9 23:37:22 2023 +0900
+
+    feat: add liked reviews, hall of fame, modify my reviews, latest reviews
+
+[33mcommit 02394916cd17498b2290d1a6c878c72af22f5149[m
+Author: 장승호 <hoosong0235@kaist.ac.kr>
+Date:   Thu May 11 04:07:34 2023 +0900
+
+    feat: migration from backdrop, show to scaffold, navigation
+
+[33mcommit 8a93e891ca2b54ffeb541b9b1934fc6574bb250e[m
+Author: 장승호 <hoosong0235@kaist.ac.kr>
+Date:   Tue May 16 02:45:06 2023 +0900
+
+    feat: modify app bar, navigation
+
+[33mcommit b2aeafdf83746e109317500f8c7fa1068d0472c3[m
+Author: 장승호 <hoosong0235@kaist.ac.kr>
+Date:   Fri May 12 23:32:05 2023 +0900
+
+    feat: modify settings page design
+
+[33mcommit 5aa6e6eb6784c3ca7b52fae1a25711b85a70f87e[m
+Author: 장승호 <hoosong0235@kaist.ac.kr>
+Date:   Thu May 11 04:07:34 2023 +0900
+
+    feat: migration from backdrop, show to scaffold, navigation
+
+[33mcommit ad11b8656d87e5a4b3f8a347e4715548503fce78[m
+Merge: f58d338 03489e3
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Tue Jul 11 18:27:20 2023 +0900
+
+    Merge pull request #91 from sparcs-kaist/feat@logout
+    
+    Add logout feature
+
+[33mcommit 03489e33b5fea68f6b5caf3ac4d83016adf641db[m
+Author: 장승호 <hoosong0235@kaist.ac.kr>
+Date:   Wed Jun 28 21:07:27 2023 +0900
+
+    feat: logout
+
+[33mcommit f58d338d5219138a5bded9a99e038445abc44269[m
+Merge: da58d7f 52ca54b
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Tue Jul 11 04:08:20 2023 +0900
+
+    Merge pull request #92 from sparcs-kaist/chore@change-ios-bundle-id
+    
+    Change iOS bundle ID, add Pods cache on GitHub Actions
+
+[33mcommit 52ca54bc339065fedc83de93efd731f706804e04[m
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Tue Jul 11 03:40:22 2023 +0900
+
+    chore: add Pods cache in github actions
+
+[33mcommit 82abf476cbcb22719d938f06d523370679b3be53[m
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Tue Jul 11 03:00:46 2023 +0900
+
+    chore: change fastlane Appfile apple_id
+    chore: remove unnecessary certificates related step in iOS fastlane
+    chore: change iOS bundle names
+
+[33mcommit da58d7f5f1131d1b16a1c6c693d8dfaa67a85e2c[m
+Merge: 8f456f1 ab346ae
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Fri Jun 30 03:24:49 2023 +0900
+
+    Merge pull request #90 from sparcs-kaist/fix@ios-widgets-settings
+    
+    fix: widget settings
+
+[33mcommit ab346aede89420781fe2da62746de4b38cafd3fe[m
+Author: Soongyu Kwon <me@soongyu.me>
+Date:   Sun Jun 4 02:31:26 2023 +0900
+
+    fix: proper deployment target
+
+[33mcommit e58a1b148acf39032d775795937e1725b12acf4d[m
+Author: Soongyu Kwon <me@soongyu.me>
+Date:   Sun Jun 4 01:17:45 2023 +0900
+
+    fix: widget settings
+
+[33mcommit 8f456f1cb6444e0c7385b23548ef154b87af3c92[m
+Merge: dc8f88e 5e20fef
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Fri Jun 30 01:40:39 2023 +0900
+
+    Merge pull request #87 from sparcs-kaist/feat@seungho-internship-assignment
+    
+    Resolve #86, add liked reviews, hall of fame, modify my reviews, latest reviews
+
+[33mcommit 5e20fefb11b72e0b1ecd6820bf9ace30e3587dd4[m
+Author: 장승호 <hoosong0235@kaist.ac.kr>
+Date:   Mon Jun 26 23:44:23 2023 +0900
+
+    feat: modify targetSemester and startSemester as web
+
+[33mcommit bc644ccec3606d02026bdbef577c8a05c4760277[m
+Author: 장승호 <hoosong0235@kaist.ac.kr>
+Date:   Tue May 9 23:37:22 2023 +0900
+
+    feat: add liked reviews, hall of fame, modify my reviews, latest reviews
+
+[33mcommit b55f5320abed4590cba87a333ecbbbf39c02f514[m
+Author: 장승호 <hoosong0235@kaist.ac.kr>
+Date:   Tue May 16 03:14:13 2023 +0900
+
+    remove comment, modify hard code
+
+[33mcommit b9c7527d525a023c805ceeabfa61ec609ce02c28[m
+Author: 장승호 <hoosong0235@kaist.ac.kr>
+Date:   Tue May 9 23:37:22 2023 +0900
+
+    feat: add liked reviews, hall of fame, modify my reviews, latest reviews
+
+[33mcommit dc8f88e7c08b525723fde0fd8191a88087749e9d[m
+Merge: dc2639c 2ae20ad
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Wed May 31 00:58:36 2023 +0900
+
+    Merge pull request #83 from sparcs-kaist/feat@add-ios-widget
+    
+    Resolve #79, add ios widget
+
+[33mcommit 2ae20ad1941ac40c283426c719b731e6975f2885[m
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Mon May 29 05:56:58 2023 +0900
+
+    chore: update deps, lint
+
+[33mcommit abb775b2a2ba79b33a92c484235986931003e27c[m
+Author: Soongyu Kwon <me@soongyu.me>
+Date:   Fri May 26 02:04:21 2023 +0900
+
+    fix: text encoding
+
+[33mcommit 4f1c8ec1088cdec2b264d27897fa9e88cabf235a[m
+Author: Soongyu Kwon <me@soongyu.me>
+Date:   Fri May 26 01:25:17 2023 +0900
+
+    feat: support dark mode
+
+[33mcommit 85f3849aeaa38704cca6946337544f3f16bafdab[m
+Author: Soongyu Kwon <me@soongyu.me>
+Date:   Thu May 25 13:12:40 2023 +0900
+
+    feat: display exact time with line
+
+[33mcommit 33e24f26879749317df01f70dd79692ce94e4400[m
+Author: Soongyu Kwon <me@soongyu.me>
+Date:   Fri May 26 00:24:44 2023 +0900
+
+    fix: dot for small widget
+
+[33mcommit 5f71a368a099809d994c1bfae224443272bad62b[m
+Author: Soongyu Kwon <me@soongyu.me>
+Date:   Fri May 26 00:22:10 2023 +0900
+
+    fix: proper padding for large widget
+
+[33mcommit 6b24247cba1e627e2e0346e2a899092630efa369[m
+Author: Soongyu Kwon <me@soongyu.me>
+Date:   Thu May 25 16:46:39 2023 +0900
+
+    fix: widgets offset -2hrs
+
+[33mcommit 96954482de8f3c7ae0cb7298ff74ecfc8fa2d7f0[m
+Author: Soongyu Kwon <me@soongyu.me>
+Date:   Wed May 24 23:54:52 2023 +0900
+
+    fix: display when the lecture begins
+
+[33mcommit 3f390e6de4fc892cedfe0df30a8c87d0e0dd3824[m
+Author: Soongyu Kwon <me@soongyu.me>
+Date:   Mon May 22 17:09:41 2023 +0900
+
+    delete: unnecessary fonts
+
+[33mcommit 52132c6baff16945031a02101782550162c972bd[m
+Author: Soongyu Kwon <me@soongyu.me>
+Date:   Mon May 22 17:03:54 2023 +0900
+
+    fix: optimisations
+
+[33mcommit d93232f9b3cba6d92035ff6ddae8806f57fe3558[m
+Author: Soongyu Kwon <me@soongyu.me>
+Date:   Mon May 22 16:55:04 2023 +0900
+
+    fix: handle nil
+
+[33mcommit 721e9d4059683e9c29616a6dc805d7ccf981ee79[m
+Author: Soongyu Kwon <me@soongyu.me>
+Date:   Mon May 22 16:38:13 2023 +0900
+
+    fix: get next lecture properly
+
+[33mcommit ee0846acfe66692cc56f56332d1133878374274a[m
+Author: Soongyu Kwon <me@soongyu.me>
+Date:   Mon May 22 15:15:09 2023 +0900
+
+    add: update widgets every 15 minutes
+
+[33mcommit d861c17ddaf05935a458f451be0a880d0f484b0e[m
+Author: Soongyu Kwon <me@soongyu.me>
+Date:   Mon May 22 13:48:27 2023 +0900
+
+    fix: optimisations
+
+[33mcommit 23c14e811f5c8f75750ae4cd72d11ff9bd505f45[m
+Author: Soongyu Kwon <me@soongyu.me>
+Date:   Tue May 16 07:37:14 2023 +0900
+
+    fix: renaming
+
+[33mcommit 2fa406fd286c43dd31600fd0acef87666cfd98e1[m
+Author: Soongyu Kwon <me@soongyu.me>
+Date:   Tue May 16 07:14:52 2023 +0900
+
+    feat: large widget backends (might need some optimisations)
+
+[33mcommit 2800fe1a010c51186d5eec3e319bd3c8a64c2f99[m
+Author: Soongyu Kwon <me@soongyu.me>
+Date:   Tue May 16 07:14:24 2023 +0900
+
+    feat: widget preview snapshot
+
+[33mcommit 8d4b53acc9fb684173ccc867016bf5d3f572406f[m
+Author: Soongyu Kwon <me@soongyu.me>
+Date:   Sun May 14 02:28:44 2023 +0900
+
+    add: minor optimisation and large widget barbone
+
+[33mcommit 17d1fbcb1d982baf95ca627b5e1e474a618dd89e[m
+Author: Soongyu Kwon <me@soongyu.me>
+Date:   Sun May 14 02:19:14 2023 +0900
+
+    fix: some minor optimisations
+
+[33mcommit 0b6e4f965ec8fdbea7f914a1e6c2052633b4f2f5[m
+Author: Soongyu Kwon <me@soongyu.me>
+Date:   Sun May 14 01:50:03 2023 +0900
+
+    feat: medium widget backends (might need some optimisation)
+
+[33mcommit 847de61647d06bc8b744337e47819b9644fdd44c[m
+Author: Soongyu Kwon <me@soongyu.me>
+Date:   Sat May 13 02:20:31 2023 +0900
+
+    add: medium widget design barebone
+
+[33mcommit f602c51c5e51b7ed720a48c13713a4de3046978b[m
+Author: Soongyu Kwon <me@soongyu.me>
+Date:   Tue May 9 22:52:54 2023 +0900
+
+    add: widget backends(need optimisation)
+
+[33mcommit f686e2c5eb34d1d4abab79b91d8ff394ce44ac26[m
+Author: Soongyu Kwon <me@soongyu.me>
+Date:   Mon May 1 11:46:03 2023 +0900
+
+    add: small widget design barebone
+
+[33mcommit ed1600848035e32ecd1c05f6dc2844051099a086[m
+Author: Soongyu Kwon <me@soongyu.me>
+Date:   Mon May 1 10:56:05 2023 +0900
+
+    add: NotoSans CJK fonts
+
+[33mcommit 5edae7fb108c0fdab9904682c3a351d20cd2bcac[m
+Author: Soongyu Kwon <me@soongyu.me>
+Date:   Wed Apr 5 23:47:32 2023 +0900
+
+    feat: load timetable data from userdefaults
+
+[33mcommit 0832e054dd13dd9d1287e7bd73f5e05c1ecb0200[m
+Author: Soongyu Kwon <me@soongyu.me>
+Date:   Wed Apr 5 23:47:18 2023 +0900
+
+    feat: save timetable data to userdefaults
+
+[33mcommit e81c3399e86c1094cef52c6bd1db0e58cf5ca31d[m
+Author: Soongyu Kwon <me@soongyu.me>
+Date:   Tue Apr 4 04:01:44 2023 +0900
+
+    feat: add ios widget barebones
+
+[33mcommit dc2639cf2e60bb2df9b0a7d747dd4060d1c5220b[m
+Merge: e863b77 347d659
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Tue May 9 16:29:01 2023 +0900
+
+    Merge pull request #81 from sparcs-kaist/dependabot/pub/dio-5.1.0
+    
+    Bump dio from 4.0.6 to 5.1.0, upgrade firebase
+
+[33mcommit 347d65908df347c708ab900a7179238b2cce17b1[m
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Tue Mar 28 22:23:13 2023 +0900
+
+    chore: update actions version
+
+[33mcommit 710bd9ec14e675c8485b23e608e0a9488a8516a0[m
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Tue Mar 28 21:55:10 2023 +0900
+
+    chore: change to dio: ^5.1.0
+
+[33mcommit 4e38dfbfd8d267c176e5cb916088b37bc9488413[m
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Tue Mar 28 03:26:33 2023 +0900
+
+    chore: update pr labels action
+
+[33mcommit 02121c4e035564300bec1b766183d07aef903c10[m
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Tue Mar 28 02:46:21 2023 +0900
+
+    chore: update firebase version
+
+[33mcommit f18189c2433b972f4fcef392b909dd7f7318821f[m
+Author: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>
+Date:   Mon Mar 27 16:53:05 2023 +0000
+
+    Bump dio from 4.0.6 to 5.1.0
+    
+    Bumps [dio](https://github.com/cfug/dio) from 4.0.6 to 5.1.0.
+    - [Release notes](https://github.com/cfug/dio/releases)
+    - [Commits](https://github.com/cfug/dio/commits/dio_v5.1.0)
+    
+    ---
+    updated-dependencies:
+    - dependency-name: dio
+      dependency-type: direct:production
+    ...
+    
+    Signed-off-by: dependabot[bot] <support@github.com>
+
+[33mcommit e863b772eaae46f342754a6f52fe060e57f0a688[m
+Merge: 2be470f 79b4024
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Tue Mar 28 21:42:06 2023 +0900
+
+    Merge pull request #77 from sparcs-kaist/bug@reverse-course-review
+    
+    Fix #76, reversed review list in course_detail_page, lecture_detail_page
+
+[33mcommit 79b4024476b1c5eda939e1cc1bca7b1df0f03702[m
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Tue Mar 28 21:28:28 2023 +0900
+
+    chore: remove unknown file
+
+[33mcommit 729849f742e537a08268408d3b9d25938fec4661[m
+Author: 장승호 <hoosong0235@kaist.ac.kr>
+Date:   Tue Mar 28 21:18:35 2023 +0900
+
+    bug: fix bug in course_detail_page, lecture_detail_page
+
+[33mcommit 5ef6a84f018f1b8b793befb4cfa3bad0ce2ca09d[m
+Author: 장승호 <hoosong0235@kaist.ac.kr>
+Date:   Tue Mar 21 22:02:48 2023 +0900
+
+    bug: fix bug in course_detail_page.dart, lecture_detail_page
+
+[33mcommit 2be470f60233fae60b46332e07a27b1f898e9d3f[m
+Merge: d1b221d 3d46867
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Tue Mar 28 01:50:21 2023 +0900
+
+    Merge pull request #75 from sparcs-kaist/chore@add-fastlane
+    
+    Add fastlane, change to open_file_safe, setup convention
+
+[33mcommit 3d46867772ac302c126939abdf51e2603af0ed81[m
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Wed Mar 22 21:32:17 2023 +0900
+
+    chore: change PR title template
+
+[33mcommit 1f473ce5bd405b5fe99073a36335601388dcac8e[m
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Tue Mar 21 23:21:25 2023 +0900
+
+    chore: modify PR title convention
+
+[33mcommit 7aed0c1b4f1ccdd55ab0bf0eea36854de9dd1ba3[m
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Tue Mar 21 23:20:39 2023 +0900
+
+    chore: add convention about PR title
+
+[33mcommit a25d73a7237658eadd6dfec38ac2fdc4d82c446f[m
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Tue Mar 21 23:18:22 2023 +0900
+
+    chore: add commit and PR convention
+
+[33mcommit c0133feb1e84bb7d332f2fc1486b957d0a4e1846[m
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Tue Mar 21 22:39:13 2023 +0900
+
+    chore: add contributor
+
+[33mcommit 920ab2795ab23547ff59971c38f61184ba858181[m
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Mon Mar 20 03:10:06 2023 +0900
+
+    add how to deploy in README
+
+[33mcommit ddedc77af2ef7af37faf4e01b793d528b0cd396e[m
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Mon Mar 20 02:29:21 2023 +0900
+
+    chore: add fastlane, change to open_file_safe
+
+[33mcommit d1b221dbd3d7a879cc692572cf37f40bb8882d4e[m
+Merge: 0aeda8b 2213e88
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Thu Mar 9 17:30:27 2023 +0900
+
+    Merge pull request #74 from sparcs-kaist/flutter-3.7-notosanskr
+    
+    feat: update to flutter 3.7 and apply NotoSans-KR
+
+[33mcommit 2213e88ef77bf4de71531dfebb0e42f18f4d3890[m
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Thu Mar 9 16:29:04 2023 +0900
+
+    feat: update to flutter 3.7 and apply NotoSans-KR
+
+[33mcommit 0aeda8be4f99ca4c3bc6d49c83790a41414fb117[m
+Merge: 5975b0e 275d33b
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Mon Oct 31 09:40:21 2022 +0900
+
+    Merge pull request #72 from sparcs-kaist/cicd/version
+    
+    Update flutter version to 3.3.6 and fix iOS test
+
+[33mcommit 275d33bd847fee3ec7f7fa6f71faacadcfc7755e[m
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Sun Oct 30 19:54:38 2022 +0900
+
+    update flutter version to 3.3.6
+
+[33mcommit a02af7db012c46c0aa395d147b3a400eaa7d8561[m
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Sun Oct 30 19:40:00 2022 +0900
+
+    upgrade to iPhone 14 Pro
+
+[33mcommit 05c4fe15cf86bf8adb35303bd2f6d492f25c310d[m
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Sun Oct 30 19:22:22 2022 +0900
+
+    update iPhone version
+
+[33mcommit 5975b0e03a3cf587c9ccd9873a0dd48704ca5b1f[m
+Merge: 52db7c9 2ab2fcd
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Thu Oct 27 13:42:09 2022 +0900
+
+    Merge pull request #70 from sparcs-kaist/feat/reviewblock-expand
+    
+    Add review block expandable function
+
+[33mcommit 2ab2fcd864257eb2f3f2b9a3825fc407444268c0[m
+Author: star <snaoyam@gmail.com>
+Date:   Tue Oct 25 19:34:53 2022 +0900
+
+    Remove unused code
+
+[33mcommit e25035f76e25714e0aeba9ad0ed2aa3490288cad[m
+Author: star <snaoyam@gmail.com>
+Date:   Tue Oct 25 16:45:10 2022 +0900
+
+    Remove unused code
+
+[33mcommit c7ef7303262adf94e3a5a2d4694a36d122bb3a1e[m
+Author: star <snaoyam@gmail.com>
+Date:   Tue Oct 25 16:34:25 2022 +0900
+
+    Fix format
+
+[33mcommit 0a1ab78c96cfc1af9c223a8fd233a29ef736172f[m
+Author: star <snaoyam@gmail.com>
+Date:   Tue Oct 25 16:30:08 2022 +0900
+
+    Fix some double newlines not replaced to single newline
+
+[33mcommit 33732cb2832496c7633947fa4ddcaf0e8c6e0d07[m
+Author: star <snaoyam@gmail.com>
+Date:   Tue Oct 25 15:58:32 2022 +0900
+
+    Remove review block isSimple test
+
+[33mcommit 3fef00a3a2248e594b60b240874c41740045f70e[m
+Author: star <snaoyam@gmail.com>
+Date:   Tue Oct 25 15:57:29 2022 +0900
+
+    Add reviewblock expandable text button
+
+[33mcommit 52db7c95fe3d9b1718beaf8ac718e9a6869a1ed0[m
+Merge: 7732727 51dfce1
+Author: SungyeopJeong <71690205+SungyeopJeong@users.noreply.github.com>
+Date:   Tue Oct 4 22:33:10 2022 +0900
+
+    Merge pull request #69 from sparcs-kaist/bugfix/timetableindex
+    
+    Fix timetableindex changing to wrong index
+
+[33mcommit 51dfce14b42f79be372426dd5cd6a69dc82765fd[m
+Author: SungyeopJeong <syeopj4a@gmail.com>
+Date:   Tue Oct 4 17:56:31 2022 +0900
+
+    Add contributor in credits
+
+[33mcommit ea5aefba742747044afe7907b3f26061b427f0ea[m
+Author: SungyeopJeong <syeopj4a@gmail.com>
+Date:   Tue Oct 4 17:11:06 2022 +0900
+
+    Fix timetableindex changing to wrong index
+
+[33mcommit 7732727cb7552bd02e3e04f38e580b983e759c53[m
+Merge: a9e6cfa 5808918
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Tue Sep 27 16:40:49 2022 +0900
+
+    Merge pull request #66 from sparcs-kaist/g11n/english
+    
+    Add english locales
+
+[33mcommit 580891834f6f18cd6f20df89146dcf9b4a86eb32[m
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Mon Sep 26 21:30:43 2022 +0900
+
+    fix documentation
+
+[33mcommit 2c0c7199910f1004e01026f7e38ce197ae7ad39b[m
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Mon Sep 26 21:28:58 2022 +0900
+
+    add simulator shutdown on workflow
+
+[33mcommit b5f40971074b05fa5539d05d7cd0caa8860523f9[m
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Fri Sep 23 19:37:27 2022 +0900
+
+    Add english locales
+    fix android gradle build
+
+[33mcommit a9e6cfa5d0182182d032634c2881aca99375f495[m
+Merge: 237a770 571efa5
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Thu Sep 8 06:10:22 2022 +0900
+
+    Merge pull request #65 from sparcs-kaist/test/unit
+    
+    Fix android integration test
+
+[33mcommit 571efa56656f4d5afcbf529e5f8b4be851ff57a9[m
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Thu Sep 8 02:10:07 2022 +0900
+
+    format code
+
+[33mcommit c977cd8ecdf0f7f570c8ad420650365cdcc0f602[m
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Thu Sep 8 01:43:00 2022 +0900
+
+    fix Firebase Crashlytics
+    fix iOS auto versioning
+    add test crash button on debug
+    update firebase_options
+
+[33mcommit b203b1d65ca30c0ecfcaa943172fba22d7337102[m
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Wed Sep 7 06:10:41 2022 +0900
+
+    fix Crashlytics on ios
+    upgrade firebase version
+
+[33mcommit 3fb766eb6130a21c87a2df942a629ba2aa0a0952[m
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Wed Sep 7 05:34:12 2022 +0900
+
+    change Build Android on self-hosted
+    fix Build Android ci keystore alias
+
+[33mcommit 51243dfd0b7ef3ff09f19a361b93b25ea086c341[m
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Wed Sep 7 05:12:40 2022 +0900
+
+    remove archiving apk
+    fix android keystore alias
+
+[33mcommit fafbeec313e2daa9dd906d43ded4d32f9bd545a1[m
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Wed Sep 7 05:05:25 2022 +0900
+
+    remove CI environment
+
+[33mcommit b5732d6ecd46780d09b49f2bc69ce8b8b25a7e55[m
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Wed Sep 7 03:51:08 2022 +0900
+
+    change to self-hosted runner
+
+[33mcommit d9cf18c13c89e1f57f70522d4caee15a80139173[m
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Tue Sep 6 17:30:01 2022 +0900
+
+    try fixing android integration test
+
+[33mcommit cfb99a1d57cf4e29105d14a3139985d08cd29504[m
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Tue Sep 6 17:00:47 2022 +0900
+
+    fix android integration test
+    upgrade AGP version
+
+[33mcommit 237a770e91de27bfba947cecbfd4780d47bc2cb6[m
+Merge: 0fd2f4f 879a5ff
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Tue Sep 6 05:39:31 2022 +0900
+
+    Merge pull request #64 from sparcs-kaist/cicd/update
+    
+    Update flutter version to 3.0.5
+
+[33mcommit 879a5ffd431a833df83a99cc691d07f85f2081b2[m
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Tue Sep 6 05:28:23 2022 +0900
+
+    Remove build apk on deploy
+
+[33mcommit ac6f146ff5891926ad557945718af146ac11de1d[m
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Tue Sep 6 05:22:57 2022 +0900
+
+    remove null operator from WidgetsBinding
+
+[33mcommit dc87107ddc5fa202daf475dea708e142ca17f4e3[m
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Tue Sep 6 05:18:01 2022 +0900
+
+    Update flutter version to 3.0.5
+
+[33mcommit 0fd2f4f77c2535f3d98787bfb0dae6694d2bed95[m[33m ([m[1;33mtag: v1.3.0[m[33m)[m
+Merge: f6425d4 8e19026
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Tue Sep 6 03:32:23 2022 +0900
+
+    Merge pull request #61 from sparcs-kaist/feat/timetable
+    
+    Add my timetable in timetable page
+
+[33mcommit 8e19026117aa5933154a1df677d124eb9f4397eb[m
+Author: star <snaoyam@gmail.com>
+Date:   Tue Sep 6 03:11:55 2022 +0900
+
+    Change version to 1.3.0+21
+
+[33mcommit cbe4f9a8896faeb3f63e227356dd280ee96ba384[m
+Author: star <snaoyam@gmail.com>
+Date:   Thu Sep 1 22:32:34 2022 +0900
+
+    Remove lecture remove button in my timetable
+
+[33mcommit 2192b17045d803b29761e4cf3e528158dbc75cb8[m
+Author: star <snaoyam@gmail.com>
+Date:   Wed Aug 31 02:58:19 2022 +0900
+
+    Fix unused import warning
+
+[33mcommit 1bfb7cc47e9f5708875e457dbb4964d6dc0e9ef4[m
+Author: star <snaoyam@gmail.com>
+Date:   Tue Aug 30 04:59:51 2022 +0900
+
+    Fix code format
+
+[33mcommit e496568d1ef019da48bdb91cb03342343f40a9a7[m
+Author: star <snaoyam@gmail.com>
+Date:   Tue Aug 30 04:57:36 2022 +0900
+
+    Fix timetable in main page not showing my timetable
+
+[33mcommit d1ede131c6aec4d25c0822c077685ff7cbd22c57[m
+Author: star <snaoyam@gmail.com>
+Date:   Mon Aug 29 22:55:15 2022 +0900
+
+    Fix unnecessary braces
+
+[33mcommit 611c82c6e8fb795061c7eadfe98163fcd7c24875[m
+Author: star <snaoyam@gmail.com>
+Date:   Mon Aug 29 22:26:36 2022 +0900
+
+    Add my timetable in timetable page
+
+[33mcommit f6425d4e05c6189e986ca4230b97ec6826391378[m
+Merge: da1e0f4 f23c33a
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Mon Aug 1 20:22:09 2022 +0900
+
+    Merge pull request #59 from snaoyam/snaoyam-dev
+    
+    Fix #24
+
+[33mcommit f23c33a6846d4dd51a76cf4c5b53ac7ed9b6918a[m
+Author: star <snaoyam@gmail.com>
+Date:   Mon Aug 1 16:36:53 2022 +0900
+
+    Fix code format
+
+[33mcommit 213359567a9bb52c538d9815a229b8717ddec12a[m
+Author: star <snaoyam@gmail.com>
+Date:   Mon Aug 1 06:20:48 2022 +0900
+
+    added loading indicator at end of list while loading reviews
+
+[33mcommit f1aeb5081a7ef6e66bad619efb280742042cd3de[m
+Author: star <snaoyam@gmail.com>
+Date:   Mon Aug 1 04:47:32 2022 +0900
+
+    Fix scrollbar not showing
+
+[33mcommit da1e0f4d82ab7d43cb7527028fc8faade94e5dd7[m
+Merge: 5cfeb6b ad13674
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Wed Jul 6 10:17:07 2022 +0900
+
+    Merge pull request #57 from sparcs-kaist/i18n
+    
+    Add i18n support and Fix WebView keyboard error on Android
+
+[33mcommit ad136743dbe15f62dc253a7e208af11c368fe19f[m
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Wed Jul 6 10:03:31 2022 +0900
+
+    format
+
+[33mcommit 5ec16c4e42350c737de028c195d6a5177a3c70f9[m
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Wed Jul 6 08:38:12 2022 +0900
+
+    fix android webview keyboard error
+
+[33mcommit a8b6d9ebdb7995f98f9e8c6439292dcbf4e2255b[m
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Thu May 12 18:10:22 2022 +0900
+
+    add i18n support
+
+[33mcommit 5cfeb6b875d61b93974764947938316cfe716b11[m[33m ([m[1;33mtag: v1.2.9[m[33m)[m
+Merge: 9553590 c2187f5
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Mon Apr 11 16:46:40 2022 +0900
+
+    Merge pull request #56 from sparcs-kaist/dev
+
+[33mcommit c2187f5615acb18eaa87ca9ec0813775e8630f9e[m
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Mon Apr 11 16:22:23 2022 +0900
+
+    add codecov token
+
+[33mcommit 53e49c1c3458fed959e43bceb2b54501f746f783[m
+Merge: b994623 9553590
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Mon Apr 11 16:10:09 2022 +0900
+
+    Merge branch 'main' into dev
+
+[33mcommit b994623d5b1548f00165ea3910f2e1d15fa46425[m
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Mon Apr 11 16:08:11 2022 +0900
+
+    Update version to 1.2.9+20
+
+[33mcommit 955359068c3fe5f4bcee2e1b4b146f2f4547c57e[m[33m ([m[1;33mtag: v1.2.8[m[33m)[m
+Merge: 82b0e03 7467068
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Mon Mar 28 01:24:29 2022 +0900
+
+    Merge pull request #55 from sparcs-kaist/sboh1214-readme-2
+    
+    Update README.md
+
+[33mcommit 7467068a3281d9055b75500bb9555bee923c633d[m
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Mon Mar 28 01:11:07 2022 +0900
+
+    Update README.md
+
+[33mcommit 82b0e03cffcf3bdc4713f978aabfc18e1025a23d[m
+Merge: e50260b 54f71de
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Tue Mar 22 23:29:54 2022 +0900
+
+    Merge pull request #53 from snaoyam/snaoyam-contrib
+    
+    Fix typo
+
+[33mcommit 54f71de416084004cfa1892f31766a63272ca345[m
+Author: star <snaoyam@gmail.com>
+Date:   Tue Mar 22 23:04:42 2022 +0900
+
+    fix typo
+
+[33mcommit e50260b76c944e83e5e3a03cc17b278eebbe9505[m
+Merge: acdf80f d107f48
+Author: star <93732046+snaoyam@users.noreply.github.com>
+Date:   Tue Mar 22 22:28:04 2022 +0900
+
+    Merge pull request #52 from sparcs-kaist/sboh1214-contrib
+    
+    Create CONTRIBUTING.md
+
+[33mcommit d107f4813018e8e72e29f8ea5bf96368e5814ac9[m
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Tue Mar 22 21:58:15 2022 +0900
+
+    add CONTRIBUTING.md link
+
+[33mcommit b4b5c1a3c6caef9d0df699098b25b79cf58b2621[m
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Tue Mar 22 21:52:19 2022 +0900
+
+    Create CONTRIBUTING.md
+
+[33mcommit acdf80fa7bdb8523a8c3896ab7ecc2ba53dae762[m
+Merge: c761186 1a0e991
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Tue Mar 22 14:58:37 2022 +0900
+
+    Merge pull request #50 from sparcs-kaist/add-license
+    
+    Create LICENSE
+
+[33mcommit 1a0e9912f5252a66610ec523d9e34bdbb0aaf1f4[m
+Merge: b15586b c761186
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Tue Mar 22 14:43:38 2022 +0900
+
+    Merge branch 'main' into add-license
+
+[33mcommit c76118609f8115a735d4efc91af16e36feb79cf0[m
+Merge: a720b54 2887585
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Tue Mar 22 14:37:31 2022 +0900
+
+    Merge pull request #51 from sparcs-kaist/dev
+    
+    Remove social login from iOS, update firebase
+
+[33mcommit b15586b4b7bef0c16f90759af1bfc70611357019[m
+Merge: 9525e11 a720b54
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Tue Mar 22 14:27:53 2022 +0900
+
+    Merge branch 'main' into add-license
+
+[33mcommit 28875850f7b2f6acc82b3898a6dd91659aa80d12[m
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Tue Mar 22 14:27:23 2022 +0900
+
+    update version
+
+[33mcommit f28d6b0b47ace7c0dac189744bba0de7057fd025[m
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Tue Mar 22 14:17:23 2022 +0900
+
+    remove social login on iOS
+
+[33mcommit 85afea70bd0b9ee1167f06372eee2150d01e6d96[m
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Tue Mar 22 14:05:09 2022 +0900
+
+    remove unnecessary deps
+
+[33mcommit 138c899c13df99097ffdb3eda3d56d3442d727f3[m
+Merge: 792e4ed a720b54
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Tue Mar 22 04:02:56 2022 +0900
+
+    Merge branch 'main' into dev
+
+[33mcommit 792e4ed506e7432d6886183ec6839f578967f516[m
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Tue Mar 22 04:01:56 2022 +0900
+
+    update firebase version
+
+[33mcommit a720b54d28f84b99e1eb3beea1a01dd71af420e9[m
+Merge: 6f90cf1 5d4b403
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Tue Mar 22 03:59:52 2022 +0900
+
+    Merge pull request #49 from sparcs-kaist/add-code-of-conduct
+    
+    Create CODE_OF_CONDUCT.md
+
+[33mcommit 9525e11973e7f8d637540e60783b6002ed5afa0d[m
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Tue Mar 22 03:46:58 2022 +0900
+
+    Create LICENSE
+
+[33mcommit 5d4b403c09e6b3550b01827e6030cb3e05e1ad61[m
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Tue Mar 22 03:45:43 2022 +0900
+
+    Create CODE_OF_CONDUCT.md
+
+[33mcommit 1acf4a51fa298b71c68f3c18bf2b8276920d0e56[m
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Fri Mar 18 15:47:19 2022 +0900
+
+    implement App Tracking Transparency
+
+[33mcommit 6f90cf17998ae58426c029634fed5ddbd9f225b4[m[33m ([m[1;33mtag: v1.2.7[m[33m)[m
+Merge: 5f4a099 e33b7d7
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Sun Mar 13 03:18:27 2022 +0900
+
+    Merge pull request #48 from sparcs-kaist/dev
+
+[33mcommit e33b7d74b4379e5ae055b42c30192d325cfe46b1[m
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Sun Mar 13 03:03:30 2022 +0900
+
+    bump up version to 1.2.7+17
+
+[33mcommit 2e295075a1f5309756572c5b9957580643fb86d5[m
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Sun Mar 13 02:59:33 2022 +0900
+
+    fix #47 [BUG] 과목후기 강의학기 내림차순 정렬
+
+[33mcommit 849c3c0f3f8e4ef1747e2b422355ca799f55378b[m
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Sun Mar 13 02:37:41 2022 +0900
+
+    fix test samples
+
+[33mcommit 7c9fee4ecf560d10ef9381059adc312356923ef7[m
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Sun Mar 13 02:29:39 2022 +0900
+
+    change reviewTotalWeight from int to double
+    upgrade AGP version
+
+[33mcommit 2abfc70e56105c8a9c57d6ff9809e5e4f128c565[m
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Mon Feb 7 00:59:05 2022 +0900
+
+    update to flutter 2.10
+
+[33mcommit 9d990ab8e211d1013d05bd2764bdf03cba0352af[m
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Sun Feb 6 23:37:23 2022 +0900
+
+    remove unnecessary toSet()
+
+[33mcommit 1f7430ccacb3a5b2067995085cb4f0c6f535d666[m
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Sun Jan 2 00:18:56 2022 +0900
+
+    Fix #46 [BUG] Level(학년) filter doesn't work
+
+[33mcommit c2b582d40703b0b749dc7244528ec81734959e86[m
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Sat Jan 1 23:21:31 2022 +0900
+
+    Update pub package, kotlin, gradle version
+
+[33mcommit 778787a870ed9499a0d4ac8bc4f111591cc9edac[m
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Thu Dec 30 03:33:51 2021 +0900
+
+    Add explanation about 오류 수집 in settings page
+
+[33mcommit c03620241dcecc32ae02540ea571fc6adf99395d[m
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Thu Dec 30 03:14:20 2021 +0900
+
+    Resolve #45 [FEAT] Add 융인 in search filter
+
+[33mcommit 5f4a09957336c9ead6f668907d3bedcfcb2ca3ac[m[33m ([m[1;33mtag: v1.2.6[m[33m)[m
+Merge: e7e7448 89c9256
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Fri Dec 10 05:50:12 2021 +0900
+
+    Merge pull request #44 from sparcs-kaist/deps
+
+[33mcommit 89c9256ccab04c2e06178d55a8eb7f8d030c795c[m
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Fri Dec 10 05:37:57 2021 +0900
+
+    Update flutter version to 2.8 in workflows
+
+[33mcommit 9274bcc0aa5fe724e12b48eab6be26268c99afa1[m
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Fri Dec 10 05:32:38 2021 +0900
+
+    Update app version
+
+[33mcommit 5022b56433a0e0f342d89e734b8c4c7850acf934[m
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Fri Dec 10 05:32:11 2021 +0900
+
+    Change deprecated API
+
+[33mcommit 5fef477bb5275602a48aa49fbc27925c0fd0e746[m
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Fri Dec 10 05:19:27 2021 +0900
+
+    Update flutter and android deps
+
+[33mcommit e7e74486f2a0269c0f883ace066f6f5fd5efa219[m
+Merge: 01ebd0c 1617220
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Fri Dec 10 03:52:40 2021 +0900
+
+    Merge pull request #43 from sparcs-kaist/feat
+
+[33mcommit 1617220b585b48d394537059c46dd0d205b26400[m
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Fri Dec 10 03:39:43 2021 +0900
+
+    Resolve #38
+    [FEAT] Dismiss keyboard if user press other widgets
+
+[33mcommit c8cf0ca3bd17bcddfd5ab758cef48b255f3a0583[m
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Fri Dec 10 00:50:09 2021 +0900
+
+    Refactor ReviewBlock and tests
+
+[33mcommit ab624ca1b6bf2bf6e14d07b4d33977538d652b83[m
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Fri Dec 10 00:15:43 2021 +0900
+
+    Enhance ReviewBlock
+    Report button follows isSimple property
+    Add space between report and like button
+
+[33mcommit fe489e554881a7d9607d084564e7a5d9c34e5fa5[m
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Thu Dec 9 23:58:24 2021 +0900
+
+    Resolve #30
+    ([FEAT] Show notice if there is no review for the lecture)
+    Update Flutter version to 2.8.0
+    Format & Analyze code
+
+[33mcommit 109179fc4f606d8324dcaee8230d34ea7887ed4b[m
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Wed Dec 8 17:36:34 2021 +0900
+
+    Fix #34 ([FEAT] Add Report button in review)
+    
+    Update flutter deps
+    Update android deps, disable deprecated R8
+
+[33mcommit 62896cd6b1cc665a87c2141c170f1dd70457d401[m
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Sat Oct 30 15:23:38 2021 +0900
+
+    Resolve #27 by adding icons
+
+[33mcommit 01ebd0cb174f8cd63eb5aa317534661f68ae3776[m[33m ([m[1;33mtag: v1.2.5[m[33m)[m
+Merge: eaaf295 0b6c1d7
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Tue Oct 19 20:00:10 2021 +0900
+
+    Merge pull request #42 from sparcs-kaist/version
+    
+    Bump version to 1.2.5+15
+
+[33mcommit 0b6c1d75ef827065e57210dfc0d85350e36bb4aa[m
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Tue Oct 19 19:46:44 2021 +0900
+
+    Bump version to 1.2.5+15
+
+[33mcommit eaaf29595a6b76774a5375f726ca3f6ffff3912d[m
+Merge: 8d3c11d 201c43b
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Tue Oct 19 15:14:03 2021 +0900
+
+    Merge pull request #41 from sparcs-kaist/bugfix
+    
+    Fix dart:collection ListMixin.firstWhere error (Add widget tests)
+
+[33mcommit 201c43b6c9d847055359b91591c4474a39d87098[m
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Tue Oct 19 14:58:36 2021 +0900
+
+    Add widget tests for pages
+
+[33mcommit 9e73388f7901c6d484f6aba6fa3e6abefb362bc8[m
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Tue Oct 19 04:13:52 2021 +0900
+
+    Add some widget tests
+
+[33mcommit e93b7af4835808beb8ecd7832d3d0ba1b4654f49[m
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Sat Oct 16 13:58:25 2021 +0900
+
+    Fix dart:collection ListMixin.firstWhere error
+    Create timetable if there is no
+
+[33mcommit 8d3c11df025d8453eb12a50e15444006f7093fe8[m[33m ([m[1;33mtag: v1.2.4[m[33m)[m
+Merge: 6dbec0d 5b0f608
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Wed Sep 22 07:19:38 2021 +0900
+
+    Merge pull request #36 from sparcs-kaist/version
+    
+    Bump up version to 1.2.4+14
+
+[33mcommit 5b0f60836b3553729fffaf93d19e514339d9fe01[m
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Wed Sep 22 07:10:06 2021 +0900
+
+    Bump up version to 1.2.4+14
+
+[33mcommit 6dbec0db397734cb81613960813a4e0224819f74[m[33m ([m[1;33mtag: v1.2.3[m[33m)[m
+Merge: 6270892 be949db
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Wed Sep 22 07:01:42 2021 +0900
+
+    Merge pull request #35 from sparcs-kaist/firebase
+    
+    Add firebase analytics and crashlytics
+
+[33mcommit be949db66fa1a612fa78a35f9a39e7b04e3b9796[m
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Wed Sep 22 06:47:56 2021 +0900
+
+    Add settings page
+
+[33mcommit e52933547fe8615c1a2f144a7957ad5e12044132[m
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Tue Sep 21 01:24:32 2021 +0900
+
+    Add firebase analytics and crashlytics
+
+[33mcommit 627089278608b6513d61e9775ba02964d0651ec9[m
+Merge: fe24ff4 db0c042
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Mon Sep 20 06:08:50 2021 +0900
+
+    Merge pull request #33 from sparcs-kaist/android
+    
+    Update Android SDK and migrate
+
+[33mcommit db0c04200bee91e4ea7cb7fd8ac108c214ae43b6[m
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Mon Sep 20 05:58:40 2021 +0900
+
+    Specify AdoptOpenJDK
+
+[33mcommit 0c501085e3bbe4bf28977891bdefa7f097aa38d4[m
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Mon Sep 20 05:53:01 2021 +0900
+
+    Specify Java version 11 in github actions
+
+[33mcommit 46afc1f0ecbec72c79abb4318aa1b374387ec355[m
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Mon Sep 20 05:42:58 2021 +0900
+
+    Change android package name
+
+[33mcommit 5fc4543511ccd5051f948cfefd166d1ed31249d9[m
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Mon Sep 20 05:33:06 2021 +0900
+
+    Update Android SDK
+
+[33mcommit fe24ff46b87ae847b1c4d1a4560cdd0c9291d477[m
+Merge: 44c88c9 3469878
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Mon Sep 20 04:55:18 2021 +0900
+
+    Merge pull request #32 from sparcs-kaist/cicd
+    
+    Change release drafter author to sboh1214, Add CI environment
+
+[33mcommit 346987836c3520e6142825d97cf5f2faa304e3d3[m
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Mon Sep 20 04:46:58 2021 +0900
+
+    Undo changing actions name
+
+[33mcommit b225ac58c088784cbc3297cc3d7298b6091c4e02[m
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Mon Sep 20 04:42:15 2021 +0900
+
+    Add CI environment on Android Build
+
+[33mcommit 422441268a4446b35484434dfef9344c105e6adb[m
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Mon Sep 20 04:27:42 2021 +0900
+
+    Change release drafter author to sboh1214
+
+[33mcommit 44c88c918f1926671735de7d2bc6e4a8ae3685e7[m[33m ([m[1;33mtag: v1.2.2[m[33m)[m
+Merge: bfac276 074bf9b
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Mon Sep 20 03:21:07 2021 +0900
+
+    Merge pull request #31 from sparcs-kaist/doc-1
+    
+    Update release-drafter.yml
+
+[33mcommit 074bf9b05eb045434f285be759e80de0820164ed[m
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Mon Sep 20 03:10:24 2021 +0900
+
+    Update pubspec.yaml
+
+[33mcommit f06fd22825033cb0fa38ef4e93a574964ca7b9d9[m
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Mon Sep 20 03:07:28 2021 +0900
+
+    Update release-drafter.yml
+
+[33mcommit bfac27624cba27cd0e4eac3997d7c95798922bc6[m
+Merge: 941193d 57cfa5c
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Mon Sep 20 02:43:10 2021 +0900
+
+    Merge pull request #29 from sparcs-kaist/doc
+    
+    Update feature_request.md
+
+[33mcommit 57cfa5c80cb4637cb587aa1be57a841971112f52[m
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Mon Sep 20 02:36:07 2021 +0900
+
+    Update feature_request.md
+
+[33mcommit 941193d07faf64add7e9699dbf051700edeba373[m
+Merge: e606f94 78a4969
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Sun Sep 19 05:22:47 2021 +0900
+
+    Merge pull request #28 from sparcs-kaist/release-drafter
+    
+    Add release drafter, Add PR size label, Check PR type label
+
+[33mcommit 78a4969f44136f5093ce2277709094dec40ee769[m
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Sun Sep 19 05:10:06 2021 +0900
+
+    Add names on pr actions
+
+[33mcommit c8c61a0eb96a1d696fc5dad1e5fb7c5e1b0ff9b7[m
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Sun Sep 19 05:09:04 2021 +0900
+
+    Add pr size/type label adder/checker
+
+[33mcommit e606f949b4c873cb7e83af0454044401696e5676[m
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Sun Sep 19 04:58:10 2021 +0900
+
+    Add release drafter
+
+[33mcommit 55711fee707f463e618b08e52b55dacbad64daf7[m
+Merge: c21644d 43fc08a
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Sun Sep 19 04:48:17 2021 +0900
+
+    Merge pull request #25 from sparcs-kaist/bugfix
+    
+    Fix #23, #11, #26
+
+[33mcommit 43fc08a5de64d5c9b321ba96cf2b89c3d04248f3[m
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Sun Sep 19 04:30:42 2021 +0900
+
+    Fix #26 (Catch firstWhere StateError)
+
+[33mcommit 9ab6b09c205447a8a697a9b831ac0f526ae20c3f[m
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Sun Sep 19 02:19:03 2021 +0900
+
+    Fix #11 (Re-design Timetable Provider)
+
+[33mcommit 9c1bdf9a6e47b1c1e3200ba0af210074a07ec5eb[m
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Thu Sep 16 04:53:20 2021 +0900
+
+    Fix #23
+
+[33mcommit c21644d87574aec636675f79f19bebf523172d28[m[33m ([m[1;33mtag: v1.2.1[m[33m)[m
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Wed Sep 15 01:24:47 2021 +0900
+
+    [1.2.1] Fix #21, Fix SDK Version (#22)
+    
+    * Fix #21
+    
+    * Setup flutter version
+    
+    * Update subosito/flutter-action version
+    
+    * Fix coverage workflows
+    
+    * Remove unnecessary Brightness property
+    
+    * Run format and analyze
+
+[33mcommit 358a37047ba207996053f312c7ead73f6f7136b0[m
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Tue Sep 7 03:44:16 2021 +0900
+
+    Add codecov on pull_request (#20)
+    
+    * Add codecov on pull_request
+    
+    * Add codecov badge
+
+[33mcommit ec90560cb8c9b706dcd2ff6c8526865126678acd[m
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Tue Sep 7 03:27:58 2021 +0900
+
+    Deploy only when push tag (#19)
+
+[33mcommit b4ddbebc3c73e2fbd276dd7a2abee5949fc3bb50[m
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Tue Sep 7 03:06:10 2021 +0900
+
+    Add unit, widget tests, Fix test workflow and gather coverage (#18)
+    
+    * Add unit tests
+    
+    * Fix test and Add coverage workflow
+
+[33mcommit 57e2a01c1da976768876398a71851ee16923b36c[m[33m ([m[1;33mtag: v1.2.0[m[33m)[m
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Sat Sep 4 05:24:56 2021 +0900
+
+    [1.2.0] Migrate null safety (#17)
+    
+    * Migrate null safety
+    
+    * Remove redundant late in models
+    
+    * Remove tests and fix errors
+    
+    * Bump up version to 1.2.0
+
+[33mcommit 82fc647583eb1c8446d7e15a05d90c7e230e6f32[m[33m ([m[1;33mtag: v1.1.1[m[33m)[m
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Mon Aug 23 19:10:36 2021 +0900
+
+    [1.1.1] Fix #10, #13, #15 (#16)
+    
+    * Fix #10 (error because of nullable API response)
+    
+    * Add ITSAppUsesNonExemptEncryption in iOS
+    
+    * Fix #13 (Show label of BottomNavigationBar)
+    
+    * Fix #15 (Add appbar in login_page)
+    
+    * Apply API change (review_total_weight)
+    
+    * Bump up version number
+
+[33mcommit ad3592c98748fe41894e0c514d99d8008ab17151[m
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Tue Aug 17 01:35:23 2021 +0900
+
+    Fix android deploy (#14)
+    
+    * Test android deploy
+    
+    * Fix deploy workflow
+    
+    * Fix deploy
+    
+    * Remove production env on pull_request
+    Edit README
+
+[33mcommit a45979d3c338192fb781e8906820670260571c4e[m
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Sat Aug 14 16:43:44 2021 +0900
+
+    [1.1.0] Change package name (#7)
+    
+    * Change bundle identifier
+    
+    * Fix #6
+    
+    * Add ios icon assets
+    Add NS*UsageDescription plist, aps entitlement
+    Define global platform of Pod
+    
+    * Bump build number to re-submit test flight
+    
+    * Change contact info
+    
+    * Fix email button in aboutDialog
+    
+    * Add Android AAB deploy
+
+[33mcommit 78332d318767484cf097074f3cc6d5e2de25d27c[m
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Wed Aug 11 02:33:34 2021 +0900
+
+    Update issue templates (#12)
+    
+    * Update issue templates
+    
+    * Update feature_request.md
+
+[33mcommit a15ba3c9d2b68374c6346aa3c692d29aa6ef1353[m
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Thu Aug 5 15:16:14 2021 +0900
+
+    Add Integration Test (#5)
+    
+    * Add Integration Test
+    
+    * Add integration test workflow
+    
+    * Remove deprecated 'xcrun instruments -s'
+    
+    * Fix script about starting simulator
+    
+    * Parse last column(UDID) in devices
+    Format
+    
+    * Fix shell
+    
+    * Finally fix of ios integration test
+    
+    * Upgrade version of reactivecircus/android-emulator-runner
+    
+    * Clarify device name
+    
+    * Fix argument location
+    
+    * Fix device name
+
+[33mcommit a9448b8b60d1e1582187e38295aaa99d0662f208[m
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Fri Jul 9 14:26:54 2021 +0900
+
+    Add Widget Test (#4)
+
+[33mcommit b2b48f3c9c42e15b0c1ea38ef99b7c1bed645e3d[m
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Fri Jul 9 04:25:21 2021 +0900
+
+    Add unit test (#3)
+    
+    * Add unit test
+    
+    * Add test workflow
+    
+    * Calculate test coverage
+    
+    * Add installing lcov
+    
+    * Add tests about models, Add pub equatable
+
+[33mcommit d4bb7afb9ed27bd2943c3cc9eaa8cc15031e12ff[m
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Sat Jul 3 14:28:22 2021 +0900
+
+    Change default branch to main
+
+[33mcommit 90a2e7d849e4cd8bbbffedf62a33c72c4feabd0b[m
+Author: Seungbin Oh <sboh1214@gmail.com>
+Date:   Sat Jul 3 01:00:02 2021 +0900
+
+    Add CI with GitHub Actions (#2)
+    
+    * Add build CI
+    
+    * Fix on condition
+    
+    * Change to master
+    
+    * Upgrade deps
+    
+    * Add android keystore
+    
+    * Add lint workflow
+    
+    * Optimize workflow
+    
+    * Add deploy workflow
+
+[33mcommit e26aafa6367a11c9d4f7fc6299440bbcfe96d378[m
+Author: Jaeyong Sung <jaeyong0201@gmail.com>
+Date:   Fri Jul 2 18:41:14 2021 +0900
+
+    Changed ios status bar color (#1)
+
+[33mcommit f93da62a1f66aea74277ca78d4092e89c1edff5e[m
+Author: Junghoon Noh <jungnoh.dev@gmail.com>
+Date:   Thu Mar 11 13:43:30 2021 +0900
+
+    Update README for archiving
+
+[33mcommit 9181d1582d48f1821b890598789c862eed24684a[m[33m ([m[1;33mtag: v1.0.1[m[33m)[m
+Author: 박현우 <ghwhsbsb123@gmail.com>
+Date:   Wed Jan 13 14:14:16 2021 +0900
+
+    Update to new API specification and Fix some bugs.
+
+[33mcommit 25fd5497f38fd73d396ccfb7c7adaa198b727ab7[m[33m ([m[1;33mtag: v1.0.0[m[33m)[m
+Author: 박현우 <ghwhsbsb123@gmail.com>
+Date:   Tue Jan 5 19:30:24 2021 +0900
+
+    Publish v1.0.0
+
+[33mcommit e01c62432331a57e31e1935c8c3cfa3222ba2dad[m
+Author: 박현우 <ghwhsbsb123@gmail.com>
+Date:   Thu Dec 31 08:08:26 2020 +0900
+
+    Add user's lectures in user layer and Implement review like.
+
+[33mcommit 8ee5cdd12d75a33660088f3d57c6f2623ca6deb4[m
+Author: 박현우 <ghwhsbsb123@gmail.com>
+Date:   Wed Dec 30 15:31:24 2020 +0900
+
+    Implement review write.
+
+[33mcommit fb3beb774b6436428be6aec7f52cbffab998cbfa[m
+Author: 박현우 <ghwhsbsb123@gmail.com>
+Date:   Wed Dec 30 08:54:40 2020 +0900
+
+    Implement additional features like orderby and multi-select.
+
+[33mcommit b71cc6182f190224020dcfcd4c9bb35bfa828374[m
+Author: 박현우 <ghwhsbsb123@gmail.com>
+Date:   Tue Dec 29 05:46:20 2020 +0900
+
+    Refactoring and Prepare for publish.
+
+[33mcommit 3468a508b0e247a7f64e8733f22bc5b39cb022e7[m
+Author: 박현우 <ghwhsbsb123@gmail.com>
+Date:   Sun Dec 27 06:56:57 2020 +0900
+
+    Redesign UI and Refactoring codes.
+
+[33mcommit b1624f9d2e26c7a2095430fd0288367b207fc17b[m
+Author: 박현우 <ghwhsbsb123@gmail.com>
+Date:   Sat Dec 26 06:42:33 2020 +0900
+
+    Implementing course detail layer and Refactoring codes.
+
+[33mcommit db22a5dc3a95ce66fd9354529ba47a14b7d9e8e0[m
+Author: 박현우 <ghwhsbsb123@gmail.com>
+Date:   Thu Dec 24 18:47:35 2020 +0900
+
+    Implement dictionary page and Refactoring some codes and design.
+
+[33mcommit 65196f14fd79843ee97e06124184bdf6f946a105[m
+Author: 박현우 <ghwhsbsb123@gmail.com>
+Date:   Thu Dec 24 02:38:12 2020 +0900
+
+    Implement academic schedule.
+
+[33mcommit 7fd531fcb81fb0f386f193d9a9b5ec1c9e6078f6[m
+Author: 박현우 <ghwhsbsb123@gmail.com>
+Date:   Thu Dec 24 00:15:10 2020 +0900
+
+    Implement today's timetable in main page.
+
+[33mcommit 810ea57668cd5896f5a57e4a7aa8127b2da055e2[m
+Author: 박현우 <ghwhsbsb123@gmail.com>
+Date:   Wed Dec 23 03:19:21 2020 +0900
+
+    Refactoring and implement review page.
+
+[33mcommit 99df92288ba62bc57e8f8336d1692cabf1ea1282[m
+Author: 박현우 <ghwhsbsb123@gmail.com>
+Date:   Tue Dec 22 21:59:08 2020 +0900
+
+    Implement image export.
+
+[33mcommit dc1050782540893bfa36f39f8ed1ad65be64d927[m
+Author: 박현우 <ghwhsbsb123@gmail.com>
+Date:   Sat Dec 19 21:27:34 2020 +0900
+
+    Implement exam timetable.
+
+[33mcommit 98f75aea81bc424a6de09c61ea9a0233efde376b[m
+Author: 박현우 <ghwhsbsb123@gmail.com>
+Date:   Sat Dec 19 15:46:00 2020 +0900
+
+    Refactoring and Implement additional small features.
+
+[33mcommit 61bc77d1db0a958223fe941a0b5d4482f025fad8[m
+Author: 박현우 <ghwhsbsb123@gmail.com>
+Date:   Fri Dec 18 16:43:50 2020 +0900
+
+    Refactoring models.
+
+[33mcommit eb302932bd46162fde6ad2e6f1de66ab7a9165cf[m
+Author: 박현우 <ghwhsbsb123@gmail.com>
+Date:   Fri Dec 18 16:16:38 2020 +0900
+
+    Change some UI and codes in lecture search.
+
+[33mcommit 2653e18e3bc5b90c7ffa965d04fb253cc9130e44[m
+Author: 박현우 <ghwhsbsb123@gmail.com>
+Date:   Fri Dec 18 14:32:10 2020 +0900
+
+    Update Provider codes.
+
+[33mcommit 8c8930be26e5ccb1f5f0ac589fb3125d2e23cf11[m
+Author: 박현우 <ghwhsbsb123@gmail.com>
+Date:   Fri Dec 18 11:54:07 2020 +0900
+
+    Implement filter in lecture search.
+
+[33mcommit c31dc17bd7e3bee4061af695230e0aebbb216c9d[m
+Author: 박현우 <ghwhsbsb123@gmail.com>
+Date:   Thu Dec 17 23:04:31 2020 +0900
+
+    Change in-app browser.
+
+[33mcommit 7973cc134c5e369d088e43072dcf361f6a189d8d[m
+Author: 박현우 <ghwhsbsb123@gmail.com>
+Date:   Thu Dec 17 22:15:34 2020 +0900
+
+    Change some design codes.
+
+[33mcommit 983697656537f71aa23b71dc82038f313c419422[m
+Author: 박현우 <ghwhsbsb123@gmail.com>
+Date:   Fri Sep 11 16:07:16 2020 +0900
+
+    Implement timetable update.
+
+[33mcommit d3950f5261d053d6c141157d38e48e4b7cfacea6[m
+Author: 박현우 <ghwhsbsb123@gmail.com>
+Date:   Thu Aug 6 10:27:55 2020 +0900
+
+    Reimplement lecture search.
+
+[33mcommit 62be6fd65104ffed344a5e71a75e4253ab37259d[m
+Author: 박현우 <ghwhsbsb123@gmail.com>
+Date:   Wed Aug 5 16:04:45 2020 +0900
+
+    Update WebView.
+
+[33mcommit 3926c8c5ff1debaeef9f9120c3c5e0057d7d0931[m
+Author: 박현우 <ghwhsbsb123@gmail.com>
+Date:   Wed Mar 18 16:48:16 2020 +0900
+
+    Implement lecture search.
+
+[33mcommit 97fcdbcbf43c94a02c69d0b9df198810f91a7a31[m
+Author: 박현우 <ghwhsbsb123@gmail.com>
+Date:   Tue Mar 17 19:37:15 2020 +0900
+
+    Add fade effect on timetable.
+
+[33mcommit 85f386bb07fa26db78fce488f3e0c69a47555538[m
+Author: 박현우 <ghwhsbsb123@gmail.com>
+Date:   Tue Mar 17 18:47:21 2020 +0900
+
+    Use ProxyProvider at InfoModel.
+
+[33mcommit e5e685670b53785364cb67e5a1233acb03226b99[m
+Author: 박현우 <ghwhsbsb123@gmail.com>
+Date:   Sat Feb 29 23:09:38 2020 +0900
+
+    Implement TimetableSummary and cleanup some code.
+
+[33mcommit bda648197ad5f19d9b5220d329b13e95df68697d[m
+Author: 박현우 <ghwhsbsb123@gmail.com>
+Date:   Fri Feb 28 00:04:57 2020 +0900
+
+    Cleanup some layout.
+
+[33mcommit 2d20941154b1bace2cf3adcff426e95c5e554c4f[m
+Author: 박현우 <ghwhsbsb123@gmail.com>
+Date:   Thu Feb 27 23:25:54 2020 +0900
+
+    Implement backdrop.
+
+[33mcommit 7f01aca7261ca36dd5d102973a16b9e75d777336[m
+Author: 박현우 <ghwhsbsb123@gmail.com>
+Date:   Thu Feb 27 00:09:26 2020 +0900
+
+    Implement reviews at LectureDetailPage.
+
+[33mcommit b9fb10ad2916753cafd2229fb6b77bb995c9ebb8[m
+Author: 박현우 <ghwhsbsb123@gmail.com>
+Date:   Wed Feb 26 21:38:59 2020 +0900
+
+    Make CustomAppBar extends AppBar.
+
+[33mcommit 0c93163f8269113e93b7281a7064972c1582c539[m
+Author: 박현우 <ghwhsbsb123@gmail.com>
+Date:   Thu Feb 20 00:50:29 2020 +0900
+
+    Implement CourseDetailPage.
+
+[33mcommit 46cb7b49087f63894c2c814dbe8db38dc503bc07[m
+Author: 박현우 <ghwhsbsb123@gmail.com>
+Date:   Fri Feb 14 01:35:55 2020 +0900
+
+    Remove 8AM in timetable.
+
+[33mcommit 37c31087ba164e6d1c89ba23208776cf8dcbd8b3[m
+Author: 박현우 <ghwhsbsb123@gmail.com>
+Date:   Fri Feb 14 01:34:57 2020 +0900
+
+    Change settings dialog to bottom sheet.
+
+[33mcommit 09a0c86c2d13e38233f0f5c7b00fcfffb4cca159[m
+Author: 박현우 <ghwhsbsb123@gmail.com>
+Date:   Fri Feb 14 00:52:16 2020 +0900
+
+    Change timetable layout.
+
+[33mcommit 0e1e927d789105d751900189dafa6aa5943ee3e6[m
+Author: 박현우 <ghwhsbsb123@gmail.com>
+Date:   Thu Feb 13 20:05:47 2020 +0900
+
+    Add settings button.
+
+[33mcommit c65d880f1238dbedb1793b737118072e4b6e422a[m
+Author: 박현우 <ghwhsbsb123@gmail.com>
+Date:   Mon Feb 10 23:50:55 2020 +0900
+
+    Implement table duplicate and delete in TimetableTabs.
+
+[33mcommit a3b4eca33346a3d75c71c7d6264af88953f5e5af[m
+Author: 박현우 <ghwhsbsb123@gmail.com>
+Date:   Mon Feb 10 23:20:04 2020 +0900
+
+    Implement timetable delete.
+
+[33mcommit daa2ddc724a7bc5ec88f25312908b4b29eeb24eb[m
+Author: 박현우 <ghwhsbsb123@gmail.com>
+Date:   Mon Feb 10 23:03:19 2020 +0900
+
+    Implement table duplicate and cleanup TimetablePage code.
+
+[33mcommit 514cc0d6af0cffd08b50ab2f876875478055a9bd[m
+Author: 박현우 <ghwhsbsb123@gmail.com>
+Date:   Mon Feb 10 18:58:40 2020 +0900
+
+    Add semester picker on SemesterLeftRight.
+
+[33mcommit e67ab696bc63f1772d5fee5688abbff4fd67bd28[m
+Author: 박현우 <ghwhsbsb123@gmail.com>
+Date:   Mon Feb 10 01:51:58 2020 +0900
+
+    Implement table create.
+
+[33mcommit ea3b9b4f7f9cb04ccef146c1d1311cc6fee2b063[m
+Author: 박현우 <ghwhsbsb123@gmail.com>
+Date:   Mon Feb 10 01:06:40 2020 +0900
+
+    Add SemesterLeftRight.
+
+[33mcommit e130d1154a5f79f92f076bd1ca6c313f3c5d4d0e[m
+Author: 박현우 <ghwhsbsb123@gmail.com>
+Date:   Sun Feb 9 23:24:02 2020 +0900
+
+    Add TimetableTab.
+
+[33mcommit d243114d870920e7d953f161deabf1b9cd61cbb2[m
+Author: 박현우 <ghwhsbsb123@gmail.com>
+Date:   Sun Feb 9 21:12:17 2020 +0900
+
+    Add TimetableBlock on Timetable.
+
+[33mcommit 22f34c0345154a11a17256832be2f744845c2d3d[m
+Author: 박현우 <ghwhsbsb123@gmail.com>
+Date:   Sat Feb 8 21:21:21 2020 +0900
+
+    Add TimetableTable widget.
+
+[33mcommit eb437356e41d47f10d04393dbeef949d4ceec9ee[m
+Author: 박현우 <ghwhsbsb123@gmail.com>
+Date:   Sat Feb 8 16:02:07 2020 +0900
+
+    Implement timetable and move user business logic to InfoModel.
+
+[33mcommit 961043dda9a680d11cc228de05fc70a4cec6d407[m
+Author: 박현우 <ghwhsbsb123@gmail.com>
+Date:   Sat Feb 8 00:23:42 2020 +0900
+
+    Cleanup LoginPage code.
+
+[33mcommit ebc43bc6c66c69c3d267b89797cfa0f36c9794b8[m
+Author: 박현우 <ghwhsbsb123@gmail.com>
+Date:   Sat Feb 8 00:02:23 2020 +0900
+
+    Remove leading at CustomAppBar.
+
+[33mcommit 50b225c4dabe00b0bdfa3910dfae830fdc196937[m
+Author: 박현우 <ghwhsbsb123@gmail.com>
+Date:   Fri Feb 7 22:42:50 2020 +0900
+
+    Extract CustomAppBar and Create UserPage.
+
+[33mcommit 76a5d916b7675bb1961a4aabadae905b4786631a[m
+Author: 박현우 <ghwhsbsb123@gmail.com>
+Date:   Fri Feb 7 21:46:07 2020 +0900
+
+    Add User and other models.
+
+[33mcommit e18efae530959df8ef9b5503de0bc3898b269bcd[m
+Author: 박현우 <ghwhsbsb123@gmail.com>
+Date:   Fri Feb 7 20:40:35 2020 +0900
+
+    Create ThemeData.
+
+[33mcommit 09e680d876b3a771bb627997250c77ff344e0a7d[m
+Author: 박현우 <ghwhsbsb123@gmail.com>
+Date:   Fri Feb 7 20:25:01 2020 +0900
+
+    Add CircularProgressIndicator in LoginPage.
+
+[33mcommit a577491b894471ceb5a0aa7b56f21f6f19c578c3[m
+Author: 박현우 <ghwhsbsb123@gmail.com>
+Date:   Fri Feb 7 20:09:24 2020 +0900
+
+    Implement tabs.
+
+[33mcommit 0430a5c1948eb6f1b7c6b8ccbc551f987bbf873c[m
+Author: 박현우 <ghwhsbsb123@gmail.com>
+Date:   Fri Feb 7 19:33:17 2020 +0900
+
+    Basic main page design.
+
+[33mcommit 9d1d530af7a0f8223526677abd5764b255a7f0cd[m
+Author: 박현우 <ghwhsbsb123@gmail.com>
+Date:   Fri Feb 7 18:49:24 2020 +0900
+
+    Init Provider.
+
+[33mcommit 73a2c9cce090d0be31ad78ed26372f08640f94ff[m
+Author: 박현우 <ghwhsbsb123@gmail.com>
+Date:   Fri Feb 7 00:54:03 2020 +0900
+
+    Implement login auth.
+
+[33mcommit 5495a9222b22ae0a03e3560877aaebedbbb5ab9c[m
+Author: Winrobrine <ghwhsbsb123@gmail.com>
+Date:   Fri Feb 7 00:28:38 2020 +0900
+
+    Create LICENSE
+
+[33mcommit 429f736750b3e1cd943bf19f125b20a82044a618[m
+Author: 박현우 <ghwhsbsb123@gmail.com>
+Date:   Fri Feb 7 00:27:48 2020 +0900
+
+    Init document.
+
+[33mcommit 75eed67aefa9e0a58f07057269ea79bd9b87c0be[m
+Author: 박현우 <ghwhsbsb123@gmail.com>
+Date:   Fri Feb 7 00:24:03 2020 +0900
+
+    Init commit.
