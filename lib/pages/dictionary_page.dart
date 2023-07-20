@@ -25,46 +25,10 @@ class _DictionaryPageState extends State<DictionaryPage> {
   Widget build(BuildContext context) {
     final searchModel = context.watch<CourseSearchModel>();
 
-    return BaseLayout(
-        middle: SizedBox(
-            width: MediaQuery.of(context).size.width,
-            child: GestureDetector(
-              behavior: HitTestBehavior.opaque,
-              onTap: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) =>
-                        CourseSearchPage(openKeyboard: false)));
-              },
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                      width: 24,
-                      height: 24,
-                      child: Center(
-                        child: Icon(
-                          CustomIcons.search,
-                          color: PRIMARY_COLOR,
-                          size: 24,
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      width: 8,
-                    ),
-                    Flexible(
-                      flex: 1,
-                      child:
-                          context.watch<CourseSearchModel>().courseSearchquery,
-                    )
-                  ],
-                ),
-              ),
-            )),
-        body: Builder(builder: (context) {
+    return Container(
+      color: Colors.white,
+      child: Builder(
+        builder: (context) {
           if (searchModel.isSearching) {
             return Center(
               child: const CircularProgressIndicator(),
@@ -118,6 +82,8 @@ class _DictionaryPageState extends State<DictionaryPage> {
               ),
             );
           }
-        }));
+        },
+      ),
+    );
   }
 }
