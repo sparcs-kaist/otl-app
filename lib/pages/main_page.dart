@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:otlplus/constants/text_styles.dart';
+import 'package:otlplus/utils/build_page_route.dart';
 import 'package:provider/provider.dart';
 import 'package:otlplus/constants/color.dart';
 import 'package:otlplus/models/semester.dart';
@@ -53,7 +54,7 @@ class MainPage extends StatelessWidget {
               ),
               Column(
                 children: <Widget>[
-                  _buildTextButtons(),
+                  _buildTextButtons(context),
                   // const SizedBox(height: 8.0),
                   _buildLogo(),
                   const SizedBox(height: 8.0),
@@ -67,7 +68,7 @@ class MainPage extends StatelessWidget {
     );
   }
 
-  Widget _buildTextButtons() {
+  Widget _buildTextButtons(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -76,7 +77,9 @@ class MainPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(context, buildPrivacyPageRoute());
+                },
                 child: Text(
                   '개인정보취급방침',
                   style: labelRegular.copyWith(color: gray75),

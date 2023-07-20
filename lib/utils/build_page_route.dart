@@ -4,6 +4,7 @@ import 'package:otlplus/pages/course_search_page.dart';
 import 'package:otlplus/pages/lecture_detail_page.dart';
 import 'package:otlplus/pages/liked_review_page.dart';
 import 'package:otlplus/pages/my_review_page.dart';
+import 'package:otlplus/pages/privacy_page.dart';
 import 'package:otlplus/pages/settings_page.dart';
 import 'package:otlplus/pages/user_page.dart';
 
@@ -118,6 +119,24 @@ Route buildLikedReviewPageRoute() {
 Route buildCourseSearchPageRoute() {
   return PageRouteBuilder(
     pageBuilder: (_, animation, __) => CourseSearchPage(openKeyboard: false),
+    transitionsBuilder: (_, animation, __, child) {
+      const begin = Offset(0.0, 1.0);
+      const end = Offset.zero;
+      final curveTween = CurveTween(curve: Curves.ease);
+      final tween = Tween(begin: begin, end: end).chain(curveTween);
+      final offsetAnimation = animation.drive(tween);
+
+      return SlideTransition(
+        position: offsetAnimation,
+        child: child,
+      );
+    },
+  );
+}
+
+Route buildPrivacyPageRoute() {
+  return PageRouteBuilder(
+    pageBuilder: (_, animation, __) => PrivacyPage(),
     transitionsBuilder: (_, animation, __, child) {
       const begin = Offset(0.0, 1.0);
       const end = Offset.zero;
