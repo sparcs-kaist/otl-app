@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:otlplus/utils/build_page_route.dart';
-import 'package:otlplus/constants/color.dart';
-import 'package:otlplus/constants/icon.dart';
 import 'package:otlplus/providers/course_detail_model.dart';
 import 'package:otlplus/providers/course_search_model.dart';
-import 'package:otlplus/widgets/base_layout.dart';
 import 'package:otlplus/widgets/course_block.dart';
-import 'package:otlplus/pages/course_search_page.dart';
 import 'package:provider/provider.dart';
 
 class DictionaryPage extends StatefulWidget {
