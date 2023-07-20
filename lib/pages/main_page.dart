@@ -99,7 +99,9 @@ class MainPage extends StatelessWidget {
             children: [
               const SizedBox(width: 16.0),
               TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(context, buildPeoplePageRoute());
+                },
                 child: Text(
                   '만든 사람들',
                   style: labelRegular.copyWith(color: gray75),
