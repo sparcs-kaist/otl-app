@@ -185,16 +185,18 @@ class _OTLHomeState extends State<OTLHome> with SingleTickerProviderStateMixin {
             CustomIcons.search,
             color: PRIMARY_COLOR,
           ),
-          title: GestureDetector(
-            behavior: HitTestBehavior.opaque,
-            onTap: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => CourseSearchPage(openKeyboard: false),
+          title: Row(
+            children: [
+              Expanded(
+                child: GestureDetector(
+                  behavior: HitTestBehavior.opaque,
+                  onTap: () {
+                    Navigator.of(context).push(buildCourseSearchPageRoute());
+                  },
+                  child: context.watch<CourseSearchModel>().courseSearchquery,
                 ),
-              );
-            },
-            child: context.watch<CourseSearchModel>().courseSearchquery,
+              )
+            ],
           ),
         ),
       ),
