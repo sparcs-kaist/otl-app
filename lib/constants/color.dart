@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+// old color styles
 const PRIMARY_COLOR = Color(0xFFE54C65);
 const BACKGROUND_COLOR = Color(0xFFF9F0F0);
 const BLOCK_COLOR = Color(0xFFEEEEEE);
@@ -29,3 +30,19 @@ const TIMETABLE_BLOCK_COLORS = [
   Color(0xFFEBCAEF),
   Color(0xFFF4BADB),
 ];
+
+// new color styles
+const gray0 = Color(0xFF000000);
+const gray3 = Color(0xFF333333);
+const gray5 = Color(0xFF555555);
+const gray6 = Color(0xFF666666);
+const gray75 = Color(0xFF757575);
+const grayA = Color(0xFFAAAAAA);
+const grayD = Color(0xFFDDDDDD);
+const grayE = Color(0xFFEEEEEE);
+const grayF = Color(0xFFFFFFFF);
+
+const pinksLight = Color(0xFFF9F0F0);
+const pinksSub = Color(0xFFF6C5CD);
+const pinksMain = Color(0xFFE54C65);
+const pinksSelected = Color(0xFFE54C64);

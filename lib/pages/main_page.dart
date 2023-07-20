@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:otlplus/constants/text_styles.dart';
 import 'package:provider/provider.dart';
 import 'package:otlplus/constants/color.dart';
 import 'package:otlplus/models/semester.dart';
@@ -32,31 +33,100 @@ class MainPage extends StatelessWidget {
           borderRadius: BorderRadius.vertical(top: Radius.circular(16.0)),
         ),
         child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 4.0),
-          child: SingleChildScrollView(
-            child: Column(
-              children: <Widget>[
-                _buildTimetable(infoModel.user, semester, now),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                  child: const Divider(color: DIVIDER_COLOR, height: 1.0),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 12.0,
-                    vertical: 8.0,
-                  ),
-                  child: _buildSchedule(now, infoModel.currentSchedule!),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                  child: const Divider(color: DIVIDER_COLOR, height: 1.0),
-                ),
-              ],
-            ),
+          padding: const EdgeInsets.symmetric(
+            horizontal: 16.0,
+            vertical: 12.0,
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                children: <Widget>[
+                  _buildTimetable(infoModel.user, semester, now),
+                  const SizedBox(height: 24.0),
+                  const Divider(color: grayD, height: 1.0),
+                  const SizedBox(height: 24.0),
+                  _buildSchedule(now, infoModel.currentSchedule!),
+                  const SizedBox(height: 24.0),
+                  const Divider(color: grayD, height: 1.0),
+                ],
+              ),
+              Column(
+                children: <Widget>[
+                  _buildTextButtons(),
+                  // const SizedBox(height: 8.0),
+                  _buildLogo(),
+                  const SizedBox(height: 8.0),
+                  _buildCopyRight(),
+                ],
+              )
+            ],
           ),
         ),
       ),
+    );
+  }
+
+  Widget _buildTextButtons() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Expanded(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              TextButton(
+                onPressed: () {},
+                child: Text(
+                  '개인정보취급방침',
+                  style: labelRegular.copyWith(color: gray75),
+                ),
+              ),
+              const SizedBox(width: 16.0),
+            ],
+          ),
+        ),
+        Text(
+          '|',
+          style: labelRegular.copyWith(color: gray75),
+        ),
+        Expanded(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              const SizedBox(width: 16.0),
+              TextButton(
+                onPressed: () {},
+                child: Text(
+                  '만든 사람들',
+                  style: labelRegular.copyWith(color: gray75),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildLogo() {
+    return Image.asset(
+      "assets/sparcs.png",
+      height: 27,
+    );
+  }
+
+  Widget _buildCopyRight() {
+    return Text.rich(
+      TextSpan(
+        style: labelRegular.copyWith(color: gray75),
+        children: <TextSpan>[
+          TextSpan(text: 'Copyright © 2016-2023, SPARCS OTL Team.'),
+          TextSpan(text: '\n'),
+          TextSpan(text: 'All rights reserved.'),
+        ],
+      ),
+      textAlign: TextAlign.center,
     );
   }
 
@@ -71,12 +141,12 @@ class MainPage extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
-        const SizedBox(height: 4.0),
         Text.rich(
           TextSpan(
-            style: const TextStyle(fontSize: 12.0),
+            style: bodyRegular,
             children: <TextSpan>[
               TextSpan(
+                style: titleRegular,
                 // ignore: unnecessary_null_comparison
                 text: (currentSchedule == null)
                     ? "main.no_info".tr()
@@ -85,23 +155,19 @@ class MainPage extends StatelessWidget {
                         hours.toString(),
                         minutes.toString()
                       ]),
-                style: const TextStyle(fontSize: 18.0),
               ),
               const TextSpan(text: "\n"),
               TextSpan(
+                style: bodyBold,
                 text:
                     // ignore: unnecessary_null_comparison
                     (currentSchedule == null) ? "-" : currentSchedule["title"],
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  height: 1.3,
-                ),
               ),
               const TextSpan(text: " "),
               TextSpan(
+                style: bodyBold,
                 // ignore: unnecessary_null_comparison
                 text: (currentSchedule == null) ? "" : currentSchedule["name"],
-                style: const TextStyle(fontWeight: FontWeight.bold),
               ),
               const TextSpan(text: " "),
               TextSpan(
@@ -115,22 +181,19 @@ class MainPage extends StatelessWidget {
           ),
           textAlign: TextAlign.center,
         ),
-        const SizedBox(height: 4.0),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: <Widget>[
-            InkWell(
-              onTap: () => launchUrl(Uri.https("cais.kaist.ac.kr", "")),
-              child: Text(
-                "main.goto_cais".tr(),
-                style: const TextStyle(
-                  color: PRIMARY_COLOR,
-                  fontSize: 11.0,
-                ),
-              ),
-            ),
-          ],
-        ),
+        // const SizedBox(height: 4.0),
+        // Row(
+        //   mainAxisAlignment: MainAxisAlignment.end,
+        //   children: <Widget>[
+        //     TextButton(
+        //       onPressed: () => launchUrl(Uri.https("cais.kaist.ac.kr", "")),
+        //       child: Text(
+        //         "main.goto_cais".tr(),
+        //         style: labelRegular.copyWith(color: pinksMain),
+        //       ),
+        //     ),
+        //   ],
+        // ),
       ],
     );
   }
@@ -143,8 +206,7 @@ class MainPage extends StatelessWidget {
         .toList();
     Timetable timetable = Timetable(id: 0, lectures: myLecturesList);
     return Container(
-      height: 90,
-      padding: const EdgeInsets.all(8.0),
+      height: 76,
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         child: TodayTimetable(
