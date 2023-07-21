@@ -158,6 +158,7 @@ class CourseSearchModel extends ChangeNotifier {
         TextSpan(
           style: bodyRegular.copyWith(color: grayA),
           children: [
+            TextSpan(text: '"$_courseSearchText"'),
             TextSpan(
               text: _courseSearchText.isEmpty ? '' : '"$_courseSearchText"',
             ),
