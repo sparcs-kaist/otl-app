@@ -9,7 +9,7 @@ PreferredSizeWidget buildAppBar(
   bool isActions,
 ) {
   return AppBar(
-    title: Text(title, style: bodyBold),
+    title: Text(title, style: titleBold),
     leading: isLeading
         ? IconButton(
             onPressed: () => Navigator.pop(context),

@@ -120,7 +120,7 @@ Route buildLikedReviewPageRoute() {
 
 Route buildCourseSearchPageRoute() {
   return PageRouteBuilder(
-    pageBuilder: (_, animation, __) => CourseSearchPage(openKeyboard: false),
+    pageBuilder: (_, animation, __) => CourseSearchPage(openKeyboard: true),
     transitionsBuilder: (_, animation, __, child) {
       const begin = Offset(1.0, 0.0);
       const end = Offset.zero;

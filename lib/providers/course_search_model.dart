@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:otlplus/constants/color.dart';
+import 'package:otlplus/constants/text_styles.dart';
 import 'package:otlplus/constants/url.dart';
 import 'package:otlplus/dio_provider.dart';
 import 'package:otlplus/models/filter.dart';
@@ -68,11 +70,11 @@ class CourseSearchModel extends ChangeNotifier {
       [
         CodeLabelPair(code: "100", label: "100번"),
         CodeLabelPair(code: "200", label: "200번"),
-        CodeLabelPair(code: "300", label: "300번")
+        CodeLabelPair(code: "300", label: "300번"),
+        CodeLabelPair(code: "400", label: "400번"),
       ],
       [
-        CodeLabelPair(code: "400", label: "400번"),
-        CodeLabelPair(code: "ETC", label: "500번 이상")
+        CodeLabelPair(code: "ETC", label: "기타"),
       ]
     ]),
     // "orders": {
@@ -131,12 +133,10 @@ class CourseSearchModel extends ChangeNotifier {
   bool _isSearching = false;
   bool get isSearching => _isSearching;
 
-  Text _courseSearchquery = Text("과목명, 교수님 성함 등을 검색해 보세요",
-      style: TextStyle(
-        color: Color(0xFFAAAAAA),
-        fontSize: 16,
-        height: 1.2,
-      ));
+  Text _courseSearchquery = Text(
+    "과목명, 교수님 성함 등을 검색해 보세요.",
+    style: bodyRegular.copyWith(color: grayA),
+  );
   Text get courseSearchquery => _courseSearchquery;
   void updateCourseSearchquery() {
     List<String> _selectedFilters = (_courseFilter.map((k, v) => MapEntry(
@@ -149,26 +149,23 @@ class CourseSearchModel extends ChangeNotifier {
                 .where((i) => i.selected == true)
                 .map((i) => i.label)))).values.expand((i) => i).toList();
     if (_selectedFilters.length == 0 && _courseSearchText.length == 0) {
-      _courseSearchquery = Text("과목명, 교수님 성함 등을 검색해 보세요",
-          style: TextStyle(
-            color: Color(0xFFAAAAAA),
-            fontSize: 16,
-            height: 1.2,
-          ));
+      _courseSearchquery = Text(
+        "과목명, 교수님 성함 등을 검색해 보세요.",
+        style: bodyRegular.copyWith(color: grayA),
+      );
     } else {
       _courseSearchquery = Text.rich(
         TextSpan(
-          style: TextStyle(fontSize: 14, height: 1.2, letterSpacing: 0.15),
+          style: bodyRegular.copyWith(color: grayA),
           children: [
+            TextSpan(text: '"$_courseSearchText"'),
             TextSpan(
-                text: _courseSearchText,
-                style: TextStyle(
-                    fontWeight: FontWeight.bold, color: Colors.black)),
-            TextSpan(style: TextStyle(color: Color(0xFFAAAAAA)), children: [
-              if (_selectedFilters.length > 0 && _courseSearchText.length > 0)
-                TextSpan(text: ", "),
-              TextSpan(text: _selectedFilters.join(", ")),
-            ])
+              children: [
+                if (_selectedFilters.length > 0 && _courseSearchText.length > 0)
+                  TextSpan(text: ", "),
+                TextSpan(text: _selectedFilters.join(", ")),
+              ],
+            )
           ],
         ),
         maxLines: 1,

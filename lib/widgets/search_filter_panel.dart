@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:otlplus/constants/color.dart';
+import 'package:otlplus/constants/text_styles.dart';
 import 'package:otlplus/models/filter.dart';
 import 'dart:math' as math;
 
@@ -20,35 +22,35 @@ class _SearchFilterPanelState extends State<SearchFilterPanel> {
   final _scrollController = ScrollController();
   @override
   Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: BorderRadius.all(Radius.circular(8)),
-      child: ColoredBox(
-        color: Colors.white,
-        child: Scrollbar(
-          controller: _scrollController,
-          child: ListView.separated(
-              controller: _scrollController,
-              itemCount: widget.filter.entries.length,
-              shrinkWrap: true,
-              padding: EdgeInsets.all(16),
-              itemBuilder: (context, index) {
-                return Padding(
-                  padding: EdgeInsets.only(bottom: 15),
-                  child: Selector(
-                    title: widget.filter.values.elementAt(index).label,
-                    selectList: widget.filter.values.elementAt(index).options,
-                    type: widget.filter.values.elementAt(index).type,
-                    isMultiSelect:
-                        widget.filter.values.elementAt(index).isMultiSelect,
-                    setFilter: (String code, bool selected) {
-                      widget.setFilter(
-                          widget.filter.keys.elementAt(index), code, selected);
-                    },
-                  ),
-                );
-              },
-              separatorBuilder: (context, index) => SizedBox(height: 8)),
-        ),
+    return Container(
+      decoration: BoxDecoration(
+        color: grayF,
+        borderRadius: BorderRadius.circular(8.0),
+      ),
+      child: Scrollbar(
+        controller: _scrollController,
+        child: ListView.separated(
+            controller: _scrollController,
+            itemCount: widget.filter.entries.length,
+            shrinkWrap: true,
+            padding: EdgeInsets.all(16.0),
+            itemBuilder: (context, index) {
+              return Padding(
+                padding: EdgeInsets.only(bottom: 24.0),
+                child: Selector(
+                  title: widget.filter.values.elementAt(index).label,
+                  selectList: widget.filter.values.elementAt(index).options,
+                  type: widget.filter.values.elementAt(index).type,
+                  isMultiSelect:
+                      widget.filter.values.elementAt(index).isMultiSelect,
+                  setFilter: (String code, bool selected) {
+                    widget.setFilter(
+                        widget.filter.keys.elementAt(index), code, selected);
+                  },
+                ),
+              );
+            },
+            separatorBuilder: (context, index) => SizedBox(height: 8)),
       ),
     );
   }
@@ -81,13 +83,13 @@ class _SelectorState extends State<Selector> {
       child: Column(
         children: [
           Padding(
-            padding: EdgeInsets.only(bottom: 8),
+            padding: EdgeInsets.only(bottom: 12.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
                   widget.title,
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  style: titleBold,
                 ),
                 Visibility(
                   visible: widget.isMultiSelect,
@@ -108,17 +110,19 @@ class _SelectorState extends State<Selector> {
                         });
                       }
                     },
-                    child: Text.rich(TextSpan(
-                      style: TextStyle(
-                        color: Color(0xFFD45869),
-                        fontSize: 14,
-                        // decoration: TextDecoration.underline
+                    child: Text.rich(
+                      TextSpan(
+                        style: bodyRegular.copyWith(
+                          color: pinksMain,
+                          decoration: TextDecoration.underline,
+                        ),
+                        text: widget.selectList.every(
+                          (v) => v.every((w) => w.selected == true),
+                        )
+                            ? "모두 해제"
+                            : "모두 선택",
                       ),
-                      text: widget.selectList
-                              .every((v) => v.every((w) => w.selected == true))
-                          ? "모두 해제"
-                          : "모두 선택",
-                    )),
+                    ),
                   ),
                 )
               ],
@@ -132,10 +136,10 @@ class _SelectorState extends State<Selector> {
               switch (widget.type) {
                 case "radio":
                   return RadioSelection(
-                      selectList: widget.selectList,
-                      isMultiSelect: widget.isMultiSelect,
-                      setFilter: widget.setFilter,
-                      crossAxisCount: 4);
+                    selectList: widget.selectList,
+                    isMultiSelect: widget.isMultiSelect,
+                    setFilter: widget.setFilter,
+                  );
                 case "slider":
                   return SilderSelection(
                     selectList: widget.selectList,
@@ -158,13 +162,11 @@ class RadioSelection extends StatefulWidget {
     required this.selectList,
     this.isMultiSelect = true,
     required this.setFilter,
-    this.crossAxisCount = 4,
     Key? key,
   }) : super(key: key);
   final List<List<CodeLabelPair>> selectList;
   final bool isMultiSelect;
   final Function(String code, bool selected) setFilter;
-  final crossAxisCount;
 
   @override
   State<RadioSelection> createState() => _RadioSelectionState();
@@ -174,24 +176,34 @@ class _RadioSelectionState extends State<RadioSelection> {
   @override
   Widget build(BuildContext context) {
     return Column(
-        children: widget.selectList.map((v) {
-      return Row(
-          children: v.map((w) {
-        return Padding(
-          padding: EdgeInsets.all(4),
-          child: RadioSelectButton(
-              option: w,
-              setOption: (b) {
-                if (!widget.isMultiSelect) {
-                  b = true;
-                  widget.selectList.forEach(
-                      (e) => e.forEach((c) => widget.setFilter(c.code, false)));
-                }
-                widget.setFilter(w.code, b);
-              }),
-        );
-      }).toList());
-    }).toList());
+      children: widget.selectList.map(
+        (v) {
+          return Row(
+            children: List.generate(
+              4,
+              (i) => Expanded(
+                child: i < v.length
+                    ? Padding(
+                        padding: EdgeInsets.all(4.0),
+                        child: RadioSelectButton(
+                          option: v[i],
+                          setOption: (b) {
+                            if (!widget.isMultiSelect) {
+                              b = true;
+                              widget.selectList.forEach((e) => e.forEach(
+                                  (c) => widget.setFilter(c.code, false)));
+                            }
+                            widget.setFilter(v[i].code, b);
+                          },
+                        ),
+                      )
+                    : SizedBox(),
+              ),
+            ),
+          );
+        },
+      ).toList(),
+    );
   }
 }
 
@@ -210,41 +222,28 @@ class RadioSelectButton extends StatefulWidget {
 class _RadioSelectButtonState extends State<RadioSelectButton> {
   @override
   Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(20),
-      child: GestureDetector(
-        onTap: () {
-          widget.setOption(!widget.option.selected);
-        },
-        child: ColoredBox(
-          color: widget.option.selected ? Color(0xFFF6C5CD) : Color(0xFFEEEEEE),
-          child: Padding(
-            padding: EdgeInsets.fromLTRB(10, 6, 10, 6),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text(
-                  widget.option.label,
-                  style: TextStyle(
-                      fontSize: 12.0,
-                      color: widget.option.selected
-                          ? Color(0xFF222222)
-                          : Color(0xFF888888),
-                      height: 1.3),
-                ),
-                SizedBox(
-                  width: 4,
-                ),
-                widget.option.selected
-                    ? Padding(
-                        padding: EdgeInsets.all(1),
-                        child: Icon(Icons.check,
-                            size: 13, color: Color(0xFF444444)))
-                    : Icon(Icons.add, size: 15, color: Color(0xFF888888))
-              ],
+    return GestureDetector(
+      onTap: () => widget.setOption(!widget.option.selected),
+      child: Container(
+        height: 32.0,
+        decoration: BoxDecoration(
+          color: widget.option.selected ? pinksSub : grayE,
+          borderRadius: BorderRadius.circular(16.0),
+        ),
+        padding: EdgeInsets.symmetric(horizontal: 8.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              widget.option.label,
+              style: labelRegular.copyWith(
+                color: widget.option.selected ? gray0 : grayA,
+              ),
             ),
-          ),
+            widget.option.selected
+                ? Icon(Icons.check, size: 16.0, color: gray0)
+                : Icon(Icons.add, size: 16.0, color: grayA)
+          ],
         ),
       ),
     );
