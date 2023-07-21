@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:otlplus/constants/color.dart';
 import 'package:otlplus/constants/text_styles.dart';
+import 'package:otlplus/utils/build_app_bar.dart';
 
 class PeoplePage extends StatelessWidget {
   const PeoplePage({Key? key}) : super(key: key);
@@ -11,7 +12,7 @@ class PeoplePage extends StatelessWidget {
     Widget sizedBox4 = const SizedBox(height: 4.0);
 
     return Scaffold(
-      appBar: _buildAppBar(context),
+      appBar: buildAppBar(context, '만든 사람들', false, true),
       body: Padding(
         padding: EdgeInsets.all(16.0),
         child: Column(
@@ -115,52 +116,6 @@ class PeoplePage extends StatelessWidget {
             Text(
               '준비 중입니다.',
               style: bodyRegular.copyWith(color: grayA),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  PreferredSizeWidget _buildAppBar(BuildContext context) {
-    return PreferredSize(
-      preferredSize: Size.fromHeight(kToolbarHeight),
-      child: Theme(
-        data: Theme.of(context).copyWith(
-            appBarTheme: AppBarTheme(
-          color: BACKGROUND_COLOR,
-          elevation: 0.0,
-          actionsIconTheme: IconThemeData(
-            color: CONTENT_COLOR,
-          ),
-        )),
-        child: AppBar(
-          title: Text(
-            '만든 사람들',
-            style: TextStyle(
-              color: Colors.black,
-              fontWeight: FontWeight.bold,
-              fontSize: 14.0,
-            ),
-          ),
-          centerTitle: true,
-          flexibleSpace: SafeArea(
-            child: Column(
-              children: [
-                Container(
-                  color: PRIMARY_COLOR,
-                  height: 5,
-                ),
-              ],
-            ),
-          ),
-          automaticallyImplyLeading: false,
-          actions: <Widget>[
-            IconButton(
-              icon: const Icon(Icons.close),
-              onPressed: () {
-                Navigator.pop(context);
-              },
             ),
           ],
         ),

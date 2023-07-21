@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:otlplus/constants/color.dart';
 import 'package:otlplus/providers/course_detail_model.dart';
 import 'package:otlplus/providers/info_model.dart';
 import 'package:otlplus/providers/liked_review_model.dart';
+import 'package:otlplus/utils/build_app_bar.dart';
 import 'package:otlplus/utils/build_page_route.dart';
 import 'package:otlplus/widgets/review_block.dart';
 import 'package:provider/provider.dart';
@@ -20,7 +20,7 @@ class LikedReviewPage extends StatelessWidget {
     final reviews = context.watch<LikedReviewModel>().likedReviews(user);
 
     return Scaffold(
-      appBar: _buildAppBar(context),
+      appBar: buildAppBar(context, '좋아요한 후기', true, true),
       body: Container(
         constraints: const BoxConstraints.expand(),
         child: Card(
@@ -97,53 +97,6 @@ class LikedReviewPage extends StatelessWidget {
               ),
             ),
           ),
-        ),
-      ),
-    );
-  }
-
-  PreferredSizeWidget _buildAppBar(BuildContext context) {
-    return PreferredSize(
-      preferredSize: Size.fromHeight(kToolbarHeight),
-      child: Theme(
-        data: Theme.of(context).copyWith(
-            appBarTheme: AppBarTheme(
-          color: BACKGROUND_COLOR,
-          elevation: 0.0,
-          actionsIconTheme: IconThemeData(
-            color: CONTENT_COLOR,
-          ),
-        )),
-        child: AppBar(
-          leading: IconButton(
-            icon: const Icon(
-              Icons.arrow_back_ios,
-              color: Colors.black,
-            ),
-            onPressed: () {
-              Navigator.pop(context);
-            },
-          ),
-          title: Text(
-            '좋아요한 후기',
-            style: TextStyle(
-              color: Colors.black,
-              fontWeight: FontWeight.bold,
-              fontSize: 14.0,
-            ),
-          ),
-          centerTitle: true,
-          flexibleSpace: SafeArea(
-            child: Column(
-              children: [
-                Container(
-                  color: PRIMARY_COLOR,
-                  height: 5,
-                ),
-              ],
-            ),
-          ),
-          automaticallyImplyLeading: false,
         ),
       ),
     );

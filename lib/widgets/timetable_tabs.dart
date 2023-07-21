@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:otlplus/constants/color.dart';
 import 'package:otlplus/providers/lecture_search_model.dart';
-import 'package:otlplus/pages/lecture_search_page.dart';
 import 'package:otlplus/utils/build_page_route.dart';
 import 'package:provider/provider.dart';
 

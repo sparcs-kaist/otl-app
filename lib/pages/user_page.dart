@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:otlplus/constants/text_styles.dart';
 import 'package:otlplus/providers/auth_model.dart';
+import 'package:otlplus/utils/build_app_bar.dart';
 import 'package:otlplus/utils/build_page_route.dart';
 import 'package:provider/provider.dart';
 import 'package:otlplus/constants/color.dart';
@@ -12,7 +13,7 @@ class UserPage extends StatelessWidget {
     final user = context.watch<InfoModel>().user;
 
     return Scaffold(
-      appBar: _buildAppBar(context),
+      appBar: buildAppBar(context, '내 정보', false, true),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -36,26 +37,6 @@ class UserPage extends StatelessWidget {
 
   Widget _buildDivider() {
     return Divider(color: gray0.withOpacity(0.25));
-  }
-
-  PreferredSizeWidget _buildAppBar(BuildContext context) {
-    return AppBar(
-      title: Text('내 정보', style: bodyBold),
-      actions: <Widget>[
-        IconButton(
-          icon: const Icon(Icons.close),
-          onPressed: () => Navigator.pop(context),
-        ),
-      ],
-      flexibleSpace: SafeArea(
-        child: Container(color: PRIMARY_COLOR, height: 5),
-      ),
-      backgroundColor: pinksLight,
-      foregroundColor: gray0,
-      elevation: 0.0,
-      centerTitle: true,
-      automaticallyImplyLeading: false,
-    );
   }
 
   Widget _buildContent(String title, String body) {
@@ -102,7 +83,7 @@ class UserPage extends StatelessWidget {
           children: [
             Image.asset('assets/icons/LikedReview.png', height: 24.0),
             const SizedBox(width: 8),
-            Text('좋아요한 과목', style: bodyBold.copyWith(color: pinksMain)),
+            Text('좋아요한 후기', style: bodyBold.copyWith(color: pinksMain)),
             const Expanded(child: SizedBox()),
             Icon(Icons.navigate_next, color: pinksMain),
           ],

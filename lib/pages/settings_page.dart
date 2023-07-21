@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:otlplus/constants/color.dart';
 import 'package:otlplus/providers/settings_model.dart';
+import 'package:otlplus/utils/build_app_bar.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter/foundation.dart' show kDebugMode;
@@ -13,7 +14,7 @@ class SettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: _buildAppBar(context),
+        appBar: buildAppBar(context, '설정', false, true),
         body: Material(
             child: ListView(children: [
           ListTile(
@@ -134,51 +135,5 @@ class SettingsPage extends StatelessWidget {
             ],
           ),
         ])));
-  }
-
-  PreferredSizeWidget _buildAppBar(BuildContext context) {
-    return PreferredSize(
-      preferredSize: Size.fromHeight(kToolbarHeight),
-      child: Theme(
-        data: Theme.of(context).copyWith(
-            appBarTheme: AppBarTheme(
-          color: BACKGROUND_COLOR,
-          elevation: 0.0,
-          actionsIconTheme: IconThemeData(
-            color: CONTENT_COLOR,
-          ),
-        )),
-        child: AppBar(
-          title: Text(
-            '설정',
-            style: TextStyle(
-              color: Colors.black,
-              fontWeight: FontWeight.bold,
-              fontSize: 14.0,
-            ),
-          ),
-          centerTitle: true,
-          flexibleSpace: SafeArea(
-            child: Column(
-              children: [
-                Container(
-                  color: PRIMARY_COLOR,
-                  height: 5,
-                ),
-              ],
-            ),
-          ),
-          automaticallyImplyLeading: false,
-          actions: <Widget>[
-            IconButton(
-              icon: const Icon(Icons.close),
-              onPressed: () {
-                Navigator.pop(context);
-              },
-            ),
-          ],
-        ),
-      ),
-    );
   }
 }
