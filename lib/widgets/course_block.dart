@@ -12,7 +12,6 @@ class CourseBlock extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(bottom: 8.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(4.0),
         color: BLOCK_COLOR,

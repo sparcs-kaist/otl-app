@@ -8,6 +8,7 @@ import 'package:otlplus/pages/course_detail_page.dart';
 import 'package:otlplus/pages/lecture_detail_page.dart';
 import 'package:otlplus/pages/liked_review_page.dart';
 import 'package:otlplus/pages/my_review_page.dart';
+import 'package:otlplus/providers/course_search_model.dart';
 import 'package:otlplus/providers/hall_of_fame_model.dart';
 import 'package:otlplus/providers/liked_review_model.dart';
 import 'package:otlplus/providers/settings_model.dart';
@@ -20,7 +21,7 @@ import 'package:otlplus/providers/course_detail_model.dart';
 import 'package:otlplus/providers/info_model.dart';
 import 'package:otlplus/providers/lecture_detail_model.dart';
 import 'package:otlplus/providers/review_model.dart';
-import 'package:otlplus/providers/search_model.dart';
+import 'package:otlplus/providers/lecture_search_model.dart';
 import 'package:otlplus/providers/timetable_model.dart';
 import 'package:otlplus/utils/create_material_color.dart';
 
@@ -37,44 +38,42 @@ void main() {
 
     runApp(
       EasyLocalization(
-        supportedLocales: [Locale('en'), Locale('ko')],
-        path: 'assets/translations',
-        fallbackLocale: Locale('en'),
-        child: MultiProvider(
-          providers: [
-            ChangeNotifierProvider(create: (context) => AuthModel()),
-            ChangeNotifierProxyProvider<AuthModel, InfoModel>(
-              create: (context) => InfoModel(),
-              update: (context, authModel, infoModel) {
-                if (authModel.isLogined) infoModel?.getInfo();
-                return (infoModel is InfoModel) ? infoModel : InfoModel();
-              },
-            ),
-            ChangeNotifierProxyProvider<InfoModel, TimetableModel>(
-              create: (context) => TimetableModel(),
-              update: (context, infoModel, timetableModel) {
-                if (infoModel.hasData) {
-                  timetableModel?.loadSemesters(
-                    user: infoModel.user,
-                    semesters: infoModel.semesters,
-                  );
-                }
-                return (timetableModel is TimetableModel)
-                    ? timetableModel
-                    : TimetableModel();
-              },
-            ),
-            ChangeNotifierProvider(create: (_) => SearchModel()),
-            ChangeNotifierProvider(create: (_) => ReviewModel()),
-            ChangeNotifierProvider(create: (_) => LikedReviewModel()),
-            ChangeNotifierProvider(create: (_) => HallOfFameModel()),
-            ChangeNotifierProvider(create: (_) => CourseDetailModel()),
-            ChangeNotifierProvider(create: (_) => LectureDetailModel()),
-            ChangeNotifierProvider(create: (_) => SettingsModel())
-          ],
-          child: OTLFirebaseApp(),
-        ),
-      ),
+          supportedLocales: [Locale('en'), Locale('ko')],
+          path: 'assets/translations',
+          fallbackLocale: Locale('en'),
+          child: MultiProvider(
+            providers: [
+              ChangeNotifierProvider(create: (context) => AuthModel()),
+              ChangeNotifierProxyProvider<AuthModel, InfoModel>(
+                create: (context) => InfoModel(),
+                update: (context, authModel, infoModel) {
+                  if (authModel.isLogined) infoModel?.getInfo();
+                  return (infoModel is InfoModel) ? infoModel : InfoModel();
+                },
+              ),
+              ChangeNotifierProxyProvider<InfoModel, TimetableModel>(
+                create: (context) => TimetableModel(),
+                update: (context, infoModel, timetableModel) {
+                  if (infoModel.hasData) {
+                    timetableModel?.loadSemesters(
+                        user: infoModel.user, semesters: infoModel.semesters);
+                  }
+                  return (timetableModel is TimetableModel)
+                      ? timetableModel
+                      : TimetableModel();
+                },
+              ),
+              ChangeNotifierProvider(create: (_) => LectureSearchModel()),
+              ChangeNotifierProvider(create: (_) => CourseSearchModel()),
+              ChangeNotifierProvider(create: (_) => ReviewModel()),
+              ChangeNotifierProvider(create: (_) => LikedReviewModel()),
+              ChangeNotifierProvider(create: (_) => HallOfFameModel()),
+              ChangeNotifierProvider(create: (_) => CourseDetailModel()),
+              ChangeNotifierProvider(create: (_) => LectureDetailModel()),
+              ChangeNotifierProvider(create: (_) => SettingsModel()),
+            ],
+            child: OTLFirebaseApp(),
+          )),
     );
   },
       (error, stack) =>
