@@ -45,20 +45,19 @@ class MainPage extends StatelessWidget {
                 children: <Widget>[
                   _buildTimetable(infoModel.user, semester, now),
                   const SizedBox(height: 24.0),
-                  const Divider(color: grayD, height: 1.0),
+                  Divider(color: gray0.withOpacity(0.25), height: 1.0),
                   const SizedBox(height: 24.0),
                   _buildSchedule(now, infoModel.currentSchedule!),
                   const SizedBox(height: 24.0),
-                  const Divider(color: grayD, height: 1.0),
+                  Divider(color: gray0.withOpacity(0.25), height: 1.0),
                 ],
               ),
               Column(
                 children: <Widget>[
-                  _buildTextButtons(context),
-                  // const SizedBox(height: 8.0),
                   _buildLogo(),
                   const SizedBox(height: 8.0),
                   _buildCopyRight(),
+                  _buildTextButtons(context),
                 ],
               )
             ],
@@ -72,42 +71,22 @@ class MainPage extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Expanded(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              TextButton(
-                onPressed: () {
-                  Navigator.push(context, buildPrivacyPageRoute());
-                },
-                child: Text(
-                  '개인정보취급방침',
-                  style: labelRegular.copyWith(color: gray75),
-                ),
-              ),
-              const SizedBox(width: 16.0),
-            ],
+        TextButton(
+          onPressed: () {
+            Navigator.push(context, buildPrivacyPageRoute());
+          },
+          child: Text(
+            '개인정보취급방침',
+            style: labelRegular.copyWith(color: gray75),
           ),
         ),
-        Text(
-          '|',
-          style: labelRegular.copyWith(color: gray75),
-        ),
-        Expanded(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              const SizedBox(width: 16.0),
-              TextButton(
-                onPressed: () {
-                  Navigator.push(context, buildPeoplePageRoute());
-                },
-                child: Text(
-                  '만든 사람들',
-                  style: labelRegular.copyWith(color: gray75),
-                ),
-              ),
-            ],
+        TextButton(
+          onPressed: () {
+            Navigator.push(context, buildPeoplePageRoute());
+          },
+          child: Text(
+            '만든 사람들',
+            style: labelRegular.copyWith(color: gray75),
           ),
         ),
       ],
@@ -122,16 +101,9 @@ class MainPage extends StatelessWidget {
   }
 
   Widget _buildCopyRight() {
-    return Text.rich(
-      TextSpan(
-        style: labelRegular.copyWith(color: gray75),
-        children: <TextSpan>[
-          TextSpan(text: 'Copyright © 2016-2023, SPARCS OTL Team.'),
-          TextSpan(text: '\n'),
-          TextSpan(text: 'All rights reserved.'),
-        ],
-      ),
-      textAlign: TextAlign.center,
+    return Text(
+      '© 2016-2023 SPARCS OTL Team',
+      style: labelRegular.copyWith(color: gray75),
     );
   }
 

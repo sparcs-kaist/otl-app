@@ -19,7 +19,10 @@ class PeoplePage extends StatelessWidget {
           children: [
             Container(
               padding: EdgeInsets.symmetric(vertical: 6.0),
-              color: pinksLight,
+              decoration: BoxDecoration(
+                color: pinksLight,
+                borderRadius: BorderRadius.circular(16.0),
+              ),
               width: double.infinity,
               child: Center(
                 child: Text(
@@ -96,7 +99,10 @@ class PeoplePage extends StatelessWidget {
             const SizedBox(height: 32.0),
             Container(
               padding: EdgeInsets.symmetric(vertical: 6.0),
-              color: pinksLight,
+              decoration: BoxDecoration(
+                color: pinksLight,
+                borderRadius: BorderRadius.circular(16.0),
+              ),
               width: double.infinity,
               child: Center(
                 child: Text(
