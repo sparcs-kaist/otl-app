@@ -8,9 +8,6 @@ class PeoplePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Widget sizedBox12 = const SizedBox(height: 12.0);
-    Widget sizedBox4 = const SizedBox(height: 4.0);
-
     return Scaffold(
       appBar: buildAppBar(context, '만든 사람들', false, true),
       body: Padding(
@@ -18,107 +15,69 @@ class PeoplePage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Container(
-              padding: EdgeInsets.symmetric(vertical: 6.0),
-              decoration: BoxDecoration(
-                color: pinksLight,
-                borderRadius: BorderRadius.circular(16.0),
-              ),
-              width: double.infinity,
-              child: Center(
-                child: Text(
-                  '2023.03~',
-                  style: titleRegular,
-                ),
-              ),
-            ),
-            sizedBox12,
-            Text(
-              'Project Manager',
-              style: labelBold,
-            ),
-            sizedBox4,
-            Image.asset(
-              "assets/people/yumyum.png",
-              height: 22,
-            ),
-            sizedBox12,
-            Text(
-              'Tech Lead',
-              style: labelBold,
-            ),
-            sizedBox4,
-            Image.asset(
-              "assets/people/platypus.png",
-              height: 22,
-            ),
-            sizedBox12,
-            Text(
-              'Designer',
-              style: labelBold,
-            ),
-            sizedBox4,
-            Image.asset(
-              "assets/people/zealot.png",
-              height: 22,
-            ),
-            sizedBox4,
-            Image.asset(
-              "assets/people/yumyum.png",
-              height: 22,
-            ),
-            sizedBox12,
-            Text(
-              'Developer',
-              style: labelBold,
-            ),
-            sizedBox4,
-            Image.asset(
-              "assets/people/platypus.png",
-              height: 22,
-            ),
-            sizedBox4,
-            Image.asset(
-              "assets/people/star.png",
-              height: 22,
-            ),
-            sizedBox4,
-            Image.asset(
-              "assets/people/lobe.png",
-              height: 22,
-            ),
-            sizedBox4,
-            Image.asset(
-              "assets/people/seungho.png",
-              height: 22,
-            ),
-            sizedBox4,
-            Image.asset(
-              "assets/people/soongyu.png",
-              height: 22,
-            ),
+            _buildContainer('2023.03 ~'),
+            ..._get202303(),
             const SizedBox(height: 32.0),
-            Container(
-              padding: EdgeInsets.symmetric(vertical: 6.0),
-              decoration: BoxDecoration(
-                color: pinksLight,
-                borderRadius: BorderRadius.circular(16.0),
-              ),
-              width: double.infinity,
-              child: Center(
-                child: Text(
-                  '2020.02 ~ 2023.02',
-                  style: titleRegular,
-                ),
-              ),
-            ),
-            sizedBox12,
+            _buildContainer('2020.03 ~ 2023.02'),
+            const SizedBox(height: 12.0),
             Text(
               '준비 중입니다.',
               style: bodyRegular.copyWith(color: grayA),
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  _buildContainer(String title) {
+    return Container(
+      padding: EdgeInsets.symmetric(vertical: 6.0),
+      decoration: BoxDecoration(
+        color: pinksLight,
+        borderRadius: BorderRadius.circular(16.0),
+      ),
+      width: double.infinity,
+      child: Center(
+        child: Text(title, style: titleRegular),
+      ),
+    );
+  }
+
+  List<Widget> _get202303() {
+    const List<String> positions = [
+      'Project Manager',
+      'Tech Lead',
+      'Designer',
+      'Developer',
+    ];
+
+    const List<List<String>> people = [
+      ['yumyum'],
+      ['platypus'],
+      ['zealot', 'yumyum'],
+      ['platypus', 'star', 'lobe', 'seungho', 'soongyu'],
+    ];
+
+    return List.generate(
+      4,
+      (i) => Column(
+        children: [
+          const SizedBox(height: 12.0),
+          Text(
+            positions[i],
+            style: labelBold,
+          ),
+          ...List.generate(
+            people[i].length,
+            (j) => Column(
+              children: [
+                const SizedBox(height: 4.0),
+                Image.asset('assets/people/${people[i][j]}.png', height: 24.0)
+              ],
+            ),
+          )
+        ],
       ),
     );
   }
