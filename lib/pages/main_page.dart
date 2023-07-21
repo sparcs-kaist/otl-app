@@ -45,17 +45,17 @@ class MainPage extends StatelessWidget {
                 children: <Widget>[
                   _buildTimetable(infoModel.user, semester, now),
                   const SizedBox(height: 24.0),
-                  Divider(color: gray0.withOpacity(0.25), height: 1.0),
+                  _buildDivider(),
                   const SizedBox(height: 24.0),
                   _buildSchedule(now, infoModel.currentSchedule!),
                   const SizedBox(height: 24.0),
-                  Divider(color: gray0.withOpacity(0.25), height: 1.0),
+                  _buildDivider(),
                 ],
               ),
               Column(
                 children: <Widget>[
                   _buildLogo(),
-                  const SizedBox(height: 8.0),
+                  const SizedBox(height: 4.0),
                   _buildCopyRight(),
                   _buildTextButtons(context),
                 ],
@@ -65,6 +65,10 @@ class MainPage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Widget _buildDivider() {
+    return Divider(color: gray0.withOpacity(0.25));
   }
 
   Widget _buildTextButtons(BuildContext context) {
@@ -158,7 +162,6 @@ class MainPage extends StatelessWidget {
           ),
           textAlign: TextAlign.center,
         ),
-        // const SizedBox(height: 4.0),
         // Row(
         //   mainAxisAlignment: MainAxisAlignment.end,
         //   children: <Widget>[
