@@ -20,10 +20,12 @@ struct NextClassAccessoryEntryView : View {
         case .accessoryCircular:
             ZStack {
                 AccessoryWidgetBackground()
-                VStack {
-                    Image(systemName: "tablecells")
-                        .font(.caption2)
-                        .widgetAccentable()
+                VStack(alignment: .center, spacing: 1) {
+                    Image("sparcs")
+                        .resizable()
+//                        .renderingMode(.template)
+                        .scaledToFit()
+                        .frame(height: 14)
                     Text("12:00")
                         .font(.system(size: 15))
                         .fontWeight(.medium)
@@ -33,23 +35,10 @@ struct NextClassAccessoryEntryView : View {
                 }
             }
         case .accessoryRectangular:
-            HStack {
-                VStack(alignment: .leading) {
-                    HStack(alignment: .center, spacing: 4) {
-                        Circle()
-                            .frame(width: 12, height: 12)
-                        Text("10:30 - 12:30")
-                            .font(.headline)
-                    }.offset(y: 7)
-                        .widgetAccentable()
-                    Text("프로그래밍기초")
-                        .font(.headline)
-                        .widgetAccentable()
-                    Text("E11 창의학습관 101호")
-                        .foregroundColor(.gray)
-                }
-                Spacer()
-            }.offset(y: -3)
+            ZStack {
+                AccessoryWidgetBackground()
+                Text("Hello")
+            }
             
         default:
             Text("Not Implemented")
