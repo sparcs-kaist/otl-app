@@ -6,7 +6,6 @@ import 'package:otlplus/utils/build_app_bar.dart';
 import 'package:otlplus/utils/build_page_route.dart';
 import 'package:otlplus/constants/icon.dart';
 import 'package:otlplus/providers/course_search_model.dart';
-import 'package:otlplus/pages/course_search_page.dart';
 import 'package:otlplus/widgets/pop_up.dart';
 import 'package:provider/provider.dart';
 import 'package:otlplus/constants/color.dart';
