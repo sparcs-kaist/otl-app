@@ -135,7 +135,9 @@ class LectureSearchModel extends ChangeNotifier {
       TextSpan(
         style: bodyRegular.copyWith(color: grayA),
         children: [
-          TextSpan(text: '"$_lectureSearchText"'),
+          TextSpan(
+            text: _lectureSearchText.isEmpty ? '' : '"$_lectureSearchText"',
+          ),
           TextSpan(
             children: [
               if (_selectedFilters.length > 0 && _lectureSearchText.length > 0)

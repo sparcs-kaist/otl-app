@@ -98,9 +98,9 @@ class CourseSearchModel extends ChangeNotifier {
         type: "slider",
         options: [
           [CodeLabelPair(code: "ALL", label: "전체", selected: true)],
-          [CodeLabelPair(code: "3", label: "3년이내", selected: false)],
-          [CodeLabelPair(code: "2", label: "2년이내", selected: false)],
-          [CodeLabelPair(code: "1", label: "1년이내", selected: false)],
+          [CodeLabelPair(code: "3", label: "3년 이내", selected: false)],
+          [CodeLabelPair(code: "2", label: "2년 이내", selected: false)],
+          [CodeLabelPair(code: "1", label: "1년 이내", selected: false)],
         ])
   };
   get courseFilter => _courseFilter;
@@ -158,7 +158,9 @@ class CourseSearchModel extends ChangeNotifier {
         TextSpan(
           style: bodyRegular.copyWith(color: grayA),
           children: [
-            TextSpan(text: '"$_courseSearchText"'),
+            TextSpan(
+              text: _courseSearchText.isEmpty ? '' : '"$_courseSearchText"',
+            ),
             TextSpan(
               children: [
                 if (_selectedFilters.length > 0 && _courseSearchText.length > 0)

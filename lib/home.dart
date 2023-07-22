@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
+import 'package:otlplus/constants/text_styles.dart';
 import 'package:otlplus/utils/build_app_bar.dart';
 import 'package:otlplus/utils/build_page_route.dart';
 import 'package:otlplus/constants/icon.dart';
@@ -158,7 +159,7 @@ class _OTLHomeState extends State<OTLHome> with SingleTickerProviderStateMixin {
               color: grayF,
               borderRadius: BorderRadius.circular(8.0),
             ),
-            padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+            padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
             child: Row(
               children: [
                 Icon(CustomIcons.search, color: pinksMain, size: 24.0),
@@ -252,65 +253,47 @@ class _OTLHomeState extends State<OTLHome> with SingleTickerProviderStateMixin {
   Widget _buildSearch() {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
-      child: ClipRRect(
-        borderRadius: BorderRadius.all(Radius.circular(48)),
-        child: ColoredBox(
-          color: Colors.white,
-          child: SizedBox(
-              width: MediaQuery.of(context).size.width,
-              child: GestureDetector(
-                behavior: HitTestBehavior.opaque,
-                onTap: () {
-                  context.read<CourseSearchModel>().resetCourseFilter();
-                  Navigator.of(context)
-                      .push(MaterialPageRoute(
-                          builder: (context) =>
-                              CourseSearchPage(openKeyboard: true)))
-                      .then((e) {
-                    setState(() {
-                      _currentIndex = 2;
-                    });
-                  });
-                },
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 12.0, vertical: 8.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      SizedBox(
-                        width: 24,
-                        height: 24,
-                        child: Center(
-                          child: Padding(
-                            padding: EdgeInsets.only(top: 1),
-                            child: Icon(
-                              CustomIcons.search,
-                              color: PRIMARY_COLOR,
-                              size: 24,
-                            ),
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        width: 8,
-                      ),
-                      Flexible(
-                        flex: 1,
-                        child: Text("과목명, 교수님 성함 등을 검색해 보세요.",
-                            style: TextStyle(
-                              color: Color(0xFFAAAAAA),
-                              fontSize: 14,
-                              height: 1.2,
-                            )),
-                      )
-                    ],
+      child: Container(
+          decoration: BoxDecoration(
+            color: grayF,
+            borderRadius: BorderRadius.circular(8.0),
+          ),
+          width: MediaQuery.of(context).size.width,
+          child: GestureDetector(
+            behavior: HitTestBehavior.opaque,
+            onTap: () {
+              context.read<CourseSearchModel>().resetCourseFilter();
+              Navigator.of(context)
+                  .push(buildCourseSearchPageRoute())
+                  .then((e) {
+                setState(() {
+                  _currentIndex = 2;
+                });
+              });
+            },
+            child: Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Icon(
+                    CustomIcons.search,
+                    color: pinksMain,
+                    size: 24.0,
                   ),
-                ),
-              )),
-        ),
-      ),
+                  const SizedBox(width: 12.0),
+                  Expanded(
+                    child: Text(
+                      "과목명, 교수님 성함 등을 검색해 보세요.",
+                      style: bodyRegular.copyWith(color: grayA),
+                    ),
+                  )
+                ],
+              ),
+            ),
+          )),
     );
   }
 

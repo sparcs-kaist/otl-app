@@ -28,7 +28,7 @@ class _SearchTextfieldState extends State<SearchTextfield> {
         color: grayF,
         borderRadius: BorderRadius.circular(8.0),
       ),
-      padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+      padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
       child: Row(
         children: [
           Icon(CustomIcons.search, color: pinksMain, size: 24.0),
