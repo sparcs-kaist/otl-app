@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
+import 'package:otlplus/utils/build_app_bar.dart';
 import 'package:otlplus/utils/build_page_route.dart';
 import 'package:otlplus/constants/icon.dart';
 import 'package:otlplus/providers/course_search_model.dart';
@@ -42,7 +43,7 @@ class _OTLHomeState extends State<OTLHome> with SingleTickerProviderStateMixin {
     return Scaffold(
       appBar: _buildAppBar(),
       backgroundColor:
-          _currentIndex == 0 ? const Color(0xFF9B4810) : BACKGROUND_COLOR,
+          _currentIndex == 0 ? const Color(0xFF9B4810) : pinksLight,
       bottomNavigationBar: _buildBottomNavigationBar(),
       body: GestureDetector(
         onTap: () {
@@ -60,29 +61,35 @@ class _OTLHomeState extends State<OTLHome> with SingleTickerProviderStateMixin {
         MediaQuery.of(context).size.width / 1296 * 865 + 5,
       ),
       child: AppBar(
-        title: Image.asset(
-          "assets/logo.png",
-          height: 27,
+        title: appBarPadding(
+          Image.asset(
+            "assets/logo.png",
+            height: 27.0,
+          ),
         ),
         actions: <Widget>[
-          PlatformIconButton(
-            onPressed: () {
-              Navigator.push(context, buildUserPageRoute());
-            },
-            materialIcon: Icon(Icons.person),
-            cupertinoIcon: Icon(CupertinoIcons.person),
+          appBarPadding(
+            PlatformIconButton(
+              onPressed: () {
+                Navigator.push(context, buildUserPageRoute());
+              },
+              materialIcon: Icon(Icons.person),
+              cupertinoIcon: Icon(CupertinoIcons.person),
+            ),
           ),
-          PlatformIconButton(
-            onPressed: () =>
-                {Navigator.push(context, buildSettingsPageRoute())},
-            materialIcon: Icon(Icons.settings),
-            cupertinoIcon: Icon(CupertinoIcons.gear),
+          appBarPadding(
+            PlatformIconButton(
+              onPressed: () =>
+                  {Navigator.push(context, buildSettingsPageRoute())},
+              materialIcon: Icon(Icons.settings),
+              cupertinoIcon: Icon(CupertinoIcons.gear),
+            ),
           )
         ],
         flexibleSpace: SafeArea(
           child: Column(
             children: [
-              Container(color: pinksMain, height: 5),
+              Container(color: pinksMain, height: 5.0),
               _buildExpandedWidget(),
             ],
           ),
@@ -97,29 +104,35 @@ class _OTLHomeState extends State<OTLHome> with SingleTickerProviderStateMixin {
 
   PreferredSizeWidget _buildTimeTableAppBar() {
     return AppBar(
-      title: Image.asset(
-        "assets/logo.png",
-        height: 27,
+      title: appBarPadding(
+        Image.asset(
+          "assets/logo.png",
+          height: 27,
+        ),
       ),
       actions: <Widget>[
-        PlatformIconButton(
-          onPressed: () {
-            Navigator.push(context, buildUserPageRoute());
-          },
-          materialIcon: Icon(Icons.person),
-          cupertinoIcon: Icon(CupertinoIcons.person),
+        appBarPadding(
+          PlatformIconButton(
+            onPressed: () {
+              Navigator.push(context, buildUserPageRoute());
+            },
+            materialIcon: Icon(Icons.person),
+            cupertinoIcon: Icon(CupertinoIcons.person),
+          ),
         ),
-        PlatformIconButton(
-          onPressed: () => {Navigator.push(context, buildSettingsPageRoute())},
-          materialIcon: Icon(Icons.settings),
-          cupertinoIcon: Icon(
-            CupertinoIcons.gear,
+        appBarPadding(
+          PlatformIconButton(
+            onPressed: () =>
+                {Navigator.push(context, buildSettingsPageRoute())},
+            materialIcon: Icon(Icons.settings),
+            cupertinoIcon: Icon(
+              CupertinoIcons.gear,
+            ),
           ),
         )
       ],
-      flexibleSpace: SafeArea(
-        child: Container(color: pinksMain, height: 5),
-      ),
+      flexibleSpace: SafeArea(child: Container(color: pinksMain, height: 5.0)),
+      toolbarHeight: kToolbarHeight + 5.0,
       backgroundColor: pinksLight,
       foregroundColor: gray0,
       elevation: 0.0,
@@ -129,19 +142,29 @@ class _OTLHomeState extends State<OTLHome> with SingleTickerProviderStateMixin {
 
   PreferredSizeWidget _buildDictionaryAppBar() {
     return AppBar(
-      title: InkWell(
-        onTap: () => Navigator.push(context, buildCourseSearchPageRoute()),
-        child: Row(
-          children: [
-            Icon(CustomIcons.search, color: pinksMain),
-            const SizedBox(width: 12.0),
-            context.watch<CourseSearchModel>().courseSearchquery
-          ],
+      title: appBarPadding(
+        GestureDetector(
+          onTap: () => Navigator.push(context, buildCourseSearchPageRoute()),
+          child: Container(
+            decoration: BoxDecoration(
+              color: grayF,
+              borderRadius: BorderRadius.circular(8.0),
+            ),
+            padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+            child: Row(
+              children: [
+                Icon(CustomIcons.search, color: pinksMain, size: 24.0),
+                const SizedBox(width: 12.0),
+                Expanded(
+                  child: context.watch<CourseSearchModel>().courseSearchquery,
+                ),
+              ],
+            ),
+          ),
         ),
       ),
-      flexibleSpace: SafeArea(
-        child: Container(color: pinksMain, height: 5),
-      ),
+      flexibleSpace: SafeArea(child: Container(color: pinksMain, height: 5.0)),
+      toolbarHeight: kToolbarHeight + 5.0,
       backgroundColor: pinksLight,
       foregroundColor: gray0,
       elevation: 0.0,
@@ -152,29 +175,35 @@ class _OTLHomeState extends State<OTLHome> with SingleTickerProviderStateMixin {
 
   PreferredSizeWidget _buildReviewAppBar() {
     return AppBar(
-      title: Image.asset(
-        "assets/logo.png",
-        height: 27,
+      title: appBarPadding(
+        Image.asset(
+          "assets/logo.png",
+          height: 27,
+        ),
       ),
       actions: <Widget>[
-        PlatformIconButton(
-          onPressed: () {
-            Navigator.push(context, buildUserPageRoute());
-          },
-          materialIcon: Icon(Icons.person),
-          cupertinoIcon: Icon(CupertinoIcons.person),
+        appBarPadding(
+          PlatformIconButton(
+            onPressed: () {
+              Navigator.push(context, buildUserPageRoute());
+            },
+            materialIcon: Icon(Icons.person),
+            cupertinoIcon: Icon(CupertinoIcons.person),
+          ),
         ),
-        PlatformIconButton(
-          onPressed: () => {Navigator.push(context, buildSettingsPageRoute())},
-          materialIcon: Icon(Icons.settings),
-          cupertinoIcon: Icon(
-            CupertinoIcons.gear,
+        appBarPadding(
+          PlatformIconButton(
+            onPressed: () =>
+                {Navigator.push(context, buildSettingsPageRoute())},
+            materialIcon: Icon(Icons.settings),
+            cupertinoIcon: Icon(
+              CupertinoIcons.gear,
+            ),
           ),
         )
       ],
-      flexibleSpace: SafeArea(
-        child: Container(color: pinksMain, height: 5),
-      ),
+      flexibleSpace: SafeArea(child: Container(color: pinksMain, height: 5.0)),
+      toolbarHeight: kToolbarHeight + 5.0,
       backgroundColor: pinksLight,
       foregroundColor: gray0,
       elevation: 0.0,

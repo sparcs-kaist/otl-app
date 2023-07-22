@@ -41,11 +41,41 @@ class _LectureSearchPageState extends State<LectureSearchPage> {
     super.dispose();
   }
 
+  PreferredSizeWidget _buildAppBar(BuildContext context) {
+    return AppBar(
+      title: appBarPadding(
+        Row(
+          children: [
+            IconButton(
+              onPressed: () => Navigator.pop(context),
+              icon: const Icon(Icons.navigate_before),
+            ),
+            Expanded(
+              child: SearchTextfield(
+                autoFocus: widget.openKeyboard,
+                backgroundColor: grayF,
+                textController: _searchTextController,
+                focusNode: _focusNode,
+              ),
+            ),
+          ],
+        ),
+      ),
+      flexibleSpace: SafeArea(child: Container(color: pinksMain, height: 5.0)),
+      toolbarHeight: kToolbarHeight + 5.0,
+      backgroundColor: pinksLight,
+      foregroundColor: gray0,
+      elevation: 0.0,
+      centerTitle: true,
+      automaticallyImplyLeading: false,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: pinksLight,
-      appBar: buildAppBar(context, '', true, false),
+      appBar: _buildAppBar(context),
       body: Padding(
         padding: const EdgeInsets.only(left: 16.0, right: 16.0, bottom: 16.0),
         child: Column(
@@ -53,13 +83,6 @@ class _LectureSearchPageState extends State<LectureSearchPage> {
             Flexible(
               child: Column(
                 children: [
-                  SearchTextfield(
-                    autoFocus: widget.openKeyboard,
-                    backgroundColor: grayF,
-                    textController: _searchTextController,
-                    focusNode: _focusNode,
-                  ),
-                  const SizedBox(height: 16.0),
                   Flexible(
                     child: SearchFilterPanel(
                       filter: context.watch<LectureSearchModel>().lectureFilter,
