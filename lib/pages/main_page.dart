@@ -9,7 +9,6 @@ import 'package:otlplus/models/user.dart';
 import 'package:otlplus/providers/info_model.dart';
 import 'package:otlplus/widgets/timetable_block.dart';
 import 'package:otlplus/widgets/today_timetable.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 import '../models/lecture.dart';
@@ -162,18 +161,6 @@ class MainPage extends StatelessWidget {
           ),
           textAlign: TextAlign.center,
         ),
-        // Row(
-        //   mainAxisAlignment: MainAxisAlignment.end,
-        //   children: <Widget>[
-        //     TextButton(
-        //       onPressed: () => launchUrl(Uri.https("cais.kaist.ac.kr", "")),
-        //       child: Text(
-        //         "main.goto_cais".tr(),
-        //         style: labelRegular.copyWith(color: pinksMain),
-        //       ),
-        //     ),
-        //   ],
-        // ),
       ],
     );
   }

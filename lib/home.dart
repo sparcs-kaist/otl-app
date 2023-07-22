@@ -6,6 +6,7 @@ import 'package:otlplus/utils/build_page_route.dart';
 import 'package:otlplus/constants/icon.dart';
 import 'package:otlplus/providers/course_search_model.dart';
 import 'package:otlplus/pages/course_search_page.dart';
+import 'package:otlplus/widgets/pop_up.dart';
 import 'package:provider/provider.dart';
 import 'package:otlplus/constants/color.dart';
 import 'package:otlplus/pages/dictionary_page.dart';
@@ -35,6 +36,13 @@ class _OTLHomeState extends State<OTLHome> with SingleTickerProviderStateMixin {
       duration: const Duration(milliseconds: 300),
       value: 1.0,
       vsync: this,
+    );
+
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) async => await showDialog(
+        context: context,
+        builder: (context) => PopUp(),
+      ),
     );
   }
 
