@@ -15,5 +15,8 @@ struct OTLWidgetBundle : WidgetBundle {
         NextClassWidget()
         TodayClassesWidget()
         WeekClassesWidget()
+        if #available(iOSApplicationExtension 16.0, *) {
+            NextClassAccessory()
+        }
     }
 }
