@@ -310,7 +310,6 @@ class _TimetablePageState extends State<TimetablePage> {
             .read<TimetableModel>()
             .shareTimetable(type, context.locale.languageCode);
       },
-      onReorder: (oldIndex, newIndex) {},
     );
   }
 

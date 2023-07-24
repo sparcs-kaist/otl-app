@@ -13,7 +13,6 @@ class TimetableTabs extends StatefulWidget {
   final VoidCallback onCopyTap;
   final VoidCallback onDeleteTap;
   final Function(String) onExportTap;
-  final Function(int, int) onReorder;
 
   TimetableTabs(
       {this.index = 0,
@@ -21,8 +20,7 @@ class TimetableTabs extends StatefulWidget {
       required this.onTap,
       required this.onCopyTap,
       required this.onDeleteTap,
-      required this.onExportTap,
-      required this.onReorder});
+      required this.onExportTap});
 
   @override
   _TimetableTabsState createState() => _TimetableTabsState();
@@ -39,84 +37,17 @@ class _TimetableTabsState extends State<TimetableTabs> {
     return Container(
       height: 28,
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
-      child: ReorderableListView.builder(
+      child: ListView.builder(
+        controller: _scrollController,
         scrollDirection: Axis.horizontal,
-        scrollController: _scrollController,
-        proxyDecorator: (child, _, animation) => AnimatedBuilder(
-          animation: animation,
-          builder: (_, child) => Material(
-            elevation: 0,
-            color: Colors.transparent,
-            child: child,
-          ),
-          child: child,
-        ),
         physics: const BouncingScrollPhysics(),
-        itemCount: widget.length - 1,
-        itemBuilder: (context, i) =>
-            _buildTab(i + 1, context, Key(i.toString())),
-        header: _buildTab(0, context, Key('header')),
-        footer: _buildTab(widget.length, context, Key('footer')),
-        onReorder: (oldIndex, newIndex) {
-          if (oldIndex < newIndex) {
-            newIndex -= 1;
-          }
-          widget.onReorder(oldIndex + 1, newIndex + 1);
-        },
+        itemCount: widget.length + 1,
+        itemBuilder: (context, i) => _buildTab(i, context),
       ),
     );
-    /*return Row(
-      crossAxisAlignment: CrossAxisAlignment.end,
-      children: <Widget>[
-        Expanded(
-          child: SingleChildScrollView(
-            controller: _scrollController,
-            scrollDirection: Axis.horizontal,
-            physics: const BouncingScrollPhysics(),
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Row(
-              children: List.generate(
-                  widget.length + 1, (i) => _buildTab(i, context)),
-            ),
-          ),
-        ),
-        _buildButton(Icons.search, () {
-          context.read<LectureSearchModel>().resetLectureFilter();
-          Navigator.of(context).push(buildLectureSearchPageRoute());
-        }),
-        _buildButton(Icons.playlist_add, widget.onAddTap),
-        _buildButton(Icons.settings, widget.onSettingsTap),
-      ],
-    );*/
   }
 
-  /*Widget _buildButton(IconData icon, VoidCallback onTap) {
-    return Card(
-      margin: const EdgeInsets.only(left: 8.0),
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(8.0)),
-      ),
-      child: Material(
-        color: Colors.transparent,
-        child: InkWell(
-          borderRadius: const BorderRadius.vertical(top: Radius.circular(8.0)),
-          onTap: onTap,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 10.0,
-              vertical: 7.0,
-            ),
-            child: Icon(
-              icon,
-              size: 20.0,
-            ),
-          ),
-        ),
-      ),
-    );
-  }*/
-
-  Widget _buildTab(int i, BuildContext context, Key key) {
+  Widget _buildTab(int i, BuildContext context) {
     if (i == widget.length) {
       return GestureDetector(
         onTap: () {
@@ -153,7 +84,6 @@ class _TimetableTabsState extends State<TimetableTabs> {
     if (i == _index) {
       bool canDelete = widget.length > 2 && i != 0;
       return Padding(
-        key: key,
         padding: const EdgeInsets.only(right: 8.0),
         child: DropdownButtonHideUnderline(
           child: DropdownButton2(
@@ -225,7 +155,6 @@ class _TimetableTabsState extends State<TimetableTabs> {
     }
 
     return Container(
-      key: key,
       height: 28,
       margin: const EdgeInsets.only(right: 8),
       decoration: BoxDecoration(
