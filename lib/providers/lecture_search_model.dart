@@ -101,6 +101,7 @@ class LectureSearchModel extends ChangeNotifier {
 
   void resetLectureFilter() {
     _lectures = null;
+    _selectedLecture = null;
     _lectureSearchText = '';
     _lectureFilter.values.forEach((e) {
       if (e.isMultiSelect)

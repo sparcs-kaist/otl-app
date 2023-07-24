@@ -135,7 +135,7 @@ class _CourseSearchPageState extends State<CourseSearchPage> {
                       if (await context
                           .read<CourseSearchModel>()
                           .courseSearch()) {
-                        Navigator.of(context).pop();
+                        Navigator.of(context).pop(true);
                       } else {
                         _focusNode.requestFocus();
                       }

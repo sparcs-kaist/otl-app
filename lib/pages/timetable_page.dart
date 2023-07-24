@@ -87,11 +87,7 @@ class _TimetablePageState extends State<TimetablePage> {
           child: Expanded(
             child: LectureSearch(
               onClosed: () async {
-                setState(() {
-                  context.read<LectureSearchModel>().setSelectedLecture(null);
-                  context.read<LectureSearchModel>().lectureClear();
-                  context.read<LectureSearchModel>().resetLectureFilter();
-                });
+                context.read<LectureSearchModel>().resetLectureFilter();
                 return true;
               },
             ),

@@ -52,91 +52,83 @@ class _LectureGroupBlockRowState extends State<LectureGroupBlockRow> {
             decoration: BoxDecoration(
               color: selected ? OTLColor.grayD : null,
             ),
-            child: Padding(
-              padding: EdgeInsets.fromLTRB(8, 6, 8, 6),
-              child: SizedBox(
-                height: 24,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Flexible(
-                      child: Wrap(
-                        children: [
-                          Text.rich(TextSpan(children: <InlineSpan>[
-                            TextSpan(
-                                text: widget.lecture.classTitle,
-                                style: TextStyle(
-                                    fontSize: 14.0,
-                                    fontWeight: FontWeight.bold)),
-                            WidgetSpan(
-                              child: SizedBox(
-                                width: 8,
-                              ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Flexible(
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(8, 6, 0, 6),
+                    child: Wrap(
+                      children: [
+                        Text.rich(TextSpan(children: <InlineSpan>[
+                          TextSpan(
+                              text: widget.lecture.classTitle,
+                              style: TextStyle(
+                                  fontSize: 14.0, fontWeight: FontWeight.bold)),
+                          WidgetSpan(
+                            child: SizedBox(
+                              width: 8,
                             ),
-                            WidgetSpan(
-                                child: Text(widget.lecture.professorsStrShort,
-                                    style: TextStyle(
-                                        fontSize: 14.0, color: Colors.black54)))
-                          ]))
+                          ),
+                          WidgetSpan(
+                              child: Text(widget.lecture.professorsStrShort,
+                                  style: TextStyle(
+                                      fontSize: 14.0, color: Colors.black54)))
+                        ]))
+                      ],
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 8.0),
+                  child: SizedBox(
+                    width: 50,
+                    child: Visibility(
+                      visible: selected,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          GestureDetector(
+                            onTap: widget.onLongPress,
+                            child: Center(
+                              child: SvgPicture.asset('assets/icons/info.svg',
+                                  height: 20.0,
+                                  width: 20,
+                                  colorFilter: ColorFilter.mode(
+                                      Color(0xFF000000), BlendMode.srcIn)),
+                            ),
+                          ),
+                          SizedBox(
+                            width: 6.0,
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              if (alreadyAdded) {
+                                _removeLecture(widget.lecture);
+                              } else {
+                                _addLecture(widget.lecture);
+                              }
+                            },
+                            child: alreadyAdded
+                                ? Icon(
+                                    Icons.remove,
+                                    size: 24.0,
+                                    color: OTLColor.pinksMain,
+                                  )
+                                : SvgPicture.asset('assets/icons/add.svg',
+                                    height: 24.0,
+                                    width: 24,
+                                    colorFilter: ColorFilter.mode(
+                                        Color(0xFF000000), BlendMode.srcIn)),
+                          )
                         ],
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 8.0),
-                      child: SizedBox(
-                        width: 50,
-                        child: Visibility(
-                          visible: selected,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              GestureDetector(
-                                onTap: widget.onLongPress,
-                                child: Center(
-                                  child: SvgPicture.asset(
-                                      'assets/icons/info.svg',
-                                      height: 20.0,
-                                      width: 20,
-                                      colorFilter: ColorFilter.mode(
-                                          Color(0xFF000000), BlendMode.srcIn)),
-                                ),
-                              ),
-                              SizedBox(
-                                width: 6.0,
-                              ),
-                              GestureDetector(
-                                onTap: () {
-                                  if (alreadyAdded) {
-                                    _removeLecture(widget.lecture);
-                                  } else {
-                                    _addLecture(widget.lecture);
-                                  }
-                                },
-                                child: Center(
-                                    child: alreadyAdded
-                                        ? Icon(
-                                            Icons.remove,
-                                            size: 24.0,
-                                            color: OTLColor.pinksMain,
-                                          )
-                                        : SvgPicture.asset(
-                                            'assets/icons/add.svg',
-                                            height: 24.0,
-                                            width: 24,
-                                            colorFilter: ColorFilter.mode(
-                                                Color(0xFF000000),
-                                                BlendMode.srcIn))),
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                    )
-                  ],
-                ),
-              ),
+                  ),
+                )
+              ],
             ),
           ),
         ),

@@ -296,6 +296,7 @@ class _SilderSelectionState extends State<SilderSelection> {
         .toList()
         .indexWhere((e) => e.first.selected == true)
         .toDouble();
+    if (_value < 0) _value = 0;
   }
 
   @override

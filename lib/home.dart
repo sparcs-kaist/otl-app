@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:otlplus/constants/text_styles.dart';
 import 'package:otlplus/providers/lecture_search_model.dart';
 import 'package:otlplus/providers/timetable_model.dart';
 import 'package:otlplus/utils/build_app_bar.dart';
@@ -74,43 +73,10 @@ class _OTLHomeState extends State<OTLHome> with SingleTickerProviderStateMixin {
 
   PreferredSizeWidget _buildHomeAppBar() {
     return PreferredSize(
-      preferredSize: Size.fromHeight(
-        MediaQuery.of(context).size.width / 1296 * 865 + 5,
-      ),
+      preferredSize: Size.fromHeight(5),
       child: AppBar(
-        title: appBarPadding(
-          Image.asset(
-            "assets/images/logo.png",
-            height: 27.0,
-          ),
-        ),
-        actions: <Widget>[
-          appBarPadding(
-            PlatformIconButton(
-              onPressed: () {
-                Navigator.push(context, buildUserPageRoute());
-              },
-              materialIcon: Icon(Icons.person),
-              cupertinoIcon: Icon(CupertinoIcons.person),
-            ),
-          ),
-          appBarPadding(
-            PlatformIconButton(
-              onPressed: () =>
-                  {Navigator.push(context, buildSettingsPageRoute())},
-              materialIcon: Icon(Icons.settings),
-              cupertinoIcon: Icon(CupertinoIcons.gear),
-            ),
-          )
-        ],
-        flexibleSpace: SafeArea(
-          child: Column(
-            children: [
-              Container(color: OTLColor.pinksMain, height: 5.0),
-              _buildExpandedWidget(),
-            ],
-          ),
-        ),
+        flexibleSpace:
+            SafeArea(child: Container(color: OTLColor.pinksMain, height: 5.0)),
         backgroundColor: OTLColor.pinksLight,
         foregroundColor: OTLColor.pinksMain,
         elevation: 0.0,
@@ -251,68 +217,6 @@ class _OTLHomeState extends State<OTLHome> with SingleTickerProviderStateMixin {
     }
   }
 
-  Widget _buildExpandedWidget() {
-    return Stack(
-      alignment: Alignment.center,
-      children: <Widget>[
-        Image.asset(
-          "assets/images/bg.4556cdee.jpg",
-          fit: BoxFit.cover,
-          color: const Color(0xFF9B4810).withOpacity(0.2),
-          colorBlendMode: BlendMode.srcATop,
-        ),
-        _buildSearch(),
-      ],
-    );
-  }
-
-  Widget _buildSearch() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-      child: Container(
-          decoration: BoxDecoration(
-            color: OTLColor.grayF,
-            borderRadius: BorderRadius.circular(8.0),
-          ),
-          width: MediaQuery.of(context).size.width,
-          child: GestureDetector(
-            behavior: HitTestBehavior.opaque,
-            onTap: () {
-              context.read<CourseSearchModel>().resetCourseFilter();
-              Navigator.of(context)
-                  .push(buildCourseSearchPageRoute())
-                  .then((e) {
-                setState(() {
-                  _currentIndex = 2;
-                });
-              });
-            },
-            child: Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  SvgPicture.asset('assets/icons/search.svg',
-                      height: 24.0,
-                      width: 24.0,
-                      colorFilter: ColorFilter.mode(
-                          OTLColor.pinksMain, BlendMode.srcIn)),
-                  const SizedBox(width: 12.0),
-                  Expanded(
-                    child: Text(
-                      "common.search".tr(),
-                      style: bodyRegular.copyWith(color: OTLColor.grayA),
-                    ),
-                  )
-                ],
-              ),
-            ),
-          )),
-    );
-  }
-
   Widget _buildStack(BuildContext context, BoxConstraints constraints) {
     final layerTop = constraints.biggest.height;
     final layerAnimation = RelativeRectTween(
@@ -331,7 +235,11 @@ class _OTLHomeState extends State<OTLHome> with SingleTickerProviderStateMixin {
             child: IndexedStack(
               index: _currentIndex,
               children: <Widget>[
-                MainPage(),
+                MainPage(changeIndex: (index) {
+                  setState(() {
+                    _currentIndex = index;
+                  });
+                }),
                 TimetablePage(),
                 DictionaryPage(),
                 ReviewPage(),
