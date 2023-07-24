@@ -74,7 +74,7 @@ class _PopUpState extends State<PopUp> {
                   },
                   icon: Icon(
                     Icons.check_circle_outline,
-                    color: _checked ? gray0 : grayD,
+                    color: _checked ? OTLColor.gray0 : OTLColor.grayD,
                   ),
                 ),
                 Text('다시 보지 않기', style: bodyRegular)

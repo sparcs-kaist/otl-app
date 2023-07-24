@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:otlplus/utils/build_page_route.dart';
-import 'package:otlplus/constants/icon.dart';
 import 'package:otlplus/pages/lecture_search_page.dart';
 import 'package:provider/provider.dart';
 import 'package:otlplus/constants/color.dart';
@@ -29,12 +29,14 @@ class _LectureSearchState extends State<LectureSearch> {
       onWillPop: widget.onClosed,
       child: ColoredBox(
         color: Colors.white,
-        child: Padding(
-          padding: EdgeInsets.fromLTRB(16, 12, 16, 0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Row(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.fromLTRB(16, 12, 16, 12),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   Expanded(
                       child: ClipRRect(
@@ -53,9 +55,12 @@ class _LectureSearchState extends State<LectureSearch> {
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                Icon(CustomIcons.search,
-                                    color: OTLColor.pinksMain),
-                                SizedBox(width: 8.0),
+                                SvgPicture.asset('assets/icons/search.svg',
+                                    height: 24.0,
+                                    width: 24.0,
+                                    colorFilter: ColorFilter.mode(
+                                        OTLColor.pinksMain, BlendMode.srcIn)),
+                                SizedBox(width: 12.0),
                                 Flexible(
                                     child: context
                                         .watch<LectureSearchModel>()
@@ -67,32 +72,30 @@ class _LectureSearchState extends State<LectureSearch> {
                       ),
                     ),
                   )),
+                  SizedBox(width: 11.0),
                   SizedBox(
-                    width: 36,
-                    height: 36,
+                    width: 24,
+                    height: 24,
                     child: GestureDetector(
                       onTap: widget.onClosed,
-                      child: const Icon(Icons.close_outlined),
+                      child: const Icon(Icons.close_outlined, size: 24),
                     ),
                   ),
                 ],
               ),
-              SizedBox(
-                height: 10,
-              ),
-              Expanded(
-                child: searchModel.isSearching
-                    ? Center(
-                        child: const CircularProgressIndicator(),
-                      )
-                    : Scrollbar(
-                        controller: _scrollController,
-                        child: _buildListView(
-                            searchModel.lectures ?? [[]], _scrollController),
-                      ),
-              ),
-            ],
-          ),
+            ),
+            Expanded(
+              child: searchModel.isSearching
+                  ? Center(
+                      child: const CircularProgressIndicator(),
+                    )
+                  : Scrollbar(
+                      controller: _scrollController,
+                      child: _buildListView(
+                          searchModel.lectures ?? [[]], _scrollController),
+                    ),
+            ),
+          ],
         ),
       ),
     );
@@ -101,6 +104,7 @@ class _LectureSearchState extends State<LectureSearch> {
   ListView _buildListView(
       List<List<Lecture>> lectures, ScrollController scrollController) {
     return ListView.separated(
+        padding: EdgeInsets.fromLTRB(16, 0, 16, 12),
         controller: scrollController,
         itemCount: lectures.length,
         itemBuilder: (context, index) => LectureGroupBlock(
@@ -112,6 +116,6 @@ class _LectureSearchState extends State<LectureSearch> {
                 Navigator.push(context, buildLectureDetailPageRoute());
               },
             ),
-        separatorBuilder: (context, index) => SizedBox(height: 10));
+        separatorBuilder: (context, index) => SizedBox(height: 8));
   }
 }

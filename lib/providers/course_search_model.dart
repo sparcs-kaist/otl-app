@@ -77,21 +77,6 @@ class CourseSearchModel extends ChangeNotifier {
         CodeLabelPair(code: "ETC", label: "기타"),
       ]
     ]),
-    // "orders": {
-    //   "label": "정렬",
-    //   "isMultiSelect": false,
-    //   "options": [
-    //     [
-    //       CodeLabelPair(code: "DEF", label: "기본순", true),
-    //       CodeLabelPair(code: "RAT", label: "평점순", false),
-    //     ],
-    //     [
-    //       CodeLabelPair(code: "GRA", label: "성적순", false),
-    //       CodeLabelPair(code: "LOA", label: "널널순", false),
-    //       CodeLabelPair(code: "SPE", label: "강의순", false),
-    //     ]
-    //   ]
-    // },
     "terms": FilterGroupInfo(
         label: "기간",
         isMultiSelect: false,
@@ -175,33 +160,6 @@ class CourseSearchModel extends ChangeNotifier {
       );
     }
   }
-
-  // Text createQuery(
-  //     String? keyword,
-  //     List<CodeLabelPair>? department,
-  //     List<CodeLabelPair>? type,
-  //     List<CodeLabelPair>? level,
-  //     CodeLabelPair? term) {
-  //   List<String> filterOptions = ;
-  //   return Text.rich(
-  //     TextSpan(
-  //       style: TextStyle(fontSize: 14, height: 1.2, letterSpacing: 0.15),
-  //       children: [
-  //         TextSpan(
-  //             text: keyword,
-  //             style:
-  //                 TextStyle(fontWeight: FontWeight.bold, color: Colors.black)),
-  //         if (filterOptions.length > 0)
-  //           TextSpan(style: TextStyle(color: Color(0xFFAAAAAA)), children: [
-  //             if ((keyword ?? '').length > 0) TextSpan(text: ", "),
-  //             TextSpan(text: (filterOptions).join(", ")),
-  //           ])
-  //       ],
-  //     ),
-  //     maxLines: 1,
-  //     overflow: TextOverflow.ellipsis,
-  //   );
-  // }
 
   Future<bool> courseSearch({String order = "DEF", double tune = 3}) async {
     _courseFilter.forEach((k, v) {

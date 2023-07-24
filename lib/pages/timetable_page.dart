@@ -37,6 +37,7 @@ class _TimetablePageState extends State<TimetablePage> {
   }
 
   Widget _buildBody(BuildContext context) {
+    final lectureSearchModel = context.watch<LectureSearchModel>();
     final lectures = context.select<TimetableModel, List<Lecture>>(
         (model) => model.currentTimetable.lectures);
     final mode = context.read<TimetableModel>().selectedMode;
@@ -89,6 +90,7 @@ class _TimetablePageState extends State<TimetablePage> {
                 setState(() {
                   context.read<LectureSearchModel>().setSelectedLecture(null);
                   context.read<LectureSearchModel>().lectureClear();
+                  context.read<LectureSearchModel>().resetLectureFilter();
                 });
                 return true;
               },
@@ -127,15 +129,15 @@ class _TimetablePageState extends State<TimetablePage> {
   Timetable _buildTimetable(
       BuildContext context, List<Lecture> lectures, bool isExamTime) {
     bool isFirst = true;
-    final bottomSheetModel = context.watch<LectureSearchModel>();
+    final lectureSearchModel = context.watch<LectureSearchModel>();
 
     return Timetable(
-      lectures: (bottomSheetModel.selectedLecture == null)
+      lectures: (lectureSearchModel.selectedLecture == null)
           ? lectures
           : [...lectures, _selectedLecture!],
       isExamTime: isExamTime,
       builder: (lecture, classTimeIndex, blockHeight) {
-        final isSelected = bottomSheetModel.selectedLecture == lecture;
+        final isSelected = lectureSearchModel.selectedLecture == lecture;
         Key? key;
 
         if (isSelected && isFirst) {
