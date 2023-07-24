@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:otlplus/constants/color.dart';
@@ -47,7 +48,7 @@ class _SearchTextfieldState extends State<SearchTextfield> {
               },
               style: bodyRegular,
               decoration: InputDecoration(
-                hintText: "과목명, 교수님 성함 등을 검색해 보세요.",
+                hintText: "common.search".tr(),
                 hintStyle: bodyRegular.copyWith(color: OTLColor.grayA),
               ),
             ),

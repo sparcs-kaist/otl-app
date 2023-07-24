@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:otlplus/constants/text_styles.dart';
@@ -14,16 +15,16 @@ class UserPage extends StatelessWidget {
     final user = context.watch<InfoModel>().user;
 
     return Scaffold(
-      appBar: buildAppBar(context, '내 정보', false, true),
+      appBar: buildAppBar(context, 'user.user', false, true),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            _buildContent("이름 ", "${user.firstName} ${user.lastName}"),
-            _buildContent("메일 ", user.email),
-            _buildContent("학번 ", user.studentId),
-            _buildContent("전공 ",
+            _buildContent("user.name", "${user.firstName} ${user.lastName}"),
+            _buildContent("user.email", user.email),
+            _buildContent("user.student_id", user.studentId),
+            _buildContent("user.major",
                 user.majors.map((department) => department.name).join(", ")),
             _buildDivider(),
             _buildMyReviewButton(context),
@@ -43,14 +44,12 @@ class UserPage extends StatelessWidget {
   Widget _buildContent(String title, String body) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 8.0),
-      child: Text.rich(
-        TextSpan(
-          style: bodyRegular,
-          children: <TextSpan>[
-            TextSpan(text: title, style: bodyBold),
-            TextSpan(text: body),
-          ],
-        ),
+      child: Row(
+        children: [
+          Text(title.tr(), style: bodyBold),
+          const SizedBox(width: 8.0),
+          Text(body),
+        ],
       ),
     );
   }
@@ -65,8 +64,10 @@ class UserPage extends StatelessWidget {
           children: [
             SvgPicture.asset('assets/icons/my_review.svg', height: 24.0),
             const SizedBox(width: 8),
-            Text('내가 들은 과목',
-                style: bodyBold.copyWith(color: OTLColor.pinksMain)),
+            Text(
+              'user.my_review'.tr(),
+              style: bodyBold.copyWith(color: OTLColor.pinksMain),
+            ),
             const Expanded(child: SizedBox()),
             Icon(Icons.navigate_next, color: OTLColor.pinksMain),
           ],
@@ -85,8 +86,10 @@ class UserPage extends StatelessWidget {
           children: [
             SvgPicture.asset('assets/icons/liked_review.svg', height: 24.0),
             const SizedBox(width: 8),
-            Text('좋아요한 후기',
-                style: bodyBold.copyWith(color: OTLColor.pinksMain)),
+            Text(
+              'user.liked_review'.tr(),
+              style: bodyBold.copyWith(color: OTLColor.pinksMain),
+            ),
             const Expanded(child: SizedBox()),
             Icon(Icons.navigate_next, color: OTLColor.pinksMain),
           ],
@@ -109,7 +112,10 @@ class UserPage extends StatelessWidget {
           children: [
             SvgPicture.asset('assets/icons/logout.svg', height: 24.0),
             const SizedBox(width: 8),
-            Text('로그아웃', style: bodyBold.copyWith(color: OTLColor.pinksMain)),
+            Text(
+              'user.logout'.tr(),
+              style: bodyBold.copyWith(color: OTLColor.pinksMain),
+            ),
           ],
         ),
       ),

@@ -124,6 +124,9 @@ class _SelectorState extends State<Selector> {
                         text: widget.selectList.every(
                           (v) => v.every((w) => w.selected == true),
                         )
+                            // unknown error
+                            //  ? "common.unselect_all".tr()
+                            //  : "common.select_all".tr()
                             ? "모두 해제"
                             : "모두 선택",
                       ),

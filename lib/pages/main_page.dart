@@ -79,7 +79,7 @@ class MainPage extends StatelessWidget {
             Navigator.push(context, buildPrivacyPageRoute());
           },
           child: Text(
-            '개인정보취급방침',
+            'home.privacy'.tr(),
             style: labelRegular.copyWith(color: OTLColor.gray75),
           ),
         ),
@@ -88,7 +88,7 @@ class MainPage extends StatelessWidget {
             Navigator.push(context, buildPeoplePageRoute());
           },
           child: Text(
-            '만든 사람들',
+            'home.people'.tr(),
             style: labelRegular.copyWith(color: OTLColor.gray75),
           ),
         ),

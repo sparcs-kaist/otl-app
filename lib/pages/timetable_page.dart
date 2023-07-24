@@ -164,20 +164,20 @@ class _TimetablePageState extends State<TimetablePage> {
                     context: context,
                     barrierDismissible: false,
                     builder: (context) => AlertDialog(
-                      title: const Text("common.delete").tr(),
+                      title: Text("common.delete".tr()),
                       content: Text("timetable.ask_delete_lecture").tr(
                         args: [lecture.title],
                       ),
                       actions: [
                         TextButton(
-                          child: const Text("common.cancel").tr(),
+                          child: Text("common.cancel".tr()),
                           onPressed: () {
                             result = false;
                             Navigator.pop(context);
                           },
                         ),
                         TextButton(
-                          child: const Text("common.delete").tr(),
+                          child: Text("common.delete".tr()),
                           onPressed: () {
                             result = true;
                             Navigator.pop(context);

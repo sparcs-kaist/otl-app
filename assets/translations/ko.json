@@ -2,7 +2,11 @@
   "common": {
     "alert": "경고",
     "cancel": "취소",
-    "delete": "삭제"
+    "delete": "삭제",
+    "reset": "초기화",
+    "search": "과목명, 교수님 성함 등을 검색해 보세요.",
+    "select_all": "모두 선택",
+    "unselect_all": "모두 해제"
   },
   "semester": {
     "spring": "봄",
@@ -11,15 +15,17 @@
     "winter": "겨울"
   },
   "main": {
-    "search": "검색",
     "home": "홈",
     "timetable": "시간표",
     "dictionary": "과목사전",
     "review": "과목후기",
     "settings": "설정",
     "no_info": "정보 없음",
-    "remained_datetime": "D-{}일 {}시간 {}분",
-    "goto_cais": "학사시스템 바로가기"
+    "remained_datetime": "D-{}일 {}시간 {}분"
+  },
+  "home": {
+    "privacy": "개인정보취급방침",
+    "people": "만든 사람들"
   },
   "timetable": {
     "ask_delete_lecture": "'{}' 수업을 삭제하시겠습니까?",
@@ -55,6 +61,18 @@
       "sun": "일요일"
     }
   },
+  "dictionary": {},
+  "review": {},
+  "user": {
+    "user": "내 정보",
+    "name": "이름",
+    "email": "메일",
+    "student_id": "학번",
+    "major": "전공",
+    "my_review": "내가 들은 과목",
+    "liked_review": "좋아요한 후기",
+    "logout": "로그아웃"
+  },
   "settings": {
     "send_error_log": "오류 로그 전송",
     "send_error_log_desc": "사용자의 제보 없이 자동으로 오류를 수집합니다.",
@@ -64,5 +82,56 @@
     "reset_all_desc": "정말 모든 설정 데이터를 초기화하시겠습니까? 로그인 정보는 초기화되지 않습니다.",
     "throw_test": "테스트 오류 발생",
     "throw_test_desc": "Firebase crashlytics 테스트용"
+  },
+  "department": {
+    "department": "학과",
+    "hss": "인문",
+    "ae": "항공",
+    "bis": "바공",
+    "bs": "생명",
+    "cbe": "생화공",
+    "ce": "건환",
+    "ch": "화학",
+    "cs": "전산",
+    "ee": "전자",
+    "id": "산디",
+    "ie": "산공",
+    "mas": "수리",
+    "me": "기계",
+    "nqe": "원양",
+    "msb": "기경",
+    "ms": "신소재",
+    "ph": "물리",
+    "ts": "융인",
+    "all": "전체",
+    "etc": "기타"
+  },
+  "type": {
+    "type": "구분",
+    "br": "기필",
+    "be": "기선",
+    "mr": "전필",
+    "me": "전선",
+    "mgc": "교필",
+    "hse": "인선",
+    "gr": "공통",
+    "eg": "석박",
+    "oe": "자선",
+    "etc": "기타"
+  },
+  "level": {
+    "level": "학년",
+    "100s": "100번대",
+    "200s": "200번대",
+    "300s": "300번대",
+    "400s": "400번대",
+    "etc": "기타"
+  },
+  "term": {
+    "term": "기간",
+    "1_years": "1년 이내",
+    "2_years": "2년 이내",
+    "3_years": "3년 이내",
+    "all": "전체"
   }
 }

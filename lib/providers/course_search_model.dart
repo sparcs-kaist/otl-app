@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:otlplus/constants/color.dart';
 import 'package:otlplus/constants/text_styles.dart';
@@ -17,75 +18,100 @@ class CourseSearchModel extends ChangeNotifier {
   }
 
   Map<String, FilterGroupInfo> _courseFilter = {
-    "departments": FilterGroupInfo(label: "학과", isMultiSelect: true, options: [
+    "departments": FilterGroupInfo(
+        label: "department.department".tr(),
+        isMultiSelect: true,
+        options: [
+          [
+            CodeLabelPair(code: "HSS", label: "department.hss".tr()),
+            CodeLabelPair(code: "CE", label: "department.ce".tr()),
+            CodeLabelPair(code: "MSB", label: "department.msb".tr()),
+            CodeLabelPair(code: "ME", label: "department.me".tr()),
+          ],
+          [
+            CodeLabelPair(code: "PH", label: "department.ph".tr()),
+            CodeLabelPair(code: "BiS", label: "department.bis".tr()),
+            CodeLabelPair(code: "IE", label: "department.ie".tr()),
+            CodeLabelPair(code: "ID", label: "department.id".tr()),
+          ],
+          [
+            CodeLabelPair(code: "BS", label: "department.bs".tr()),
+            CodeLabelPair(code: "CBE", label: "department.cbe".tr()),
+            CodeLabelPair(code: "MAS", label: "department.mas".tr()),
+            CodeLabelPair(code: "MS", label: "department.ms".tr()),
+          ],
+          [
+            CodeLabelPair(code: "NQE", label: "department.nqe".tr()),
+            CodeLabelPair(code: "TS", label: "department.ts".tr()),
+            CodeLabelPair(code: "CS", label: "department.cs".tr()),
+            CodeLabelPair(code: "EE", label: "department.ee".tr()),
+          ],
+          [
+            CodeLabelPair(code: "AE", label: "department.ae".tr()),
+            CodeLabelPair(code: "CH", label: "department.ch".tr()),
+            CodeLabelPair(code: "ETC", label: "department.etc".tr()),
+          ]
+        ]),
+    "types":
+        FilterGroupInfo(label: "type.type".tr(), isMultiSelect: true, options: [
       [
-        CodeLabelPair(code: "HSS", label: "인문"),
-        CodeLabelPair(code: "CE", label: "건환"),
-        CodeLabelPair(code: "MSB", label: "기경"),
-        CodeLabelPair(code: "ME", label: "기계"),
+        CodeLabelPair(code: "BR", label: "type.br".tr()),
+        CodeLabelPair(code: "BE", label: "type.be".tr()),
+        CodeLabelPair(code: "MR", label: "type.mr".tr()),
+        CodeLabelPair(code: "ME", label: "type.me".tr()),
       ],
       [
-        CodeLabelPair(code: "PH", label: "물리"),
-        CodeLabelPair(code: "BiS", label: "바공"),
-        CodeLabelPair(code: "IE", label: "산공"),
-        CodeLabelPair(code: "ID", label: "산디"),
+        CodeLabelPair(code: "MGC", label: "type.mgc".tr()),
+        CodeLabelPair(code: "HSE", label: "type.hse".tr()),
+        CodeLabelPair(code: "GR", label: "type.gr".tr()),
+        CodeLabelPair(code: "EG", label: "type.eg".tr()),
       ],
       [
-        CodeLabelPair(code: "BS", label: "생명"),
-        CodeLabelPair(code: "CBE", label: "생화공"),
-        CodeLabelPair(code: "MAS", label: "수리"),
-        CodeLabelPair(code: "MS", label: "신소재"),
-      ],
-      [
-        CodeLabelPair(code: "NQE", label: "원양"),
-        CodeLabelPair(code: "TS", label: "융인"),
-        CodeLabelPair(code: "CS", label: "전산"),
-        CodeLabelPair(code: "EE", label: "전자"),
-      ],
-      [
-        CodeLabelPair(code: "AE", label: "항공"),
-        CodeLabelPair(code: "CH", label: "화학"),
-        CodeLabelPair(code: "ETC", label: "기타"),
+        CodeLabelPair(code: "OE", label: "type.oe".tr()),
+        CodeLabelPair(code: "ETC", label: "type.etc".tr()),
       ]
     ]),
-    "types": FilterGroupInfo(label: "구분", isMultiSelect: true, options: [
-      [
-        CodeLabelPair(code: "BR", label: "기필"),
-        CodeLabelPair(code: "BE", label: "기선"),
-        CodeLabelPair(code: "MR", label: "전필"),
-        CodeLabelPair(code: "ME", label: "전선"),
-      ],
-      [
-        CodeLabelPair(code: "MGC", label: "교필"),
-        CodeLabelPair(code: "HSE", label: "인선"),
-        CodeLabelPair(code: "GR", label: "공통"),
-        CodeLabelPair(code: "EG", label: "석박"),
-      ],
-      [
-        CodeLabelPair(code: "OE", label: "자선"),
-        CodeLabelPair(code: "ETC", label: "기타"),
-      ]
-    ]),
-    "levels": FilterGroupInfo(label: "학년", isMultiSelect: true, options: [
-      [
-        CodeLabelPair(code: "100", label: "100번"),
-        CodeLabelPair(code: "200", label: "200번"),
-        CodeLabelPair(code: "300", label: "300번"),
-        CodeLabelPair(code: "400", label: "400번"),
-      ],
-      [
-        CodeLabelPair(code: "ETC", label: "기타"),
-      ]
-    ]),
+    "levels": FilterGroupInfo(
+        label: "level.level".tr(),
+        isMultiSelect: true,
+        options: [
+          [
+            CodeLabelPair(code: "100", label: "level.100s".tr()),
+            CodeLabelPair(code: "200", label: "level.200s".tr()),
+            CodeLabelPair(code: "300", label: "level.300s".tr()),
+            CodeLabelPair(code: "400", label: "level.400s".tr()),
+          ],
+          [
+            CodeLabelPair(code: "ETC", label: "level.etc".tr()),
+          ]
+        ]),
     "terms": FilterGroupInfo(
-        label: "기간",
+        label: "term.term".tr(),
         isMultiSelect: false,
         type: "slider",
         options: [
-          [CodeLabelPair(code: "ALL", label: "전체", selected: true)],
-          [CodeLabelPair(code: "3", label: "3년 이내", selected: false)],
-          [CodeLabelPair(code: "2", label: "2년 이내", selected: false)],
-          [CodeLabelPair(code: "1", label: "1년 이내", selected: false)],
+          [CodeLabelPair(code: "ALL", label: "term.all".tr(), selected: true)],
+          [
+            CodeLabelPair(
+              code: "3",
+              label: "term.3_years".tr(),
+              selected: false,
+            )
+          ],
+          [
+            CodeLabelPair(
+              code: "2",
+              label: "term.2_years".tr(),
+              selected: false,
+            )
+          ],
+          [
+            CodeLabelPair(
+              code: "1",
+              label: "term.1_years".tr(),
+              selected: false,
+            )
+          ],
         ])
   };
   get courseFilter => _courseFilter;
@@ -119,7 +145,7 @@ class CourseSearchModel extends ChangeNotifier {
   bool get isSearching => _isSearching;
 
   Text _courseSearchquery = Text(
-    "과목명, 교수님 성함 등을 검색해 보세요.",
+    "common.search".tr(),
     style: bodyRegular.copyWith(color: OTLColor.grayA),
   );
   Text get courseSearchquery => _courseSearchquery;
@@ -135,7 +161,7 @@ class CourseSearchModel extends ChangeNotifier {
                 .map((i) => i.label)))).values.expand((i) => i).toList();
     if (_selectedFilters.length == 0 && _courseSearchText.length == 0) {
       _courseSearchquery = Text(
-        "과목명, 교수님 성함 등을 검색해 보세요.",
+        "common.search".tr(),
         style: bodyRegular.copyWith(color: OTLColor.grayA),
       );
     } else {
