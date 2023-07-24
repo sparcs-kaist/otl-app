@@ -301,9 +301,6 @@ class _TimetablePageState extends State<TimetablePage> {
           pageBuilder: (context, _, __) =>
               _buildDeleteDialog(context, timetableModel.selectedIndex),
         );
-        /*showModalBottomSheet(
-            context: context,
-            builder: (context) => _buildSettingsSheet(context));*/
       },
       onExportTap: (type) {
         context
@@ -382,47 +379,4 @@ class _TimetablePageState extends State<TimetablePage> {
       ),
     );
   }
-
-  /*Widget _buildSettingsSheet(BuildContext context) {
-    return Container(
-      color: Colors.white,
-      child: Wrap(
-        children: <Widget>[
-          ListTile(
-            leading: const Icon(Icons.image),
-            title: const Text("이미지 저장"),
-            onTap: () {
-              final boundary = _paintKey.currentContext?.findRenderObject()
-                  as RenderRepaintBoundary;
-              exportImage(boundary);
-              Navigator.pop(context);
-            },
-          ),
-          ListTile(
-            leading: const Icon(Icons.content_copy),
-            title: const Text("복제"),
-            onTap: () {
-              final timetableModel = context.read<TimetableModel>();
-              timetableModel.createTimetable(
-                  lectures: timetableModel.currentTimetable.lectures);
-              Navigator.pop(context);
-            },
-          ),
-          context.select<TimetableModel, int>((model) => model.selectedIndex) ==
-                  0
-              ? SizedBox()
-              : ListTile(
-                  enabled: (context.select<TimetableModel, bool>(
-                      (model) => model.timetables.length > 2)),
-                  leading: const Icon(Icons.delete),
-                  title: const Text("삭제"),
-                  onTap: () {
-                    context.read<TimetableModel>().deleteTimetable();
-                    Navigator.pop(context);
-                  },
-                ),
-        ],
-      ),
-    );
-  }*/
 }
