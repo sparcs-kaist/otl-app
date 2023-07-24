@@ -139,9 +139,6 @@ class LectureSearchModel extends ChangeNotifier {
             text: _lectureSearchText.isEmpty ? '' : '"$_lectureSearchText"',
           ),
           TextSpan(
-            text: _lectureSearchText.isEmpty ? '' : '"$_lectureSearchText"',
-          ),
-          TextSpan(
             children: [
               if (_selectedFilters.length > 0 && _lectureSearchText.length > 0)
                 TextSpan(text: ", "),

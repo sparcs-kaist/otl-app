@@ -162,9 +162,6 @@ class CourseSearchModel extends ChangeNotifier {
               text: _courseSearchText.isEmpty ? '' : '"$_courseSearchText"',
             ),
             TextSpan(
-              text: _courseSearchText.isEmpty ? '' : '"$_courseSearchText"',
-            ),
-            TextSpan(
               children: [
                 if (_selectedFilters.length > 0 && _courseSearchText.length > 0)
                   TextSpan(text: ", "),
