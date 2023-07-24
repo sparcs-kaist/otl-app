@@ -18,6 +18,7 @@ import 'package:otlplus/pages/main_page.dart';
 import 'package:otlplus/pages/review_page.dart';
 import 'package:otlplus/pages/timetable_page.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class OTLHome extends StatefulWidget {
   static String route = 'home';
@@ -43,10 +44,14 @@ class _OTLHomeState extends State<OTLHome> with SingleTickerProviderStateMixin {
     );
 
     WidgetsBinding.instance.addPostFrameCallback(
-      (_) async => await showDialog(
-        context: context,
-        builder: (context) => PopUp(),
-      ),
+      (_) async {
+        if ((await SharedPreferences.getInstance()).getBool('popup') ?? true) {
+          await showDialog(
+            context: context,
+            builder: (context) => PopUp(),
+          );
+        }
+      },
     );
   }
 

@@ -1,10 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:otlplus/constants/color.dart';
 import 'package:otlplus/constants/text_styles.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class PopUp extends StatelessWidget {
+class PopUp extends StatefulWidget {
   const PopUp({Key? key}) : super(key: key);
+
+  @override
+  State<PopUp> createState() => _PopUpState();
+}
+
+class _PopUpState extends State<PopUp> {
+  bool _checked = false;
 
   @override
   Widget build(BuildContext context) {
@@ -27,32 +35,64 @@ class PopUp extends StatelessWidget {
         child: Column(
           children: [
             Image.asset('assets/graduate-planner.png', height: 128.0),
+            const SizedBox(height: 8.0),
             Text(
               '웹에서 지금 바로 만나보세요!',
               style: bodyRegular,
+            ),
+            const SizedBox(height: 8.0),
+            FilledButton(
+              onPressed: () => launchUrl(
+                Uri.https("otl.kaist.ac.kr", "planner"),
+              ),
+              child: Text.rich(
+                TextSpan(
+                  style: titleBold,
+                  children: <TextSpan>[
+                    TextSpan(text: '졸업플래너'),
+                    TextSpan(style: labelBold, text: 'BETA'),
+                    TextSpan(text: ' 이용하러 가기'),
+                  ],
+                ),
+                textAlign: TextAlign.center,
+              ),
             ),
           ],
         ),
       ),
       actions: [
-        FilledButton(
-          onPressed: () => launchUrl(
-            Uri.https("otl.kaist.ac.kr", "planner"),
-          ),
-          child: Text.rich(
-            TextSpan(
-              style: titleBold,
-              children: <TextSpan>[
-                TextSpan(text: '졸업플래너'),
-                TextSpan(style: labelBold, text: 'BETA'),
-                TextSpan(text: ' 이용하러 가기'),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Row(
+              children: [
+                IconButton(
+                  onPressed: () {
+                    setState(() {
+                      _checked = !_checked;
+                    });
+                  },
+                  icon: Icon(
+                    Icons.check_circle_outline,
+                    color: _checked ? gray0 : grayD,
+                  ),
+                ),
+                Text('다시 보지 않기', style: bodyRegular)
               ],
             ),
-            textAlign: TextAlign.center,
-          ),
-        )
+            IconButton(
+              onPressed: () async {
+                if (_checked) {
+                  (await SharedPreferences.getInstance())
+                      .setBool('popup', false);
+                }
+                Navigator.pop(context);
+              },
+              icon: Icon(Icons.close),
+            ),
+          ],
+        ),
       ],
-      actionsAlignment: MainAxisAlignment.center,
     );
   }
 }
