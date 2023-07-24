@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:otlplus/constants/color.dart';
 import 'package:otlplus/extensions/semester.dart';
 import 'package:otlplus/models/lecture.dart';
 import 'package:otlplus/models/semester.dart';
 import 'package:otlplus/models/user.dart';
 import 'package:otlplus/providers/info_model.dart';
 import 'package:otlplus/providers/lecture_detail_model.dart';
+import 'package:otlplus/utils/build_app_bar.dart';
 import 'package:otlplus/utils/build_page_route.dart';
 import 'package:otlplus/widgets/lecture_simple_block.dart';
 import 'package:provider/provider.dart';
@@ -30,7 +30,7 @@ class MyReviewPage extends StatelessWidget {
           ((a.year != b.year) ? (b.year - a.year) : (b.semester - a.semester)));
 
     return Scaffold(
-      appBar: _buildAppBar(context),
+      appBar: buildAppBar(context, '내가 들은 과목', true, true),
       body: Container(
         constraints: const BoxConstraints.expand(),
         child: Card(
@@ -73,53 +73,6 @@ class MyReviewPage extends StatelessWidget {
               ),
             ),
           ),
-        ),
-      ),
-    );
-  }
-
-  PreferredSizeWidget _buildAppBar(BuildContext context) {
-    return PreferredSize(
-      preferredSize: Size.fromHeight(kToolbarHeight),
-      child: Theme(
-        data: Theme.of(context).copyWith(
-            appBarTheme: AppBarTheme(
-          color: BACKGROUND_COLOR,
-          elevation: 0.0,
-          actionsIconTheme: IconThemeData(
-            color: CONTENT_COLOR,
-          ),
-        )),
-        child: AppBar(
-          leading: IconButton(
-            icon: const Icon(
-              Icons.arrow_back_ios,
-              color: Colors.black,
-            ),
-            onPressed: () {
-              Navigator.pop(context);
-            },
-          ),
-          title: Text(
-            '내가 들은 과목',
-            style: TextStyle(
-              color: Colors.black,
-              fontWeight: FontWeight.bold,
-              fontSize: 14.0,
-            ),
-          ),
-          centerTitle: true,
-          flexibleSpace: SafeArea(
-            child: Column(
-              children: [
-                Container(
-                  color: PRIMARY_COLOR,
-                  height: 5,
-                ),
-              ],
-            ),
-          ),
-          automaticallyImplyLeading: false,
         ),
       ),
     );

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:otlplus/constants/color.dart';
+import 'package:otlplus/constants/text_styles.dart';
 import 'package:otlplus/providers/lecture_search_model.dart';
 import 'package:otlplus/providers/timetable_model.dart';
-import 'package:otlplus/widgets/base_layout.dart';
+import 'package:otlplus/utils/build_app_bar.dart';
 import 'package:otlplus/widgets/search_filter_panel.dart';
 import 'package:otlplus/widgets/search_textfield.dart';
 import 'package:provider/provider.dart';
@@ -40,129 +41,113 @@ class _LectureSearchPageState extends State<LectureSearchPage> {
     super.dispose();
   }
 
+  PreferredSizeWidget _buildAppBar(BuildContext context) {
+    return AppBar(
+      title: appBarPadding(
+        Row(
+          children: [
+            IconButton(
+              onPressed: () => Navigator.pop(context),
+              icon: const Icon(Icons.navigate_before),
+            ),
+            Expanded(
+              child: SearchTextfield(
+                autoFocus: widget.openKeyboard,
+                backgroundColor: grayF,
+                textController: _searchTextController,
+                focusNode: _focusNode,
+              ),
+            ),
+          ],
+        ),
+      ),
+      flexibleSpace: SafeArea(child: Container(color: pinksMain, height: 5.0)),
+      toolbarHeight: kToolbarHeight + 5.0,
+      backgroundColor: pinksLight,
+      foregroundColor: gray0,
+      elevation: 0.0,
+      centerTitle: true,
+      automaticallyImplyLeading: false,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ColoredBox(
-        color: OTL_LIGHTPINK,
-        child: SafeArea(
-          minimum: EdgeInsets.only(bottom: 16),
-          top: true,
-          maintainBottomViewPadding: true,
-          child: BaseLayout(
-            enableBackButton: true,
-            body: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
+      backgroundColor: pinksLight,
+      appBar: _buildAppBar(context),
+      body: Padding(
+        padding: const EdgeInsets.only(left: 16.0, right: 16.0, bottom: 16.0),
+        child: Column(
+          children: <Widget>[
+            Flexible(
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
+                children: [
                   Flexible(
-                    child: Column(
-                      children: [
-                        SearchTextfield(
-                          autoFocus: widget.openKeyboard,
-                          textController: _searchTextController,
-                          focusNode: _focusNode,
-                          backgroundColor: Colors.white,
-                        ),
-                        SizedBox(height: 16),
-                        Flexible(
-                          child: SearchFilterPanel(
-                            filter: context
-                                .watch<LectureSearchModel>()
-                                .lectureFilter,
-                            setFilter: context
-                                .read<LectureSearchModel>()
-                                .setLectureFilterSelected,
-                          ),
-                        ),
-                        SizedBox(height: 16),
-                      ],
+                    child: SearchFilterPanel(
+                      filter: context.watch<LectureSearchModel>().lectureFilter,
+                      setFilter: context
+                          .read<LectureSearchModel>()
+                          .setLectureFilterSelected,
                     ),
                   ),
-                  Container(
-                    height: 40,
-                    child: Row(
-                      children: [
-                        Flexible(
-                          flex: 1,
-                          child: ClipRRect(
-                            clipBehavior: Clip.hardEdge,
-                            borderRadius: BorderRadius.all(Radius.circular(8)),
-                            child: GestureDetector(
-                              onTap: () {
-                                _searchTextController.clear();
-                                context
-                                    .read<LectureSearchModel>()
-                                    .resetLectureFilter();
-                                _focusNode.requestFocus();
-                              },
-                              child: ColoredBox(
-                                color: Color(0xFFFFFFFF),
-                                child: Center(
-                                  child: Text(
-                                    "초기화",
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 14,
-                                      color: PRIMARY_COLOR,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          width: 12,
-                        ),
-                        Flexible(
-                          flex: 1,
-                          child: ClipRRect(
-                            clipBehavior: Clip.hardEdge,
-                            borderRadius: BorderRadius.all(Radius.circular(8)),
-                            child: GestureDetector(
-                              onTap: () async {
-                                if (await context
-                                    .read<LectureSearchModel>()
-                                    .lectureSearch(
-                                      context
-                                          .read<TimetableModel>()
-                                          .selectedSemester,
-                                    ))
-                                  Navigator.of(context).pop();
-                                else
-                                  _focusNode.requestFocus();
-                              },
-                              child: ColoredBox(
-                                color: PRIMARY_COLOR,
-                                child: Center(
-                                  child: Text(
-                                    "검색",
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 14,
-                                        color: Colors.white),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  )
+                  const SizedBox(height: 16.0),
                 ],
               ),
             ),
-            onBack: () {
-              // context.read<LectureSearchModel>().lectureClear();
-            },
-            sheetBackgroundColor: BACKGROUND_COLOR,
-          ),
+            Row(
+              children: [
+                Expanded(
+                  child: FilledButton(
+                    onPressed: () {
+                      _searchTextController.clear();
+                      context.read<LectureSearchModel>().resetLectureFilter();
+                      _focusNode.requestFocus();
+                    },
+                    child: Text(
+                      "초기화",
+                      style: bodyBold.copyWith(color: pinksMain),
+                    ),
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStatePropertyAll(grayF),
+                      shape: MaterialStatePropertyAll(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  width: 12,
+                ),
+                Expanded(
+                  child: FilledButton(
+                    style: ButtonStyle(
+                      shape: MaterialStatePropertyAll(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                      ),
+                    ),
+                    onPressed: () async {
+                      if (await context
+                          .read<LectureSearchModel>()
+                          .lectureSearch(
+                            context.read<TimetableModel>().selectedSemester,
+                          ))
+                        Navigator.of(context).pop();
+                      else
+                        _focusNode.requestFocus();
+                    },
+                    child: Text("검색", style: bodyBold),
+                  ),
+                ),
+              ],
+            ),
+          ],
         ),
       ),
-      resizeToAvoidBottomInset: false,
     );
   }
 }

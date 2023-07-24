@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:otlplus/models/review.dart';
+import 'package:otlplus/utils/build_app_bar.dart';
 import 'package:provider/provider.dart';
 import 'package:otlplus/constants/color.dart';
 import 'package:otlplus/extensions/course.dart';
@@ -21,8 +22,16 @@ class CourseDetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final CourseDetailModel courseDetailModel =
+        context.watch<CourseDetailModel>();
+
     return Scaffold(
-      appBar: _buildAppBar(context),
+      appBar: buildAppBar(
+        context,
+        courseDetailModel.hasData ? courseDetailModel.course.title : '',
+        true,
+        false,
+      ),
       body: Card(
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(top: Radius.circular(16.0)),
@@ -36,90 +45,13 @@ class CourseDetailPage extends StatelessWidget {
     );
   }
 
-  PreferredSizeWidget _buildAppBar(BuildContext context) {
-    final CourseDetailModel courseDetailModel =
-        context.watch<CourseDetailModel>();
-
-    return PreferredSize(
-      preferredSize: Size.fromHeight(kToolbarHeight),
-      child: Theme(
-        data: Theme.of(context).copyWith(
-            appBarTheme: AppBarTheme(
-          color: BACKGROUND_COLOR,
-          elevation: 0.0,
-          actionsIconTheme: IconThemeData(
-            color: CONTENT_COLOR,
-          ),
-        )),
-        child: AppBar(
-          leading: IconButton(
-            icon: const Icon(
-              Icons.arrow_back_ios,
-              color: Colors.black,
-            ),
-            onPressed: () {
-              Navigator.pop(context);
-            },
-          ),
-          title: Text(
-            courseDetailModel.hasData ? courseDetailModel.course.title : '',
-            style: TextStyle(
-              color: Colors.black,
-              fontWeight: FontWeight.bold,
-              fontSize: 14.0,
-            ),
-          ),
-          centerTitle: true,
-          flexibleSpace: SafeArea(
-            child: Column(
-              children: [
-                Container(
-                  color: PRIMARY_COLOR,
-                  height: 5,
-                ),
-              ],
-            ),
-          ),
-          automaticallyImplyLeading: false,
-        ),
-      ),
-    );
-  }
-
   Widget _buildBody(BuildContext context) {
     final course =
         context.select<CourseDetailModel, Course>((model) => model.course);
 
     return Padding(
       padding: const EdgeInsets.all(12.0),
-      child: Column(
-        children: <Widget>[
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Text(
-                "과목코드 ",
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 12.0,
-                  height: 1.1,
-                ),
-              ),
-              Expanded(
-                child: Text(
-                  course.oldCode,
-                  style: const TextStyle(
-                    fontSize: 12.0,
-                    height: 1.1,
-                  ),
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 8.0),
-          Expanded(child: _buildScrollView(context, course)),
-        ],
-      ),
+      child: _buildScrollView(context, course),
     );
   }
 
@@ -270,6 +202,29 @@ class CourseDetailPage extends StatelessWidget {
   Column _buildAttribute(Course course) {
     return Column(
       children: <Widget>[
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text(
+              "과목코드 ",
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 12.0,
+                height: 1.1,
+              ),
+            ),
+            Expanded(
+              child: Text(
+                course.oldCode,
+                style: const TextStyle(
+                  fontSize: 12.0,
+                  height: 1.1,
+                ),
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 4.0),
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[

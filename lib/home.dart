@@ -1,10 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
+import 'package:otlplus/constants/text_styles.dart';
+import 'package:otlplus/utils/build_app_bar.dart';
 import 'package:otlplus/utils/build_page_route.dart';
 import 'package:otlplus/constants/icon.dart';
 import 'package:otlplus/providers/course_search_model.dart';
-import 'package:otlplus/pages/course_search_page.dart';
+import 'package:otlplus/widgets/pop_up.dart';
 import 'package:provider/provider.dart';
 import 'package:otlplus/constants/color.dart';
 import 'package:otlplus/pages/dictionary_page.dart';
@@ -35,6 +37,13 @@ class _OTLHomeState extends State<OTLHome> with SingleTickerProviderStateMixin {
       value: 1.0,
       vsync: this,
     );
+
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) async => await showDialog(
+        context: context,
+        builder: (context) => PopUp(),
+      ),
+    );
   }
 
   @override
@@ -42,7 +51,7 @@ class _OTLHomeState extends State<OTLHome> with SingleTickerProviderStateMixin {
     return Scaffold(
       appBar: _buildAppBar(),
       backgroundColor:
-          _currentIndex == 0 ? const Color(0xFF9B4810) : BACKGROUND_COLOR,
+          _currentIndex == 0 ? const Color(0xFF9B4810) : pinksLight,
       bottomNavigationBar: _buildBottomNavigationBar(),
       body: GestureDetector(
         onTap: () {
@@ -54,56 +63,175 @@ class _OTLHomeState extends State<OTLHome> with SingleTickerProviderStateMixin {
     );
   }
 
-  PreferredSizeWidget _buildAppBar() {
+  PreferredSizeWidget _buildHomeAppBar() {
     return PreferredSize(
-      preferredSize: Size.fromHeight(_currentIndex == 0
-          ? MediaQuery.of(context).size.width / 1296 * 865 + 5
-          : kToolbarHeight),
-      child: Theme(
-        data: Theme.of(context).copyWith(
-            appBarTheme: AppBarTheme(
-          color: BACKGROUND_COLOR,
-          elevation: 0.0,
-          actionsIconTheme: IconThemeData(
-            color: _currentIndex == 0 ? Colors.white70 : CONTENT_COLOR,
+      preferredSize: Size.fromHeight(
+        MediaQuery.of(context).size.width / 1296 * 865 + 5,
+      ),
+      child: AppBar(
+        title: appBarPadding(
+          Image.asset(
+            "assets/logo.png",
+            height: 27.0,
           ),
-        )),
-        child: AppBar(
-            title: Image.asset(
-              "assets/logo.png",
-              height: 27,
+        ),
+        actions: <Widget>[
+          appBarPadding(
+            PlatformIconButton(
+              onPressed: () {
+                Navigator.push(context, buildUserPageRoute());
+              },
+              materialIcon: Icon(Icons.person),
+              cupertinoIcon: Icon(CupertinoIcons.person),
             ),
-            flexibleSpace: SafeArea(
-              child: Column(
-                children: [
-                  Container(
-                    color: PRIMARY_COLOR,
-                    height: 5,
-                  ),
-                  if (_currentIndex == 0) _buildExpandedWidget(),
-                ],
-              ),
+          ),
+          appBarPadding(
+            PlatformIconButton(
+              onPressed: () =>
+                  {Navigator.push(context, buildSettingsPageRoute())},
+              materialIcon: Icon(Icons.settings),
+              cupertinoIcon: Icon(CupertinoIcons.gear),
             ),
-            automaticallyImplyLeading: false,
-            actions: <Widget>[
-              PlatformIconButton(
-                onPressed: () {
-                  Navigator.push(context, buildUserPageRoute());
-                },
-                materialIcon: Icon(Icons.person),
-                cupertinoIcon: Icon(CupertinoIcons.person),
-              ),
-              PlatformIconButton(
-                onPressed: () =>
-                    {Navigator.push(context, buildSettingsPageRoute())},
-                materialIcon: Icon(Icons.settings),
-                cupertinoIcon: Icon(
-                  CupertinoIcons.gear,
-                ),
-              )
-            ]),
+          )
+        ],
+        flexibleSpace: SafeArea(
+          child: Column(
+            children: [
+              Container(color: pinksMain, height: 5.0),
+              _buildExpandedWidget(),
+            ],
+          ),
+        ),
+        backgroundColor: pinksLight,
+        foregroundColor: pinksMain,
+        elevation: 0.0,
+        automaticallyImplyLeading: false,
       ),
     );
+  }
+
+  PreferredSizeWidget _buildTimeTableAppBar() {
+    return AppBar(
+      title: appBarPadding(
+        Image.asset(
+          "assets/logo.png",
+          height: 27,
+        ),
+      ),
+      actions: <Widget>[
+        appBarPadding(
+          PlatformIconButton(
+            onPressed: () {
+              Navigator.push(context, buildUserPageRoute());
+            },
+            materialIcon: Icon(Icons.person),
+            cupertinoIcon: Icon(CupertinoIcons.person),
+          ),
+        ),
+        appBarPadding(
+          PlatformIconButton(
+            onPressed: () =>
+                {Navigator.push(context, buildSettingsPageRoute())},
+            materialIcon: Icon(Icons.settings),
+            cupertinoIcon: Icon(
+              CupertinoIcons.gear,
+            ),
+          ),
+        )
+      ],
+      flexibleSpace: SafeArea(child: Container(color: pinksMain, height: 5.0)),
+      toolbarHeight: kToolbarHeight + 5.0,
+      backgroundColor: pinksLight,
+      foregroundColor: gray0,
+      elevation: 0.0,
+      automaticallyImplyLeading: false,
+    );
+  }
+
+  PreferredSizeWidget _buildDictionaryAppBar() {
+    return AppBar(
+      title: appBarPadding(
+        GestureDetector(
+          onTap: () => Navigator.push(context, buildCourseSearchPageRoute()),
+          child: Container(
+            decoration: BoxDecoration(
+              color: grayF,
+              borderRadius: BorderRadius.circular(8.0),
+            ),
+            padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
+            child: Row(
+              children: [
+                Icon(CustomIcons.search, color: pinksMain, size: 24.0),
+                const SizedBox(width: 12.0),
+                Expanded(
+                  child: context.watch<CourseSearchModel>().courseSearchquery,
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+      flexibleSpace: SafeArea(child: Container(color: pinksMain, height: 5.0)),
+      toolbarHeight: kToolbarHeight + 5.0,
+      backgroundColor: pinksLight,
+      foregroundColor: gray0,
+      elevation: 0.0,
+      centerTitle: true,
+      automaticallyImplyLeading: false,
+    );
+  }
+
+  PreferredSizeWidget _buildReviewAppBar() {
+    return AppBar(
+      title: appBarPadding(
+        Image.asset(
+          "assets/logo.png",
+          height: 27,
+        ),
+      ),
+      actions: <Widget>[
+        appBarPadding(
+          PlatformIconButton(
+            onPressed: () {
+              Navigator.push(context, buildUserPageRoute());
+            },
+            materialIcon: Icon(Icons.person),
+            cupertinoIcon: Icon(CupertinoIcons.person),
+          ),
+        ),
+        appBarPadding(
+          PlatformIconButton(
+            onPressed: () =>
+                {Navigator.push(context, buildSettingsPageRoute())},
+            materialIcon: Icon(Icons.settings),
+            cupertinoIcon: Icon(
+              CupertinoIcons.gear,
+            ),
+          ),
+        )
+      ],
+      flexibleSpace: SafeArea(child: Container(color: pinksMain, height: 5.0)),
+      toolbarHeight: kToolbarHeight + 5.0,
+      backgroundColor: pinksLight,
+      foregroundColor: gray0,
+      elevation: 0.0,
+      automaticallyImplyLeading: false,
+    );
+  }
+
+  PreferredSizeWidget _buildAppBar() {
+    switch (_currentIndex) {
+      case 0:
+        return _buildHomeAppBar();
+      case 1:
+        return _buildTimeTableAppBar();
+      case 2:
+        return _buildDictionaryAppBar();
+      case 3:
+        return _buildReviewAppBar();
+      default:
+        return _buildHomeAppBar();
+    }
   }
 
   Widget _buildExpandedWidget() {
@@ -124,65 +252,47 @@ class _OTLHomeState extends State<OTLHome> with SingleTickerProviderStateMixin {
   Widget _buildSearch() {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
-      child: ClipRRect(
-        borderRadius: BorderRadius.all(Radius.circular(48)),
-        child: ColoredBox(
-          color: Colors.white,
-          child: SizedBox(
-              width: MediaQuery.of(context).size.width,
-              child: GestureDetector(
-                behavior: HitTestBehavior.opaque,
-                onTap: () {
-                  context.read<CourseSearchModel>().resetCourseFilter();
-                  Navigator.of(context)
-                      .push(MaterialPageRoute(
-                          builder: (context) =>
-                              CourseSearchPage(openKeyboard: true)))
-                      .then((e) {
-                    setState(() {
-                      _currentIndex = 2;
-                    });
-                  });
-                },
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 12.0, vertical: 8.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      SizedBox(
-                        width: 24,
-                        height: 24,
-                        child: Center(
-                          child: Padding(
-                            padding: EdgeInsets.only(top: 1),
-                            child: Icon(
-                              CustomIcons.search,
-                              color: PRIMARY_COLOR,
-                              size: 24,
-                            ),
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        width: 8,
-                      ),
-                      Flexible(
-                        flex: 1,
-                        child: Text("과목명, 교수님 성함 등을 검색해 보세요",
-                            style: TextStyle(
-                              color: Color(0xFFAAAAAA),
-                              fontSize: 14,
-                              height: 1.2,
-                            )),
-                      )
-                    ],
+      child: Container(
+          decoration: BoxDecoration(
+            color: grayF,
+            borderRadius: BorderRadius.circular(8.0),
+          ),
+          width: MediaQuery.of(context).size.width,
+          child: GestureDetector(
+            behavior: HitTestBehavior.opaque,
+            onTap: () {
+              context.read<CourseSearchModel>().resetCourseFilter();
+              Navigator.of(context)
+                  .push(buildCourseSearchPageRoute())
+                  .then((e) {
+                setState(() {
+                  _currentIndex = 2;
+                });
+              });
+            },
+            child: Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Icon(
+                    CustomIcons.search,
+                    color: pinksMain,
+                    size: 24.0,
                   ),
-                ),
-              )),
-        ),
-      ),
+                  const SizedBox(width: 12.0),
+                  Expanded(
+                    child: Text(
+                      "과목명, 교수님 성함 등을 검색해 보세요.",
+                      style: bodyRegular.copyWith(color: grayA),
+                    ),
+                  )
+                ],
+              ),
+            ),
+          )),
     );
   }
 

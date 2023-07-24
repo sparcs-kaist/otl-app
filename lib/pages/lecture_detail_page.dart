@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_web_browser/flutter_web_browser.dart';
 import 'package:otlplus/models/review.dart';
+import 'package:otlplus/utils/build_app_bar.dart';
 import 'package:otlplus/utils/build_page_route.dart';
 import 'package:provider/provider.dart';
 import 'package:otlplus/constants/color.dart';
@@ -31,8 +32,16 @@ class LectureDetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final LectureDetailModel lectureDetailModel =
+        context.watch<LectureDetailModel>();
+
     return Scaffold(
-      appBar: _buildAppBar(context),
+      appBar: buildAppBar(
+        context,
+        lectureDetailModel.hasData ? lectureDetailModel.lecture.title : '',
+        true,
+        false,
+      ),
       body: Card(
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(top: Radius.circular(16.0)),
@@ -43,56 +52,6 @@ class LectureDetailPage extends StatelessWidget {
                 : Center(
                     child: const CircularProgressIndicator(),
                   ),
-      ),
-    );
-  }
-
-  PreferredSizeWidget _buildAppBar(BuildContext context) {
-    final LectureDetailModel lectureDetailModel =
-        context.watch<LectureDetailModel>();
-
-    return PreferredSize(
-      preferredSize: Size.fromHeight(kToolbarHeight),
-      child: Theme(
-        data: Theme.of(context).copyWith(
-            appBarTheme: AppBarTheme(
-          color: BACKGROUND_COLOR,
-          elevation: 0.0,
-          actionsIconTheme: IconThemeData(
-            color: CONTENT_COLOR,
-          ),
-        )),
-        child: AppBar(
-          leading: IconButton(
-            icon: const Icon(
-              Icons.arrow_back_ios,
-              color: Colors.black,
-            ),
-            onPressed: () {
-              Navigator.pop(context);
-            },
-          ),
-          title: Text(
-            lectureDetailModel.hasData ? lectureDetailModel.lecture.title : '',
-            style: TextStyle(
-              color: Colors.black,
-              fontWeight: FontWeight.bold,
-              fontSize: 14.0,
-            ),
-          ),
-          centerTitle: true,
-          flexibleSpace: SafeArea(
-            child: Column(
-              children: [
-                Container(
-                  color: PRIMARY_COLOR,
-                  height: 5,
-                ),
-              ],
-            ),
-          ),
-          automaticallyImplyLeading: false,
-        ),
       ),
     );
   }
