@@ -115,7 +115,8 @@ class _TimetablePageState extends State<TimetablePage> {
                     switch (mode) {
                       case 0:
                       case 1:
-                        return _buildTimetableMode(context, lectures, mode == 1);
+                        return _buildTimetableMode(
+                            context, lectures, mode == 1);
                       default:
                         return MapView(lectures: lectures);
                     }
@@ -303,6 +304,11 @@ class _TimetablePageState extends State<TimetablePage> {
         /*showModalBottomSheet(
             context: context,
             builder: (context) => _buildSettingsSheet(context));*/
+      },
+      onExportTap: (type) {
+        context
+            .read<TimetableModel>()
+            .shareTimetable(type, context.locale.languageCode);
       },
       onReorder: (oldIndex, newIndex) {},
     );
