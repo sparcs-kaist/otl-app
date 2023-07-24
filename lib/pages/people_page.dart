@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:otlplus/constants/color.dart';
 import 'package:otlplus/constants/text_styles.dart';
 import 'package:otlplus/utils/build_app_bar.dart';
@@ -55,7 +56,7 @@ class PeoplePage extends StatelessWidget {
     const List<List<String>> people = [
       ['yumyum'],
       ['platypus'],
-      ['zealot', 'yumyum'],
+      ['yumyum'],
       ['platypus', 'star', 'lobe', 'seungho', 'soongyu'],
     ];
 
@@ -73,7 +74,10 @@ class PeoplePage extends StatelessWidget {
             (j) => Column(
               children: [
                 const SizedBox(height: 4.0),
-                Image.asset('assets/people/${people[i][j]}.png', height: 24.0)
+                SvgPicture.asset(
+                  'assets/people/${people[i][j]}.svg',
+                  height: 24.0,
+                )
               ],
             ),
           )

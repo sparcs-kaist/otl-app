@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:otlplus/constants/text_styles.dart';
 import 'package:otlplus/providers/auth_model.dart';
 import 'package:otlplus/utils/build_app_bar.dart';
@@ -62,7 +63,7 @@ class UserPage extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Image.asset('assets/icons/MyReview.png', height: 24.0),
+            SvgPicture.asset('assets/icons/my_review.svg', height: 24.0),
             const SizedBox(width: 8),
             Text('내가 들은 과목', style: bodyBold.copyWith(color: pinksMain)),
             const Expanded(child: SizedBox()),
@@ -81,7 +82,7 @@ class UserPage extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Image.asset('assets/icons/LikedReview.png', height: 24.0),
+            SvgPicture.asset('assets/icons/liked_review.svg', height: 24.0),
             const SizedBox(width: 8),
             Text('좋아요한 후기', style: bodyBold.copyWith(color: pinksMain)),
             const Expanded(child: SizedBox()),
@@ -104,7 +105,7 @@ class UserPage extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Image.asset('assets/icons/Logout.png', height: 24.0),
+            SvgPicture.asset('assets/icons/logout.svg', height: 24.0),
             const SizedBox(width: 8),
             Text('로그아웃', style: bodyBold.copyWith(color: pinksMain)),
           ],

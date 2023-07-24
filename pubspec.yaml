@@ -41,6 +41,7 @@ dependencies:
   firebase_analytics: ^10.1.6
   firebase_crashlytics: ^3.0.17
   flutter_widgetkit: ^1.0.3
+  flutter_svg: ^2.0.7
 
 dev_dependencies:
   test: ^1.19.5
