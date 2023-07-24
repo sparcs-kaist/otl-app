@@ -81,7 +81,10 @@ class _BackButton extends StatelessWidget {
       },
       child: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: SvgPicture.asset('assets/icons/back.svg', height: 24.0, width: 24.0, colorFilter: ColorFilter.mode(Color(0xFF000000), BlendMode.srcIn)),
+        child: SvgPicture.asset('assets/icons/back.svg',
+            height: 24.0,
+            width: 24.0,
+            colorFilter: ColorFilter.mode(Color(0xFF000000), BlendMode.srcIn)),
       ),
     );
   }

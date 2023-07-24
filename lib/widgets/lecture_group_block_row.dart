@@ -95,15 +95,12 @@ class _LectureGroupBlockRowState extends State<LectureGroupBlockRow> {
                               GestureDetector(
                                 onTap: widget.onLongPress,
                                 child: Center(
-                                  child: Center(
-                                    child: SvgPicture.asset(
-                                        'assets/icons/info.svg',
-                                        height: 20.0,
-                                        width: 20,
-                                        colorFilter: ColorFilter.mode(
-                                            Color(0xFF000000),
-                                            BlendMode.srcIn)),
-                                  ),
+                                  child: SvgPicture.asset(
+                                      'assets/icons/info.svg',
+                                      height: 20.0,
+                                      width: 20,
+                                      colorFilter: ColorFilter.mode(
+                                          Color(0xFF000000), BlendMode.srcIn)),
                                 ),
                               ),
                               SizedBox(

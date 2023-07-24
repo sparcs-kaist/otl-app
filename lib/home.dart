@@ -172,13 +172,11 @@ class _OTLHomeState extends State<OTLHome> with SingleTickerProviderStateMixin {
             padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
             child: Row(
               children: [
-                SvgPicture.asset(
-                  'assets/icons/search.svg',
-                  height: 24.0,
-                  width: 24.0,
-                  colorFilter:
-                      ColorFilter.mode(OTLColor.pinksMain, BlendMode.srcIn),
-                ),
+                SvgPicture.asset('assets/icons/search.svg',
+                    height: 24.0,
+                    width: 24.0,
+                    colorFilter:
+                        ColorFilter.mode(OTLColor.pinksMain, BlendMode.srcIn)),
                 const SizedBox(width: 12.0),
                 Expanded(
                   child: context.watch<CourseSearchModel>().courseSearchquery,
@@ -296,13 +294,11 @@ class _OTLHomeState extends State<OTLHome> with SingleTickerProviderStateMixin {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  SvgPicture.asset(
-                    'assets/icons/search.svg',
-                    height: 24.0,
-                    width: 24.0,
-                    colorFilter:
-                        ColorFilter.mode(OTLColor.pinksMain, BlendMode.srcIn),
-                  ),
+                  SvgPicture.asset('assets/icons/search.svg',
+                      height: 24.0,
+                      width: 24.0,
+                      colorFilter: ColorFilter.mode(
+                          OTLColor.pinksMain, BlendMode.srcIn)),
                   const SizedBox(width: 12.0),
                   Expanded(
                     child: Text(

@@ -144,11 +144,13 @@ class CourseSearchModel extends ChangeNotifier {
   bool _isSearching = false;
   bool get isSearching => _isSearching;
 
-  Text _courseSearchquery = Text(
-    "common.search".tr(),
-    style: bodyRegular.copyWith(color: OTLColor.grayA),
-  );
-  Text get courseSearchquery => _courseSearchquery;
+  Text? _courseSearchquery;
+  Text get courseSearchquery => (_courseSearchquery == null)
+      ? Text(
+          "common.search".tr(),
+          style: bodyRegular.copyWith(color: OTLColor.grayA),
+        )
+      : _courseSearchquery!;
   void updateCourseSearchquery() {
     List<String> _selectedFilters = (_courseFilter.map((k, v) => MapEntry(
         k,
@@ -160,10 +162,7 @@ class CourseSearchModel extends ChangeNotifier {
                 .where((i) => i.selected == true)
                 .map((i) => i.label)))).values.expand((i) => i).toList();
     if (_selectedFilters.length == 0 && _courseSearchText.length == 0) {
-      _courseSearchquery = Text(
-        "common.search".tr(),
-        style: bodyRegular.copyWith(color: OTLColor.grayA),
-      );
+      _courseSearchquery = null;
     } else {
       _courseSearchquery = Text.rich(
         TextSpan(
