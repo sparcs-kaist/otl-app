@@ -7,7 +7,7 @@ on:
     branches: [main]
 
 env:
-  FLUTTER_VERSION: "3.7"
+  FLUTTER_VERSION: "3"
   JAVA_VERSION: "11"
 
 jobs:
@@ -25,6 +25,7 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: "stable"
       - name: Create key.properties
         run: |
           echo "storeFile=../ci.jks" > android/key.properties
@@ -45,6 +46,7 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: "stable"
       - uses: actions/cache@v2
         with:
           path: Pods

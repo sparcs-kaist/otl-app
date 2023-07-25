@@ -7,7 +7,7 @@ on:
     branches: [main]
 
 env:
-  FLUTTER_VERSION: "3.7"
+  FLUTTER_VERSION: "3"
 
 jobs:
   lint:
@@ -19,6 +19,7 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: "stable"
       - name: Install dependencies
         run: flutter pub get
       - name: Format

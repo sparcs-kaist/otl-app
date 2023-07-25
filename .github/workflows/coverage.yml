@@ -3,7 +3,7 @@ name: Coverage
 on: [push]
 
 env:
-  FLUTTER_VERSION: '3.7'
+  FLUTTER_VERSION: "3"
 
 jobs:
   coverage:
@@ -15,6 +15,7 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: "stable"
       - name: Install lcov
         run: sudo apt-get install -y lcov
       - name: Install dependencies
