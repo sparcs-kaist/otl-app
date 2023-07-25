@@ -5,8 +5,8 @@ on:
     branches: [main]
 
 env:
-  FLUTTER_VERSION: "3.7"
-  JAVA_VERSION: "11"
+  FLUTTER_VERSION: "3"
+  JAVA_VERSION: "17"
 
 jobs:
   unit:
@@ -18,6 +18,7 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: "stable"
       - name: Install dependencies
         run: flutter pub get
       - name: Test
@@ -37,6 +38,7 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: "stable"
       - name: Test on Android
         uses: reactivecircus/android-emulator-runner@v2.19.1
         with:
@@ -52,6 +54,7 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: "stable"
       - uses: actions/cache@v2
         with:
           path: Pods

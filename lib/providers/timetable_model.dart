@@ -30,6 +30,27 @@ class TimetableModel extends ChangeNotifier {
   bool _isLoaded = false;
   bool get isLoaded => _isLoaded;
 
+  TimetableModel({bool forTest = false}) {
+    if (forTest) {
+      _user = User(
+          id: 0,
+          email: "email",
+          studentId: "studentId",
+          firstName: "firstName",
+          lastName: "lastName",
+          majors: [],
+          departments: [],
+          myTimetableLectures: [],
+          reviewWritableLectures: [],
+          reviews: []);
+      _semesters = [];
+      _timetables = [
+        Timetable(id: 0, lectures: []),
+        Timetable(id: 1, lectures: [])
+      ];
+    }
+  }
+
   void loadSemesters({required User user, required List<Semester> semesters}) {
     _user = user;
     _semesters = semesters;
