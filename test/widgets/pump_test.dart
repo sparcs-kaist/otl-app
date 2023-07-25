@@ -8,8 +8,7 @@ import 'package:otlplus/widgets/lecture_group_simple_block.dart';
 import 'package:otlplus/widgets/lecture_search.dart';
 import 'package:otlplus/widgets/lecture_simple_block.dart';
 import 'package:otlplus/widgets/review_write_block.dart';
-import 'package:otlplus/widgets/search_filter.dart';
-// import 'package:otlplus/widgets/timetable.dart' as widget;
+// import 'package:otlplus/widgets/timetable.dart';
 import 'package:otlplus/widgets/timetable_block.dart';
 import 'package:otlplus/widgets/timetable_summary.dart';
 import 'package:otlplus/widgets/timetable_tabs.dart';
@@ -54,13 +53,6 @@ void main() {
   testWidgets('pump ReviewWriteBlock', (WidgetTester tester) async {
     await tester.pumpWidget(ReviewWriteBlock(
       lecture: SampleLecture.shared,
-    ).scaffold);
-  });
-
-  testWidgets('pump SearchFilter', (WidgetTester tester) async {
-    await tester.pumpWidget(SearchFilter(
-      property: "property",
-      items: {"ALL": "전체"},
     ).scaffold);
   });
 
