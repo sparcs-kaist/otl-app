@@ -1,15 +1,10 @@
 import 'package:flutter_test/flutter_test.dart';
-// import 'package:otlplus/models/timetable.dart';
 import 'package:otlplus/providers/lecture_search_model.dart';
-import 'package:otlplus/providers/timetable_model.dart';
 import 'package:otlplus/widgets/course_block.dart';
-import 'package:otlplus/widgets/lecture_group_block.dart';
-import 'package:otlplus/widgets/lecture_group_block_row.dart';
 import 'package:otlplus/widgets/lecture_group_simple_block.dart';
 import 'package:otlplus/widgets/lecture_search.dart';
 import 'package:otlplus/widgets/lecture_simple_block.dart';
 import 'package:otlplus/widgets/review_write_block.dart';
-// import 'package:otlplus/widgets/timetable.dart';
 import 'package:otlplus/widgets/timetable_block.dart';
 import 'package:otlplus/widgets/timetable_summary.dart';
 import 'package:otlplus/widgets/timetable_tabs.dart';

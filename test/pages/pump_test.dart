@@ -1,27 +1,17 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:otlplus/pages/course_detail_page.dart';
 import 'package:otlplus/pages/course_search_page.dart';
-import 'package:otlplus/pages/dictionary_page.dart';
 import 'package:otlplus/pages/lecture_detail_page.dart';
 import 'package:otlplus/pages/lecture_search_page.dart';
-// import 'package:otlplus/pages/liked_review_page.dart';
 import 'package:otlplus/pages/login_page.dart';
-// import 'package:otlplus/pages/my_review_page.dart';
 import 'package:otlplus/pages/people_page.dart';
 import 'package:otlplus/pages/privacy_page.dart';
-import 'package:otlplus/pages/review_page.dart';
-// import 'package:otlplus/pages/main_page.dart';
-// import 'package:otlplus/pages/review_page.dart';
 import 'package:otlplus/pages/settings_page.dart';
 import 'package:otlplus/pages/timetable_page.dart';
-// import 'package:otlplus/pages/user_page.dart';
 import 'package:otlplus/providers/course_detail_model.dart';
 import 'package:otlplus/providers/course_search_model.dart';
-import 'package:otlplus/providers/info_model.dart';
 import 'package:otlplus/providers/lecture_detail_model.dart';
-// import 'package:otlplus/providers/review_model.dart';
 import 'package:otlplus/providers/lecture_search_model.dart';
-import 'package:otlplus/providers/review_model.dart';
 import 'package:otlplus/providers/settings_model.dart';
 import 'package:otlplus/providers/timetable_model.dart';
 
