@@ -24,4 +24,18 @@ extension WidgetForTest on Widget {
           ),
         ));
   }
+
+  Widget scaffoldAndNotifiers<T extends ChangeNotifier>(List<T>? models) {
+    return MultiProvider(
+        providers: models!
+            .map(
+              (model) => ChangeNotifierProvider<T>(create: (_) => model),
+            )
+            .toList(),
+        child: MaterialApp(
+          home: Scaffold(
+            body: this,
+          ),
+        ));
+  }
 }

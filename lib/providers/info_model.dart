@@ -43,6 +43,23 @@ class InfoModel extends ChangeNotifier {
   bool _hasData = false;
   bool get hasData => _hasData;
 
+  InfoModel({bool forTest = false}) {
+    if (forTest) {
+      _user = User(
+          id: 0,
+          email: "email",
+          studentId: "studentId",
+          firstName: "firstName",
+          lastName: "lastName",
+          majors: [],
+          departments: [],
+          myTimetableLectures: [],
+          reviewWritableLectures: [],
+          reviews: []);
+      _semesters = [];
+    }
+  }
+
   void logout() {
     _hasData = false;
     notifyListeners();

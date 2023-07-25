@@ -24,10 +24,15 @@ class SettingsModel extends ChangeNotifier {
         (instance) => instance.setBool(_kSendCrashlyticsAnonymously, newValue));
   }
 
-  SettingsModel() {
+  SettingsModel({bool forTest = false}) {
     SharedPreferences.getInstance().then((instance) {
       getAllValues(instance);
     });
+
+    if (forTest) {
+      _sendCrashlytics = true;
+      _sendCrashlyticsAnonymously = false;
+    }
   }
 
   getAllValues(SharedPreferences instance) {
