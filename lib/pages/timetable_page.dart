@@ -60,44 +60,6 @@ class _TimetablePageState extends State<TimetablePage> {
             child: Column(
               children: <Widget>[
                 Container(
-                  height: kToolbarHeight,
-                  color: BACKGROUND_COLOR,
-                  child: Column(
-                    children: [
-                      Container(
-                        color: PRIMARY_COLOR,
-                        height: 5,
-                      ),
-                      Expanded(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(left: 16),
-                              child: SemesterPicker(
-                                onSemesterChanged: () {
-                                  setState(() {
-                                    _isSearchOpened = false;
-                                    _selectedLecture = null;
-                                  });
-                                  context
-                                      .read<LectureSearchModel>()
-                                      .lectureClear();
-                                },
-                              ),
-                            ),
-                            ModeControl(
-                              dropdownIndex: mode,
-                              onTap: (mode) =>
-                                  context.read<TimetableModel>().setMode(mode),
-                            ),
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-                Container(
                   color: BACKGROUND_COLOR,
                   child: Container(
                     padding: const EdgeInsets.symmetric(vertical: 12.0),

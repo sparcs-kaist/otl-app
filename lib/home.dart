@@ -2,11 +2,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:otlplus/constants/text_styles.dart';
+import 'package:otlplus/providers/lecture_search_model.dart';
+import 'package:otlplus/providers/timetable_model.dart';
 import 'package:otlplus/utils/build_app_bar.dart';
 import 'package:otlplus/utils/build_page_route.dart';
 import 'package:otlplus/constants/icon.dart';
 import 'package:otlplus/providers/course_search_model.dart';
+import 'package:otlplus/widgets/mode_control.dart';
 import 'package:otlplus/widgets/pop_up.dart';
+import 'package:otlplus/widgets/semester_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:otlplus/constants/color.dart';
 import 'package:otlplus/pages/dictionary_page.dart';
@@ -111,40 +115,42 @@ class _OTLHomeState extends State<OTLHome> with SingleTickerProviderStateMixin {
   }
 
   PreferredSizeWidget _buildTimeTableAppBar() {
-    return AppBar(
-      title: appBarPadding(
-        Image.asset(
-          "assets/images/logo.png",
-          height: 27,
+    return PreferredSize(
+      preferredSize: Size.fromHeight(kToolbarHeight),
+      child: SafeArea(
+        child: Container(
+          color: pinksLight,
+          child: Column(
+            children: [
+              Container(
+                color: pinksMain,
+                height: 5,
+              ),
+              Expanded(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(left: 16),
+                      child: SemesterPicker(
+                        onSemesterChanged: () {
+                          context.read<LectureSearchModel>().lectureClear();
+                        },
+                      ),
+                    ),
+                    ModeControl(
+                      dropdownIndex:
+                          context.watch<TimetableModel>().selectedMode,
+                      onTap: (mode) =>
+                          context.read<TimetableModel>().setMode(mode),
+                    ),
+                  ],
+                ),
+              )
+            ],
+          ),
         ),
       ),
-      actions: <Widget>[
-        appBarPadding(
-          PlatformIconButton(
-            onPressed: () {
-              Navigator.push(context, buildUserPageRoute());
-            },
-            materialIcon: Icon(Icons.person),
-            cupertinoIcon: Icon(CupertinoIcons.person),
-          ),
-        ),
-        appBarPadding(
-          PlatformIconButton(
-            onPressed: () =>
-                {Navigator.push(context, buildSettingsPageRoute())},
-            materialIcon: Icon(Icons.settings),
-            cupertinoIcon: Icon(
-              CupertinoIcons.gear,
-            ),
-          ),
-        )
-      ],
-      flexibleSpace: SafeArea(child: Container(color: pinksMain, height: 5.0)),
-      toolbarHeight: kToolbarHeight + 5.0,
-      backgroundColor: pinksLight,
-      foregroundColor: gray0,
-      elevation: 0.0,
-      automaticallyImplyLeading: false,
     );
   }
 
