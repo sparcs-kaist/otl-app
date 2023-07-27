@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:otlplus/constants/color.dart';
 import 'package:otlplus/constants/text_styles.dart';
@@ -55,7 +56,7 @@ class _DictionaryPageState extends State<DictionaryPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    "검색결과가 없습니다.",
+                    "common.no_result".tr(),
                     style: bodyRegular.copyWith(color: OTLColor.grayA),
                   ),
                 ],

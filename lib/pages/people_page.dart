@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:otlplus/constants/color.dart';
@@ -10,7 +11,7 @@ class PeoplePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: buildAppBar(context, '만든 사람들', false, true),
+      appBar: buildAppBar(context, 'title.credit'.tr(), false, true),
       body: Padding(
         padding: EdgeInsets.all(16.0),
         child: Column(

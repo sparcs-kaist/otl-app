@@ -1,5 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:otlplus/constants/color.dart';
+import 'package:otlplus/constants/text_styles.dart';
 import 'package:otlplus/models/lecture.dart';
 
 class LectureSimpleBlock extends StatelessWidget {
@@ -12,8 +14,10 @@ class LectureSimpleBlock extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isEn = EasyLocalization.of(context)!.currentLocale == Locale('en');
+
     return Container(
-      margin: const EdgeInsets.only(right: 6.0, bottom: 6.0),
+      margin: const EdgeInsets.all(3.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(4.0),
         color: OTLColor.grayE,
@@ -31,15 +35,15 @@ class LectureSimpleBlock extends StatelessWidget {
             child: Center(
               child: Text.rich(
                 TextSpan(
-                  style: TextStyle(
-                      color: hasReview
-                          ? OTLColor.gray3.withOpacity(0.4)
-                          : OTLColor.gray3,
-                      fontSize: 12.0),
+                  style: bodyRegular.copyWith(
+                    color: hasReview
+                        ? OTLColor.gray0.withOpacity(0.4)
+                        : OTLColor.gray0,
+                  ),
                   children: <TextSpan>[
                     TextSpan(
-                      text: lecture.title,
-                      style: const TextStyle(fontWeight: FontWeight.bold),
+                      text: isEn ? lecture.titleEn : lecture.title,
+                      style: bodyBold,
                     ),
                     const TextSpan(text: "\n"),
                     TextSpan(text: lecture.oldCode),

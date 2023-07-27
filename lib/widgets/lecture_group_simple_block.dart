@@ -1,4 +1,6 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:otlplus/constants/text_styles.dart';
 import 'package:otlplus/utils/build_page_route.dart';
 import 'package:provider/provider.dart';
 import 'package:otlplus/constants/color.dart';
@@ -16,16 +18,18 @@ class LectureGroupSimpleBlock extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isEn = EasyLocalization.of(context)!.currentLocale == Locale('en');
+
     return Column(
       children: <Widget>[
         if (semester == 1) const Spacer(),
         Container(
           width: 110.0,
-          margin: const EdgeInsets.symmetric(horizontal: 4.0),
+          margin: const EdgeInsets.symmetric(horizontal: 8.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: ListTile.divideTiles(
-              color: BORDER_BOLD_COLOR,
+              color: OTLColor.gray0,
               tiles: lectures.map((lecture) => Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.vertical(
@@ -62,29 +66,24 @@ class LectureGroupSimpleBlock extends StatelessWidget {
                               : Radius.zero,
                         ),
                         child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 10.0,
-                            vertical: 4.0,
-                          ),
-                          child: Text.rich(
-                            TextSpan(
-                              style: const TextStyle(
-                                fontSize: 12.0,
-                                height: 1.3,
-                              ),
-                              children: <TextSpan>[
-                                TextSpan(
-                                  text: lecture.classTitle,
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 8.0,
+                              vertical: 4.0,
+                            ),
+                            child: Row(
+                              children: [
+                                Text(lecture.classTitle, style: bodyBold),
+                                const SizedBox(width: 4.0),
+                                Expanded(
+                                  child: Text(
+                                    isEn
+                                        ? lecture.professorsStrShortEn
+                                        : lecture.professorsStrShort,
+                                    style: bodyRegular,
                                   ),
                                 ),
-                                const TextSpan(text: " "),
-                                TextSpan(text: lecture.professorsStrShort),
                               ],
-                            ),
-                          ),
-                        ),
+                            )),
                       ),
                     ),
                   )),

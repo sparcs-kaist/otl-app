@@ -1,4 +1,6 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:otlplus/constants/text_styles.dart';
 import 'package:otlplus/models/review.dart';
 import 'package:otlplus/utils/build_app_bar.dart';
 import 'package:provider/provider.dart';
@@ -24,11 +26,16 @@ class CourseDetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final CourseDetailModel courseDetailModel =
         context.watch<CourseDetailModel>();
+    final isEn = EasyLocalization.of(context)!.currentLocale == Locale('en');
 
     return Scaffold(
       appBar: buildAppBar(
         context,
-        courseDetailModel.hasData ? courseDetailModel.course.title : '',
+        courseDetailModel.hasData
+            ? (isEn
+                ? courseDetailModel.course.titleEn
+                : courseDetailModel.course.title)
+            : '',
         true,
         false,
       ),
@@ -61,27 +68,26 @@ class CourseDetailPage extends StatelessWidget {
       slivers: <Widget>[
         SliverList(
           delegate: SliverChildListDelegate([
-            _buildAttribute(course),
+            _buildAttribute(context, course),
             _buildScores(context, course),
-            const Divider(color: DIVIDER_COLOR),
+            _buildDivider(),
             _buildProfessors(context, course),
-            const Divider(color: DIVIDER_COLOR),
-            Text(
-              "개설 이력",
-              style: const TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 12.0,
-                height: 1.3,
-              ),
-            ),
+            _buildDivider(),
+            const SizedBox(height: 8.0),
+            Text("dictionary.course_history".tr(), style: bodyBold),
             _buildHistory(context),
-            const Divider(color: DIVIDER_COLOR),
+            _buildDivider(),
+            const SizedBox(height: 8.0),
           ]),
         ),
         _buildReviewHeader(),
         _buildReviews(context, course),
       ],
     );
+  }
+
+  Widget _buildDivider() {
+    return Divider(color: OTLColor.gray0.withOpacity(0.25));
   }
 
   SliverPersistentHeader _buildReviewHeader() {
@@ -106,14 +112,7 @@ class CourseDetailPage extends StatelessWidget {
         builder: (shrinkOffset) => Row(
           key: headerKey,
           children: <Widget>[
-            Text(
-              "과목 후기",
-              style: const TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 12.0,
-                height: 1.3,
-              ),
-            ),
+            Text("dictionary.reviews".tr(), style: bodyBold),
             FittedBox(
               child: (shrinkOffset > 0)
                   ? const Icon(Icons.keyboard_arrow_up)
@@ -127,11 +126,20 @@ class CourseDetailPage extends StatelessWidget {
 
   ChoiceChip _buildChoiceChip(
       BuildContext context, String selectedFilter, Professor? professor) {
+    final isEn = EasyLocalization.of(context)!.currentLocale == Locale('en');
+
     return ChoiceChip(
-      label: (professor == null) ? const Text("전체") : Text(professor.name),
-      selected: (professor == null)
-          ? (selectedFilter == "ALL")
-          : (selectedFilter == professor.professorId.toString()),
+      selectedColor: OTLColor.pinksSub,
+      backgroundColor: OTLColor.grayE,
+      label: Text(
+        professor == null
+            ? "common.all".tr()
+            : (isEn ? professor.nameEn : professor.name),
+        style: labelRegular,
+      ),
+      selected: (professor == null
+          ? selectedFilter == "ALL"
+          : selectedFilter == professor.professorId.toString()),
       onSelected: (isSelected) {
         context.read<CourseDetailModel>().setFilter(
             (professor != null && isSelected)
@@ -146,14 +154,8 @@ class CourseDetailPage extends StatelessWidget {
 
     return Row(
       children: <Widget>[
-        Text(
-          "교수 ",
-          style: const TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 12.0,
-            height: 1.1,
-          ),
-        ),
+        Text("dictionary.professors".tr(), style: bodyBold),
+        const SizedBox(width: 8.0),
         Expanded(
           child: SingleChildScrollView(
             scrollDirection: Axis.horizontal,
@@ -183,93 +185,64 @@ class CourseDetailPage extends StatelessWidget {
     final lecture = context
         .select<CourseDetailModel, Lecture?>((model) => model.selectedLecture);
 
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 4.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: <Widget>[
-          _buildStatus("성적",
-              (lecture == null) ? course.gradeLetter : lecture.gradeLetter),
-          _buildStatus(
-              "널널", (lecture == null) ? course.loadLetter : lecture.loadLetter),
-          _buildStatus("강의",
-              (lecture == null) ? course.speechLetter : lecture.speechLetter),
-        ],
-      ),
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: <Widget>[
+        _buildStatus(
+          "review.grade".tr(),
+          (lecture == null) ? course.gradeLetter : lecture.gradeLetter,
+        ),
+        _buildStatus(
+          "review.load".tr(),
+          (lecture == null) ? course.loadLetter : lecture.loadLetter,
+        ),
+        _buildStatus(
+          "review.speech".tr(),
+          (lecture == null) ? course.speechLetter : lecture.speechLetter,
+        ),
+      ],
     );
   }
 
-  Column _buildAttribute(Course course) {
+  Column _buildAttribute(BuildContext context, Course course) {
+    final isEn = EasyLocalization.of(context)!.currentLocale == Locale('en');
+
     return Column(
       children: <Widget>[
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(
-              "과목코드 ",
-              style: const TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 12.0,
-                height: 1.1,
-              ),
-            ),
-            Expanded(
-              child: Text(
-                course.oldCode,
-                style: const TextStyle(
-                  fontSize: 12.0,
-                  height: 1.1,
-                ),
-              ),
-            ),
+            Text("dictionary.code".tr(), style: bodyBold),
+            const SizedBox(width: 8.0),
+            Expanded(child: Text(course.oldCode, style: bodyRegular)),
           ],
         ),
-        const SizedBox(height: 4.0),
+        const SizedBox(height: 8.0),
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(
-              "분류 ",
-              style: const TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 12.0,
-                height: 1.1,
-              ),
-            ),
+            Text("dictionary.type".tr(), style: bodyBold),
+            const SizedBox(width: 8.0),
             Expanded(
               child: Text(
-                "${course.department?.name}, ${course.type}",
-                style: const TextStyle(
-                  fontSize: 12.0,
-                  height: 1.1,
-                ),
+                "${isEn ? course.department?.nameEn : course.department?.name}, ${isEn ? course.typeEn : course.type}",
+                style: bodyRegular,
               ),
             ),
           ],
         ),
-        const SizedBox(height: 4.0),
+        const SizedBox(height: 8.0),
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(
-              "설명 ",
-              style: const TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 12.0,
-                height: 1.1,
-              ),
-            ),
+            Text("dictionary.description".tr(), style: bodyBold),
+            const SizedBox(width: 8.0),
             Expanded(
-              child: Text(
-                course.summary,
-                style: const TextStyle(
-                  fontSize: 12.0,
-                  height: 1.1,
-                ),
-              ),
+              child: Text(course.summary, style: bodyRegular),
             ),
           ],
         ),
+        const SizedBox(height: 8.0),
       ],
     );
   }
@@ -291,19 +264,16 @@ class CourseDetailPage extends StatelessWidget {
             _buildHistoryRow(courseDetailModel.lectures as List<Lecture>, years,
                 1, courseDetailModel.selectedFilter),
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 6.0),
+              padding: const EdgeInsets.symmetric(vertical: 8.0),
               child: Row(
                 children: years
                     .map((year) => Container(
                           width: 110.0,
-                          margin: const EdgeInsets.symmetric(horizontal: 4.0),
+                          margin: const EdgeInsets.symmetric(horizontal: 8.0),
                           child: Text(
                             year.toString(),
                             textAlign: TextAlign.center,
-                            style: const TextStyle(
-                              fontSize: 11.0,
-                              fontWeight: FontWeight.bold,
-                            ),
+                            style: bodyBold,
                           ),
                         ))
                     .toList(),
@@ -331,7 +301,7 @@ class CourseDetailPage extends StatelessWidget {
               return Container(
                 width: 110.0,
                 margin: const EdgeInsets.symmetric(
-                  horizontal: 4.0,
+                  horizontal: 8.0,
                   vertical: 8.0,
                 ),
                 child: const Text(
@@ -386,12 +356,12 @@ class CourseDetailPage extends StatelessWidget {
         }).toList(),
         ...context.select<CourseDetailModel, List<Widget>>((model) {
           if (model.reviews?.isEmpty == true) {
-            return [Text("결과 없음")];
+            return [Text("common.no_result".tr())];
           } else {
             return model.reviews
                     ?.map((review) => ReviewBlock(review: review))
                     .toList() ??
-                [Text("결과 없음")];
+                [Text("common.no_result".tr())];
           }
         }),
       ]),
@@ -403,17 +373,8 @@ class CourseDetailPage extends StatelessWidget {
       padding: const EdgeInsets.all(4.0),
       child: Column(
         children: <Widget>[
-          Text(
-            content,
-            style: const TextStyle(
-              fontSize: 20.0,
-              fontWeight: FontWeight.w300,
-            ),
-          ),
-          Text(
-            title,
-            style: const TextStyle(fontSize: 10.0),
-          ),
+          Text(content, style: titleRegular),
+          Text(title, style: labelRegular),
         ],
       ),
     );

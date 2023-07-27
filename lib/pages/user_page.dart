@@ -13,9 +13,10 @@ class UserPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final user = context.watch<InfoModel>().user;
+    final isEn = EasyLocalization.of(context)!.currentLocale == Locale('en');
 
     return Scaffold(
-      appBar: buildAppBar(context, 'user.user', false, true),
+      appBar: buildAppBar(context, 'title.my_information'.tr(), false, true),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -24,8 +25,14 @@ class UserPage extends StatelessWidget {
             _buildContent("user.name", "${user.firstName} ${user.lastName}"),
             _buildContent("user.email", user.email),
             _buildContent("user.student_id", user.studentId),
-            _buildContent("user.major",
-                user.majors.map((department) => department.name).join(", ")),
+            _buildContent(
+              "user.major",
+              user.majors
+                  .map(
+                    (department) => isEn ? department.nameEn : department.name,
+                  )
+                  .join(", "),
+            ),
             _buildDivider(),
             _buildMyReviewButton(context),
             _buildLikedReviewButton(context),

@@ -1,12 +1,17 @@
 {
   "common": {
+    "all": "ALL",
     "alert": "Alert",
     "cancel": "Cancel",
     "delete": "Delete",
     "reset": "Reset",
-    "search": "Search by name of course, professor, etc.",
+    "search": "Search",
+    "search_hint": "Search by name of course, professor, etc.",
+    "review_hint": "Please review the evaluation of grade, load, etc.",
+    "no_result": "No result.",
     "select_all": "Select All",
-    "unselect_all": "Unselect All"
+    "unselect_all": "Unselect All",
+    "no_info": "No information"
   },
   "semester": {
     "spring": "Spring",
@@ -15,17 +20,32 @@
     "winter": "Winter"
   },
   "main": {
+    "search": "Search",
     "home": "Home",
     "timetable": "Timetable",
     "dictionary": "Dictionary",
     "review": "Review",
     "settings": "Settings",
     "no_info": "No information",
-    "remained_datetime": "D-{} days {} hours {} minutes"
+    "remained_datetime": "D-{} days {} hours {} minutes",
+    "goto_cais": "Go to CAIS"
+  },
+  "title": {
+    "home": "Home",
+    "timetable": "Timetable",
+    "dictionary": "Dictionary",
+    "review": "Review",
+    "privacy": "Privacy",
+    "credit": "Credit",
+    "my_reviews": "My Reviews",
+    "liked_reviews": "Liked Reviews",
+    "latest_reviews": "Latest Reviews",
+    "hall_of_fame": "Hall of Fame",
+    "my_information": "My Information",
+    "settings": "Settings"
   },
   "home": {
-    "privacy": "Privacy",
-    "people": "Credit"
+    "remained_datetime": "D-{} days {} hours {} minutes"
   },
   "timetable": {
     "ask_delete_lecture": "Are you delete class '{}'?",
@@ -61,16 +81,39 @@
       "sun": "Sunday"
     }
   },
-  "dictionary": {},
-  "review": {},
+  "dictionary": {
+    "reviews": "Reviews",
+    "dictionary": "Dictionary",
+    "syllabus": "Syllabus",
+    "code": "Code",
+    "type": "Type",
+    "department": "Dept.",
+    "professors": "Prof.",
+    "classroom": "Class.",
+    "limit": "Limit",
+    "exam": "Exam",
+    "classification": "Class.",
+    "description": "Descr.",
+    "course_history": "Course History",
+    "language": "Language",
+    "credit": "Credit",
+    "competition": "Competition"
+  },
+  "review": {
+    "likes": "Likes",
+    "grade": "Grade",
+    "load": "Load",
+    "speech": "Speech",
+    "like": "Like",
+    "report": "Report"
+  },
   "user": {
-    "user": "My Information",
     "name": "Name",
     "email": "Email",
     "student_id": "Student ID",
     "major": "Major",
-    "my_review": "My Review",
-    "liked_review": "Liked Review",
+    "my_review": "My Reviews",
+    "liked_review": "Liked Reviews",
     "logout": "Logout"
   },
   "settings": {

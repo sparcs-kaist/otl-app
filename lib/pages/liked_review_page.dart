@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:otlplus/providers/course_detail_model.dart';
 import 'package:otlplus/providers/info_model.dart';
@@ -20,7 +21,7 @@ class LikedReviewPage extends StatelessWidget {
     final reviews = context.watch<LikedReviewModel>().likedReviews(user);
 
     return Scaffold(
-      appBar: buildAppBar(context, '좋아요한 후기', true, true),
+      appBar: buildAppBar(context, 'user.liked_review'.tr(), true, true),
       body: Container(
         constraints: const BoxConstraints.expand(),
         child: Card(

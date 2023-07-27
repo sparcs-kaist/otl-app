@@ -1,5 +1,6 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:otlplus/extensions/semester.dart';
+import 'package:otlplus/constants/text_styles.dart';
 import 'package:otlplus/models/lecture.dart';
 import 'package:otlplus/models/semester.dart';
 import 'package:otlplus/models/user.dart';
@@ -30,7 +31,7 @@ class MyReviewPage extends StatelessWidget {
           ((a.year != b.year) ? (b.year - a.year) : (b.semester - a.semester)));
 
     return Scaffold(
-      appBar: buildAppBar(context, '내가 들은 과목', true, true),
+      appBar: buildAppBar(context, 'user.my_review'.tr(), true, true),
       body: Container(
         constraints: const BoxConstraints.expand(),
         child: Card(
@@ -48,13 +49,16 @@ class MyReviewPage extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.stretch,
                             children: <Widget>[
                               Padding(
-                                padding: const EdgeInsets.only(bottom: 6.0),
+                                padding: const EdgeInsets.only(bottom: 8.0),
                                 child: Text(
-                                  semester.title,
-                                  style: const TextStyle(
-                                    fontSize: 12.0,
-                                    fontWeight: FontWeight.bold,
-                                  ),
+                                  '${semester.year} ${[
+                                    "",
+                                    "semester.spring".tr(),
+                                    "semester.summer".tr(),
+                                    "semester.fall".tr(),
+                                    "semester.winter".tr()
+                                  ][semester.semester]}',
+                                  style: labelBold,
                                 ),
                               ),
                               ..._buildLectureBlocks(

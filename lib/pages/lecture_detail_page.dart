@@ -1,5 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_web_browser/flutter_web_browser.dart';
+import 'package:otlplus/constants/text_styles.dart';
 import 'package:otlplus/models/review.dart';
 import 'package:otlplus/utils/build_app_bar.dart';
 import 'package:otlplus/utils/build_page_route.dart';
@@ -34,11 +36,16 @@ class LectureDetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final LectureDetailModel lectureDetailModel =
         context.watch<LectureDetailModel>();
+    final isEn = EasyLocalization.of(context)!.currentLocale == Locale('en');
 
     return Scaffold(
       appBar: buildAppBar(
         context,
-        lectureDetailModel.hasData ? lectureDetailModel.lecture.title : '',
+        lectureDetailModel.hasData
+            ? (isEn
+                ? lectureDetailModel.lecture.titleEn
+                : lectureDetailModel.lecture.title)
+            : '',
         true,
         false,
       ),
@@ -159,15 +166,12 @@ class LectureDetailPage extends StatelessWidget {
             context.read<CourseDetailModel>().loadCourse(lecture.course);
             Navigator.push(context, buildCourseDetailPageRoute());
           },
-          child: const Text(
-            "과목사전",
-            style: TextStyle(
-              color: OTLColor.pinksMain,
-              fontSize: 11.0,
-            ),
+          child: Text(
+            "dictionary.dictionary".tr(),
+            style: bodyRegular.copyWith(color: OTLColor.pinksMain),
           ),
         ),
-        const SizedBox(width: 6.0),
+        const SizedBox(width: 8.0),
         InkWell(
           onTap: () => FlutterWebBrowser.openWebPage(
             url: _getSyllabusUrl(lecture),
@@ -186,12 +190,9 @@ class LectureDetailPage extends StatelessWidget {
               modalPresentationCapturesStatusBarAppearance: true,
             ),
           ),
-          child: const Text(
-            "실라버스",
-            style: TextStyle(
-              color: OTLColor.pinksMain,
-              fontSize: 11.0,
-            ),
+          child: Text(
+            "dictionary.syllabus".tr(),
+            style: bodyRegular.copyWith(color: OTLColor.pinksMain),
           ),
         ),
       ],
@@ -204,7 +205,7 @@ class LectureDetailPage extends StatelessWidget {
       slivers: <Widget>[
         SliverList(
           delegate: SliverChildListDelegate([
-            _buildAttribute(lecture),
+            _buildAttributes(context, lecture),
             _buildScores(lecture),
           ]),
         ),
@@ -236,13 +237,7 @@ class LectureDetailPage extends StatelessWidget {
         builder: (shrinkOffset) => Row(
           key: headerKey,
           children: <Widget>[
-            Text(
-              "과목 후기",
-              style: const TextStyle(
-                fontSize: 12.0,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+            Text("dictionary.reviews".tr(), style: bodyBold),
             FittedBox(
               child: (shrinkOffset > 0)
                   ? const Icon(Icons.keyboard_arrow_up)
@@ -276,7 +271,7 @@ class LectureDetailPage extends StatelessWidget {
           ),
         ...context.select<LectureDetailModel, List<Widget>>((model) {
           if (model.reviews.length == 0) {
-            return [Text("결과 없음")];
+            return [Text("common.no_result".tr())];
           } else {
             return model.reviews
                 .map((review) => ReviewBlock(
@@ -296,24 +291,28 @@ class LectureDetailPage extends StatelessWidget {
         children: <TableRow>[
           TableRow(
             children: <Widget>[
-              _buildStatus("언어", lecture.isEnglish ? "Eng" : "한"),
               _buildStatus(
-                  (lecture.credit > 0) ? "학점" : "AU",
+                "dictionary.language".tr(),
+                lecture.isEnglish ? "Eng" : "한",
+              ),
+              _buildStatus(
+                  (lecture.credit > 0) ? "dictionary.credit".tr() : "AU",
                   (lecture.credit > 0)
                       ? lecture.credit.toString()
                       : lecture.creditAu.toString()),
               _buildStatus(
-                  "경쟁률",
-                  (lecture.limit == 0)
-                      ? "0.0:1"
-                      : "${(lecture.numPeople / lecture.limit).toStringAsFixed(1)}:1"),
+                "dictionary.competition".tr(),
+                (lecture.limit == 0)
+                    ? "0.0:1"
+                    : "${(lecture.numPeople / lecture.limit).toStringAsFixed(1)}:1",
+              ),
             ],
           ),
           TableRow(
             children: <Widget>[
-              _buildStatus("성적", lecture.gradeLetter),
-              _buildStatus("널널", lecture.loadLetter),
-              _buildStatus("강의", lecture.speechLetter),
+              _buildStatus("review.grade".tr(), lecture.gradeLetter),
+              _buildStatus("review.load".tr(), lecture.loadLetter),
+              _buildStatus("review.speech".tr(), lecture.speechLetter),
             ],
           ),
         ],
@@ -321,61 +320,58 @@ class LectureDetailPage extends StatelessWidget {
     );
   }
 
-  Widget _buildAttribute(Lecture lecture) {
-    return Text.rich(
-      TextSpan(
-        style: const TextStyle(
-          height: 1.5,
-          fontSize: 12.0,
-        ),
-        children: <TextSpan>[
-          TextSpan(
-            text: "과목코드 ",
-            style: const TextStyle(fontWeight: FontWeight.bold),
-          ),
-          TextSpan(text: lecture.oldCode),
-          TextSpan(
-            text: "\n구분 ",
-            style: const TextStyle(fontWeight: FontWeight.bold),
-          ),
-          TextSpan(text: lecture.type),
-          TextSpan(
-            text: "\n학과 ",
-            style: const TextStyle(fontWeight: FontWeight.bold),
-          ),
-          TextSpan(text: lecture.departmentName),
-          TextSpan(
-            text: "\n교수 ",
-            style: const TextStyle(fontWeight: FontWeight.bold),
-          ),
-          TextSpan(text: lecture.professorsStrShort),
-          TextSpan(
-            text: "\n장소 ",
-            style: const TextStyle(fontWeight: FontWeight.bold),
-          ),
-          TextSpan(
-              text: lecture.classtimes
-                  .map((classtime) => classtime.classroom)
-                  .toSet()
-                  .join(", ")),
-          TextSpan(
-            text: "\n정원 ",
-            style: const TextStyle(fontWeight: FontWeight.bold),
-          ),
-          TextSpan(text: lecture.limit.toString()),
-          TextSpan(
-            text: "\n시험 ",
-            style: const TextStyle(fontWeight: FontWeight.bold),
-          ),
-          TextSpan(
-              text: (lecture.examtimes.length == 0)
-                  ? "정보 없음"
-                  : lecture.examtimes
-                      .map((examtime) => examtime.str)
-                      .toSet()
-                      .join(", ")),
+  Widget _buildAttribute(String title, String content) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8.0),
+      child: Row(
+        children: [
+          Text(title, style: bodyBold),
+          const SizedBox(width: 4.0),
+          Text(content, style: bodyRegular),
         ],
       ),
+    );
+  }
+
+  Widget _buildAttributes(BuildContext context, Lecture lecture) {
+    final isEn = EasyLocalization.of(context)!.currentLocale == Locale('en');
+
+    return Column(
+      children: [
+        _buildAttribute("dictionary.code".tr(), lecture.oldCode),
+        _buildAttribute(
+          "dictionary.type".tr(),
+          isEn ? lecture.typeEn : lecture.type,
+        ),
+        _buildAttribute(
+          "dictionary.department".tr(),
+          isEn ? lecture.departmentName : lecture.departmentNameEn,
+        ),
+        _buildAttribute(
+          "dictionary.professors".tr(),
+          isEn ? lecture.professorsStrShort : lecture.professorsStrShortEn,
+        ),
+        _buildAttribute(
+            "dictionary.classroom".tr(),
+            lecture.classtimes
+                .map((classtime) =>
+                    isEn ? classtime.classroomEn : classtime.classroom)
+                .toSet()
+                .join(", ")),
+        _buildAttribute(
+          "dictionary.limit".tr(),
+          lecture.limit.toString(),
+        ),
+        _buildAttribute(
+          "dictionary.exam".tr(),
+          (lecture.examtimes.length == 0)
+              ? "common.no_info".tr()
+              : lecture.examtimes
+                  .map((examtime) => isEn ? examtime.strEn : examtime.str)
+                  .toSet()
+                  .join(", "),
+        ),
+      ],
     );
   }
 
@@ -384,17 +380,8 @@ class LectureDetailPage extends StatelessWidget {
       padding: const EdgeInsets.all(4.0),
       child: Column(
         children: <Widget>[
-          Text(
-            content,
-            style: const TextStyle(
-              fontSize: 20.0,
-              fontWeight: FontWeight.w300,
-            ),
-          ),
-          Text(
-            title,
-            style: const TextStyle(fontSize: 10.0),
-          ),
+          Text(content, style: titleRegular),
+          Text(title, style: labelRegular),
         ],
       ),
     );

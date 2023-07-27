@@ -15,7 +15,7 @@ class SettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: buildAppBar(context, '설정', false, true),
+      appBar: buildAppBar(context, 'title.settings'.tr(), false, true),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(

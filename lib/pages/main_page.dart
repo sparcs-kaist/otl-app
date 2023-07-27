@@ -214,7 +214,7 @@ class _MainPageState extends State<MainPage> {
             Navigator.push(context, buildPrivacyPageRoute());
           },
           child: Text(
-            'home.privacy'.tr(),
+            'title.privacy'.tr(),
             style: labelRegular.copyWith(color: OTLColor.gray75),
           ),
         ),
@@ -223,7 +223,7 @@ class _MainPageState extends State<MainPage> {
             Navigator.push(context, buildPeoplePageRoute());
           },
           child: Text(
-            'home.people'.tr(),
+            'title.credit'.tr(),
             style: labelRegular.copyWith(color: OTLColor.gray75),
           ),
         ),
@@ -264,8 +264,8 @@ class _MainPageState extends State<MainPage> {
                 style: titleRegular,
                 // ignore: unnecessary_null_comparison
                 text: (currentSchedule == null)
-                    ? "main.no_info".tr()
-                    : "main.remained_datetime".tr(args: [
+                    ? "common.no_info".tr()
+                    : "home.remained_datetime".tr(args: [
                         days.toString(),
                         hours.toString(),
                         minutes.toString()

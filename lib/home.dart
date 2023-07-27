@@ -268,19 +268,19 @@ class _OTLHomeState extends State<OTLHome> with SingleTickerProviderStateMixin {
       items: <BottomNavigationBarItem>[
         BottomNavigationBarItem(
           icon: Icon(Icons.home_outlined),
-          label: tr("main.home"),
+          label: tr("title.home"),
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.table_chart_outlined),
-          label: tr("main.timetable"),
+          label: tr("title.timetable"),
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.library_books_outlined),
-          label: tr("main.dictionary"),
+          label: tr("title.dictionary"),
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.rate_review_outlined),
-          label: tr("main.review"),
+          label: tr("title.review"),
         ),
       ],
     );
