@@ -133,7 +133,7 @@ class _MainPageState extends State<MainPage> {
                                 const SizedBox(width: 12.0),
                                 Expanded(
                                   child: Text(
-                                    "과목명, 교수님 성함 등을 검색해 보세요.",
+                                    "common.search_hint".tr(),
                                     style: bodyRegular.copyWith(
                                         color: OTLColor.grayA),
                                   ),
@@ -155,39 +155,34 @@ class _MainPageState extends State<MainPage> {
                     constraints: const BoxConstraints.expand(),
                     child: ColoredBox(
                       color: Colors.white,
-                      child: SingleChildScrollView(
-                        reverse: true,
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 16.0,
-                            vertical: 16.0,
-                          ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Column(
-                                children: <Widget>[
-                                  _buildTimetable(
-                                      infoModel.user, semester, now),
-                                  const SizedBox(height: 24.0),
-                                  _buildDivider(),
-                                  const SizedBox(height: 24.0),
-                                  _buildSchedule(
-                                      now, infoModel.currentSchedule!),
-                                  const SizedBox(height: 24.0),
-                                  _buildDivider(),
-                                ],
-                              ),
-                              Column(
-                                children: <Widget>[
-                                  _buildLogo(),
-                                  const SizedBox(height: 4.0),
-                                  _buildCopyRight(),
-                                  _buildTextButtons(context),
-                                ],
-                              )
-                            ],
-                          ),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 16.0,
+                          vertical: 16.0,
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(
+                              children: <Widget>[
+                                _buildTimetable(infoModel.user, semester, now),
+                                const SizedBox(height: 24.0),
+                                _buildDivider(),
+                                const SizedBox(height: 24.0),
+                                _buildSchedule(now, infoModel.currentSchedule!),
+                                const SizedBox(height: 24.0),
+                                _buildDivider(),
+                              ],
+                            ),
+                            Column(
+                              children: <Widget>[
+                                _buildLogo(),
+                                const SizedBox(height: 4.0),
+                                _buildCopyRight(),
+                                _buildTextButtons(context),
+                              ],
+                            )
+                          ],
                         ),
                       ),
                     ),
