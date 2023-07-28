@@ -33,10 +33,23 @@ struct NextClassAccessoryEntryView : View {
                 }
             }
         case .accessoryRectangular:
-            ZStack {
-                AccessoryWidgetBackground()
-                Text("Hello")
-            }
+            HStack {
+                VStack(alignment: .leading) {
+                    HStack(alignment: .center, spacing: 4) {
+                        Circle()
+                            .frame(width: 12, height: 12)
+                        Text("10:30 - 12:30")
+                            .font(.headline)
+                    }.offset(y: 7)
+                        .widgetAccentable()
+                    Text("프로그래밍기초")
+                        .font(.headline)
+                        .widgetAccentable()
+                    Text("E11 창의학습관 101호")
+                        .foregroundColor(.gray)
+                }
+                Spacer()
+            }.offset(y: -3)
             
         default:
             Text("Not Implemented")
