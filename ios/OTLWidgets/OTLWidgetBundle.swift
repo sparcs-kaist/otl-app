@@ -20,6 +20,8 @@ struct OTLWidgetBundle : WidgetBundle {
         // Lock Complications accessories for iOS 16+
         if #available(iOSApplicationExtension 16.0, *) {
             NextClassAccessory()
+            TimeInlineAccessory()
+            LocationInlineAccessory()
         }
     }
 }
