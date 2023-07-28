@@ -1,17 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:otlplus/utils/build_page_route.dart';
 import 'package:otlplus/providers/lecture_search_model.dart';
 import 'package:otlplus/widgets/lecture_search.dart';
 import 'package:otlplus/widgets/map_view.dart';
-import 'package:otlplus/widgets/mode_control.dart';
 import 'package:provider/provider.dart';
 import 'package:otlplus/constants/color.dart';
 import 'package:otlplus/models/lecture.dart';
 import 'package:otlplus/providers/lecture_detail_model.dart';
 import 'package:otlplus/providers/timetable_model.dart';
-import 'package:otlplus/utils/export_image.dart';
-import 'package:otlplus/widgets/semester_picker.dart';
 import 'package:otlplus/widgets/timetable.dart';
 import 'package:otlplus/widgets/timetable_block.dart';
 import 'package:otlplus/widgets/timetable_summary.dart';
@@ -56,15 +52,15 @@ class _TimetablePageState extends State<TimetablePage> {
       children: <Widget>[
         Expanded(
           child: ColoredBox(
-            color: Colors.white,
+            color: grayF,
             child: Column(
               children: <Widget>[
                 Container(
-                  color: BACKGROUND_COLOR,
+                  color: pinksLight,
                   child: Container(
-                    padding: const EdgeInsets.symmetric(vertical: 12.0),
+                    padding: const EdgeInsets.symmetric(vertical: 16),
                     decoration: BoxDecoration(
-                      color: Colors.white,
+                      color: grayF,
                       borderRadius:
                           BorderRadius.only(topLeft: Radius.circular(16)),
                     ),

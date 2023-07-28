@@ -1,10 +1,7 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:otlplus/constants/color.dart';
-import 'package:otlplus/providers/lecture_search_model.dart';
-import 'package:otlplus/utils/build_page_route.dart';
-import 'package:provider/provider.dart';
+import 'package:otlplus/constants/text_styles.dart';
 
 class TimetableTabs extends StatefulWidget {
   final int index;
@@ -61,23 +58,17 @@ class _TimetableTabsState extends State<TimetableTabs> {
           height: 28,
           alignment: Alignment.center,
           decoration: BoxDecoration(
-            color: BACKGROUND_COLOR,
+            color: pinksLight,
             borderRadius: BorderRadius.circular(20),
           ),
-          child: SvgPicture.asset('assets/icons/icon_add_tab.svg'),
+          child: Icon(Icons.add, size: 16),
         ),
       );
     }
 
     Text text = Text(
       i == 0 ? "내 시간표" : "시간표 $i",
-      style: TextStyle(
-        fontSize: 14,
-        height: 15 / 14,
-        fontWeight: FontWeight.w700,
-        color: i == _index ? Colors.white : Colors.black,
-        letterSpacing: 0.15,
-      ),
+      style: bodyBold.copyWith(color: i == _index ? grayF : gray0),
       textAlign: TextAlign.center,
     );
 
@@ -89,16 +80,20 @@ class _TimetableTabsState extends State<TimetableTabs> {
           child: DropdownButton2(
             customButton: Container(
               height: 28,
-              padding: EdgeInsets.fromLTRB(12, 6, 8, 6),
+              padding: EdgeInsets.fromLTRB(12, 0, 8, 0),
               decoration: BoxDecoration(
-                color: PRIMARY_COLOR,
+                color: pinksMain,
                 borderRadius: BorderRadius.circular(100),
               ),
               child: Row(
                 children: [
                   text,
                   const SizedBox(width: 6),
-                  SvgPicture.asset('assets/icons/icon_more.svg')
+                  Icon(
+                    Icons.more_vert,
+                    color: grayF,
+                    size: 16,
+                  ),
                 ],
               ),
             ),
@@ -141,7 +136,7 @@ class _TimetableTabsState extends State<TimetableTabs> {
               padding: EdgeInsets.zero,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
-                color: DROPDOWN_COLOR,
+                color: gray6,
               ),
               offset: const Offset(0, -8),
             ),
@@ -158,7 +153,7 @@ class _TimetableTabsState extends State<TimetableTabs> {
       height: 28,
       margin: const EdgeInsets.only(right: 8),
       decoration: BoxDecoration(
-        color: BACKGROUND_COLOR,
+        color: pinksLight,
         borderRadius: BorderRadius.circular(20),
       ),
       child: GestureDetector(
@@ -169,7 +164,8 @@ class _TimetableTabsState extends State<TimetableTabs> {
           });
         },
         child: Container(
-          padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 12),
+          padding: const EdgeInsets.symmetric(horizontal: 12),
+          alignment: Alignment.center,
           child: text,
         ),
       ),
@@ -205,7 +201,7 @@ abstract class MenuItems {
   static const delete = MenuItem(text: '시간표 삭제하기', icon: Icons.delete_outlined);
 
   static Widget buildItem(MenuItem item, bool isLast) {
-    Color color = item == delete ? DELETE_COLOR : Colors.white;
+    Color color = item == delete ? DELETE_COLOR : grayF;
     return Stack(
       alignment: AlignmentDirectional.bottomStart,
       children: [
@@ -218,13 +214,7 @@ abstract class MenuItems {
               Expanded(
                 child: Text(
                   item.text,
-                  style: TextStyle(
-                    fontSize: 14,
-                    height: 20 / 14,
-                    fontWeight: FontWeight.w400,
-                    letterSpacing: 0.15,
-                    color: color,
-                  ),
+                  style: bodyRegular.copyWith(color: color),
                 ),
               ),
               Icon(
@@ -237,7 +227,7 @@ abstract class MenuItems {
         ),
         if (!isLast)
           Container(
-            color: Colors.white.withOpacity(0.5),
+            color: grayF.withOpacity(0.5),
             height: 0.5,
           ),
       ],
