@@ -20,12 +20,10 @@ struct NextClassAccessoryEntryView : View {
         case .accessoryCircular:
             ZStack {
                 AccessoryWidgetBackground()
-                VStack(alignment: .center, spacing: 1) {
-                    Image("sparcs")
-                        .resizable()
-//                        .renderingMode(.template)
-                        .scaledToFit()
-                        .frame(height: 14)
+                VStack {
+                    Image(systemName: "tablecells")
+                        .font(.caption2)
+                        .widgetAccentable()
                     Text("12:00")
                         .font(.system(size: 15))
                         .fontWeight(.medium)
