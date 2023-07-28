@@ -6,6 +6,8 @@
     "delete": "삭제",
     "reset": "초기화",
     "search": "검색",
+    "upload": "업로드",
+    "edit": "수정",
     "search_hint": "과목명, 교수님 성함 등을 검색해 보세요.",
     "review_hint": "학점, 로드 등의 평가에 대하여 설명해주세요.",
     "no_result": "검색 결과가 없습니다.",
@@ -97,7 +99,8 @@
     "course_history": "개설 이력",
     "language": "언어",
     "credit": "학점",
-    "competition": "경쟁률"
+    "competition": "경쟁률",
+    "not_offered": "미개설"
   },
   "review": {
     "likes": "추천",
@@ -176,5 +179,9 @@
     "2_years": "2년 이내",
     "3_years": "3년 이내",
     "all": "전체"
+  },
+  "popup": {
+    "dont_show_again": "다시 보지 않기",
+    "join_the_event": "이벤트 참여하러 가기"
   }
 }

@@ -52,7 +52,7 @@ class _ReviewBlockState extends State<ReviewBlock> {
             children: <Widget>[
               Text.rich(
                 TextSpan(
-                  style: labelRegular,
+                  style: bodyRegular,
                   children: <TextSpan>[
                     TextSpan(
                       text: isEn
@@ -64,8 +64,11 @@ class _ReviewBlockState extends State<ReviewBlock> {
                     TextSpan(
                         text: widget.review.lecture.professors
                             .map(
-                              (professor) =>
-                                  isEn ? professor.nameEn : professor.name,
+                              (professor) => isEn
+                                  ? (professor.nameEn == ''
+                                      ? professor.name
+                                      : professor.nameEn)
+                                  : professor.name,
                             )
                             .join(" ")),
                     const TextSpan(text: " "),

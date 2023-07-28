@@ -75,7 +75,7 @@ class _ReviewWriteBlockState extends State<ReviewWriteBlock> {
                 padding: const EdgeInsets.only(bottom: 4.0),
                 child: Text.rich(
                   TextSpan(
-                    style: labelRegular,
+                    style: bodyRegular,
                     children: <TextSpan>[
                       TextSpan(
                         text: isEn
@@ -87,8 +87,11 @@ class _ReviewWriteBlockState extends State<ReviewWriteBlock> {
                       TextSpan(
                           text: widget.lecture.professors
                               .map(
-                                (professor) =>
-                                    isEn ? professor.nameEn : professor.name,
+                                (professor) => isEn
+                                    ? (professor.nameEn == ''
+                                        ? professor.name
+                                        : professor.nameEn)
+                                    : professor.name,
                               )
                               .join(" ")),
                       const TextSpan(text: " "),
@@ -113,25 +116,24 @@ class _ReviewWriteBlockState extends State<ReviewWriteBlock> {
                 bottom: 8.0,
               ),
               child: DottedBorder(
-                color: const Color(0xFFAAAAAA),
+                color: OTLColor.grayA,
                 child: SizedBox(
                   height: 140,
                   child: Padding(
-                    padding: const EdgeInsets.all(4.0),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 8.0,
+                      vertical: 4.0,
+                    ),
                     child: TextField(
                       controller: _contentTextController,
                       maxLines: null,
-                      style: const TextStyle(
-                        color: const Color(0xFF555555),
-                        height: 1.25,
-                        fontSize: 12.0,
-                      ),
+                      style: bodyRegular,
                       onChanged: (value) {
                         setState(() {});
                       },
                       decoration: InputDecoration(
                         hintText: "common.review_hint".tr(),
-                        hintStyle: labelRegular.copyWith(color: OTLColor.grayA),
+                        hintStyle: bodyRegular.copyWith(color: OTLColor.grayA),
                       ),
                     ),
                   ),
@@ -149,12 +151,12 @@ class _ReviewWriteBlockState extends State<ReviewWriteBlock> {
                   child: InkWell(
                     onTap: _canUpload() ? _uploadReview : null,
                     child: Text(
-                      (widget.existingReview == null) ? "업로드" : "수정",
-                      style: TextStyle(
-                        color: _canUpload()
-                            ? OTLColor.pinksMain
-                            : const Color(0xFF555555),
-                        fontSize: 12.0,
+                      (widget.existingReview == null)
+                          ? "common.upload".tr()
+                          : "common.edit".tr(),
+                      style: labelRegular.copyWith(
+                        color:
+                            _canUpload() ? OTLColor.pinksMain : OTLColor.grayA,
                       ),
                     ),
                   ),
@@ -255,7 +257,7 @@ class _ReviewWriteBlockState extends State<ReviewWriteBlock> {
         child: Container(
           width: 18.0,
           height: 18.0,
-          color: (_scores[type] == score) ? OTLColor.grayA : OTLColor.grayD,
+          color: (_scores[type] == score) ? OTLColor.pinksMain : OTLColor.grayD,
           child: Material(
             color: Colors.transparent,
             child: InkWell(

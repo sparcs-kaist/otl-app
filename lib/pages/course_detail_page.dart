@@ -134,7 +134,9 @@ class CourseDetailPage extends StatelessWidget {
       label: Text(
         professor == null
             ? "common.all".tr()
-            : (isEn ? professor.nameEn : professor.name),
+            : (isEn
+                ? (professor.nameEn == '' ? professor.name : professor.nameEn)
+                : professor.name),
         style: labelRegular,
       ),
       selected: (professor == null
@@ -167,6 +169,7 @@ class CourseDetailPage extends StatelessWidget {
                       context, courseDetailModel.selectedFilter, null),
                 ),
                 ...courseDetailModel.professors
+                    .toSet()
                     .map((professor) => Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 2.0),
                           child: _buildChoiceChip(context,
@@ -217,7 +220,7 @@ class CourseDetailPage extends StatelessWidget {
             Expanded(child: Text(course.oldCode, style: bodyRegular)),
           ],
         ),
-        const SizedBox(height: 8.0),
+        const SizedBox(height: 4.0),
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
@@ -231,7 +234,7 @@ class CourseDetailPage extends StatelessWidget {
             ),
           ],
         ),
-        const SizedBox(height: 8.0),
+        const SizedBox(height: 4.0),
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
@@ -242,7 +245,7 @@ class CourseDetailPage extends StatelessWidget {
             ),
           ],
         ),
-        const SizedBox(height: 8.0),
+        const SizedBox(height: 4.0),
       ],
     );
   }
@@ -251,6 +254,7 @@ class CourseDetailPage extends StatelessWidget {
     final _scrollController = ScrollController();
     final years = context.select<InfoModel, Set<int>>((model) => model.years);
     final courseDetailModel = context.watch<CourseDetailModel>();
+    final isEn = EasyLocalization.of(context)!.currentLocale == Locale('en');
 
     return Scrollbar(
       controller: _scrollController,
@@ -261,14 +265,18 @@ class CourseDetailPage extends StatelessWidget {
         reverse: true,
         child: Column(
           children: <Widget>[
-            _buildHistoryRow(courseDetailModel.lectures as List<Lecture>, years,
-                1, courseDetailModel.selectedFilter),
+            _buildHistoryRow(
+                context,
+                courseDetailModel.lectures as List<Lecture>,
+                years,
+                1,
+                courseDetailModel.selectedFilter),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 8.0),
               child: Row(
                 children: years
                     .map((year) => Container(
-                          width: 110.0,
+                          width: isEn ? 150.0 : 100.0,
                           margin: const EdgeInsets.symmetric(horizontal: 8.0),
                           child: Text(
                             year.toString(),
@@ -279,16 +287,22 @@ class CourseDetailPage extends StatelessWidget {
                     .toList(),
               ),
             ),
-            _buildHistoryRow(courseDetailModel.lectures as List<Lecture>, years,
-                3, courseDetailModel.selectedFilter),
+            _buildHistoryRow(
+                context,
+                courseDetailModel.lectures as List<Lecture>,
+                years,
+                3,
+                courseDetailModel.selectedFilter),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildHistoryRow(List<Lecture> lectures, Set<int> years, int semester,
-      String selectedFilter) {
+  Widget _buildHistoryRow(BuildContext context, List<Lecture> lectures,
+      Set<int> years, int semester, String selectedFilter) {
+    final isEn = EasyLocalization.of(context)!.currentLocale == Locale('en');
+
     return IntrinsicHeight(
       child: Row(
         children: years.map(
@@ -299,18 +313,15 @@ class CourseDetailPage extends StatelessWidget {
                 .toList();
             if (filteredLectures.length == 0)
               return Container(
-                width: 110.0,
+                width: isEn ? 150.0 : 100.0,
                 margin: const EdgeInsets.symmetric(
                   horizontal: 8.0,
                   vertical: 8.0,
                 ),
-                child: const Text(
-                  "미개설",
+                child: Text(
+                  "dictionary.not_offered".tr(),
                   textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Color(0xFFAAAAAA),
-                    fontSize: 12.0,
-                  ),
+                  style: bodyRegular.copyWith(color: OTLColor.grayA),
                 ),
               );
             return LectureGroupSimpleBlock(
@@ -356,12 +367,32 @@ class CourseDetailPage extends StatelessWidget {
         }).toList(),
         ...context.select<CourseDetailModel, List<Widget>>((model) {
           if (model.reviews?.isEmpty == true) {
-            return [Text("common.no_result".tr())];
+            return [
+              Center(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 8.0),
+                  child: Text(
+                    "common.no_result".tr(),
+                    style: labelRegular.copyWith(color: OTLColor.grayA),
+                  ),
+                ),
+              )
+            ];
           } else {
             return model.reviews
                     ?.map((review) => ReviewBlock(review: review))
                     .toList() ??
-                [Text("common.no_result".tr())];
+                [
+                  Center(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 8.0),
+                      child: Text(
+                        "common.no_result".tr(),
+                        style: labelRegular.copyWith(color: OTLColor.grayA),
+                      ),
+                    ),
+                  )
+                ];
           }
         }),
       ]),

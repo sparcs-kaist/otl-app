@@ -169,7 +169,7 @@ class _MainPageState extends State<MainPage> {
                                 const SizedBox(height: 24.0),
                                 _buildDivider(),
                                 const SizedBox(height: 24.0),
-                                _buildSchedule(now, infoModel.currentSchedule!),
+                                _buildSchedule(now, infoModel.currentSchedule),
                                 const SizedBox(height: 24.0),
                                 _buildDivider(),
                               ],
@@ -234,40 +234,47 @@ class _MainPageState extends State<MainPage> {
   }
 
   Widget _buildCopyRight() {
-    return Text(
-      '© 2016-2023 SPARCS OTL Team',
-      style: labelRegular.copyWith(color: OTLColor.gray75),
+    return Text.rich(
+      TextSpan(
+        style: labelRegular.copyWith(color: OTLColor.gray75),
+        children: [
+          TextSpan(text: 'otlplus@sparcs.org'),
+          TextSpan(text: '\n'),
+          TextSpan(text: '© 2023 SPARCS OTL Team'),
+        ],
+      ),
+      textAlign: TextAlign.center,
     );
   }
 
-  Widget _buildSchedule(DateTime now, Map<String, dynamic> currentSchedule) {
+  Widget _buildSchedule(DateTime now, Map<String, dynamic>? currentSchedule) {
     final isEn = EasyLocalization.of(context)!.currentLocale == Locale('en');
     late int days, hours, minutes;
 
-    final timeDiff = currentSchedule["time"].difference(now) as Duration;
+    final timeDiff = currentSchedule?["time"].difference(now) as Duration;
     days = timeDiff.inDays;
     hours = timeDiff.inHours - timeDiff.inDays * 24;
     minutes = timeDiff.inMinutes - timeDiff.inHours * 60;
 
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
+        Text(
+          (currentSchedule == null)
+              ? "common.no_info".tr()
+              : "home.remained_datetime".tr(args: [
+                  days.toString(),
+                  hours.toString(),
+                  minutes.toString()
+                ]),
+          style: titleRegular,
+          // ignore: unnecessary_null_comparison
+        ),
+        const SizedBox(height: 4.0),
         Text.rich(
           TextSpan(
             style: bodyRegular,
             children: <TextSpan>[
-              TextSpan(
-                style: titleRegular,
-                // ignore: unnecessary_null_comparison
-                text: (currentSchedule == null)
-                    ? "common.no_info".tr()
-                    : "home.remained_datetime".tr(args: [
-                        days.toString(),
-                        hours.toString(),
-                        minutes.toString()
-                      ]),
-              ),
-              const TextSpan(text: "\n"),
               TextSpan(
                 style: bodyBold,
                 text:

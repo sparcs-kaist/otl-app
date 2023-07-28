@@ -31,25 +31,7 @@ class _DictionaryPageState extends State<DictionaryPage> {
           if (searchModel.isSearching) {
             return const Center(child: CircularProgressIndicator());
           } else if (searchModel.courses == null) {
-            return Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    "OTL PLUS",
-                    style: bodyBold.copyWith(color: OTLColor.grayA),
-                  ),
-                  Text(
-                    "otlplus@sparcs.org",
-                    style: bodyRegular.copyWith(color: OTLColor.grayA),
-                  ),
-                  Text(
-                    "© 2016, SPARCS OTL Team",
-                    style: bodyRegular.copyWith(color: OTLColor.grayA),
-                  )
-                ],
-              ),
-            );
+            return Center(child: _buildCopyRight());
           } else if (searchModel.courses!.isEmpty) {
             return Center(
               child: Column(
@@ -86,4 +68,18 @@ class _DictionaryPageState extends State<DictionaryPage> {
       ),
     );
   }
+}
+
+Widget _buildCopyRight() {
+  return Text.rich(
+    TextSpan(
+      style: labelRegular.copyWith(color: OTLColor.grayA),
+      children: [
+        TextSpan(text: 'otlplus@sparcs.org'),
+        TextSpan(text: '\n'),
+        TextSpan(text: '© 2023 SPARCS OTL Team'),
+      ],
+    ),
+    textAlign: TextAlign.center,
+  );
 }

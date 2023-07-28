@@ -24,7 +24,7 @@ class LectureGroupSimpleBlock extends StatelessWidget {
       children: <Widget>[
         if (semester == 1) const Spacer(),
         Container(
-          width: 110.0,
+          width: isEn ? 150.0 : 100.0,
           margin: const EdgeInsets.symmetric(horizontal: 8.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -42,7 +42,7 @@ class LectureGroupSimpleBlock extends StatelessWidget {
                       ),
                       color: (lecture.professors.any((professor) =>
                               professor.professorId.toString() == filter))
-                          ? OTLColor.grayD
+                          ? OTLColor.pinksSub
                           : OTLColor.grayE,
                     ),
                     child: Material(
@@ -66,24 +66,28 @@ class LectureGroupSimpleBlock extends StatelessWidget {
                               : Radius.zero,
                         ),
                         child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 8.0,
-                              vertical: 4.0,
-                            ),
-                            child: Row(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 8.0,
+                            vertical: 4.0,
+                          ),
+                          child: Text.rich(
+                            TextSpan(
+                              style: bodyRegular,
                               children: [
-                                Text(lecture.classTitle, style: bodyBold),
-                                const SizedBox(width: 4.0),
-                                Expanded(
-                                  child: Text(
-                                    isEn
-                                        ? lecture.professorsStrShortEn
-                                        : lecture.professorsStrShort,
-                                    style: bodyRegular,
-                                  ),
+                                TextSpan(
+                                  text: lecture.classTitle,
+                                  style: bodyBold,
                                 ),
+                                TextSpan(text: ' '),
+                                TextSpan(
+                                  text: isEn
+                                      ? lecture.professorsStrShortEn
+                                      : lecture.professorsStrShort,
+                                )
                               ],
-                            )),
+                            ),
+                          ),
+                        ),
                       ),
                     ),
                   )),

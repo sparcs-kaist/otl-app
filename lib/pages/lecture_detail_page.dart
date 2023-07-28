@@ -207,6 +207,7 @@ class LectureDetailPage extends StatelessWidget {
           delegate: SliverChildListDelegate([
             _buildAttributes(context, lecture),
             _buildScores(lecture),
+            const SizedBox(height: 16.0),
           ]),
         ),
         _buildReviewHeader(),
@@ -271,7 +272,17 @@ class LectureDetailPage extends StatelessWidget {
           ),
         ...context.select<LectureDetailModel, List<Widget>>((model) {
           if (model.reviews.length == 0) {
-            return [Text("common.no_result".tr())];
+            return [
+              Center(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 8.0),
+                  child: Text(
+                    "common.no_result".tr(),
+                    style: labelRegular.copyWith(color: OTLColor.grayA),
+                  ),
+                ),
+              )
+            ];
           } else {
             return model.reviews
                 .map((review) => ReviewBlock(
@@ -322,12 +333,13 @@ class LectureDetailPage extends StatelessWidget {
 
   Widget _buildAttribute(String title, String content) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 8.0),
+      padding: const EdgeInsets.only(bottom: 4.0),
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(title, style: bodyBold),
           const SizedBox(width: 4.0),
-          Text(content, style: bodyRegular),
+          Expanded(child: Text(content, style: bodyRegular)),
         ],
       ),
     );

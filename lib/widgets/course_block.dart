@@ -49,12 +49,12 @@ class CourseBlock extends StatelessWidget {
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Text("dictionary.type".tr(), style: bodyBold),
+                    Text("dictionary.type".tr(), style: labelBold),
                     const SizedBox(width: 8.0),
                     Expanded(
                       child: Text(
                         "${isEn ? course.department?.nameEn : course.department?.name}, ${isEn ? course.typeEn : course.type}",
-                        style: bodyRegular,
+                        style: labelRegular,
                       ),
                     ),
                   ],
@@ -63,12 +63,12 @@ class CourseBlock extends StatelessWidget {
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Text("dictionary.professors".tr(), style: bodyBold),
+                    Text("dictionary.professors".tr(), style: labelBold),
                     const SizedBox(width: 8.0),
                     Expanded(
                       child: Text(
                         isEn ? course.professorsStrEn : course.professorsStr,
-                        style: bodyRegular,
+                        style: labelRegular,
                       ),
                     ),
                   ],
@@ -77,12 +77,12 @@ class CourseBlock extends StatelessWidget {
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Text("dictionary.description".tr(), style: bodyBold),
+                    Text("dictionary.description".tr(), style: labelBold),
                     const SizedBox(width: 8.0),
                     Expanded(
                       child: Text(
                         course.summary,
-                        style: bodyRegular,
+                        style: labelRegular,
                       ),
                     ),
                   ],
