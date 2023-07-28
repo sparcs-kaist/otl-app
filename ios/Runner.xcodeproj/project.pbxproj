@@ -36,6 +36,8 @@
 		8BB3DE0B29D1F25B001AD191 /* Configuration.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 8BB3DE0729D1F25B001AD191 /* Configuration.intentdefinition */; };
 		8BB3DE0C29D1F25B001AD191 /* Configuration.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 8BB3DE0729D1F25B001AD191 /* Configuration.intentdefinition */; };
 		8BB3DE0F29D1F25B001AD191 /* OTLWidgetsExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 8BB3DDFD29D1F25A001AD191 /* OTLWidgetsExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		8BB4F62D2A73D4E700C8FE1D /* TimeInlineAccessory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BB4F62C2A73D4E700C8FE1D /* TimeInlineAccessory.swift */; };
+		8BB4F62F2A73DD2700C8FE1D /* LocationInlineAccessory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BB4F62E2A73DD2700C8FE1D /* LocationInlineAccessory.swift */; };
 		97C146FC1CF9000F007C117D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FA1CF9000F007C117D /* Main.storyboard */; };
 		97C146FE1CF9000F007C117D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FD1CF9000F007C117D /* Assets.xcassets */; };
 		97C147011CF9000F007C117D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FF1CF9000F007C117D /* LaunchScreen.storyboard */; };
@@ -115,6 +117,8 @@
 		8BB3DE0829D1F25B001AD191 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8BB3DE0A29D1F25B001AD191 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8BB3DE4729D1F286001AD191 /* OTLWidgetsExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = OTLWidgetsExtension.entitlements; sourceTree = "<group>"; };
+		8BB4F62C2A73D4E700C8FE1D /* TimeInlineAccessory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeInlineAccessory.swift; sourceTree = "<group>"; };
+		8BB4F62E2A73DD2700C8FE1D /* LocationInlineAccessory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationInlineAccessory.swift; sourceTree = "<group>"; };
 		9740EEB21CF90195004384FC /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Debug.xcconfig; path = Flutter/Debug.xcconfig; sourceTree = "<group>"; };
 		9740EEB31CF90195004384FC /* Generated.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Generated.xcconfig; path = Flutter/Generated.xcconfig; sourceTree = "<group>"; };
 		97C146EE1CF9000F007C117D /* Runner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Runner.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -195,6 +199,8 @@
 				8B76C8E32A0E834A007E1947 /* TodayClassesWidget.swift */,
 				8B1EA3B72A0FFF3B00387753 /* WeekClassesWidget.swift */,
 				8B643C822A6BC16500BF6DAA /* NextClassAccessory.swift */,
+				8BB4F62C2A73D4E700C8FE1D /* TimeInlineAccessory.swift */,
+				8BB4F62E2A73DD2700C8FE1D /* LocationInlineAccessory.swift */,
 				8B76C8E52A0E837F007E1947 /* WidgetBase.swift */,
 				8BB3DE0729D1F25B001AD191 /* Configuration.intentdefinition */,
 				8BB3DE0829D1F25B001AD191 /* Assets.xcassets */,
@@ -568,10 +574,12 @@
 				8B1EA3B82A0FFF3B00387753 /* WeekClassesWidget.swift in Sources */,
 				8BB3DE0429D1F25B001AD191 /* OTLWidgetBundle.swift in Sources */,
 				8B76C8E62A0E837F007E1947 /* WidgetBase.swift in Sources */,
+				8BB4F62F2A73DD2700C8FE1D /* LocationInlineAccessory.swift in Sources */,
 				8BB3458E2A012CF0008A0E30 /* IntentHandler.swift in Sources */,
 				8B76C8E42A0E834A007E1947 /* TodayClassesWidget.swift in Sources */,
 				8BB3DE0629D1F25B001AD191 /* NextClassWidget.swift in Sources */,
 				8B643C832A6BC16500BF6DAA /* NextClassAccessory.swift in Sources */,
+				8BB4F62D2A73D4E700C8FE1D /* TimeInlineAccessory.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
