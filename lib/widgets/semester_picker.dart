@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:otlplus/constants/color.dart';
 import 'package:provider/provider.dart';
 import 'package:otlplus/extensions/semester.dart';
 import 'package:otlplus/providers/timetable_model.dart';
@@ -23,7 +23,6 @@ class _SemesterPickerState extends State<SemesterPicker> {
 
     return Row(
       mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.end,
       children: <Widget>[
         _buildLeftButton(theme),
         _buildTitle(context),
@@ -39,7 +38,12 @@ class _SemesterPickerState extends State<SemesterPicker> {
         padding: const EdgeInsets.symmetric(horizontal: 8),
         child: Text(
           context.watch<TimetableModel>().selectedSemester.title,
-          style: const TextStyle(fontSize: 18.0, fontWeight: FontWeight.w700),
+          style: const TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.w500,
+            height: 1.2,
+            letterSpacing: 0.15,
+          ),
           textAlign: TextAlign.center,
         ),
       ),
@@ -54,8 +58,13 @@ class _SemesterPickerState extends State<SemesterPicker> {
               widget.onSemesterChanged();
             }
           : null,
-      child: SvgPicture.asset(
-          'assets/icons/icon_left_arrow_${context.watch<TimetableModel>().canGoPreviousSemester() ? 'active' : 'inactive'}.svg'),
+      child: Icon(
+        Icons.navigate_before_outlined,
+        color: context.watch<TimetableModel>().canGoPreviousSemester()
+            ? gray0
+            : grayA,
+        size: 24,
+      ),
     );
   }
 
@@ -67,8 +76,12 @@ class _SemesterPickerState extends State<SemesterPicker> {
               widget.onSemesterChanged();
             }
           : null,
-      child: SvgPicture.asset(
-          'assets/icons/icon_right_arrow_${context.watch<TimetableModel>().canGoNextSemester() ? 'active' : 'inactive'}.svg'),
+      child: Icon(
+        Icons.navigate_next_outlined,
+        color:
+            context.watch<TimetableModel>().canGoNextSemester() ? gray0 : grayA,
+        size: 24,
+      ),
     );
   }
 }

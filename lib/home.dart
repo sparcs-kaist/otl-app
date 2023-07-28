@@ -116,7 +116,7 @@ class _OTLHomeState extends State<OTLHome> with SingleTickerProviderStateMixin {
 
   PreferredSizeWidget _buildTimeTableAppBar() {
     return PreferredSize(
-      preferredSize: Size.fromHeight(kToolbarHeight),
+      preferredSize: Size.fromHeight(kToolbarHeight + 5),
       child: SafeArea(
         child: Container(
           color: pinksLight,
