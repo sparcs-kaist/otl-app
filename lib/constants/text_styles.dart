@@ -1,56 +1,33 @@
 import 'package:flutter/material.dart';
 
-const labelRegular = TextStyle(
+const regularBase = TextStyle(letterSpacing: 0.15);
+
+final labelRegular = regularBase.copyWith(
   fontSize: 12.0,
   height: 1.4,
 );
+final labelBold = labelRegular.copyWith(fontWeight: FontWeight.bold);
 
-const labelBold = TextStyle(
-  fontSize: 12.0,
-  height: 1.4,
-  fontWeight: FontWeight.bold,
-);
-
-const bodyRegular = TextStyle(
+final bodyRegular = regularBase.copyWith(
   fontSize: 14.0,
-  height: 1.4,
+  height: 1.6,
 );
+final bodyBold = bodyRegular.copyWith(fontWeight: FontWeight.bold);
 
-const bodyBold = TextStyle(
-  fontSize: 14.0,
-  height: 1.4,
-  fontWeight: FontWeight.bold,
-);
-
-const titleRegular = TextStyle(
+final titleRegular = regularBase.copyWith(
   fontSize: 16.0,
-  height: 1.4,
+  height: 1.6,
 );
+final titleBold = titleRegular.copyWith(fontWeight: FontWeight.bold);
 
-const titleBold = TextStyle(
-  fontSize: 16.0,
-  height: 1.4,
-  fontWeight: FontWeight.bold,
-);
-
-const headlineRegular = TextStyle(
+final headlineRegular = regularBase.copyWith(
   fontSize: 18.0,
-  height: 1.4,
+  height: 1.6,
 );
+final headlineBold = headlineRegular.copyWith(fontWeight: FontWeight.bold);
 
-const headlineBold = TextStyle(
-  fontSize: 18.0,
-  height: 1.4,
-  fontWeight: FontWeight.bold,
-);
-
-const displayRegular = TextStyle(
+final displayRegular = regularBase.copyWith(
   fontSize: 20.0,
-  height: 1.4,
+  height: 1.6,
 );
-
-const displayBold = TextStyle(
-  fontSize: 20.0,
-  height: 1.4,
-  fontWeight: FontWeight.bold,
-);
+final displayBold = displayRegular.copyWith(fontWeight: FontWeight.bold);
