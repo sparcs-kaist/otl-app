@@ -241,6 +241,7 @@ class _MainPageState extends State<MainPage> {
   }
 
   Widget _buildSchedule(DateTime now, Map<String, dynamic> currentSchedule) {
+    final isEn = EasyLocalization.of(context)!.currentLocale == Locale('en');
     late int days, hours, minutes;
 
     final timeDiff = currentSchedule["time"].difference(now) as Duration;
@@ -271,13 +272,19 @@ class _MainPageState extends State<MainPage> {
                 style: bodyBold,
                 text:
                     // ignore: unnecessary_null_comparison
-                    (currentSchedule == null) ? "-" : currentSchedule["title"],
+                    (currentSchedule == null)
+                        ? "-"
+                        : (currentSchedule["title"]),
               ),
               const TextSpan(text: " "),
               TextSpan(
                 style: bodyBold,
                 // ignore: unnecessary_null_comparison
-                text: (currentSchedule == null) ? "" : currentSchedule["name"],
+                text: (currentSchedule == null)
+                    ? ""
+                    : (isEn
+                        ? currentSchedule["nameEn"]
+                        : currentSchedule["name"]),
               ),
               const TextSpan(text: " "),
               TextSpan(
