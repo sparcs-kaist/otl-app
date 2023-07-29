@@ -22,7 +22,17 @@
     "goto_cais": "학사시스템 바로가기"
   },
   "timetable": {
-    "ask_delete_lecture": "'{}' 수업을 삭제하시겠습니까?"
+    "ask_delete_lecture": "'{}' 수업을 삭제하시겠습니까?",
+    "ask_delete_tab": "{}을(를) 정말 삭제하시겠습니까?",
+    "my_tab": "내 시간표",
+    "tab": "시간표 {}",
+    "tab_menu": {
+      "copy": "시간표 복제하기",
+      "export_img": "이미지로 내보내기",
+      "export_cal": "캘린더로 내보내기",
+      "syllabus": "실라버스 모아보기",
+      "delete": "시간표 삭제하기"
+    }
   },
   "settings": {
     "send_error_log": "오류 로그 전송",

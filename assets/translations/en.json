@@ -22,7 +22,17 @@
     "goto_cais": "Go to CAIS"
   },
   "timetable": {
-    "ask_delete_lecture": "Are you delete class '{}'?"
+    "ask_delete_lecture": "Are you delete class '{}'?",
+    "ask_delete_tab": "Do you really want to delete {}?",
+    "my_tab": "My Table",
+    "tab": "Table {}",
+    "tab_menu": {
+      "copy": "Copy Timetable",
+      "export_img": "Share as Image",
+      "export_cal": "Share as Calendar",
+      "syllabus": "Syllabi Collection",
+      "delete": "Delete Timetable"
+    }
   },
   "settings": {
     "send_error_log": "Send error log",

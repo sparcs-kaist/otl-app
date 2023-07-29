@@ -255,7 +255,9 @@ class _TimetablePageState extends State<TimetablePage> {
                   alignment: Alignment.center,
                   color: Colors.white,
                   child: Text(
-                    '시간표 $i을(를) 정말 삭제하시겠습니까?',
+                    'timetable.ask_delete_tab'.tr(args: [
+                      'timetable.tab'.tr(args: [i.toString()])
+                    ]),
                     style: TextStyle(
                       fontSize: 12,
                     ),
@@ -271,7 +273,7 @@ class _TimetablePageState extends State<TimetablePage> {
                           alignment: Alignment.center,
                           color: OTLColor.grayE,
                           child: Text(
-                            '취소',
+                            'common.cancel'.tr(),
                             style: TextStyle(
                               fontSize: 12,
                               fontWeight: FontWeight.w700,
@@ -291,7 +293,7 @@ class _TimetablePageState extends State<TimetablePage> {
                           alignment: Alignment.center,
                           color: OTLColor.pinksMain,
                           child: Text(
-                            '삭제',
+                            'common.delete'.tr(),
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 12,

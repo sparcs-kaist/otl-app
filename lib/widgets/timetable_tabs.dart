@@ -1,4 +1,5 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:otlplus/constants/color.dart';
 import 'package:otlplus/constants/text_styles.dart';
@@ -67,7 +68,7 @@ class _TimetableTabsState extends State<TimetableTabs> {
     }
 
     Text text = Text(
-      i == 0 ? "내 시간표" : "시간표 $i",
+      i == 0 ? 'timetable.my_tab'.tr() : 'timetable.tab'.tr(args: [i.toString()]),
       style: bodyBold.copyWith(color: i == _index ? OTLColor.grayF : OTLColor.gray0),
       textAlign: TextAlign.center,
     );
@@ -112,23 +113,11 @@ class _TimetableTabsState extends State<TimetableTabs> {
                 ),
             ],
             onChanged: (value) {
-              switch (value) {
-                case MenuItems.copy:
-                  widget.onCopyTap();
-                  break;
-                case MenuItems.exportToImg:
-                  widget.onExportTap('image');
-                  break;
-                case MenuItems.exportToCal:
-                  widget.onExportTap('ical');
-                  break;
-                case MenuItems.syllabus:
-                  // Pass
-                  break;
-                case MenuItems.delete:
-                  widget.onDeleteTap();
-                  break;
-              }
+              if (value == MenuItems.copy) widget.onCopyTap();
+              if (value == MenuItems.exportToImg) widget.onExportTap('image');
+              if (value == MenuItems.exportToCal) widget.onExportTap('ical');
+              // if (value == MenuItems.syllabus) Pass
+              if (value == MenuItems.delete) widget.onDeleteTap();
             },
             dropdownStyleData: DropdownStyleData(
               width: 180,
@@ -184,21 +173,21 @@ class MenuItem {
 }
 
 abstract class MenuItems {
-  static const List<MenuItem> items = [
+  static final List<MenuItem> items = [
     copy,
     exportToImg,
     exportToCal,
     //syllabus,
   ];
 
-  static const copy = MenuItem(text: '시간표 복제하기', icon: Icons.copy);
-  static const exportToImg =
-      MenuItem(text: '이미지로 내보내기', icon: Icons.image_outlined);
-  static const exportToCal =
-      MenuItem(text: '캘린더로 내보내기', icon: Icons.calendar_today_outlined);
-  static const syllabus =
-      MenuItem(text: '실라버스 모아보기', icon: Icons.sticky_note_2_outlined);
-  static const delete = MenuItem(text: '시간표 삭제하기', icon: Icons.delete_outlined);
+  static final copy = MenuItem(text: 'timetable.tab_menu.copy'.tr(), icon: Icons.copy);
+  static final exportToImg =
+      MenuItem(text: 'timetable.tab_menu.export_img'.tr(), icon: Icons.image_outlined);
+  static final exportToCal =
+      MenuItem(text: 'timetable.tab_menu.export_cal'.tr(), icon: Icons.calendar_today_outlined);
+  static final syllabus =
+      MenuItem(text: 'timetable.tab_menu.syllabus'.tr(), icon: Icons.sticky_note_2_outlined);
+  static final delete = MenuItem(text: 'timetable.tab_menu.delete'.tr(), icon: Icons.delete_outlined);
 
   static Widget buildItem(MenuItem item, bool isLast) {
     Color color = item == delete ? OTLColor.red : OTLColor.grayF;
