@@ -200,7 +200,7 @@ class _MapViewState extends State<MapView> {
       padding: const EdgeInsets.fromLTRB(16, 0, 16, 12),
       child: Container(
         decoration: BoxDecoration(
-          color: BLOCK_COLOR,
+          color: grayE,
           borderRadius: BorderRadius.circular(10),
         ),
         child: Material(
@@ -214,19 +214,20 @@ class _MapViewState extends State<MapView> {
             },
             borderRadius: BorderRadius.circular(10),
             child: Container(
-              padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+              padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     _codeToName(buildingCode),
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 12,
-                      height: 17 / 12,
-                    ),
+                    style: bodyBold,
                   ),
-                  const SizedBox(height: 4),
+                  Divider(
+                    height: 15,
+                    thickness: 1,
+                    color: gray0.withOpacity(0.25),
+                  ),
+                  const SizedBox(height: 1),
                   ...List.generate(
                     widget.lectures[buildingCode]!.length,
                     (i) => _buildLectureBlock(i, buildingCode),
@@ -250,56 +251,51 @@ class _MapViewState extends State<MapView> {
   Widget _buildLectureBlock(int i, String buildingCode) {
     Lecture lecture = widget.lectures[buildingCode]![i].keys.first;
     Classtime classtime = widget.lectures[buildingCode]![i].values.first;
-    return Padding(
-      padding: EdgeInsets.only(top: i == 0 ? 0 : 6),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(top: 4),
-            child: Container(
-              width: 11,
-              height: 11,
-              decoration: BoxDecoration(
-                color: _darken(TIMETABLE_BLOCK_COLORS[lecture.course % 16]),
-                shape: BoxShape.circle,
-              ),
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(top: 9),
+          child: Container(
+            width: 11,
+            height: 11,
+            decoration: BoxDecoration(
+              color: _darken(TIMETABLE_BLOCK_COLORS[lecture.course % 16]),
+              shape: BoxShape.circle,
             ),
           ),
-          const SizedBox(width: 4),
-          Expanded(
+        ),
+        const SizedBox(width: 4),
+        Expanded(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 3),
             child: Text(
               lecture.title,
-              style: TextStyle(
-                fontSize: 12,
-                height: 17 / 12,
-              ),
+              style: bodyRegular,
               maxLines: 5,
             ),
           ),
-          if (classtime.roomName.isNotEmpty)
-            Padding(
-              padding: const EdgeInsets.fromLTRB(16, 2, 0, 0),
-              child: Container(
-                height: 16,
-                padding: const EdgeInsets.symmetric(horizontal: 5),
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  color: TIMETABLE_BLOCK_COLORS[lecture.course % 16],
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Text(
-                  (buildingCode == '기타')
-                      ? classtime.classroom
-                      : classtime.roomName,
-                  style: TextStyle(
-                    fontSize: 10,
-                  ),
-                ),
+        ),
+        if (classtime.roomName.isNotEmpty)
+          Padding(
+            padding: const EdgeInsets.fromLTRB(16, 2.5, 0, 2.5),
+            child: Container(
+              height: 23,
+              padding: const EdgeInsets.symmetric(horizontal: 6),
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                color: TIMETABLE_BLOCK_COLORS[lecture.course % 16],
+                borderRadius: BorderRadius.circular(100),
+              ),
+              child: Text(
+                (buildingCode == '기타')
+                    ? classtime.classroom
+                    : classtime.roomName,
+                style: labelRegular,
               ),
             ),
-        ],
-      ),
+          ),
+      ],
     );
   }
 }
