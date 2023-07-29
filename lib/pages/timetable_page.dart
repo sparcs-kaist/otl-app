@@ -140,16 +140,11 @@ class _TimetablePageState extends State<TimetablePage> {
           padding: const EdgeInsets.symmetric(horizontal: 8.0),
           child: const Divider(color: DIVIDER_COLOR, height: 1.0),
         ),
-        Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 8.0,
-            vertical: 12.0,
-          ),
-          child: TimetableSummary(
+        if (!isExamTime)
+          TimetableSummary(
             lectures: lectures,
             tempLecture: _selectedLecture,
           ),
-        ),
       ],
     );
   }

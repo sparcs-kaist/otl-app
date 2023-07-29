@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:otlplus/constants/color.dart';
+import 'package:otlplus/constants/text_styles.dart';
 import 'package:otlplus/models/lecture.dart';
 
 const TYPES = [
@@ -81,6 +82,7 @@ class TimetableSummary extends StatelessWidget {
                 : 0));
     final tempType =
         (tempLecture == null) ? 6 : _indexOfType(tempLecture!.typeEn);
+    final titles = ['기필', '기선', '전필', '전선', '인선', '기타'];
 
     if (tempLecture != null) {
       currentTypeCredit[tempType] +=
@@ -102,114 +104,95 @@ class TimetableSummary extends StatelessWidget {
           : 0);
     }
 
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      children: <Widget>[
-        _buildAttributes(
-            ["기필", "기선"],
-            [currentTypeCredit[0], currentTypeCredit[1]],
-            [tempType == 0, tempType == 1]),
-        _buildAttributes(
-            ["전필", "전선"],
-            [currentTypeCredit[2], currentTypeCredit[3]],
-            [tempType == 2, tempType == 3]),
-        _buildAttributes(
-            ["인선", "기타"],
-            [currentTypeCredit[4], currentTypeCredit[5]],
-            [tempType == 4, tempType == 5]),
-        _buildScore("학점", allCreditCredit.toString(),
-            tempLecture != null && tempLecture!.credit > 0),
-        _buildScore("AU", allAuCredit.toString(),
-            tempLecture != null && tempLecture!.creditAu > 0),
-        _buildScore(
-            "성적",
-            targetNum > 0 ? LETTERS[(grade / targetNum).round()] : "?",
-            tempLecture != null && tempLecture!.grade > 0),
-        _buildScore(
-            "널널",
-            targetNum > 0 ? LETTERS[(load / targetNum).round()] : "?",
-            tempLecture != null && tempLecture!.load > 0),
-        _buildScore(
-            "강의",
-            targetNum > 0 ? LETTERS[(speech / targetNum).round()] : "?",
-            tempLecture != null && tempLecture!.speech > 0),
-      ],
-    );
-  }
-
-  Widget _buildScore(String title, String content, bool highlight) {
-    return SizedBox(
-      width: 32,
-      child: Text.rich(
-        TextSpan(
-          style: TextStyle(
-            color: highlight
-                ? const Color(0xFFE05469).withOpacity(0.9)
-                : CONTENT_COLOR,
-            fontSize: 10.0,
-          ),
-          children: <TextSpan>[
-            TextSpan(
-              text: content,
-              style: const TextStyle(
-                fontSize: 22.0,
-                fontWeight: FontWeight.w300,
+    return Container(
+      height: 75,
+      padding: const EdgeInsets.symmetric(vertical: 16),
+      alignment: Alignment.center,
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          Container(
+            width: 164,
+            height: 38,
+            child: GridView.builder(
+              itemCount: 6,
+              padding: const EdgeInsets.only(right: 6),
+              physics: const NeverScrollableScrollPhysics(),
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 3,
+                mainAxisSpacing: 4,
+                crossAxisSpacing: 16,
+                mainAxisExtent: 17,
               ),
+              itemBuilder: (_, index) => _buildAttribute(
+                  titles[index], currentTypeCredit[index], tempType == index),
             ),
-            TextSpan(text: "\n$title"),
-          ],
-        ),
-        textAlign: TextAlign.center,
+          ),
+          const SizedBox(width: 11),
+          _buildScore("학점", allCreditCredit.toString(),
+              tempLecture != null && tempLecture!.credit > 0),
+          _buildScore("AU", allAuCredit.toString(),
+              tempLecture != null && tempLecture!.creditAu > 0),
+          const SizedBox(width: 11),
+          _buildScore(
+              "성적",
+              targetNum > 0 ? LETTERS[(grade / targetNum).round()] : "?",
+              tempLecture != null && tempLecture!.grade > 0),
+          _buildScore(
+              "널널",
+              targetNum > 0 ? LETTERS[(load / targetNum).round()] : "?",
+              tempLecture != null && tempLecture!.load > 0),
+          _buildScore(
+              "강의",
+              targetNum > 0 ? LETTERS[(speech / targetNum).round()] : "?",
+              tempLecture != null && tempLecture!.speech > 0),
+        ],
       ),
     );
   }
 
-  Widget _buildAttributes(
-      List<String> titles, List<int> values, List<bool> highlights) {
-    return SizedBox(
-      width: 48,
-      child: Text.rich(
-        TextSpan(
-          style: const TextStyle(
-            height: 1.5,
-            fontSize: 12.0,
-          ),
-          children: <TextSpan>[
-            TextSpan(
-              text: "${titles[0]} ",
-              style: TextStyle(
-                  color: highlights[0]
-                      ? const Color(0xFFE05469).withOpacity(0.9)
-                      : CONTENT_COLOR,
-                  fontWeight: FontWeight.bold),
-            ),
-            TextSpan(
-              text: values[0].toString(),
-              style: TextStyle(
-                color: highlights[0]
-                    ? const Color(0xFFE05469).withOpacity(0.9)
-                    : CONTENT_COLOR,
+  Widget _buildScore(String title, String content, bool highlight) {
+    return Padding(
+      padding: const EdgeInsets.only(left: 5),
+      child: SizedBox(
+        width: 28,
+        child: Column(
+          children: [
+            Expanded(
+              child: Text(
+                content,
+                style: titleBold,
+                textAlign: TextAlign.center,
               ),
             ),
-            const TextSpan(text: "\n"),
-            TextSpan(
-              text: "${titles[1]} ",
-              style: TextStyle(
-                  color: highlights[1]
-                      ? const Color(0xFFE05469).withOpacity(0.9)
-                      : CONTENT_COLOR,
-                  fontWeight: FontWeight.bold),
-            ),
-            TextSpan(
-              text: values[1].toString(),
-              style: TextStyle(
-                color: highlights[1]
-                    ? const Color(0xFFE05469).withOpacity(0.9)
-                    : CONTENT_COLOR,
-              ),
+            Text(
+              title,
+              style: labelRegular,
+              textAlign: TextAlign.center,
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildAttribute(String title, int value, bool highlight) {
+    return SizedBox(
+      width: 42,
+      child: Row(
+        children: [
+          SizedBox(
+            width: 28,
+            child: Text(
+              title,
+              style: labelBold.copyWith(color: highlight ? pinksMain : gray0),
+            ),
+          ),
+          Text(
+            value.toString(),
+            style: labelRegular.copyWith(color: highlight ? pinksMain : gray0),
+          )
+        ],
       ),
     );
   }
