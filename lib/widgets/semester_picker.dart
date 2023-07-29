@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:otlplus/constants/color.dart';
+import 'package:otlplus/constants/text_styles.dart';
 import 'package:provider/provider.dart';
 import 'package:otlplus/extensions/semester.dart';
 import 'package:otlplus/providers/timetable_model.dart';
@@ -38,12 +39,7 @@ class _SemesterPickerState extends State<SemesterPicker> {
         padding: const EdgeInsets.symmetric(horizontal: 8),
         child: Text(
           context.watch<TimetableModel>().selectedSemester.title,
-          style: const TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.w500,
-            height: 1.2,
-            letterSpacing: 0.15,
-          ),
+          style: displayBold.copyWith(height: 1.448),
           textAlign: TextAlign.center,
         ),
       ),
