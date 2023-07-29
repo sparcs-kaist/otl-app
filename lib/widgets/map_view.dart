@@ -32,18 +32,25 @@ const POSITION_OF_LOCATIONS = {
 };
 
 class MapView extends StatefulWidget {
-
   final Map<String, List<Map<Lecture, Classtime>>> _lectures = {};
 
   Map<String, List<Map<Lecture, Classtime>>> get lectures => _lectures;
 
   MapView({required List<Lecture> lectures}) {
-    for(Lecture lecture in lectures) {
-      for(Classtime classtime in lecture.classtimes) {
+    for (Lecture lecture in lectures) {
+      for (Classtime classtime in lecture.classtimes) {
         String buildingCode = classtime.buildingCode;
         if (buildingCode == '') buildingCode = '기타';
-        if ((_lectures[buildingCode]?.indexWhere((element) => element.values.first.classroom == classtime.classroom) ?? -1) == -1)
-          _lectures[buildingCode] = _lectures[buildingCode]?.followedBy([{lecture: classtime}]).toList() ?? [{lecture: classtime}];
+        if ((_lectures[buildingCode]?.indexWhere((element) =>
+                    element.values.first.classroom == classtime.classroom) ??
+                -1) ==
+            -1)
+          _lectures[buildingCode] = _lectures[buildingCode]?.followedBy([
+                {lecture: classtime}
+              ]).toList() ??
+              [
+                {lecture: classtime}
+              ];
       }
     }
   }
@@ -67,38 +74,45 @@ class _MapViewState extends State<MapView> {
   @override
   Widget build(BuildContext context) {
     final List<String> pinKeys, blockKeys;
-    pinKeys = widget.lectures.keys.toList()..sort((a, b) {
-      return _pinOrder.indexOf(a).compareTo(_pinOrder.indexOf(b));
-    });
-    blockKeys = widget.lectures.keys.toList()..sort((a, b) {
-      return _blockOrder.indexOf(a).compareTo(_blockOrder.indexOf(b));
-    });
-    _width = MediaQuery.of(context).size.width - 64;
+    pinKeys = widget.lectures.keys.toList()
+      ..sort((a, b) {
+        return _pinOrder.indexOf(a).compareTo(_pinOrder.indexOf(b));
+      });
+    blockKeys = widget.lectures.keys.toList()
+      ..sort((a, b) {
+        return _blockOrder.indexOf(a).compareTo(_blockOrder.indexOf(b));
+      });
+    _width = MediaQuery.of(context).size.width - 100;
     _height = _width * 131 / 146;
-    return Column(
-      children: [
-        Container(
-          height: _height + 36,
-          padding: const EdgeInsets.fromLTRB(32, 12, 32, 24),
-          child: Stack(
-            clipBehavior: Clip.none,
-            alignment: Alignment.bottomLeft,
-            children: <Widget>[
-              Image.asset(
-                'assets/images/kaist_map.png',
+    return CustomScrollView(
+      slivers: [
+        SliverPersistentHeader(
+          pinned: true,
+          delegate: CustomHeaderDelegate(
+            widget: Container(
+              height: _height + 12,
+              padding: EdgeInsets.fromLTRB(50, 0, 50, 12),
+              color: grayF,
+              child: Stack(
+                clipBehavior: Clip.none,
+                alignment: Alignment.bottomLeft,
+                children: <Widget>[
+                  Image.asset(
+                    'assets/images/kaist_map.png',
+                  ),
+                  ...List.generate(
+                    pinKeys.length,
+                    (i) => _buildMapPin(context, pinKeys[i]),
+                  )
+                ],
               ),
-            ].followedBy(
-              List.generate(
-                pinKeys.length, (i) => _buildMapPin(context, pinKeys[i]),
-              )
-            ).toList(),
+            ),
+            extent: _height + 12,
           ),
         ),
-        Expanded(
-          child: ListView.builder(
-            itemCount: blockKeys.length,
-            itemBuilder: (_, i) => _buildBuildingBlock(blockKeys[i]),
-          ),
+        SliverList.builder(
+          itemCount: blockKeys.length,
+          itemBuilder: (_, i) => _buildBuildingBlock(blockKeys[i]),
         ),
       ],
     );
@@ -160,8 +174,7 @@ class _MapViewState extends State<MapView> {
                       ),
                     ),
                   ),
-              ].followedBy(
-                List.generate(
+                ...List.generate(
                   widget.lectures[buildingCode]!.length,
                   (i) => Padding(
                     padding: const EdgeInsets.only(left: 1),
@@ -169,13 +182,15 @@ class _MapViewState extends State<MapView> {
                       width: 9,
                       height: 9,
                       decoration: BoxDecoration(
-                        color: _darken(TIMETABLE_BLOCK_COLORS[widget.lectures[buildingCode]![i].keys.first.course % 16]),
+                        color: _darken(TIMETABLE_BLOCK_COLORS[widget
+                                .lectures[buildingCode]![i].keys.first.course %
+                            16]),
                         shape: BoxShape.circle,
                       ),
                     ),
                   ),
                 ),
-              ).toList(),
+              ],
             ),
           ),
         ],
@@ -188,7 +203,7 @@ class _MapViewState extends State<MapView> {
     Classtime first = widget.lectures[buildingCode]![0].values.first;
     String buildingName = first.classroom;
     buildingName = buildingName.replaceAll('($buildingCode)', '');
-    buildingName = buildingName.replaceAll(first.roomName, ''); 
+    buildingName = buildingName.replaceAll(first.roomName, '');
     return buildingCode + ' ' + buildingName.trim();
   }
 
@@ -224,13 +239,12 @@ class _MapViewState extends State<MapView> {
                     ),
                   ),
                   const SizedBox(height: 4),
-                ].followedBy(
-                  List.generate(
+                  ...List.generate(
                     widget.lectures[buildingCode]!.length,
                     (i) => _buildLectureBlock(i, buildingCode),
                   ),
-                ).toList(),
-              )
+                ],
+              ),
             ),
           ),
         ),
@@ -287,7 +301,9 @@ class _MapViewState extends State<MapView> {
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Text(
-                  (buildingCode == '기타') ? classtime.classroom : classtime.roomName,
+                  (buildingCode == '기타')
+                      ? classtime.classroom
+                      : classtime.roomName,
                   style: TextStyle(
                     fontSize: 10,
                   ),
@@ -314,4 +330,27 @@ class CustomTriangleClipper extends CustomClipper<Path> {
   bool shouldReclip(CustomClipper<Path> oldClipper) {
     return false;
   }
+}
+
+class CustomHeaderDelegate extends SliverPersistentHeaderDelegate {
+  CustomHeaderDelegate({required this.widget, required this.extent});
+
+  Widget widget;
+  double extent;
+
+  @override
+  Widget build(
+      BuildContext context, double shrinkOffset, bool overlapsContent) {
+    return widget;
+  }
+
+  @override
+  double get maxExtent => extent;
+
+  @override
+  double get minExtent => extent;
+
+  @override
+  bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) =>
+      true;
 }
