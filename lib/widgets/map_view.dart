@@ -1,34 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:otlplus/constants/color.dart';
+import 'package:otlplus/constants/text_styles.dart';
 import 'package:otlplus/models/classtime.dart';
 import 'package:otlplus/models/lecture.dart';
-import 'package:otlplus/widgets/timetable.dart';
 
 const POSITION_OF_LOCATIONS = {
-  'E2': {'left': 0.60, 'top': 0.81},
-  'E3': {'left': 0.67, 'top': 0.75},
-  'E6': {'left': 0.68, 'top': 0.63},
-  'E6-5': {'left': 0.63, 'top': 0.58},
-  'E7': {'left': 0.77, 'top': 0.61},
-  'E11': {'left': 0.53, 'top': 0.58},
-  'E16': {'left': 0.53, 'top': 0.49},
-  'N1': {'left': 0.88, 'top': 0.39},
-  'N2': {'left': 0.71, 'top': 0.45},
-  'N3': {'left': 0.53, 'top': 0.45},
-  'N4': {'left': 0.62, 'top': 0.41},
-  'N5': {'left': 0.74, 'top': 0.39},
-  'N7': {'left': 0.33, 'top': 0.41},
-  'N7-2': {'left': 0.29, 'top': 0.42},
-  'N22': {'left': 0.79, 'top': 0.35},
-  'N24': {'left': 0.76, 'top': 0.31},
-  'N25': {'left': 0.59, 'top': 0.36},
-  'N27': {'left': 0.57, 'top': 0.24},
-  'W1': {'left': 0.31, 'top': 0.84},
-  'W1-1': {'left': 0.28, 'top': 0.88},
-  'W1-2': {'left': 0.34, 'top': 0.85},
-  'W1-3': {'left': 0.35, 'top': 0.81},
-  'W8': {'left': 0.35, 'top': 0.55},
-  'W16': {'left': 0.40, 'top': 0.87},
+  'E2': {'left': 0.565, 'top': 0.706},
+  'E3': {'left': 0.634, 'top': 0.649},
+  'E6': {'left': 0.651, 'top': 0.573},
+  'E6-5': {'left': 0.599, 'top': 0.477},
+  'E7': {'left': 0.736, 'top': 0.496},
+  'E11': {'left': 0.497, 'top': 0.477},
+  'E16': {'left': 0.497, 'top': 0.420},
+  'N1': {'left': 0.839, 'top': 0.286},
+  'N2': {'left': 0.685, 'top': 0.363},
+  'N3': {'left': 0.497, 'top': 0.344},
+  'N4': {'left': 0.599, 'top': 0.305},
+  'N5': {'left': 0.736, 'top': 0.286},
+  'N7': {'left': 0.308, 'top': 0.305},
+  'N7-2': {'left': 0.257, 'top': 0.324},
+  'N22': {'left': 0.771, 'top': 0.248},
+  'N24': {'left': 0.719, 'top': 0.210},
+  'N25': {'left': 0.548, 'top': 0.267},
+  'N27': {'left': 0.531, 'top': 0.134},
+  'W1': {'left': 0.274, 'top': 0.725},
+  'W1-1': {'left': 0.257, 'top': 0.782},
+  'W1-2': {'left': 0.308, 'top': 0.744},
+  'W1-3': {'left': 0.325, 'top': 0.706},
+  'W8': {'left': 0.274, 'top': 0.496},
+  'W16': {'left': 0.360, 'top': 0.763},
 };
 
 class MapView extends StatefulWidget {
@@ -68,7 +69,7 @@ class _MapViewState extends State<MapView> {
     super.initState();
     _blockOrder = POSITION_OF_LOCATIONS.keys.toList();
     _blockOrder.add('기타');
-    _pinOrder = [..._blockOrder];
+    _pinOrder = [..._blockOrder.reversed];
   }
 
   @override
@@ -119,68 +120,45 @@ class _MapViewState extends State<MapView> {
   }
 
   Widget _buildMapPin(BuildContext context, String buildingCode) {
+    List<BoxShadow> boxShadow = [
+      BoxShadow(
+        color: gray0.withOpacity(0.25),
+        blurRadius: 4,
+        offset: Offset(0, 4),
+      )
+    ];
     return Positioned(
-      left: _width * (POSITION_OF_LOCATIONS[buildingCode]?['left'] ?? 0.0) - 5,
-      top: _height * (POSITION_OF_LOCATIONS[buildingCode]?['top'] ?? 1.0) - 16,
+      left: _width * (POSITION_OF_LOCATIONS[buildingCode]?['left'] ?? 0.0),
+      top: _height * (POSITION_OF_LOCATIONS[buildingCode]?['top'] ?? 0.897),
       child: Stack(
         clipBehavior: Clip.none,
         children: [
-          Positioned(
-            left: 3.5,
-            bottom: -3,
-            child: Container(
-              width: 3,
-              decoration: BoxDecoration(
-                boxShadow: [
-                  BoxShadow(
-                    color: CONTENT_COLOR.withOpacity(0.8),
-                    spreadRadius: 3,
-                    blurRadius: 3,
-                  ),
-                ],
-              ),
-            ),
-          ),
-          Positioned(
-            left: 3,
-            bottom: -3,
-            child: ClipPath(
-              clipper: CustomTriangleClipper(),
-              child: Container(
-                width: 4,
-                height: 3,
-                color: BLOCK_COLOR,
-              ),
-            ),
-          ),
           Container(
-            height: 13,
-            padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 3),
+            height: 23,
+            padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 6),
             decoration: BoxDecoration(
-              color: BLOCK_COLOR,
-              borderRadius: BorderRadius.circular(2),
+              color: grayF,
+              borderRadius: BorderRadius.circular(1),
+              boxShadow: boxShadow,
             ),
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 if (buildingCode != '기타')
                   Padding(
-                    padding: const EdgeInsets.only(right: 1),
+                    padding: const EdgeInsets.only(right: 4),
                     child: Text(
                       buildingCode,
-                      style: TextStyle(
-                        fontSize: 10,
-                        height: 9 / 10,
-                      ),
+                      style: labelBold,
                     ),
                   ),
                 ...List.generate(
                   widget.lectures[buildingCode]!.length,
                   (i) => Padding(
-                    padding: const EdgeInsets.only(left: 1),
+                    padding: const EdgeInsets.only(left: 2),
                     child: Container(
-                      width: 9,
-                      height: 9,
+                      width: 11,
+                      height: 11,
                       decoration: BoxDecoration(
                         color: _darken(TIMETABLE_BLOCK_COLORS[widget
                                 .lectures[buildingCode]![i].keys.first.course %
@@ -191,6 +169,16 @@ class _MapViewState extends State<MapView> {
                   ),
                 ),
               ],
+            ),
+          ),
+          Positioned(
+            left: 6,
+            bottom: -4,
+            child: Container(
+              decoration: BoxDecoration(
+                boxShadow: boxShadow,
+              ),
+              child: SvgPicture.asset('assets/icons/map_pin.svg'),
             ),
           ),
         ],
