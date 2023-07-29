@@ -6,30 +6,30 @@ import 'package:otlplus/models/classtime.dart';
 import 'package:otlplus/models/lecture.dart';
 
 const POSITION_OF_LOCATIONS = {
-  'E2': {'left': 0.565, 'top': 0.706},
-  'E3': {'left': 0.634, 'top': 0.649},
-  'E6': {'left': 0.651, 'top': 0.573},
-  'E6-5': {'left': 0.599, 'top': 0.477},
-  'E7': {'left': 0.736, 'top': 0.496},
-  'E11': {'left': 0.497, 'top': 0.477},
-  'E16': {'left': 0.497, 'top': 0.420},
-  'N1': {'left': 0.839, 'top': 0.286},
-  'N2': {'left': 0.685, 'top': 0.363},
-  'N3': {'left': 0.497, 'top': 0.344},
-  'N4': {'left': 0.599, 'top': 0.305},
-  'N5': {'left': 0.736, 'top': 0.286},
-  'N7': {'left': 0.308, 'top': 0.305},
-  'N7-2': {'left': 0.257, 'top': 0.324},
-  'N22': {'left': 0.771, 'top': 0.248},
-  'N24': {'left': 0.719, 'top': 0.210},
-  'N25': {'left': 0.548, 'top': 0.267},
-  'N27': {'left': 0.531, 'top': 0.134},
-  'W1': {'left': 0.274, 'top': 0.725},
-  'W1-1': {'left': 0.257, 'top': 0.782},
-  'W1-2': {'left': 0.308, 'top': 0.744},
-  'W1-3': {'left': 0.325, 'top': 0.706},
-  'W8': {'left': 0.274, 'top': 0.496},
-  'W16': {'left': 0.360, 'top': 0.763},
+  'E2': {'left': 0.599, 'top': 0.802},
+  'E3': {'left': 0.668, 'top': 0.744},
+  'E6': {'left': 0.685, 'top': 0.668},
+  'E6-5': {'left': 0.651, 'top': 0.573},
+  'E7': {'left': 0.771, 'top': 0.592},
+  'E11': {'left': 0.531, 'top': 0.573},
+  'E16': {'left': 0.531, 'top': 0.515},
+  'N1': {'left': 0.873, 'top': 0.382},
+  'N2': {'left': 0.719, 'top': 0.458},
+  'N3': {'left': 0.531, 'top': 0.439},
+  'N4': {'left': 0.634, 'top': 0.401},
+  'N5': {'left': 0.771, 'top': 0.382},
+  'N7': {'left': 0.325, 'top': 0.401},
+  'N7-2': {'left': 0.291, 'top': 0.42},
+  'N22': {'left': 0.788, 'top': 0.344},
+  'N24': {'left': 0.753, 'top': 0.305},
+  'N25': {'left': 0.582, 'top': 0.363},
+  'N27': {'left': 0.565, 'top': 0.229},
+  'W1': {'left': 0.308, 'top': 0.821},
+  'W1-1': {'left': 0.291, 'top': 0.878},
+  'W1-2': {'left': 0.342, 'top': 0.84},
+  'W1-3': {'left': 0.36, 'top': 0.802},
+  'W8': {'left': 0.308, 'top': 0.592},
+  'W16': {'left': 0.394, 'top': 0.859},
 };
 
 class MapView extends StatefulWidget {
@@ -128,8 +128,8 @@ class _MapViewState extends State<MapView> {
       )
     ];
     return Positioned(
-      left: _width * (POSITION_OF_LOCATIONS[buildingCode]?['left'] ?? 0.0),
-      top: _height * (POSITION_OF_LOCATIONS[buildingCode]?['top'] ?? 0.897),
+      left: _width * (POSITION_OF_LOCATIONS[buildingCode]?['left'] ?? 0.031) - 9,
+      top: _height * (POSITION_OF_LOCATIONS[buildingCode]?['top'] ?? 1.000) - 27,
       child: Stack(
         clipBehavior: Clip.none,
         children: [
