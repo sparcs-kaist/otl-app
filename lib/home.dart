@@ -55,7 +55,7 @@ class _OTLHomeState extends State<OTLHome> with SingleTickerProviderStateMixin {
     return Scaffold(
       appBar: _buildAppBar(),
       backgroundColor:
-          _currentIndex == 0 ? const Color(0xFF9B4810) : pinksLight,
+          _currentIndex == 0 ? const Color(0xFF9B4810) : OTLColor.pinksLight,
       bottomNavigationBar: _buildBottomNavigationBar(),
       body: GestureDetector(
         onTap: () {
@@ -101,13 +101,13 @@ class _OTLHomeState extends State<OTLHome> with SingleTickerProviderStateMixin {
         flexibleSpace: SafeArea(
           child: Column(
             children: [
-              Container(color: pinksMain, height: 5.0),
+              Container(color: OTLColor.pinksMain, height: 5.0),
               _buildExpandedWidget(),
             ],
           ),
         ),
-        backgroundColor: pinksLight,
-        foregroundColor: pinksMain,
+        backgroundColor: OTLColor.pinksLight,
+        foregroundColor: OTLColor.pinksMain,
         elevation: 0.0,
         automaticallyImplyLeading: false,
       ),
@@ -119,11 +119,11 @@ class _OTLHomeState extends State<OTLHome> with SingleTickerProviderStateMixin {
       preferredSize: Size.fromHeight(kToolbarHeight + 5),
       child: SafeArea(
         child: Container(
-          color: pinksLight,
+          color: OTLColor.pinksLight,
           child: Column(
             children: [
               Container(
-                color: pinksMain,
+                color: OTLColor.pinksMain,
                 height: 5,
               ),
               Expanded(
@@ -161,13 +161,13 @@ class _OTLHomeState extends State<OTLHome> with SingleTickerProviderStateMixin {
           onTap: () => Navigator.push(context, buildCourseSearchPageRoute()),
           child: Container(
             decoration: BoxDecoration(
-              color: grayF,
+              color: OTLColor.grayF,
               borderRadius: BorderRadius.circular(8.0),
             ),
             padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
             child: Row(
               children: [
-                Icon(CustomIcons.search, color: pinksMain, size: 24.0),
+                Icon(CustomIcons.search, color: OTLColor.pinksMain, size: 24.0),
                 const SizedBox(width: 12.0),
                 Expanded(
                   child: context.watch<CourseSearchModel>().courseSearchquery,
@@ -177,10 +177,10 @@ class _OTLHomeState extends State<OTLHome> with SingleTickerProviderStateMixin {
           ),
         ),
       ),
-      flexibleSpace: SafeArea(child: Container(color: pinksMain, height: 5.0)),
+      flexibleSpace: SafeArea(child: Container(color: OTLColor.pinksMain, height: 5.0)),
       toolbarHeight: kToolbarHeight + 5.0,
-      backgroundColor: pinksLight,
-      foregroundColor: gray0,
+      backgroundColor: OTLColor.pinksLight,
+      foregroundColor: OTLColor.gray0,
       elevation: 0.0,
       centerTitle: true,
       automaticallyImplyLeading: false,
@@ -216,10 +216,10 @@ class _OTLHomeState extends State<OTLHome> with SingleTickerProviderStateMixin {
           ),
         )
       ],
-      flexibleSpace: SafeArea(child: Container(color: pinksMain, height: 5.0)),
+      flexibleSpace: SafeArea(child: Container(color: OTLColor.pinksMain, height: 5.0)),
       toolbarHeight: kToolbarHeight + 5.0,
-      backgroundColor: pinksLight,
-      foregroundColor: gray0,
+      backgroundColor: OTLColor.pinksLight,
+      foregroundColor: OTLColor.gray0,
       elevation: 0.0,
       automaticallyImplyLeading: false,
     );
@@ -260,7 +260,7 @@ class _OTLHomeState extends State<OTLHome> with SingleTickerProviderStateMixin {
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: Container(
           decoration: BoxDecoration(
-            color: grayF,
+            color: OTLColor.grayF,
             borderRadius: BorderRadius.circular(8.0),
           ),
           width: MediaQuery.of(context).size.width,
@@ -285,14 +285,14 @@ class _OTLHomeState extends State<OTLHome> with SingleTickerProviderStateMixin {
                 children: [
                   Icon(
                     CustomIcons.search,
-                    color: pinksMain,
+                    color: OTLColor.pinksMain,
                     size: 24.0,
                   ),
                   const SizedBox(width: 12.0),
                   Expanded(
                     child: Text(
                       "과목명, 교수님 성함 등을 검색해 보세요.",
-                      style: bodyRegular.copyWith(color: grayA),
+                      style: bodyRegular.copyWith(color: OTLColor.grayA),
                     ),
                   )
                 ],

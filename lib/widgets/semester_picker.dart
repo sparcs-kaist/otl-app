@@ -57,8 +57,8 @@ class _SemesterPickerState extends State<SemesterPicker> {
       child: Icon(
         Icons.navigate_before_outlined,
         color: context.watch<TimetableModel>().canGoPreviousSemester()
-            ? gray0
-            : grayA,
+            ? OTLColor.gray0
+            : OTLColor.grayA,
         size: 24,
       ),
     );
@@ -75,7 +75,7 @@ class _SemesterPickerState extends State<SemesterPicker> {
       child: Icon(
         Icons.navigate_next_outlined,
         color:
-            context.watch<TimetableModel>().canGoNextSemester() ? gray0 : grayA,
+            context.watch<TimetableModel>().canGoNextSemester() ? OTLColor.gray0 : OTLColor.grayA,
         size: 24,
       ),
     );

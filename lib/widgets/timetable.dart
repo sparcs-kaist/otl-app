@@ -116,7 +116,7 @@ class Timetable extends StatelessWidget {
 
   Widget _buildCell(int i) {
     if (i % 100 == 0)
-      return Container(color: gray0.withOpacity(0.25), height: 1);
+      return Container(color: OTLColor.gray0.withOpacity(0.25), height: 1);
     if (i % 50 == 0)
       return Row(
         children: List.generate(
@@ -124,7 +124,7 @@ class Timetable extends StatelessWidget {
           (i) => Expanded(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 1.0),
-              child: Container(color: gray0.withOpacity(0.25), height: 1),
+              child: Container(color: OTLColor.gray0.withOpacity(0.25), height: 1),
             ),
           ),
         ),

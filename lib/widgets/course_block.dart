@@ -14,7 +14,7 @@ class CourseBlock extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(4.0),
-        color: BLOCK_COLOR,
+        color: OTLColor.grayE,
       ),
       child: Material(
         color: Colors.transparent,

@@ -93,7 +93,7 @@ class _MapViewState extends State<MapView> {
             widget: Container(
               height: _height + 12,
               padding: EdgeInsets.fromLTRB(50, 0, 50, 12),
-              color: grayF,
+              color: OTLColor.grayF,
               child: Stack(
                 clipBehavior: Clip.none,
                 alignment: Alignment.bottomLeft,
@@ -122,7 +122,7 @@ class _MapViewState extends State<MapView> {
   Widget _buildMapPin(BuildContext context, String buildingCode) {
     List<BoxShadow> boxShadow = [
       BoxShadow(
-        color: gray0.withOpacity(0.25),
+        color: OTLColor.gray0.withOpacity(0.25),
         blurRadius: 4,
         offset: Offset(0, 4),
       )
@@ -137,7 +137,7 @@ class _MapViewState extends State<MapView> {
             height: 23,
             padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 6),
             decoration: BoxDecoration(
-              color: grayF,
+              color: OTLColor.grayF,
               borderRadius: BorderRadius.circular(1),
               boxShadow: boxShadow,
             ),
@@ -160,7 +160,7 @@ class _MapViewState extends State<MapView> {
                       width: 11,
                       height: 11,
                       decoration: BoxDecoration(
-                        color: _darken(TIMETABLE_BLOCK_COLORS[widget
+                        color: _darken(OTLColor.blockColors[widget
                                 .lectures[buildingCode]![i].keys.first.course %
                             16]),
                         shape: BoxShape.circle,
@@ -200,7 +200,7 @@ class _MapViewState extends State<MapView> {
       padding: const EdgeInsets.fromLTRB(16, 0, 16, 12),
       child: Container(
         decoration: BoxDecoration(
-          color: grayE,
+          color: OTLColor.grayE,
           borderRadius: BorderRadius.circular(10),
         ),
         child: Material(
@@ -225,7 +225,7 @@ class _MapViewState extends State<MapView> {
                   Divider(
                     height: 15,
                     thickness: 1,
-                    color: gray0.withOpacity(0.25),
+                    color: OTLColor.gray0.withOpacity(0.25),
                   ),
                   const SizedBox(height: 1),
                   ...List.generate(
@@ -260,7 +260,7 @@ class _MapViewState extends State<MapView> {
             width: 11,
             height: 11,
             decoration: BoxDecoration(
-              color: _darken(TIMETABLE_BLOCK_COLORS[lecture.course % 16]),
+              color: _darken(OTLColor.blockColors[lecture.course % 16]),
               shape: BoxShape.circle,
             ),
           ),
@@ -284,7 +284,7 @@ class _MapViewState extends State<MapView> {
               padding: const EdgeInsets.symmetric(horizontal: 6),
               alignment: Alignment.center,
               decoration: BoxDecoration(
-                color: TIMETABLE_BLOCK_COLORS[lecture.course % 16],
+                color: OTLColor.blockColors[lecture.course % 16],
                 borderRadius: BorderRadius.circular(100),
               ),
               child: Text(

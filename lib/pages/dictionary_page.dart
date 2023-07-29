@@ -24,7 +24,7 @@ class _DictionaryPageState extends State<DictionaryPage> {
     final searchModel = context.watch<CourseSearchModel>();
 
     return Container(
-      color: grayF,
+      color: OTLColor.grayF,
       child: Builder(
         builder: (context) {
           if (searchModel.isSearching) {
@@ -36,15 +36,15 @@ class _DictionaryPageState extends State<DictionaryPage> {
                 children: [
                   Text(
                     "OTL PLUS",
-                    style: bodyBold.copyWith(color: grayA),
+                    style: bodyBold.copyWith(color: OTLColor.grayA),
                   ),
                   Text(
                     "otlplus@sparcs.org",
-                    style: bodyRegular.copyWith(color: grayA),
+                    style: bodyRegular.copyWith(color: OTLColor.grayA),
                   ),
                   Text(
                     "© 2016, SPARCS OTL Team",
-                    style: bodyRegular.copyWith(color: grayA),
+                    style: bodyRegular.copyWith(color: OTLColor.grayA),
                   )
                 ],
               ),
@@ -56,7 +56,7 @@ class _DictionaryPageState extends State<DictionaryPage> {
                 children: [
                   Text(
                     "검색결과가 없습니다.",
-                    style: bodyRegular.copyWith(color: grayA),
+                    style: bodyRegular.copyWith(color: OTLColor.grayA),
                   ),
                 ],
               ),

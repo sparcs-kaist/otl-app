@@ -52,15 +52,15 @@ class _TimetablePageState extends State<TimetablePage> {
       children: <Widget>[
         Expanded(
           child: ColoredBox(
-            color: grayF,
+            color: OTLColor.grayF,
             child: Column(
               children: <Widget>[
                 Container(
-                  color: pinksLight,
+                  color: OTLColor.pinksLight,
                   child: Container(
                     padding: const EdgeInsets.symmetric(vertical: 16),
                     decoration: BoxDecoration(
-                      color: grayF,
+                      color: OTLColor.grayF,
                       borderRadius:
                           BorderRadius.only(topLeft: Radius.circular(16)),
                     ),
@@ -269,7 +269,7 @@ class _TimetablePageState extends State<TimetablePage> {
                         child: Container(
                           height: 40,
                           alignment: Alignment.center,
-                          color: BLOCK_COLOR,
+                          color: OTLColor.grayE,
                           child: Text(
                             '취소',
                             style: TextStyle(
@@ -289,7 +289,7 @@ class _TimetablePageState extends State<TimetablePage> {
                         child: Container(
                           height: 40,
                           alignment: Alignment.center,
-                          color: PRIMARY_COLOR,
+                          color: OTLColor.pinksMain,
                           child: Text(
                             '삭제',
                             style: TextStyle(

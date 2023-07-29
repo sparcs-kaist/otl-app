@@ -38,8 +38,8 @@ class LectureGroupSimpleBlock extends StatelessWidget {
                       ),
                       color: (lecture.professors.any((professor) =>
                               professor.professorId.toString() == filter))
-                          ? SELECTED_COLOR
-                          : BLOCK_COLOR,
+                          ? OTLColor.grayD
+                          : OTLColor.grayE,
                     ),
                     child: Material(
                       color: Colors.transparent,

@@ -16,7 +16,7 @@ class LectureSimpleBlock extends StatelessWidget {
       margin: const EdgeInsets.only(right: 6.0, bottom: 6.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(4.0),
-        color: BLOCK_COLOR,
+        color: OTLColor.grayE,
       ),
       child: Material(
         color: Colors.transparent,
@@ -33,8 +33,8 @@ class LectureSimpleBlock extends StatelessWidget {
                 TextSpan(
                   style: TextStyle(
                       color: hasReview
-                          ? CONTENT_COLOR.withOpacity(0.4)
-                          : CONTENT_COLOR,
+                          ? OTLColor.gray3.withOpacity(0.4)
+                          : OTLColor.gray3,
                       fontSize: 12.0),
                   children: <TextSpan>[
                     TextSpan(

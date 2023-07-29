@@ -57,7 +57,7 @@ class _ReviewWriteBlockState extends State<ReviewWriteBlock> {
       margin: const EdgeInsets.only(bottom: 6.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(4.0),
-        color: BLOCK_COLOR,
+        color: OTLColor.grayE,
       ),
       child: Padding(
         padding: const EdgeInsets.symmetric(
@@ -145,7 +145,7 @@ class _ReviewWriteBlockState extends State<ReviewWriteBlock> {
                       (widget.existingReview == null) ? "업로드" : "수정",
                       style: TextStyle(
                         color: _canUpload()
-                            ? PRIMARY_COLOR
+                            ? OTLColor.pinksMain
                             : const Color(0xFF555555),
                         fontSize: 12.0,
                       ),

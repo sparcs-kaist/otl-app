@@ -58,7 +58,7 @@ class _TimetableTabsState extends State<TimetableTabs> {
           height: 28,
           alignment: Alignment.center,
           decoration: BoxDecoration(
-            color: pinksLight,
+            color: OTLColor.pinksLight,
             borderRadius: BorderRadius.circular(20),
           ),
           child: Icon(Icons.add, size: 16),
@@ -68,7 +68,7 @@ class _TimetableTabsState extends State<TimetableTabs> {
 
     Text text = Text(
       i == 0 ? "내 시간표" : "시간표 $i",
-      style: bodyBold.copyWith(color: i == _index ? grayF : gray0),
+      style: bodyBold.copyWith(color: i == _index ? OTLColor.grayF : OTLColor.gray0),
       textAlign: TextAlign.center,
     );
 
@@ -82,7 +82,7 @@ class _TimetableTabsState extends State<TimetableTabs> {
               height: 28,
               padding: EdgeInsets.fromLTRB(12, 0, 8, 0),
               decoration: BoxDecoration(
-                color: pinksMain,
+                color: OTLColor.pinksMain,
                 borderRadius: BorderRadius.circular(100),
               ),
               child: Row(
@@ -91,7 +91,7 @@ class _TimetableTabsState extends State<TimetableTabs> {
                   const SizedBox(width: 6),
                   Icon(
                     Icons.more_vert,
-                    color: grayF,
+                    color: OTLColor.grayF,
                     size: 16,
                   ),
                 ],
@@ -136,7 +136,7 @@ class _TimetableTabsState extends State<TimetableTabs> {
               padding: EdgeInsets.zero,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
-                color: gray6,
+                color: OTLColor.gray6,
               ),
               offset: const Offset(0, -8),
             ),
@@ -153,7 +153,7 @@ class _TimetableTabsState extends State<TimetableTabs> {
       height: 28,
       margin: const EdgeInsets.only(right: 8),
       decoration: BoxDecoration(
-        color: pinksLight,
+        color: OTLColor.pinksLight,
         borderRadius: BorderRadius.circular(20),
       ),
       child: GestureDetector(
@@ -201,7 +201,7 @@ abstract class MenuItems {
   static const delete = MenuItem(text: '시간표 삭제하기', icon: Icons.delete_outlined);
 
   static Widget buildItem(MenuItem item, bool isLast) {
-    Color color = item == delete ? DELETE_COLOR : grayF;
+    Color color = item == delete ? OTLColor.red : OTLColor.grayF;
     return Stack(
       alignment: AlignmentDirectional.bottomStart,
       children: [
@@ -227,7 +227,7 @@ abstract class MenuItems {
         ),
         if (!isLast)
           Container(
-            color: grayF.withOpacity(0.5),
+            color: OTLColor.grayF.withOpacity(0.5),
             height: 0.5,
           ),
       ],

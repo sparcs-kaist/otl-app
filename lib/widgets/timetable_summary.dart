@@ -109,7 +109,7 @@ class TimetableSummary extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 15),
       alignment: Alignment.center,
       decoration: BoxDecoration(
-        border: Border.symmetric(horizontal: BorderSide(color: pinksLight)),
+        border: Border.symmetric(horizontal: BorderSide(color: OTLColor.pinksLight)),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
@@ -187,14 +187,14 @@ class TimetableSummary extends StatelessWidget {
           width: 28,
           child: Text(
             title,
-            style: labelBold.copyWith(color: highlight ? pinksMain : gray0),
+            style: labelBold.copyWith(color: highlight ? OTLColor.pinksMain : OTLColor.gray0),
           ),
         ),
         SizedBox(
           width: 14,
           child: Text(
             value.toString(),
-            style: labelRegular.copyWith(color: highlight ? pinksMain : gray0),
+            style: labelRegular.copyWith(color: highlight ? OTLColor.pinksMain : OTLColor.gray0),
           ),
         ),
       ],

@@ -124,7 +124,7 @@ class SettingsPage extends StatelessWidget {
                   onTap: () => launchUrl(Uri.parse("mailto:$contactEmail")),
                   child: Text(
                     contactEmail,
-                    style: bodyRegular.copyWith(color: pinksMain),
+                    style: bodyRegular.copyWith(color: OTLColor.pinksMain),
                   ),
                 )
               ],

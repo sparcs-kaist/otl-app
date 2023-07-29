@@ -36,7 +36,7 @@ class _ModeControlState extends State<ModeControl> {
               width: 48,
               height: 32,
               decoration: BoxDecoration(
-                color: PRIMARY_COLOR,
+                color: OTLColor.pinksMain,
                 borderRadius: BorderRadius.circular(16),
               ),
             ),
@@ -56,7 +56,7 @@ class _ModeControlState extends State<ModeControl> {
                     'assets/icons/icon_${_iconList[index]}_mode.svg',
                     color: (index == widget.dropdownIndex)
                         ? Colors.white
-                        : PRIMARY_COLOR,
+                        : OTLColor.pinksMain,
                   ),
                 ),
               );

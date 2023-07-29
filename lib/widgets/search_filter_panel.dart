@@ -24,7 +24,7 @@ class _SearchFilterPanelState extends State<SearchFilterPanel> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: grayF,
+        color: OTLColor.grayF,
         borderRadius: BorderRadius.circular(8.0),
       ),
       child: Scrollbar(
@@ -113,7 +113,7 @@ class _SelectorState extends State<Selector> {
                     child: Text.rich(
                       TextSpan(
                         style: bodyRegular.copyWith(
-                          color: pinksMain,
+                          color: OTLColor.pinksMain,
                           decoration: TextDecoration.underline,
                         ),
                         text: widget.selectList.every(
@@ -227,7 +227,7 @@ class _RadioSelectButtonState extends State<RadioSelectButton> {
       child: Container(
         height: 32.0,
         decoration: BoxDecoration(
-          color: widget.option.selected ? pinksSub : grayE,
+          color: widget.option.selected ? OTLColor.pinksSub : OTLColor.grayE,
           borderRadius: BorderRadius.circular(16.0),
         ),
         padding: EdgeInsets.symmetric(horizontal: 8.0),
@@ -237,12 +237,12 @@ class _RadioSelectButtonState extends State<RadioSelectButton> {
             Text(
               widget.option.label,
               style: labelRegular.copyWith(
-                color: widget.option.selected ? gray0 : grayA,
+                color: widget.option.selected ? OTLColor.gray0 : OTLColor.grayA,
               ),
             ),
             widget.option.selected
-                ? Icon(Icons.check, size: 16.0, color: gray0)
-                : Icon(Icons.add, size: 16.0, color: grayA)
+                ? Icon(Icons.check, size: 16.0, color: OTLColor.gray0)
+                : Icon(Icons.add, size: 16.0, color: OTLColor.grayA)
           ],
         ),
       ),

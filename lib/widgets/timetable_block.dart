@@ -67,7 +67,7 @@ class TimetableBlock extends StatelessWidget {
           child: Text(
             lecture.classtimes[classTimeIndex].classroomShort,
             style: labelRegular.copyWith(
-              color: gray6,
+              color: OTLColor.gray6,
               overflow: TextOverflow.ellipsis,
             ),
             maxLines: maxLines > 1 ? maxLines : 1,
@@ -80,10 +80,10 @@ class TimetableBlock extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(2.0),
         color: isTemp
-            ? pinksMain
+            ? OTLColor.pinksMain
             : isExamTime
-                ? grayE
-                : TIMETABLE_BLOCK_COLORS[lecture.course % 16],
+                ? OTLColor.grayE
+                : OTLColor.blockColors[lecture.course % 16],
       ),
       child: Material(
         color: Colors.transparent,
