@@ -67,7 +67,6 @@ class _TimetablePageState extends State<TimetablePage> {
                     child: _buildTimetableTabs(context),
                   ),
                 ),
-                const SizedBox(height: 2),
                 Expanded(
                   child: () {
                     switch (mode) {
@@ -107,38 +106,16 @@ class _TimetablePageState extends State<TimetablePage> {
     return Column(
       children: [
         Expanded(
-          child: ShaderMask(
-            blendMode: BlendMode.dstIn,
-            shaderCallback: (bounds) => LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: <Color>[
-                Colors.white,
-                Colors.transparent,
-              ],
-              stops: <double>[
-                0.95,
-                1.0,
-              ],
-            ).createShader(bounds.shift(Offset(
-              -bounds.left,
-              -bounds.top,
-            ))),
-            child: SingleChildScrollView(
-              child: RepaintBoundary(
-                key: _paintKey,
-                child: Container(
-                  color: Colors.white,
-                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                  child: _buildTimetable(context, lectures, isExamTime),
-                ),
+          child: SingleChildScrollView(
+            child: RepaintBoundary(
+              key: _paintKey,
+              child: Container(
+                color: Colors.white,
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: _buildTimetable(context, lectures, isExamTime),
               ),
             ),
           ),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-          child: const Divider(color: DIVIDER_COLOR, height: 1.0),
         ),
         if (!isExamTime)
           TimetableSummary(
@@ -159,7 +136,7 @@ class _TimetablePageState extends State<TimetablePage> {
           ? lectures
           : [...lectures, _selectedLecture!],
       isExamTime: isExamTime,
-      builder: (lecture, classTimeIndex) {
+      builder: (lecture, classTimeIndex, blockHeight) {
         final isSelected = bottomSheetModel.selectedLecture == lecture;
         Key? key;
 
@@ -172,6 +149,7 @@ class _TimetablePageState extends State<TimetablePage> {
           key: key,
           lecture: lecture,
           classTimeIndex: classTimeIndex,
+          height: blockHeight,
           isTemp: isSelected,
           isExamTime: isExamTime,
           onTap: () {
