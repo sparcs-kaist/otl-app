@@ -172,6 +172,7 @@ class TimetableSummary extends StatelessWidget {
               title,
               style: labelRegular,
               textAlign: TextAlign.center,
+              maxLines: 1,
             ),
           ],
         ),
@@ -180,23 +181,23 @@ class TimetableSummary extends StatelessWidget {
   }
 
   Widget _buildAttribute(String title, int value, bool highlight) {
-    return SizedBox(
-      width: 42,
-      child: Row(
-        children: [
-          SizedBox(
-            width: 28,
-            child: Text(
-              title,
-              style: labelBold.copyWith(color: highlight ? pinksMain : gray0),
-            ),
+    return Row(
+      children: [
+        SizedBox(
+          width: 28,
+          child: Text(
+            title,
+            style: labelBold.copyWith(color: highlight ? pinksMain : gray0),
           ),
-          Text(
+        ),
+        SizedBox(
+          width: 14,
+          child: Text(
             value.toString(),
             style: labelRegular.copyWith(color: highlight ? pinksMain : gray0),
-          )
-        ],
-      ),
+          ),
+        ),
+      ],
     );
   }
 }
