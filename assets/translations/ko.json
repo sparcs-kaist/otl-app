@@ -4,6 +4,12 @@
     "cancel": "취소",
     "delete": "삭제"
   },
+  "semester": {
+    "spring": "봄",
+    "summer": "여름",
+    "fall": "가을",
+    "winter": "겨울"
+  },
   "main": {
     "search": "검색",
     "home": "홈",

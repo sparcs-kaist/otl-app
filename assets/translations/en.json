@@ -4,6 +4,12 @@
     "cancel": "Cancel",
     "delete": "Delete"
   },
+  "semester": {
+    "spring": "Spring",
+    "summer": "Summer",
+    "fall": "Fall",
+    "winter": "Winter"
+  },
   "main": {
     "search": "Search",
     "home": "Home",
