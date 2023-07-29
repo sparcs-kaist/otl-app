@@ -106,8 +106,11 @@ class TimetableSummary extends StatelessWidget {
 
     return Container(
       height: 75,
-      padding: const EdgeInsets.symmetric(vertical: 16),
+      padding: const EdgeInsets.symmetric(vertical: 15),
       alignment: Alignment.center,
+      decoration: BoxDecoration(
+        border: Border.symmetric(horizontal: BorderSide(color: pinksLight)),
+      ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
