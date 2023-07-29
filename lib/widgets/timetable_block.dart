@@ -36,12 +36,13 @@ class TimetableBlock extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final contents = <Widget>[];
+    final singleHeight = labelRegular.fontSize! * labelRegular.height!;
 
     if (showTitle) {
       contents.add(ConstrainedBox(
         constraints: BoxConstraints(
             maxHeight:
-                height - 16 - labelRegular.fontSize! * labelRegular.height!),
+                height - 16 - singleHeight),
         child: Text(
           lecture.title,
           style: labelRegular,
@@ -54,13 +55,22 @@ class TimetableBlock extends StatelessWidget {
     }
 
     if (showClassroom) {
+      final textPainter = TextPainter(
+        text: TextSpan(text: lecture.title, style: labelRegular),
+        textDirection: TextDirection.ltr,
+      )..layout(maxWidth: 54);
+      final maxLines = (height - textPainter.size.height - 16) ~/ singleHeight;
+
       contents.add(Expanded(
         child: Padding(
           padding: const EdgeInsets.only(top: 4),
           child: Text(
             lecture.classtimes[classTimeIndex].classroomShort,
             style: labelRegular.copyWith(
-                color: gray6),
+              color: gray6,
+              overflow: TextOverflow.ellipsis,
+            ),
+            maxLines: maxLines > 1 ? maxLines : 1,
           ),
         ),
       ));
