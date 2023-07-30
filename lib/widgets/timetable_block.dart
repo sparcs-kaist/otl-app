@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart' as loc;
 import 'package:flutter/material.dart';
 import 'package:otlplus/constants/color.dart';
 import 'package:otlplus/constants/text_styles.dart';
@@ -37,6 +38,9 @@ class TimetableBlock extends StatelessWidget {
   Widget build(BuildContext context) {
     final contents = <Widget>[];
     final singleHeight = labelRegular.fontSize! * labelRegular.height!;
+    final isKo = context.locale == Locale('ko');
+    final title = isKo ? lecture.title : lecture.titleEn;
+    final classroomShort = isKo ? lecture.classtimes[classTimeIndex].classroomShort : lecture.classtimes[classTimeIndex].classroomShortEn;
 
     if (showTitle) {
       contents.add(ConstrainedBox(
@@ -44,7 +48,7 @@ class TimetableBlock extends StatelessWidget {
             maxHeight:
                 height - 16 - singleHeight),
         child: Text(
-          lecture.title,
+          title,
           style: labelRegular,
         ),
       ));
@@ -56,7 +60,7 @@ class TimetableBlock extends StatelessWidget {
 
     if (showClassroom) {
       final textPainter = TextPainter(
-        text: TextSpan(text: lecture.title, style: labelRegular),
+        text: TextSpan(text: title, style: labelRegular),
         textDirection: TextDirection.ltr,
       )..layout(maxWidth: 54);
       final maxLines = (height - textPainter.size.height - 16) ~/ singleHeight;
@@ -65,7 +69,7 @@ class TimetableBlock extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.only(top: 4),
           child: Text(
-            lecture.classtimes[classTimeIndex].classroomShort,
+            classroomShort,
             style: labelRegular.copyWith(
               color: OTLColor.gray6,
               overflow: TextOverflow.ellipsis,

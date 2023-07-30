@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:otlplus/constants/color.dart';
 import 'package:otlplus/models/classtime.dart';
@@ -6,13 +7,13 @@ import 'package:otlplus/models/time.dart';
 import 'package:otlplus/widgets/timetable_block.dart';
 
 const DAYSOFWEEK = [
-  "월요일",
-  "화요일",
-  "수요일",
-  "목요일",
-  "금요일",
-  "토요일",
-  "일요일",
+  'mon',
+  'tue',
+  'wed',
+  'thu',
+  'fri',
+  'sat',
+  'sun',
 ];
 
 class Timetable extends StatelessWidget {
@@ -124,7 +125,8 @@ class Timetable extends StatelessWidget {
           (i) => Expanded(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 1.0),
-              child: Container(color: OTLColor.gray0.withOpacity(0.25), height: 1),
+              child:
+                  Container(color: OTLColor.gray0.withOpacity(0.25), height: 1),
             ),
           ),
         ),
@@ -153,7 +155,7 @@ class Timetable extends StatelessWidget {
               height: 20,
               padding: const EdgeInsets.only(bottom: 3),
               child: Text(
-                DAYSOFWEEK[i],
+                'timetable.days.${DAYSOFWEEK[i]}'.tr(),
                 style: TextStyle(fontSize: 12),
               ),
             ),
