@@ -47,14 +47,13 @@ class TimetableBlock extends StatelessWidget {
         : lecture.classtimes[classTimeIndex].classroomShortEn;
 
     if (showTitle) {
-      contents.add(ConstrainedBox(
-        constraints: BoxConstraints(maxHeight: validHeight - lineHeight),
-        child: Text(
-          title,
-          style: labelRegular.copyWith(
-            color: isTemp ? OTLColor.grayF : OTLColor.gray0,
-          ),
+      contents.add(Text(
+        title,
+        style: labelRegular.copyWith(
+          color: isTemp ? OTLColor.grayF : OTLColor.gray0,
+          overflow: TextOverflow.ellipsis,
         ),
+        maxLines: (validHeight - lineHeight) ~/ lineHeight,
       ));
     }
 
