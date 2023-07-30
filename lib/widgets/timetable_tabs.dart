@@ -123,7 +123,7 @@ class _TimetableTabsState extends State<TimetableTabs> {
               if (value == MenuItems.delete) widget.onDeleteTap();
             },
             dropdownStyleData: DropdownStyleData(
-              width: 180,
+              width: 200,
               elevation: 0,
               padding: EdgeInsets.zero,
               decoration: BoxDecoration(
@@ -210,7 +210,10 @@ abstract class MenuItems {
               Expanded(
                 child: Text(
                   item.text,
-                  style: bodyRegular.copyWith(color: color),
+                  style: bodyRegular.copyWith(
+                    color: color,
+                    overflow: TextOverflow.ellipsis,
+                  ),
                 ),
               ),
               Icon(
