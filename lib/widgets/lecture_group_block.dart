@@ -27,12 +27,12 @@ class LectureGroupBlock extends StatelessWidget {
       child: ColoredBox(
         color: Color(0xFFEEEEEE),
         child: Padding(
-          padding: EdgeInsets.all(8.0),
+          padding: EdgeInsets.fromLTRB(12, 8, 12, 8),
           child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
                 Padding(
-                  padding: EdgeInsets.fromLTRB(2, 4, 4, 4),
+                  padding: EdgeInsets.only(bottom: 4.0),
                   child: Wrap(
                     alignment: WrapAlignment.spaceBetween,
                     crossAxisAlignment: WrapCrossAlignment.center,

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:otlplus/constants/color.dart';
 import 'package:otlplus/models/semester.dart';
@@ -108,7 +109,7 @@ class _ReviewPageState extends State<ReviewPage> {
                   : null,
             ),
             child: Text(
-              "따끈따끈 과목후기",
+              "title.latest_reviews".tr(),
               style: TextStyle(
                 color: _selectedIndex == 0 ? Colors.white : Colors.black,
                 fontWeight: FontWeight.bold,
@@ -134,7 +135,7 @@ class _ReviewPageState extends State<ReviewPage> {
               });
             },
             child: Text(
-              "명예의 전당",
+              "title.hall_of_fame".tr(),
               style: TextStyle(
                 color: _selectedIndex == 1 ? Colors.white : Colors.black,
                 fontWeight: FontWeight.bold,

@@ -1,10 +1,11 @@
 import 'package:dio/dio.dart';
 import 'package:dotted_border/dotted_border.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:otlplus/constants/color.dart';
+import 'package:otlplus/constants/text_styles.dart';
 import 'package:otlplus/constants/url.dart';
 import 'package:otlplus/dio_provider.dart';
-import 'package:otlplus/extensions/lecture.dart';
 import 'package:otlplus/models/lecture.dart';
 import 'package:otlplus/models/review.dart';
 
@@ -53,8 +54,10 @@ class _ReviewWriteBlockState extends State<ReviewWriteBlock> {
 
   @override
   Widget build(BuildContext context) {
+    final isEn = EasyLocalization.of(context)?.currentLocale == Locale('en');
+
     return Container(
-      margin: const EdgeInsets.only(bottom: 6.0),
+      margin: const EdgeInsets.only(bottom: 8.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(4.0),
         color: OTLColor.grayE,
@@ -72,26 +75,37 @@ class _ReviewWriteBlockState extends State<ReviewWriteBlock> {
                 padding: const EdgeInsets.only(bottom: 4.0),
                 child: Text.rich(
                   TextSpan(
-                    style: const TextStyle(fontSize: 12.0),
+                    style: bodyRegular,
                     children: <TextSpan>[
                       TextSpan(
-                        text: widget.lecture.title,
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                        ),
+                        text: isEn
+                            ? widget.lecture.titleEn
+                            : widget.lecture.title,
+                        style: bodyBold,
                       ),
-                      const TextSpan(text: " "),
-                      TextSpan(text: widget.lecture.professorsStrShort),
+                      const TextSpan(text: "  "),
+                      TextSpan(
+                          text: widget.lecture.professors
+                              .map(
+                                (professor) => isEn
+                                    ? (professor.nameEn == ''
+                                        ? professor.name
+                                        : professor.nameEn)
+                                    : professor.name,
+                              )
+                              .join(" ")),
                       const TextSpan(text: " "),
                       TextSpan(text: widget.lecture.year.toString()),
+                      const TextSpan(text: " "),
                       TextSpan(
-                          text: [
-                        " ",
-                        " 봄",
-                        " 여름",
-                        " 가을",
-                        " 겨울",
-                      ][widget.lecture.semester]),
+                        text: [
+                          "",
+                          "semester.spring".tr(),
+                          "semester.summer".tr(),
+                          "semester.fall".tr(),
+                          "semester.winter".tr(),
+                        ][widget.lecture.semester],
+                      ),
                     ],
                   ),
                 ),
@@ -102,29 +116,24 @@ class _ReviewWriteBlockState extends State<ReviewWriteBlock> {
                 bottom: 8.0,
               ),
               child: DottedBorder(
-                color: const Color(0xFFAAAAAA),
+                color: OTLColor.grayA,
                 child: SizedBox(
                   height: 140,
                   child: Padding(
-                    padding: const EdgeInsets.all(4.0),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 8.0,
+                      vertical: 4.0,
+                    ),
                     child: TextField(
                       controller: _contentTextController,
                       maxLines: null,
-                      style: const TextStyle(
-                        color: const Color(0xFF555555),
-                        height: 1.25,
-                        fontSize: 12.0,
-                      ),
+                      style: bodyRegular,
                       onChanged: (value) {
                         setState(() {});
                       },
-                      decoration: const InputDecoration(
-                        hintText: "학점, 로드 등의 평가에 대하여 설명해주세요.",
-                        hintStyle: TextStyle(
-                          color: Color(0xFFAAAAAA),
-                          height: 1.25,
-                          fontSize: 12.0,
-                        ),
+                      decoration: InputDecoration(
+                        hintText: "common.review_hint".tr(),
+                        hintStyle: bodyRegular.copyWith(color: OTLColor.grayA),
                       ),
                     ),
                   ),
@@ -142,12 +151,12 @@ class _ReviewWriteBlockState extends State<ReviewWriteBlock> {
                   child: InkWell(
                     onTap: _canUpload() ? _uploadReview : null,
                     child: Text(
-                      (widget.existingReview == null) ? "업로드" : "수정",
-                      style: TextStyle(
-                        color: _canUpload()
-                            ? OTLColor.pinksMain
-                            : const Color(0xFF555555),
-                        fontSize: 12.0,
+                      (widget.existingReview == null)
+                          ? "common.upload".tr()
+                          : "common.edit".tr(),
+                      style: labelRegular.copyWith(
+                        color:
+                            _canUpload() ? OTLColor.pinksMain : OTLColor.grayA,
                       ),
                     ),
                   ),
@@ -212,11 +221,25 @@ class _ReviewWriteBlockState extends State<ReviewWriteBlock> {
   }
 
   Widget _buildScore(String type) {
+    late String title;
+
+    switch (type) {
+      case "성적":
+        title = "review.grade".tr();
+        break;
+      case "널널":
+        title = "review.load".tr();
+        break;
+      case "강의":
+        title = "review.speech".tr();
+        break;
+    }
+
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 2.0),
       child: Row(
         children: <Widget>[
-          Text(type, style: const TextStyle(fontSize: 12.0)),
+          Text(title, style: labelRegular),
           _buildOption(type, 5),
           _buildOption(type, 4),
           _buildOption(type, 3),
@@ -234,9 +257,7 @@ class _ReviewWriteBlockState extends State<ReviewWriteBlock> {
         child: Container(
           width: 18.0,
           height: 18.0,
-          color: (_scores[type] == score)
-              ? const Color(0xFF868686)
-              : const Color(0xFFD6D6D6),
+          color: (_scores[type] == score) ? OTLColor.pinksMain : OTLColor.grayD,
           child: Material(
             color: Colors.transparent,
             child: InkWell(
@@ -248,11 +269,7 @@ class _ReviewWriteBlockState extends State<ReviewWriteBlock> {
               child: Center(
                 child: Text(
                   ["?", "F", "D", "C", "B", "A"][score],
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 12.0,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: labelBold.copyWith(color: OTLColor.grayF),
                 ),
               ),
             ),

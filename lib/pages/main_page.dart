@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:otlplus/constants/text_styles.dart';
+import 'package:otlplus/providers/course_search_model.dart';
 import 'package:otlplus/utils/build_page_route.dart';
 import 'package:provider/provider.dart';
 import 'package:otlplus/constants/color.dart';
@@ -13,9 +15,16 @@ import 'package:easy_localization/easy_localization.dart';
 
 import '../models/lecture.dart';
 
-class MainPage extends StatelessWidget {
+class MainPage extends StatefulWidget {
   static String route = 'main_page';
+  final Function(int index) changeIndex;
+  const MainPage({required this.changeIndex, Key? key}) : super(key: key);
 
+  @override
+  State<MainPage> createState() => _MainPageState();
+}
+
+class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     final now = DateTime.now();
@@ -25,44 +34,165 @@ class MainPage extends StatelessWidget {
           semester.beginning.isBefore(now) && semester.end.isAfter(now),
       orElse: () => infoModel.semesters.last,
     );
-
-    return Container(
-      constraints: const BoxConstraints.expand(),
-      child: Card(
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(top: Radius.circular(16.0)),
+    return Stack(
+      alignment: Alignment.topCenter,
+      children: [
+        Image.asset(
+          "assets/images/bg.4556cdee.jpg",
+          fit: BoxFit.cover,
+          color: const Color(0xFF9B4810).withOpacity(0.1),
+          colorBlendMode: BlendMode.srcATop,
         ),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 16.0,
-            vertical: 12.0,
-          ),
+        Container(
+          constraints: const BoxConstraints.expand(),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisSize: MainAxisSize.min,
             children: [
-              Column(
-                children: <Widget>[
-                  _buildTimetable(infoModel.user, semester, now),
-                  const SizedBox(height: 24.0),
-                  _buildDivider(),
-                  const SizedBox(height: 24.0),
-                  _buildSchedule(now, infoModel.currentSchedule!),
-                  const SizedBox(height: 24.0),
-                  _buildDivider(),
-                ],
+              SizedBox(
+                height: MediaQuery.of(context).size.width / 1296 * 865 - 16,
+                width: MediaQuery.of(context).size.width,
+                child: Stack(
+                  alignment: Alignment.topCenter,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.all(14.0),
+                      child: SizedBox(
+                        height: 28,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Image.asset(
+                              "assets/images/logo.png",
+                              height: 27.0,
+                            ),
+                            Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                GestureDetector(
+                                  behavior: HitTestBehavior.opaque,
+                                  onTap: () => Navigator.push(
+                                      context, buildUserPageRoute()),
+                                  child: SvgPicture.asset(
+                                      'assets/icons/person.svg',
+                                      height: 24.0,
+                                      width: 24.0,
+                                      colorFilter: ColorFilter.mode(
+                                          OTLColor.pinksMain, BlendMode.srcIn)),
+                                ),
+                                SizedBox(width: 16.0),
+                                GestureDetector(
+                                  behavior: HitTestBehavior.opaque,
+                                  onTap: () => Navigator.push(
+                                      context, buildSettingsPageRoute()),
+                                  child: SvgPicture.asset(
+                                      'assets/icons/gear.svg',
+                                      height: 24.0,
+                                      width: 24.0,
+                                      colorFilter: ColorFilter.mode(
+                                          OTLColor.pinksMain, BlendMode.srcIn)),
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                    Center(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        child: GestureDetector(
+                          behavior: HitTestBehavior.opaque,
+                          onTap: () {
+                            context
+                                .read<CourseSearchModel>()
+                                .resetCourseFilter();
+                            Navigator.push(
+                                    context, buildCourseSearchPageRoute())
+                                .then((e) {
+                              if (e == true) {
+                                widget.changeIndex(2);
+                              }
+                            });
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: OTLColor.grayF,
+                              borderRadius: BorderRadius.circular(8.0),
+                            ),
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 12.0, vertical: 6.0),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                SvgPicture.asset('assets/icons/search.svg',
+                                    height: 24.0,
+                                    width: 24.0,
+                                    colorFilter: ColorFilter.mode(
+                                        OTLColor.pinksMain, BlendMode.srcIn)),
+                                const SizedBox(width: 12.0),
+                                Expanded(
+                                  child: Text(
+                                    "common.search_hint".tr(),
+                                    style: bodyRegular.copyWith(
+                                        color: OTLColor.grayA),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
-              Column(
-                children: <Widget>[
-                  _buildLogo(),
-                  const SizedBox(height: 4.0),
-                  _buildCopyRight(),
-                  _buildTextButtons(context),
-                ],
-              )
+              Flexible(
+                child: ClipRRect(
+                  borderRadius:
+                      BorderRadius.vertical(top: Radius.circular(16.0)),
+                  child: Container(
+                    constraints: const BoxConstraints.expand(),
+                    child: ColoredBox(
+                      color: Colors.white,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 16.0,
+                          vertical: 16.0,
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(
+                              children: <Widget>[
+                                _buildTimetable(infoModel.user, semester, now),
+                                const SizedBox(height: 24.0),
+                                _buildDivider(),
+                                const SizedBox(height: 24.0),
+                                _buildSchedule(now, infoModel.currentSchedule),
+                                const SizedBox(height: 24.0),
+                                _buildDivider(),
+                              ],
+                            ),
+                            Column(
+                              children: <Widget>[
+                                _buildLogo(),
+                                const SizedBox(height: 4.0),
+                                _buildCopyRight(),
+                                _buildTextButtons(context),
+                              ],
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
             ],
           ),
         ),
-      ),
+      ],
     );
   }
 
@@ -79,7 +209,7 @@ class MainPage extends StatelessWidget {
             Navigator.push(context, buildPrivacyPageRoute());
           },
           child: Text(
-            '개인정보취급방침',
+            'title.privacy'.tr(),
             style: labelRegular.copyWith(color: OTLColor.gray75),
           ),
         ),
@@ -88,7 +218,7 @@ class MainPage extends StatelessWidget {
             Navigator.push(context, buildPeoplePageRoute());
           },
           child: Text(
-            '만든 사람들',
+            'title.credit'.tr(),
             style: labelRegular.copyWith(color: OTLColor.gray75),
           ),
         ),
@@ -104,50 +234,64 @@ class MainPage extends StatelessWidget {
   }
 
   Widget _buildCopyRight() {
-    return Text(
-      '© 2016-2023 SPARCS OTL Team',
-      style: labelRegular.copyWith(color: OTLColor.gray75),
+    return Text.rich(
+      TextSpan(
+        style: labelRegular.copyWith(color: OTLColor.gray75),
+        children: [
+          TextSpan(text: 'otlplus@sparcs.org'),
+          TextSpan(text: '\n'),
+          TextSpan(text: '© 2023 SPARCS OTL Team'),
+        ],
+      ),
+      textAlign: TextAlign.center,
     );
   }
 
-  Widget _buildSchedule(DateTime now, Map<String, dynamic> currentSchedule) {
+  Widget _buildSchedule(DateTime now, Map<String, dynamic>? currentSchedule) {
+    final isEn = EasyLocalization.of(context)?.currentLocale == Locale('en');
     late int days, hours, minutes;
 
-    final timeDiff = currentSchedule["time"].difference(now) as Duration;
+    final timeDiff = currentSchedule?["time"].difference(now) as Duration;
     days = timeDiff.inDays;
     hours = timeDiff.inHours - timeDiff.inDays * 24;
     minutes = timeDiff.inMinutes - timeDiff.inHours * 60;
 
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
+        Text(
+          (currentSchedule == null)
+              ? "common.no_info".tr()
+              : "home.remained_datetime".tr(args: [
+                  days.toString(),
+                  hours.toString(),
+                  minutes.toString()
+                ]),
+          style: titleRegular,
+          // ignore: unnecessary_null_comparison
+        ),
+        const SizedBox(height: 4.0),
         Text.rich(
           TextSpan(
             style: bodyRegular,
             children: <TextSpan>[
               TextSpan(
-                style: titleRegular,
-                // ignore: unnecessary_null_comparison
-                text: (currentSchedule == null)
-                    ? "main.no_info".tr()
-                    : "main.remained_datetime".tr(args: [
-                        days.toString(),
-                        hours.toString(),
-                        minutes.toString()
-                      ]),
-              ),
-              const TextSpan(text: "\n"),
-              TextSpan(
                 style: bodyBold,
                 text:
                     // ignore: unnecessary_null_comparison
-                    (currentSchedule == null) ? "-" : currentSchedule["title"],
+                    (currentSchedule == null)
+                        ? "-"
+                        : (currentSchedule["title"]),
               ),
               const TextSpan(text: " "),
               TextSpan(
                 style: bodyBold,
                 // ignore: unnecessary_null_comparison
-                text: (currentSchedule == null) ? "" : currentSchedule["name"],
+                text: (currentSchedule == null)
+                    ? ""
+                    : (isEn
+                        ? currentSchedule["nameEn"]
+                        : currentSchedule["name"]),
               ),
               const TextSpan(text: " "),
               TextSpan(

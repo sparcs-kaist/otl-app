@@ -1,8 +1,19 @@
 {
   "common": {
+    "all": "ALL",
     "alert": "Alert",
     "cancel": "Cancel",
-    "delete": "Delete"
+    "delete": "Delete",
+    "reset": "Reset",
+    "search": "Search",
+    "upload": "Upload",
+    "edit": "Edit",
+    "search_hint": "Search by course title, instructor, etc.",
+    "review_hint": "Please describe your evaluation on the lecture,\nlike grade or load.",
+    "no_result": "No result.",
+    "select_all": "Select All",
+    "unselect_all": "Unselect All",
+    "no_info": "No information"
   },
   "semester": {
     "spring": "Spring",
@@ -20,6 +31,23 @@
     "no_info": "No information",
     "remained_datetime": "D-{} days {} hours {} minutes",
     "goto_cais": "Go to CAIS"
+  },
+  "title": {
+    "home": "Home",
+    "timetable": "Timetable",
+    "dictionary": "Dictionary",
+    "review": "Review",
+    "privacy": "Privacy",
+    "credit": "Credit",
+    "my_reviews": "My Reviews",
+    "liked_reviews": "Liked Reviews",
+    "latest_reviews": "Latest Reviews",
+    "hall_of_fame": "Hall of Fame",
+    "my_information": "My Information",
+    "settings": "Settings"
+  },
+  "home": {
+    "remained_datetime": "D-{} days {} hours {} minutes"
   },
   "timetable": {
     "ask_delete_lecture": "Are you delete class '{}'?",
@@ -55,6 +83,42 @@
       "sun": "Sunday"
     }
   },
+  "dictionary": {
+    "reviews": "Reviews",
+    "dictionary": "Dictionary",
+    "syllabus": "Syllabus",
+    "code": "Code",
+    "type": "Type",
+    "department": "Dept.",
+    "professors": "Prof.",
+    "classroom": "Class.",
+    "limit": "Limit",
+    "exam": "Exam",
+    "classification": "Class.",
+    "description": "Descr.",
+    "course_history": "Course History",
+    "language": "Language",
+    "credit": "Credit",
+    "competition": "Competition",
+    "not_offered": "Not Offered"
+  },
+  "review": {
+    "likes": "Likes",
+    "grade": "Grade",
+    "load": "Load",
+    "speech": "Speech",
+    "like": "Like",
+    "report": "Report"
+  },
+  "user": {
+    "name": "Name",
+    "email": "Email",
+    "student_id": "Student ID",
+    "major": "Major",
+    "my_review": "My Reviews",
+    "liked_review": "Liked Reviews",
+    "logout": "Logout"
+  },
   "settings": {
     "send_error_log": "Send error log",
     "send_error_log_desc": "Automatically collect logs without user reporting",
@@ -64,5 +128,59 @@
     "reset_all_desc": "Are you really want to reset all data except login data?",
     "throw_test": "Throw Test Exception",
     "throw_test_desc": "for testing firebase crashlytics"
+  },
+  "department": {
+    "department": "Dept.",
+    "hss": "HSS",
+    "ae": "AE",
+    "bis": "BiS",
+    "bs": "BS",
+    "cbe": "CBE",
+    "ce": "CE",
+    "ch": "CH",
+    "cs": "CS",
+    "ee": "EE",
+    "id": "ID",
+    "ie": "IE",
+    "mas": "MAS",
+    "me": "ME",
+    "nqe": "NQE",
+    "msb": "MSB",
+    "ms": "MS",
+    "ph": "PH",
+    "ts": "TS",
+    "etc": "ETC"
+  },
+  "type": {
+    "type": "Type",
+    "br": "BR",
+    "be": "BE",
+    "mr": "MR",
+    "me": "ME",
+    "mgc": "MGC",
+    "hse": "HSE",
+    "gr": "GR",
+    "eg": "EG",
+    "oe": "OE",
+    "etc": "ETC"
+  },
+  "level": {
+    "level": "Level",
+    "100s": "100s",
+    "200s": "200s",
+    "300s": "300s",
+    "400s": "400s",
+    "etc": "ETC"
+  },
+  "term": {
+    "term": "Term",
+    "1_years": "In-1-Years",
+    "2_years": "In-2-Years",
+    "3_years": "In-3-Years",
+    "all": "ALL"
+  },
+  "popup": {
+    "dont_show_again": "Don't Show Again",
+    "join_the_event": "Join the Event"
   }
 }

@@ -1,8 +1,19 @@
 {
   "common": {
+    "all": "전체",
     "alert": "경고",
     "cancel": "취소",
-    "delete": "삭제"
+    "delete": "삭제",
+    "reset": "초기화",
+    "search": "검색",
+    "upload": "업로드",
+    "edit": "수정",
+    "search_hint": "과목명, 교수님 성함 등을 검색해 보세요.",
+    "review_hint": "학점, 로드 등의 평가에 대하여 설명해주세요.",
+    "no_result": "검색 결과가 없습니다.",
+    "select_all": "모두 선택",
+    "unselect_all": "모두 해제",
+    "no_info": "정보 없음"
   },
   "semester": {
     "spring": "봄",
@@ -20,6 +31,23 @@
     "no_info": "정보 없음",
     "remained_datetime": "D-{}일 {}시간 {}분",
     "goto_cais": "학사시스템 바로가기"
+  },
+  "title": {
+    "home": "홈",
+    "timetable": "시간표",
+    "dictionary": "과목사전",
+    "review": "과목후기",
+    "privacy": "개인정보취급방침",
+    "credit": "만든 사람들",
+    "my_reviews": "내가 들은 과목",
+    "liked_reviews": "좋아요한 후기",
+    "latest_reviews": "따끈따끈 과목후기",
+    "hall_of_fame": "명예의 전당",
+    "my_information": "내 정보",
+    "settings": "설정"
+  },
+  "home": {
+    "remained_datetime": "D-{}일 {}시간 {}분"
   },
   "timetable": {
     "ask_delete_lecture": "'{}' 수업을 삭제하시겠습니까?",
@@ -55,6 +83,42 @@
       "sun": "일요일"
     }
   },
+  "dictionary": {
+    "reviews": "과목 후기",
+    "dictionary": "과목사전",
+    "syllabus": "실라버스",
+    "code": "과목코드",
+    "type": "구분",
+    "department": "학과",
+    "professors": "교수",
+    "classroom": "장소",
+    "limit": "정원",
+    "exam": "시험",
+    "classification": "분류",
+    "description": "설명",
+    "course_history": "개설 이력",
+    "language": "언어",
+    "credit": "학점",
+    "competition": "경쟁률",
+    "not_offered": "미개설"
+  },
+  "review": {
+    "likes": "추천",
+    "grade": "성적",
+    "load": "널널",
+    "speech": "강의",
+    "like": "좋아요",
+    "report": "신고하기"
+  },
+  "user": {
+    "name": "이름",
+    "email": "메일",
+    "student_id": "학번",
+    "major": "전공",
+    "my_review": "내가 들은 과목",
+    "liked_review": "좋아요한 후기",
+    "logout": "로그아웃"
+  },
   "settings": {
     "send_error_log": "오류 로그 전송",
     "send_error_log_desc": "사용자의 제보 없이 자동으로 오류를 수집합니다.",
@@ -64,5 +128,60 @@
     "reset_all_desc": "정말 모든 설정 데이터를 초기화하시겠습니까? 로그인 정보는 초기화되지 않습니다.",
     "throw_test": "테스트 오류 발생",
     "throw_test_desc": "Firebase crashlytics 테스트용"
+  },
+  "department": {
+    "department": "학과",
+    "hss": "인문",
+    "ae": "항공",
+    "bis": "바공",
+    "bs": "생명",
+    "cbe": "생화공",
+    "ce": "건환",
+    "ch": "화학",
+    "cs": "전산",
+    "ee": "전자",
+    "id": "산디",
+    "ie": "산공",
+    "mas": "수리",
+    "me": "기계",
+    "nqe": "원양",
+    "msb": "기경",
+    "ms": "신소재",
+    "ph": "물리",
+    "ts": "융인",
+    "all": "전체",
+    "etc": "기타"
+  },
+  "type": {
+    "type": "구분",
+    "br": "기필",
+    "be": "기선",
+    "mr": "전필",
+    "me": "전선",
+    "mgc": "교필",
+    "hse": "인선",
+    "gr": "공통",
+    "eg": "석박",
+    "oe": "자선",
+    "etc": "기타"
+  },
+  "level": {
+    "level": "학년",
+    "100s": "100번대",
+    "200s": "200번대",
+    "300s": "300번대",
+    "400s": "400번대",
+    "etc": "기타"
+  },
+  "term": {
+    "term": "기간",
+    "1_years": "1년 이내",
+    "2_years": "2년 이내",
+    "3_years": "3년 이내",
+    "all": "전체"
+  },
+  "popup": {
+    "dont_show_again": "다시 보지 않기",
+    "join_the_event": "이벤트 참여하러 가기"
   }
 }

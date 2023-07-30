@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:otlplus/constants/privacy.dart';
 import 'package:otlplus/constants/text_styles.dart';
@@ -9,7 +10,7 @@ class PrivacyPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: buildAppBar(context, '개인정보취급방침', false, true),
+      appBar: buildAppBar(context, 'title.privacy'.tr(), false, true),
       body: Padding(
         padding: EdgeInsets.all(16.0),
         child: ListView(

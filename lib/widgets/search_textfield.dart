@@ -1,6 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:otlplus/constants/color.dart';
-import 'package:otlplus/constants/icon.dart';
 import 'package:otlplus/constants/text_styles.dart';
 
 class SearchTextfield extends StatefulWidget {
@@ -31,7 +32,11 @@ class _SearchTextfieldState extends State<SearchTextfield> {
       padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
       child: Row(
         children: [
-          Icon(CustomIcons.search, color: OTLColor.pinksMain, size: 24.0),
+          SvgPicture.asset('assets/icons/search.svg',
+              height: 24.0,
+              width: 24.0,
+              colorFilter:
+                  ColorFilter.mode(OTLColor.pinksMain, BlendMode.srcIn)),
           const SizedBox(width: 12.0),
           Expanded(
             child: TextField(
@@ -43,7 +48,7 @@ class _SearchTextfieldState extends State<SearchTextfield> {
               },
               style: bodyRegular,
               decoration: InputDecoration(
-                hintText: "과목명, 교수님 성함 등을 검색해 보세요.",
+                hintText: "common.search_hint".tr(),
                 hintStyle: bodyRegular.copyWith(color: OTLColor.grayA),
               ),
             ),

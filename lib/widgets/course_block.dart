@@ -1,5 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:otlplus/constants/color.dart';
+import 'package:otlplus/constants/text_styles.dart';
 import 'package:otlplus/extensions/course.dart';
 import 'package:otlplus/models/course.dart';
 
@@ -11,6 +13,8 @@ class CourseBlock extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isEn = EasyLocalization.of(context)?.currentLocale == Locale('en');
+
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(4.0),
@@ -31,36 +35,26 @@ class CourseBlock extends StatelessWidget {
               children: <Widget>[
                 Text.rich(
                   TextSpan(
-                    style: const TextStyle(fontSize: 12.0),
                     children: <TextSpan>[
                       TextSpan(
-                        text: course.title,
-                        style: const TextStyle(fontWeight: FontWeight.bold),
+                        text: isEn ? course.titleEn : course.title,
+                        style: bodyBold,
                       ),
                       const TextSpan(text: " "),
-                      TextSpan(text: course.oldCode),
+                      TextSpan(text: course.oldCode, style: bodyRegular),
                     ],
                   ),
                 ),
-                const Divider(color: BORDER_BOLD_COLOR, height: 12),
+                _buildDivider(),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Text(
-                      "분류 ",
-                      style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 12.0,
-                        height: 1.1,
-                      ),
-                    ),
+                    Text("dictionary.type".tr(), style: labelBold),
+                    const SizedBox(width: 8.0),
                     Expanded(
                       child: Text(
-                        "${course.department?.name}, ${course.type}",
-                        style: const TextStyle(
-                          fontSize: 12.0,
-                          height: 1.1,
-                        ),
+                        "${isEn ? course.department?.nameEn : course.department?.name}, ${isEn ? course.typeEn : course.type}",
+                        style: labelRegular,
                       ),
                     ),
                   ],
@@ -69,21 +63,12 @@ class CourseBlock extends StatelessWidget {
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Text(
-                      "교수 ",
-                      style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 12.0,
-                        height: 1.1,
-                      ),
-                    ),
+                    Text("dictionary.professors".tr(), style: labelBold),
+                    const SizedBox(width: 8.0),
                     Expanded(
                       child: Text(
-                        course.professorsStr,
-                        style: const TextStyle(
-                          fontSize: 12.0,
-                          height: 1.1,
-                        ),
+                        isEn ? course.professorsStrEn : course.professorsStr,
+                        style: labelRegular,
                       ),
                     ),
                   ],
@@ -92,21 +77,12 @@ class CourseBlock extends StatelessWidget {
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Text(
-                      "설명 ",
-                      style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 12.0,
-                        height: 1.1,
-                      ),
-                    ),
+                    Text("dictionary.description".tr(), style: labelBold),
+                    const SizedBox(width: 8.0),
                     Expanded(
                       child: Text(
                         course.summary,
-                        style: const TextStyle(
-                          fontSize: 12.0,
-                          height: 1.1,
-                        ),
+                        style: labelRegular,
                       ),
                     ),
                   ],
@@ -117,5 +93,9 @@ class CourseBlock extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Widget _buildDivider() {
+    return Divider(color: OTLColor.gray0.withOpacity(0.25));
   }
 }

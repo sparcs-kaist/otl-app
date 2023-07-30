@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:otlplus/constants/color.dart';
 import 'package:otlplus/constants/text_styles.dart';
@@ -106,7 +107,7 @@ class _CourseSearchPageState extends State<CourseSearchPage> {
                       _focusNode.requestFocus();
                     },
                     child: Text(
-                      "초기화",
+                      "common.reset".tr(),
                       style: bodyBold.copyWith(color: OTLColor.pinksMain),
                     ),
                     style: ButtonStyle(
@@ -135,12 +136,12 @@ class _CourseSearchPageState extends State<CourseSearchPage> {
                       if (await context
                           .read<CourseSearchModel>()
                           .courseSearch()) {
-                        Navigator.of(context).pop();
+                        Navigator.of(context).pop(true);
                       } else {
                         _focusNode.requestFocus();
                       }
                     },
-                    child: Text("검색", style: bodyBold),
+                    child: Text("common.search".tr(), style: bodyBold),
                   ),
                 ),
               ],

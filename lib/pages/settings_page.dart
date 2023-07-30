@@ -15,20 +15,20 @@ class SettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: buildAppBar(context, '설정', false, true),
+      appBar: buildAppBar(context, 'title.settings'.tr(), false, true),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
             ListTile(
               title: Text(
-                "settings.send_error_log",
+                "settings.send_error_log".tr(),
                 style: bodyBold,
-              ).tr(),
+              ),
               subtitle: Text(
-                "settings.send_error_log_desc",
+                "settings.send_error_log_desc".tr(),
                 style: bodyRegular,
-              ).tr(),
+              ),
               trailing: PlatformSwitch(
                 value: context.watch<SettingsModel>().getSendCrashlytics(),
                 onChanged: (value) =>
@@ -39,13 +39,13 @@ class SettingsPage extends StatelessWidget {
               visible: context.watch<SettingsModel>().getSendCrashlytics(),
               child: ListTile(
                 title: Text(
-                  "settings.send_anonymously",
+                  "settings.send_anonymously".tr(),
                   style: bodyBold,
-                ).tr(),
+                ),
                 subtitle: Text(
-                  "settings.send_anonymously_desc",
+                  "settings.send_anonymously_desc".tr(),
                   style: bodyRegular,
-                ).tr(),
+                ),
                 trailing: PlatformSwitch(
                   value: context
                       .watch<SettingsModel>()
@@ -60,45 +60,45 @@ class SettingsPage extends StatelessWidget {
               visible: kDebugMode,
               child: ListTile(
                 title: Text(
-                  "settings.throw_test",
+                  "settings.throw_test".tr(),
                   style: bodyBold,
-                ).tr(),
+                ),
                 subtitle: Text(
-                  "settings.throw_test_desc",
+                  "settings.throw_test_desc".tr(),
                   style: bodyRegular,
-                ).tr(),
+                ),
                 onTap: () => throw Exception(),
               ),
             ),
             ListTile(
-              title: Text("settings.reset_all", style: bodyBold).tr(),
+              title: Text("settings.reset_all".tr(), style: bodyBold),
               onTap: () {
                 showDialog(
                   context: context,
                   builder: (context) => AlertDialog(
                     title: Text(
-                      'common.alert',
+                      'common.alert'.tr(),
                       style: titleRegular,
-                    ).tr(),
+                    ),
                     content: Text(
-                      'settings.reset_all_desc',
+                      'settings.reset_all_desc'.tr(),
                       style: bodyRegular,
-                    ).tr(),
+                    ),
                     actions: <Widget>[
                       TextButton(
                         child: Text(
-                          "common.cancel",
+                          "common.cancel".tr(),
                           style: bodyRegular,
-                        ).tr(),
+                        ),
                         onPressed: () {
                           Navigator.pop(context);
                         },
                       ),
                       TextButton(
                         child: Text(
-                          "common.delete",
+                          "common.delete".tr(),
                           style: bodyRegular,
-                        ).tr(),
+                        ),
                         onPressed: () {
                           context
                               .read<SettingsModel>()

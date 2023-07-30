@@ -86,10 +86,7 @@ class _TimetablePageState extends State<TimetablePage> {
           child: Expanded(
             child: LectureSearch(
               onClosed: () async {
-                setState(() {
-                  context.read<LectureSearchModel>().setSelectedLecture(null);
-                  context.read<LectureSearchModel>().lectureClear();
-                });
+                context.read<LectureSearchModel>().resetLectureFilter();
                 return true;
               },
             ),
@@ -127,15 +124,15 @@ class _TimetablePageState extends State<TimetablePage> {
   Timetable _buildTimetable(
       BuildContext context, List<Lecture> lectures, bool isExamTime) {
     bool isFirst = true;
-    final bottomSheetModel = context.watch<LectureSearchModel>();
+    final lectureSearchModel = context.watch<LectureSearchModel>();
 
     return Timetable(
-      lectures: (bottomSheetModel.selectedLecture == null)
+      lectures: (lectureSearchModel.selectedLecture == null)
           ? lectures
           : [...lectures, _selectedLecture!],
       isExamTime: isExamTime,
       builder: (lecture, classTimeIndex, blockHeight) {
-        final isSelected = bottomSheetModel.selectedLecture == lecture;
+        final isSelected = lectureSearchModel.selectedLecture == lecture;
         Key? key;
 
         if (isSelected && isFirst) {
@@ -162,20 +159,20 @@ class _TimetablePageState extends State<TimetablePage> {
                     context: context,
                     barrierDismissible: false,
                     builder: (context) => AlertDialog(
-                      title: const Text("common.delete").tr(),
+                      title: Text("common.delete".tr()),
                       content: Text("timetable.ask_delete_lecture").tr(
                         args: [lecture.title],
                       ),
                       actions: [
                         TextButton(
-                          child: const Text("common.cancel").tr(),
+                          child: Text("common.cancel".tr()),
                           onPressed: () {
                             result = false;
                             Navigator.pop(context);
                           },
                         ),
                         TextButton(
-                          child: const Text("common.delete").tr(),
+                          child: Text("common.delete".tr()),
                           onPressed: () {
                             result = true;
                             Navigator.pop(context);

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:otlplus/constants/color.dart';
 import 'package:otlplus/extensions/lecture.dart';
 import 'package:otlplus/models/lecture.dart';
@@ -51,32 +52,23 @@ class _LectureGroupBlockRowState extends State<LectureGroupBlockRow> {
             decoration: BoxDecoration(
               color: selected ? OTLColor.grayD : null,
             ),
-            child: Padding(
-              padding: EdgeInsets.fromLTRB(2.0, 4.0, 4.0, 4.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Flexible(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Flexible(
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(8, 6, 0, 6),
                     child: Wrap(
                       children: [
                         Text.rich(TextSpan(children: <InlineSpan>[
-                          if (exp
-                                  .allMatches(widget.lecture.classTitle)
-                                  .length ==
-                              0)
-                            WidgetSpan(
-                              child: SizedBox(
-                                width: 2,
-                              ),
-                            ),
                           TextSpan(
                               text: widget.lecture.classTitle,
                               style: TextStyle(
                                   fontSize: 14.0, fontWeight: FontWeight.bold)),
                           WidgetSpan(
                             child: SizedBox(
-                              width: 6,
+                              width: 8,
                             ),
                           ),
                           WidgetSpan(
@@ -87,53 +79,56 @@ class _LectureGroupBlockRowState extends State<LectureGroupBlockRow> {
                       ],
                     ),
                   ),
-                  SizedBox(
-                    width: 40,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Visibility(
-                          visible: selected,
-                          child: GestureDetector(
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 8.0),
+                  child: SizedBox(
+                    width: 50,
+                    child: Visibility(
+                      visible: selected,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          GestureDetector(
                             onTap: widget.onLongPress,
                             child: Center(
-                                child: Icon(
-                              Icons.info_outline,
-                              size: 18.0,
-                              color: Color(0x66000000),
-                            )),
+                              child: SvgPicture.asset('assets/icons/info.svg',
+                                  height: 20.0,
+                                  width: 20,
+                                  colorFilter: ColorFilter.mode(
+                                      Color(0xFF000000), BlendMode.srcIn)),
+                            ),
                           ),
-                        ),
-                        SizedBox(
-                          width: 4.0,
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            if (alreadyAdded) {
-                              _removeLecture(widget.lecture);
-                            } else {
-                              _addLecture(widget.lecture);
-                            }
-                          },
-                          child: Center(
-                              child: alreadyAdded
-                                  ? Icon(
-                                      Icons.remove,
-                                      size: 18.0,
-                                      color: OTLColor.pinksMain,
-                                    )
-                                  : Icon(
-                                      Icons.add,
-                                      size: 18.0,
-                                      color: Color(0xFF000000),
-                                    )),
-                        )
-                      ],
+                          SizedBox(
+                            width: 6.0,
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              if (alreadyAdded) {
+                                _removeLecture(widget.lecture);
+                              } else {
+                                _addLecture(widget.lecture);
+                              }
+                            },
+                            child: alreadyAdded
+                                ? Icon(
+                                    Icons.remove,
+                                    size: 24.0,
+                                    color: OTLColor.pinksMain,
+                                  )
+                                : SvgPicture.asset('assets/icons/add.svg',
+                                    height: 24.0,
+                                    width: 24,
+                                    colorFilter: ColorFilter.mode(
+                                        Color(0xFF000000), BlendMode.srcIn)),
+                          )
+                        ],
+                      ),
                     ),
-                  )
-                ],
-              ),
+                  ),
+                )
+              ],
             ),
           ),
         ),

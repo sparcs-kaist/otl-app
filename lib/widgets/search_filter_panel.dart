@@ -27,30 +27,35 @@ class _SearchFilterPanelState extends State<SearchFilterPanel> {
         color: OTLColor.grayF,
         borderRadius: BorderRadius.circular(8.0),
       ),
-      child: Scrollbar(
-        controller: _scrollController,
-        child: ListView.separated(
-            controller: _scrollController,
-            itemCount: widget.filter.entries.length,
-            shrinkWrap: true,
-            padding: EdgeInsets.all(16.0),
-            itemBuilder: (context, index) {
-              return Padding(
-                padding: EdgeInsets.only(bottom: 24.0),
-                child: Selector(
-                  title: widget.filter.values.elementAt(index).label,
-                  selectList: widget.filter.values.elementAt(index).options,
-                  type: widget.filter.values.elementAt(index).type,
-                  isMultiSelect:
-                      widget.filter.values.elementAt(index).isMultiSelect,
-                  setFilter: (String code, bool selected) {
-                    widget.setFilter(
-                        widget.filter.keys.elementAt(index), code, selected);
-                  },
-                ),
-              );
-            },
-            separatorBuilder: (context, index) => SizedBox(height: 8)),
+      child: GestureDetector(
+        onTapDown: (e) {
+          FocusManager.instance.primaryFocus?.unfocus();
+        },
+        child: Scrollbar(
+          controller: _scrollController,
+          child: ListView.separated(
+              controller: _scrollController,
+              itemCount: widget.filter.entries.length,
+              shrinkWrap: true,
+              padding: EdgeInsets.all(16.0),
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: EdgeInsets.only(bottom: 24.0),
+                  child: Selector(
+                    title: widget.filter.values.elementAt(index).label,
+                    selectList: widget.filter.values.elementAt(index).options,
+                    type: widget.filter.values.elementAt(index).type,
+                    isMultiSelect:
+                        widget.filter.values.elementAt(index).isMultiSelect,
+                    setFilter: (String code, bool selected) {
+                      widget.setFilter(
+                          widget.filter.keys.elementAt(index), code, selected);
+                    },
+                  ),
+                );
+              },
+              separatorBuilder: (context, index) => SizedBox(height: 8)),
+        ),
       ),
     );
   }
@@ -119,6 +124,9 @@ class _SelectorState extends State<Selector> {
                         text: widget.selectList.every(
                           (v) => v.every((w) => w.selected == true),
                         )
+                            // unknown error
+                            //  ? "common.unselect_all".tr()
+                            //  : "common.select_all".tr()
                             ? "모두 해제"
                             : "모두 선택",
                       ),
@@ -288,6 +296,7 @@ class _SilderSelectionState extends State<SilderSelection> {
         .toList()
         .indexWhere((e) => e.first.selected == true)
         .toDouble();
+    if (_value < 0) _value = 0;
   }
 
   @override

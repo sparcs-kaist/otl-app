@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:otlplus/constants/color.dart';
-import 'package:otlplus/constants/icon.dart';
 
 class BaseLayout extends StatefulWidget {
   final Widget body;
@@ -81,11 +81,10 @@ class _BackButton extends StatelessWidget {
       },
       child: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Icon(
-          CustomIcons.back,
-          size: 24,
-          color: Colors.black,
-        ),
+        child: SvgPicture.asset('assets/icons/back.svg',
+            height: 24.0,
+            width: 24.0,
+            colorFilter: ColorFilter.mode(Color(0xFF000000), BlendMode.srcIn)),
       ),
     );
   }

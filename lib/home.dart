@@ -1,12 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
-import 'package:otlplus/constants/text_styles.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:otlplus/providers/lecture_search_model.dart';
 import 'package:otlplus/providers/timetable_model.dart';
 import 'package:otlplus/utils/build_app_bar.dart';
 import 'package:otlplus/utils/build_page_route.dart';
-import 'package:otlplus/constants/icon.dart';
 import 'package:otlplus/providers/course_search_model.dart';
 import 'package:otlplus/widgets/mode_control.dart';
 import 'package:otlplus/widgets/pop_up.dart';
@@ -18,6 +17,7 @@ import 'package:otlplus/pages/main_page.dart';
 import 'package:otlplus/pages/review_page.dart';
 import 'package:otlplus/pages/timetable_page.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class OTLHome extends StatefulWidget {
   static String route = 'home';
@@ -43,10 +43,14 @@ class _OTLHomeState extends State<OTLHome> with SingleTickerProviderStateMixin {
     );
 
     WidgetsBinding.instance.addPostFrameCallback(
-      (_) async => await showDialog(
-        context: context,
-        builder: (context) => PopUp(),
-      ),
+      (_) async {
+        if ((await SharedPreferences.getInstance()).getBool('popup') ?? true) {
+          await showDialog(
+            context: context,
+            builder: (context) => PopUp(),
+          );
+        }
+      },
     );
   }
 
@@ -69,43 +73,10 @@ class _OTLHomeState extends State<OTLHome> with SingleTickerProviderStateMixin {
 
   PreferredSizeWidget _buildHomeAppBar() {
     return PreferredSize(
-      preferredSize: Size.fromHeight(
-        MediaQuery.of(context).size.width / 1296 * 865 + 5,
-      ),
+      preferredSize: Size.fromHeight(5),
       child: AppBar(
-        title: appBarPadding(
-          Image.asset(
-            "assets/images/logo.png",
-            height: 27.0,
-          ),
-        ),
-        actions: <Widget>[
-          appBarPadding(
-            PlatformIconButton(
-              onPressed: () {
-                Navigator.push(context, buildUserPageRoute());
-              },
-              materialIcon: Icon(Icons.person),
-              cupertinoIcon: Icon(CupertinoIcons.person),
-            ),
-          ),
-          appBarPadding(
-            PlatformIconButton(
-              onPressed: () =>
-                  {Navigator.push(context, buildSettingsPageRoute())},
-              materialIcon: Icon(Icons.settings),
-              cupertinoIcon: Icon(CupertinoIcons.gear),
-            ),
-          )
-        ],
-        flexibleSpace: SafeArea(
-          child: Column(
-            children: [
-              Container(color: OTLColor.pinksMain, height: 5.0),
-              _buildExpandedWidget(),
-            ],
-          ),
-        ),
+        flexibleSpace:
+            SafeArea(child: Container(color: OTLColor.pinksMain, height: 5.0)),
         backgroundColor: OTLColor.pinksLight,
         foregroundColor: OTLColor.pinksMain,
         elevation: 0.0,
@@ -167,7 +138,11 @@ class _OTLHomeState extends State<OTLHome> with SingleTickerProviderStateMixin {
             padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
             child: Row(
               children: [
-                Icon(CustomIcons.search, color: OTLColor.pinksMain, size: 24.0),
+                SvgPicture.asset('assets/icons/search.svg',
+                    height: 24.0,
+                    width: 24.0,
+                    colorFilter:
+                        ColorFilter.mode(OTLColor.pinksMain, BlendMode.srcIn)),
                 const SizedBox(width: 12.0),
                 Expanded(
                   child: context.watch<CourseSearchModel>().courseSearchquery,
@@ -242,68 +217,6 @@ class _OTLHomeState extends State<OTLHome> with SingleTickerProviderStateMixin {
     }
   }
 
-  Widget _buildExpandedWidget() {
-    return Stack(
-      alignment: Alignment.center,
-      children: <Widget>[
-        Image.asset(
-          "assets/images/bg.4556cdee.jpg",
-          fit: BoxFit.cover,
-          color: const Color(0xFF9B4810).withOpacity(0.2),
-          colorBlendMode: BlendMode.srcATop,
-        ),
-        _buildSearch(),
-      ],
-    );
-  }
-
-  Widget _buildSearch() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-      child: Container(
-          decoration: BoxDecoration(
-            color: OTLColor.grayF,
-            borderRadius: BorderRadius.circular(8.0),
-          ),
-          width: MediaQuery.of(context).size.width,
-          child: GestureDetector(
-            behavior: HitTestBehavior.opaque,
-            onTap: () {
-              context.read<CourseSearchModel>().resetCourseFilter();
-              Navigator.of(context)
-                  .push(buildCourseSearchPageRoute())
-                  .then((e) {
-                setState(() {
-                  _currentIndex = 2;
-                });
-              });
-            },
-            child: Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Icon(
-                    CustomIcons.search,
-                    color: OTLColor.pinksMain,
-                    size: 24.0,
-                  ),
-                  const SizedBox(width: 12.0),
-                  Expanded(
-                    child: Text(
-                      "과목명, 교수님 성함 등을 검색해 보세요.",
-                      style: bodyRegular.copyWith(color: OTLColor.grayA),
-                    ),
-                  )
-                ],
-              ),
-            ),
-          )),
-    );
-  }
-
   Widget _buildStack(BuildContext context, BoxConstraints constraints) {
     final layerTop = constraints.biggest.height;
     final layerAnimation = RelativeRectTween(
@@ -322,7 +235,11 @@ class _OTLHomeState extends State<OTLHome> with SingleTickerProviderStateMixin {
             child: IndexedStack(
               index: _currentIndex,
               children: <Widget>[
-                MainPage(),
+                MainPage(changeIndex: (index) {
+                  setState(() {
+                    _currentIndex = index;
+                  });
+                }),
                 TimetablePage(),
                 DictionaryPage(),
                 ReviewPage(),
@@ -351,19 +268,19 @@ class _OTLHomeState extends State<OTLHome> with SingleTickerProviderStateMixin {
       items: <BottomNavigationBarItem>[
         BottomNavigationBarItem(
           icon: Icon(Icons.home_outlined),
-          label: tr("main.home"),
+          label: tr("title.home"),
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.table_chart_outlined),
-          label: tr("main.timetable"),
+          label: tr("title.timetable"),
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.library_books_outlined),
-          label: tr("main.dictionary"),
+          label: tr("title.dictionary"),
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.rate_review_outlined),
-          label: tr("main.review"),
+          label: tr("title.review"),
         ),
       ],
     );

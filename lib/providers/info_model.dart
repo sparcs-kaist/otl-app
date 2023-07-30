@@ -27,6 +27,17 @@ const SCHEDULE_NAME = {
   "gradePosting": "성적게시"
 };
 
+const SCHEDULE_NAME_EN = {
+  "beginning": "Beginning",
+  "end": "End",
+  "courseRegistrationPeriodStart": "Start of Course Registration Period",
+  "courseRegistrationPeriodEnd": "End of Course Registration Period",
+  "courseAddDropPeriodEnd": "End of Course Add & Drop Period",
+  "courseDropDeadline": "Deadline to Course Drop",
+  "courseEvaluationDeadline": "Deadline to Course Evaluation",
+  "gradePosting": "Grade Posting",
+};
+
 class InfoModel extends ChangeNotifier {
   late Set<int> _years;
   Set<int> get years => _years;
@@ -98,6 +109,7 @@ class InfoModel extends ChangeNotifier {
               return <String, dynamic>{
                 "title": semester.title,
                 "name": SCHEDULE_NAME[field],
+                "nameEn": SCHEDULE_NAME_EN[field],
                 "time": time,
               };
             }))
