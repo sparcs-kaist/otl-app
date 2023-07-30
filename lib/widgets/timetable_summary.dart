@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:otlplus/constants/color.dart';
 import 'package:otlplus/constants/text_styles.dart';
@@ -9,6 +10,14 @@ const TYPES = [
   "Major Required",
   "Major Elective",
   "Humanities & Social Elective",
+];
+const TYPES_SHORT = [
+  "br",
+  "be",
+  "mr",
+  "me",
+  "hse",
+  "etc",
 ];
 const LETTERS = [
   "?",
@@ -82,7 +91,8 @@ class TimetableSummary extends StatelessWidget {
                 : 0));
     final tempType =
         (tempLecture == null) ? 6 : _indexOfType(tempLecture!.typeEn);
-    final titles = ['기필', '기선', '전필', '전선', '인선', '기타'];
+    final titles = List.generate(
+        6, (index) => 'timetable.summary.${TYPES_SHORT[index]}'.tr());
 
     if (tempLecture != null) {
       currentTypeCredit[tempType] +=
@@ -109,7 +119,8 @@ class TimetableSummary extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 15),
       alignment: Alignment.center,
       decoration: BoxDecoration(
-        border: Border.symmetric(horizontal: BorderSide(color: OTLColor.pinksLight)),
+        border: Border.symmetric(
+            horizontal: BorderSide(color: OTLColor.pinksLight)),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
@@ -132,21 +143,23 @@ class TimetableSummary extends StatelessWidget {
             ),
           ),
           const SizedBox(width: 11),
-          _buildScore("학점", allCreditCredit.toString(),
+          _buildScore(
+              'timetable.summary.credit'.tr(),
+              allCreditCredit.toString(),
               tempLecture != null && tempLecture!.credit > 0),
           _buildScore("AU", allAuCredit.toString(),
               tempLecture != null && tempLecture!.creditAu > 0),
           const SizedBox(width: 11),
           _buildScore(
-              "성적",
+              'timetable.summary.grade'.tr(),
               targetNum > 0 ? LETTERS[(grade / targetNum).round()] : "?",
               tempLecture != null && tempLecture!.grade > 0),
           _buildScore(
-              "널널",
+              'timetable.summary.load'.tr(),
               targetNum > 0 ? LETTERS[(load / targetNum).round()] : "?",
               tempLecture != null && tempLecture!.load > 0),
           _buildScore(
-              "강의",
+              'timetable.summary.speech'.tr(),
               targetNum > 0 ? LETTERS[(speech / targetNum).round()] : "?",
               tempLecture != null && tempLecture!.speech > 0),
         ],
@@ -187,14 +200,16 @@ class TimetableSummary extends StatelessWidget {
           width: 28,
           child: Text(
             title,
-            style: labelBold.copyWith(color: highlight ? OTLColor.pinksMain : OTLColor.gray0),
+            style: labelBold.copyWith(
+                color: highlight ? OTLColor.pinksMain : OTLColor.gray0),
           ),
         ),
         SizedBox(
           width: 14,
           child: Text(
             value.toString(),
-            style: labelRegular.copyWith(color: highlight ? OTLColor.pinksMain : OTLColor.gray0),
+            style: labelRegular.copyWith(
+                color: highlight ? OTLColor.pinksMain : OTLColor.gray0),
           ),
         ),
       ],

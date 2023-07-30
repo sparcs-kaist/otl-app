@@ -32,6 +32,18 @@
       "export_cal": "Share as Calendar",
       "syllabus": "Syllabi Collection",
       "delete": "Delete Timetable"
+    },
+    "summary": {
+      "br": "BR",
+      "be": "BE",
+      "mr": "MR",
+      "me": "ME",
+      "hse": "HSE",
+      "etc": "ETC",
+      "credit": "Credit",
+      "grade": "Grade",
+      "load": "Load",
+      "speech": "Speech"
     }
   },
   "settings": {

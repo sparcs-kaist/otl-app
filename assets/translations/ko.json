@@ -32,6 +32,18 @@
       "export_cal": "캘린더로 내보내기",
       "syllabus": "실라버스 모아보기",
       "delete": "시간표 삭제하기"
+    },
+    "summary": {
+      "br": "기필",
+      "be": "기선",
+      "mr": "전필",
+      "me": "전선",
+      "hse": "인선",
+      "etc": "기타",
+      "credit": "학점",
+      "grade": "성적",
+      "load": "널널",
+      "speech": "강의"
     }
   },
   "settings": {
