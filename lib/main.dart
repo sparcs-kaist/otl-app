@@ -116,6 +116,7 @@ class OTLFirebaseApp extends StatelessWidget {
         CourseDetailPage.route: (_) => CourseDetailPage(),
       },
       theme: _buildTheme(),
+      //builder: (context, child) => MediaQuery(data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0), child: child!),
     );
   }
 

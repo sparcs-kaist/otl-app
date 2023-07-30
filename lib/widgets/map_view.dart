@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:otlplus/constants/color.dart';
@@ -63,6 +64,7 @@ class MapView extends StatefulWidget {
 class _MapViewState extends State<MapView> {
   late double _width, _height;
   late List<String> _pinOrder, _blockOrder;
+  late bool _isKo;
 
   @override
   void initState() {
@@ -83,8 +85,12 @@ class _MapViewState extends State<MapView> {
       ..sort((a, b) {
         return _blockOrder.indexOf(a).compareTo(_blockOrder.indexOf(b));
       });
+
     _width = MediaQuery.of(context).size.width - 100;
     _height = _width * 131 / 146;
+
+    _isKo = context.locale == Locale('ko');
+
     return CustomScrollView(
       slivers: [
         SliverPersistentHeader(
@@ -128,8 +134,10 @@ class _MapViewState extends State<MapView> {
       )
     ];
     return Positioned(
-      left: _width * (POSITION_OF_LOCATIONS[buildingCode]?['left'] ?? 0.031) - 9,
-      top: _height * (POSITION_OF_LOCATIONS[buildingCode]?['top'] ?? 1.000) - 27,
+      left:
+          _width * (POSITION_OF_LOCATIONS[buildingCode]?['left'] ?? 0.031) - 9,
+      top:
+          _height * (POSITION_OF_LOCATIONS[buildingCode]?['top'] ?? 1.000) - 27,
       child: Stack(
         clipBehavior: Clip.none,
         children: [
@@ -187,9 +195,9 @@ class _MapViewState extends State<MapView> {
   }
 
   String _codeToName(String buildingCode) {
-    if (buildingCode == '기타') return buildingCode;
+    if (buildingCode == '기타') return _isKo ? '기타' : 'ETC';
     Classtime first = widget.lectures[buildingCode]![0].values.first;
-    String buildingName = first.classroom;
+    String buildingName = _isKo ? first.classroom : first.classroomEn;
     buildingName = buildingName.replaceAll('($buildingCode)', '');
     buildingName = buildingName.replaceAll(first.roomName, '');
     return buildingCode + ' ' + buildingName.trim();
@@ -270,9 +278,8 @@ class _MapViewState extends State<MapView> {
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 3),
             child: Text(
-              lecture.title,
+              _isKo ? lecture.title : lecture.titleEn,
               style: bodyRegular,
-              maxLines: 5,
             ),
           ),
         ),
@@ -289,7 +296,9 @@ class _MapViewState extends State<MapView> {
               ),
               child: Text(
                 (buildingCode == '기타')
-                    ? classtime.classroom
+                    ? _isKo
+                        ? classtime.classroom
+                        : classtime.classroomEn
                     : classtime.roomName,
                 style: labelRegular,
               ),
