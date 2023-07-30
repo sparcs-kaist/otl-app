@@ -34,7 +34,7 @@ class _TimetableTabsState extends State<TimetableTabs> {
 
     return Container(
       height: 28,
-      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      padding: const EdgeInsets.only(left: 16.0),
       child: ListView.builder(
         controller: _scrollController,
         scrollDirection: Axis.horizontal,
