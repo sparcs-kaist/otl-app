@@ -131,12 +131,13 @@ class TimetableSummary extends StatelessWidget {
             child: GridView.builder(
               itemCount: 6,
               padding: const EdgeInsets.only(right: 6),
+              scrollDirection: Axis.horizontal,
               physics: const NeverScrollableScrollPhysics(),
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 3,
-                mainAxisSpacing: 4,
-                crossAxisSpacing: 16,
-                mainAxisExtent: 17,
+                crossAxisCount: 2,
+                mainAxisSpacing: 16,
+                crossAxisSpacing: 4,
+                mainAxisExtent: 42,
               ),
               itemBuilder: (_, index) => _buildAttribute(
                   titles[index], currentTypeCredit[index], tempType == index),
