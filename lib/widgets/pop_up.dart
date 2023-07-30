@@ -75,7 +75,7 @@ class _PopUpState extends State<PopUp> {
 }
 
 Widget _buildAppEvent(BuildContext context) {
-  final isEn = EasyLocalization.of(context)!.currentLocale == Locale('en');
+  final isEn = EasyLocalization.of(context)?.currentLocale == Locale('en');
 
   return SingleChildScrollView(
     child: Container(
@@ -113,6 +113,7 @@ Widget _buildAppEvent(BuildContext context) {
   );
 }
 
+// ignore: unused_element
 Widget _buildGraduatePlanner() {
   return SingleChildScrollView(
     child: Column(

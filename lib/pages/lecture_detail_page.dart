@@ -36,7 +36,7 @@ class LectureDetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final LectureDetailModel lectureDetailModel =
         context.watch<LectureDetailModel>();
-    final isEn = EasyLocalization.of(context)!.currentLocale == Locale('en');
+    final isEn = EasyLocalization.of(context)?.currentLocale == Locale('en');
 
     return Scaffold(
       appBar: buildAppBar(
@@ -346,7 +346,7 @@ class LectureDetailPage extends StatelessWidget {
   }
 
   Widget _buildAttributes(BuildContext context, Lecture lecture) {
-    final isEn = EasyLocalization.of(context)!.currentLocale == Locale('en');
+    final isEn = EasyLocalization.of(context)?.currentLocale == Locale('en');
 
     return Column(
       children: [

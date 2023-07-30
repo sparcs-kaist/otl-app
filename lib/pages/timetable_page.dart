@@ -37,7 +37,6 @@ class _TimetablePageState extends State<TimetablePage> {
   }
 
   Widget _buildBody(BuildContext context) {
-    final lectureSearchModel = context.watch<LectureSearchModel>();
     final lectures = context.select<TimetableModel, List<Lecture>>(
         (model) => model.currentTimetable.lectures);
     final mode = context.read<TimetableModel>().selectedMode;

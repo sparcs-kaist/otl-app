@@ -54,7 +54,7 @@ class _ReviewWriteBlockState extends State<ReviewWriteBlock> {
 
   @override
   Widget build(BuildContext context) {
-    final isEn = EasyLocalization.of(context)!.currentLocale == Locale('en');
+    final isEn = EasyLocalization.of(context)?.currentLocale == Locale('en');
 
     return Container(
       margin: const EdgeInsets.only(bottom: 8.0),

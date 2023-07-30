@@ -13,7 +13,7 @@ class CourseBlock extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isEn = EasyLocalization.of(context)!.currentLocale == Locale('en');
+    final isEn = EasyLocalization.of(context)?.currentLocale == Locale('en');
 
     return Container(
       decoration: BoxDecoration(

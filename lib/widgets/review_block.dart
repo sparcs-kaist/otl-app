@@ -33,7 +33,7 @@ class _ReviewBlockState extends State<ReviewBlock> {
   @override
   Widget build(BuildContext context) {
     String content = widget.review.content;
-    final isEn = EasyLocalization.of(context)!.currentLocale == Locale('en');
+    final isEn = EasyLocalization.of(context)?.currentLocale == Locale('en');
 
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),

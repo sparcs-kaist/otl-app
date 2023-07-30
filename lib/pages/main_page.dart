@@ -248,7 +248,7 @@ class _MainPageState extends State<MainPage> {
   }
 
   Widget _buildSchedule(DateTime now, Map<String, dynamic>? currentSchedule) {
-    final isEn = EasyLocalization.of(context)!.currentLocale == Locale('en');
+    final isEn = EasyLocalization.of(context)?.currentLocale == Locale('en');
     late int days, hours, minutes;
 
     final timeDiff = currentSchedule?["time"].difference(now) as Duration;

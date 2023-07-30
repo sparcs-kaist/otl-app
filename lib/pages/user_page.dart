@@ -13,7 +13,7 @@ class UserPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final user = context.watch<InfoModel>().user;
-    final isEn = EasyLocalization.of(context)!.currentLocale == Locale('en');
+    final isEn = EasyLocalization.of(context)?.currentLocale == Locale('en');
 
     return Scaffold(
       appBar: buildAppBar(context, 'title.my_information'.tr(), false, true),
