@@ -14,7 +14,7 @@ class ModeControl extends StatefulWidget {
 
 class _ModeControlState extends State<ModeControl> {
   static const List<String> _dropdownList = ['수업 시간표', '시험 시간표', '지도'];
-  static const List<String> _iconList = ['classtime', 'examtime', 'map'];
+  static const List<IconData> _iconList = [Icons.schedule, Icons.menu_book, Icons.map_outlined];
 
   @override
   Widget build(BuildContext context) {
@@ -52,8 +52,8 @@ class _ModeControlState extends State<ModeControl> {
                 child: Container(
                   height: 32,
                   padding: EdgeInsets.symmetric(vertical: 4, horizontal: 12),
-                  child: SvgPicture.asset(
-                    'assets/icons/icon_${_iconList[index]}_mode.svg',
+                  child: Icon(
+                    _iconList[index],
                     color: (index == widget.dropdownIndex)
                         ? Colors.white
                         : OTLColor.pinksMain,
