@@ -116,41 +116,35 @@ class TimetableSummary extends StatelessWidget {
 
     return Container(
       height: 75,
-      padding: const EdgeInsets.symmetric(vertical: 15),
-      alignment: Alignment.center,
+      padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 16),
       decoration: BoxDecoration(
         border: Border.symmetric(
             horizontal: BorderSide(color: OTLColor.pinksLight)),
       ),
       child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
+        children: [
           Container(
-            width: 164,
-            height: 38,
+            width: 150,
+            padding: const EdgeInsets.only(right: 3),
             child: GridView.builder(
               itemCount: 6,
-              padding: const EdgeInsets.only(right: 6),
               scrollDirection: Axis.horizontal,
               physics: const NeverScrollableScrollPhysics(),
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
-                mainAxisSpacing: 16,
-                crossAxisSpacing: 4,
-                mainAxisExtent: 42,
+                mainAxisSpacing: 6,
+                mainAxisExtent: 45,
               ),
               itemBuilder: (_, index) => _buildAttribute(
                   titles[index], currentTypeCredit[index], tempType == index),
             ),
           ),
-          const SizedBox(width: 11),
           _buildScore(
               'timetable.summary.credit'.tr(),
               allCreditCredit.toString(),
               tempLecture != null && tempLecture!.credit > 0),
           _buildScore("AU", allAuCredit.toString(),
               tempLecture != null && tempLecture!.creditAu > 0),
-          const SizedBox(width: 11),
           _buildScore(
               'timetable.summary.grade'.tr(),
               targetNum > 0 ? LETTERS[(grade / targetNum).round()] : "?",
@@ -169,29 +163,28 @@ class TimetableSummary extends StatelessWidget {
   }
 
   Widget _buildScore(String title, String content, bool highlight) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 5),
-      child: SizedBox(
-        width: 28,
-        child: Column(
-          children: [
-            Expanded(
-              child: Text(
-                content,
-                style: titleBold.copyWith(
-                    color: highlight ? OTLColor.pinksMain : OTLColor.gray0),
-                textAlign: TextAlign.center,
-              ),
+    return Expanded(
+      child: Column(
+        children: [
+          SizedBox(
+            height: 26,
+            child: Text(
+              content,
+              style: titleBold.copyWith(
+                  color: highlight ? OTLColor.pinksMain : OTLColor.gray0),
+              textAlign: TextAlign.center,
             ),
-            Text(
+          ),
+          SizedBox(
+            height: 17,
+            child: Text(
               title,
               style: labelRegular.copyWith(
                   color: highlight ? OTLColor.pinksMain : OTLColor.gray0),
               textAlign: TextAlign.center,
-              maxLines: 1,
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -208,7 +201,7 @@ class TimetableSummary extends StatelessWidget {
           ),
         ),
         SizedBox(
-          width: 14,
+          width: 17,
           child: Text(
             value.toString(),
             style: labelRegular.copyWith(
