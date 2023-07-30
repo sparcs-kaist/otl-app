@@ -128,7 +128,10 @@ class _ReviewBlockState extends State<ReviewBlock> {
                       onTap: _canUpload ? _uploadLike : null,
                       child: Text(
                         "review.like".tr(),
-                        style: labelRegular.copyWith(color: OTLColor.pinksMain),
+                        style: labelRegular.copyWith(
+                          color:
+                              _canUpload ? OTLColor.pinksMain : OTLColor.grayA,
+                        ),
                       ),
                     ),
                   ),
