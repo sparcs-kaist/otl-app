@@ -25,7 +25,6 @@ class _TimetablePageState extends State<TimetablePage> {
   final _selectedKey = GlobalKey();
   final _paintKey = GlobalKey();
 
-  bool _isSearchOpened = false;
   Lecture? _selectedLecture;
 
   @override
@@ -38,7 +37,6 @@ class _TimetablePageState extends State<TimetablePage> {
   }
 
   Widget _buildBody(BuildContext context) {
-    final bottomSheetModel = context.watch<LectureSearchModel>();
     final lectures = context.select<TimetableModel, List<Lecture>>(
         (model) => model.currentTimetable.lectures);
     final mode = context.read<TimetableModel>().selectedMode;

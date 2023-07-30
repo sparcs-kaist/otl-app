@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:otlplus/constants/color.dart';
 
 class ModeControl extends StatefulWidget {
@@ -14,7 +13,11 @@ class ModeControl extends StatefulWidget {
 
 class _ModeControlState extends State<ModeControl> {
   static const List<String> _dropdownList = ['수업 시간표', '시험 시간표', '지도'];
-  static const List<IconData> _iconList = [Icons.schedule, Icons.menu_book, Icons.map_outlined];
+  static const List<IconData> _iconList = [
+    Icons.schedule,
+    Icons.menu_book,
+    Icons.map_outlined
+  ];
 
   @override
   Widget build(BuildContext context) {
