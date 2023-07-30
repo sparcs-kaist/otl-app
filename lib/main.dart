@@ -4,6 +4,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:otlplus/pages/course_detail_page.dart';
 import 'package:otlplus/pages/lecture_detail_page.dart';
 import 'package:otlplus/pages/liked_review_page.dart';
@@ -98,6 +99,9 @@ class OTLFirebaseApp extends StatelessWidget {
       }
     } on Error {}
 
+    SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle(statusBarColor: Colors.transparent));
+
     return MaterialApp(
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,
@@ -113,21 +117,22 @@ class OTLFirebaseApp extends StatelessWidget {
         CourseDetailPage.route: (_) => CourseDetailPage(),
       },
       theme: _buildTheme(),
+      //builder: (context, child) => MediaQuery(data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0), child: child!),
     );
   }
 
   ThemeData _buildTheme() {
     final base = ThemeData(
       fontFamily: 'NotoSansKR',
-      primarySwatch: createMaterialColor(PRIMARY_COLOR),
+      primarySwatch: createMaterialColor(OTLColor.pinksMain),
       canvasColor: Colors.white,
-      iconTheme: const IconThemeData(color: CONTENT_COLOR),
+      iconTheme: const IconThemeData(color: OTLColor.gray3),
       inputDecorationTheme: const InputDecorationTheme(
         border: InputBorder.none,
         contentPadding: EdgeInsets.only(),
         isDense: true,
         hintStyle: TextStyle(
-          color: PRIMARY_COLOR,
+          color: OTLColor.pinksMain,
           fontSize: 14.0,
         ),
       ),
@@ -136,21 +141,21 @@ class OTLFirebaseApp extends StatelessWidget {
     return base.copyWith(
       cardTheme: base.cardTheme.copyWith(margin: const EdgeInsets.only()),
       chipTheme: base.chipTheme.copyWith(
-        backgroundColor: BLOCK_COLOR,
+        backgroundColor: OTLColor.grayE,
         pressElevation: 0.0,
-        secondarySelectedColor: SELECTED_COLOR,
+        secondarySelectedColor: OTLColor.grayD,
         labelStyle: const TextStyle(
-          color: CONTENT_COLOR,
+          color: OTLColor.gray3,
           fontSize: 12.0,
         ),
         secondaryLabelStyle: const TextStyle(
-          color: CONTENT_COLOR,
+          color: OTLColor.gray3,
           fontSize: 12.0,
         ),
       ),
       textTheme: base.textTheme.apply(
-        bodyColor: CONTENT_COLOR,
-        displayColor: CONTENT_COLOR,
+        bodyColor: OTLColor.gray3,
+        displayColor: OTLColor.gray3,
       ),
     );
   }

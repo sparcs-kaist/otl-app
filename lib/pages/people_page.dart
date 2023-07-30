@@ -23,7 +23,7 @@ class PeoplePage extends StatelessWidget {
             const SizedBox(height: 12.0),
             Text(
               '준비 중입니다.',
-              style: bodyRegular.copyWith(color: grayA),
+              style: bodyRegular.copyWith(color: OTLColor.grayA),
             ),
           ],
         ),
@@ -35,7 +35,7 @@ class PeoplePage extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(vertical: 6.0),
       decoration: BoxDecoration(
-        color: pinksLight,
+        color: OTLColor.pinksLight,
         borderRadius: BorderRadius.circular(16.0),
       ),
       width: double.infinity,

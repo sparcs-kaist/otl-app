@@ -4,6 +4,12 @@
     "cancel": "Cancel",
     "delete": "Delete"
   },
+  "semester": {
+    "spring": "Spring",
+    "summer": "Summer",
+    "fall": "Fall",
+    "winter": "Winter"
+  },
   "main": {
     "search": "Search",
     "home": "Home",
@@ -16,7 +22,38 @@
     "goto_cais": "Go to CAIS"
   },
   "timetable": {
-    "ask_delete_lecture": "Are you delete class '{}'?"
+    "ask_delete_lecture": "Are you delete class '{}'?",
+    "ask_delete_tab": "Do you really want to delete {}?",
+    "my_tab": "My Table",
+    "tab": "Table {}",
+    "tab_menu": {
+      "copy": "Copy Timetable",
+      "export_img": "Share as Image",
+      "export_cal": "Share as Calendar",
+      "syllabus": "Syllabi Collection",
+      "delete": "Delete Timetable"
+    },
+    "summary": {
+      "br": "BR",
+      "be": "BE",
+      "mr": "MR",
+      "me": "ME",
+      "hse": "HSE",
+      "etc": "ETC",
+      "credit": "Credit",
+      "grade": "Grade",
+      "load": "Load",
+      "speech": "Speech"
+    },
+    "days": {
+      "mon": "Monday",
+      "tue": "Tuesday",
+      "wed": "Wednesday",
+      "thu": "Thursday",
+      "fri": "Friday",
+      "sat": "Saturday",
+      "sun": "Sunday"
+    }
   },
   "settings": {
     "send_error_log": "Send error log",

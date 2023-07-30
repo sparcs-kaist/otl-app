@@ -36,6 +36,7 @@ dependencies:
   easy_localization: ^3.0.1
   flutter_widgetkit: ^1.0.3
   flutter_svg: ^2.0.7
+  dropdown_button2: ^2.1.4
   # Firebase
   firebase_core: ^2.8.0
   firebase_analytics: ^10.1.6
@@ -51,9 +52,9 @@ dev_dependencies:
 flutter_icons:
   android: true
   ios: true
-  image_path: "assets/icon-512.png"
+  image_path: "assets/icons/icon-512.png"
   adaptive_icon_background: "#F9F0F0"
-  adaptive_icon_foreground: "assets/icon-512-foreground.png"
+  adaptive_icon_foreground: "assets/icons/icon-512-foreground.png"
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -69,6 +70,7 @@ flutter:
   assets:
     - assets/
     - assets/people/
+    - assets/images/
     - assets/translations/
     - assets/icons/
 

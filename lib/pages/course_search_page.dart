@@ -53,7 +53,7 @@ class _CourseSearchPageState extends State<CourseSearchPage> {
               child: SearchTextfield(
                 autoFocus:
                     _searchTextController.text == '' && widget.openKeyboard,
-                backgroundColor: grayF,
+                backgroundColor: OTLColor.grayF,
                 textController: _searchTextController,
                 focusNode: _focusNode,
               ),
@@ -61,10 +61,11 @@ class _CourseSearchPageState extends State<CourseSearchPage> {
           ],
         ),
       ),
-      flexibleSpace: SafeArea(child: Container(color: pinksMain, height: 5.0)),
+      flexibleSpace:
+          SafeArea(child: Container(color: OTLColor.pinksMain, height: 5.0)),
       toolbarHeight: kToolbarHeight + 5.0,
-      backgroundColor: pinksLight,
-      foregroundColor: gray0,
+      backgroundColor: OTLColor.pinksLight,
+      foregroundColor: OTLColor.gray0,
       elevation: 0.0,
       centerTitle: true,
       automaticallyImplyLeading: false,
@@ -74,7 +75,7 @@ class _CourseSearchPageState extends State<CourseSearchPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: pinksLight,
+      backgroundColor: OTLColor.pinksLight,
       appBar: _buildAppBar(context),
       body: Padding(
         padding: const EdgeInsets.only(left: 16.0, right: 16.0, bottom: 16.0),
@@ -106,10 +107,10 @@ class _CourseSearchPageState extends State<CourseSearchPage> {
                     },
                     child: Text(
                       "초기화",
-                      style: bodyBold.copyWith(color: pinksMain),
+                      style: bodyBold.copyWith(color: OTLColor.pinksMain),
                     ),
                     style: ButtonStyle(
-                      backgroundColor: MaterialStatePropertyAll(grayF),
+                      backgroundColor: MaterialStatePropertyAll(OTLColor.grayF),
                       shape: MaterialStatePropertyAll(
                         RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8.0),

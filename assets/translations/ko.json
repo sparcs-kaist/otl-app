@@ -4,6 +4,12 @@
     "cancel": "취소",
     "delete": "삭제"
   },
+  "semester": {
+    "spring": "봄",
+    "summer": "여름",
+    "fall": "가을",
+    "winter": "겨울"
+  },
   "main": {
     "search": "검색",
     "home": "홈",
@@ -16,7 +22,38 @@
     "goto_cais": "학사시스템 바로가기"
   },
   "timetable": {
-    "ask_delete_lecture": "'{}' 수업을 삭제하시겠습니까?"
+    "ask_delete_lecture": "'{}' 수업을 삭제하시겠습니까?",
+    "ask_delete_tab": "{}을(를) 정말 삭제하시겠습니까?",
+    "my_tab": "내 시간표",
+    "tab": "시간표 {}",
+    "tab_menu": {
+      "copy": "시간표 복제하기",
+      "export_img": "이미지로 내보내기",
+      "export_cal": "캘린더로 내보내기",
+      "syllabus": "실라버스 모아보기",
+      "delete": "시간표 삭제하기"
+    },
+    "summary": {
+      "br": "기필",
+      "be": "기선",
+      "mr": "전필",
+      "me": "전선",
+      "hse": "인선",
+      "etc": "기타",
+      "credit": "학점",
+      "grade": "성적",
+      "load": "널널",
+      "speech": "강의"
+    },
+    "days": {
+      "mon": "월요일",
+      "tue": "화요일",
+      "wed": "수요일",
+      "thu": "목요일",
+      "fri": "금요일",
+      "sat": "토요일",
+      "sun": "일요일"
+    }
   },
   "settings": {
     "send_error_log": "오류 로그 전송",

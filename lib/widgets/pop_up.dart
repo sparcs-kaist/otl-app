@@ -11,7 +11,7 @@ class PopUp extends StatelessWidget {
     return AlertDialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.0)),
       insetPadding: EdgeInsets.all(16.0),
-      backgroundColor: pinksLight,
+      backgroundColor: OTLColor.pinksLight,
       title: Text.rich(
         TextSpan(
           style: titleBold,

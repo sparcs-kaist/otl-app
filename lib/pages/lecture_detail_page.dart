@@ -162,7 +162,7 @@ class LectureDetailPage extends StatelessWidget {
           child: const Text(
             "과목사전",
             style: TextStyle(
-              color: PRIMARY_COLOR,
+              color: OTLColor.pinksMain,
               fontSize: 11.0,
             ),
           ),
@@ -173,8 +173,8 @@ class LectureDetailPage extends StatelessWidget {
             url: _getSyllabusUrl(lecture),
             customTabsOptions: CustomTabsOptions(
               colorScheme: CustomTabsColorScheme.light,
-              defaultColorSchemeParams:
-                  CustomTabsColorSchemeParams(toolbarColor: BACKGROUND_COLOR),
+              defaultColorSchemeParams: CustomTabsColorSchemeParams(
+                  toolbarColor: OTLColor.pinksLight),
               shareState: CustomTabsShareState.on,
               instantAppsEnabled: true,
               showTitle: true,
@@ -189,7 +189,7 @@ class LectureDetailPage extends StatelessWidget {
           child: const Text(
             "실라버스",
             style: TextStyle(
-              color: PRIMARY_COLOR,
+              color: OTLColor.pinksMain,
               fontSize: 11.0,
             ),
           ),

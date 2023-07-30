@@ -135,7 +135,7 @@ class CourseSearchModel extends ChangeNotifier {
 
   Text _courseSearchquery = Text(
     "과목명, 교수님 성함 등을 검색해 보세요.",
-    style: bodyRegular.copyWith(color: grayA),
+    style: bodyRegular.copyWith(color: OTLColor.grayA),
   );
   Text get courseSearchquery => _courseSearchquery;
   void updateCourseSearchquery() {
@@ -151,12 +151,12 @@ class CourseSearchModel extends ChangeNotifier {
     if (_selectedFilters.length == 0 && _courseSearchText.length == 0) {
       _courseSearchquery = Text(
         "과목명, 교수님 성함 등을 검색해 보세요.",
-        style: bodyRegular.copyWith(color: grayA),
+        style: bodyRegular.copyWith(color: OTLColor.grayA),
       );
     } else {
       _courseSearchquery = Text.rich(
         TextSpan(
-          style: bodyRegular.copyWith(color: grayA),
+          style: bodyRegular.copyWith(color: OTLColor.grayA),
           children: [
             TextSpan(
               text: _courseSearchText.isEmpty ? '' : '"$_courseSearchText"',

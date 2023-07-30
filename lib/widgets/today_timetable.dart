@@ -148,7 +148,7 @@ class TodayTimetable extends StatelessWidget {
             left: _dividerWidth * ((now.hour + now.minute / 60) * 2 - 17.5),
             bottom: 0,
             width: 1,
-            child: Container(key: _timebarKey, color: PRIMARY_COLOR),
+            child: Container(key: _timebarKey, color: OTLColor.pinksMain),
           ),
         ],
       ),

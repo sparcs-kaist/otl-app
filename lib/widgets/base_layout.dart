@@ -32,7 +32,7 @@ class _BaseLayoutState extends State<BaseLayout> {
   Widget build(BuildContext context) {
     final NavigatorState? navigator = Navigator.maybeOf(context);
     return ColoredBox(
-      color: OTL_LIGHTPINK,
+      color: OTLColor.pinksLight,
       child: Column(
         children: [
           SizedBox(

@@ -36,7 +36,7 @@ class _ReviewBlockState extends State<ReviewBlock> {
       margin: const EdgeInsets.only(bottom: 6.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(4.0),
-        color: BLOCK_COLOR,
+        color: OTLColor.grayE,
       ),
       child: Material(
         color: Colors.transparent,

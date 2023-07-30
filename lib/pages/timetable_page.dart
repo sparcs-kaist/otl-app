@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:otlplus/utils/build_page_route.dart';
 import 'package:otlplus/providers/lecture_search_model.dart';
 import 'package:otlplus/widgets/lecture_search.dart';
+import 'package:otlplus/widgets/map_view.dart';
 import 'package:provider/provider.dart';
 import 'package:otlplus/constants/color.dart';
 import 'package:otlplus/models/lecture.dart';
 import 'package:otlplus/providers/lecture_detail_model.dart';
 import 'package:otlplus/providers/timetable_model.dart';
-import 'package:otlplus/utils/export_image.dart';
-import 'package:otlplus/widgets/semester_picker.dart';
 import 'package:otlplus/widgets/timetable.dart';
 import 'package:otlplus/widgets/timetable_block.dart';
 import 'package:otlplus/widgets/timetable_summary.dart';
@@ -27,7 +25,7 @@ class _TimetablePageState extends State<TimetablePage> {
   final _selectedKey = GlobalKey();
   final _paintKey = GlobalKey();
 
-  bool _isExamTime = false;
+  Lecture? _selectedLecture;
 
   @override
   Widget build(BuildContext context) {
@@ -39,9 +37,9 @@ class _TimetablePageState extends State<TimetablePage> {
   }
 
   Widget _buildBody(BuildContext context) {
-    final bottomSheetModel = context.watch<LectureSearchModel>();
     final lectures = context.select<TimetableModel, List<Lecture>>(
         (model) => model.currentTimetable.lectures);
+    final mode = context.read<TimetableModel>().selectedMode;
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (_selectedKey.currentContext != null)
@@ -50,69 +48,35 @@ class _TimetablePageState extends State<TimetablePage> {
 
     return Column(
       children: <Widget>[
-        _buildTimetableTabs(context),
         Expanded(
           child: ColoredBox(
-            color: Colors.white,
+            color: OTLColor.grayF,
             child: Column(
               children: <Widget>[
-                const SizedBox(height: 8.0),
-                SemesterPicker(
-                  isExamTime: _isExamTime,
-                  onTap: () {
-                    setState(() {
-                      _isExamTime = !_isExamTime;
-                    });
-                  },
-                  onSemesterChanged: () {
-                    context.read<LectureSearchModel>().setSelectedLecture(null);
-                    context.read<LectureSearchModel>().lectureClear();
-                  },
+                Container(
+                  color: OTLColor.pinksLight,
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(vertical: 16),
+                    decoration: BoxDecoration(
+                      color: OTLColor.grayF,
+                      borderRadius:
+                          BorderRadius.only(topLeft: Radius.circular(16)),
+                    ),
+                    child: _buildTimetableTabs(context),
+                  ),
                 ),
                 Expanded(
-                  child: ShaderMask(
-                    blendMode: BlendMode.dstIn,
-                    shaderCallback: (bounds) => LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      colors: <Color>[
-                        Colors.white,
-                        Colors.transparent,
-                      ],
-                      stops: <double>[
-                        0.95,
-                        1.0,
-                      ],
-                    ).createShader(bounds.shift(Offset(
-                      -bounds.left,
-                      -bounds.top,
-                    ))),
-                    child: SingleChildScrollView(
-                      child: RepaintBoundary(
-                        key: _paintKey,
-                        child: Container(
-                          color: Colors.white,
-                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                          child: _buildTimetable(context, lectures),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                  child: const Divider(color: DIVIDER_COLOR, height: 1.0),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 8.0,
-                    vertical: 12.0,
-                  ),
-                  child: TimetableSummary(
-                    lectures: lectures,
-                    tempLecture: bottomSheetModel.selectedLecture,
-                  ),
-                ),
+                  child: () {
+                    switch (mode) {
+                      case 0:
+                      case 1:
+                        return _buildTimetableMode(
+                            context, lectures, mode == 1);
+                      default:
+                        return MapView(lectures: lectures);
+                    }
+                  }(),
+                )
               ],
             ),
           ),
@@ -135,16 +99,42 @@ class _TimetablePageState extends State<TimetablePage> {
     );
   }
 
-  Timetable _buildTimetable(BuildContext context, List<Lecture> lectures) {
+  Widget _buildTimetableMode(
+      BuildContext context, List<Lecture> lectures, bool isExamTime) {
+    return Column(
+      children: [
+        Expanded(
+          child: SingleChildScrollView(
+            child: RepaintBoundary(
+              key: _paintKey,
+              child: Container(
+                color: Colors.white,
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: _buildTimetable(context, lectures, isExamTime),
+              ),
+            ),
+          ),
+        ),
+        if (!isExamTime)
+          TimetableSummary(
+            lectures: lectures,
+            tempLecture: _selectedLecture,
+          ),
+      ],
+    );
+  }
+
+  Timetable _buildTimetable(
+      BuildContext context, List<Lecture> lectures, bool isExamTime) {
     bool isFirst = true;
     final bottomSheetModel = context.watch<LectureSearchModel>();
 
     return Timetable(
       lectures: (bottomSheetModel.selectedLecture == null)
           ? lectures
-          : [...lectures, bottomSheetModel.selectedLecture!],
-      isExamTime: _isExamTime,
-      builder: (lecture, classTimeIndex) {
+          : [...lectures, _selectedLecture!],
+      isExamTime: isExamTime,
+      builder: (lecture, classTimeIndex, blockHeight) {
         final isSelected = bottomSheetModel.selectedLecture == lecture;
         Key? key;
 
@@ -157,7 +147,9 @@ class _TimetablePageState extends State<TimetablePage> {
           key: key,
           lecture: lecture,
           classTimeIndex: classTimeIndex,
+          height: blockHeight,
           isTemp: isSelected,
+          isExamTime: isExamTime,
           onTap: () {
             context.read<LectureDetailModel>().loadLecture(lecture.id, true);
             Navigator.push(context, buildLectureDetailPageRoute());
@@ -218,57 +210,103 @@ class _TimetablePageState extends State<TimetablePage> {
         else
           timetableModel.setIndex(i);
       },
-      onAddTap: () {
-        context.read<LectureSearchModel>().setSelectedLecture(null);
-        context.read<LectureSearchModel>().lectureClear();
+      onCopyTap: () {
+        final timetableModel = context.read<TimetableModel>();
+        timetableModel.createTimetable(
+            lectures: timetableModel.currentTimetable.lectures);
+        /*if (_isSearchOpened) return;
+        setState(() {
+          _isSearchOpened = true;
+          _selectedLecture = null;
+        });*/
       },
-      onSettingsTap: () {
-        showModalBottomSheet(
-            context: context,
-            builder: (context) => _buildSettingsSheet(context));
+      onDeleteTap: () {
+        showGeneralDialog(
+          context: context,
+          barrierColor: Colors.black.withOpacity(0.2),
+          barrierDismissible: true,
+          barrierLabel:
+              MaterialLocalizations.of(context).modalBarrierDismissLabel,
+          pageBuilder: (context, _, __) =>
+              _buildDeleteDialog(context, timetableModel.selectedIndex),
+        );
+      },
+      onExportTap: (type) {
+        context
+            .read<TimetableModel>()
+            .shareTimetable(type, context.locale.languageCode);
       },
     );
   }
 
-  Widget _buildSettingsSheet(BuildContext context) {
-    return Container(
-      color: Colors.white,
-      child: Wrap(
-        children: <Widget>[
-          ListTile(
-            leading: const Icon(Icons.image),
-            title: const Text("이미지 저장"),
-            onTap: () {
-              final boundary = _paintKey.currentContext?.findRenderObject()
-                  as RenderRepaintBoundary;
-              exportImage(boundary);
-              Navigator.pop(context);
-            },
-          ),
-          ListTile(
-            leading: const Icon(Icons.content_copy),
-            title: const Text("복제"),
-            onTap: () {
-              final timetableModel = context.read<TimetableModel>();
-              timetableModel.createTimetable(
-                  lectures: timetableModel.currentTimetable.lectures);
-              Navigator.pop(context);
-            },
-          ),
-          context.select<TimetableModel, int>((model) => model.selectedIndex) ==
-                  0
-              ? SizedBox()
-              : ListTile(
-                  enabled: (context.select<TimetableModel, bool>(
-                      (model) => model.timetables.length > 2)),
-                  leading: const Icon(Icons.delete),
-                  title: const Text("삭제"),
-                  onTap: () {
-                    context.read<TimetableModel>().deleteTimetable();
-                    Navigator.pop(context);
-                  },
+  Widget _buildDeleteDialog(BuildContext context, int i) {
+    return Center(
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(10),
+        child: Material(
+          child: IntrinsicWidth(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Container(
+                  padding: const EdgeInsets.fromLTRB(16, 19, 16, 20),
+                  alignment: Alignment.center,
+                  color: Colors.white,
+                  child: Text(
+                    'timetable.ask_delete_tab'.tr(args: [
+                      'timetable.tab'.tr(args: [i.toString()])
+                    ]),
+                    style: TextStyle(
+                      fontSize: 12,
+                    ),
+                  ),
                 ),
-        ],
+                Row(
+                  children: [
+                    Expanded(
+                      child: GestureDetector(
+                        onTap: () => Navigator.pop(context),
+                        child: Container(
+                          height: 40,
+                          alignment: Alignment.center,
+                          color: OTLColor.grayE,
+                          child: Text(
+                            'common.cancel'.tr(),
+                            style: TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: GestureDetector(
+                        onTap: () {
+                          context.read<TimetableModel>().deleteTimetable();
+                          Navigator.pop(context);
+                        },
+                        child: Container(
+                          height: 40,
+                          alignment: Alignment.center,
+                          color: OTLColor.pinksMain,
+                          child: Text(
+                            'common.delete'.tr(),
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 12,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                )
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }

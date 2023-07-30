@@ -25,13 +25,13 @@ class _SearchTextfieldState extends State<SearchTextfield> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: grayF,
+        color: OTLColor.grayF,
         borderRadius: BorderRadius.circular(8.0),
       ),
       padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
       child: Row(
         children: [
-          Icon(CustomIcons.search, color: pinksMain, size: 24.0),
+          Icon(CustomIcons.search, color: OTLColor.pinksMain, size: 24.0),
           const SizedBox(width: 12.0),
           Expanded(
             child: TextField(
@@ -44,7 +44,7 @@ class _SearchTextfieldState extends State<SearchTextfield> {
               style: bodyRegular,
               decoration: InputDecoration(
                 hintText: "과목명, 교수님 성함 등을 검색해 보세요.",
-                hintStyle: bodyRegular.copyWith(color: grayA),
+                hintStyle: bodyRegular.copyWith(color: OTLColor.grayA),
               ),
             ),
           ),

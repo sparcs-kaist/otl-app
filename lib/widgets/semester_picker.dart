@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:otlplus/constants/color.dart';
+import 'package:otlplus/constants/text_styles.dart';
 import 'package:provider/provider.dart';
 import 'package:otlplus/extensions/semester.dart';
 import 'package:otlplus/providers/timetable_model.dart';
@@ -34,11 +36,10 @@ class _SemesterPickerState extends State<SemesterPicker> {
     return InkWell(
       onTap: widget.onTap,
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.symmetric(horizontal: 8),
         child: Text(
-          context.watch<TimetableModel>().selectedSemester.title +
-              (widget.isExamTime ? " 시험" : " 수업"),
-          style: const TextStyle(fontSize: 14.0),
+          context.watch<TimetableModel>().selectedSemester.title,
+          style: displayBold.copyWith(height: 1.448),
           textAlign: TextAlign.center,
         ),
       ),
@@ -53,14 +54,12 @@ class _SemesterPickerState extends State<SemesterPicker> {
               widget.onSemesterChanged();
             }
           : null,
-      child: Padding(
-        padding: const EdgeInsets.all(4.0),
-        child: Icon(
-          Icons.chevron_left,
-          color: context.watch<TimetableModel>().canGoPreviousSemester()
-              ? theme.iconTheme.color
-              : theme.disabledColor,
-        ),
+      child: Icon(
+        Icons.navigate_before_outlined,
+        color: context.watch<TimetableModel>().canGoPreviousSemester()
+            ? OTLColor.gray0
+            : OTLColor.grayA,
+        size: 24,
       ),
     );
   }
@@ -73,14 +72,12 @@ class _SemesterPickerState extends State<SemesterPicker> {
               widget.onSemesterChanged();
             }
           : null,
-      child: Padding(
-        padding: const EdgeInsets.all(4.0),
-        child: Icon(
-          Icons.chevron_right,
-          color: context.watch<TimetableModel>().canGoNextSemester()
-              ? theme.iconTheme.color
-              : theme.disabledColor,
-        ),
+      child: Icon(
+        Icons.navigate_next_outlined,
+        color: context.watch<TimetableModel>().canGoNextSemester()
+            ? OTLColor.gray0
+            : OTLColor.grayA,
+        size: 24,
       ),
     );
   }

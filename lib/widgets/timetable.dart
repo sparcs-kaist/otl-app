@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:otlplus/constants/color.dart';
 import 'package:otlplus/models/classtime.dart';
@@ -6,13 +7,13 @@ import 'package:otlplus/models/time.dart';
 import 'package:otlplus/widgets/timetable_block.dart';
 
 const DAYSOFWEEK = [
-  "월요일",
-  "화요일",
-  "수요일",
-  "목요일",
-  "금요일",
-  "토요일",
-  "일요일",
+  'mon',
+  'tue',
+  'wed',
+  'thu',
+  'fri',
+  'sat',
+  'sun',
 ];
 
 class Timetable extends StatelessWidget {
@@ -20,7 +21,7 @@ class Timetable extends StatelessWidget {
 
   final _lectures = List.generate(7, (i) => Map<Time, Lecture>());
 
-  final TimetableBlock Function(Lecture, int) builder;
+  final TimetableBlock Function(Lecture, int, double) builder;
   final double fontSize;
   final EdgeInsetsGeometry dividerPadding;
   final int daysCount;
@@ -30,10 +31,7 @@ class Timetable extends StatelessWidget {
       required this.builder,
       bool isExamTime = false,
       this.fontSize = 10.0,
-      this.dividerPadding = const EdgeInsets.symmetric(
-        horizontal: 1.0,
-        vertical: 10.0,
-      ),
+      this.dividerPadding = const EdgeInsets.fromLTRB(0, 6, 0, 7),
       this.daysCount = 5}) {
     if (isExamTime) {
       lectures.forEach((lecture) => lecture.examtimes
@@ -58,7 +56,7 @@ class Timetable extends StatelessWidget {
         height: _dividerHeight,
         child: Text(
           (((i / 100 - 1) % 12) + 1).toStringAsFixed(0),
-          textAlign: TextAlign.center,
+          textAlign: TextAlign.end,
           style: TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: fontSize,
@@ -72,36 +70,22 @@ class Timetable extends StatelessWidget {
         height: _dividerHeight,
         child: Text(
           (((i / 100 - 1) % 12) + 1).toStringAsFixed(0),
-          textAlign: TextAlign.center,
+          textAlign: TextAlign.end,
           style: TextStyle(fontSize: fontSize),
         ),
       );
     }
 
-    return Padding(
-      padding: dividerPadding,
-      child: Container(color: BORDER_COLOR, height: 1),
-    );
+    return SizedBox(height: _dividerHeight * 3 - 2);
   }
 
   Widget _buildHeaders() {
     return Padding(
-      padding: const EdgeInsets.only(right: 4.0),
+      padding: const EdgeInsets.fromLTRB(0, 20, 4, 0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
-        children: List.generate(((2400 - 900) / 50 + 2).toInt(), (i) {
-          if (i > 0) return _buildHeader((i - 1) * 50 + 900);
-          return Padding(
-            padding: EdgeInsets.only(bottom: dividerPadding.vertical / 2),
-            child: SizedBox(
-              width: 0,
-              child: Text(
-                "요일",
-                maxLines: 1,
-                style: TextStyle(fontSize: fontSize),
-              ),
-            ),
-          );
+        children: List.generate(((2400 - 900) / 50 + 2).toInt() - 1, (i) {
+          return _buildHeader(i * 50 + 900);
         }),
       ),
     );
@@ -110,65 +94,80 @@ class Timetable extends StatelessWidget {
   Widget _buildLectureBlock({required Lecture lecture, required Time time}) {
     final begin = time.begin / 30 - 18;
     final end = time.end / 30 - 18;
+    final top = _dividerHeight * (2 * begin + 0.5) + 1 - begin;
+    final bottom = _dividerHeight * (2 * end + 0.5) + 1 - end - 3;
 
     return Positioned(
-      top: _dividerHeight * (begin + 0.5) + 1,
+      top: top,
       left: 0,
       right: 0,
-      height: _dividerHeight * (end - begin) - 2,
+      height: bottom - top,
       child: Padding(
         padding: EdgeInsets.symmetric(
           horizontal: dividerPadding.horizontal / 3,
         ),
-        child: builder(lecture,
-            (time is Classtime) ? lecture.classtimes.indexOf(time) : 0),
+        child: builder(
+          lecture,
+          (time is Classtime) ? lecture.classtimes.indexOf(time) : 0,
+          bottom - top,
+        ),
       ),
     );
   }
 
   Widget _buildCell(int i) {
-    if (i % 600 == 0) return Container(color: BORDER_BOLD_COLOR, height: 1);
-    if (i % 100 == 0) return Container(color: BORDER_COLOR, height: 1);
-    return Row(
-      children: List.generate(
-        20,
-        (i) => Expanded(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 1.0),
-            child: Container(color: BORDER_COLOR, height: 1),
+    if (i % 100 == 0)
+      return Container(color: OTLColor.gray0.withOpacity(0.25), height: 1);
+    if (i % 50 == 0)
+      return Row(
+        children: List.generate(
+          20,
+          (i) => Expanded(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 1.0),
+              child:
+                  Container(color: OTLColor.gray0.withOpacity(0.25), height: 1),
+            ),
           ),
         ),
-      ),
-    );
+      );
+    return SizedBox();
   }
 
   Widget _buildCells() {
     return Column(
       children: List.generate(
-          ((2400 - 900) / 50 + 1).toInt(),
+          ((2400 - 900) / 25 + 1).toInt(),
           (i) => Padding(
                 padding: dividerPadding,
-                child: _buildCell(i * 50 + 900),
+                child: _buildCell(i * 25 + 900),
               )),
     );
   }
 
   Widget _buildColumn(int i) {
     return Expanded(
-      child: Column(
-        children: <Widget>[
-          Text(
-            DAYSOFWEEK[i],
-            style: TextStyle(fontSize: fontSize),
-          ),
-          Stack(
-            children: <Widget>[
-              _buildCells(),
-              ..._lectures[i].entries.map(
-                  (e) => _buildLectureBlock(lecture: e.value, time: e.key)),
-            ],
-          ),
-        ],
+      child: Padding(
+        padding: const EdgeInsets.only(left: 3),
+        child: Column(
+          children: <Widget>[
+            Container(
+              height: 20,
+              padding: const EdgeInsets.only(bottom: 3),
+              child: Text(
+                'timetable.days.${DAYSOFWEEK[i]}'.tr(),
+                style: TextStyle(fontSize: 12),
+              ),
+            ),
+            Stack(
+              children: <Widget>[
+                _buildCells(),
+                ..._lectures[i].entries.map(
+                    (e) => _buildLectureBlock(lecture: e.value, time: e.key)),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

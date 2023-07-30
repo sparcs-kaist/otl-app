@@ -49,7 +49,7 @@ class _LectureGroupBlockRowState extends State<LectureGroupBlockRow> {
           onLongPress: widget.onLongPress,
           child: Container(
             decoration: BoxDecoration(
-              color: selected ? SELECTED_COLOR : null,
+              color: selected ? OTLColor.grayD : null,
             ),
             child: Padding(
               padding: EdgeInsets.fromLTRB(2.0, 4.0, 4.0, 4.0),
@@ -121,7 +121,7 @@ class _LectureGroupBlockRowState extends State<LectureGroupBlockRow> {
                                   ? Icon(
                                       Icons.remove,
                                       size: 18.0,
-                                      color: PRIMARY_COLOR,
+                                      color: OTLColor.pinksMain,
                                     )
                                   : Icon(
                                       Icons.add,

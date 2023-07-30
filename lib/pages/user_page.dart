@@ -37,7 +37,7 @@ class UserPage extends StatelessWidget {
   }
 
   Widget _buildDivider() {
-    return Divider(color: gray0.withOpacity(0.25));
+    return Divider(color: OTLColor.gray0.withOpacity(0.25));
   }
 
   Widget _buildContent(String title, String body) {
@@ -65,9 +65,10 @@ class UserPage extends StatelessWidget {
           children: [
             SvgPicture.asset('assets/icons/my_review.svg', height: 24.0),
             const SizedBox(width: 8),
-            Text('내가 들은 과목', style: bodyBold.copyWith(color: pinksMain)),
+            Text('내가 들은 과목',
+                style: bodyBold.copyWith(color: OTLColor.pinksMain)),
             const Expanded(child: SizedBox()),
-            Icon(Icons.navigate_next, color: pinksMain),
+            Icon(Icons.navigate_next, color: OTLColor.pinksMain),
           ],
         ),
       ),
@@ -84,9 +85,10 @@ class UserPage extends StatelessWidget {
           children: [
             SvgPicture.asset('assets/icons/liked_review.svg', height: 24.0),
             const SizedBox(width: 8),
-            Text('좋아요한 후기', style: bodyBold.copyWith(color: pinksMain)),
+            Text('좋아요한 후기',
+                style: bodyBold.copyWith(color: OTLColor.pinksMain)),
             const Expanded(child: SizedBox()),
-            Icon(Icons.navigate_next, color: pinksMain),
+            Icon(Icons.navigate_next, color: OTLColor.pinksMain),
           ],
         ),
       ),
@@ -107,7 +109,7 @@ class UserPage extends StatelessWidget {
           children: [
             SvgPicture.asset('assets/icons/logout.svg', height: 24.0),
             const SizedBox(width: 8),
-            Text('로그아웃', style: bodyBold.copyWith(color: pinksMain)),
+            Text('로그아웃', style: bodyBold.copyWith(color: OTLColor.pinksMain)),
           ],
         ),
       ),

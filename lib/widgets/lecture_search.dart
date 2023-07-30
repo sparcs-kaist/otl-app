@@ -53,7 +53,8 @@ class _LectureSearchState extends State<LectureSearch> {
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                Icon(CustomIcons.search, color: PRIMARY_COLOR),
+                                Icon(CustomIcons.search,
+                                    color: OTLColor.pinksMain),
                                 SizedBox(width: 8.0),
                                 Flexible(
                                     child: context

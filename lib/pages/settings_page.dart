@@ -113,7 +113,8 @@ class SettingsPage extends StatelessWidget {
             ),
             AboutListTile(
               applicationName: "",
-              applicationIcon: Image.asset("assets/logo.png", height: 48.0),
+              applicationIcon:
+                  Image.asset("assets/images/logo.png", height: 48.0),
               aboutBoxChildren: <Widget>[
                 Text(
                   "Online Timeplanner with Lectures Plus @ KAIST",
@@ -123,7 +124,7 @@ class SettingsPage extends StatelessWidget {
                   onTap: () => launchUrl(Uri.parse("mailto:$contactEmail")),
                   child: Text(
                     contactEmail,
-                    style: bodyRegular.copyWith(color: pinksMain),
+                    style: bodyRegular.copyWith(color: OTLColor.pinksMain),
                   ),
                 )
               ],

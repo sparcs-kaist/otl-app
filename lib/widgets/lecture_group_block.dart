@@ -17,7 +17,7 @@ class LectureGroupBlock extends StatelessWidget {
         padding: const EdgeInsets.only(top: 8.0),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(4.0),
-          color: BLOCK_COLOR,
+          color: OTLColor.grayE,
         ),
         child: Text("There is no lecture."),
       );

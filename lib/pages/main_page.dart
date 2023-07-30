@@ -67,7 +67,7 @@ class MainPage extends StatelessWidget {
   }
 
   Widget _buildDivider() {
-    return Divider(color: gray0.withOpacity(0.25));
+    return Divider(color: OTLColor.gray0.withOpacity(0.25));
   }
 
   Widget _buildTextButtons(BuildContext context) {
@@ -80,7 +80,7 @@ class MainPage extends StatelessWidget {
           },
           child: Text(
             '개인정보취급방침',
-            style: labelRegular.copyWith(color: gray75),
+            style: labelRegular.copyWith(color: OTLColor.gray75),
           ),
         ),
         TextButton(
@@ -89,7 +89,7 @@ class MainPage extends StatelessWidget {
           },
           child: Text(
             '만든 사람들',
-            style: labelRegular.copyWith(color: gray75),
+            style: labelRegular.copyWith(color: OTLColor.gray75),
           ),
         ),
       ],
@@ -106,7 +106,7 @@ class MainPage extends StatelessWidget {
   Widget _buildCopyRight() {
     return Text(
       '© 2016-2023 SPARCS OTL Team',
-      style: labelRegular.copyWith(color: gray75),
+      style: labelRegular.copyWith(color: OTLColor.gray75),
     );
   }
 

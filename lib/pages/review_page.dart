@@ -104,7 +104,7 @@ class _ReviewPageState extends State<ReviewPage> {
                 StadiumBorder(),
               ),
               backgroundColor: _selectedIndex == 0
-                  ? MaterialStatePropertyAll(PRIMARY_COLOR)
+                  ? MaterialStatePropertyAll(OTLColor.pinksMain)
                   : null,
             ),
             child: Text(
@@ -124,7 +124,7 @@ class _ReviewPageState extends State<ReviewPage> {
                 StadiumBorder(),
               ),
               backgroundColor: _selectedIndex == 1
-                  ? MaterialStatePropertyAll(PRIMARY_COLOR)
+                  ? MaterialStatePropertyAll(OTLColor.pinksMain)
                   : null,
             ),
             onPressed: () {
@@ -172,7 +172,7 @@ class _ReviewPageState extends State<ReviewPage> {
                     '${_targetSemesters[index].year} ${_targetSemesters[index].semester == 1 ? 'Spring' : 'Fall'}',
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      color: _isSelected ? PRIMARY_COLOR : Colors.black,
+                      color: _isSelected ? OTLColor.pinksMain : Colors.black,
                       fontWeight: FontWeight.normal,
                       fontSize: 12.0,
                     ),
@@ -180,7 +180,7 @@ class _ReviewPageState extends State<ReviewPage> {
                   style: ButtonStyle(
                     backgroundColor: MaterialStatePropertyAll(
                       _isSelected
-                          ? PRIMARY_COLOR.withOpacity(0.2)
+                          ? OTLColor.pinksMain.withOpacity(0.2)
                           : Colors.grey.shade200,
                     ),
                     shape: MaterialStatePropertyAll(
