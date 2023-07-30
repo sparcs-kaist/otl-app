@@ -49,7 +49,8 @@ class TimetableBlock extends StatelessWidget {
         constraints: BoxConstraints(maxHeight: height - 16 - singleHeight),
         child: Text(
           title,
-          style: labelRegular,
+          style: labelRegular.copyWith(
+              color: isTemp ? OTLColor.grayF : OTLColor.gray0),
         ),
       ));
     }
@@ -71,7 +72,7 @@ class TimetableBlock extends StatelessWidget {
           child: Text(
             classroomShort,
             style: labelRegular.copyWith(
-              color: OTLColor.gray6,
+              color: isTemp ? OTLColor.grayE : OTLColor.gray6,
               overflow: TextOverflow.ellipsis,
             ),
             maxLines: maxLines > 1 ? maxLines : 1,

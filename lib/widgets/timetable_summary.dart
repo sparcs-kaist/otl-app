@@ -178,13 +178,15 @@ class TimetableSummary extends StatelessWidget {
             Expanded(
               child: Text(
                 content,
-                style: titleBold,
+                style: titleBold.copyWith(
+                    color: highlight ? OTLColor.pinksMain : OTLColor.gray0),
                 textAlign: TextAlign.center,
               ),
             ),
             Text(
               title,
-              style: labelRegular,
+              style: labelRegular.copyWith(
+                  color: highlight ? OTLColor.pinksMain : OTLColor.gray0),
               textAlign: TextAlign.center,
               maxLines: 1,
             ),
