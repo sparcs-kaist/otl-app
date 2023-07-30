@@ -21,13 +21,13 @@ class ReviewBlock extends StatefulWidget {
 
 class _ReviewBlockState extends State<ReviewBlock> {
   late int _like;
-  late bool _canUpload;
+  late bool _liked;
 
   @override
   void initState() {
     super.initState();
     _like = widget.review.like;
-    _canUpload = !widget.review.userspecificIsLiked;
+    _liked = widget.review.userspecificIsLiked;
   }
 
   @override
@@ -125,12 +125,12 @@ class _ReviewBlockState extends State<ReviewBlock> {
                   Material(
                     color: Colors.transparent,
                     child: InkWell(
-                      onTap: _canUpload ? _uploadLike : null,
+                      onTap: _liked ? _uploadCancel : _uploadLike,
                       child: Text(
-                        "review.like".tr(),
+                        _liked ? "common.cancel".tr() : "review.like".tr(),
                         style: labelRegular.copyWith(
                           color:
-                              _canUpload ? OTLColor.pinksMain : OTLColor.grayA,
+                              _liked ? OTLColor.pinksMain : OTLColor.pinksMain,
                         ),
                       ),
                     ),
@@ -158,10 +158,21 @@ class _ReviewBlockState extends State<ReviewBlock> {
   Future<void> _uploadLike() async {
     setState(() {
       _like++;
-      _canUpload = false;
+      _liked = true;
     });
 
     await DioProvider().dio.post(
+        API_REVIEW_LIKE_URL.replaceFirst("{id}", widget.review.id.toString()),
+        data: {});
+  }
+
+  Future<void> _uploadCancel() async {
+    setState(() {
+      _like--;
+      _liked = false;
+    });
+
+    await DioProvider().dio.delete(
         API_REVIEW_LIKE_URL.replaceFirst("{id}", widget.review.id.toString()),
         data: {});
   }
