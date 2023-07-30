@@ -40,6 +40,7 @@ class TimetableBlock extends StatelessWidget {
     final contents = <Widget>[];
     final validHeight = height - 16;
     final lineHeight = singleHeight(context, labelRegular);
+    int maxLines = (validHeight - lineHeight) ~/ lineHeight;
     final isKo = context.locale == Locale('ko');
     final title = isKo ? lecture.title : lecture.titleEn;
     final classroomShort = isKo
@@ -53,7 +54,7 @@ class TimetableBlock extends StatelessWidget {
           color: isTemp ? OTLColor.grayF : OTLColor.gray0,
           overflow: TextOverflow.ellipsis,
         ),
-        maxLines: (validHeight - lineHeight) ~/ lineHeight,
+        maxLines: maxLines > 1 ? maxLines : 1,
       ));
     }
 
@@ -62,7 +63,7 @@ class TimetableBlock extends StatelessWidget {
     }
 
     if (showClassroom) {
-      final maxLines = (validHeight -
+      maxLines = (validHeight -
               getTextHeight(context,
                   text: title, style: labelRegular, maxWidth: 54)) ~/
           lineHeight;
