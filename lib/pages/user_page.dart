@@ -65,7 +65,8 @@ class UserPage extends StatelessWidget {
           children: [
             SvgPicture.asset('assets/icons/my_review.svg', height: 24.0),
             const SizedBox(width: 8),
-            Text('내가 들은 과목', style: bodyBold.copyWith(color: OTLColor.pinksMain)),
+            Text('내가 들은 과목',
+                style: bodyBold.copyWith(color: OTLColor.pinksMain)),
             const Expanded(child: SizedBox()),
             Icon(Icons.navigate_next, color: OTLColor.pinksMain),
           ],
@@ -84,7 +85,8 @@ class UserPage extends StatelessWidget {
           children: [
             SvgPicture.asset('assets/icons/liked_review.svg', height: 24.0),
             const SizedBox(width: 8),
-            Text('좋아요한 후기', style: bodyBold.copyWith(color: OTLColor.pinksMain)),
+            Text('좋아요한 후기',
+                style: bodyBold.copyWith(color: OTLColor.pinksMain)),
             const Expanded(child: SizedBox()),
             Icon(Icons.navigate_next, color: OTLColor.pinksMain),
           ],

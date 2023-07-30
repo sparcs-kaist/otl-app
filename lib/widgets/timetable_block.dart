@@ -40,13 +40,13 @@ class TimetableBlock extends StatelessWidget {
     final singleHeight = labelRegular.fontSize! * labelRegular.height!;
     final isKo = context.locale == Locale('ko');
     final title = isKo ? lecture.title : lecture.titleEn;
-    final classroomShort = isKo ? lecture.classtimes[classTimeIndex].classroomShort : lecture.classtimes[classTimeIndex].classroomShortEn;
+    final classroomShort = isKo
+        ? lecture.classtimes[classTimeIndex].classroomShort
+        : lecture.classtimes[classTimeIndex].classroomShortEn;
 
     if (showTitle) {
       contents.add(ConstrainedBox(
-        constraints: BoxConstraints(
-            maxHeight:
-                height - 16 - singleHeight),
+        constraints: BoxConstraints(maxHeight: height - 16 - singleHeight),
         child: Text(
           title,
           style: labelRegular,

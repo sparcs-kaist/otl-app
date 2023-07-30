@@ -99,7 +99,8 @@ class OTLFirebaseApp extends StatelessWidget {
       }
     } on Error {}
 
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(statusBarColor: Colors.transparent));
+    SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle(statusBarColor: Colors.transparent));
 
     return MaterialApp(
       localizationsDelegates: context.localizationDelegates,

@@ -31,7 +31,8 @@ PreferredSizeWidget buildAppBar(
             ),
           ]
         : null,
-    flexibleSpace: SafeArea(child: Container(color: OTLColor.pinksMain, height: 5.0)),
+    flexibleSpace:
+        SafeArea(child: Container(color: OTLColor.pinksMain, height: 5.0)),
     toolbarHeight: kToolbarHeight + 5.0,
     backgroundColor: OTLColor.pinksLight,
     foregroundColor: OTLColor.gray0,

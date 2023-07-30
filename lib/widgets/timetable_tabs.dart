@@ -68,8 +68,11 @@ class _TimetableTabsState extends State<TimetableTabs> {
     }
 
     Text text = Text(
-      i == 0 ? 'timetable.my_tab'.tr() : 'timetable.tab'.tr(args: [i.toString()]),
-      style: bodyBold.copyWith(color: i == _index ? OTLColor.grayF : OTLColor.gray0),
+      i == 0
+          ? 'timetable.my_tab'.tr()
+          : 'timetable.tab'.tr(args: [i.toString()]),
+      style: bodyBold.copyWith(
+          color: i == _index ? OTLColor.grayF : OTLColor.gray0),
       textAlign: TextAlign.center,
     );
 
@@ -180,14 +183,18 @@ abstract class MenuItems {
     //syllabus,
   ];
 
-  static final copy = MenuItem(text: 'timetable.tab_menu.copy'.tr(), icon: Icons.copy);
-  static final exportToImg =
-      MenuItem(text: 'timetable.tab_menu.export_img'.tr(), icon: Icons.image_outlined);
-  static final exportToCal =
-      MenuItem(text: 'timetable.tab_menu.export_cal'.tr(), icon: Icons.calendar_today_outlined);
-  static final syllabus =
-      MenuItem(text: 'timetable.tab_menu.syllabus'.tr(), icon: Icons.sticky_note_2_outlined);
-  static final delete = MenuItem(text: 'timetable.tab_menu.delete'.tr(), icon: Icons.delete_outlined);
+  static final copy =
+      MenuItem(text: 'timetable.tab_menu.copy'.tr(), icon: Icons.copy);
+  static final exportToImg = MenuItem(
+      text: 'timetable.tab_menu.export_img'.tr(), icon: Icons.image_outlined);
+  static final exportToCal = MenuItem(
+      text: 'timetable.tab_menu.export_cal'.tr(),
+      icon: Icons.calendar_today_outlined);
+  static final syllabus = MenuItem(
+      text: 'timetable.tab_menu.syllabus'.tr(),
+      icon: Icons.sticky_note_2_outlined);
+  static final delete = MenuItem(
+      text: 'timetable.tab_menu.delete'.tr(), icon: Icons.delete_outlined);
 
   static Widget buildItem(MenuItem item, bool isLast) {
     Color color = item == delete ? OTLColor.red : OTLColor.grayF;
