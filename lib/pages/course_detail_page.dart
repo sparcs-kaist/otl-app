@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:otlplus/constants/text_styles.dart';
 import 'package:otlplus/models/review.dart';
 import 'package:otlplus/utils/build_app_bar.dart';
+import 'package:otlplus/utils/responsive_button.dart';
 import 'package:provider/provider.dart';
 import 'package:otlplus/constants/color.dart';
 import 'package:otlplus/extensions/course.dart';
@@ -95,32 +96,29 @@ class CourseDetailPage extends StatelessWidget {
     return SliverPersistentHeader(
       pinned: true,
       delegate: CustomHeaderDelegate(
-        height: 24.0,
-        padding: const EdgeInsets.only(bottom: 4.0),
-        onTap: (shrinkOffset) async {
-          if (shrinkOffset > 0) {
-            _scrollController.animateTo(0,
-                duration: const Duration(milliseconds: 300),
-                curve: Curves.easeInOut);
-          } else {
-            await Scrollable.ensureVisible(headerKey.currentContext!,
-                duration: const Duration(milliseconds: 300),
-                curve: Curves.easeInOut);
-            _scrollController.jumpTo(_scrollController.offset + 2);
-          }
-        },
-        builder: (shrinkOffset) => Row(
-          key: headerKey,
-          children: <Widget>[
-            Text("dictionary.reviews".tr(), style: bodyBold),
-            FittedBox(
-              child: (shrinkOffset > 0)
-                  ? const Icon(Icons.keyboard_arrow_up)
-                  : const Icon(Icons.keyboard_arrow_down),
-            ),
-          ],
-        ),
-      ),
+          height: 24.0,
+          padding: const EdgeInsets.only(bottom: 4.0),
+          builder: (shrinkOffset) => IconTextButton(
+              direction: 'row-reversed',
+              padding: EdgeInsets.zero,
+              onTap: () async {
+                if (shrinkOffset > 0) {
+                  _scrollController.animateTo(0,
+                      duration: const Duration(milliseconds: 300),
+                      curve: Curves.easeInOut);
+                } else {
+                  await Scrollable.ensureVisible(headerKey.currentContext!,
+                      duration: const Duration(milliseconds: 300),
+                      curve: Curves.easeInOut);
+                  _scrollController.jumpTo(_scrollController.offset + 2);
+                }
+              },
+              key: headerKey,
+              text: "dictionary.reviews".tr(),
+              textStyle: bodyBold,
+              icon: (shrinkOffset > 0)
+                  ? Icons.keyboard_arrow_up
+                  : Icons.keyboard_arrow_down)),
     );
   }
 

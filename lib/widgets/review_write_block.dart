@@ -8,6 +8,7 @@ import 'package:otlplus/constants/url.dart';
 import 'package:otlplus/dio_provider.dart';
 import 'package:otlplus/models/lecture.dart';
 import 'package:otlplus/models/review.dart';
+import 'package:otlplus/utils/responsive_button.dart';
 
 class ReviewWriteBlock extends StatefulWidget {
   final Lecture lecture;
@@ -143,25 +144,17 @@ class _ReviewWriteBlockState extends State<ReviewWriteBlock> {
             _buildScore("성적"),
             _buildScore("널널"),
             _buildScore("강의"),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: <Widget>[
-                Material(
-                  color: Colors.transparent,
-                  child: InkWell(
-                    onTap: _canUpload() ? _uploadReview : null,
-                    child: Text(
-                      (widget.existingReview == null)
-                          ? "common.upload".tr()
-                          : "common.edit".tr(),
-                      style: labelRegular.copyWith(
-                        color:
-                            _canUpload() ? OTLColor.pinksMain : OTLColor.grayA,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
+            Align(
+              alignment: Alignment.bottomRight,
+              child: IconTextButton(
+                padding: EdgeInsets.zero,
+                color: _canUpload() ? OTLColor.pinksMain : OTLColor.grayA,
+                text: (widget.existingReview == null)
+                    ? "common.upload".tr()
+                    : "common.edit".tr(),
+                onTap: _canUpload() ? _uploadReview : null,
+                textStyle: labelRegular,
+              ),
             ),
           ],
         ),
@@ -255,26 +248,22 @@ class _ReviewWriteBlockState extends State<ReviewWriteBlock> {
     return Padding(
       padding: const EdgeInsets.only(left: 4.0),
       child: ClipOval(
-        child: Container(
-          width: 24.0,
-          height: 24.0,
+        child: BackgroundButton(
           color: (_scores[type] == score) ? OTLColor.pinksSub : OTLColor.grayD,
-          child: Material(
-            color: Colors.transparent,
-            child: InkWell(
-              onTap: () {
-                setState(() {
-                  _scores[type] = (_scores[type] == score) ? 0 : score;
-                });
-              },
-              child: Center(
-                child: Text(
-                  ["?", "F", "D", "C", "B", "A"][score],
-                  style: labelBold.copyWith(
-                    color: _scores[type] == score
-                        ? OTLColor.gray0
-                        : OTLColor.grayF,
-                  ),
+          onTap: () {
+            setState(() {
+              _scores[type] = (_scores[type] == score) ? 0 : score;
+            });
+          },
+          child: SizedBox(
+            width: 24.0,
+            height: 24.0,
+            child: Center(
+              child: Text(
+                ["?", "F", "D", "C", "B", "A"][score],
+                style: labelBold.copyWith(
+                  color:
+                      _scores[type] == score ? OTLColor.gray0 : OTLColor.grayF,
                 ),
               ),
             ),

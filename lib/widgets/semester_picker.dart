@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:otlplus/constants/color.dart';
 import 'package:otlplus/constants/text_styles.dart';
+import 'package:otlplus/utils/responsive_button.dart';
 import 'package:provider/provider.dart';
 import 'package:otlplus/extensions/semester.dart';
 import 'package:otlplus/providers/timetable_model.dart';
@@ -33,52 +34,49 @@ class _SemesterPickerState extends State<SemesterPicker> {
   }
 
   Widget _buildTitle(BuildContext context) {
-    return InkWell(
+    return IconTextButton(
       onTap: widget.onTap,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8),
-        child: Text(
-          context.watch<TimetableModel>().selectedSemester.title,
-          style: displayBold.copyWith(height: 1.448),
-          textAlign: TextAlign.center,
-        ),
-      ),
+      padding: const EdgeInsets.all(8.0),
+      text: context.watch<TimetableModel>().selectedSemester.title,
+      textStyle: displayBold.copyWith(height: 1.448),
     );
   }
 
   Widget _buildLeftButton(ThemeData theme) {
-    return InkWell(
-      onTap: context.watch<TimetableModel>().canGoPreviousSemester()
-          ? () {
-              context.read<TimetableModel>().goPreviousSemester();
-              widget.onSemesterChanged();
-            }
-          : null,
-      child: Icon(
-        Icons.navigate_before_outlined,
+    return IconTextButton(
+        onTap: context.watch<TimetableModel>().canGoPreviousSemester()
+            ? () {
+                context.read<TimetableModel>().goPreviousSemester();
+                widget.onSemesterChanged();
+              }
+            : null,
+        icon: Icons.navigate_before_outlined,
+        iconSize: 24,
         color: context.watch<TimetableModel>().canGoPreviousSemester()
             ? OTLColor.gray0
             : OTLColor.grayA,
-        size: 24,
-      ),
-    );
+        padding: const EdgeInsets.all(4.0),
+        tapEffect: context.watch<TimetableModel>().canGoNextSemester()
+            ? 'lighten'
+            : 'none');
   }
 
   Widget _buildRightButton(ThemeData theme) {
-    return InkWell(
-      onTap: context.watch<TimetableModel>().canGoNextSemester()
-          ? () {
-              context.read<TimetableModel>().goNextSemester();
-              widget.onSemesterChanged();
-            }
-          : null,
-      child: Icon(
-        Icons.navigate_next_outlined,
+    return IconTextButton(
+        onTap: context.watch<TimetableModel>().canGoNextSemester()
+            ? () {
+                context.read<TimetableModel>().goNextSemester();
+                widget.onSemesterChanged();
+              }
+            : null,
+        icon: Icons.navigate_next_outlined,
+        iconSize: 24,
         color: context.watch<TimetableModel>().canGoNextSemester()
             ? OTLColor.gray0
             : OTLColor.grayA,
-        size: 24,
-      ),
-    );
+        padding: const EdgeInsets.all(4.0),
+        tapEffect: context.watch<TimetableModel>().canGoNextSemester()
+            ? 'lighten'
+            : 'none');
   }
 }

@@ -4,6 +4,7 @@ import 'package:otlplus/constants/color.dart';
 import 'package:otlplus/constants/text_styles.dart';
 import 'package:otlplus/extensions/course.dart';
 import 'package:otlplus/models/course.dart';
+import 'package:otlplus/utils/responsive_button.dart';
 
 class CourseBlock extends StatelessWidget {
   final Course course;
@@ -15,80 +16,74 @@ class CourseBlock extends StatelessWidget {
   Widget build(BuildContext context) {
     final isEn = EasyLocalization.of(context)?.currentLocale == Locale('en');
 
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(4.0),
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(4.0),
+      child: BackgroundButton(
         color: OTLColor.grayE,
-      ),
-      child: Material(
-        color: Colors.transparent,
-        child: InkWell(
-          borderRadius: BorderRadius.circular(4.0),
-          onTap: onTap,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 10.0,
-              vertical: 8.0,
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: <Widget>[
-                Text.rich(
-                  TextSpan(
-                    children: <TextSpan>[
-                      TextSpan(
-                        text: isEn ? course.titleEn : course.title,
-                        style: bodyBold,
-                      ),
-                      const TextSpan(text: " "),
-                      TextSpan(text: course.oldCode, style: bodyRegular),
-                    ],
+        onTap: onTap,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 10.0,
+            vertical: 8.0,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              Text.rich(
+                TextSpan(
+                  children: <TextSpan>[
+                    TextSpan(
+                      text: isEn ? course.titleEn : course.title,
+                      style: bodyBold,
+                    ),
+                    const TextSpan(text: " "),
+                    TextSpan(text: course.oldCode, style: bodyRegular),
+                  ],
+                ),
+              ),
+              _buildDivider(),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text("dictionary.type".tr(), style: labelBold),
+                  const SizedBox(width: 8.0),
+                  Expanded(
+                    child: Text(
+                      "${isEn ? course.department?.nameEn : course.department?.name}, ${isEn ? course.typeEn : course.type}",
+                      style: labelRegular,
+                    ),
                   ),
-                ),
-                _buildDivider(),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text("dictionary.type".tr(), style: labelBold),
-                    const SizedBox(width: 8.0),
-                    Expanded(
-                      child: Text(
-                        "${isEn ? course.department?.nameEn : course.department?.name}, ${isEn ? course.typeEn : course.type}",
-                        style: labelRegular,
-                      ),
+                ],
+              ),
+              const SizedBox(height: 4.0),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text("dictionary.professors".tr(), style: labelBold),
+                  const SizedBox(width: 8.0),
+                  Expanded(
+                    child: Text(
+                      isEn ? course.professorsStrEn : course.professorsStr,
+                      style: labelRegular,
                     ),
-                  ],
-                ),
-                const SizedBox(height: 4.0),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text("dictionary.professors".tr(), style: labelBold),
-                    const SizedBox(width: 8.0),
-                    Expanded(
-                      child: Text(
-                        isEn ? course.professorsStrEn : course.professorsStr,
-                        style: labelRegular,
-                      ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 4.0),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text("dictionary.description".tr(), style: labelBold),
+                  const SizedBox(width: 8.0),
+                  Expanded(
+                    child: Text(
+                      course.summary,
+                      style: labelRegular,
                     ),
-                  ],
-                ),
-                const SizedBox(height: 4.0),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text("dictionary.description".tr(), style: labelBold),
-                    const SizedBox(width: 8.0),
-                    Expanded(
-                      child: Text(
-                        course.summary,
-                        style: labelRegular,
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
+                  ),
+                ],
+              ),
+            ],
           ),
         ),
       ),

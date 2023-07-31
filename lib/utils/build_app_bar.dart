@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:otlplus/constants/color.dart';
 import 'package:otlplus/constants/text_styles.dart';
+import 'package:otlplus/utils/responsive_button.dart';
 
 PreferredSizeWidget buildAppBar(
   BuildContext context,
@@ -13,21 +14,23 @@ PreferredSizeWidget buildAppBar(
     title: appBarPadding(Text(title.tr(), style: titleBold)),
     leading: isLeading
         ? appBarPadding(
-            IconButton(
-              onPressed: () => Navigator.pop(context),
-              icon: const Icon(Icons.navigate_before),
+            IconTextButton(
+              onTap: () => Navigator.pop(context),
+              icon: Icons.navigate_before,
+              padding: EdgeInsets.all(16),
             ),
           )
         : null,
     actions: isActions
         ? <Widget>[
             appBarPadding(
-              IconButton(
-                icon: const Icon(Icons.close),
-                onPressed: () => Navigator.popUntil(
+              IconTextButton(
+                icon: Icons.close,
+                onTap: () => Navigator.popUntil(
                   context,
                   (route) => route.isFirst,
                 ),
+                padding: EdgeInsets.all(16),
               ),
             ),
           ]

@@ -142,7 +142,7 @@ class LectureSearchModel extends ChangeNotifier {
                 .map((i) => i.label)))).values.expand((i) => i).toList();
     _lectureSearchquery = Text.rich(
       TextSpan(
-        style: bodyRegular.copyWith(color: OTLColor.grayA),
+        style: bodyRegular.copyWith(color: OTLColor.grayA, height: 1.24),
         children: [
           TextSpan(
             text: _lectureSearchText.isEmpty ? '' : '"$_lectureSearchText"',

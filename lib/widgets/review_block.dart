@@ -6,6 +6,7 @@ import 'package:otlplus/constants/url.dart';
 import 'package:otlplus/dio_provider.dart';
 import 'package:otlplus/extensions/review.dart';
 import 'package:otlplus/models/review.dart';
+import 'package:otlplus/utils/responsive_button.dart';
 import 'package:otlplus/widgets/expandable_text.dart';
 
 class ReviewBlock extends StatefulWidget {
@@ -35,131 +36,125 @@ class _ReviewBlockState extends State<ReviewBlock> {
     String content = widget.review.content;
     final isEn = EasyLocalization.of(context)?.currentLocale == Locale('en');
 
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
-      margin: const EdgeInsets.only(bottom: 8.0),
-      decoration: BoxDecoration(
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8.0),
+      child: ClipRRect(
         borderRadius: BorderRadius.circular(4.0),
-        color: OTLColor.grayE,
-      ),
-      child: Material(
-        color: Colors.transparent,
-        child: InkWell(
-          borderRadius: BorderRadius.circular(4.0),
-          onTap: widget.onTap,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              Text.rich(
-                TextSpan(
-                  style: bodyRegular,
-                  children: <TextSpan>[
-                    TextSpan(
-                      text: isEn
-                          ? widget.review.lecture.titleEn
-                          : widget.review.lecture.title,
-                      style: bodyBold,
-                    ),
-                    const TextSpan(text: " "),
-                    TextSpan(
-                        text: widget.review.lecture.professors
-                            .map(
-                              (professor) => isEn
-                                  ? (professor.nameEn == ''
-                                      ? professor.name
-                                      : professor.nameEn)
-                                  : professor.name,
-                            )
-                            .join(" ")),
-                    const TextSpan(text: " "),
-                    TextSpan(text: widget.review.lecture.year.toString()),
-                    const TextSpan(text: " "),
-                    TextSpan(
-                      text: [
-                        "",
-                        "semester.spring".tr(),
-                        "semester.summer".tr(),
-                        "semester.fall".tr(),
-                        "semester.winter".tr(),
-                      ][widget.review.lecture.semester],
-                    ),
-                  ],
-                ),
-              ),
-              ExpandableText(
-                content.trim(),
-                maxLines: widget.maxLines,
-                style: bodyRegular.copyWith(color: OTLColor.gray0),
-              ),
-              const SizedBox(height: 6.0),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: <Widget>[
-                  Text.rich(
-                    TextSpan(
-                      style: labelRegular,
-                      children: <TextSpan>[
-                        TextSpan(text: "review.likes".tr()),
-                        const TextSpan(text: " "),
-                        TextSpan(text: _like.toString(), style: labelBold),
-                        const TextSpan(text: "  "),
-                        TextSpan(text: "review.grade".tr()),
-                        const TextSpan(text: " "),
-                        TextSpan(
-                            text: widget.review.gradeLetter, style: labelBold),
-                        const TextSpan(text: "  "),
-                        TextSpan(text: "review.load".tr()),
-                        const TextSpan(text: " "),
-                        TextSpan(
-                            text: widget.review.loadLetter, style: labelBold),
-                        const TextSpan(text: "  "),
-                        TextSpan(text: "review.speech".tr()),
-                        const TextSpan(text: " "),
-                        TextSpan(
-                            text: widget.review.speechLetter, style: labelBold),
-                      ],
-                    ),
-                  ),
-                  const Spacer(),
-                  Material(
-                    color: Colors.transparent,
-                    child: InkWell(
-                      onTap: _liked ? _uploadCancel : _uploadLike,
-                      child: Row(
-                        children: [
-                          Icon(
-                            _liked ? Icons.favorite : Icons.favorite_border,
-                            color: OTLColor.pinksMain,
-                            size: 16.0,
+        child: Stack(
+          alignment: Alignment.bottomRight,
+          children: [
+            BackgroundButton(
+              color: OTLColor.grayE,
+              onTap: widget.onTap,
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: <Widget>[
+                    Text.rich(
+                      TextSpan(
+                        style: bodyRegular,
+                        children: <TextSpan>[
+                          TextSpan(
+                            text: isEn
+                                ? widget.review.lecture.titleEn
+                                : widget.review.lecture.title,
+                            style: bodyBold,
                           ),
-                          const SizedBox(width: 2.0),
-                          Text(
-                            _liked ? "review.likes".tr() : "review.likes".tr(),
-                            style: labelRegular.copyWith(
-                              color: _liked
-                                  ? OTLColor.pinksMain
-                                  : OTLColor.pinksMain,
-                            ),
+                          const TextSpan(text: " "),
+                          TextSpan(
+                              text: widget.review.lecture.professors
+                                  .map(
+                                    (professor) => isEn
+                                        ? (professor.nameEn == ''
+                                            ? professor.name
+                                            : professor.nameEn)
+                                        : professor.name,
+                                  )
+                                  .join(" ")),
+                          const TextSpan(text: " "),
+                          TextSpan(text: widget.review.lecture.year.toString()),
+                          const TextSpan(text: " "),
+                          TextSpan(
+                            text: [
+                              "",
+                              "semester.spring".tr(),
+                              "semester.summer".tr(),
+                              "semester.fall".tr(),
+                              "semester.winter".tr(),
+                            ][widget.review.lecture.semester],
                           ),
                         ],
                       ),
                     ),
-                  ),
-                  const SizedBox(width: 6.0),
-                  Material(
-                    color: Colors.transparent,
-                    child: InkWell(
-                      onTap: _report,
-                      child: Text(
-                        "review.report".tr(),
-                        style: labelRegular.copyWith(color: OTLColor.gray5),
-                      ),
+                    ExpandableText(
+                      content.trim(),
+                      maxLines: widget.maxLines,
+                      style: bodyRegular.copyWith(color: OTLColor.gray0),
                     ),
-                  ),
-                ],
+                    const SizedBox(height: 6.0),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: <Widget>[
+                        Text.rich(
+                          TextSpan(
+                            style: labelRegular,
+                            children: <TextSpan>[
+                              TextSpan(text: "review.likes".tr()),
+                              const TextSpan(text: " "),
+                              TextSpan(
+                                  text: _like.toString(), style: labelBold),
+                              const TextSpan(text: "  "),
+                              TextSpan(text: "review.grade".tr()),
+                              const TextSpan(text: " "),
+                              TextSpan(
+                                  text: widget.review.gradeLetter,
+                                  style: labelBold),
+                              const TextSpan(text: "  "),
+                              TextSpan(text: "review.load".tr()),
+                              const TextSpan(text: " "),
+                              TextSpan(
+                                  text: widget.review.loadLetter,
+                                  style: labelBold),
+                              const TextSpan(text: "  "),
+                              TextSpan(text: "review.speech".tr()),
+                              const TextSpan(text: " "),
+                              TextSpan(
+                                  text: widget.review.speechLetter,
+                                  style: labelBold),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
-            ],
-          ),
+            ),
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                IconTextButton(
+                  color: OTLColor.pinksMain,
+                  iconSize: 12.0,
+                  icon: _liked ? Icons.favorite : Icons.favorite_border,
+                  spaceBetween: 2.0,
+                  text: _liked ? "review.likes".tr() : "review.likes".tr(),
+                  textStyle: labelRegular,
+                  padding: EdgeInsets.fromLTRB(3, 8, 10, 8),
+                  onTap: _liked ? _uploadCancel : _uploadLike,
+                ),
+                IconTextButton(
+                  color: OTLColor.gray5,
+                  text: "review.report".tr(),
+                  textStyle: labelRegular,
+                  onTap: _report,
+                  padding: EdgeInsets.fromLTRB(3, 8, 10, 8),
+                )
+              ],
+            )
+          ],
         ),
       ),
     );

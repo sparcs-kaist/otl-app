@@ -1,9 +1,10 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:otlplus/constants/color.dart';
 import 'package:otlplus/extensions/lecture.dart';
 import 'package:otlplus/models/lecture.dart';
 import 'package:otlplus/providers/lecture_search_model.dart';
+import 'package:otlplus/utils/responsive_button.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/timetable_model.dart';
@@ -90,20 +91,16 @@ class _LectureGroupBlockRowState extends State<LectureGroupBlockRow> {
                         mainAxisAlignment: MainAxisAlignment.end,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          GestureDetector(
+                          IconTextButton(
+                            icon: 'assets/icons/info.svg',
+                            iconSize: 20.0,
                             onTap: widget.onLongPress,
-                            child: Center(
-                              child: SvgPicture.asset('assets/icons/info.svg',
-                                  height: 20.0,
-                                  width: 20,
-                                  colorFilter: ColorFilter.mode(
-                                      Color(0xFF000000), BlendMode.srcIn)),
-                            ),
+                            color: Color(0xFF000000),
                           ),
                           SizedBox(
                             width: 6.0,
                           ),
-                          GestureDetector(
+                          IconTextButton(
                             onTap: () {
                               if (alreadyAdded) {
                                 _removeLecture(widget.lecture);
@@ -111,17 +108,13 @@ class _LectureGroupBlockRowState extends State<LectureGroupBlockRow> {
                                 _addLecture(widget.lecture);
                               }
                             },
-                            child: alreadyAdded
-                                ? Icon(
-                                    Icons.remove,
-                                    size: 24.0,
-                                    color: OTLColor.pinksMain,
-                                  )
-                                : SvgPicture.asset('assets/icons/add.svg',
-                                    height: 24.0,
-                                    width: 24,
-                                    colorFilter: ColorFilter.mode(
-                                        Color(0xFF000000), BlendMode.srcIn)),
+                            icon: alreadyAdded
+                                ? Icons.remove
+                                : 'assets/icons/add.svg',
+                            iconSize: 24,
+                            color: alreadyAdded
+                                ? OTLColor.pinksMain
+                                : Color(0xFF000000),
                           )
                         ],
                       ),
@@ -149,16 +142,20 @@ class _LectureGroupBlockRowState extends State<LectureGroupBlockRow> {
                 content: const Text(
                     "시간이 겹치는 수업이 있습니다. 추가하시면 해당 수업은 삭제됩니다.\n시간표에 추가하시겠습니까?"),
                 actions: [
-                  TextButton(
-                    child: const Text("취소"),
-                    onPressed: () {
+                  IconTextButton(
+                    padding: EdgeInsets.all(12),
+                    text: 'common.cancel'.tr(),
+                    color: OTLColor.pinksMain,
+                    onTap: () {
                       result = false;
                       Navigator.pop(context);
                     },
                   ),
-                  TextButton(
-                    child: const Text("추가하기"),
-                    onPressed: () {
+                  IconTextButton(
+                    padding: EdgeInsets.all(12),
+                    text: 'common.add'.tr(),
+                    color: OTLColor.pinksMain,
+                    onTap: () {
                       result = true;
                       Navigator.pop(context);
                     },

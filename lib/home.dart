@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:otlplus/providers/hall_of_fame_model.dart';
+import 'package:otlplus/providers/course_search_model.dart';
 import 'package:otlplus/providers/lecture_search_model.dart';
 import 'package:otlplus/providers/timetable_model.dart';
 import 'package:otlplus/utils/build_app_bar.dart';
 import 'package:otlplus/utils/build_page_route.dart';
-import 'package:otlplus/providers/course_search_model.dart';
 import 'package:otlplus/widgets/hall_of_fame_control.dart';
 import 'package:otlplus/widgets/review_mode_control.dart';
 import 'package:otlplus/widgets/timetable_mode_control.dart';
+import 'package:otlplus/utils/responsive_button.dart';
 import 'package:otlplus/widgets/pop_up.dart';
 import 'package:otlplus/widgets/semester_picker.dart';
 import 'package:provider/provider.dart';
@@ -131,14 +132,12 @@ class _OTLHomeState extends State<OTLHome> with SingleTickerProviderStateMixin {
 
   PreferredSizeWidget _buildDictionaryAppBar() {
     return AppBar(
-      title: appBarPadding(
-        GestureDetector(
+      title: appBarPadding(ClipRRect(
+        borderRadius: BorderRadius.circular(8.0),
+        child: BackgroundButton(
+          tapEffectColorRatio: 0.04,
           onTap: () => Navigator.push(context, buildCourseSearchPageRoute()),
-          child: Container(
-            decoration: BoxDecoration(
-              color: OTLColor.grayF,
-              borderRadius: BorderRadius.circular(8.0),
-            ),
+          child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
             child: Row(
               children: [
@@ -154,8 +153,9 @@ class _OTLHomeState extends State<OTLHome> with SingleTickerProviderStateMixin {
               ],
             ),
           ),
+          color: OTLColor.grayF,
         ),
-      ),
+      )),
       flexibleSpace:
           SafeArea(child: Container(color: OTLColor.pinksMain, height: 5.0)),
       toolbarHeight: kToolbarHeight + 5.0,
@@ -259,6 +259,9 @@ class _OTLHomeState extends State<OTLHome> with SingleTickerProviderStateMixin {
 
   BottomNavigationBar _buildBottomNavigationBar() {
     return BottomNavigationBar(
+      selectedFontSize: 12.0,
+      unselectedFontSize: 12.0,
+      enableFeedback: false,
       currentIndex: _currentIndex,
       type: BottomNavigationBarType.fixed,
       showSelectedLabels: true,
