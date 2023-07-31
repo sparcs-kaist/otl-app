@@ -104,7 +104,6 @@ class _CourseSearchPageState extends State<CourseSearchPage> {
                     onPressed: () {
                       _searchTextController.clear();
                       context.read<CourseSearchModel>().resetCourseFilter();
-                      _focusNode.requestFocus();
                     },
                     child: Text(
                       "common.reset".tr(),
