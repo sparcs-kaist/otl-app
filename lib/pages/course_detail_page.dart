@@ -137,7 +137,7 @@ class CourseDetailPage extends StatelessWidget {
             : (isEn
                 ? (professor.nameEn == '' ? professor.name : professor.nameEn)
                 : professor.name),
-        style: labelRegular,
+        style: evenLabelRegular,
       ),
       selected: (professor == null
           ? selectedFilter == "ALL"

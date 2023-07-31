@@ -39,8 +39,8 @@ class _HallOfFameControlState extends State<HallOfFameControl> {
       child: DropdownButton2<Semester?>(
         onMenuStateChange: (isOpen) => _isOpen = isOpen,
         customButton: Container(
-          height: 28,
-          padding: EdgeInsets.fromLTRB(12, 0, 8, 0),
+          height: 34,
+          padding: EdgeInsets.fromLTRB(16, 0, 8, 0),
           decoration: BoxDecoration(
             color: OTLColor.grayF,
             borderRadius: BorderRadius.circular(100),
@@ -51,15 +51,14 @@ class _HallOfFameControlState extends State<HallOfFameControl> {
                 _currentSemester == null
                     ? "common.all".tr()
                     : "${_currentSemester?.year} ${_currentSemester?.semester == 1 ? 'semester.spring'.tr() : 'semester.fall'.tr()}",
-                style: bodyBold.copyWith(
+                style: evenBodyBold.copyWith(
                   color: OTLColor.pinksMain,
                 ),
               ),
-              const SizedBox(width: 6),
+              const SizedBox(width: 2.0),
               Icon(
                 _isOpen ? Icons.keyboard_arrow_up : Icons.keyboard_arrow_down,
                 color: OTLColor.pinksMain,
-                size: 16,
               ),
             ],
           ),

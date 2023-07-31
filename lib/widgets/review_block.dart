@@ -60,7 +60,7 @@ class _ReviewBlockState extends State<ReviewBlock> {
                           : widget.review.lecture.title,
                       style: bodyBold,
                     ),
-                    const TextSpan(text: "  "),
+                    const TextSpan(text: " "),
                     TextSpan(
                         text: widget.review.lecture.professors
                             .map(
@@ -86,13 +86,12 @@ class _ReviewBlockState extends State<ReviewBlock> {
                   ],
                 ),
               ),
-              const SizedBox(height: 4.0),
               ExpandableText(
                 content.trim(),
                 maxLines: widget.maxLines,
                 style: bodyRegular.copyWith(color: OTLColor.gray0),
               ),
-              const SizedBox(height: 4.0),
+              const SizedBox(height: 6.0),
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
@@ -126,12 +125,23 @@ class _ReviewBlockState extends State<ReviewBlock> {
                     color: Colors.transparent,
                     child: InkWell(
                       onTap: _liked ? _uploadCancel : _uploadLike,
-                      child: Text(
-                        _liked ? "common.cancel".tr() : "review.like".tr(),
-                        style: labelRegular.copyWith(
-                          color:
-                              _liked ? OTLColor.pinksMain : OTLColor.pinksMain,
-                        ),
+                      child: Row(
+                        children: [
+                          Icon(
+                            _liked ? Icons.favorite : Icons.favorite_border,
+                            color: OTLColor.pinksMain,
+                            size: 16.0,
+                          ),
+                          const SizedBox(width: 2.0),
+                          Text(
+                            _liked ? "review.likes".tr() : "review.likes".tr(),
+                            style: labelRegular.copyWith(
+                              color: _liked
+                                  ? OTLColor.pinksMain
+                                  : OTLColor.pinksMain,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ),

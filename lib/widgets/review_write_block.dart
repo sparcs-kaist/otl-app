@@ -83,7 +83,7 @@ class _ReviewWriteBlockState extends State<ReviewWriteBlock> {
                             : widget.lecture.title,
                         style: bodyBold,
                       ),
-                      const TextSpan(text: "  "),
+                      const TextSpan(text: " "),
                       TextSpan(
                           text: widget.lecture.professors
                               .map(
