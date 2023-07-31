@@ -43,95 +43,74 @@ class IconTextButton extends StatefulWidget {
 }
 
 class _IconTextButtonState extends State<IconTextButton> {
-  bool _isTapDowned = false;
-  bool _delaying = false;
   @override
   Widget build(BuildContext context) {
-    Color _responsiveColor = Color.lerp(
-        widget.color,
-        widget.tapEffect == 'darken'
-            ? Color(0xFF000000)
-            : widget.tapEffect == 'lighten'
-                ? Color(0xFFFFFFFF)
-                : widget.color,
-        _isTapDowned ? widget.tapEffectColorRatio : 0)!;
-    List<Widget> children = [
+    List<Map<String, Map>> children = [
       if (widget.icon != null)
         if (widget.icon is IconData)
-          Icon(widget.icon, size: widget.iconSize, color: _responsiveColor)
-        else if (widget.icon is String)
-          SvgPicture.asset(widget.icon,
-              height: widget.iconSize,
-              width: widget.iconSize,
-              colorFilter: ColorFilter.mode(_responsiveColor, BlendMode.srcIn)),
-      widget.direction.startsWith('row')
-          ? SizedBox(width: widget.spaceBetween)
-          : SizedBox(height: widget.spaceBetween),
-      if (widget.text != null)
-        Text(
-          widget.text!,
-          style: widget.textStyle.copyWith(
-              color: Color.lerp(
-                  widget.textStyle.color ?? widget.color,
-                  widget.tapEffect == 'darken'
-                      ? Color(0xFF000000)
-                      : widget.tapEffect == 'lighten'
-                          ? Color(0xFFFFFFFF)
-                          : widget.textStyle.color ?? widget.color,
-                  _isTapDowned ? widget.tapEffectColorRatio : 0)),
-        )
-    ];
-    Widget child = widget.direction.startsWith('row')
-        ? Row(
-            mainAxisSize: MainAxisSize.min,
-            children: widget.direction.endsWith('reversed')
-                ? children.reversed.toList()
-                : children,
-          )
-        : Column(
-            mainAxisSize: MainAxisSize.min,
-            children: widget.direction.endsWith('reversed')
-                ? children.reversed.toList()
-                : children);
-    return GestureDetector(
-        behavior: HitTestBehavior.opaque,
-        onTapDown: (_) {
-          setState(() {
-            _isTapDowned = true;
-          });
-          _delaying = false;
-          Future.delayed(const Duration(milliseconds: 128), () {
-            _delaying = true;
-            if (_isTapDowned == false)
-              setState(() {
-                _isTapDowned = false;
-              });
-          });
-        },
-        onTapUp: (_) {
-          if (_isTapDowned && widget.onTap != null) {
-            widget.onTap!();
+          {
+            'Icon': {
+              'arg': widget.icon,
+              'size': widget.iconSize,
+              'color': widget.color
+            }
           }
-          if (_delaying)
-            setState(() {
-              _isTapDowned = false;
-            });
-          else
-            _isTapDowned = false;
-        },
-        onTapCancel: () {
-          setState(() {
-            _isTapDowned = false;
-          });
-        },
-        child: widget.padding == null
-            ? Center(
-                child: child,
-              )
-            : Padding(
-                padding: widget.padding!,
-                child: child,
-              ));
+        else if (widget.icon is String)
+          {
+            'SvgPicture.asset': {
+              'arg': widget.icon,
+              'height': widget.iconSize,
+              'width': widget.iconSize,
+              'color': widget.color
+            }
+          },
+      widget.direction.startsWith('row')
+          ? {
+              'SizedBox': {
+                'width': widget.spaceBetween,
+              }
+            }
+          : {
+              'SizedBox': {
+                'height': widget.spaceBetween,
+              }
+            },
+      if (widget.text != null)
+        {
+          'Text': {
+            'arg': widget.text!,
+            'style': widget.textStyle
+                .copyWith(color: widget.textStyle.color ?? widget.color)
+          }
+        }
+    ];
+    Map<String, Map> child = widget.direction.startsWith('row')
+        ? {
+            'Row': {
+              'children': widget.direction.endsWith('reversed')
+                  ? children.reversed.toList()
+                  : children
+            }
+          }
+        : {
+            'Column': {
+              'children': widget.direction.endsWith('reversed')
+                  ? children.reversed.toList()
+                  : children
+            }
+          };
+    return IconTextButtonRaw(
+      data: widget.padding != null
+          ? {
+              'Padding': {'padding': widget.padding!, 'child': child}
+            }
+          : {
+              'Center': {'child': child}
+            },
+      onTap: widget.onTap,
+      tapEffect: widget.tapEffect,
+      tapEffectColorRatio: widget.tapEffectColorRatio,
+    );
   }
 }
 
@@ -144,6 +123,7 @@ Widget renderRawResponsiveWidget(BuildContext context, Map<String, Map> data,
     case 'Row':
       return Row(
         crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisSize: MainAxisSize.min,
         children: (args['children'] as List<Map<String, Map>>? ?? [])
             .map((e) => renderRawResponsiveWidget(
                 context, e, tapEffect, tapEffectColorRatio, isTapDowned))
@@ -152,6 +132,7 @@ Widget renderRawResponsiveWidget(BuildContext context, Map<String, Map> data,
     case 'Row-reversed':
       return Row(
         crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisSize: MainAxisSize.min,
         children: (args['children'] as List<Map<String, Map>>? ?? [])
             .map((e) => renderRawResponsiveWidget(
                 context, e, tapEffect, tapEffectColorRatio, isTapDowned))
@@ -162,6 +143,7 @@ Widget renderRawResponsiveWidget(BuildContext context, Map<String, Map> data,
     case 'Column':
       return Column(
         crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisSize: MainAxisSize.min,
         children: (args['children'] as List<Map<String, Map>>? ?? [])
             .map((e) => renderRawResponsiveWidget(
                 context, e, tapEffect, tapEffectColorRatio, isTapDowned))
@@ -170,6 +152,7 @@ Widget renderRawResponsiveWidget(BuildContext context, Map<String, Map> data,
     case 'Column-reversed':
       return Column(
         crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisSize: MainAxisSize.min,
         children: (args['children'] as List<Map<String, Map>>? ?? [])
             .map((e) => renderRawResponsiveWidget(
                 context, e, tapEffect, tapEffectColorRatio, isTapDowned))
@@ -206,8 +189,10 @@ Widget renderRawResponsiveWidget(BuildContext context, Map<String, Map> data,
       return SizedBox(
           width: args['width'],
           height: args['height'],
-          child: renderRawResponsiveWidget(context, args['child'] ?? {},
-              tapEffect, tapEffectColorRatio, isTapDowned));
+          child: args['child'] != null
+              ? renderRawResponsiveWidget(context, args['child'] ?? {},
+                  tapEffect, tapEffectColorRatio, isTapDowned)
+              : null);
     case 'Spacer':
       return Spacer(flex: args['flex'] ?? 1);
     case 'Text':
@@ -227,6 +212,10 @@ Widget renderRawResponsiveWidget(BuildContext context, Map<String, Map> data,
           padding: args['padding'] ?? EdgeInsets.zero,
           child: renderRawResponsiveWidget(context, args['child'] ?? {},
               tapEffect, tapEffectColorRatio, isTapDowned));
+    case 'Center':
+      return Center(
+          child: renderRawResponsiveWidget(context, args['child'] ?? {},
+              tapEffect, tapEffectColorRatio, isTapDowned));
     default:
       return const Placeholder();
   }
@@ -242,7 +231,7 @@ class IconTextButtonRaw extends StatefulWidget {
   }) : super(key: key);
   final Map<String, Map> data;
   final VoidCallback? onTap;
-  final String tapEffect;
+  final String? tapEffect;
   final double tapEffectColorRatio;
 
   @override
@@ -285,8 +274,8 @@ class _IconTextButtonRawState extends State<IconTextButtonRaw> {
             _isTapDowned = false;
           });
         },
-        child: renderRawResponsiveWidget(context, widget.data, widget.tapEffect,
-            widget.tapEffectColorRatio, _isTapDowned));
+        child: renderRawResponsiveWidget(context, widget.data,
+            widget.tapEffect!, widget.tapEffectColorRatio, _isTapDowned));
   }
 }
 
