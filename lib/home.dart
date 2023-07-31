@@ -105,6 +105,9 @@ class _OTLHomeState extends State<OTLHome> with SingleTickerProviderStateMixin {
                       padding: const EdgeInsets.only(left: 16),
                       child: SemesterPicker(
                         onSemesterChanged: () {
+                          context
+                              .read<LectureSearchModel>()
+                              .setSelectedLecture(null);
                           context.read<LectureSearchModel>().lectureClear();
                         },
                       ),

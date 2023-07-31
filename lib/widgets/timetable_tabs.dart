@@ -3,6 +3,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:otlplus/constants/color.dart';
 import 'package:otlplus/constants/text_styles.dart';
+import 'package:otlplus/constants/url.dart';
 
 class TimetableTabs extends StatefulWidget {
   final int index;
@@ -10,7 +11,7 @@ class TimetableTabs extends StatefulWidget {
   final Function(int) onTap;
   final VoidCallback onCopyTap;
   final VoidCallback onDeleteTap;
-  final Function(String) onExportTap;
+  final Function(ShareType) onExportTap;
 
   TimetableTabs(
       {this.index = 0,
@@ -34,7 +35,7 @@ class _TimetableTabsState extends State<TimetableTabs> {
 
     return Container(
       height: 28,
-      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      padding: const EdgeInsets.only(left: 16.0),
       child: ListView.builder(
         controller: _scrollController,
         scrollDirection: Axis.horizontal,
@@ -117,13 +118,15 @@ class _TimetableTabsState extends State<TimetableTabs> {
             ],
             onChanged: (value) {
               if (value == MenuItems.copy) widget.onCopyTap();
-              if (value == MenuItems.exportToImg) widget.onExportTap('image');
-              if (value == MenuItems.exportToCal) widget.onExportTap('ical');
+              if (value == MenuItems.exportToImg)
+                widget.onExportTap(ShareType.image);
+              if (value == MenuItems.exportToCal)
+                widget.onExportTap(ShareType.ical);
               // if (value == MenuItems.syllabus) Pass
               if (value == MenuItems.delete) widget.onDeleteTap();
             },
             dropdownStyleData: DropdownStyleData(
-              width: 180,
+              width: 200,
               elevation: 0,
               padding: EdgeInsets.zero,
               decoration: BoxDecoration(
@@ -210,7 +213,10 @@ abstract class MenuItems {
               Expanded(
                 child: Text(
                   item.text,
-                  style: bodyRegular.copyWith(color: color),
+                  style: bodyRegular.copyWith(
+                    color: color,
+                    overflow: TextOverflow.ellipsis,
+                  ),
                 ),
               ),
               Icon(

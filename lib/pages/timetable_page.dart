@@ -25,8 +25,6 @@ class _TimetablePageState extends State<TimetablePage> {
   final _selectedKey = GlobalKey();
   final _paintKey = GlobalKey();
 
-  Lecture? _selectedLecture;
-
   @override
   Widget build(BuildContext context) {
     if (context.select<TimetableModel, bool>((model) => model.isLoaded))
@@ -53,16 +51,46 @@ class _TimetablePageState extends State<TimetablePage> {
             color: OTLColor.grayF,
             child: Column(
               children: <Widget>[
-                Container(
-                  color: OTLColor.pinksLight,
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(vertical: 16),
-                    decoration: BoxDecoration(
-                      color: OTLColor.grayF,
-                      borderRadius:
-                          BorderRadius.only(topLeft: Radius.circular(16)),
-                    ),
-                    child: _buildTimetableTabs(context),
+                SizedBox(
+                  height: 60,
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Container(
+                          color: OTLColor.pinksLight,
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(vertical: 16),
+                            decoration: BoxDecoration(
+                              color: OTLColor.grayF,
+                              borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(16)),
+                            ),
+                            child: _buildTimetableTabs(context),
+                          ),
+                        ),
+                      ),
+                      if (mode == 0)
+                        GestureDetector(
+                          behavior: HitTestBehavior.translucent,
+                          onTap: () {
+                            context
+                                .read<LectureSearchModel>()
+                                .resetLectureFilter();
+                            Navigator.push(
+                                context, buildLectureSearchPageRoute());
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.fromLTRB(12, 18, 16, 18),
+                            child: Icon(
+                              Icons.search,
+                              size: 24,
+                              color: OTLColor.pinksMain,
+                            ),
+                          ),
+                        )
+                      else
+                        const SizedBox(width: 16),
+                    ],
                   ),
                 ),
                 Expanded(
@@ -115,7 +143,7 @@ class _TimetablePageState extends State<TimetablePage> {
         if (!isExamTime)
           TimetableSummary(
             lectures: lectures,
-            tempLecture: _selectedLecture,
+            tempLecture: context.watch<LectureSearchModel>().selectedLecture,
           ),
       ],
     );
@@ -129,7 +157,7 @@ class _TimetablePageState extends State<TimetablePage> {
     return Timetable(
       lectures: (lectureSearchModel.selectedLecture == null)
           ? lectures
-          : [...lectures, _selectedLecture!],
+          : [...lectures, lectureSearchModel.selectedLecture!],
       isExamTime: isExamTime,
       builder: (lecture, classTimeIndex, blockHeight) {
         final isSelected = lectureSearchModel.selectedLecture == lecture;

@@ -5,6 +5,7 @@ import 'package:otlplus/constants/color.dart';
 import 'package:otlplus/constants/text_styles.dart';
 import 'package:otlplus/models/classtime.dart';
 import 'package:otlplus/models/lecture.dart';
+import 'package:otlplus/utils/get_text_height.dart';
 
 const POSITION_OF_LOCATIONS = {
   'E2': {'left': 0.599, 'top': 0.802},
@@ -285,23 +286,35 @@ class _MapViewState extends State<MapView> {
         ),
         if (classtime.roomName.isNotEmpty)
           Padding(
-            padding: const EdgeInsets.fromLTRB(16, 2.5, 0, 2.5),
-            child: Container(
-              height: 23,
-              padding: const EdgeInsets.symmetric(horizontal: 6),
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                color: OTLColor.blockColors[lecture.course % 16],
-                borderRadius: BorderRadius.circular(100),
-              ),
-              child: Text(
-                (buildingCode == '기타')
+            padding: const EdgeInsets.fromLTRB(16, 4, 0, 0),
+            child: Builder(
+              builder: (context) {
+                final location = (buildingCode == '기타')
                     ? _isKo
                         ? classtime.classroom
                         : classtime.classroomEn
-                    : classtime.roomName,
-                style: labelRegular,
-              ),
+                    : classtime.roomName;
+                final isMultiLine = (getTextHeight(context,
+                            text: location,
+                            style: labelRegular,
+                            maxWidth: 143) ~/
+                        singleHeight(context, labelRegular)) >
+                    1;
+
+                return Container(
+                  width: isMultiLine ? 155 : null,
+                  padding: const EdgeInsets.fromLTRB(6, 2, 6, 4),
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    color: OTLColor.blockColors[lecture.course % 16],
+                    borderRadius: BorderRadius.circular(isMultiLine ? 13 : 100),
+                  ),
+                  child: Text(
+                    location,
+                    style: labelRegular,
+                  ),
+                );
+              },
             ),
           ),
       ],

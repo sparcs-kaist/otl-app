@@ -25,7 +25,6 @@ dependencies:
   flutter_web_browser: ^0.17.1
   webview_flutter: ^3.0.4
   webview_cookie_manager: ^2.0.6
-  open_file_safe: ^3.2.3
   path_provider: ^2.0.12
   permission_handler: ^8.3.0
   provider: ^6.0.5
@@ -37,6 +36,7 @@ dependencies:
   flutter_widgetkit: ^1.0.3
   flutter_svg: ^2.0.7
   dropdown_button2: ^2.1.4
+  open_app_file: ^4.0.2
   # Firebase
   firebase_core: ^2.8.0
   firebase_analytics: ^10.1.6

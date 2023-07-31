@@ -4,6 +4,7 @@ import 'package:otlplus/constants/color.dart';
 import 'package:otlplus/constants/text_styles.dart';
 import 'package:otlplus/extensions/lecture.dart';
 import 'package:otlplus/models/lecture.dart';
+import 'package:otlplus/utils/get_text_height.dart';
 
 class TimetableBlock extends StatelessWidget {
   final Lecture lecture;
@@ -37,7 +38,9 @@ class TimetableBlock extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final contents = <Widget>[];
-    final singleHeight = labelRegular.fontSize! * labelRegular.height!;
+    final validHeight = height - 16;
+    final lineHeight = singleHeight(context, labelRegular);
+    int maxLines = (validHeight - lineHeight) ~/ lineHeight;
     final isKo = context.locale == Locale('ko');
     final title = isKo ? lecture.title : lecture.titleEn;
     final classroomShort = isKo
@@ -45,12 +48,13 @@ class TimetableBlock extends StatelessWidget {
         : lecture.classtimes[classTimeIndex].classroomShortEn;
 
     if (showTitle) {
-      contents.add(ConstrainedBox(
-        constraints: BoxConstraints(maxHeight: height - 16 - singleHeight),
-        child: Text(
-          title,
-          style: labelRegular,
+      contents.add(Text(
+        title,
+        style: labelRegular.copyWith(
+          color: isTemp ? OTLColor.grayF : OTLColor.gray0,
+          overflow: TextOverflow.ellipsis,
         ),
+        maxLines: maxLines > 1 ? maxLines : 1,
       ));
     }
 
@@ -59,11 +63,10 @@ class TimetableBlock extends StatelessWidget {
     }
 
     if (showClassroom) {
-      final textPainter = TextPainter(
-        text: TextSpan(text: title, style: labelRegular),
-        textDirection: TextDirection.ltr,
-      )..layout(maxWidth: 54);
-      final maxLines = (height - textPainter.size.height - 16) ~/ singleHeight;
+      maxLines = (validHeight -
+              getTextHeight(context,
+                  text: title, style: labelRegular, maxWidth: 54)) ~/
+          lineHeight;
 
       contents.add(Expanded(
         child: Padding(
@@ -71,7 +74,7 @@ class TimetableBlock extends StatelessWidget {
           child: Text(
             classroomShort,
             style: labelRegular.copyWith(
-              color: OTLColor.gray6,
+              color: isTemp ? OTLColor.grayE : OTLColor.gray6,
               overflow: TextOverflow.ellipsis,
             ),
             maxLines: maxLines > 1 ? maxLines : 1,
