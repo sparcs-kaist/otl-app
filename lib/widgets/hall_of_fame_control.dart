@@ -20,6 +20,7 @@ class HallOfFameControl extends StatefulWidget {
 class _HallOfFameControlState extends State<HallOfFameControl> {
   late List<Semester> _targetSemesters;
   late Semester? _currentSemester;
+  bool _isOpen = false;
 
   @override
   Widget build(BuildContext context) {
@@ -36,6 +37,7 @@ class _HallOfFameControlState extends State<HallOfFameControl> {
 
     return DropdownButtonHideUnderline(
       child: DropdownButton2<Semester?>(
+        onMenuStateChange: (isOpen) => _isOpen = isOpen,
         customButton: Container(
           height: 28,
           padding: EdgeInsets.fromLTRB(12, 0, 8, 0),
@@ -55,7 +57,7 @@ class _HallOfFameControlState extends State<HallOfFameControl> {
               ),
               const SizedBox(width: 6),
               Icon(
-                Icons.keyboard_arrow_down,
+                _isOpen ? Icons.keyboard_arrow_up : Icons.keyboard_arrow_down,
                 color: OTLColor.pinksMain,
                 size: 16,
               ),
