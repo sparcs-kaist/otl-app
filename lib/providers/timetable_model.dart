@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:io';
 
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_widgetkit/flutter_widgetkit.dart';
 import 'package:otlplus/constants/url.dart';
@@ -10,8 +10,7 @@ import 'package:otlplus/models/lecture.dart';
 import 'package:otlplus/models/semester.dart';
 import 'package:otlplus/models/timetable.dart';
 import 'package:otlplus/models/user.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:permission_handler/permission_handler.dart';
+import 'package:otlplus/utils/export_image.dart';
 
 class TimetableModel extends ChangeNotifier {
   late User _user;
@@ -35,9 +34,6 @@ class TimetableModel extends ChangeNotifier {
 
   bool _isLoaded = false;
   bool get isLoaded => _isLoaded;
-
-  String get shareApiParameter =>
-      "?timetable=${currentTimetable.id}&year=${selectedSemester.year}&semester=${selectedSemester.semester}&language=";
 
   TimetableModel({bool forTest = false}) {
     if (forTest) {
@@ -248,22 +244,26 @@ class TimetableModel extends ChangeNotifier {
     return false;
   }
 
-  Future<bool> shareTimetable(String type, String language) async {
+  Future<bool> shareTimetable(ShareType type, String language) async {
     try {
-      final status = await [
-        Permission.storage,
-      ].request();
+      final response = await DioProvider().dio.get(
+            API_SHARE_URL.replaceFirst('{share_type}', type == ShareType.image ? 'image' : 'ical'),
+            queryParameters: {
+              'timetable': currentTimetable.id,
+              'year': selectedSemester.year,
+              'semester': selectedSemester.semester,
+              'language': language,
+            },
+            options: Options(responseType: ResponseType.bytes),
+          );
 
-      if (status[Permission.storage]!.isGranted) {
-        final dir = Platform.isAndroid
-            ? '/storage/emulated/0/Download'
-            : (await getApplicationDocumentsDirectory()).path;
-        await DioProvider().dio.download(
-              API_SHARE_URL.replaceFirst('{type}', type) +
-                  shareApiParameter +
-                  language,
-              dir + '/timetable.${type == 'image' ? 'png' : 'ics'}',
-            );
+      switch (type) {
+        case ShareType.image:
+          writeImage(response.data);
+          break;
+        case ShareType.ical:
+          // TODO
+          break;
       }
       return true;
     } catch (exception) {

@@ -21,4 +21,6 @@ const API_TIMETABLE_ADD_LECTURE_URL =
 const API_TIMETABLE_REMOVE_LECTURE_URL =
     API_TIMETABLE_URL + "/{timetable_id}/remove-lecture";
 const API_LIKED_REVIEW_URL = API_URL + "/users/{user_id}/liked-reviews";
-const API_SHARE_URL = API_URL + "share/timetable/{type}";
+const API_SHARE_URL = API_URL + "share/timetable/{share_type}";
+
+enum ShareType { image, ical }

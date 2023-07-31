@@ -12,19 +12,24 @@ const MethodChannel _channel = const MethodChannel("org.sparcs.otlplus");
 Future<void> exportImage(RenderRepaintBoundary boundary) async {
   final image = await boundary.toImage(pixelRatio: 3.0);
   final byteData = await image.toByteData(format: ImageByteFormat.png);
+
+  writeImage(byteData?.buffer.asUint8List());
+}
+
+Future<void> writeImage(Uint8List? bytes) async {
   final fileName = "OTL-${DateTime.now().millisecondsSinceEpoch}.png";
 
   if (Platform.isAndroid) {
     if (await Permission.storage.request().isGranted) {
       _channel.invokeMethod("writeImageAsBytes", <String, dynamic>{
         "fileName": fileName,
-        "bytes": byteData?.buffer.asUint8List(),
+        "bytes": bytes,
       });
     }
   } else {
     final directory = await getApplicationDocumentsDirectory();
     final path = "${directory.path}/$fileName";
-    File(path).writeAsBytesSync(byteData?.buffer.asUint8List() as List<int>);
+    File(path).writeAsBytesSync(bytes as List<int>);
     OpenFile.open(path);
   }
 }
