@@ -62,8 +62,8 @@ class _TimetablePageState extends State<TimetablePage> {
                             padding: const EdgeInsets.symmetric(vertical: 16),
                             decoration: BoxDecoration(
                               color: OTLColor.grayF,
-                              borderRadius:
-                                  BorderRadius.only(topLeft: Radius.circular(16)),
+                              borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(16)),
                             ),
                             child: _buildTimetableTabs(context),
                           ),
@@ -73,8 +73,11 @@ class _TimetablePageState extends State<TimetablePage> {
                         GestureDetector(
                           behavior: HitTestBehavior.translucent,
                           onTap: () {
-                            context.read<LectureSearchModel>().resetLectureFilter();
-                            Navigator.push(context, buildLectureSearchPageRoute());
+                            context
+                                .read<LectureSearchModel>()
+                                .resetLectureFilter();
+                            Navigator.push(
+                                context, buildLectureSearchPageRoute());
                           },
                           child: Padding(
                             padding: const EdgeInsets.fromLTRB(12, 18, 16, 18),

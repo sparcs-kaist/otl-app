@@ -118,8 +118,10 @@ class _TimetableTabsState extends State<TimetableTabs> {
             ],
             onChanged: (value) {
               if (value == MenuItems.copy) widget.onCopyTap();
-              if (value == MenuItems.exportToImg) widget.onExportTap(ShareType.image);
-              if (value == MenuItems.exportToCal) widget.onExportTap(ShareType.ical);
+              if (value == MenuItems.exportToImg)
+                widget.onExportTap(ShareType.image);
+              if (value == MenuItems.exportToCal)
+                widget.onExportTap(ShareType.ical);
               // if (value == MenuItems.syllabus) Pass
               if (value == MenuItems.delete) widget.onDeleteTap();
             },

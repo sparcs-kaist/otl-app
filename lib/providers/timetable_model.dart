@@ -247,7 +247,8 @@ class TimetableModel extends ChangeNotifier {
   Future<bool> shareTimetable(ShareType type, String language) async {
     try {
       final response = await DioProvider().dio.get(
-            API_SHARE_URL.replaceFirst('{share_type}', type == ShareType.image ? 'image' : 'ical'),
+            API_SHARE_URL.replaceFirst(
+                '{share_type}', type == ShareType.image ? 'image' : 'ical'),
             queryParameters: {
               'timetable': currentTimetable.id,
               'year': selectedSemester.year,
