@@ -239,7 +239,8 @@ class _ReviewWriteBlockState extends State<ReviewWriteBlock> {
       padding: const EdgeInsets.symmetric(vertical: 2.0),
       child: Row(
         children: <Widget>[
-          Text(title, style: labelRegular),
+          Text(title, style: bodyRegular),
+          const SizedBox(width: 4.0),
           _buildOption(type, 5),
           _buildOption(type, 4),
           _buildOption(type, 3),
@@ -255,9 +256,9 @@ class _ReviewWriteBlockState extends State<ReviewWriteBlock> {
       padding: const EdgeInsets.only(left: 4.0),
       child: ClipOval(
         child: Container(
-          width: 18.0,
-          height: 18.0,
-          color: (_scores[type] == score) ? OTLColor.pinksMain : OTLColor.grayD,
+          width: 24.0,
+          height: 24.0,
+          color: (_scores[type] == score) ? OTLColor.pinksSub : OTLColor.grayD,
           child: Material(
             color: Colors.transparent,
             child: InkWell(
@@ -269,7 +270,11 @@ class _ReviewWriteBlockState extends State<ReviewWriteBlock> {
               child: Center(
                 child: Text(
                   ["?", "F", "D", "C", "B", "A"][score],
-                  style: labelBold.copyWith(color: OTLColor.grayF),
+                  style: labelBold.copyWith(
+                    color: _scores[type] == score
+                        ? OTLColor.gray0
+                        : OTLColor.grayF,
+                  ),
                 ),
               ),
             ),
