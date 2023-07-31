@@ -1,5 +1,4 @@
 import 'dart:math' as math;
-
 import 'package:easy_localization/easy_localization.dart' as _;
 import 'package:flutter/material.dart';
 import 'package:otlplus/constants/color.dart';
@@ -95,34 +94,51 @@ class _SelectorState extends State<Selector> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  widget.title,
-                  style: titleBold,
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Text(
+                      widget.title,
+                      style: titleBold,
+                    ),
+                    SizedBox(width: 8),
+                    Visibility(
+                      visible: widget.isMultiSelect,
+                      child: Text.rich(TextSpan(
+                        children: widget.selectList
+                                    .expand((i) => i)
+                                    .where((i) => i.selected == true)
+                                    .length ==
+                                0
+                            ? [TextSpan(text: "common.all_selected".tr())]
+                            : [
+                                TextSpan(
+                                    text: widget.selectList
+                                        .expand((i) => i)
+                                        .where((i) => i.selected == true)
+                                        .length
+                                        .toString()),
+                                TextSpan(text: "common.num_selected".tr()),
+                              ],
+                        style: bodyRegular,
+                      )),
+                    )
+                  ],
                 ),
                 Visibility(
-                  visible: widget.isMultiSelect,
+                  visible: widget.isMultiSelect &&
+                      !widget.selectList.every(
+                        (v) => v.every((w) => w.selected == false),
+                      ),
                   child: IconTextButton(
                     onTap: () {
-                      if (widget.selectList
-                          .every((v) => v.every((w) => w.selected == true))) {
-                        widget.selectList.forEach((v) {
-                          v.forEach((w) {
-                            widget.setFilter(w.code, false);
-                          });
+                      widget.selectList.forEach((v) {
+                        v.forEach((w) {
+                          widget.setFilter(w.code, false);
                         });
-                      } else {
-                        widget.selectList.forEach((v) {
-                          v.forEach((w) {
-                            widget.setFilter(w.code, true);
-                          });
-                        });
-                      }
+                      });
                     },
-                    text: widget.selectList.every(
-                      (v) => v.every((w) => w.selected == true),
-                    )
-                        ? "common.unselect_all".tr()
-                        : "common.select_all".tr(),
+                    text: "common.reset".tr(),
                     textStyle: bodyRegular.copyWith(
                       color: OTLColor.pinksMain,
                       decoration: TextDecoration.underline,

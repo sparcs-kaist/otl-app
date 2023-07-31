@@ -14,5 +14,5 @@ class CodeLabelPair {
   final String code;
   final String label;
   bool selected;
-  CodeLabelPair({required this.code, this.label = "", this.selected = true});
+  CodeLabelPair({required this.code, this.label = "", this.selected = false});
 }

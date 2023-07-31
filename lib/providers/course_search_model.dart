@@ -121,7 +121,7 @@ class CourseSearchModel extends ChangeNotifier {
     _courseSearchText = '';
     _courseFilter.values.forEach((e) {
       if (e.isMultiSelect)
-        e.options.forEach((b) => b.forEach((c) => c.selected = true));
+        e.options.forEach((b) => b.forEach((c) => c.selected = false));
       else {
         e.options.forEach((b) => b.forEach((c) => c.selected = false));
         e.options.first.first.selected = true;
