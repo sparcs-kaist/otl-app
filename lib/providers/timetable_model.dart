@@ -10,7 +10,7 @@ import 'package:otlplus/models/lecture.dart';
 import 'package:otlplus/models/semester.dart';
 import 'package:otlplus/models/timetable.dart';
 import 'package:otlplus/models/user.dart';
-import 'package:otlplus/utils/export_image.dart';
+import 'package:otlplus/utils/export_file.dart';
 
 class TimetableModel extends ChangeNotifier {
   late User _user;
@@ -257,14 +257,7 @@ class TimetableModel extends ChangeNotifier {
             options: Options(responseType: ResponseType.bytes),
           );
 
-      switch (type) {
-        case ShareType.image:
-          writeImage(response.data);
-          break;
-        case ShareType.ical:
-          // TODO
-          break;
-      }
+      writeFile(type, response.data);
       return true;
     } catch (exception) {
       print(exception);
