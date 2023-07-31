@@ -64,13 +64,20 @@ class _HallOfFameControlState extends State<HallOfFameControl> {
         ),
         dropdownStyleData: DropdownStyleData(
           direction: DropdownDirection.left,
-          maxHeight: 160,
+          maxHeight: 225,
           width: 180,
           elevation: 0,
           padding: EdgeInsets.zero,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
             color: OTLColor.gray6,
+          ),
+          scrollbarTheme: ScrollbarThemeData(
+            radius: Radius.circular(100),
+            mainAxisMargin: 8.0,
+            crossAxisMargin: 4.0,
+            thickness: MaterialStatePropertyAll(4.0),
+            thumbColor: MaterialStatePropertyAll(OTLColor.grayF),
           ),
           offset: const Offset(0, -8),
         ),
@@ -81,7 +88,7 @@ class _HallOfFameControlState extends State<HallOfFameControl> {
         items: [
           DropdownMenuItem(
             value: null,
-            child: buildItem('common.all'.tr()),
+            child: buildItem('common.all'.tr(), _currentSemester == null),
           ),
           ...List.generate(
             _targetSemesters.length,
@@ -89,6 +96,7 @@ class _HallOfFameControlState extends State<HallOfFameControl> {
               value: _targetSemesters[index],
               child: buildItem(
                 "${_targetSemesters[index].year} ${_targetSemesters[index].semester == 1 ? 'semester.spring'.tr() : 'semester.fall'.tr()}",
+                _currentSemester == _targetSemesters[index],
               ),
             ),
           ).reversed
@@ -104,7 +112,7 @@ class _HallOfFameControlState extends State<HallOfFameControl> {
   }
 }
 
-Widget buildItem(String text) {
+Widget buildItem(String text, bool selected) {
   return Stack(
     alignment: AlignmentDirectional.bottomStart,
     children: [
@@ -113,13 +121,15 @@ Widget buildItem(String text) {
         alignment: Alignment.center,
         padding: EdgeInsets.symmetric(horizontal: 16),
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Expanded(
-              child: Text(
-                text,
-                style: bodyRegular.copyWith(color: OTLColor.grayF),
-              ),
+            Text(
+              text,
+              style: bodyRegular.copyWith(color: OTLColor.grayF),
             ),
+            selected
+                ? Icon(Icons.check, color: OTLColor.grayF)
+                : SizedBox(width: 24.0),
           ],
         ),
       ),

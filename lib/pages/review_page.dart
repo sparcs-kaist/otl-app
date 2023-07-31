@@ -14,11 +14,9 @@ class ReviewPage extends StatefulWidget {
 }
 
 class _ReviewPageState extends State<ReviewPage> {
-  final _scrollController = ScrollController();
-
   @override
   Widget build(BuildContext context) {
-    int _selectedMode = context.read<ReviewModel>().selectedMode;
+    int _selectedMode = context.read<HallOfFameModel>().selectedMode;
     final latestReviews = context.watch<ReviewModel>().reviews;
     final hallOfFames = context.watch<HallOfFameModel>().hallOfFames();
 
@@ -66,13 +64,14 @@ class _ReviewPageState extends State<ReviewPage> {
   }
 
   Widget _buildLatestReviews(latestReviews) {
+    final _scrollController = context.watch<HallOfFameModel>().scrollController;
+
     return Expanded(
       child: RefreshIndicator(
         onRefresh: () async {
           await context.read<ReviewModel>().clear();
         },
         child: Scrollbar(
-          controller: _scrollController,
           child: CustomScrollView(
             controller: _scrollController,
             slivers: [
@@ -116,13 +115,14 @@ class _ReviewPageState extends State<ReviewPage> {
   }
 
   Widget _buildHallOfFames(hallOfFames) {
+    final _scrollController = context.watch<HallOfFameModel>().scrollController;
+
     return Expanded(
       child: RefreshIndicator(
         onRefresh: () async {
           await context.read<HallOfFameModel>().clear();
         },
         child: Scrollbar(
-          controller: _scrollController,
           child: CustomScrollView(
             controller: _scrollController,
             slivers: [

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:otlplus/providers/hall_of_fame_model.dart';
 import 'package:otlplus/providers/lecture_search_model.dart';
-import 'package:otlplus/providers/review_model.dart';
 import 'package:otlplus/providers/timetable_model.dart';
 import 'package:otlplus/utils/build_app_bar.dart';
 import 'package:otlplus/utils/build_page_route.dart';
@@ -184,10 +184,12 @@ class _OTLHomeState extends State<OTLHome> with SingleTickerProviderStateMixin {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     ReviewModeControl(
-                      selectedMode: context.watch<ReviewModel>().selectedMode,
+                      selectedMode:
+                          context.watch<HallOfFameModel>().selectedMode,
                     ),
                     Visibility(
-                      visible: context.watch<ReviewModel>().selectedMode == 0,
+                      visible:
+                          context.watch<HallOfFameModel>().selectedMode == 0,
                       child: Padding(
                         padding: const EdgeInsets.only(right: 16.0),
                         child: HallOfFameControl(),

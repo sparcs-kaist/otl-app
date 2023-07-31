@@ -10,9 +10,6 @@ class ReviewModel extends ChangeNotifier {
   bool _isLoading = false;
   bool get isLoading => _isLoading;
 
-  int _selectedMode = 0;
-  int get selectedMode => _selectedMode;
-
   List<Review> _reviews = <Review>[];
   List<Review> get reviews {
     if (_reviews.length == 0 && !_isLoading) loadReviews();
@@ -44,10 +41,5 @@ class ReviewModel extends ChangeNotifier {
       print(exception);
       _isLoading = false;
     }
-  }
-
-  void setMode(int mode) {
-    _selectedMode = mode;
-    notifyListeners();
   }
 }

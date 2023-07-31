@@ -12,10 +12,32 @@ class HallOfFameModel extends ChangeNotifier {
   bool _isLoading = false;
   bool get isLoading => _isLoading;
 
+  ScrollController _scrollController = ScrollController();
+  ScrollController get scrollController => _scrollController;
+
   Semester? _semester;
   Semester? get semeseter => _semester;
   void setSemester(Semester? semester) {
     _semester = semester;
+
+    // 1. Animate Immediately But Error Prone
+    // _scrollController.animateTo(
+    //   0,
+    //   duration: Duration(milliseconds: 500),
+    //   curve: Curves.easeInOut,
+    // );
+  }
+
+  int _selectedMode = 0;
+  int get selectedMode => _selectedMode;
+  void setMode(int mode) {
+    _selectedMode = mode;
+    notifyListeners();
+    scrollController.animateTo(
+      0,
+      duration: Duration(milliseconds: 500),
+      curve: Curves.easeInOut,
+    );
   }
 
   List<Review> _hallOfFames = <Review>[];
@@ -28,6 +50,13 @@ class HallOfFameModel extends ChangeNotifier {
     _hallOfFames.clear();
     _page = 0;
     await loadHallOfFames();
+
+    // 2. Animate Slowly But Safe
+    _scrollController.animateTo(
+      0,
+      duration: Duration(milliseconds: 500),
+      curve: Curves.easeInOut,
+    );
   }
 
   Future<void> loadHallOfFames() async {
