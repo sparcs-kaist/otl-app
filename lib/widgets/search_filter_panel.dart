@@ -104,24 +104,27 @@ class _SelectorState extends State<Selector> {
                     SizedBox(width: 8),
                     Visibility(
                       visible: widget.isMultiSelect,
-                      child: Text.rich(TextSpan(
-                        children: widget.selectList
-                                    .expand((i) => i)
-                                    .where((i) => i.selected == true)
-                                    .length ==
-                                0
-                            ? [TextSpan(text: "common.all_selected".tr())]
-                            : [
-                                TextSpan(
+                      child: Text.rich(
+                        TextSpan(
+                          children: widget.selectList
+                                      .expand((i) => i)
+                                      .where((i) => i.selected)
+                                      .length ==
+                                  0
+                              ? [TextSpan(text: "common.all_selected".tr())]
+                              : [
+                                  TextSpan(
                                     text: widget.selectList
                                         .expand((i) => i)
-                                        .where((i) => i.selected == true)
+                                        .where((i) => i.selected)
                                         .length
-                                        .toString()),
-                                TextSpan(text: "common.num_selected".tr()),
-                              ],
-                        style: bodyRegular,
-                      )),
+                                        .toString(),
+                                  ),
+                                  TextSpan(text: "common.num_selected".tr()),
+                                ],
+                          style: bodyRegular,
+                        ),
+                      ),
                     )
                   ],
                 ),
@@ -130,7 +133,7 @@ class _SelectorState extends State<Selector> {
                       !widget.selectList.every(
                         (v) => v.every((w) => w.selected == false),
                       ),
-                  child: IconTextButton(
+                  child: GestureDetector(
                     onTap: () {
                       widget.selectList.forEach((v) {
                         v.forEach((w) {
@@ -138,10 +141,12 @@ class _SelectorState extends State<Selector> {
                         });
                       });
                     },
-                    text: "common.reset".tr(),
-                    textStyle: bodyRegular.copyWith(
-                      color: OTLColor.pinksMain,
-                      decoration: TextDecoration.underline,
+                    child: Text(
+                      "common.reset".tr(),
+                      style: bodyRegular.copyWith(
+                        color: OTLColor.pinksMain,
+                        decoration: TextDecoration.underline,
+                      ),
                     ),
                   ),
                 )
