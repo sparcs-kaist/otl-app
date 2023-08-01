@@ -5,6 +5,7 @@ import 'package:otlplus/constants/text_styles.dart';
 import 'package:otlplus/extensions/lecture.dart';
 import 'package:otlplus/models/lecture.dart';
 import 'package:otlplus/utils/get_text_height.dart';
+import 'package:otlplus/utils/responsive_button.dart';
 
 class TimetableBlock extends StatelessWidget {
   final Lecture lecture;
@@ -83,27 +84,21 @@ class TimetableBlock extends StatelessWidget {
       ));
     }
 
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(2.0),
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(2.0),
+      child: BackgroundButton(
         color: isTemp
             ? OTLColor.pinksMain
             : isExamTime
                 ? OTLColor.grayE
                 : OTLColor.blockColors[lecture.course % 16],
-      ),
-      child: Material(
-        color: Colors.transparent,
-        child: InkWell(
-          borderRadius: BorderRadius.circular(2.0),
-          onTap: onTap,
-          onLongPress: onLongPress,
-          child: Padding(
-            padding: const EdgeInsets.all(6.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: contents,
-            ),
+        onTap: onTap,
+        onLongPress: onLongPress,
+        child: Padding(
+          padding: const EdgeInsets.all(6.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: contents,
           ),
         ),
       ),

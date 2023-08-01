@@ -1,8 +1,11 @@
+import 'dart:math' as math;
+
+import 'package:easy_localization/easy_localization.dart' as _;
 import 'package:flutter/material.dart';
 import 'package:otlplus/constants/color.dart';
 import 'package:otlplus/constants/text_styles.dart';
 import 'package:otlplus/models/filter.dart';
-import 'dart:math' as math;
+import 'package:otlplus/utils/responsive_button.dart';
 
 class SearchFilterPanel extends StatefulWidget {
   final Map<String, FilterGroupInfo> filter;
@@ -98,7 +101,7 @@ class _SelectorState extends State<Selector> {
                 ),
                 Visibility(
                   visible: widget.isMultiSelect,
-                  child: GestureDetector(
+                  child: IconTextButton(
                     onTap: () {
                       if (widget.selectList
                           .every((v) => v.every((w) => w.selected == true))) {
@@ -115,21 +118,14 @@ class _SelectorState extends State<Selector> {
                         });
                       }
                     },
-                    child: Text.rich(
-                      TextSpan(
-                        style: bodyRegular.copyWith(
-                          color: OTLColor.pinksMain,
-                          decoration: TextDecoration.underline,
-                        ),
-                        text: widget.selectList.every(
-                          (v) => v.every((w) => w.selected == true),
-                        )
-                            // unknown error
-                            //  ? "common.unselect_all".tr()
-                            //  : "common.select_all".tr()
-                            ? "모두 해제"
-                            : "모두 선택",
-                      ),
+                    text: widget.selectList.every(
+                      (v) => v.every((w) => w.selected == true),
+                    )
+                        ? "common.unselect_all".tr()
+                        : "common.select_all".tr(),
+                    textStyle: bodyRegular.copyWith(
+                      color: OTLColor.pinksMain,
+                      decoration: TextDecoration.underline,
                     ),
                   ),
                 )
@@ -230,28 +226,32 @@ class RadioSelectButton extends StatefulWidget {
 class _RadioSelectButtonState extends State<RadioSelectButton> {
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => widget.setOption(!widget.option.selected),
-      child: Container(
-        height: 32.0,
-        decoration: BoxDecoration(
-          color: widget.option.selected ? OTLColor.pinksSub : OTLColor.grayE,
-          borderRadius: BorderRadius.circular(16.0),
-        ),
-        padding: EdgeInsets.symmetric(horizontal: 8.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              widget.option.label,
-              style: labelRegular.copyWith(
-                color: widget.option.selected ? OTLColor.gray0 : OTLColor.grayA,
-              ),
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(16.0),
+      child: BackgroundButton(
+        onTap: () => widget.setOption(!widget.option.selected),
+        color: widget.option.selected ? OTLColor.pinksSub : OTLColor.grayE,
+        child: SizedBox(
+          height: 32.0,
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 8.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  widget.option.label,
+                  style: labelRegular.copyWith(
+                    color: widget.option.selected
+                        ? OTLColor.gray0
+                        : OTLColor.grayA,
+                  ),
+                ),
+                widget.option.selected
+                    ? Icon(Icons.check, size: 16.0, color: OTLColor.gray0)
+                    : Icon(Icons.add, size: 16.0, color: OTLColor.grayA)
+              ],
             ),
-            widget.option.selected
-                ? Icon(Icons.check, size: 16.0, color: OTLColor.gray0)
-                : Icon(Icons.add, size: 16.0, color: OTLColor.grayA)
-          ],
+          ),
         ),
       ),
     );

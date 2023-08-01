@@ -5,6 +5,7 @@ import 'package:otlplus/constants/text_styles.dart';
 import 'package:otlplus/providers/lecture_search_model.dart';
 import 'package:otlplus/providers/timetable_model.dart';
 import 'package:otlplus/utils/build_app_bar.dart';
+import 'package:otlplus/utils/responsive_button.dart';
 import 'package:otlplus/widgets/search_filter_panel.dart';
 import 'package:otlplus/widgets/search_textfield.dart';
 import 'package:provider/provider.dart';
@@ -47,9 +48,10 @@ class _LectureSearchPageState extends State<LectureSearchPage> {
       title: appBarPadding(
         Row(
           children: [
-            IconButton(
-              onPressed: () => Navigator.pop(context),
-              icon: const Icon(Icons.navigate_before),
+            IconTextButton(
+              onTap: () => Navigator.pop(context),
+              icon: Icons.navigate_before,
+              padding: EdgeInsets.fromLTRB(0, 16, 16, 16),
             ),
             Expanded(
               child: SearchTextfield(

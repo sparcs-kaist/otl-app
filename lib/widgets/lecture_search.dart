@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:otlplus/utils/build_page_route.dart';
 import 'package:otlplus/pages/lecture_search_page.dart';
+import 'package:otlplus/utils/responsive_button.dart';
 import 'package:provider/provider.dart';
 import 'package:otlplus/constants/color.dart';
 import 'package:otlplus/models/lecture.dart';
@@ -32,20 +33,20 @@ class _LectureSearchState extends State<LectureSearch> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.fromLTRB(16, 12, 16, 12),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Expanded(
-                      child: ClipRRect(
-                    borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                    child: GestureDetector(
-                      onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) =>
-                              LectureSearchPage(openKeyboard: false))),
-                      child: ColoredBox(
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                Expanded(
+                    child: Padding(
+                  padding: const EdgeInsets.fromLTRB(16, 12, 0, 12),
+                  child: ClipRRect(
+                      borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                      child: BackgroundButton(
+                        onTap: () => Navigator.of(context).push(
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    LectureSearchPage(openKeyboard: false))),
                         color: Color(0xFFF9F0F0),
                         child: Padding(
                           padding: EdgeInsets.all(8.0),
@@ -69,20 +70,15 @@ class _LectureSearchState extends State<LectureSearch> {
                             ),
                           ),
                         ),
-                      ),
-                    ),
-                  )),
-                  SizedBox(width: 11.0),
-                  SizedBox(
-                    width: 24,
-                    height: 24,
-                    child: GestureDetector(
-                      onTap: widget.onClosed,
-                      child: const Icon(Icons.close_outlined, size: 24),
-                    ),
-                  ),
-                ],
-              ),
+                      )),
+                )),
+                IconTextButton(
+                  padding: EdgeInsets.fromLTRB(8, 12, 16, 12),
+                  icon: Icons.close_outlined,
+                  iconSize: 24,
+                  onTap: widget.onClosed,
+                )
+              ],
             ),
             Expanded(
               child: searchModel.isSearching

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:otlplus/utils/build_page_route.dart';
 import 'package:otlplus/providers/lecture_search_model.dart';
+import 'package:otlplus/utils/responsive_button.dart';
 import 'package:otlplus/widgets/lecture_search.dart';
 import 'package:otlplus/widgets/map_view.dart';
 import 'package:provider/provider.dart';
@@ -192,16 +193,20 @@ class _TimetablePageState extends State<TimetablePage> {
                         args: [lecture.title],
                       ),
                       actions: [
-                        TextButton(
-                          child: Text("common.cancel".tr()),
-                          onPressed: () {
+                        IconTextButton(
+                          padding: EdgeInsets.all(12),
+                          text: 'common.cancel'.tr(),
+                          color: OTLColor.pinksMain,
+                          onTap: () {
                             result = false;
                             Navigator.pop(context);
                           },
                         ),
-                        TextButton(
-                          child: Text("common.delete".tr()),
-                          onPressed: () {
+                        IconTextButton(
+                          padding: EdgeInsets.all(12),
+                          text: 'common.delete'.tr(),
+                          color: OTLColor.pinksMain,
+                          onTap: () {
                             result = true;
                             Navigator.pop(context);
                           },

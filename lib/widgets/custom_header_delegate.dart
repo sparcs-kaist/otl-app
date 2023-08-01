@@ -4,13 +4,9 @@ class CustomHeaderDelegate extends SliverPersistentHeaderDelegate {
   final Widget Function(double) builder;
   final double height;
   final EdgeInsetsGeometry? padding;
-  final void Function(double) onTap;
 
   CustomHeaderDelegate(
-      {required this.builder,
-      required this.height,
-      this.padding,
-      required this.onTap});
+      {required this.builder, required this.height, this.padding});
 
   @override
   Widget build(
@@ -21,10 +17,7 @@ class CustomHeaderDelegate extends SliverPersistentHeaderDelegate {
       transform: Matrix4.translationValues(0, -1, 0),
       child: Material(
         color: Colors.transparent,
-        child: InkWell(
-          onTap: () => onTap(shrinkOffset),
-          child: builder(shrinkOffset),
-        ),
+        child: builder(shrinkOffset),
       ),
     );
   }

@@ -4,6 +4,7 @@ import 'package:otlplus/constants/color.dart';
 import 'package:otlplus/constants/text_styles.dart';
 import 'package:otlplus/providers/settings_model.dart';
 import 'package:otlplus/utils/build_app_bar.dart';
+import 'package:otlplus/utils/responsive_button.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter/foundation.dart' show kDebugMode;
@@ -120,12 +121,11 @@ class SettingsPage extends StatelessWidget {
                   "Online Timeplanner with Lectures Plus @ KAIST",
                   style: bodyRegular,
                 ),
-                InkWell(
+                IconTextButton(
+                  padding: EdgeInsets.fromLTRB(0, 4, 10, 4),
                   onTap: () => launchUrl(Uri.parse("mailto:$contactEmail")),
-                  child: Text(
-                    contactEmail,
-                    style: bodyRegular.copyWith(color: OTLColor.pinksMain),
-                  ),
+                  text: contactEmail,
+                  textStyle: bodyRegular.copyWith(color: OTLColor.pinksMain),
                 )
               ],
             ),

@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:otlplus/constants/text_styles.dart';
 import 'package:otlplus/providers/course_search_model.dart';
 import 'package:otlplus/utils/build_page_route.dart';
+import 'package:otlplus/utils/responsive_button.dart';
 import 'package:provider/provider.dart';
 import 'package:otlplus/constants/color.dart';
 import 'package:otlplus/models/semester.dart';
@@ -54,95 +55,95 @@ class _MainPageState extends State<MainPage> {
                 child: Stack(
                   alignment: Alignment.topCenter,
                   children: [
-                    Padding(
-                      padding: EdgeInsets.all(14.0),
-                      child: SizedBox(
-                        height: 28,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Image.asset(
+                    SizedBox(
+                      height: 56,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 14.0),
+                            child: Image.asset(
                               "assets/images/logo.png",
                               height: 27.0,
                             ),
-                            Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                GestureDetector(
-                                  behavior: HitTestBehavior.opaque,
-                                  onTap: () => Navigator.push(
-                                      context, buildUserPageRoute()),
-                                  child: SvgPicture.asset(
-                                      'assets/icons/person.svg',
-                                      height: 24.0,
-                                      width: 24.0,
-                                      colorFilter: ColorFilter.mode(
-                                          OTLColor.pinksMain, BlendMode.srcIn)),
-                                ),
-                                SizedBox(width: 16.0),
-                                GestureDetector(
-                                  behavior: HitTestBehavior.opaque,
-                                  onTap: () => Navigator.push(
-                                      context, buildSettingsPageRoute()),
-                                  child: SvgPicture.asset(
-                                      'assets/icons/gear.svg',
-                                      height: 24.0,
-                                      width: 24.0,
-                                      colorFilter: ColorFilter.mode(
-                                          OTLColor.pinksMain, BlendMode.srcIn)),
-                                ),
-                              ],
-                            )
-                          ],
-                        ),
+                          ),
+                          Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              IconTextButton(
+                                onTap: () => Navigator.push(
+                                    context, buildUserPageRoute()),
+                                icon: 'assets/icons/person.svg',
+                                iconSize: 24,
+                                color: OTLColor.pinksMain,
+                                tapEffect: 'darken',
+                                padding:
+                                    EdgeInsets.fromLTRB(16.0, 16.0, 8.0, 16.0),
+                              ),
+                              IconTextButton(
+                                onTap: () => Navigator.push(
+                                    context, buildSettingsPageRoute()),
+                                icon: 'assets/icons/gear.svg',
+                                iconSize: 24,
+                                color: OTLColor.pinksMain,
+                                tapEffect: 'darken',
+                                padding:
+                                    EdgeInsets.fromLTRB(8.0, 16.0, 16.0, 16.0),
+                              ),
+                            ],
+                          )
+                        ],
                       ),
                     ),
                     Center(
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
-                        child: GestureDetector(
-                          behavior: HitTestBehavior.opaque,
-                          onTap: () {
-                            context
-                                .read<CourseSearchModel>()
-                                .resetCourseFilter();
-                            Navigator.push(
-                                    context, buildCourseSearchPageRoute())
-                                .then((e) {
-                              if (e == true) {
-                                widget.changeIndex(2);
-                              }
-                            });
-                          },
-                          child: Container(
-                            decoration: BoxDecoration(
+                          padding: const EdgeInsets.symmetric(horizontal: 16),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(8.0),
+                            child: BackgroundButton(
+                              tapEffectColorRatio: 0.04,
+                              onTap: () {
+                                context
+                                    .read<CourseSearchModel>()
+                                    .resetCourseFilter();
+                                Navigator.push(
+                                        context, buildCourseSearchPageRoute())
+                                    .then((e) {
+                                  if (e == true) {
+                                    widget.changeIndex(2);
+                                  }
+                                });
+                              },
+                              tapEffect: 'darken',
                               color: OTLColor.grayF,
-                              borderRadius: BorderRadius.circular(8.0),
-                            ),
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 12.0, vertical: 6.0),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                SvgPicture.asset('assets/icons/search.svg',
-                                    height: 24.0,
-                                    width: 24.0,
-                                    colorFilter: ColorFilter.mode(
-                                        OTLColor.pinksMain, BlendMode.srcIn)),
-                                const SizedBox(width: 12.0),
-                                Expanded(
-                                  child: Text(
-                                    "common.search_hint".tr(),
-                                    style: evenBodyRegular.copyWith(
-                                        color: OTLColor.grayA),
-                                  ),
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 12.0, vertical: 6.0),
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    SvgPicture.asset('assets/icons/search.svg',
+                                        height: 24.0,
+                                        width: 24.0,
+                                        colorFilter: ColorFilter.mode(
+                                            OTLColor.pinksMain,
+                                            BlendMode.srcIn)),
+                                    const SizedBox(width: 12.0),
+                                    Expanded(
+                                      child: Text(
+                                        "common.search_hint".tr(),
+                                        style: evenBodyRegular.copyWith(
+                                            color: OTLColor.grayA,
+                                            height: 1.24),
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                              ],
+                              ),
                             ),
-                          ),
-                        ),
-                      ),
+                          )),
                     ),
                   ],
                 ),
@@ -152,41 +153,87 @@ class _MainPageState extends State<MainPage> {
                   borderRadius:
                       BorderRadius.vertical(top: Radius.circular(16.0)),
                   child: Container(
-                    constraints: const BoxConstraints.expand(),
-                    child: ColoredBox(
-                      color: Colors.white,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 16.0,
-                          vertical: 16.0,
-                        ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Column(
-                              children: <Widget>[
-                                _buildTimetable(infoModel.user, semester, now),
-                                const SizedBox(height: 24.0),
-                                _buildDivider(),
-                                const SizedBox(height: 24.0),
-                                _buildSchedule(now, infoModel.currentSchedule),
-                                const SizedBox(height: 24.0),
-                                _buildDivider(),
-                              ],
+                      constraints: const BoxConstraints.expand(),
+                      child: CustomScrollView(
+                        reverse: true,
+                        slivers: [
+                          SliverFillRemaining(
+                            hasScrollBody: false,
+                            child: ColoredBox(
+                              color: Colors.white,
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 16.0,
+                                  vertical: 16.0,
+                                ),
+                                child: Column(
+                                  children: <Widget>[
+                                    Column(
+                                      children: <Widget>[
+                                        _buildTimetable(
+                                            infoModel.user, semester, now),
+                                        const SizedBox(height: 24.0),
+                                        _buildDivider(),
+                                        const SizedBox(height: 24.0),
+                                        _buildSchedule(
+                                            now, infoModel.currentSchedule),
+                                        const SizedBox(height: 24.0),
+                                        _buildDivider(),
+                                      ],
+                                    ),
+                                    Spacer(),
+                                    Column(
+                                      children: <Widget>[
+                                        _buildLogo(),
+                                        const SizedBox(height: 4.0),
+                                        _buildCopyRight(),
+                                        _buildTextButtons(context),
+                                      ],
+                                    )
+                                  ],
+                                ),
+                              ),
                             ),
-                            Column(
-                              children: <Widget>[
-                                _buildLogo(),
-                                const SizedBox(height: 4.0),
-                                _buildCopyRight(),
-                                _buildTextButtons(context),
-                              ],
-                            )
-                          ],
-                        ),
+                          ),
+                        ],
+                      )
+
+                      // SingleChildScrollView(
+                      //   child: ColoredBox(
+                      //     color: Colors.white,
+                      //     child: Padding(
+                      //       padding: const EdgeInsets.symmetric(
+                      //         horizontal: 16.0,
+                      //         vertical: 16.0,
+                      //       ),
+                      //       child: Column(
+                      //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      //         children: [
+                      //           Column(
+                      //             children: <Widget>[
+                      //               _buildTimetable(infoModel.user, semester, now),
+                      //               const SizedBox(height: 24.0),
+                      //               _buildDivider(),
+                      //               const SizedBox(height: 24.0),
+                      //               _buildSchedule(now, infoModel.currentSchedule),
+                      //               const SizedBox(height: 24.0),
+                      //               _buildDivider(),
+                      //             ],
+                      //           ),
+                      //           Column(
+                      //             children: <Widget>[
+                      //               _buildLogo(),
+                      //               const SizedBox(height: 4.0),
+                      //               _buildCopyRight(),
+                      //               _buildTextButtons(context),
+                      //             ],
+                      //           )
+                      //         ],
+                      //       ),
+                      //     ),
+                      //   ),
+                      // ),
                       ),
-                    ),
-                  ),
                 ),
               ),
             ],
@@ -204,23 +251,23 @@ class _MainPageState extends State<MainPage> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        TextButton(
-          onPressed: () {
+        IconTextButton(
+          onTap: () {
             Navigator.push(context, buildPrivacyPageRoute());
           },
-          child: Text(
-            'title.privacy'.tr(),
-            style: labelRegular.copyWith(color: OTLColor.gray75),
-          ),
+          text: 'title.privacy'.tr(),
+          textStyle: labelRegular.copyWith(color: OTLColor.gray75),
+          padding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 8.0),
+          tapEffect: 'lighten',
         ),
-        TextButton(
-          onPressed: () {
+        IconTextButton(
+          onTap: () {
             Navigator.push(context, buildPeoplePageRoute());
           },
-          child: Text(
-            'title.credit'.tr(),
-            style: labelRegular.copyWith(color: OTLColor.gray75),
-          ),
+          text: 'title.credit'.tr(),
+          textStyle: labelRegular.copyWith(color: OTLColor.gray75),
+          padding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 8.0),
+          tapEffect: 'lighten',
         ),
       ],
     );
@@ -247,14 +294,15 @@ class _MainPageState extends State<MainPage> {
     );
   }
 
-  Widget _buildSchedule(DateTime now, Map<String, dynamic>? currentSchedule) {
-    final isEn = EasyLocalization.of(context)?.currentLocale == Locale('en');
-    late int days, hours, minutes;
+  List<String> getRemainedTime(Duration timeDiff) {
+    final days = timeDiff.inDays;
+    final hours = timeDiff.inHours - timeDiff.inDays * 24;
+    final minutes = timeDiff.inMinutes - timeDiff.inHours * 60;
+    return [days.toString(), hours.toString(), minutes.toString()];
+  }
 
-    final timeDiff = currentSchedule?["time"].difference(now) as Duration;
-    days = timeDiff.inDays;
-    hours = timeDiff.inHours - timeDiff.inDays * 24;
-    minutes = timeDiff.inMinutes - timeDiff.inHours * 60;
+  Widget _buildSchedule(DateTime now, Map<String, dynamic>? currentSchedule) {
+    final isEn = EasyLocalization.of(context)!.currentLocale == Locale('en');
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -262,11 +310,9 @@ class _MainPageState extends State<MainPage> {
         Text(
           (currentSchedule == null)
               ? "common.no_info".tr()
-              : "home.remained_datetime".tr(args: [
-                  days.toString(),
-                  hours.toString(),
-                  minutes.toString()
-                ]),
+              : "home.remained_datetime".tr(
+                  args: getRemainedTime(
+                      currentSchedule["time"].difference(now) as Duration)),
           style: titleRegular,
           // ignore: unnecessary_null_comparison
         ),

@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:otlplus/constants/color.dart';
 import 'package:otlplus/constants/text_styles.dart';
+import 'package:otlplus/utils/responsive_button.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -35,7 +36,7 @@ class _PopUpState extends State<PopUp> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              GestureDetector(
+              IconTextButton(
                 onTap: () {
                   setState(() {
                     _checked = !_checked;
@@ -44,27 +45,23 @@ class _PopUpState extends State<PopUp> {
                     );
                   });
                 },
-                child: Row(
-                  children: [
-                    Icon(
-                      Icons.check_circle_outline,
-                      color: _checked ? OTLColor.pinksMain : OTLColor.grayA,
-                    ),
-                    const SizedBox(width: 8.0),
-                    Text(
-                      'popup.dont_show_again'.tr(),
-                      style: bodyRegular.copyWith(
-                        color: _checked ? OTLColor.grayF : OTLColor.grayA,
-                      ),
-                    ),
-                  ],
+                tapEffect: 'none',
+                icon: Icons.check_circle_outline,
+                color: _checked ? OTLColor.pinksMain : OTLColor.grayA,
+                spaceBetween: 8.0,
+                text: 'popup.dont_show_again'.tr(),
+                textStyle: bodyRegular.copyWith(
+                  color: _checked ? OTLColor.grayF : OTLColor.grayA,
                 ),
               ),
-              GestureDetector(
+              IconTextButton(
                 onTap: () async {
                   Navigator.pop(context);
                 },
-                child: Icon(Icons.close, color: OTLColor.grayF),
+                icon: Icons.close,
+                color: OTLColor.grayF,
+                tapEffect: 'darken',
+                tapEffectColorRatio: 0.24,
               ),
             ],
           ),

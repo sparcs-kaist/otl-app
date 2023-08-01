@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:otlplus/constants/text_styles.dart';
 import 'package:otlplus/utils/build_page_route.dart';
+import 'package:otlplus/utils/responsive_button.dart';
 import 'package:provider/provider.dart';
 import 'package:otlplus/constants/color.dart';
 import 'package:otlplus/extensions/lecture.dart';
@@ -45,9 +46,16 @@ class LectureGroupSimpleBlock extends StatelessWidget {
                           ? OTLColor.pinksSub
                           : OTLColor.grayE,
                     ),
-                    child: Material(
-                      color: Colors.transparent,
-                      child: InkWell(
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.vertical(
+                        top: (lectures.first == lecture)
+                            ? const Radius.circular(4.0)
+                            : Radius.zero,
+                        bottom: (lectures.last == lecture)
+                            ? const Radius.circular(4.0)
+                            : Radius.zero,
+                      ),
+                      child: BackgroundButton(
                         onTap: () {
                           context
                               .read<LectureDetailModel>()
@@ -57,14 +65,6 @@ class LectureGroupSimpleBlock extends StatelessWidget {
                             buildLectureDetailPageRoute(),
                           );
                         },
-                        borderRadius: BorderRadius.vertical(
-                          top: (lectures.first == lecture)
-                              ? const Radius.circular(4.0)
-                              : Radius.zero,
-                          bottom: (lectures.last == lecture)
-                              ? const Radius.circular(4.0)
-                              : Radius.zero,
-                        ),
                         child: Padding(
                           padding: const EdgeInsets.symmetric(
                             horizontal: 8.0,

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:otlplus/constants/color.dart';
 import 'package:otlplus/constants/text_styles.dart';
 import 'package:otlplus/models/lecture.dart';
+import 'package:otlplus/utils/responsive_button.dart';
 
 class LectureSimpleBlock extends StatelessWidget {
   final Lecture lecture;
@@ -22,10 +23,9 @@ class LectureSimpleBlock extends StatelessWidget {
         borderRadius: BorderRadius.circular(4.0),
         color: OTLColor.grayE,
       ),
-      child: Material(
-        color: Colors.transparent,
-        child: InkWell(
-          borderRadius: BorderRadius.circular(4.0),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(4.0),
+        child: BackgroundButton(
           onTap: onTap,
           child: Padding(
             padding: const EdgeInsets.symmetric(

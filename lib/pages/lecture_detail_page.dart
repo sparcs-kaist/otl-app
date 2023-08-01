@@ -5,6 +5,7 @@ import 'package:otlplus/constants/text_styles.dart';
 import 'package:otlplus/models/review.dart';
 import 'package:otlplus/utils/build_app_bar.dart';
 import 'package:otlplus/utils/build_page_route.dart';
+import 'package:otlplus/utils/responsive_button.dart';
 import 'package:provider/provider.dart';
 import 'package:otlplus/constants/color.dart';
 import 'package:otlplus/extensions/lecture.dart';
@@ -92,7 +93,8 @@ class LectureDetailPage extends StatelessWidget {
     final isAdded = context.select<TimetableModel, bool>(
         (model) => model.currentTimetable.lectures.contains(lecture));
 
-    return InkWell(
+    return IconTextButton(
+      padding: const EdgeInsets.all(0),
       onTap: () {
         final timetableModel = context.read<TimetableModel>();
 
@@ -112,16 +114,20 @@ class LectureDetailPage extends StatelessWidget {
                   content: const Text(
                       "시간이 겹치는 수업이 있습니다. 추가하시면 해당 수업은 삭제됩니다.\n시간표에 추가하시겠습니까?"),
                   actions: [
-                    TextButton(
-                      child: const Text("취소"),
-                      onPressed: () {
+                    IconTextButton(
+                      padding: EdgeInsets.all(12),
+                      text: 'common.cancel'.tr(),
+                      color: OTLColor.pinksMain,
+                      onTap: () {
                         result = false;
                         Navigator.pop(context);
                       },
                     ),
-                    TextButton(
-                      child: const Text("추가하기"),
-                      onPressed: () {
+                    IconTextButton(
+                      padding: EdgeInsets.all(12),
+                      text: 'common.add'.tr(),
+                      color: OTLColor.pinksMain,
+                      onTap: () {
                         result = true;
                         Navigator.pop(context);
                       },
@@ -135,25 +141,11 @@ class LectureDetailPage extends StatelessWidget {
           );
         }
       },
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          isAdded
-              ? const Icon(
-                  Icons.close,
-                  size: 14.0,
-                )
-              : const Icon(
-                  Icons.add,
-                  size: 14.0,
-                ),
-          const SizedBox(width: 4.0),
-          Text(
-            isAdded ? "시간표에서 제거" : "시간표에 추가",
-            style: const TextStyle(fontSize: 12.0),
-          ),
-        ],
-      ),
+      text: isAdded ? "시간표에서 제거" : "시간표에 추가",
+      textStyle: const TextStyle(fontSize: 12.0),
+      icon: isAdded ? Icons.close : Icons.add,
+      iconSize: 14,
+      spaceBetween: 4.0,
     );
   }
 
@@ -161,18 +153,16 @@ class LectureDetailPage extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: <Widget>[
-        InkWell(
+        IconTextButton(
           onTap: () {
             context.read<CourseDetailModel>().loadCourse(lecture.course);
             Navigator.push(context, buildCourseDetailPageRoute());
           },
-          child: Text(
-            "dictionary.dictionary".tr(),
-            style: bodyRegular.copyWith(color: OTLColor.pinksMain),
-          ),
+          text: "dictionary.dictionary".tr(),
+          textStyle: bodyRegular.copyWith(color: OTLColor.pinksMain),
         ),
         const SizedBox(width: 8.0),
-        InkWell(
+        IconTextButton(
           onTap: () => FlutterWebBrowser.openWebPage(
             url: _getSyllabusUrl(lecture),
             customTabsOptions: CustomTabsOptions(
@@ -190,10 +180,8 @@ class LectureDetailPage extends StatelessWidget {
               modalPresentationCapturesStatusBarAppearance: true,
             ),
           ),
-          child: Text(
-            "dictionary.syllabus".tr(),
-            style: bodyRegular.copyWith(color: OTLColor.pinksMain),
-          ),
+          text: "dictionary.syllabus".tr(),
+          textStyle: bodyRegular.copyWith(color: OTLColor.pinksMain),
         ),
       ],
     );
@@ -223,29 +211,27 @@ class LectureDetailPage extends StatelessWidget {
       delegate: CustomHeaderDelegate(
         height: 24.0,
         padding: const EdgeInsets.only(bottom: 4.0),
-        onTap: (shrinkOffset) async {
-          if (shrinkOffset > 0) {
-            _scrollController.animateTo(0,
-                duration: const Duration(milliseconds: 300),
-                curve: Curves.easeInOut);
-          } else {
-            await Scrollable.ensureVisible(headerKey.currentContext!,
-                duration: const Duration(milliseconds: 300),
-                curve: Curves.easeInOut);
-            _scrollController.jumpTo(_scrollController.offset + 2);
-          }
-        },
-        builder: (shrinkOffset) => Row(
-          key: headerKey,
-          children: <Widget>[
-            Text("dictionary.reviews".tr(), style: bodyBold),
-            FittedBox(
-              child: (shrinkOffset > 0)
-                  ? const Icon(Icons.keyboard_arrow_up)
-                  : const Icon(Icons.keyboard_arrow_down),
-            ),
-          ],
-        ),
+        builder: (shrinkOffset) => IconTextButton(
+            direction: 'row-reversed',
+            padding: EdgeInsets.zero,
+            onTap: () async {
+              if (shrinkOffset > 0) {
+                _scrollController.animateTo(0,
+                    duration: const Duration(milliseconds: 300),
+                    curve: Curves.easeInOut);
+              } else {
+                await Scrollable.ensureVisible(headerKey.currentContext!,
+                    duration: const Duration(milliseconds: 300),
+                    curve: Curves.easeInOut);
+                _scrollController.jumpTo(_scrollController.offset + 2);
+              }
+            },
+            key: headerKey,
+            text: "dictionary.reviews".tr(),
+            textStyle: bodyBold,
+            icon: (shrinkOffset > 0)
+                ? Icons.keyboard_arrow_up
+                : Icons.keyboard_arrow_down),
       ),
     );
   }
