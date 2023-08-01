@@ -191,7 +191,7 @@ class CourseSearchModel extends ChangeNotifier {
       if (v.options.expand((i) => i).every((i) => i.selected == false)) {
         if (v.isMultiSelect == true)
           v.options.expand((i) => i).forEach((j) {
-            j.selected = true;
+            // j.selected = true;
           });
         else
           v.options.first.first.selected = true;
@@ -200,7 +200,7 @@ class CourseSearchModel extends ChangeNotifier {
     List<CodeLabelPair> dep = _courseFilter['departments']!
             .options
             .expand((i) => i)
-            .every((i) => i.selected == true)
+            .every((i) => i.selected == false)
         ? []
         : _courseFilter['departments']!
             .options
@@ -210,7 +210,7 @@ class CourseSearchModel extends ChangeNotifier {
     List<CodeLabelPair> typ = _courseFilter['types']!
             .options
             .expand((i) => i)
-            .every((i) => i.selected == true)
+            .every((i) => i.selected == false)
         ? []
         : _courseFilter['types']!
             .options
@@ -220,7 +220,7 @@ class CourseSearchModel extends ChangeNotifier {
     List<CodeLabelPair> lev = _courseFilter['levels']!
             .options
             .expand((i) => i)
-            .every((i) => i.selected == true)
+            .every((i) => i.selected == false)
         ? []
         : _courseFilter['levels']!
             .options
