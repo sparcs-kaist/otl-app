@@ -41,7 +41,7 @@ dependencies:
   firebase_core: ^2.8.0
   firebase_analytics: ^10.1.6
   firebase_crashlytics: ^3.0.17
-    # Forked
+  # Forked
   dropdown_button2:
       git:
           url: https://github.com/sparcs-kaist/dropdown_button2.git
