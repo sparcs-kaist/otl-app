@@ -88,6 +88,7 @@ class _ReviewBlockState extends State<ReviewBlock> {
                         ],
                       ),
                     ),
+                    const SizedBox(height: 2.0),
                     ExpandableText(
                       content.trim(),
                       maxLines: widget.maxLines,
@@ -140,7 +141,7 @@ class _ReviewBlockState extends State<ReviewBlock> {
                   iconSize: 12.0,
                   icon: _liked ? Icons.favorite : Icons.favorite_border,
                   spaceBetween: 2.0,
-                  text: _liked ? "review.likes".tr() : "review.likes".tr(),
+                  text: "review.like".tr(),
                   textStyle: labelRegular,
                   padding: EdgeInsets.fromLTRB(3, 8, 10, 8),
                   onTap: _liked ? _uploadCancel : _uploadLike,
