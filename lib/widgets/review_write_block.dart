@@ -249,7 +249,7 @@ class _ReviewWriteBlockState extends State<ReviewWriteBlock> {
       padding: const EdgeInsets.only(left: 4.0),
       child: ClipOval(
         child: BackgroundButton(
-          color: (_scores[type] == score) ? OTLColor.pinksSub : OTLColor.grayD,
+          color: (_scores[type] == score) ? OTLColor.gray75 : OTLColor.grayD,
           onTap: () {
             setState(() {
               _scores[type] = (_scores[type] == score) ? 0 : score;
@@ -263,7 +263,7 @@ class _ReviewWriteBlockState extends State<ReviewWriteBlock> {
                 ["?", "F", "D", "C", "B", "A"][score],
                 style: labelBold.copyWith(
                   color:
-                      _scores[type] == score ? OTLColor.gray0 : OTLColor.grayF,
+                      _scores[type] == score ? OTLColor.grayF : OTLColor.grayF,
                 ),
               ),
             ),

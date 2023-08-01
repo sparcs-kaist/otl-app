@@ -166,7 +166,7 @@ class CourseSearchModel extends ChangeNotifier {
     } else {
       _courseSearchquery = Text.rich(
         TextSpan(
-          style: bodyRegular.copyWith(color: OTLColor.grayA, height: 1.24),
+          style: evenBodyRegular.copyWith(color: OTLColor.grayA),
           children: [
             TextSpan(
               text: _courseSearchText.isEmpty ? '' : '"$_courseSearchText"',
