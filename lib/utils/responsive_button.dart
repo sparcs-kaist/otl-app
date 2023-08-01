@@ -114,9 +114,10 @@ class _IconTextButtonState extends State<IconTextButton> {
   }
 }
 
-Widget renderRawResponsiveWidget(BuildContext context, Map<String, Map> data,
+Widget? renderRawResponsiveWidget(BuildContext context, Map<String, Map> data,
     String tapEffect, double tapEffectColorRatio, bool isTapDowned) {
-  if (data.keys.length != 1) return const Placeholder();
+  if (data.keys.length == 0) return null;
+  assert(data.keys.length == 1, 'more than one key in data');
   String widget = data.keys.first;
   Map args = data[widget]!;
   switch (widget) {
@@ -127,6 +128,7 @@ Widget renderRawResponsiveWidget(BuildContext context, Map<String, Map> data,
         children: (args['children'] as List<Map<String, Map>>? ?? [])
             .map((e) => renderRawResponsiveWidget(
                 context, e, tapEffect, tapEffectColorRatio, isTapDowned))
+            .whereType<Widget>()
             .toList(),
       );
     case 'Row-reversed':
@@ -136,6 +138,7 @@ Widget renderRawResponsiveWidget(BuildContext context, Map<String, Map> data,
         children: (args['children'] as List<Map<String, Map>>? ?? [])
             .map((e) => renderRawResponsiveWidget(
                 context, e, tapEffect, tapEffectColorRatio, isTapDowned))
+            .whereType<Widget>()
             .toList()
             .reversed
             .toList(),
@@ -147,6 +150,7 @@ Widget renderRawResponsiveWidget(BuildContext context, Map<String, Map> data,
         children: (args['children'] as List<Map<String, Map>>? ?? [])
             .map((e) => renderRawResponsiveWidget(
                 context, e, tapEffect, tapEffectColorRatio, isTapDowned))
+            .whereType<Widget>()
             .toList(),
       );
     case 'Column-reversed':
@@ -156,6 +160,7 @@ Widget renderRawResponsiveWidget(BuildContext context, Map<String, Map> data,
         children: (args['children'] as List<Map<String, Map>>? ?? [])
             .map((e) => renderRawResponsiveWidget(
                 context, e, tapEffect, tapEffectColorRatio, isTapDowned))
+            .whereType<Widget>()
             .toList()
             .reversed
             .toList(),
@@ -189,10 +194,8 @@ Widget renderRawResponsiveWidget(BuildContext context, Map<String, Map> data,
       return SizedBox(
           width: args['width'],
           height: args['height'],
-          child: args['child'] != null
-              ? renderRawResponsiveWidget(context, args['child'] ?? {},
-                  tapEffect, tapEffectColorRatio, isTapDowned)
-              : null);
+          child: renderRawResponsiveWidget(context, args['child'] ?? {},
+              tapEffect, tapEffectColorRatio, isTapDowned));
     case 'Spacer':
       return Spacer(flex: args['flex'] ?? 1);
     case 'Text':
@@ -244,7 +247,7 @@ class _IconTextButtonRawState extends State<IconTextButtonRaw> {
 
   @override
   void setState(e) {
-    if(mounted) {
+    if (mounted) {
       super.setState(e);
     }
   }
@@ -317,7 +320,7 @@ class _BackgroundButtonState extends State<BackgroundButton> {
 
   @override
   void setState(e) {
-    if(mounted) {
+    if (mounted) {
       super.setState(e);
     }
   }
