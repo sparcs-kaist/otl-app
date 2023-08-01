@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:otlplus/constants/color.dart';
 
-class ModeControl extends StatefulWidget {
-  const ModeControl({Key? key, this.dropdownIndex = 0, required this.onTap})
+class TimetableModeControl extends StatefulWidget {
+  const TimetableModeControl(
+      {Key? key, this.dropdownIndex = 0, required this.onTap})
       : super(key: key);
   final int dropdownIndex;
   final Function(int) onTap;
 
   @override
-  State<ModeControl> createState() => _ModeControlState();
+  State<TimetableModeControl> createState() => _TimetableModeControlState();
 }
 
-class _ModeControlState extends State<ModeControl> {
+class _TimetableModeControlState extends State<TimetableModeControl> {
   static const List<String> _dropdownList = ['수업 시간표', '시험 시간표', '지도'];
   static const List<IconData> _iconList = [
     Icons.schedule,

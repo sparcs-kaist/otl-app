@@ -72,7 +72,7 @@ class _TimetableTabsState extends State<TimetableTabs> {
       i == 0
           ? 'timetable.my_tab'.tr()
           : 'timetable.tab'.tr(args: [i.toString()]),
-      style: bodyBold.copyWith(
+      style: evenBodyBold.copyWith(
           color: i == _index ? OTLColor.grayF : OTLColor.gray0),
       textAlign: TextAlign.center,
     );

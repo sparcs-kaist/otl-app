@@ -137,7 +137,7 @@ class CourseDetailPage extends StatelessWidget {
             : (isEn
                 ? (professor.nameEn == '' ? professor.name : professor.nameEn)
                 : professor.name),
-        style: labelRegular,
+        style: evenLabelRegular,
       ),
       selected: (professor == null
           ? selectedFilter == "ALL"
@@ -171,7 +171,7 @@ class CourseDetailPage extends StatelessWidget {
                 ...courseDetailModel.professors
                     .toSet()
                     .map((professor) => Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 2.0),
+                          padding: const EdgeInsets.symmetric(horizontal: 4.0),
                           child: _buildChoiceChip(context,
                               courseDetailModel.selectedFilter, professor),
                         ))

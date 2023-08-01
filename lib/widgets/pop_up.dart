@@ -94,7 +94,9 @@ Widget _buildAppEvent(BuildContext context) {
               const SizedBox(height: 262.0),
               FilledButton(
                 onPressed: () => launchUrl(
-                  Uri.https("instagram.com", "sparcs.kaist"),
+                  Uri.parse(
+                    'https://docs.google.com/forms/d/e/1FAIpQLSfZbU_TFUPN53De_ihtS4ZK5Tb_nRDazRS7EYQgp3QWAYvyhQ/viewform',
+                  ),
                 ),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,

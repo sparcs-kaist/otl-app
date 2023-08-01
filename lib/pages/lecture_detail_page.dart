@@ -357,11 +357,11 @@ class LectureDetailPage extends StatelessWidget {
         ),
         _buildAttribute(
           "dictionary.department".tr(),
-          isEn ? lecture.departmentName : lecture.departmentNameEn,
+          isEn ? lecture.departmentNameEn : lecture.departmentName,
         ),
         _buildAttribute(
           "dictionary.professors".tr(),
-          isEn ? lecture.professorsStrShort : lecture.professorsStrShortEn,
+          isEn ? lecture.professorsStrShortEn : lecture.professorsStrShort,
         ),
         _buildAttribute(
             "dictionary.classroom".tr(),

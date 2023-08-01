@@ -148,7 +148,7 @@ class CourseSearchModel extends ChangeNotifier {
   Text get courseSearchquery => (_courseSearchquery == null)
       ? Text(
           "common.search_hint".tr(),
-          style: bodyRegular.copyWith(color: OTLColor.grayA),
+          style: evenBodyRegular.copyWith(color: OTLColor.grayA),
         )
       : _courseSearchquery!;
   void updateCourseSearchquery() {
