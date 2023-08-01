@@ -118,7 +118,7 @@ const String privacyText11 = """
 
 const String privacyTitle12 = '12. 개인정보 처리방침 변경';
 const String privacyText12 = """
-이 개인정보 처리방침은 2022년 2월 15일에 마지막으로 수정되었으며, 2022년 2월 15일부터 적용됩니다.
+이 개인정보 처리방침은 2023년 8월 2일에 마지막으로 수정되었으며, 2023년 8월 2일부터 적용됩니다.
 """;
 
 const List<String> privacyTitles = <String>[

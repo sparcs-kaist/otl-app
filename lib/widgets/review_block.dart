@@ -138,9 +138,10 @@ class _ReviewBlockState extends State<ReviewBlock> {
               children: [
                 IconTextButton(
                   color: OTLColor.pinksMain,
-                  iconSize: 12.0,
-                  icon: _liked ? Icons.favorite : Icons.favorite_border,
-                  spaceBetween: 2.0,
+                  iconSize: 16.0,
+                  icon:
+                      _liked ? Icons.thumb_up_alt : Icons.thumb_up_alt_outlined,
+                  spaceBetween: 4.0,
                   text: "review.like".tr(),
                   textStyle: labelRegular,
                   padding: EdgeInsets.fromLTRB(3, 8, 10, 8),
