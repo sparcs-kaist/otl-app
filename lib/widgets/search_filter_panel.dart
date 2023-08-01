@@ -133,7 +133,7 @@ class _SelectorState extends State<Selector> {
                       !widget.selectList.every(
                         (v) => v.every((w) => w.selected == false),
                       ),
-                  child: GestureDetector(
+                  child: IconTextButton(
                     onTap: () {
                       widget.selectList.forEach((v) {
                         v.forEach((w) {
@@ -141,15 +141,13 @@ class _SelectorState extends State<Selector> {
                         });
                       });
                     },
-                    child: Text(
-                      "common.reset".tr(),
-                      style: bodyRegular.copyWith(
-                        color: OTLColor.pinksMain,
-                        decoration: TextDecoration.underline,
-                      ),
+                    text: "common.reset".tr(),
+                    textStyle: bodyRegular.copyWith(
+                      color: OTLColor.pinksMain,
+                      decoration: TextDecoration.underline,
                     ),
                   ),
-                )
+                ),
               ],
             ),
           ),

@@ -212,7 +212,7 @@ class LectureSearchModel extends ChangeNotifier {
       if (v.options.expand((i) => i).every((i) => i.selected == false)) {
         if (v.isMultiSelect == true)
           v.options.expand((i) => i).forEach((j) {
-            j.selected = true;
+            // j.selected = true;
           });
         else
           v.options.first.first.selected = true;
@@ -221,7 +221,7 @@ class LectureSearchModel extends ChangeNotifier {
     List<CodeLabelPair> dep = _lectureFilter['departments']!
             .options
             .expand((i) => i)
-            .every((i) => i.selected == true)
+            .every((i) => i.selected == false)
         ? []
         : _lectureFilter['departments']!
             .options
@@ -231,7 +231,7 @@ class LectureSearchModel extends ChangeNotifier {
     List<CodeLabelPair> typ = _lectureFilter['types']!
             .options
             .expand((i) => i)
-            .every((i) => i.selected == true)
+            .every((i) => i.selected == false)
         ? []
         : _lectureFilter['types']!
             .options
@@ -241,7 +241,7 @@ class LectureSearchModel extends ChangeNotifier {
     List<CodeLabelPair> lev = _lectureFilter['levels']!
             .options
             .expand((i) => i)
-            .every((i) => i.selected == true)
+            .every((i) => i.selected == false)
         ? []
         : _lectureFilter['levels']!
             .options
