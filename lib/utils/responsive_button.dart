@@ -241,6 +241,14 @@ class IconTextButtonRaw extends StatefulWidget {
 class _IconTextButtonRawState extends State<IconTextButtonRaw> {
   bool _isTapDowned = false;
   bool _delaying = false;
+
+  @override
+  void setState(e) {
+    if(mounted) {
+      super.setState(e);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -306,6 +314,14 @@ class BackgroundButton extends StatefulWidget {
 class _BackgroundButtonState extends State<BackgroundButton> {
   bool _isTapDowned = false;
   bool _delaying = false;
+
+  @override
+  void setState(e) {
+    if(mounted) {
+      super.setState(e);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
