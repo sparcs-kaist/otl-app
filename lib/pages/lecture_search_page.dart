@@ -108,7 +108,7 @@ class _LectureSearchPageState extends State<LectureSearchPage> {
                       context.read<LectureSearchModel>().resetLectureFilter();
                     },
                     child: Text(
-                      "common.reset".tr(),
+                      "common.reset_all".tr(),
                       style: bodyBold.copyWith(color: OTLColor.pinksMain),
                     ),
                     style: ButtonStyle(

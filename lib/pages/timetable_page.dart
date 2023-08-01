@@ -74,9 +74,6 @@ class _TimetablePageState extends State<TimetablePage> {
                         GestureDetector(
                           behavior: HitTestBehavior.translucent,
                           onTap: () {
-                            context
-                                .read<LectureSearchModel>()
-                                .resetLectureFilter();
                             Navigator.push(
                                 context, buildLectureSearchPageRoute());
                           },

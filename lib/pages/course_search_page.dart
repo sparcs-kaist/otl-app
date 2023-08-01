@@ -108,7 +108,7 @@ class _CourseSearchPageState extends State<CourseSearchPage> {
                       context.read<CourseSearchModel>().resetCourseFilter();
                     },
                     child: Text(
-                      "common.reset".tr(),
+                      "common.reset_all".tr(),
                       style: bodyBold.copyWith(color: OTLColor.pinksMain),
                     ),
                     style: ButtonStyle(

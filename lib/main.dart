@@ -103,6 +103,12 @@ class OTLFirebaseApp extends StatelessWidget {
         SystemUiOverlayStyle(statusBarColor: Colors.transparent));
 
     return MaterialApp(
+      builder: (context, child) {
+        return ScrollConfiguration(
+          behavior: NoEndOfScrollBehavior(),
+          child: child ?? Container(),
+        );
+      },
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,
       locale: context.locale,
@@ -158,5 +164,13 @@ class OTLFirebaseApp extends StatelessWidget {
         displayColor: OTLColor.gray3,
       ),
     );
+  }
+}
+
+class NoEndOfScrollBehavior extends ScrollBehavior {
+  @override
+  Widget buildOverscrollIndicator(
+      BuildContext context, Widget child, ScrollableDetails details) {
+    return child;
   }
 }

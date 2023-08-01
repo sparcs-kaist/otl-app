@@ -6,6 +6,7 @@
     "delete": "삭제",
     "add": "추가하기",
     "reset": "초기화",
+    "reset_all": "전체 초기화",
     "search": "검색",
     "upload": "업로드",
     "edit": "수정",
@@ -14,7 +15,9 @@
     "no_result": "검색 결과가 없습니다.",
     "select_all": "모두 선택",
     "unselect_all": "모두 해제",
-    "no_info": "정보 없음"
+    "no_info": "정보 없음",
+    "all_selected": "전체 선택됨",
+    "num_selected": "개 선택됨"
   },
   "semester": {
     "spring": "봄",

@@ -5,7 +5,8 @@
     "cancel": "Cancel",
     "delete": "Delete",
     "add": "Add",
-    "reset": "Reset",
+    "reset": "Clear",
+    "reset_all": "Clear All",
     "search": "Search",
     "upload": "Upload",
     "edit": "Edit",
@@ -14,7 +15,9 @@
     "no_result": "No result.",
     "select_all": "Select All",
     "unselect_all": "Unselect All",
-    "no_info": "No information"
+    "no_info": "No information",
+    "all_selected": "All Selected",
+    "num_selected": " Selected"
   },
   "semester": {
     "spring": "Spring",
