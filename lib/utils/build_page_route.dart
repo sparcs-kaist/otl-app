@@ -136,9 +136,10 @@ Route buildCourseSearchPageRoute() {
   );
 }
 
-Route buildLectureSearchPageRoute() {
+Route buildLectureSearchPageRoute(bool openKeyboard) {
   return PageRouteBuilder(
-    pageBuilder: (_, animation, __) => LectureSearchPage(openKeyboard: true),
+    pageBuilder: (_, animation, __) =>
+        LectureSearchPage(openKeyboard: openKeyboard),
     transitionsBuilder: (_, animation, __, child) {
       const begin = Offset(1.0, 0.0);
       const end = Offset.zero;
