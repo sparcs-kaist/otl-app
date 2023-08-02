@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:otlplus/constants/color.dart';
+import 'package:otlplus/constants/text_styles.dart';
 import 'package:otlplus/extensions/lecture.dart';
 import 'package:otlplus/models/lecture.dart';
 import 'package:otlplus/widgets/responsive_button.dart';
@@ -27,6 +28,7 @@ class _LectureGroupBlockRowState extends State<LectureGroupBlockRow> {
   RegExp exp = new RegExp(r"[^A-Z]");
   @override
   Widget build(BuildContext context) {
+    final isEn = EasyLocalization.of(context)?.currentLocale == Locale('en');
     final alreadyAdded = context.select<TimetableModel, bool>((model) =>
         model.currentTimetable.lectures.any((lec) =>
             lec.oldCode == widget.lecture.oldCode &&
@@ -59,21 +61,27 @@ class _LectureGroupBlockRowState extends State<LectureGroupBlockRow> {
                     padding: const EdgeInsets.fromLTRB(8, 6, 0, 6),
                     child: Wrap(
                       children: [
-                        Text.rich(TextSpan(children: <InlineSpan>[
+                        Text.rich(
                           TextSpan(
-                              text: widget.lecture.classTitle,
-                              style: TextStyle(
-                                  fontSize: 14.0, fontWeight: FontWeight.bold)),
-                          WidgetSpan(
-                            child: SizedBox(
-                              width: 8,
-                            ),
+                            children: <InlineSpan>[
+                              TextSpan(
+                                text: widget.lecture.classTitle,
+                                style: bodyBold,
+                              ),
+                              WidgetSpan(
+                                child: const SizedBox(width: 8),
+                              ),
+                              WidgetSpan(
+                                child: Text(
+                                  isEn
+                                      ? widget.lecture.professorsStrShortEn
+                                      : widget.lecture.professorsStrShort,
+                                  style: bodyRegular,
+                                ),
+                              )
+                            ],
                           ),
-                          WidgetSpan(
-                              child: Text(widget.lecture.professorsStrShort,
-                                  style: TextStyle(
-                                      fontSize: 14.0, color: Colors.black54)))
-                        ]))
+                        )
                       ],
                     ),
                   ),
@@ -135,9 +143,8 @@ class _LectureGroupBlockRowState extends State<LectureGroupBlockRow> {
               context: context,
               barrierDismissible: false,
               builder: (context) => AlertDialog(
-                title: const Text("수업 추가"),
-                content: const Text(
-                    "시간이 겹치는 수업이 있습니다. 추가하시면 해당 수업은 삭제됩니다.\n시간표에 추가하시겠습니까?"),
+                title: Text("timetable.dialog.add_lecture".tr()),
+                content: Text("timetable.dialog.ask_add_lecture".tr()),
                 actions: [
                   IconTextButton(
                     padding: EdgeInsets.all(12),

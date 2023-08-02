@@ -140,6 +140,7 @@ class _MainPageState extends State<MainPage> {
                     borderRadius:
                         BorderRadius.vertical(top: Radius.circular(16.0)),
                     child: Container(
+                        color: OTLColor.grayF,
                         constraints: const BoxConstraints.expand(),
                         child: CustomScrollView(
                           reverse: true,

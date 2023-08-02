@@ -95,7 +95,11 @@ class _TimetablePageState extends State<TimetablePage> {
                           GestureDetector(
                             behavior: HitTestBehavior.translucent,
                             onTap: () {
-                              OTLNavigator.push(context, LectureSearchPage());
+                              OTLNavigator.push(
+                                  context,
+                                  LectureSearchPage(
+                                    openKeyboard: false,
+                                  ));
                             },
                             child: Padding(
                               padding:

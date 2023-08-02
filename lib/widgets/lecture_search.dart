@@ -29,7 +29,7 @@ class _LectureSearchState extends State<LectureSearch> {
     return WillPopScope(
       onWillPop: widget.onClosed,
       child: ColoredBox(
-        color: Colors.white,
+        color: OTLColor.grayF,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
@@ -38,14 +38,17 @@ class _LectureSearchState extends State<LectureSearch> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 Expanded(
-                    child: Padding(
-                  padding: const EdgeInsets.fromLTRB(16, 12, 0, 12),
-                  child: ClipRRect(
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(16, 12, 0, 12),
+                    child: ClipRRect(
                       borderRadius: BorderRadius.all(Radius.circular(8.0)),
                       child: BackgroundButton(
-                        onTap: () =>
-                            OTLNavigator.push(context, LectureSearchPage()),
-                        color: Color(0xFFF9F0F0),
+                        onTap: () => OTLNavigator.push(
+                            context,
+                            LectureSearchPage(
+                              openKeyboard: true,
+                            )),
+                        color: OTLColor.pinksLight,
                         child: Padding(
                           padding: EdgeInsets.all(8.0),
                           child: SizedBox(
@@ -54,22 +57,29 @@ class _LectureSearchState extends State<LectureSearch> {
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                SvgPicture.asset('assets/icons/search.svg',
-                                    height: 24.0,
-                                    width: 24.0,
-                                    colorFilter: ColorFilter.mode(
-                                        OTLColor.pinksMain, BlendMode.srcIn)),
+                                SvgPicture.asset(
+                                  'assets/icons/search.svg',
+                                  height: 24.0,
+                                  width: 24.0,
+                                  colorFilter: ColorFilter.mode(
+                                    OTLColor.pinksMain,
+                                    BlendMode.srcIn,
+                                  ),
+                                ),
                                 SizedBox(width: 12.0),
                                 Flexible(
-                                    child: context
-                                        .watch<LectureSearchModel>()
-                                        .lectureSearchquery),
+                                  child: context
+                                      .watch<LectureSearchModel>()
+                                      .lectureSearchquery,
+                                ),
                               ],
                             ),
                           ),
                         ),
-                      )),
-                )),
+                      ),
+                    ),
+                  ),
+                ),
                 IconTextButton(
                   padding: EdgeInsets.fromLTRB(8, 12, 16, 12),
                   icon: Icons.close_outlined,
@@ -86,7 +96,9 @@ class _LectureSearchState extends State<LectureSearch> {
                   : Scrollbar(
                       controller: _scrollController,
                       child: _buildListView(
-                          searchModel.lectures ?? [[]], _scrollController),
+                        searchModel.lectures ?? [[]],
+                        _scrollController,
+                      ),
                     ),
             ),
           ],
@@ -96,7 +108,9 @@ class _LectureSearchState extends State<LectureSearch> {
   }
 
   ListView _buildListView(
-      List<List<Lecture>> lectures, ScrollController scrollController) {
+    List<List<Lecture>> lectures,
+    ScrollController scrollController,
+  ) {
     return ListView.separated(
         padding: EdgeInsets.fromLTRB(16, 0, 16, 12),
         controller: scrollController,
