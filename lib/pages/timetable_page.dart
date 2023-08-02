@@ -171,10 +171,14 @@ class _TimetablePageState extends State<TimetablePage> {
   }
 
   Timetable _buildTimetable(
-      BuildContext context, List<Lecture> lectures, bool isExamTime) {
+    BuildContext context,
+    List<Lecture> lectures,
+    bool isExamTime,
+  ) {
     bool isFirst = true;
     final tempLecture =
         context.select<TimetableModel, Lecture?>((model) => model.tempLecture);
+    final isEn = EasyLocalization.of(context)?.currentLocale == Locale('en');
 
     return Timetable(
       lectures: (tempLecture == null) ? lectures : [...lectures, tempLecture],
@@ -209,7 +213,7 @@ class _TimetablePageState extends State<TimetablePage> {
                     builder: (context) => AlertDialog(
                       title: Text("common.delete".tr()),
                       content: Text("timetable.ask_delete_lecture").tr(
-                        args: [lecture.title],
+                        args: [isEn ? lecture.titleEn : lecture.title],
                       ),
                       actions: [
                         IconTextButton(
