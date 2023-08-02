@@ -54,8 +54,8 @@
     "remained_datetime": "D-{} days {} hours {} minutes"
   },
   "timetable": {
-    "ask_delete_lecture": "Are you delete class '{}'?",
-    "ask_delete_tab": "Do you really want to delete {}?",
+    "ask_delete_lecture": "Do you want to delete class '{}'?",
+    "ask_delete_tab": "Do you really want to delete '{}'?",
     "my_tab": "My Table",
     "tab": "Table {}",
     "dialog": {
