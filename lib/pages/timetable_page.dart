@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:otlplus/utils/build_page_route.dart';
 import 'package:otlplus/providers/lecture_search_model.dart';
-import 'package:otlplus/utils/responsive_button.dart';
 import 'package:otlplus/widgets/delete_dialog.dart';
+import 'package:otlplus/widgets/responsive_button.dart';
 import 'package:otlplus/widgets/lecture_search.dart';
 import 'package:otlplus/widgets/map_view.dart';
 import 'package:provider/provider.dart';

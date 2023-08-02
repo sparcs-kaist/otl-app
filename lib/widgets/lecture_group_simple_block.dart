@@ -2,7 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:otlplus/constants/text_styles.dart';
 import 'package:otlplus/utils/build_page_route.dart';
-import 'package:otlplus/utils/responsive_button.dart';
+import 'package:otlplus/widgets/responsive_button.dart';
 import 'package:provider/provider.dart';
 import 'package:otlplus/constants/color.dart';
 import 'package:otlplus/extensions/lecture.dart';

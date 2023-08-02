@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:otlplus/constants/color.dart';
 import 'package:otlplus/constants/text_styles.dart';
-import 'package:otlplus/utils/responsive_button.dart';
+import 'package:otlplus/widgets/responsive_button.dart';
 import 'package:provider/provider.dart';
 import 'package:otlplus/extensions/semester.dart';
 import 'package:otlplus/providers/timetable_model.dart';

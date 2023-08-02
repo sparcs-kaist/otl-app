@@ -4,7 +4,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:otlplus/constants/color.dart';
-import 'package:otlplus/utils/responsive_button.dart';
+import 'package:otlplus/widgets/responsive_button.dart';
 import 'package:provider/provider.dart';
 import 'package:otlplus/constants/url.dart';
 import 'package:otlplus/providers/auth_model.dart';

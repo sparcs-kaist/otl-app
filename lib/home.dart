@@ -9,7 +9,7 @@ import 'package:otlplus/utils/build_page_route.dart';
 import 'package:otlplus/widgets/hall_of_fame_control.dart';
 import 'package:otlplus/widgets/review_mode_control.dart';
 import 'package:otlplus/widgets/timetable_mode_control.dart';
-import 'package:otlplus/utils/responsive_button.dart';
+import 'package:otlplus/widgets/responsive_button.dart';
 import 'package:otlplus/widgets/pop_up.dart';
 import 'package:otlplus/widgets/semester_picker.dart';
 import 'package:provider/provider.dart';

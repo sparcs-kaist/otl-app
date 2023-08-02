@@ -8,7 +8,7 @@ import 'package:otlplus/constants/url.dart';
 import 'package:otlplus/dio_provider.dart';
 import 'package:otlplus/models/lecture.dart';
 import 'package:otlplus/models/review.dart';
-import 'package:otlplus/utils/responsive_button.dart';
+import 'package:otlplus/widgets/responsive_button.dart';
 
 class ReviewWriteBlock extends StatefulWidget {
   final Lecture lecture;
