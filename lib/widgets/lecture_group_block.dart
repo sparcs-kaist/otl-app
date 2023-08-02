@@ -1,5 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:otlplus/constants/color.dart';
+import 'package:otlplus/constants/text_styles.dart';
 import 'package:otlplus/models/lecture.dart';
 import 'package:otlplus/widgets/lecture_group_block_row.dart';
 
@@ -11,6 +13,8 @@ class LectureGroupBlock extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isEn = EasyLocalization.of(context)?.currentLocale == Locale('en');
+
     if (lectures.isEmpty) {
       return Container(
         margin: const EdgeInsets.only(bottom: 6.0),
@@ -22,71 +26,66 @@ class LectureGroupBlock extends StatelessWidget {
         child: Text("There is no lecture."),
       );
     }
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(8.0),
-      child: ColoredBox(
-        color: Color(0xFFEEEEEE),
-        child: Padding(
-          padding: EdgeInsets.fromLTRB(12, 8, 12, 8),
-          child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: <Widget>[
-                Padding(
-                  padding: EdgeInsets.only(bottom: 4.0),
-                  child: Wrap(
-                    alignment: WrapAlignment.spaceBetween,
-                    crossAxisAlignment: WrapCrossAlignment.center,
-                    children: [
-                      Wrap(
-                        crossAxisAlignment: WrapCrossAlignment.center,
-                        children: [
-                          Text(
-                            lectures.first.commonTitle,
-                            style: const TextStyle(
-                                fontSize: 14.0, fontWeight: FontWeight.bold),
-                          ),
-                          SizedBox(
-                            width: 4,
-                          ),
-                          Text(
-                            lectures.first.oldCode,
-                            style: const TextStyle(fontSize: 14.0),
-                          ),
-                        ],
-                      ),
-                      Text.rich(
-                        TextSpan(
-                          style: const TextStyle(
-                            fontSize: 10.0,
-                            color: Color(0xFF999999),
-                          ),
-                          children: <TextSpan>[
-                            TextSpan(
-                              text: lectures.first.departmentCode,
-                            ),
-                            const TextSpan(text: " / "),
-                            TextSpan(text: lectures.first.type),
-                          ],
-                        ),
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.all(Radius.circular(8.0)),
+        color: OTLColor.grayE,
+      ),
+      padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: <Widget>[
+          Padding(
+            padding: EdgeInsets.only(bottom: 4.0),
+            child: Wrap(
+              alignment: WrapAlignment.spaceBetween,
+              crossAxisAlignment: WrapCrossAlignment.end,
+              children: [
+                Wrap(
+                  crossAxisAlignment: WrapCrossAlignment.center,
+                  children: [
+                    Text(
+                      isEn
+                          ? lectures.first.commonTitleEn
+                          : lectures.first.commonTitle,
+                      style: bodyBold,
+                    ),
+                    const SizedBox(width: 4),
+                    Text(lectures.first.oldCode, style: bodyRegular),
+                  ],
+                ),
+                Text.rich(
+                  TextSpan(
+                    style: labelRegular.copyWith(color: OTLColor.grayA),
+                    children: <TextSpan>[
+                      TextSpan(text: lectures.first.departmentCode),
+                      const TextSpan(text: " / "),
+                      TextSpan(
+                        text:
+                            isEn ? lectures.first.typeEn : lectures.first.type,
                       ),
                     ],
                   ),
                 ),
-                Padding(
-                  padding: EdgeInsets.symmetric(vertical: 4.0),
-                  child: SizedBox(
-                    height: 1,
-                    child: ColoredBox(
-                      color: Color(0xFFDADADA),
-                    ),
-                  ),
-                ),
-                ...lectures.map((lecture) => LectureGroupBlockRow(
-                      lecture: lecture,
-                      onLongPress: () => onLongPress(lecture),
-                    )),
-              ]),
-        ),
+              ],
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.symmetric(vertical: 4.0),
+            child: SizedBox(
+              height: 1,
+              child: ColoredBox(
+                color: Color(0xFFDADADA),
+              ),
+            ),
+          ),
+          ...lectures.map(
+            (lecture) => LectureGroupBlockRow(
+              lecture: lecture,
+              onLongPress: () => onLongPress(lecture),
+            ),
+          ),
+        ],
       ),
     );
   }

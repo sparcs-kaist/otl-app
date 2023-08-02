@@ -76,7 +76,9 @@ class _TimetablePageState extends State<TimetablePage> {
                           behavior: HitTestBehavior.translucent,
                           onTap: () {
                             Navigator.push(
-                                context, buildLectureSearchPageRoute());
+                              context,
+                              buildLectureSearchPageRoute(false),
+                            );
                           },
                           child: Padding(
                             padding: const EdgeInsets.fromLTRB(12, 18, 16, 18),
