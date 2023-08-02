@@ -116,7 +116,7 @@ class UserPage extends StatelessWidget {
 
   Widget _buildNavigateArrowButton(
       BuildContext context, String icon, String text, VoidCallback onTap) {
-    return IconTextButtonRaw(
+    return RawResponsiveButton(
       data: {
         'Padding': {
           'padding': EdgeInsets.symmetric(horizontal: 16.0),

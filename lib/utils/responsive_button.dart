@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class IconTextButton extends StatefulWidget {
+class IconTextButton extends StatelessWidget {
   const IconTextButton({
     Key? key,
     this.color = const Color(0xFF000000),
@@ -39,258 +39,72 @@ class IconTextButton extends StatefulWidget {
   final String direction;
 
   @override
-  State<IconTextButton> createState() => _IconTextButtonState();
-}
-
-class _IconTextButtonState extends State<IconTextButton> {
-  @override
   Widget build(BuildContext context) {
     List<Map<String, Map>> children = [
-      if (widget.icon != null)
-        if (widget.icon is IconData)
+      if (icon != null)
+        if (icon is IconData)
           {
-            'Icon': {
-              'arg': widget.icon,
-              'size': widget.iconSize,
-              'color': widget.color
-            }
+            'Icon': {'arg': icon, 'size': iconSize, 'color': color}
           }
-        else if (widget.icon is String)
+        else if (icon is String)
           {
             'SvgPicture.asset': {
-              'arg': widget.icon,
-              'height': widget.iconSize,
-              'width': widget.iconSize,
-              'color': widget.color
+              'arg': icon,
+              'height': iconSize,
+              'width': iconSize,
+              'color': color
             }
           },
-      widget.direction.startsWith('row')
+      direction.startsWith('row')
           ? {
               'SizedBox': {
-                'width': widget.spaceBetween,
+                'width': spaceBetween,
               }
             }
           : {
               'SizedBox': {
-                'height': widget.spaceBetween,
+                'height': spaceBetween,
               }
             },
-      if (widget.text != null)
+      if (text != null)
         {
           'Text': {
-            'arg': widget.text!,
-            'style': widget.textStyle
-                .copyWith(color: widget.textStyle.color ?? widget.color)
+            'arg': text!,
+            'style': textStyle.copyWith(color: textStyle.color ?? color)
           }
         }
     ];
-    Map<String, Map> child = widget.direction.startsWith('row')
+    Map<String, Map> child = direction.startsWith('row')
         ? {
             'Row': {
-              'children': widget.direction.endsWith('reversed')
+              'children': direction.endsWith('reversed')
                   ? children.reversed.toList()
                   : children
             }
           }
         : {
             'Column': {
-              'children': widget.direction.endsWith('reversed')
+              'children': direction.endsWith('reversed')
                   ? children.reversed.toList()
                   : children
             }
           };
-    return IconTextButtonRaw(
-      data: widget.padding != null
+    return RawResponsiveButton(
+      data: padding != null
           ? {
-              'Padding': {'padding': widget.padding!, 'child': child}
+              'Padding': {'padding': padding!, 'child': child}
             }
           : {
               'Center': {'child': child}
             },
-      onTap: widget.onTap,
-      tapEffect: widget.tapEffect,
-      tapEffectColorRatio: widget.tapEffectColorRatio,
+      onTap: onTap,
+      tapEffect: tapEffect,
+      tapEffectColorRatio: tapEffectColorRatio,
     );
   }
 }
 
-Widget? renderRawResponsiveWidget(BuildContext context, Map<String, Map> data,
-    String tapEffect, double tapEffectColorRatio, bool isTapDowned) {
-  if (data.keys.length == 0) return null;
-  assert(data.keys.length == 1, 'more than one key in data');
-  String widget = data.keys.first;
-  Map args = data[widget]!;
-  switch (widget) {
-    case 'Row':
-      return Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisSize: MainAxisSize.min,
-        children: (args['children'] as List<Map<String, Map>>? ?? [])
-            .map((e) => renderRawResponsiveWidget(
-                context, e, tapEffect, tapEffectColorRatio, isTapDowned))
-            .whereType<Widget>()
-            .toList(),
-      );
-    case 'Row-reversed':
-      return Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisSize: MainAxisSize.min,
-        children: (args['children'] as List<Map<String, Map>>? ?? [])
-            .map((e) => renderRawResponsiveWidget(
-                context, e, tapEffect, tapEffectColorRatio, isTapDowned))
-            .whereType<Widget>()
-            .toList()
-            .reversed
-            .toList(),
-      );
-    case 'Column':
-      return Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisSize: MainAxisSize.min,
-        children: (args['children'] as List<Map<String, Map>>? ?? [])
-            .map((e) => renderRawResponsiveWidget(
-                context, e, tapEffect, tapEffectColorRatio, isTapDowned))
-            .whereType<Widget>()
-            .toList(),
-      );
-    case 'Column-reversed':
-      return Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisSize: MainAxisSize.min,
-        children: (args['children'] as List<Map<String, Map>>? ?? [])
-            .map((e) => renderRawResponsiveWidget(
-                context, e, tapEffect, tapEffectColorRatio, isTapDowned))
-            .whereType<Widget>()
-            .toList()
-            .reversed
-            .toList(),
-      );
-    case 'Icon':
-      return Icon(args['arg'] ?? null,
-          size: args['size'] ?? 24.0,
-          color: Color.lerp(
-              args['color'] ?? Color(0xFF000000),
-              tapEffect == 'darken'
-                  ? Color(0xFF000000)
-                  : tapEffect == 'lighten'
-                      ? Color(0xFFFFFFFF)
-                      : args['color'] ?? Color(0xFF000000),
-              isTapDowned ? tapEffectColorRatio : 0));
-    case 'SvgPicture.asset':
-      return SvgPicture.asset(args['arg'] ?? null,
-          width: args['width'] ?? 24.0,
-          height: args['height'] ?? 24.0,
-          colorFilter: ColorFilter.mode(
-              Color.lerp(
-                  args['color'] ?? Color(0xFF000000),
-                  tapEffect == 'darken'
-                      ? Color(0xFF000000)
-                      : tapEffect == 'lighten'
-                          ? Color(0xFFFFFFFF)
-                          : args['color'] ?? Color(0xFF000000),
-                  isTapDowned ? tapEffectColorRatio : 0)!,
-              BlendMode.srcIn));
-    case 'SizedBox':
-      return SizedBox(
-          width: args['width'],
-          height: args['height'],
-          child: renderRawResponsiveWidget(context, args['child'] ?? {},
-              tapEffect, tapEffectColorRatio, isTapDowned));
-    case 'Spacer':
-      return Spacer(flex: args['flex'] ?? 1);
-    case 'Text':
-      return Text(args['arg'] ?? '',
-          style: ((args['style'] ?? TextStyle()) as TextStyle).copyWith(
-              color: Color.lerp(
-                  (args['style'] ?? TextStyle()).color ?? Color(0xFF000000),
-                  tapEffect == 'darken'
-                      ? Color(0xFF000000)
-                      : tapEffect == 'lighten'
-                          ? Color(0xFFFFFFFF)
-                          : (args['style'] ?? TextStyle()).color ??
-                              Color(0xFF000000),
-                  isTapDowned ? tapEffectColorRatio : 0)));
-    case 'Padding':
-      return Padding(
-          padding: args['padding'] ?? EdgeInsets.zero,
-          child: renderRawResponsiveWidget(context, args['child'] ?? {},
-              tapEffect, tapEffectColorRatio, isTapDowned));
-    case 'Center':
-      return Center(
-          child: renderRawResponsiveWidget(context, args['child'] ?? {},
-              tapEffect, tapEffectColorRatio, isTapDowned));
-    default:
-      return const Placeholder();
-  }
-}
-
-class IconTextButtonRaw extends StatefulWidget {
-  const IconTextButtonRaw({
-    Key? key,
-    required this.data,
-    this.onTap,
-    this.tapEffect = 'lighten',
-    this.tapEffectColorRatio = 0.48,
-  }) : super(key: key);
-  final Map<String, Map> data;
-  final VoidCallback? onTap;
-  final String? tapEffect;
-  final double tapEffectColorRatio;
-
-  @override
-  State<IconTextButtonRaw> createState() => _IconTextButtonRawState();
-}
-
-class _IconTextButtonRawState extends State<IconTextButtonRaw> {
-  bool _isTapDowned = false;
-  bool _delaying = false;
-
-  @override
-  void setState(e) {
-    if (mounted) {
-      super.setState(e);
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-        behavior: HitTestBehavior.opaque,
-        onTapDown: (_) {
-          setState(() {
-            _isTapDowned = true;
-          });
-          _delaying = false;
-          Future.delayed(const Duration(milliseconds: 128), () {
-            _delaying = true;
-            if (_isTapDowned == false)
-              setState(() {
-                _isTapDowned = false;
-              });
-          });
-        },
-        onTapUp: (_) {
-          if (_isTapDowned && widget.onTap != null) {
-            widget.onTap!();
-          }
-          if (_delaying)
-            setState(() {
-              _isTapDowned = false;
-            });
-          else
-            _isTapDowned = false;
-        },
-        onTapCancel: () {
-          setState(() {
-            _isTapDowned = false;
-          });
-        },
-        child: renderRawResponsiveWidget(context, widget.data,
-            widget.tapEffect!, widget.tapEffectColorRatio, _isTapDowned));
-  }
-}
-
-class BackgroundButton extends StatefulWidget {
+class BackgroundButton extends StatelessWidget {
   const BackgroundButton(
       {Key? key,
       this.color = const Color(0x00000000),
@@ -311,18 +125,227 @@ class BackgroundButton extends StatefulWidget {
   final Widget child;
 
   @override
-  State<BackgroundButton> createState() => _BackgroundButtonState();
+  Widget build(BuildContext context) {
+    return RawResponsiveButton(
+      data: {
+        'ColoredBox': {
+          'color': color,
+          'child': child,
+        }
+      },
+      onTap: onTap,
+      onLongPress: onLongPress,
+      tapEffect: tapEffect,
+      tapEffectColorRatio: tapEffectColorRatio,
+    );
+  }
 }
 
-class _BackgroundButtonState extends State<BackgroundButton> {
-  bool _isTapDowned = false;
-  bool _delaying = false;
+class RawResponsiveWidget extends StatelessWidget {
+  const RawResponsiveWidget(
+      {required this.data,
+      required this.tapEffect,
+      required this.tapEffectColorRatio,
+      required this.pressedEffect,
+      Key? key})
+      : super(key: key);
+  final Map<String, Map> data;
+  final String tapEffect;
+  final double tapEffectColorRatio;
+  final ValueNotifier<bool> pressedEffect;
 
   @override
-  void setState(e) {
-    if (mounted) {
-      super.setState(e);
+  Widget build(BuildContext context) {
+    if (data.keys.length != 1) return Placeholder();
+    String widget = data.keys.first;
+    Map args = data[widget]!;
+    switch (widget) {
+      case 'Row':
+        return Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: (args['children'] as List<Map<String, Map>>? ?? [])
+              .map((e) => RawResponsiveWidget(
+                  data: e,
+                  tapEffect: tapEffect,
+                  tapEffectColorRatio: tapEffectColorRatio,
+                  pressedEffect: pressedEffect))
+              .toList(),
+        );
+      case 'Row-reversed':
+        return Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: (args['children'] as List<Map<String, Map>>? ?? [])
+              .map((e) => RawResponsiveWidget(
+                  data: e,
+                  tapEffect: tapEffect,
+                  tapEffectColorRatio: tapEffectColorRatio,
+                  pressedEffect: pressedEffect))
+              .toList()
+              .reversed
+              .toList(),
+        );
+      case 'Column':
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: (args['children'] as List<Map<String, Map>>? ?? [])
+              .map((e) => RawResponsiveWidget(
+                  data: e,
+                  tapEffect: tapEffect,
+                  tapEffectColorRatio: tapEffectColorRatio,
+                  pressedEffect: pressedEffect))
+              .toList(),
+        );
+      case 'Column-reversed':
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: (args['children'] as List<Map<String, Map>>? ?? [])
+              .map((e) => RawResponsiveWidget(
+                  data: e,
+                  tapEffect: tapEffect,
+                  tapEffectColorRatio: tapEffectColorRatio,
+                  pressedEffect: pressedEffect))
+              .toList()
+              .reversed
+              .toList(),
+        );
+      case 'Icon':
+        return ValueListenableBuilder<bool>(
+            valueListenable: pressedEffect,
+            builder: (BuildContext context, bool effect, Widget? child) {
+              return Icon(args['arg'] ?? null,
+                  size: args['size'] ?? 24.0,
+                  color: Color.lerp(
+                      args['color'] ?? Color(0xFF000000),
+                      tapEffect == 'darken'
+                          ? Color(0xFF000000)
+                          : tapEffect == 'lighten'
+                              ? Color(0xFFFFFFFF)
+                              : args['color'] ?? Color(0xFF000000),
+                      effect ? tapEffectColorRatio : 0));
+            });
+      case 'SvgPicture.asset':
+        return ValueListenableBuilder<bool>(
+            valueListenable: pressedEffect,
+            builder: (BuildContext context, bool effect, Widget? child) {
+              return SvgPicture.asset(args['arg'] ?? null,
+                  width: args['width'] ?? 24.0,
+                  height: args['height'] ?? 24.0,
+                  colorFilter: ColorFilter.mode(
+                      Color.lerp(
+                          args['color'] ?? Color(0xFF000000),
+                          tapEffect == 'darken'
+                              ? Color(0xFF000000)
+                              : tapEffect == 'lighten'
+                                  ? Color(0xFFFFFFFF)
+                                  : args['color'] ?? Color(0xFF000000),
+                          effect ? tapEffectColorRatio : 0)!,
+                      BlendMode.srcIn));
+            });
+      case 'SizedBox':
+        return SizedBox(
+            width: args['width'],
+            height: args['height'],
+            child: (args['child'] == null)
+                ? null
+                : RawResponsiveWidget(
+                    data: args['child']!,
+                    tapEffect: tapEffect,
+                    tapEffectColorRatio: tapEffectColorRatio,
+                    pressedEffect: pressedEffect));
+      case 'Spacer':
+        return Spacer(flex: args['flex'] ?? 1);
+      case 'Text':
+        return ValueListenableBuilder<bool>(
+            valueListenable: pressedEffect,
+            builder: (BuildContext context, bool effect, Widget? child) {
+              return Text(args['arg'] ?? '',
+                  style: ((args['style'] ?? TextStyle()) as TextStyle).copyWith(
+                      color: Color.lerp(
+                          (args['style'] ?? TextStyle()).color ??
+                              Color(0xFF000000),
+                          tapEffect == 'darken'
+                              ? Color(0xFF000000)
+                              : tapEffect == 'lighten'
+                                  ? Color(0xFFFFFFFF)
+                                  : (args['style'] ?? TextStyle()).color ??
+                                      Color(0xFF000000),
+                          effect ? tapEffectColorRatio : 0)));
+            });
+      case 'ColoredBox':
+        return ValueListenableBuilder<bool>(
+          valueListenable: pressedEffect,
+          builder: (BuildContext context, bool effect, Widget? child) {
+            return ColoredBox(
+              color: Color.lerp(
+                  args['color'] ?? Color(0x00000000),
+                  tapEffect == 'darken'
+                      ? Color(0xFF000000)
+                      : tapEffect == 'lighten'
+                          ? Color(0xFFFFFFFF)
+                          : args['color'] ?? Color(0x00000000),
+                  effect ? tapEffectColorRatio : 0)!,
+              child: child,
+            );
+          },
+          child: args['child'],
+        );
+      case 'Padding':
+        return Padding(
+            padding: args['padding'] ?? EdgeInsets.zero,
+            child: (args['child'] == null)
+                ? null
+                : RawResponsiveWidget(
+                    data: args['child'],
+                    tapEffect: tapEffect,
+                    tapEffectColorRatio: tapEffectColorRatio,
+                    pressedEffect: pressedEffect));
+      case 'Center':
+        return Center(
+            child: (args['child'] == null)
+                ? null
+                : RawResponsiveWidget(
+                    data: args['child'] ?? {},
+                    tapEffect: tapEffect,
+                    tapEffectColorRatio: tapEffectColorRatio,
+                    pressedEffect: pressedEffect));
+      default:
+        return const Placeholder();
     }
+  }
+}
+
+class RawResponsiveButton extends StatefulWidget {
+  const RawResponsiveButton({
+    Key? key,
+    required this.data,
+    this.onTap,
+    this.onLongPress,
+    this.tapEffect = 'lighten',
+    this.tapEffectColorRatio = 0.48,
+  }) : super(key: key);
+  final Map<String, Map> data;
+  final VoidCallback? onTap;
+  final VoidCallback? onLongPress;
+  final String? tapEffect;
+  final double tapEffectColorRatio;
+
+  @override
+  State<RawResponsiveButton> createState() => _RawResponsiveButtonState();
+}
+
+class _RawResponsiveButtonState extends State<RawResponsiveButton> {
+  bool _isPressed = false;
+  bool _delaying = false;
+  final ValueNotifier<bool> _pressedEffect = ValueNotifier<bool>(false);
+
+  @override
+  void dispose() {
+    _pressedEffect.dispose();
+    super.dispose();
   }
 
   @override
@@ -330,45 +353,30 @@ class _BackgroundButtonState extends State<BackgroundButton> {
     return GestureDetector(
         behavior: HitTestBehavior.opaque,
         onTapDown: (_) {
-          setState(() {
-            _isTapDowned = true;
-          });
-          _delaying = false;
+          _isPressed = true;
+          _pressedEffect.value = true;
+          _delaying = true;
           Future.delayed(const Duration(milliseconds: 128), () {
-            _delaying = true;
-            if (_isTapDowned == false)
-              setState(() {
-                _isTapDowned = false;
-              });
+            _delaying = false;
+            if (_isPressed == false) _pressedEffect.value = false;
+            Future.delayed(const Duration(milliseconds: 512), () {
+              if (_isPressed) widget.onLongPress?.call();
+            });
           });
         },
         onTapUp: (_) {
-          if (_isTapDowned && widget.onTap != null) {
-            widget.onTap!();
-          }
-          if (_delaying)
-            setState(() {
-              _isTapDowned = false;
-            });
-          else
-            _isTapDowned = false;
+          if (_isPressed) widget.onTap?.call();
+          _isPressed = false;
+          if (_delaying == false) _pressedEffect.value = false;
         },
         onTapCancel: () {
-          setState(() {
-            _isTapDowned = false;
-          });
+          _isPressed = false;
+          if (_delaying == false) _pressedEffect.value = false;
         },
-        onLongPress: widget.onLongPress,
-        child: ColoredBox(
-          color: Color.lerp(
-              widget.color,
-              widget.tapEffect == 'darken'
-                  ? Color(0xFF000000)
-                  : widget.tapEffect == 'lighten'
-                      ? Color(0xFFFFFFFF)
-                      : widget.color,
-              _isTapDowned ? widget.tapEffectColorRatio : 0)!,
-          child: widget.child,
-        ));
+        child: RawResponsiveWidget(
+            data: widget.data,
+            tapEffect: widget.tapEffect!,
+            tapEffectColorRatio: widget.tapEffectColorRatio,
+            pressedEffect: _pressedEffect));
   }
 }
