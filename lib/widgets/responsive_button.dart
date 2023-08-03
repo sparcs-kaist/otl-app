@@ -156,7 +156,7 @@ class RawResponsiveWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (data.keys.length != 1) return Placeholder();
+    if (data.keys.length != 1) return const Placeholder();
     String widget = data.keys.first;
     Map args = data[widget]!;
     switch (widget) {
@@ -213,37 +213,43 @@ class RawResponsiveWidget extends StatelessWidget {
               .toList(),
         );
       case 'Icon':
+        final Color unpressedColor = args['color'] ?? const Color(0xFF000000);
+        final Color pressedColor = Color.lerp(
+            unpressedColor,
+            tapEffect == 'darken'
+                ? const Color(0xFF000000)
+                : tapEffect == 'lighten'
+                    ? const Color(0xFFFFFFFF)
+                    : unpressedColor,
+            tapEffectColorRatio)!;
         return ValueListenableBuilder<bool>(
             valueListenable: pressedEffect,
             builder: (BuildContext context, bool effect, Widget? child) {
               return Icon(args['arg'] ?? null,
                   size: args['size'] ?? 24.0,
-                  color: Color.lerp(
-                      args['color'] ?? Color(0xFF000000),
-                      tapEffect == 'darken'
-                          ? Color(0xFF000000)
-                          : tapEffect == 'lighten'
-                              ? Color(0xFFFFFFFF)
-                              : args['color'] ?? Color(0xFF000000),
-                      effect ? tapEffectColorRatio : 0));
+                  color: effect ? pressedColor : unpressedColor);
             });
       case 'SvgPicture.asset':
+        final ColorFilter unpressedColorFilter = ColorFilter.mode(
+            args['color'] ?? const Color(0xFF000000), BlendMode.srcIn);
+        final ColorFilter pressedColorFilter = ColorFilter.mode(
+            Color.lerp(
+                args['color'] ?? const Color(0xFF000000),
+                tapEffect == 'darken'
+                    ? const Color(0xFF000000)
+                    : tapEffect == 'lighten'
+                        ? const Color(0xFFFFFFFF)
+                        : args['color'] ?? const Color(0xFF000000),
+                tapEffectColorRatio)!,
+            BlendMode.srcIn);
         return ValueListenableBuilder<bool>(
             valueListenable: pressedEffect,
             builder: (BuildContext context, bool effect, Widget? child) {
               return SvgPicture.asset(args['arg'] ?? null,
                   width: args['width'] ?? 24.0,
                   height: args['height'] ?? 24.0,
-                  colorFilter: ColorFilter.mode(
-                      Color.lerp(
-                          args['color'] ?? Color(0xFF000000),
-                          tapEffect == 'darken'
-                              ? Color(0xFF000000)
-                              : tapEffect == 'lighten'
-                                  ? Color(0xFFFFFFFF)
-                                  : args['color'] ?? Color(0xFF000000),
-                          effect ? tapEffectColorRatio : 0)!,
-                      BlendMode.srcIn));
+                  colorFilter:
+                      effect ? pressedColorFilter : unpressedColorFilter);
             });
       case 'SizedBox':
         return SizedBox(
@@ -259,35 +265,43 @@ class RawResponsiveWidget extends StatelessWidget {
       case 'Spacer':
         return Spacer(flex: args['flex'] ?? 1);
       case 'Text':
+        final DefaultTextStyle defaultTextStyle = DefaultTextStyle.of(context);
+        TextStyle unpressedTextStyle =
+            defaultTextStyle.style.merge(args['style']);
+        if (MediaQuery.boldTextOf(context)) {
+          unpressedTextStyle = unpressedTextStyle
+              .merge(const TextStyle(fontWeight: FontWeight.bold));
+        }
+        final TextStyle? pressedTextStyle = unpressedTextStyle.copyWith(
+            color: Color.lerp(
+                unpressedTextStyle.color ?? const Color(0xFF000000),
+                tapEffect == 'darken'
+                    ? const Color(0xFF000000)
+                    : tapEffect == 'lighten'
+                        ? const Color(0xFFFFFFFF)
+                        : unpressedTextStyle.color ?? const Color(0xFF000000),
+                tapEffectColorRatio));
         return ValueListenableBuilder<bool>(
             valueListenable: pressedEffect,
             builder: (BuildContext context, bool effect, Widget? child) {
               return Text(args['arg'] ?? '',
-                  style: ((args['style'] ?? TextStyle()) as TextStyle).copyWith(
-                      color: Color.lerp(
-                          (args['style'] ?? TextStyle()).color ??
-                              Color(0xFF000000),
-                          tapEffect == 'darken'
-                              ? Color(0xFF000000)
-                              : tapEffect == 'lighten'
-                                  ? Color(0xFFFFFFFF)
-                                  : (args['style'] ?? TextStyle()).color ??
-                                      Color(0xFF000000),
-                          effect ? tapEffectColorRatio : 0)));
+                  style: effect ? pressedTextStyle : unpressedTextStyle);
             });
       case 'ColoredBox':
+        final Color unpressedColor = args['color'] ?? const Color(0x00000000);
+        final Color pressedColor = Color.lerp(
+            unpressedColor,
+            tapEffect == 'darken'
+                ? const Color(0xFF000000)
+                : tapEffect == 'lighten'
+                    ? const Color(0xFFFFFFFF)
+                    : unpressedColor,
+            tapEffectColorRatio)!;
         return ValueListenableBuilder<bool>(
           valueListenable: pressedEffect,
           builder: (BuildContext context, bool effect, Widget? child) {
             return ColoredBox(
-              color: Color.lerp(
-                  args['color'] ?? Color(0x00000000),
-                  tapEffect == 'darken'
-                      ? Color(0xFF000000)
-                      : tapEffect == 'lighten'
-                          ? Color(0xFFFFFFFF)
-                          : args['color'] ?? Color(0x00000000),
-                  effect ? tapEffectColorRatio : 0)!,
+              color: effect ? pressedColor : unpressedColor,
               child: child,
             );
           },
