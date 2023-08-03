@@ -8,7 +8,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:open_app_file/open_app_file.dart';
 
-const MethodChannel _channel = const MethodChannel("org.sparcs.otlplus");
+const MethodChannel _channel = MethodChannel("org.sparcs.otlplus");
 
 Future<void> exportImage(RenderRepaintBoundary boundary) async {
   final image = await boundary.toImage(pixelRatio: 3.0);

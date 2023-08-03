@@ -39,7 +39,7 @@ void main() {
 
     runApp(
       EasyLocalization(
-          supportedLocales: [const Locale('en'), const Locale('ko')],
+          supportedLocales: const [Locale('en'), Locale('ko')],
           path: 'assets/translations',
           fallbackLocale: const Locale('en'),
           child: MultiProvider(

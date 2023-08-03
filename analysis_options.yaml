@@ -1,0 +1,7 @@
+analyzer:
+  exclude: [build/**, test/**]
+linter:
+  rules:
+    prefer_const_constructors: true
+    prefer_const_literals_to_create_immutables: true
+    unnecessary_const: true

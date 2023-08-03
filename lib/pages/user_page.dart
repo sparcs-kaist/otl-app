@@ -129,10 +129,10 @@ class UserPage extends StatelessWidget {
                         },
                       }
                     },
-                    {'Spacer': {}},
-                    {
+                    const {'Spacer': {}},
+                    const {
                       'Padding': {
-                        'padding': const EdgeInsets.fromLTRB(16, 6, 0, 6),
+                        'padding': EdgeInsets.fromLTRB(16, 6, 0, 6),
                         'child': {
                           'Icon': {
                             'arg': Icons.navigate_next,
