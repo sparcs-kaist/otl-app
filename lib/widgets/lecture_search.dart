@@ -41,15 +41,16 @@ class _LectureSearchState extends State<LectureSearch> {
                     child: Padding(
                   padding: const EdgeInsets.fromLTRB(16, 12, 0, 12),
                   child: ClipRRect(
-                      borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                      borderRadius:
+                          const BorderRadius.all(Radius.circular(8.0)),
                       child: BackgroundButton(
                         onTap: () => Navigator.of(context).push(
                             MaterialPageRoute(
-                                builder: (context) =>
-                                    LectureSearchPage(openKeyboard: false))),
-                        color: Color(0xFFF9F0F0),
+                                builder: (context) => const LectureSearchPage(
+                                    openKeyboard: false))),
+                        color: const Color(0xFFF9F0F0),
                         child: Padding(
-                          padding: EdgeInsets.all(8.0),
+                          padding: const EdgeInsets.all(8.0),
                           child: SizedBox(
                             height: 20,
                             child: Row(
@@ -59,9 +60,9 @@ class _LectureSearchState extends State<LectureSearch> {
                                 SvgPicture.asset('assets/icons/search.svg',
                                     height: 24.0,
                                     width: 24.0,
-                                    colorFilter: ColorFilter.mode(
+                                    colorFilter: const ColorFilter.mode(
                                         OTLColor.pinksMain, BlendMode.srcIn)),
-                                SizedBox(width: 12.0),
+                                const SizedBox(width: 12.0),
                                 Flexible(
                                     child: context
                                         .watch<LectureSearchModel>()
@@ -73,7 +74,7 @@ class _LectureSearchState extends State<LectureSearch> {
                       )),
                 )),
                 IconTextButton(
-                  padding: EdgeInsets.fromLTRB(8, 12, 16, 12),
+                  padding: const EdgeInsets.fromLTRB(8, 12, 16, 12),
                   icon: Icons.close_outlined,
                   iconSize: 24,
                   onTap: widget.onClosed,
@@ -82,8 +83,8 @@ class _LectureSearchState extends State<LectureSearch> {
             ),
             Expanded(
               child: searchModel.isSearching
-                  ? Center(
-                      child: const CircularProgressIndicator(),
+                  ? const Center(
+                      child: CircularProgressIndicator(),
                     )
                   : Scrollbar(
                       controller: _scrollController,
@@ -100,7 +101,7 @@ class _LectureSearchState extends State<LectureSearch> {
   ListView _buildListView(
       List<List<Lecture>> lectures, ScrollController scrollController) {
     return ListView.separated(
-        padding: EdgeInsets.fromLTRB(16, 0, 16, 12),
+        padding: const EdgeInsets.fromLTRB(16, 0, 16, 12),
         controller: scrollController,
         itemCount: lectures.length,
         itemBuilder: (context, index) => LectureGroupBlock(
@@ -112,6 +113,6 @@ class _LectureSearchState extends State<LectureSearch> {
                 Navigator.push(context, buildLectureDetailPageRoute());
               },
             ),
-        separatorBuilder: (context, index) => SizedBox(height: 8));
+        separatorBuilder: (context, index) => const SizedBox(height: 8));
   }
 }

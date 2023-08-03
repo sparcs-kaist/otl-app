@@ -42,7 +42,7 @@ class TimetableBlock extends StatelessWidget {
     final validHeight = height - 16;
     final lineHeight = singleHeight(context, labelRegular);
     int maxLines = (validHeight - lineHeight) ~/ lineHeight;
-    final isKo = context.locale == Locale('ko');
+    final isKo = context.locale == const Locale('ko');
     final title = isKo ? lecture.title : lecture.titleEn;
     final classroomShort = isKo
         ? lecture.classtimes[classTimeIndex].classroomShort

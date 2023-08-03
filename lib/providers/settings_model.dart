@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-final _kSendCrashlytics = 'sendCrashlytics';
-final _kSendCrashlyticsAnonymously = 'sendCrashlyticsAnonymously';
+const _kSendCrashlytics = 'sendCrashlytics';
+const _kSendCrashlyticsAnonymously = 'sendCrashlyticsAnonymously';
 
 class SettingsModel extends ChangeNotifier {
   late bool _sendCrashlytics;

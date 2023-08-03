@@ -107,7 +107,7 @@ class MyReviewPage extends StatelessWidget {
           Expanded(
             child: _buildLectureBlock(context, user, lectures.last),
           ),
-          Expanded(child: const SizedBox()),
+          const Expanded(child: SizedBox()),
         ],
       ));
     }

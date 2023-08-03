@@ -20,7 +20,7 @@ class _ReviewModeControlState extends State<ReviewModeControl> {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.fromLTRB(16, 4, 4, 4),
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         color: OTLColor.grayF,
         borderRadius: BorderRadius.horizontal(right: Radius.circular(21)),
       ),
@@ -34,9 +34,10 @@ class _ReviewModeControlState extends State<ReviewModeControl> {
                 child: Container(
                   height: 34,
                   width: widget._selectedMode == 1 ? 48 : 0,
-                  padding: EdgeInsets.symmetric(vertical: 4, horizontal: 12),
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 4, horizontal: 12),
                   child: widget._selectedMode == 1
-                      ? Icon(
+                      ? const Icon(
                           Icons.emoji_events_outlined,
                           color: OTLColor.pinksMain,
                         )
@@ -49,7 +50,7 @@ class _ReviewModeControlState extends State<ReviewModeControl> {
                   color: OTLColor.grayF,
                   borderRadius: BorderRadius.circular(17),
                 ),
-                padding: EdgeInsets.only(left: 12.0, right: 16.0),
+                padding: const EdgeInsets.only(left: 12.0, right: 16.0),
                 child: Row(
                   children: [
                     Icon(
@@ -74,9 +75,10 @@ class _ReviewModeControlState extends State<ReviewModeControl> {
                 child: Container(
                   height: 34,
                   width: widget._selectedMode == 0 ? 48 : 0,
-                  padding: EdgeInsets.symmetric(vertical: 4, horizontal: 12),
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 4, horizontal: 12),
                   child: widget._selectedMode == 0
-                      ? Icon(
+                      ? const Icon(
                           Icons.whatshot_outlined,
                           color: OTLColor.pinksMain,
                         )
@@ -87,7 +89,7 @@ class _ReviewModeControlState extends State<ReviewModeControl> {
           ),
           AnimatedPositioned(
             left: 48.0 * widget._selectedMode,
-            duration: Duration(milliseconds: 500),
+            duration: const Duration(milliseconds: 500),
             curve: Curves.easeInOut,
             child: Container(
               height: 34,
@@ -95,7 +97,7 @@ class _ReviewModeControlState extends State<ReviewModeControl> {
                 color: OTLColor.pinksMain,
                 borderRadius: BorderRadius.circular(17),
               ),
-              padding: EdgeInsets.only(left: 12.0, right: 16.0),
+              padding: const EdgeInsets.only(left: 12.0, right: 16.0),
               child: Row(
                 children: [
                   Icon(

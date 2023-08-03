@@ -19,20 +19,20 @@ class LectureGroupBlock extends StatelessWidget {
           borderRadius: BorderRadius.circular(4.0),
           color: OTLColor.grayE,
         ),
-        child: Text("There is no lecture."),
+        child: const Text("There is no lecture."),
       );
     }
     return ClipRRect(
       borderRadius: BorderRadius.circular(8.0),
       child: ColoredBox(
-        color: Color(0xFFEEEEEE),
+        color: const Color(0xFFEEEEEE),
         child: Padding(
-          padding: EdgeInsets.fromLTRB(12, 8, 12, 8),
+          padding: const EdgeInsets.fromLTRB(12, 8, 12, 8),
           child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
                 Padding(
-                  padding: EdgeInsets.only(bottom: 4.0),
+                  padding: const EdgeInsets.only(bottom: 4.0),
                   child: Wrap(
                     alignment: WrapAlignment.spaceBetween,
                     crossAxisAlignment: WrapCrossAlignment.center,
@@ -45,7 +45,7 @@ class LectureGroupBlock extends StatelessWidget {
                             style: const TextStyle(
                                 fontSize: 14.0, fontWeight: FontWeight.bold),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 4,
                           ),
                           Text(
@@ -72,7 +72,7 @@ class LectureGroupBlock extends StatelessWidget {
                     ],
                   ),
                 ),
-                Padding(
+                const Padding(
                   padding: EdgeInsets.symmetric(vertical: 4.0),
                   child: SizedBox(
                     height: 1,

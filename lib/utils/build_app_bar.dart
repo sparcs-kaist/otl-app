@@ -17,7 +17,7 @@ PreferredSizeWidget buildAppBar(
             IconTextButton(
               onTap: () => Navigator.pop(context),
               icon: Icons.navigate_before,
-              padding: EdgeInsets.all(16),
+              padding: const EdgeInsets.all(16),
             ),
           )
         : null,
@@ -30,7 +30,7 @@ PreferredSizeWidget buildAppBar(
                   context,
                   (route) => route.isFirst,
                 ),
-                padding: EdgeInsets.all(16),
+                padding: const EdgeInsets.all(16),
               ),
             ),
           ]

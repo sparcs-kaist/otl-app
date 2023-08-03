@@ -51,7 +51,7 @@ class _LectureSearchPageState extends State<LectureSearchPage> {
             IconTextButton(
               onTap: () => Navigator.pop(context),
               icon: Icons.navigate_before,
-              padding: EdgeInsets.fromLTRB(0, 16, 16, 16),
+              padding: const EdgeInsets.fromLTRB(0, 16, 16, 16),
             ),
             Expanded(
               child: SearchTextfield(
@@ -112,7 +112,8 @@ class _LectureSearchPageState extends State<LectureSearchPage> {
                       style: bodyBold.copyWith(color: OTLColor.pinksMain),
                     ),
                     style: ButtonStyle(
-                      backgroundColor: MaterialStatePropertyAll(OTLColor.grayF),
+                      backgroundColor:
+                          const MaterialStatePropertyAll(OTLColor.grayF),
                       shape: MaterialStatePropertyAll(
                         RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8.0),
@@ -121,7 +122,7 @@ class _LectureSearchPageState extends State<LectureSearchPage> {
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 12,
                 ),
                 Expanded(

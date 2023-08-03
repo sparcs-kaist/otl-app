@@ -30,8 +30,8 @@ class ExpandableTextState extends State<ExpandableText> {
         ),
         TextSpan(
             text: " 더보기",
-            style:
-                (widget.style ?? TextStyle()).copyWith(color: Colors.black45),
+            style: (widget.style ?? const TextStyle())
+                .copyWith(color: Colors.black45),
             recognizer: TapGestureRecognizer()
               ..onTap = () {
                 setState(() => _expanded = true);
@@ -44,7 +44,7 @@ class ExpandableTextState extends State<ExpandableText> {
       builder: (BuildContext context, BoxConstraints constraints) {
         assert(constraints.hasBoundedWidth);
         TextPainter textPainter = TextPainter(
-          text: TextSpan(text: ""),
+          text: const TextSpan(text: ""),
           textDirection: TextDirection.rtl,
           maxLines: widget.maxLines,
         );

@@ -131,7 +131,7 @@ class Timetable extends StatelessWidget {
           ),
         ),
       );
-    return SizedBox();
+    return const SizedBox();
   }
 
   Widget _buildCells() {
@@ -156,7 +156,7 @@ class Timetable extends StatelessWidget {
               padding: const EdgeInsets.only(bottom: 3),
               child: Text(
                 'timetable.days.${DAYSOFWEEK[i]}'.tr(),
-                style: TextStyle(fontSize: 12),
+                style: const TextStyle(fontSize: 12),
               ),
             ),
             Stack(

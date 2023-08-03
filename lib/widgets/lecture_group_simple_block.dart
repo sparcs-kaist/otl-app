@@ -19,7 +19,8 @@ class LectureGroupSimpleBlock extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isEn = EasyLocalization.of(context)?.currentLocale == Locale('en');
+    final isEn =
+        EasyLocalization.of(context)?.currentLocale == const Locale('en');
 
     return Column(
       children: <Widget>[
@@ -78,7 +79,7 @@ class LectureGroupSimpleBlock extends StatelessWidget {
                                   text: lecture.classTitle,
                                   style: evenBodyBold,
                                 ),
-                                TextSpan(text: ' '),
+                                const TextSpan(text: ' '),
                                 TextSpan(
                                   text: isEn
                                       ? lecture.professorsStrShortEn

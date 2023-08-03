@@ -90,7 +90,7 @@ class _MapViewState extends State<MapView> {
     _width = MediaQuery.of(context).size.width - 100;
     _height = _width * 131 / 146;
 
-    _isKo = context.locale == Locale('ko');
+    _isKo = context.locale == const Locale('ko');
 
     return CustomScrollView(
       slivers: [
@@ -99,7 +99,7 @@ class _MapViewState extends State<MapView> {
           delegate: CustomHeaderDelegate(
             widget: Container(
               height: _height + 12,
-              padding: EdgeInsets.fromLTRB(50, 0, 50, 12),
+              padding: const EdgeInsets.fromLTRB(50, 0, 50, 12),
               color: OTLColor.grayF,
               child: Stack(
                 clipBehavior: Clip.none,
@@ -131,7 +131,7 @@ class _MapViewState extends State<MapView> {
       BoxShadow(
         color: OTLColor.gray0.withOpacity(0.25),
         blurRadius: 4,
-        offset: Offset(0, 4),
+        offset: const Offset(0, 4),
       )
     ];
     return Positioned(

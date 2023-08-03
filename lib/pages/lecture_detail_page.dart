@@ -37,7 +37,8 @@ class LectureDetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final LectureDetailModel lectureDetailModel =
         context.watch<LectureDetailModel>();
-    final isEn = EasyLocalization.of(context)?.currentLocale == Locale('en');
+    final isEn =
+        EasyLocalization.of(context)?.currentLocale == const Locale('en');
 
     return Scaffold(
       appBar: buildAppBar(
@@ -57,8 +58,8 @@ class LectureDetailPage extends StatelessWidget {
         child:
             context.select<LectureDetailModel, bool>((model) => model.hasData)
                 ? _buildBody(context)
-                : Center(
-                    child: const CircularProgressIndicator(),
+                : const Center(
+                    child: CircularProgressIndicator(),
                   ),
       ),
     );
@@ -115,7 +116,7 @@ class LectureDetailPage extends StatelessWidget {
                       "시간이 겹치는 수업이 있습니다. 추가하시면 해당 수업은 삭제됩니다.\n시간표에 추가하시겠습니까?"),
                   actions: [
                     IconTextButton(
-                      padding: EdgeInsets.all(12),
+                      padding: const EdgeInsets.all(12),
                       text: 'common.cancel'.tr(),
                       color: OTLColor.pinksMain,
                       onTap: () {
@@ -124,7 +125,7 @@ class LectureDetailPage extends StatelessWidget {
                       },
                     ),
                     IconTextButton(
-                      padding: EdgeInsets.all(12),
+                      padding: const EdgeInsets.all(12),
                       text: 'common.add'.tr(),
                       color: OTLColor.pinksMain,
                       onTap: () {
@@ -165,7 +166,7 @@ class LectureDetailPage extends StatelessWidget {
         IconTextButton(
           onTap: () => FlutterWebBrowser.openWebPage(
             url: _getSyllabusUrl(lecture),
-            customTabsOptions: CustomTabsOptions(
+            customTabsOptions: const CustomTabsOptions(
               colorScheme: CustomTabsColorScheme.light,
               defaultColorSchemeParams: CustomTabsColorSchemeParams(
                   toolbarColor: OTLColor.pinksLight),
@@ -174,7 +175,7 @@ class LectureDetailPage extends StatelessWidget {
               showTitle: true,
               urlBarHidingEnabled: true,
             ),
-            safariVCOptions: SafariViewControllerOptions(
+            safariVCOptions: const SafariViewControllerOptions(
               barCollapsingEnabled: true,
               dismissButtonStyle: SafariViewControllerDismissButtonStyle.close,
               modalPresentationCapturesStatusBarAppearance: true,
@@ -332,7 +333,8 @@ class LectureDetailPage extends StatelessWidget {
   }
 
   Widget _buildAttributes(BuildContext context, Lecture lecture) {
-    final isEn = EasyLocalization.of(context)?.currentLocale == Locale('en');
+    final isEn =
+        EasyLocalization.of(context)?.currentLocale == const Locale('en');
 
     return Column(
       children: [

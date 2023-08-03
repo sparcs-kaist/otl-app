@@ -39,9 +39,9 @@ void main() {
 
     runApp(
       EasyLocalization(
-          supportedLocales: [Locale('en'), Locale('ko')],
+          supportedLocales: [const Locale('en'), const Locale('ko')],
           path: 'assets/translations',
-          fallbackLocale: Locale('en'),
+          fallbackLocale: const Locale('en'),
           child: MultiProvider(
             providers: [
               ChangeNotifierProvider(create: (context) => AuthModel()),
@@ -100,7 +100,7 @@ class OTLFirebaseApp extends StatelessWidget {
     } on Error {}
 
     SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(statusBarColor: Colors.transparent));
+        const SystemUiOverlayStyle(statusBarColor: Colors.transparent));
 
     return MaterialApp(
       builder: (context, child) {
@@ -118,7 +118,7 @@ class OTLFirebaseApp extends StatelessWidget {
           : LoginPage(),
       routes: {
         LikedReviewPage.route: (_) => LikedReviewPage(),
-        MyReviewPage.route: (_) => MyReviewPage(),
+        MyReviewPage.route: (_) => const MyReviewPage(),
         LectureDetailPage.route: (_) => LectureDetailPage(),
         CourseDetailPage.route: (_) => CourseDetailPage(),
       },

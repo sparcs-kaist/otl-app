@@ -34,7 +34,8 @@ class _ReviewBlockState extends State<ReviewBlock> {
   @override
   Widget build(BuildContext context) {
     String content = widget.review.content;
-    final isEn = EasyLocalization.of(context)?.currentLocale == Locale('en');
+    final isEn =
+        EasyLocalization.of(context)?.currentLocale == const Locale('en');
 
     return Padding(
       padding: const EdgeInsets.only(bottom: 8.0),
@@ -144,7 +145,7 @@ class _ReviewBlockState extends State<ReviewBlock> {
                   spaceBetween: 4.0,
                   text: "review.like".tr(),
                   textStyle: labelRegular,
-                  padding: EdgeInsets.fromLTRB(3, 8, 10, 8),
+                  padding: const EdgeInsets.fromLTRB(3, 8, 10, 8),
                   onTap: _liked ? _uploadCancel : _uploadLike,
                 ),
                 IconTextButton(
@@ -152,7 +153,7 @@ class _ReviewBlockState extends State<ReviewBlock> {
                   text: "review.report".tr(),
                   textStyle: labelRegular,
                   onTap: _report,
-                  padding: EdgeInsets.fromLTRB(3, 8, 10, 8),
+                  padding: const EdgeInsets.fromLTRB(3, 8, 10, 8),
                 )
               ],
             )
@@ -188,12 +189,12 @@ class _ReviewBlockState extends State<ReviewBlock> {
     showDialog(
         context: context,
         builder: (_) => AlertDialog(
-              title: Text('안내'),
-              content: Text(
+              title: const Text('안내'),
+              content: const Text(
                   '이 기능은 현재 개발중입니다. 부적절한 후기는 otlplus@sparcs.org로 신고해 주세요.'),
               actions: <Widget>[
                 new TextButton(
-                  child: new Text("확인"),
+                  child: const Text("확인"),
                   onPressed: () {
                     Navigator.pop(context);
                   },

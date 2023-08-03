@@ -13,7 +13,7 @@ class PeoplePage extends StatelessWidget {
     return Scaffold(
       appBar: buildAppBar(context, 'title.credit'.tr(), false, true),
       body: Padding(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -34,7 +34,7 @@ class PeoplePage extends StatelessWidget {
 
   _buildContainer(String title) {
     return Container(
-      padding: EdgeInsets.symmetric(vertical: 6.0),
+      padding: const EdgeInsets.symmetric(vertical: 6.0),
       decoration: BoxDecoration(
         color: OTLColor.pinksLight,
         borderRadius: BorderRadius.circular(16.0),

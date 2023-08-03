@@ -164,12 +164,12 @@ Widget renderRawResponsiveWidget(BuildContext context, Map<String, Map> data,
       return Icon(args['arg'] ?? null,
           size: args['size'] ?? 24.0,
           color: Color.lerp(
-              args['color'] ?? Color(0xFF000000),
+              args['color'] ?? const Color(0xFF000000),
               tapEffect == 'darken'
-                  ? Color(0xFF000000)
+                  ? const Color(0xFF000000)
                   : tapEffect == 'lighten'
-                      ? Color(0xFFFFFFFF)
-                      : args['color'] ?? Color(0xFF000000),
+                      ? const Color(0xFFFFFFFF)
+                      : args['color'] ?? const Color(0xFF000000),
               isTapDowned ? tapEffectColorRatio : 0));
     case 'SvgPicture.asset':
       return SvgPicture.asset(args['arg'] ?? null,
@@ -177,12 +177,12 @@ Widget renderRawResponsiveWidget(BuildContext context, Map<String, Map> data,
           height: args['height'] ?? 24.0,
           colorFilter: ColorFilter.mode(
               Color.lerp(
-                  args['color'] ?? Color(0xFF000000),
+                  args['color'] ?? const Color(0xFF000000),
                   tapEffect == 'darken'
-                      ? Color(0xFF000000)
+                      ? const Color(0xFF000000)
                       : tapEffect == 'lighten'
-                          ? Color(0xFFFFFFFF)
-                          : args['color'] ?? Color(0xFF000000),
+                          ? const Color(0xFFFFFFFF)
+                          : args['color'] ?? const Color(0xFF000000),
                   isTapDowned ? tapEffectColorRatio : 0)!,
               BlendMode.srcIn));
     case 'SizedBox':
@@ -197,15 +197,16 @@ Widget renderRawResponsiveWidget(BuildContext context, Map<String, Map> data,
       return Spacer(flex: args['flex'] ?? 1);
     case 'Text':
       return Text(args['arg'] ?? '',
-          style: ((args['style'] ?? TextStyle()) as TextStyle).copyWith(
+          style: ((args['style'] ?? const TextStyle()) as TextStyle).copyWith(
               color: Color.lerp(
-                  (args['style'] ?? TextStyle()).color ?? Color(0xFF000000),
+                  (args['style'] ?? const TextStyle()).color ??
+                      const Color(0xFF000000),
                   tapEffect == 'darken'
-                      ? Color(0xFF000000)
+                      ? const Color(0xFF000000)
                       : tapEffect == 'lighten'
-                          ? Color(0xFFFFFFFF)
-                          : (args['style'] ?? TextStyle()).color ??
-                              Color(0xFF000000),
+                          ? const Color(0xFFFFFFFF)
+                          : (args['style'] ?? const TextStyle()).color ??
+                              const Color(0xFF000000),
                   isTapDowned ? tapEffectColorRatio : 0)));
     case 'Padding':
       return Padding(
@@ -344,9 +345,9 @@ class _BackgroundButtonState extends State<BackgroundButton> {
           color: Color.lerp(
               widget.color,
               widget.tapEffect == 'darken'
-                  ? Color(0xFF000000)
+                  ? const Color(0xFF000000)
                   : widget.tapEffect == 'lighten'
-                      ? Color(0xFFFFFFFF)
+                      ? const Color(0xFFFFFFFF)
                       : widget.color,
               _isTapDowned ? widget.tapEffectColorRatio : 0)!,
           child: widget.child,

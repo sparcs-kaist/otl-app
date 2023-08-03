@@ -49,7 +49,7 @@ class _OTLHomeState extends State<OTLHome> with SingleTickerProviderStateMixin {
         if ((await SharedPreferences.getInstance()).getBool('popup') ?? true) {
           await showDialog(
             context: context,
-            builder: (context) => PopUp(),
+            builder: (context) => const PopUp(),
           );
         }
       },
@@ -75,7 +75,7 @@ class _OTLHomeState extends State<OTLHome> with SingleTickerProviderStateMixin {
 
   PreferredSizeWidget _buildHomeAppBar() {
     return PreferredSize(
-      preferredSize: Size.fromHeight(5),
+      preferredSize: const Size.fromHeight(5),
       child: AppBar(
         flexibleSpace:
             SafeArea(child: Container(color: OTLColor.pinksMain, height: 5.0)),
@@ -89,7 +89,7 @@ class _OTLHomeState extends State<OTLHome> with SingleTickerProviderStateMixin {
 
   PreferredSizeWidget _buildTimeTableAppBar() {
     return PreferredSize(
-      preferredSize: Size.fromHeight(kToolbarHeight + 5),
+      preferredSize: const Size.fromHeight(kToolbarHeight + 5),
       child: SafeArea(
         child: Container(
           color: OTLColor.pinksLight,
@@ -138,14 +138,15 @@ class _OTLHomeState extends State<OTLHome> with SingleTickerProviderStateMixin {
           tapEffectColorRatio: 0.04,
           onTap: () => Navigator.push(context, buildCourseSearchPageRoute()),
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
+            padding:
+                const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
             child: Row(
               children: [
                 SvgPicture.asset('assets/icons/search.svg',
                     height: 24.0,
                     width: 24.0,
-                    colorFilter:
-                        ColorFilter.mode(OTLColor.pinksMain, BlendMode.srcIn)),
+                    colorFilter: const ColorFilter.mode(
+                        OTLColor.pinksMain, BlendMode.srcIn)),
                 const SizedBox(width: 12.0),
                 Expanded(
                   child: context.watch<CourseSearchModel>().courseSearchquery,
@@ -169,7 +170,7 @@ class _OTLHomeState extends State<OTLHome> with SingleTickerProviderStateMixin {
 
   PreferredSizeWidget _buildReviewAppBar() {
     return PreferredSize(
-      preferredSize: Size.fromHeight(kToolbarHeight + 5),
+      preferredSize: const Size.fromHeight(kToolbarHeight + 5),
       child: SafeArea(
         child: Container(
           color: OTLColor.pinksLight,
@@ -224,7 +225,7 @@ class _OTLHomeState extends State<OTLHome> with SingleTickerProviderStateMixin {
     final layerTop = constraints.biggest.height;
     final layerAnimation = RelativeRectTween(
       begin: RelativeRect.fromLTRB(0, layerTop, 0, -layerTop),
-      end: RelativeRect.fromLTRB(0, 0, 0, 0),
+      end: const RelativeRect.fromLTRB(0, 0, 0, 0),
     ).animate(CurvedAnimation(
       parent: _controller,
       curve: Curves.easeInOut,
@@ -244,7 +245,7 @@ class _OTLHomeState extends State<OTLHome> with SingleTickerProviderStateMixin {
                   });
                 }),
                 TimetablePage(),
-                DictionaryPage(),
+                const DictionaryPage(),
                 ReviewPage(),
               ],
             ),
@@ -273,19 +274,19 @@ class _OTLHomeState extends State<OTLHome> with SingleTickerProviderStateMixin {
       },
       items: <BottomNavigationBarItem>[
         BottomNavigationBarItem(
-          icon: Icon(Icons.home_outlined),
+          icon: const Icon(Icons.home_outlined),
           label: tr("title.home"),
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.table_chart_outlined),
+          icon: const Icon(Icons.table_chart_outlined),
           label: tr("title.timetable"),
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.library_books_outlined),
+          icon: const Icon(Icons.library_books_outlined),
           label: tr("title.dictionary"),
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.rate_review_outlined),
+          icon: const Icon(Icons.rate_review_outlined),
           label: tr("title.review"),
         ),
       ],

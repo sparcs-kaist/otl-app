@@ -93,9 +93,9 @@ class _ReviewPageState extends State<ReviewPage> {
               ),
               SliverList(
                   delegate: SliverChildListDelegate([
-                Padding(
-                  padding: const EdgeInsets.only(top: 4.0, bottom: 12.0),
-                  child: const Center(
+                const Padding(
+                  padding: EdgeInsets.only(top: 4.0, bottom: 12.0),
+                  child: Center(
                     child: SizedBox(
                       width: 24,
                       height: 24,
@@ -144,9 +144,9 @@ class _ReviewPageState extends State<ReviewPage> {
               ),
               SliverList(
                   delegate: SliverChildListDelegate([
-                Padding(
-                  padding: const EdgeInsets.only(top: 4.0, bottom: 12.0),
-                  child: const Center(
+                const Padding(
+                  padding: EdgeInsets.only(top: 4.0, bottom: 12.0),
+                  child: Center(
                     child: SizedBox(
                       width: 24,
                       height: 24,

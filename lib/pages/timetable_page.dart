@@ -30,8 +30,8 @@ class _TimetablePageState extends State<TimetablePage> {
   Widget build(BuildContext context) {
     if (context.select<TimetableModel, bool>((model) => model.isLoaded))
       return _buildBody(context);
-    return Center(
-      child: const CircularProgressIndicator(),
+    return const Center(
+      child: CircularProgressIndicator(),
     );
   }
 
@@ -61,7 +61,7 @@ class _TimetablePageState extends State<TimetablePage> {
                           color: OTLColor.pinksLight,
                           child: Container(
                             padding: const EdgeInsets.symmetric(vertical: 16),
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                               color: OTLColor.grayF,
                               borderRadius: BorderRadius.only(
                                   topLeft: Radius.circular(16)),
@@ -77,8 +77,8 @@ class _TimetablePageState extends State<TimetablePage> {
                             Navigator.push(
                                 context, buildLectureSearchPageRoute());
                           },
-                          child: Padding(
-                            padding: const EdgeInsets.fromLTRB(12, 18, 16, 18),
+                          child: const Padding(
+                            padding: EdgeInsets.fromLTRB(12, 18, 16, 18),
                             child: Icon(
                               Icons.search,
                               size: 24,
@@ -186,12 +186,12 @@ class _TimetablePageState extends State<TimetablePage> {
                     barrierDismissible: false,
                     builder: (context) => AlertDialog(
                       title: Text("common.delete".tr()),
-                      content: Text("timetable.ask_delete_lecture").tr(
+                      content: const Text("timetable.ask_delete_lecture").tr(
                         args: [lecture.title],
                       ),
                       actions: [
                         IconTextButton(
-                          padding: EdgeInsets.all(12),
+                          padding: const EdgeInsets.all(12),
                           text: 'common.cancel'.tr(),
                           color: OTLColor.pinksMain,
                           onTap: () {
@@ -200,7 +200,7 @@ class _TimetablePageState extends State<TimetablePage> {
                           },
                         ),
                         IconTextButton(
-                          padding: EdgeInsets.all(12),
+                          padding: const EdgeInsets.all(12),
                           text: 'common.delete'.tr(),
                           color: OTLColor.pinksMain,
                           onTap: () {
@@ -241,11 +241,6 @@ class _TimetablePageState extends State<TimetablePage> {
         final timetableModel = context.read<TimetableModel>();
         timetableModel.createTimetable(
             lectures: timetableModel.currentTimetable.lectures);
-        /*if (_isSearchOpened) return;
-        setState(() {
-          _isSearchOpened = true;
-          _selectedLecture = null;
-        });*/
       },
       onDeleteTap: () {
         showGeneralDialog(
@@ -283,7 +278,7 @@ class _TimetablePageState extends State<TimetablePage> {
                     'timetable.ask_delete_tab'.tr(args: [
                       'timetable.tab'.tr(args: [i.toString()])
                     ]),
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 12,
                     ),
                   ),
@@ -299,7 +294,7 @@ class _TimetablePageState extends State<TimetablePage> {
                           color: OTLColor.grayE,
                           child: Text(
                             'common.cancel'.tr(),
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 12,
                               fontWeight: FontWeight.w700,
                             ),
@@ -319,7 +314,7 @@ class _TimetablePageState extends State<TimetablePage> {
                           color: OTLColor.pinksMain,
                           child: Text(
                             'common.delete'.tr(),
-                            style: TextStyle(
+                            style: const TextStyle(
                               color: Colors.white,
                               fontSize: 12,
                               fontWeight: FontWeight.w700,

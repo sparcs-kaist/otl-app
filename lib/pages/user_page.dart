@@ -13,7 +13,8 @@ class UserPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final user = context.watch<InfoModel>().user;
-    final isEn = EasyLocalization.of(context)?.currentLocale == Locale('en');
+    final isEn =
+        EasyLocalization.of(context)?.currentLocale == const Locale('en');
 
     return Scaffold(
       appBar: buildAppBar(context, 'title.my_information'.tr(), false, true),
@@ -70,7 +71,7 @@ class UserPage extends StatelessWidget {
                 color: OTLColor.pinksMain,
                 textStyle: bodyBold,
                 spaceBetween: 8.0,
-                padding: EdgeInsets.symmetric(horizontal: 16.0),
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
               ),
             ),
           ],
@@ -101,7 +102,7 @@ class UserPage extends StatelessWidget {
     return IconTextButtonRaw(
       data: {
         'Padding': {
-          'padding': EdgeInsets.symmetric(horizontal: 16.0),
+          'padding': const EdgeInsets.symmetric(horizontal: 16.0),
           'child': {
             'SizedBox': {
               'height': 36.0,
@@ -118,7 +119,7 @@ class UserPage extends StatelessWidget {
                     },
                     {
                       'Padding': {
-                        'padding': EdgeInsets.symmetric(horizontal: 8.0),
+                        'padding': const EdgeInsets.symmetric(horizontal: 8.0),
                         'child': {
                           'Text': {
                             'arg': text,
@@ -131,7 +132,7 @@ class UserPage extends StatelessWidget {
                     {'Spacer': {}},
                     {
                       'Padding': {
-                        'padding': EdgeInsets.fromLTRB(16, 6, 0, 6),
+                        'padding': const EdgeInsets.fromLTRB(16, 6, 0, 6),
                         'child': {
                           'Icon': {
                             'arg': Icons.navigate_next,

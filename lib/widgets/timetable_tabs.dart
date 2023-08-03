@@ -63,7 +63,7 @@ class _TimetableTabsState extends State<TimetableTabs> {
             color: OTLColor.pinksLight,
             borderRadius: BorderRadius.circular(20),
           ),
-          child: Icon(Icons.add, size: 16),
+          child: const Icon(Icons.add, size: 16),
         ),
       );
     }
@@ -85,7 +85,7 @@ class _TimetableTabsState extends State<TimetableTabs> {
           child: DropdownButton2(
             customButton: Container(
               height: 28,
-              padding: EdgeInsets.fromLTRB(12, 0, 8, 0),
+              padding: const EdgeInsets.fromLTRB(12, 0, 8, 0),
               decoration: BoxDecoration(
                 color: OTLColor.pinksMain,
                 borderRadius: BorderRadius.circular(100),
@@ -94,7 +94,7 @@ class _TimetableTabsState extends State<TimetableTabs> {
                 children: [
                   text,
                   const SizedBox(width: 6),
-                  Icon(
+                  const Icon(
                     Icons.more_vert,
                     color: OTLColor.grayF,
                     size: 16,
@@ -135,7 +135,7 @@ class _TimetableTabsState extends State<TimetableTabs> {
               ),
               offset: const Offset(0, -8),
             ),
-            menuItemStyleData: MenuItemStyleData(
+            menuItemStyleData: const MenuItemStyleData(
               height: 40,
               padding: EdgeInsets.zero,
             ),
@@ -207,7 +207,7 @@ abstract class MenuItems {
         Container(
           height: 40,
           alignment: Alignment.center,
-          padding: EdgeInsets.symmetric(horizontal: 16),
+          padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Row(
             children: [
               Expanded(

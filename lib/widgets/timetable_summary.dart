@@ -117,7 +117,7 @@ class TimetableSummary extends StatelessWidget {
     return Container(
       height: 75,
       padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 16),
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         border: Border.symmetric(
             horizontal: BorderSide(color: OTLColor.pinksLight)),
       ),
@@ -130,7 +130,7 @@ class TimetableSummary extends StatelessWidget {
               itemCount: 6,
               scrollDirection: Axis.horizontal,
               physics: const NeverScrollableScrollPhysics(),
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
                 mainAxisSpacing: 6,
                 mainAxisExtent: 45,

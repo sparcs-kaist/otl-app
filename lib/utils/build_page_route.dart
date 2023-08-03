@@ -84,7 +84,7 @@ Route buildSettingsPageRoute() {
 
 Route buildMyReviewPageRoute() {
   return PageRouteBuilder(
-    pageBuilder: (_, animation, __) => MyReviewPage(),
+    pageBuilder: (_, animation, __) => const MyReviewPage(),
     transitionsBuilder: (_, animation, __, child) {
       const begin = Offset(1.0, 0.0);
       const end = Offset.zero;
@@ -120,7 +120,8 @@ Route buildLikedReviewPageRoute() {
 
 Route buildCourseSearchPageRoute() {
   return PageRouteBuilder(
-    pageBuilder: (_, animation, __) => CourseSearchPage(openKeyboard: true),
+    pageBuilder: (_, animation, __) =>
+        const CourseSearchPage(openKeyboard: true),
     transitionsBuilder: (_, animation, __, child) {
       const begin = Offset(1.0, 0.0);
       const end = Offset.zero;
@@ -138,7 +139,8 @@ Route buildCourseSearchPageRoute() {
 
 Route buildLectureSearchPageRoute() {
   return PageRouteBuilder(
-    pageBuilder: (_, animation, __) => LectureSearchPage(openKeyboard: true),
+    pageBuilder: (_, animation, __) =>
+        const LectureSearchPage(openKeyboard: true),
     transitionsBuilder: (_, animation, __, child) {
       const begin = Offset(1.0, 0.0);
       const end = Offset.zero;
@@ -156,7 +158,7 @@ Route buildLectureSearchPageRoute() {
 
 Route buildPrivacyPageRoute() {
   return PageRouteBuilder(
-    pageBuilder: (_, animation, __) => PrivacyPage(),
+    pageBuilder: (_, animation, __) => const PrivacyPage(),
     transitionsBuilder: (_, animation, __, child) {
       const begin = Offset(0.0, 1.0);
       const end = Offset.zero;
@@ -174,7 +176,7 @@ Route buildPrivacyPageRoute() {
 
 Route buildPeoplePageRoute() {
   return PageRouteBuilder(
-    pageBuilder: (_, animation, __) => PeoplePage(),
+    pageBuilder: (_, animation, __) => const PeoplePage(),
     transitionsBuilder: (_, animation, __, child) {
       const begin = Offset(0.0, 1.0);
       const end = Offset.zero;

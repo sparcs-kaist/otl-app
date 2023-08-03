@@ -39,10 +39,10 @@ class _SearchFilterPanelState extends State<SearchFilterPanel> {
               controller: _scrollController,
               itemCount: widget.filter.entries.length,
               shrinkWrap: true,
-              padding: EdgeInsets.all(16.0),
+              padding: const EdgeInsets.all(16.0),
               itemBuilder: (context, index) {
                 return Padding(
-                  padding: EdgeInsets.only(bottom: 24.0),
+                  padding: const EdgeInsets.only(bottom: 24.0),
                   child: Selector(
                     title: widget.filter.values.elementAt(index).label,
                     selectList: widget.filter.values.elementAt(index).options,
@@ -56,7 +56,7 @@ class _SearchFilterPanelState extends State<SearchFilterPanel> {
                   ),
                 );
               },
-              separatorBuilder: (context, index) => SizedBox(height: 8)),
+              separatorBuilder: (context, index) => const SizedBox(height: 8)),
         ),
       ),
     );
@@ -90,7 +90,7 @@ class _SelectorState extends State<Selector> {
       child: Column(
         children: [
           Padding(
-            padding: EdgeInsets.only(bottom: 12.0),
+            padding: const EdgeInsets.only(bottom: 12.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -101,7 +101,7 @@ class _SelectorState extends State<Selector> {
                       widget.title,
                       style: titleBold,
                     ),
-                    SizedBox(width: 8),
+                    const SizedBox(width: 8),
                     Visibility(
                       visible: widget.isMultiSelect,
                       child: Text.rich(
@@ -207,7 +207,7 @@ class _RadioSelectionState extends State<RadioSelection> {
               (i) => Expanded(
                 child: i < v.length
                     ? Padding(
-                        padding: EdgeInsets.all(4.0),
+                        padding: const EdgeInsets.all(4.0),
                         child: RadioSelectButton(
                           option: v[i],
                           setOption: (b) {
@@ -220,7 +220,7 @@ class _RadioSelectionState extends State<RadioSelection> {
                           },
                         ),
                       )
-                    : SizedBox(),
+                    : const SizedBox(),
               ),
             ),
           );
@@ -253,7 +253,7 @@ class _RadioSelectButtonState extends State<RadioSelectButton> {
         child: SizedBox(
           height: 32.0,
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 8.0),
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -266,8 +266,8 @@ class _RadioSelectButtonState extends State<RadioSelectButton> {
                   ),
                 ),
                 widget.option.selected
-                    ? Icon(Icons.check, size: 16.0, color: OTLColor.gray0)
-                    : Icon(Icons.add, size: 16.0, color: OTLColor.grayA)
+                    ? const Icon(Icons.check, size: 16.0, color: OTLColor.gray0)
+                    : const Icon(Icons.add, size: 16.0, color: OTLColor.grayA)
               ],
             ),
           ),
@@ -305,7 +305,7 @@ class _SilderSelectionState extends State<SilderSelection> {
 
   double _value = 0;
 
-  TextStyle labelTextStyle = TextStyle(
+  TextStyle labelTextStyle = const TextStyle(
     fontSize: 12,
   );
   @override
@@ -322,7 +322,7 @@ class _SilderSelectionState extends State<SilderSelection> {
   Widget build(BuildContext context) {
     final divisions = widget.selectList.length - 1;
     return Padding(
-      padding: EdgeInsets.only(left: 2, right: 10),
+      padding: const EdgeInsets.only(left: 2, right: 10),
       child: LayoutBuilder(
           builder: (BuildContext context, BoxConstraints constraints) {
         double leftPadding = _textWidth(
@@ -340,13 +340,13 @@ class _SilderSelectionState extends State<SilderSelection> {
                   left: leftPadding - 8, right: rightPadding - 8),
               child: SliderTheme(
                 data: SliderThemeData(
-                    thumbShape: CustomSliderThumbShape(
+                    thumbShape: const CustomSliderThumbShape(
                         outerThumbRadius: 10,
                         innerThumbRadius: 7,
                         outerThumbColor: Color(0xFFF6C5CD),
                         innerThumbColor: Colors.white),
                     trackHeight: 5.0,
-                    trackShape: RoundRectangularSliderTrackShape(),
+                    trackShape: const RoundRectangularSliderTrackShape(),
                     tickMarkShape: SliderTickMarkShape.noTickMark,
                     overlayShape: SliderComponentShape.noThumb),
                 child: Slider(
@@ -354,8 +354,8 @@ class _SilderSelectionState extends State<SilderSelection> {
                   min: 0.0,
                   max: divisions.toDouble(),
                   divisions: divisions,
-                  activeColor: Color(0xFFF6C5CD),
-                  inactiveColor: Color(0xFFEEEEEE),
+                  activeColor: const Color(0xFFF6C5CD),
+                  inactiveColor: const Color(0xFFEEEEEE),
                   onChanged: (double value) {
                     setState(() {
                       _value = value;

@@ -79,8 +79,8 @@ class _MainPageState extends State<MainPage> {
                                 iconSize: 24,
                                 color: OTLColor.pinksMain,
                                 tapEffect: 'darken',
-                                padding:
-                                    EdgeInsets.fromLTRB(16.0, 16.0, 8.0, 16.0),
+                                padding: const EdgeInsets.fromLTRB(
+                                    16.0, 16.0, 8.0, 16.0),
                               ),
                               IconTextButton(
                                 onTap: () => Navigator.push(
@@ -89,8 +89,8 @@ class _MainPageState extends State<MainPage> {
                                 iconSize: 24,
                                 color: OTLColor.pinksMain,
                                 tapEffect: 'darken',
-                                padding:
-                                    EdgeInsets.fromLTRB(8.0, 16.0, 16.0, 16.0),
+                                padding: const EdgeInsets.fromLTRB(
+                                    8.0, 16.0, 16.0, 16.0),
                               ),
                             ],
                           )
@@ -119,7 +119,7 @@ class _MainPageState extends State<MainPage> {
                               tapEffect: 'darken',
                               color: OTLColor.grayF,
                               child: Padding(
-                                padding: EdgeInsets.symmetric(
+                                padding: const EdgeInsets.symmetric(
                                     horizontal: 12.0, vertical: 6.0),
                                 child: Row(
                                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -127,7 +127,7 @@ class _MainPageState extends State<MainPage> {
                                     SvgPicture.asset('assets/icons/search.svg',
                                         height: 24.0,
                                         width: 24.0,
-                                        colorFilter: ColorFilter.mode(
+                                        colorFilter: const ColorFilter.mode(
                                             OTLColor.pinksMain,
                                             BlendMode.srcIn)),
                                     const SizedBox(width: 12.0),
@@ -151,16 +151,16 @@ class _MainPageState extends State<MainPage> {
               Flexible(
                 child: ClipRRect(
                   borderRadius:
-                      BorderRadius.vertical(top: Radius.circular(16.0)),
-                  child: Container(
-                      constraints: const BoxConstraints.expand(),
-                      child: CustomScrollView(
-                        reverse: true,
-                        slivers: [
-                          SliverFillRemaining(
-                            hasScrollBody: false,
-                            child: ColoredBox(
-                              color: Colors.white,
+                      const BorderRadius.vertical(top: Radius.circular(16.0)),
+                  child: ColoredBox(
+                    color: Colors.white,
+                    child: Container(
+                        constraints: const BoxConstraints.expand(),
+                        child: CustomScrollView(
+                          reverse: true,
+                          slivers: [
+                            SliverFillRemaining(
+                              hasScrollBody: false,
                               child: Padding(
                                 padding: const EdgeInsets.symmetric(
                                   horizontal: 16.0,
@@ -181,7 +181,7 @@ class _MainPageState extends State<MainPage> {
                                         _buildDivider(),
                                       ],
                                     ),
-                                    Spacer(),
+                                    const Spacer(),
                                     Column(
                                       children: <Widget>[
                                         _buildLogo(),
@@ -194,46 +194,9 @@ class _MainPageState extends State<MainPage> {
                                 ),
                               ),
                             ),
-                          ),
-                        ],
-                      )
-
-                      // SingleChildScrollView(
-                      //   child: ColoredBox(
-                      //     color: Colors.white,
-                      //     child: Padding(
-                      //       padding: const EdgeInsets.symmetric(
-                      //         horizontal: 16.0,
-                      //         vertical: 16.0,
-                      //       ),
-                      //       child: Column(
-                      //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      //         children: [
-                      //           Column(
-                      //             children: <Widget>[
-                      //               _buildTimetable(infoModel.user, semester, now),
-                      //               const SizedBox(height: 24.0),
-                      //               _buildDivider(),
-                      //               const SizedBox(height: 24.0),
-                      //               _buildSchedule(now, infoModel.currentSchedule),
-                      //               const SizedBox(height: 24.0),
-                      //               _buildDivider(),
-                      //             ],
-                      //           ),
-                      //           Column(
-                      //             children: <Widget>[
-                      //               _buildLogo(),
-                      //               const SizedBox(height: 4.0),
-                      //               _buildCopyRight(),
-                      //               _buildTextButtons(context),
-                      //             ],
-                      //           )
-                      //         ],
-                      //       ),
-                      //     ),
-                      //   ),
-                      // ),
-                      ),
+                          ],
+                        )),
+                  ),
                 ),
               ),
             ],
@@ -257,7 +220,7 @@ class _MainPageState extends State<MainPage> {
           },
           text: 'title.privacy'.tr(),
           textStyle: labelRegular.copyWith(color: OTLColor.gray75),
-          padding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 8.0),
+          padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 8.0),
           tapEffect: 'lighten',
         ),
         IconTextButton(
@@ -266,7 +229,7 @@ class _MainPageState extends State<MainPage> {
           },
           text: 'title.credit'.tr(),
           textStyle: labelRegular.copyWith(color: OTLColor.gray75),
-          padding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 8.0),
+          padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 8.0),
           tapEffect: 'lighten',
         ),
       ],
@@ -284,7 +247,7 @@ class _MainPageState extends State<MainPage> {
     return Text.rich(
       TextSpan(
         style: labelRegular.copyWith(color: OTLColor.gray75),
-        children: [
+        children: const [
           TextSpan(text: 'otlplus@sparcs.org'),
           TextSpan(text: '\n'),
           TextSpan(text: '© 2023 SPARCS OTL Team'),
@@ -302,7 +265,8 @@ class _MainPageState extends State<MainPage> {
   }
 
   Widget _buildSchedule(DateTime now, Map<String, dynamic>? currentSchedule) {
-    final isEn = EasyLocalization.of(context)!.currentLocale == Locale('en');
+    final isEn =
+        EasyLocalization.of(context)!.currentLocale == const Locale('en');
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -314,7 +278,6 @@ class _MainPageState extends State<MainPage> {
                   args: getRemainedTime(
                       currentSchedule["time"].difference(now) as Duration)),
           style: titleRegular,
-          // ignore: unnecessary_null_comparison
         ),
         const SizedBox(height: 4.0),
         Text.rich(
@@ -323,16 +286,13 @@ class _MainPageState extends State<MainPage> {
             children: <TextSpan>[
               TextSpan(
                 style: bodyBold,
-                text:
-                    // ignore: unnecessary_null_comparison
-                    (currentSchedule == null)
-                        ? "-"
-                        : (currentSchedule["title"]),
+                text: (currentSchedule == null)
+                    ? "-"
+                    : (currentSchedule["title"]),
               ),
               const TextSpan(text: " "),
               TextSpan(
                 style: bodyBold,
-                // ignore: unnecessary_null_comparison
                 text: (currentSchedule == null)
                     ? ""
                     : (isEn
@@ -341,7 +301,6 @@ class _MainPageState extends State<MainPage> {
               ),
               const TextSpan(text: " "),
               TextSpan(
-                // ignore: unnecessary_null_comparison
                 text: (currentSchedule == null)
                     ? ""
                     : DateFormat("yyyy.MM.dd")

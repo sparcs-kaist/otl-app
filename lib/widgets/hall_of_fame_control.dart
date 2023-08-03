@@ -31,7 +31,7 @@ class _HallOfFameControlState extends State<HallOfFameControl> {
             s.year >= 2013 &&
             (s.gradePosting == null ||
                 DateTime.now()
-                    .isAfter(s.gradePosting!.add(Duration(days: 30)))))
+                    .isAfter(s.gradePosting!.add(const Duration(days: 30)))))
         .toList();
     _currentSemester = context.read<HallOfFameModel>().semeseter;
 
@@ -40,7 +40,7 @@ class _HallOfFameControlState extends State<HallOfFameControl> {
         onMenuStateChange: (isOpen) => _isOpen = isOpen,
         customButton: Container(
           height: 34,
-          padding: EdgeInsets.fromLTRB(16, 0, 8, 0),
+          padding: const EdgeInsets.fromLTRB(16, 0, 8, 0),
           decoration: BoxDecoration(
             color: OTLColor.grayF,
             borderRadius: BorderRadius.circular(100),
@@ -73,7 +73,7 @@ class _HallOfFameControlState extends State<HallOfFameControl> {
             borderRadius: BorderRadius.circular(10),
             color: OTLColor.gray6,
           ),
-          scrollbarTheme: ScrollbarThemeData(
+          scrollbarTheme: const ScrollbarThemeData(
             radius: Radius.circular(100),
             mainAxisMargin: 8.0,
             crossAxisMargin: 4.0,
@@ -82,7 +82,7 @@ class _HallOfFameControlState extends State<HallOfFameControl> {
           ),
           offset: const Offset(0, -8),
         ),
-        menuItemStyleData: MenuItemStyleData(
+        menuItemStyleData: const MenuItemStyleData(
           height: 40,
           padding: EdgeInsets.zero,
         ),
@@ -120,7 +120,7 @@ Widget buildItem(String text, bool selected) {
       Container(
         height: 40,
         alignment: Alignment.center,
-        padding: EdgeInsets.symmetric(horizontal: 16),
+        padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -129,8 +129,8 @@ Widget buildItem(String text, bool selected) {
               style: bodyRegular.copyWith(color: OTLColor.grayF),
             ),
             selected
-                ? Icon(Icons.check, color: OTLColor.grayF)
-                : SizedBox(width: 24.0),
+                ? const Icon(Icons.check, color: OTLColor.grayF)
+                : const SizedBox(width: 24.0),
           ],
         ),
       ),

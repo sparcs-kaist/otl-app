@@ -49,7 +49,7 @@ class _DictionaryPageState extends State<DictionaryPage> {
               controller: _scrollController,
               child: ListView.separated(
                 controller: _scrollController,
-                padding: EdgeInsets.all(12.0),
+                padding: const EdgeInsets.all(12.0),
                 itemCount: searchModel.courses?.length ?? 0,
                 itemBuilder: (context, index) => CourseBlock(
                   course: searchModel.courses![index],
@@ -60,7 +60,8 @@ class _DictionaryPageState extends State<DictionaryPage> {
                     Navigator.push(context, buildCourseDetailPageRoute());
                   },
                 ),
-                separatorBuilder: (context, index) => SizedBox(height: 8.0),
+                separatorBuilder: (context, index) =>
+                    const SizedBox(height: 8.0),
               ),
             );
           }
@@ -74,7 +75,7 @@ Widget _buildCopyRight() {
   return Text.rich(
     TextSpan(
       style: labelRegular.copyWith(color: OTLColor.grayA),
-      children: [
+      children: const [
         TextSpan(text: 'otlplus@sparcs.org'),
         TextSpan(text: '\n'),
         TextSpan(text: '© 2023 SPARCS OTL Team'),

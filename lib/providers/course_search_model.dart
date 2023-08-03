@@ -156,7 +156,7 @@ class CourseSearchModel extends ChangeNotifier {
         k,
         (v.isMultiSelect == false && v.options.first.first.selected == true) ||
                 v.options.expand((i) => i).every((i) => i.selected == true)
-            ? Iterable<String>.empty()
+            ? const Iterable<String>.empty()
             : v.options
                 .expand((i) => i)
                 .where((i) => i.selected == true)
@@ -174,7 +174,7 @@ class CourseSearchModel extends ChangeNotifier {
             TextSpan(
               children: [
                 if (_selectedFilters.length > 0 && _courseSearchText.length > 0)
-                  TextSpan(text: ", "),
+                  const TextSpan(text: ", "),
                 TextSpan(text: _selectedFilters.join(", ")),
               ],
             )

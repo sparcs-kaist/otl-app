@@ -25,8 +25,8 @@ class _LoginPageState extends State<LoginPage> {
       body: Material(
         child: Stack(
           children: <Widget>[
-            Center(
-              child: const CircularProgressIndicator(),
+            const Center(
+              child: CircularProgressIndicator(),
             ),
             _buildBody(context),
           ],

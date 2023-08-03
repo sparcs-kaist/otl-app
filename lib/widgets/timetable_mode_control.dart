@@ -26,7 +26,7 @@ class _TimetableModeControlState extends State<TimetableModeControl> {
       width: 164,
       height: 40,
       padding: const EdgeInsets.fromLTRB(4, 4, 16, 4),
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.horizontal(left: Radius.circular(20)),
       ),
@@ -34,7 +34,7 @@ class _TimetableModeControlState extends State<TimetableModeControl> {
         children: [
           AnimatedPositioned(
             left: 48.0 * widget.dropdownIndex,
-            duration: Duration(milliseconds: 500),
+            duration: const Duration(milliseconds: 500),
             curve: Curves.easeInOut,
             child: Container(
               width: 48,
@@ -55,7 +55,8 @@ class _TimetableModeControlState extends State<TimetableModeControl> {
                 behavior: HitTestBehavior.opaque,
                 child: Container(
                   height: 32,
-                  padding: EdgeInsets.symmetric(vertical: 4, horizontal: 12),
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 4, horizontal: 12),
                   child: Icon(
                     _iconList[index],
                     color: (index == widget.dropdownIndex)

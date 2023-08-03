@@ -14,7 +14,8 @@ class CourseBlock extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isEn = EasyLocalization.of(context)?.currentLocale == Locale('en');
+    final isEn =
+        EasyLocalization.of(context)?.currentLocale == const Locale('en');
 
     return ClipRRect(
       borderRadius: BorderRadius.circular(4.0),

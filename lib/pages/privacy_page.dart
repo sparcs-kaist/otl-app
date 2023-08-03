@@ -12,7 +12,7 @@ class PrivacyPage extends StatelessWidget {
     return Scaffold(
       appBar: buildAppBar(context, 'title.privacy'.tr(), false, true),
       body: Padding(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: ListView(
           children: [
             Text.rich(
@@ -25,9 +25,9 @@ class PrivacyPage extends StatelessWidget {
                       12,
                       (index) => TextSpan(
                         children: [
-                          TextSpan(text: '\n'),
+                          const TextSpan(text: '\n'),
                           TextSpan(text: privacyTitles[index], style: bodyBold),
-                          TextSpan(text: '\n'),
+                          const TextSpan(text: '\n'),
                           TextSpan(text: privacyTexts[index]),
                         ],
                       ),

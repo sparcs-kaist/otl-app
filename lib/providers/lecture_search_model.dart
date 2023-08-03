@@ -128,14 +128,14 @@ class LectureSearchModel extends ChangeNotifier {
   bool _isSearching = false;
   bool get isSearching => _isSearching;
 
-  Text _lectureSearchquery = Text.rich(TextSpan());
+  Text _lectureSearchquery = const Text.rich(TextSpan());
   Text get lectureSearchquery => _lectureSearchquery;
   void updateLectureSearchqeury() {
     List<String> _selectedFilters = (_lectureFilter.map((k, v) => MapEntry(
         k,
         (v.isMultiSelect == false && v.options.first.first.selected == true) ||
                 v.options.expand((i) => i).every((i) => i.selected == true)
-            ? Iterable<String>.empty()
+            ? const Iterable<String>.empty()
             : v.options
                 .expand((i) => i)
                 .where((i) => i.selected == true)
@@ -150,7 +150,7 @@ class LectureSearchModel extends ChangeNotifier {
           TextSpan(
             children: [
               if (_selectedFilters.length > 0 && _lectureSearchText.length > 0)
-                TextSpan(text: ", "),
+                const TextSpan(text: ", "),
               TextSpan(text: _selectedFilters.join(", ")),
             ],
           )
@@ -189,17 +189,19 @@ class LectureSearchModel extends ChangeNotifier {
     ];
     return Text.rich(
       TextSpan(
-        style: TextStyle(fontSize: 14, height: 1.2, letterSpacing: 0.15),
+        style: const TextStyle(fontSize: 14, height: 1.2, letterSpacing: 0.15),
         children: [
           TextSpan(
               text: keyword,
-              style:
-                  TextStyle(fontWeight: FontWeight.bold, color: Colors.black)),
+              style: const TextStyle(
+                  fontWeight: FontWeight.bold, color: Colors.black)),
           if (filterOptions.length > 0)
-            TextSpan(style: TextStyle(color: Color(0xFFAAAAAA)), children: [
-              if ((keyword ?? '').length > 0) TextSpan(text: ", "),
-              TextSpan(text: (filterOptions).join(", ")),
-            ])
+            TextSpan(
+                style: const TextStyle(color: Color(0xFFAAAAAA)),
+                children: [
+                  if ((keyword ?? '').length > 0) const TextSpan(text: ", "),
+                  TextSpan(text: (filterOptions).join(", ")),
+                ])
         ],
       ),
       maxLines: 1,

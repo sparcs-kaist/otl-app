@@ -86,21 +86,17 @@ class SettingsPage extends StatelessWidget {
                       style: bodyRegular,
                     ),
                     actions: <Widget>[
-                      TextButton(
-                        child: Text(
-                          "common.cancel".tr(),
-                          style: bodyRegular,
-                        ),
-                        onPressed: () {
+                      IconTextButton(
+                        text: "common.cancel".tr(),
+                        textStyle: bodyRegular,
+                        onTap: () {
                           Navigator.pop(context);
                         },
                       ),
-                      TextButton(
-                        child: Text(
-                          "common.delete".tr(),
-                          style: bodyRegular,
-                        ),
-                        onPressed: () {
+                      IconTextButton(
+                        text: "common.delete".tr(),
+                        textStyle: bodyRegular,
+                        onTap: () {
                           context
                               .read<SettingsModel>()
                               .clearAllValues()
@@ -122,7 +118,7 @@ class SettingsPage extends StatelessWidget {
                   style: bodyRegular,
                 ),
                 IconTextButton(
-                  padding: EdgeInsets.fromLTRB(0, 4, 10, 4),
+                  padding: const EdgeInsets.fromLTRB(0, 4, 10, 4),
                   onTap: () => launchUrl(Uri.parse("mailto:$contactEmail")),
                   text: contactEmail,
                   textStyle: bodyRegular.copyWith(color: OTLColor.pinksMain),

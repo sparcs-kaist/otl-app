@@ -27,7 +27,8 @@ class CourseDetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final CourseDetailModel courseDetailModel =
         context.watch<CourseDetailModel>();
-    final isEn = EasyLocalization.of(context)?.currentLocale == Locale('en');
+    final isEn =
+        EasyLocalization.of(context)?.currentLocale == const Locale('en');
 
     return Scaffold(
       appBar: buildAppBar(
@@ -46,8 +47,8 @@ class CourseDetailPage extends StatelessWidget {
         ),
         child: context.select<CourseDetailModel, bool>((model) => model.hasData)
             ? _buildBody(context)
-            : Center(
-                child: const CircularProgressIndicator(),
+            : const Center(
+                child: CircularProgressIndicator(),
               ),
       ),
     );
@@ -124,7 +125,8 @@ class CourseDetailPage extends StatelessWidget {
 
   ChoiceChip _buildChoiceChip(
       BuildContext context, String selectedFilter, Professor? professor) {
-    final isEn = EasyLocalization.of(context)?.currentLocale == Locale('en');
+    final isEn =
+        EasyLocalization.of(context)?.currentLocale == const Locale('en');
 
     return ChoiceChip(
       selectedColor: OTLColor.pinksSub,
@@ -206,7 +208,8 @@ class CourseDetailPage extends StatelessWidget {
   }
 
   Column _buildAttribute(BuildContext context, Course course) {
-    final isEn = EasyLocalization.of(context)?.currentLocale == Locale('en');
+    final isEn =
+        EasyLocalization.of(context)?.currentLocale == const Locale('en');
 
     return Column(
       children: <Widget>[
@@ -252,7 +255,8 @@ class CourseDetailPage extends StatelessWidget {
     final _scrollController = ScrollController();
     final years = context.select<InfoModel, Set<int>>((model) => model.years);
     final courseDetailModel = context.watch<CourseDetailModel>();
-    final isEn = EasyLocalization.of(context)?.currentLocale == Locale('en');
+    final isEn =
+        EasyLocalization.of(context)?.currentLocale == const Locale('en');
 
     return Scrollbar(
       controller: _scrollController,
@@ -299,7 +303,8 @@ class CourseDetailPage extends StatelessWidget {
 
   Widget _buildHistoryRow(BuildContext context, List<Lecture> lectures,
       Set<int> years, int semester, String selectedFilter) {
-    final isEn = EasyLocalization.of(context)?.currentLocale == Locale('en');
+    final isEn =
+        EasyLocalization.of(context)?.currentLocale == const Locale('en');
 
     return IntrinsicHeight(
       child: Row(

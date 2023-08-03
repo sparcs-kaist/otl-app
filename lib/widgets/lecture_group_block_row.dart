@@ -65,16 +65,16 @@ class _LectureGroupBlockRowState extends State<LectureGroupBlockRow> {
                         Text.rich(TextSpan(children: <InlineSpan>[
                           TextSpan(
                               text: widget.lecture.classTitle,
-                              style: TextStyle(
+                              style: const TextStyle(
                                   fontSize: 14.0, fontWeight: FontWeight.bold)),
-                          WidgetSpan(
+                          const WidgetSpan(
                             child: SizedBox(
                               width: 8,
                             ),
                           ),
                           WidgetSpan(
                               child: Text(widget.lecture.professorsStrShort,
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       fontSize: 14.0, color: Colors.black54)))
                         ]))
                       ],
@@ -82,7 +82,7 @@ class _LectureGroupBlockRowState extends State<LectureGroupBlockRow> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 8.0),
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
                   child: SizedBox(
                     width: 50,
                     child: Visibility(
@@ -95,9 +95,9 @@ class _LectureGroupBlockRowState extends State<LectureGroupBlockRow> {
                             icon: 'assets/icons/info.svg',
                             iconSize: 20.0,
                             onTap: widget.onLongPress,
-                            color: Color(0xFF000000),
+                            color: const Color(0xFF000000),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 6.0,
                           ),
                           IconTextButton(
@@ -114,7 +114,7 @@ class _LectureGroupBlockRowState extends State<LectureGroupBlockRow> {
                             iconSize: 24,
                             color: alreadyAdded
                                 ? OTLColor.pinksMain
-                                : Color(0xFF000000),
+                                : const Color(0xFF000000),
                           )
                         ],
                       ),
@@ -143,7 +143,7 @@ class _LectureGroupBlockRowState extends State<LectureGroupBlockRow> {
                     "시간이 겹치는 수업이 있습니다. 추가하시면 해당 수업은 삭제됩니다.\n시간표에 추가하시겠습니까?"),
                 actions: [
                   IconTextButton(
-                    padding: EdgeInsets.all(12),
+                    padding: const EdgeInsets.all(12),
                     text: 'common.cancel'.tr(),
                     color: OTLColor.pinksMain,
                     onTap: () {
@@ -152,7 +152,7 @@ class _LectureGroupBlockRowState extends State<LectureGroupBlockRow> {
                     },
                   ),
                   IconTextButton(
-                    padding: EdgeInsets.all(12),
+                    padding: const EdgeInsets.all(12),
                     text: 'common.add'.tr(),
                     color: OTLColor.pinksMain,
                     onTap: () {

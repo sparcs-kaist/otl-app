@@ -55,7 +55,7 @@ class _BaseLayoutState extends State<BaseLayout> {
               )),
           Expanded(
               child: ClipRRect(
-            borderRadius: BorderRadius.only(
+            borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(16), topRight: Radius.circular(16)),
             child: ColoredBox(
               color: widget.sheetBackgroundColor,
@@ -84,7 +84,8 @@ class _BackButton extends StatelessWidget {
         child: SvgPicture.asset('assets/icons/back.svg',
             height: 24.0,
             width: 24.0,
-            colorFilter: ColorFilter.mode(Color(0xFF000000), BlendMode.srcIn)),
+            colorFilter:
+                const ColorFilter.mode(Color(0xFF000000), BlendMode.srcIn)),
       ),
     );
   }

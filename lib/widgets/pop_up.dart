@@ -20,13 +20,13 @@ class _PopUpState extends State<PopUp> {
   Widget build(BuildContext context) {
     return AlertDialog(
       backgroundColor: Colors.transparent,
-      contentPadding: EdgeInsets.all(0.0),
-      actionsPadding: EdgeInsets.only(top: 8.0),
+      contentPadding: const EdgeInsets.all(0.0),
+      actionsPadding: const EdgeInsets.only(top: 8.0),
       elevation: 0.0,
       content: _buildAppEvent(context),
       actions: [
         Container(
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             color: Colors.transparent,
             borderRadius: BorderRadius.only(
               bottomLeft: Radius.circular(16.0),
@@ -72,7 +72,8 @@ class _PopUpState extends State<PopUp> {
 }
 
 Widget _buildAppEvent(BuildContext context) {
-  final isEn = EasyLocalization.of(context)?.currentLocale == Locale('en');
+  final isEn =
+      EasyLocalization.of(context)?.currentLocale == const Locale('en');
 
   return SingleChildScrollView(
     child: Container(
@@ -100,7 +101,7 @@ Widget _buildAppEvent(BuildContext context) {
                   children: [
                     Text('popup.join_the_event'.tr(), style: bodyBold),
                     const SizedBox(width: 8.0),
-                    Icon(Icons.arrow_forward)
+                    const Icon(Icons.arrow_forward)
                   ],
                 ),
               ),
@@ -121,9 +122,9 @@ Widget _buildGraduatePlanner() {
           TextSpan(
             style: titleBold,
             children: <TextSpan>[
-              TextSpan(text: '졸업플래너'),
+              const TextSpan(text: '졸업플래너'),
               TextSpan(style: labelBold, text: 'BETA'),
-              TextSpan(text: ' 서비스 이용 안내'),
+              const TextSpan(text: ' 서비스 이용 안내'),
             ],
           ),
           textAlign: TextAlign.center,
@@ -144,9 +145,9 @@ Widget _buildGraduatePlanner() {
             TextSpan(
               style: titleBold,
               children: <TextSpan>[
-                TextSpan(text: '졸업플래너'),
+                const TextSpan(text: '졸업플래너'),
                 TextSpan(style: labelBold, text: 'BETA'),
-                TextSpan(text: ' 이용하러 가기'),
+                const TextSpan(text: ' 이용하러 가기'),
               ],
             ),
             textAlign: TextAlign.center,

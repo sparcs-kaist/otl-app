@@ -35,7 +35,7 @@ class HallOfFameModel extends ChangeNotifier {
     notifyListeners();
     scrollController.animateTo(
       0,
-      duration: Duration(milliseconds: 500),
+      duration: const Duration(milliseconds: 500),
       curve: Curves.easeInOut,
     );
   }
@@ -54,7 +54,7 @@ class HallOfFameModel extends ChangeNotifier {
     // 2. Animate Slowly But Safe
     _scrollController.animateTo(
       0,
-      duration: Duration(milliseconds: 500),
+      duration: const Duration(milliseconds: 500),
       curve: Curves.easeInOut,
     );
   }
