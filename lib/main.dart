@@ -21,7 +21,7 @@ import 'package:otlplus/providers/auth_model.dart';
 import 'package:otlplus/providers/course_detail_model.dart';
 import 'package:otlplus/providers/info_model.dart';
 import 'package:otlplus/providers/lecture_detail_model.dart';
-import 'package:otlplus/providers/review_model.dart';
+import 'package:otlplus/providers/latest_reviews_model.dart';
 import 'package:otlplus/providers/lecture_search_model.dart';
 import 'package:otlplus/providers/timetable_model.dart';
 import 'package:otlplus/utils/create_material_color.dart';
@@ -66,7 +66,7 @@ void main() {
               ),
               ChangeNotifierProvider(create: (_) => LectureSearchModel()),
               ChangeNotifierProvider(create: (_) => CourseSearchModel()),
-              ChangeNotifierProvider(create: (_) => ReviewModel()),
+              ChangeNotifierProvider(create: (_) => LatestReviewsModel()),
               ChangeNotifierProvider(create: (_) => LikedReviewModel()),
               ChangeNotifierProvider(create: (_) => HallOfFameModel()),
               ChangeNotifierProvider(create: (_) => CourseDetailModel()),

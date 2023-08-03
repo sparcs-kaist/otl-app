@@ -19,6 +19,7 @@ class HallOfFameModel extends ChangeNotifier {
   Semester? get semeseter => _semester;
   void setSemester(Semester? semester) {
     _semester = semester;
+    notifyListeners();
 
     // 1. Animate Immediately But Error Prone
     // _scrollController.animateTo(
@@ -40,16 +41,16 @@ class HallOfFameModel extends ChangeNotifier {
     );
   }
 
-  List<Review> _hallOfFames = <Review>[];
-  List<Review> hallOfFames() {
-    if (_hallOfFames.length == 0 && !_isLoading) loadHallOfFames();
-    return _hallOfFames;
+  List<Review> _hallOfFame = <Review>[];
+  List<Review> get hallOfFame {
+    if (_hallOfFame.length == 0 && !_isLoading) loadHallOfFame();
+    return _hallOfFame;
   }
 
   Future<void> clear() async {
-    _hallOfFames.clear();
+    _hallOfFame.clear();
     _page = 0;
-    await loadHallOfFames();
+    await loadHallOfFame();
 
     // 2. Animate Slowly But Safe
     _scrollController.animateTo(
@@ -59,7 +60,7 @@ class HallOfFameModel extends ChangeNotifier {
     );
   }
 
-  Future<void> loadHallOfFames() async {
+  Future<void> loadHallOfFame() async {
     _isLoading = true;
 
     try {
@@ -82,7 +83,7 @@ class HallOfFameModel extends ChangeNotifier {
         });
       }
       final rawReviews = response.data as List;
-      _hallOfFames.addAll(rawReviews.map((review) => Review.fromJson(review)));
+      _hallOfFame.addAll(rawReviews.map((review) => Review.fromJson(review)));
       _page++;
       _isLoading = false;
       notifyListeners();
