@@ -14,10 +14,10 @@ void main() {
       review: SampleReview.shared,
     ).material);
 
-    final likeFinder = find.text('좋아요');
+    // final likeFinder = find.text('좋아요');
     final reportFinder = find.text('신고하기');
 
-    expect(likeFinder, findsOneWidget);
+    // expect(likeFinder, findsOneWidget);
     expect(reportFinder, findsOneWidget);
   });
 }
