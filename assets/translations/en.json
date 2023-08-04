@@ -60,7 +60,7 @@
     "tab": "Table {}",
     "dialog": {
       "add_lecture": "Add Lecture",
-      "ask_add_lecture": "There is a lecture with overlapping hours. If added, the lecture will be deleted.\nDo you want to add new lecture to the timetable?"
+      "ask_add_lecture": "There is a lecture with overlapping hours. If added, the previous lecture will be deleted.\nDo you want to add new lecture to the timetable?"
     },
     "tab_menu": {
       "copy": "Copy Timetable",
