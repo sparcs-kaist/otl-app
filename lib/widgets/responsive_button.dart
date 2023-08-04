@@ -352,14 +352,20 @@ class RawResponsiveButton extends StatefulWidget {
 }
 
 class _RawResponsiveButtonState extends State<RawResponsiveButton> {
+  bool _isDisposed = false;
   bool _isPressed = false;
   bool _delaying = false;
   final ValueNotifier<bool> _pressedEffect = ValueNotifier<bool>(false);
 
   @override
   void dispose() {
+    _isDisposed = true;
     _pressedEffect.dispose();
     super.dispose();
+  }
+
+  void setPressed(bool value) {
+    if (!_isDisposed) _pressedEffect.value = value;
   }
 
   @override
@@ -368,11 +374,11 @@ class _RawResponsiveButtonState extends State<RawResponsiveButton> {
         behavior: HitTestBehavior.opaque,
         onTapDown: (_) {
           _isPressed = true;
-          if (mounted) _pressedEffect.value = true;
+          setPressed(true);
           _delaying = true;
           Future.delayed(const Duration(milliseconds: 128), () {
             _delaying = false;
-            if (_isPressed == false && mounted) _pressedEffect.value = false;
+            if (_isPressed == false) setPressed(false);
             Future.delayed(const Duration(milliseconds: 512), () {
               if (_isPressed) widget.onLongPress?.call();
             });
@@ -381,11 +387,11 @@ class _RawResponsiveButtonState extends State<RawResponsiveButton> {
         onTapUp: (_) {
           if (_isPressed) widget.onTap?.call();
           _isPressed = false;
-          if (_delaying == false && mounted) _pressedEffect.value = false;
+          if (_delaying == false) setPressed(false);
         },
         onTapCancel: () {
           _isPressed = false;
-          if (_delaying == false && mounted) _pressedEffect.value = false;
+          if (_delaying == false) setPressed(false);
         },
         child: RawResponsiveWidget(
             data: widget.data,
