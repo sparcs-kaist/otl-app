@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_web_browser/flutter_web_browser.dart';
 import 'package:otlplus/constants/text_styles.dart';
 import 'package:otlplus/models/review.dart';
+import 'package:otlplus/pages/course_detail_page.dart';
 import 'package:otlplus/utils/build_app_bar.dart';
-import 'package:otlplus/utils/build_page_route.dart';
 import 'package:otlplus/widgets/responsive_button.dart';
+import 'package:otlplus/utils/navigator.dart';
 import 'package:provider/provider.dart';
 import 'package:otlplus/constants/color.dart';
 import 'package:otlplus/extensions/lecture.dart';
@@ -106,7 +107,7 @@ class LectureDetailPage extends StatelessWidget {
             onOverlap: (lectures) async {
               bool result = false;
 
-              await showDialog(
+              await OTLNavigator.pushDialog(
                 context: context,
                 barrierDismissible: false,
                 builder: (context) => AlertDialog(
@@ -120,7 +121,7 @@ class LectureDetailPage extends StatelessWidget {
                       color: OTLColor.pinksMain,
                       onTap: () {
                         result = false;
-                        Navigator.pop(context);
+                        OTLNavigator.pop(context);
                       },
                     ),
                     IconTextButton(
@@ -129,7 +130,7 @@ class LectureDetailPage extends StatelessWidget {
                       color: OTLColor.pinksMain,
                       onTap: () {
                         result = true;
-                        Navigator.pop(context);
+                        OTLNavigator.pop(context);
                       },
                     ),
                   ],
@@ -156,7 +157,7 @@ class LectureDetailPage extends StatelessWidget {
         IconTextButton(
           onTap: () {
             context.read<CourseDetailModel>().loadCourse(lecture.course);
-            Navigator.push(context, buildCourseDetailPageRoute());
+            OTLNavigator.push(context, CourseDetailPage());
           },
           text: "dictionary.dictionary".tr(),
           textStyle: bodyRegular.copyWith(color: OTLColor.pinksMain),

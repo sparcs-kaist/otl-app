@@ -1,10 +1,11 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:otlplus/pages/course_detail_page.dart';
 import 'package:otlplus/providers/course_detail_model.dart';
 import 'package:otlplus/providers/info_model.dart';
 import 'package:otlplus/providers/liked_review_model.dart';
 import 'package:otlplus/utils/build_app_bar.dart';
-import 'package:otlplus/utils/build_page_route.dart';
+import 'package:otlplus/utils/navigator.dart';
 import 'package:otlplus/widgets/review_block.dart';
 import 'package:provider/provider.dart';
 
@@ -62,10 +63,9 @@ class LikedReviewPage extends StatelessWidget {
                                       context
                                           .read<CourseDetailModel>()
                                           .loadCourse(reviews[index].course.id);
-                                      Navigator.push(
-                                        context,
-                                        buildCourseDetailPageRoute(),
-                                      );
+                                      OTLNavigator.push(
+                                          context, CourseDetailPage(),
+                                          transition: 'right-left');
                                     },
                                   );
                                 },

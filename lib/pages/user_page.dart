@@ -3,9 +3,11 @@ import 'dart:io';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:otlplus/constants/text_styles.dart';
+import 'package:otlplus/pages/liked_review_page.dart';
+import 'package:otlplus/pages/my_review_page.dart';
 import 'package:otlplus/providers/auth_model.dart';
 import 'package:otlplus/utils/build_app_bar.dart';
-import 'package:otlplus/utils/build_page_route.dart';
+import 'package:otlplus/utils/navigator.dart';
 import 'package:otlplus/widgets/delete_dialog.dart';
 import 'package:otlplus/widgets/responsive_button.dart';
 import 'package:provider/provider.dart';
@@ -50,12 +52,12 @@ class UserPage extends StatelessWidget {
                 context,
                 'assets/icons/my_review.svg',
                 'user.my_review'.tr(),
-                () => Navigator.push(context, buildMyReviewPageRoute())),
+                () => OTLNavigator.push(context, MyReviewPage())),
             _buildNavigateArrowButton(
                 context,
                 'assets/icons/liked_review.svg',
                 'user.liked_review'.tr(),
-                () => Navigator.push(context, buildLikedReviewPageRoute())),
+                () => OTLNavigator.push(context, LikedReviewPage())),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: _buildDivider(),
@@ -65,7 +67,7 @@ class UserPage extends StatelessWidget {
               () {
                 context.read<AuthModel>().logout();
                 context.read<InfoModel>().logout();
-                Navigator.pop(context);
+                OTLNavigator.pop(context);
               },
               'user.logout'.tr(),
             ),

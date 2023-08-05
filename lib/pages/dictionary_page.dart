@@ -2,7 +2,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:otlplus/constants/color.dart';
 import 'package:otlplus/constants/text_styles.dart';
-import 'package:otlplus/utils/build_page_route.dart';
+import 'package:otlplus/pages/course_detail_page.dart';
+import 'package:otlplus/utils/navigator.dart';
 import 'package:otlplus/providers/course_detail_model.dart';
 import 'package:otlplus/providers/course_search_model.dart';
 import 'package:otlplus/widgets/course_block.dart';
@@ -57,7 +58,7 @@ class _DictionaryPageState extends State<DictionaryPage> {
                     context
                         .read<CourseDetailModel>()
                         .loadCourse(searchModel.courses![index].id);
-                    Navigator.push(context, buildCourseDetailPageRoute());
+                    OTLNavigator.push(context, CourseDetailPage());
                   },
                 ),
                 separatorBuilder: (context, index) => SizedBox(height: 8.0),

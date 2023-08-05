@@ -5,6 +5,7 @@ import 'package:otlplus/constants/text_styles.dart';
 import 'package:otlplus/providers/settings_model.dart';
 import 'package:otlplus/utils/build_app_bar.dart';
 import 'package:otlplus/widgets/responsive_button.dart';
+import 'package:otlplus/utils/navigator.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter/foundation.dart' show kDebugMode;
@@ -74,7 +75,7 @@ class SettingsPage extends StatelessWidget {
             ListTile(
               title: Text("settings.reset_all".tr(), style: bodyBold),
               onTap: () {
-                showDialog(
+                OTLNavigator.pushDialog(
                   context: context,
                   builder: (context) => AlertDialog(
                     title: Text(
@@ -92,7 +93,7 @@ class SettingsPage extends StatelessWidget {
                           style: bodyRegular,
                         ),
                         onPressed: () {
-                          Navigator.pop(context);
+                          OTLNavigator.pop(context);
                         },
                       ),
                       TextButton(
@@ -104,7 +105,7 @@ class SettingsPage extends StatelessWidget {
                           context
                               .read<SettingsModel>()
                               .clearAllValues()
-                              .then((_) => Navigator.pop(context));
+                              .then((_) => OTLNavigator.pop(context));
                         },
                       ),
                     ],

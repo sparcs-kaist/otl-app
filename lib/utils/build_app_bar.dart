@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:otlplus/constants/color.dart';
 import 'package:otlplus/constants/text_styles.dart';
 import 'package:otlplus/widgets/responsive_button.dart';
+import 'package:otlplus/utils/navigator.dart';
 
 PreferredSizeWidget buildAppBar(
   BuildContext context,
@@ -15,7 +16,7 @@ PreferredSizeWidget buildAppBar(
     leading: isLeading
         ? appBarPadding(
             IconTextButton(
-              onTap: () => Navigator.pop(context),
+              onTap: () => OTLNavigator.pop(context),
               icon: Icons.navigate_before,
               padding: EdgeInsets.all(16),
             ),
@@ -26,9 +27,9 @@ PreferredSizeWidget buildAppBar(
             appBarPadding(
               IconTextButton(
                 icon: Icons.close,
-                onTap: () => Navigator.popUntil(
+                onTap: () => OTLNavigator.pop(
                   context,
-                  (route) => route.isFirst,
+                  transition: 'down-up',
                 ),
                 padding: EdgeInsets.all(16),
               ),

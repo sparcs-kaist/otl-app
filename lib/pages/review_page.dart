@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:otlplus/pages/course_detail_page.dart';
 import 'package:otlplus/providers/hall_of_fame_model.dart';
-import 'package:otlplus/utils/build_page_route.dart';
+import 'package:otlplus/utils/navigator.dart';
 import 'package:provider/provider.dart';
 import 'package:otlplus/providers/course_detail_model.dart';
 import 'package:otlplus/providers/review_model.dart';
@@ -84,7 +85,7 @@ class _ReviewPageState extends State<ReviewPage> {
                         context
                             .read<CourseDetailModel>()
                             .loadCourse(latestReviews[index].course.id);
-                        Navigator.push(context, buildCourseDetailPageRoute());
+                        OTLNavigator.push(context, CourseDetailPage());
                       },
                     );
                   },
@@ -135,7 +136,7 @@ class _ReviewPageState extends State<ReviewPage> {
                         context
                             .read<CourseDetailModel>()
                             .loadCourse(hallOfFames[index].course.id);
-                        Navigator.push(context, buildCourseDetailPageRoute());
+                        OTLNavigator.push(context, CourseDetailPage());
                       },
                     );
                   },

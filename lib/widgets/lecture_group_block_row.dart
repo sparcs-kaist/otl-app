@@ -5,6 +5,7 @@ import 'package:otlplus/extensions/lecture.dart';
 import 'package:otlplus/models/lecture.dart';
 import 'package:otlplus/providers/lecture_search_model.dart';
 import 'package:otlplus/widgets/responsive_button.dart';
+import 'package:otlplus/utils/navigator.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/timetable_model.dart';
@@ -134,7 +135,7 @@ class _LectureGroupBlockRowState extends State<LectureGroupBlockRow> {
           lecture: lec,
           onOverlap: (lectures) async {
             bool result = false;
-            await showDialog(
+            await OTLNavigator.pushDialog(
               context: context,
               barrierDismissible: false,
               builder: (context) => AlertDialog(
@@ -148,7 +149,7 @@ class _LectureGroupBlockRowState extends State<LectureGroupBlockRow> {
                     color: OTLColor.pinksMain,
                     onTap: () {
                       result = false;
-                      Navigator.pop(context);
+                      OTLNavigator.pop(context);
                     },
                   ),
                   IconTextButton(
@@ -157,7 +158,7 @@ class _LectureGroupBlockRowState extends State<LectureGroupBlockRow> {
                     color: OTLColor.pinksMain,
                     onTap: () {
                       result = true;
-                      Navigator.pop(context);
+                      OTLNavigator.pop(context);
                     },
                   ),
                 ],

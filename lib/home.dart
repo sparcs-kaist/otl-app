@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:otlplus/pages/course_search_page.dart';
 import 'package:otlplus/providers/hall_of_fame_model.dart';
 import 'package:otlplus/providers/course_search_model.dart';
 import 'package:otlplus/providers/lecture_search_model.dart';
 import 'package:otlplus/providers/timetable_model.dart';
 import 'package:otlplus/utils/build_app_bar.dart';
-import 'package:otlplus/utils/build_page_route.dart';
+import 'package:otlplus/utils/navigator.dart';
 import 'package:otlplus/widgets/hall_of_fame_control.dart';
 import 'package:otlplus/widgets/review_mode_control.dart';
 import 'package:otlplus/widgets/timetable_mode_control.dart';
@@ -47,7 +48,7 @@ class _OTLHomeState extends State<OTLHome> with SingleTickerProviderStateMixin {
     WidgetsBinding.instance.addPostFrameCallback(
       (_) async {
         if ((await SharedPreferences.getInstance()).getBool('popup') ?? true) {
-          await showDialog(
+          await OTLNavigator.pushDialog(
             context: context,
             builder: (context) => PopUp(),
           );
@@ -136,7 +137,7 @@ class _OTLHomeState extends State<OTLHome> with SingleTickerProviderStateMixin {
         borderRadius: BorderRadius.circular(8.0),
         child: BackgroundButton(
           tapEffectColorRatio: 0.04,
-          onTap: () => Navigator.push(context, buildCourseSearchPageRoute()),
+          onTap: () => OTLNavigator.push(context, CourseSearchPage()),
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
             child: Row(

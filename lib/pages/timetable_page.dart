@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:otlplus/utils/build_page_route.dart';
+import 'package:otlplus/pages/lecture_detail_page.dart';
+import 'package:otlplus/pages/lecture_search_page.dart';
+import 'package:otlplus/utils/navigator.dart';
 import 'package:otlplus/providers/lecture_search_model.dart';
 import 'package:otlplus/widgets/delete_dialog.dart';
 import 'package:otlplus/widgets/responsive_button.dart';
@@ -75,8 +77,7 @@ class _TimetablePageState extends State<TimetablePage> {
                         GestureDetector(
                           behavior: HitTestBehavior.translucent,
                           onTap: () {
-                            Navigator.push(
-                                context, buildLectureSearchPageRoute());
+                            OTLNavigator.push(context, LectureSearchPage());
                           },
                           child: Padding(
                             padding: const EdgeInsets.fromLTRB(12, 18, 16, 18),
@@ -176,13 +177,13 @@ class _TimetablePageState extends State<TimetablePage> {
           isExamTime: isExamTime,
           onTap: () {
             context.read<LectureDetailModel>().loadLecture(lecture.id, true);
-            Navigator.push(context, buildLectureDetailPageRoute());
+            OTLNavigator.push(context, LectureDetailPage());
           },
           onLongPress: isSelected
               ? null
               : () async {
                   bool result = false;
-                  await showDialog(
+                  await OTLNavigator.pushDialog(
                     context: context,
                     barrierDismissible: false,
                     builder: (context) => AlertDialog(
@@ -197,7 +198,7 @@ class _TimetablePageState extends State<TimetablePage> {
                           color: OTLColor.pinksMain,
                           onTap: () {
                             result = false;
-                            Navigator.pop(context);
+                            OTLNavigator.pop(context);
                           },
                         ),
                         IconTextButton(
@@ -206,7 +207,7 @@ class _TimetablePageState extends State<TimetablePage> {
                           color: OTLColor.pinksMain,
                           onTap: () {
                             result = true;
-                            Navigator.pop(context);
+                            OTLNavigator.pop(context);
                           },
                         ),
                       ],

@@ -4,10 +4,11 @@ import 'package:otlplus/constants/text_styles.dart';
 import 'package:otlplus/models/lecture.dart';
 import 'package:otlplus/models/semester.dart';
 import 'package:otlplus/models/user.dart';
+import 'package:otlplus/pages/lecture_detail_page.dart';
 import 'package:otlplus/providers/info_model.dart';
 import 'package:otlplus/providers/lecture_detail_model.dart';
 import 'package:otlplus/utils/build_app_bar.dart';
-import 'package:otlplus/utils/build_page_route.dart';
+import 'package:otlplus/utils/navigator.dart';
 import 'package:otlplus/widgets/lecture_simple_block.dart';
 import 'package:provider/provider.dart';
 
@@ -121,7 +122,7 @@ class MyReviewPage extends StatelessWidget {
       hasReview: user.reviews.any((review) => review.lecture.id == lecture.id),
       onTap: () {
         context.read<LectureDetailModel>().loadLecture(lecture.id, false);
-        Navigator.push(context, buildLectureDetailPageRoute());
+        OTLNavigator.push(context, LectureDetailPage());
       },
     );
   }

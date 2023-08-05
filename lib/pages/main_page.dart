@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:otlplus/constants/text_styles.dart';
+import 'package:otlplus/pages/course_search_page.dart';
+import 'package:otlplus/pages/people_page.dart';
+import 'package:otlplus/pages/privacy_page.dart';
+import 'package:otlplus/pages/settings_page.dart';
+import 'package:otlplus/pages/user_page.dart';
 import 'package:otlplus/providers/course_search_model.dart';
-import 'package:otlplus/utils/build_page_route.dart';
 import 'package:otlplus/widgets/responsive_button.dart';
+import 'package:otlplus/utils/navigator.dart';
 import 'package:provider/provider.dart';
 import 'package:otlplus/constants/color.dart';
 import 'package:otlplus/models/semester.dart';
@@ -73,8 +78,9 @@ class _MainPageState extends State<MainPage> {
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               IconTextButton(
-                                onTap: () => Navigator.push(
-                                    context, buildUserPageRoute()),
+                                onTap: () => OTLNavigator.push(
+                                    context, UserPage(),
+                                    transition: 'down-up'),
                                 icon: 'assets/icons/person.svg',
                                 iconSize: 24,
                                 color: OTLColor.pinksMain,
@@ -83,8 +89,9 @@ class _MainPageState extends State<MainPage> {
                                     EdgeInsets.fromLTRB(16.0, 16.0, 8.0, 16.0),
                               ),
                               IconTextButton(
-                                onTap: () => Navigator.push(
-                                    context, buildSettingsPageRoute()),
+                                onTap: () => OTLNavigator.push(
+                                    context, SettingsPage(),
+                                    transition: 'down-up'),
                                 icon: 'assets/icons/gear.svg',
                                 iconSize: 24,
                                 color: OTLColor.pinksMain,
@@ -108,8 +115,7 @@ class _MainPageState extends State<MainPage> {
                                 context
                                     .read<CourseSearchModel>()
                                     .resetCourseFilter();
-                                Navigator.push(
-                                        context, buildCourseSearchPageRoute())
+                                OTLNavigator.push(context, CourseSearchPage())
                                     .then((e) {
                                   if (e == true) {
                                     widget.changeIndex(2);
@@ -216,7 +222,7 @@ class _MainPageState extends State<MainPage> {
       children: [
         IconTextButton(
           onTap: () {
-            Navigator.push(context, buildPrivacyPageRoute());
+            OTLNavigator.push(context, PrivacyPage(), transition: 'down-up');
           },
           text: 'title.privacy'.tr(),
           textStyle: labelRegular.copyWith(color: OTLColor.gray75),
@@ -225,7 +231,7 @@ class _MainPageState extends State<MainPage> {
         ),
         IconTextButton(
           onTap: () {
-            Navigator.push(context, buildPeoplePageRoute());
+            OTLNavigator.push(context, PeoplePage(), transition: 'down-up');
           },
           text: 'title.credit'.tr(),
           textStyle: labelRegular.copyWith(color: OTLColor.gray75),

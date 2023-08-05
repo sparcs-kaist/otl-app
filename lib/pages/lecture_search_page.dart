@@ -6,13 +6,14 @@ import 'package:otlplus/providers/lecture_search_model.dart';
 import 'package:otlplus/providers/timetable_model.dart';
 import 'package:otlplus/utils/build_app_bar.dart';
 import 'package:otlplus/widgets/responsive_button.dart';
+import 'package:otlplus/utils/navigator.dart';
 import 'package:otlplus/widgets/search_filter_panel.dart';
 import 'package:otlplus/widgets/search_textfield.dart';
 import 'package:provider/provider.dart';
 
 class LectureSearchPage extends StatefulWidget {
   final bool openKeyboard;
-  const LectureSearchPage({Key? key, this.openKeyboard = false})
+  const LectureSearchPage({Key? key, this.openKeyboard = true})
       : super(key: key);
 
   @override
@@ -49,7 +50,7 @@ class _LectureSearchPageState extends State<LectureSearchPage> {
         Row(
           children: [
             IconTextButton(
-              onTap: () => Navigator.pop(context),
+              onTap: () => OTLNavigator.pop(context),
               icon: Icons.navigate_before,
               padding: EdgeInsets.fromLTRB(0, 16, 16, 16),
             ),
@@ -139,7 +140,7 @@ class _LectureSearchPageState extends State<LectureSearchPage> {
                           .lectureSearch(
                             context.read<TimetableModel>().selectedSemester,
                           ))
-                        Navigator.of(context).pop();
+                        OTLNavigator.pop(context);
                       else
                         _focusNode.requestFocus();
                     },

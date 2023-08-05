@@ -5,13 +5,14 @@ import 'package:otlplus/constants/text_styles.dart';
 import 'package:otlplus/providers/course_search_model.dart';
 import 'package:otlplus/utils/build_app_bar.dart';
 import 'package:otlplus/widgets/responsive_button.dart';
+import 'package:otlplus/utils/navigator.dart';
 import 'package:otlplus/widgets/search_filter_panel.dart';
 import 'package:otlplus/widgets/search_textfield.dart';
 import 'package:provider/provider.dart';
 
 class CourseSearchPage extends StatefulWidget {
   final bool openKeyboard;
-  const CourseSearchPage({Key? key, this.openKeyboard = false})
+  const CourseSearchPage({Key? key, this.openKeyboard = true})
       : super(key: key);
 
   @override
@@ -48,7 +49,7 @@ class _CourseSearchPageState extends State<CourseSearchPage> {
         Row(
           children: [
             IconTextButton(
-              onTap: () => Navigator.pop(context),
+              onTap: () => OTLNavigator.pop(context),
               icon: Icons.navigate_before,
               padding: EdgeInsets.fromLTRB(0, 16, 16, 16),
             ),
@@ -137,7 +138,7 @@ class _CourseSearchPageState extends State<CourseSearchPage> {
                       if (await context
                           .read<CourseSearchModel>()
                           .courseSearch()) {
-                        Navigator.of(context).pop(true);
+                        OTLNavigator.pop(context, result: true);
                       } else {
                         _focusNode.requestFocus();
                       }
