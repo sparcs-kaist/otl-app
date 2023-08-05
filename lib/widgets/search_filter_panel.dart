@@ -5,6 +5,7 @@ import 'package:otlplus/constants/color.dart';
 import 'package:otlplus/constants/text_styles.dart';
 import 'package:otlplus/models/filter.dart';
 import 'package:otlplus/widgets/responsive_button.dart';
+import 'package:otlplus/utils/get_text_height.dart';
 
 class SearchFilterPanel extends StatefulWidget {
   final Map<String, FilterGroupInfo> filter;
@@ -293,16 +294,6 @@ class SilderSelection extends StatefulWidget {
 }
 
 class _SilderSelectionState extends State<SilderSelection> {
-  double _textWidth(String text, TextStyle style) {
-    final TextPainter textPainter = TextPainter(
-        text: TextSpan(text: text, style: style),
-        maxLines: 1,
-        textDirection: TextDirection.rtl,
-        textScaleFactor: MediaQuery.of(context).textScaleFactor)
-      ..layout(minWidth: 0, maxWidth: double.infinity);
-    return textPainter.size.width;
-  }
-
   double _value = 0;
 
   TextStyle labelTextStyle = TextStyle(
@@ -325,11 +316,15 @@ class _SilderSelectionState extends State<SilderSelection> {
       padding: EdgeInsets.only(left: 2, right: 10),
       child: LayoutBuilder(
           builder: (BuildContext context, BoxConstraints constraints) {
-        double leftPadding = _textWidth(
-                widget.selectList.reversed.first.first.label, labelTextStyle) /
+        double leftPadding = getTextSize(context,
+                    text: widget.selectList.reversed.first.first.label,
+                    style: labelTextStyle)
+                .width /
             2;
-        double rightPadding = _textWidth(
-                widget.selectList.reversed.last.first.label, labelTextStyle) /
+        double rightPadding = getTextSize(context,
+                    text: widget.selectList.reversed.last.first.label,
+                    style: labelTextStyle)
+                .width /
             2;
         double divisionWidth =
             (constraints.maxWidth - leftPadding - rightPadding) / divisions;
@@ -395,18 +390,23 @@ class _SilderSelectionState extends State<SilderSelection> {
                         )
                       : Spacer(
                           flex: (divisionWidth -
-                                  (_textWidth(
-                                              widget.selectList.reversed
-                                                  .elementAt(index ~/ 2)
-                                                  .first
-                                                  .label,
-                                              labelTextStyle) +
-                                          _textWidth(
-                                              widget.selectList.reversed
-                                                  .elementAt((index ~/ 2) + 1)
-                                                  .first
-                                                  .label,
-                                              labelTextStyle)) /
+                                  (getTextSize(context,
+                                                  text: widget
+                                                      .selectList.reversed
+                                                      .elementAt(index ~/ 2)
+                                                      .first
+                                                      .label,
+                                                  style: labelTextStyle)
+                                              .width +
+                                          getTextSize(context,
+                                                  text: widget
+                                                      .selectList.reversed
+                                                      .elementAt(
+                                                          (index ~/ 2) + 1)
+                                                      .first
+                                                      .label,
+                                                  style: labelTextStyle)
+                                              .width) /
                                       2)
                               .toInt(),
                         )),

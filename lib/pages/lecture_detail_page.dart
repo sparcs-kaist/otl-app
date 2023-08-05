@@ -4,9 +4,9 @@ import 'package:flutter_web_browser/flutter_web_browser.dart';
 import 'package:otlplus/constants/text_styles.dart';
 import 'package:otlplus/models/review.dart';
 import 'package:otlplus/pages/course_detail_page.dart';
-import 'package:otlplus/utils/build_app_bar.dart';
 import 'package:otlplus/widgets/responsive_button.dart';
 import 'package:otlplus/utils/navigator.dart';
+import 'package:otlplus/widgets/otl_scaffold.dart';
 import 'package:provider/provider.dart';
 import 'package:otlplus/constants/color.dart';
 import 'package:otlplus/extensions/lecture.dart';
@@ -20,8 +20,11 @@ import 'package:otlplus/widgets/review_block.dart';
 import 'package:otlplus/widgets/review_write_block.dart';
 
 class LectureDetailPage extends StatelessWidget {
-  static String route = 'lecture_detail_page';
+  LectureDetailPage({Key? key, this.fromCourseDetailPage = false})
+      : super(key: key);
 
+  static String route = 'lecture_detail_page';
+  final bool fromCourseDetailPage;
   final _scrollController = ScrollController();
 
   String _getSyllabusUrl(Lecture lecture) {
@@ -40,27 +43,26 @@ class LectureDetailPage extends StatelessWidget {
         context.watch<LectureDetailModel>();
     final isEn = EasyLocalization.of(context)?.currentLocale == Locale('en');
 
-    return Scaffold(
-      appBar: buildAppBar(
-        context,
-        lectureDetailModel.hasData
-            ? (isEn
-                ? lectureDetailModel.lecture.titleEn
-                : lectureDetailModel.lecture.title)
-            : '',
-        true,
-        false,
-      ),
-      body: Card(
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(top: Radius.circular(16.0)),
+    return OTLScaffold(
+      child: OTLLayout(
+        middle: Text(
+            lectureDetailModel.hasData
+                ? (isEn
+                    ? lectureDetailModel.lecture.titleEn
+                    : lectureDetailModel.lecture.title)
+                : '',
+            style: titleBold),
+        body: Card(
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(top: Radius.circular(16.0)),
+          ),
+          child:
+              context.select<LectureDetailModel, bool>((model) => model.hasData)
+                  ? _buildBody(context)
+                  : Center(
+                      child: const CircularProgressIndicator(),
+                    ),
         ),
-        child:
-            context.select<LectureDetailModel, bool>((model) => model.hasData)
-                ? _buildBody(context)
-                : Center(
-                    child: const CircularProgressIndicator(),
-                  ),
       ),
     );
   }
@@ -154,15 +156,21 @@ class LectureDetailPage extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: <Widget>[
-        IconTextButton(
-          onTap: () {
-            context.read<CourseDetailModel>().loadCourse(lecture.course);
-            OTLNavigator.push(context, CourseDetailPage());
-          },
-          text: "dictionary.dictionary".tr(),
-          textStyle: bodyRegular.copyWith(color: OTLColor.pinksMain),
+        Visibility(
+          visible: fromCourseDetailPage == false,
+          child: Padding(
+            padding: EdgeInsets.only(right: 8.0),
+            child: IconTextButton(
+              onTap: () {
+                context.read<CourseDetailModel>().loadCourse(lecture.course);
+                OTLNavigator.push(
+                    context, CourseDetailPage(fromLectureDetailPage: false));
+              },
+              text: "dictionary.dictionary".tr(),
+              textStyle: bodyRegular.copyWith(color: OTLColor.pinksMain),
+            ),
+          ),
         ),
-        const SizedBox(width: 8.0),
         IconTextButton(
           onTap: () => FlutterWebBrowser.openWebPage(
             url: _getSyllabusUrl(lecture),

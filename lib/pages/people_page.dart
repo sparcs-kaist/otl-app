@@ -3,30 +3,35 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:otlplus/constants/color.dart';
 import 'package:otlplus/constants/text_styles.dart';
-import 'package:otlplus/utils/build_app_bar.dart';
+import 'package:otlplus/widgets/otl_scaffold.dart';
 
 class PeoplePage extends StatelessWidget {
   const PeoplePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: buildAppBar(context, 'title.credit'.tr(), false, true),
-      body: Padding(
-        padding: EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            _buildContainer('2023.03 ~'),
-            ..._get202303(),
-            const SizedBox(height: 32.0),
-            _buildContainer('2020.03 ~ 2023.02'),
-            const SizedBox(height: 12.0),
-            Text(
-              '준비 중입니다.',
-              style: bodyRegular.copyWith(color: OTLColor.grayA),
+    return OTLScaffold(
+      child: OTLLayout(
+        middle: Text('title.credit'.tr(), style: titleBold),
+        body: ColoredBox(
+          color: OTLColor.grayF,
+          child: Padding(
+            padding: EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                _buildContainer('2023.03 ~'),
+                ..._get202303(),
+                const SizedBox(height: 32.0),
+                _buildContainer('2020.03 ~ 2023.02'),
+                const SizedBox(height: 12.0),
+                Text(
+                  '준비 중입니다.',
+                  style: bodyRegular.copyWith(color: OTLColor.grayA),
+                ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );

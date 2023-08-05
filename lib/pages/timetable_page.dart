@@ -7,6 +7,9 @@ import 'package:otlplus/widgets/delete_dialog.dart';
 import 'package:otlplus/widgets/responsive_button.dart';
 import 'package:otlplus/widgets/lecture_search.dart';
 import 'package:otlplus/widgets/map_view.dart';
+import 'package:otlplus/widgets/otl_scaffold.dart';
+import 'package:otlplus/widgets/semester_picker.dart';
+import 'package:otlplus/widgets/timetable_mode_control.dart';
 import 'package:provider/provider.dart';
 import 'package:otlplus/constants/color.dart';
 import 'package:otlplus/models/lecture.dart';
@@ -48,79 +51,95 @@ class _TimetablePageState extends State<TimetablePage> {
         Scrollable.ensureVisible(_selectedKey.currentContext!);
     });
 
-    return Column(
-      children: <Widget>[
-        Expanded(
-          child: ColoredBox(
-            color: OTLColor.grayF,
-            child: Column(
-              children: <Widget>[
-                SizedBox(
-                  height: 60,
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: Container(
-                          color: OTLColor.pinksLight,
+    return OTLLayout(
+      leading: Padding(
+        padding: const EdgeInsets.only(left: 16),
+        child: SemesterPicker(
+          onSemesterChanged: () {
+            context.read<LectureSearchModel>().setSelectedLecture(null);
+            context.read<LectureSearchModel>().lectureClear();
+          },
+        ),
+      ),
+      trailing: TimetableModeControl(
+        dropdownIndex: context.watch<TimetableModel>().selectedMode,
+        onTap: (mode) => context.read<TimetableModel>().setMode(mode),
+      ),
+      body: Column(
+        children: <Widget>[
+          Expanded(
+            child: ColoredBox(
+              color: OTLColor.grayF,
+              child: Column(
+                children: <Widget>[
+                  SizedBox(
+                    height: 60,
+                    child: Row(
+                      children: [
+                        Expanded(
                           child: Container(
-                            padding: const EdgeInsets.symmetric(vertical: 16),
-                            decoration: BoxDecoration(
-                              color: OTLColor.grayF,
-                              borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(16)),
+                            color: OTLColor.pinksLight,
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(vertical: 16),
+                              decoration: BoxDecoration(
+                                color: OTLColor.grayF,
+                                borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(16)),
+                              ),
+                              child: _buildTimetableTabs(context),
                             ),
-                            child: _buildTimetableTabs(context),
                           ),
                         ),
-                      ),
-                      if (mode == 0)
-                        GestureDetector(
-                          behavior: HitTestBehavior.translucent,
-                          onTap: () {
-                            OTLNavigator.push(context, LectureSearchPage());
-                          },
-                          child: Padding(
-                            padding: const EdgeInsets.fromLTRB(12, 18, 16, 18),
-                            child: Icon(
-                              Icons.search,
-                              size: 24,
-                              color: OTLColor.pinksMain,
+                        if (mode == 0)
+                          GestureDetector(
+                            behavior: HitTestBehavior.translucent,
+                            onTap: () {
+                              OTLNavigator.push(context, LectureSearchPage());
+                            },
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.fromLTRB(12, 18, 16, 18),
+                              child: Icon(
+                                Icons.search,
+                                size: 24,
+                                color: OTLColor.pinksMain,
+                              ),
                             ),
-                          ),
-                        )
-                      else
-                        const SizedBox(width: 16),
-                    ],
+                          )
+                        else
+                          const SizedBox(width: 16),
+                      ],
+                    ),
                   ),
-                ),
-                Expanded(
-                  child: () {
-                    switch (mode) {
-                      case 0:
-                      case 1:
-                        return _buildTimetableMode(
-                            context, lectures, mode == 1);
-                      default:
-                        return MapView(lectures: lectures);
-                    }
-                  }(),
-                )
-              ],
+                  Expanded(
+                    child: () {
+                      switch (mode) {
+                        case 0:
+                        case 1:
+                          return _buildTimetableMode(
+                              context, lectures, mode == 1);
+                        default:
+                          return MapView(lectures: lectures);
+                      }
+                    }(),
+                  )
+                ],
+              ),
             ),
           ),
-        ),
-        Visibility(
-          visible: context.watch<LectureSearchModel>().resultOpened,
-          child: Expanded(
-            child: LectureSearch(
-              onClosed: () async {
-                context.read<LectureSearchModel>().resetLectureFilter();
-                return true;
-              },
+          Visibility(
+            visible: context.watch<LectureSearchModel>().resultOpened,
+            child: Expanded(
+              child: LectureSearch(
+                onClosed: () async {
+                  context.read<LectureSearchModel>().resetLectureFilter();
+                  return true;
+                },
+              ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 

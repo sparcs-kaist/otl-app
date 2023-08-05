@@ -2,8 +2,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:otlplus/constants/text_styles.dart';
 import 'package:otlplus/models/review.dart';
-import 'package:otlplus/utils/build_app_bar.dart';
 import 'package:otlplus/widgets/responsive_button.dart';
+import 'package:otlplus/widgets/otl_scaffold.dart';
 import 'package:provider/provider.dart';
 import 'package:otlplus/constants/color.dart';
 import 'package:otlplus/extensions/course.dart';
@@ -19,8 +19,11 @@ import 'package:otlplus/widgets/review_block.dart';
 import 'package:otlplus/widgets/review_write_block.dart';
 
 class CourseDetailPage extends StatelessWidget {
+  CourseDetailPage({Key? key, this.fromLectureDetailPage = false})
+      : super(key: key);
   static String route = 'course_detail_page';
 
+  final bool fromLectureDetailPage;
   final _scrollController = ScrollController();
 
   @override
@@ -29,17 +32,15 @@ class CourseDetailPage extends StatelessWidget {
         context.watch<CourseDetailModel>();
     final isEn = EasyLocalization.of(context)?.currentLocale == Locale('en');
 
-    return Scaffold(
-      appBar: buildAppBar(
-        context,
-        courseDetailModel.hasData
-            ? (isEn
-                ? courseDetailModel.course.titleEn
-                : courseDetailModel.course.title)
-            : '',
-        true,
-        false,
-      ),
+    return OTLScaffold(
+        child: OTLLayout(
+      middle: Text(
+          courseDetailModel.hasData
+              ? (isEn
+                  ? courseDetailModel.course.titleEn
+                  : courseDetailModel.course.title)
+              : '',
+          style: titleBold),
       body: Card(
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(top: Radius.circular(16.0)),
@@ -50,7 +51,7 @@ class CourseDetailPage extends StatelessWidget {
                 child: const CircularProgressIndicator(),
               ),
       ),
-    );
+    ));
   }
 
   Widget _buildBody(BuildContext context) {
@@ -323,10 +324,10 @@ class CourseDetailPage extends StatelessWidget {
                 ),
               );
             return LectureGroupSimpleBlock(
-              lectures: filteredLectures,
-              semester: semester,
-              filter: selectedFilter,
-            );
+                lectures: filteredLectures,
+                semester: semester,
+                filter: selectedFilter,
+                fromLectureDetailPage: fromLectureDetailPage);
           },
         ).toList(),
       ),

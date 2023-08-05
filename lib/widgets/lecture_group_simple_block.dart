@@ -14,9 +14,13 @@ class LectureGroupSimpleBlock extends StatelessWidget {
   final List<Lecture> lectures;
   final int semester;
   final String? filter;
+  final bool fromLectureDetailPage;
 
   LectureGroupSimpleBlock(
-      {required this.lectures, required this.semester, this.filter});
+      {required this.lectures,
+      required this.semester,
+      this.filter,
+      this.fromLectureDetailPage = false});
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +65,9 @@ class LectureGroupSimpleBlock extends StatelessWidget {
                           context
                               .read<LectureDetailModel>()
                               .loadLecture(lecture.id, false);
-                          OTLNavigator.push(context, LectureDetailPage());
+                          if (fromLectureDetailPage == false)
+                            OTLNavigator.push(context,
+                                LectureDetailPage(fromCourseDetailPage: true));
                         },
                         child: Padding(
                           padding: const EdgeInsets.symmetric(

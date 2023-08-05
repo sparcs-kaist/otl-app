@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:otlplus/constants/color.dart';
 import 'package:otlplus/constants/text_styles.dart';
 import 'package:otlplus/models/lecture.dart';
 import 'package:otlplus/models/semester.dart';
@@ -7,9 +8,9 @@ import 'package:otlplus/models/user.dart';
 import 'package:otlplus/pages/lecture_detail_page.dart';
 import 'package:otlplus/providers/info_model.dart';
 import 'package:otlplus/providers/lecture_detail_model.dart';
-import 'package:otlplus/utils/build_app_bar.dart';
 import 'package:otlplus/utils/navigator.dart';
 import 'package:otlplus/widgets/lecture_simple_block.dart';
+import 'package:otlplus/widgets/otl_scaffold.dart';
 import 'package:provider/provider.dart';
 
 class MyReviewPage extends StatelessWidget {
@@ -31,14 +32,11 @@ class MyReviewPage extends StatelessWidget {
       ..sort((a, b) =>
           ((a.year != b.year) ? (b.year - a.year) : (b.semester - a.semester)));
 
-    return Scaffold(
-      appBar: buildAppBar(context, 'user.my_review'.tr(), true, true),
-      body: Container(
-        constraints: const BoxConstraints.expand(),
-        child: Card(
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.vertical(top: Radius.circular(16.0)),
-          ),
+    return OTLScaffold(
+      child: OTLLayout(
+        middle: Text('user.my_review'.tr(), style: titleBold),
+        body: ColoredBox(
+          color: OTLColor.grayF,
           child: Padding(
             padding: const EdgeInsets.all(16.0),
             child: SingleChildScrollView(

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:otlplus/constants/color.dart';
 import 'package:otlplus/widgets/responsive_button.dart';
+import 'package:otlplus/widgets/otl_scaffold.dart';
 import 'package:provider/provider.dart';
 import 'package:otlplus/constants/url.dart';
 import 'package:otlplus/providers/auth_model.dart';
@@ -53,11 +54,8 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        toolbarHeight: 0,
-      ),
-      body: Material(
+    return OTLScaffold(
+      child: Material(
         child: Stack(
           children: <Widget>[
             Center(

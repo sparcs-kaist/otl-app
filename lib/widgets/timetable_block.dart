@@ -65,8 +65,9 @@ class TimetableBlock extends StatelessWidget {
 
     if (showClassroom) {
       maxLines = (validHeight -
-              getTextHeight(context,
-                  text: title, style: labelRegular, maxWidth: 54)) ~/
+              getTextSize(context,
+                      text: title, style: labelRegular, maxWidth: 54)
+                  .height) ~/
           lineHeight;
 
       contents.add(Expanded(
