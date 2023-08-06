@@ -113,9 +113,8 @@ class LectureDetailPage extends StatelessWidget {
                 context: context,
                 barrierDismissible: false,
                 builder: (context) => AlertDialog(
-                  title: const Text("수업 추가"),
-                  content: const Text(
-                      "시간이 겹치는 수업이 있습니다. 추가하시면 해당 수업은 삭제됩니다.\n시간표에 추가하시겠습니까?"),
+                  title: Text("timetable.dialog.add_lecture".tr()),
+                  content: Text("timetable.dialog.ask_add_lecture".tr()),
                   actions: [
                     IconTextButton(
                       padding: EdgeInsets.all(12),
@@ -144,7 +143,9 @@ class LectureDetailPage extends StatelessWidget {
           );
         }
       },
-      text: isAdded ? "시간표에서 제거" : "시간표에 추가",
+      text: isAdded
+          ? "timetable.remove_lecture".tr()
+          : "timetable.add_lecture".tr(),
       textStyle: const TextStyle(fontSize: 12.0),
       icon: isAdded ? Icons.close : Icons.add,
       iconSize: 14,
