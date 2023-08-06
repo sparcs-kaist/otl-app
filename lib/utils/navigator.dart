@@ -159,7 +159,13 @@ Route<T> buildDownUpPageRoute<T extends Object?>(Widget page) {
 
       return SlideTransition(
         position: offsetAnimation,
-        child: child,
+        child: SafeArea(
+          top: animation.value != 1,
+          right: false,
+          left: false,
+          bottom: false,
+          child: Align(alignment: Alignment.bottomCenter, child: child),
+        ),
       );
     },
   );
