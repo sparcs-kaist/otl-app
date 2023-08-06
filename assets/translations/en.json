@@ -117,7 +117,8 @@
     "load": "Load",
     "speech": "Speech",
     "like": "Like",
-    "report": "Report"
+    "report": "Report",
+    "expand": "more"
   },
   "user": {
     "name": "Name",

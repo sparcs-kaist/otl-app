@@ -117,7 +117,8 @@
     "load": "널널",
     "speech": "강의",
     "like": "추천",
-    "report": "신고하기"
+    "report": "신고하기",
+    "expand": "더 보기"
   },
   "user": {
     "name": "이름",

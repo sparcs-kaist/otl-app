@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart' as _;
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
@@ -25,11 +26,11 @@ class ExpandableTextState extends State<ExpandableText> {
     TextSpan expandButton = TextSpan(
       children: <TextSpan>[
         TextSpan(
-          text: "..",
+          text: ".. ",
           style: widget.style,
         ),
         TextSpan(
-            text: " 더보기",
+            text: "review.expand".tr(),
             style:
                 (widget.style ?? TextStyle()).copyWith(color: Colors.black45),
             recognizer: TapGestureRecognizer()
