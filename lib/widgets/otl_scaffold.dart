@@ -111,7 +111,7 @@ class OTLScaffold extends StatelessWidget {
   }
 }
 
-class OTLLayout extends StatelessWidget {
+class OTLLayout extends StatefulWidget {
   const OTLLayout({
     Key? key,
     this.middle,
@@ -127,20 +127,26 @@ class OTLLayout extends StatelessWidget {
   final Widget body;
 
   @override
+  State<OTLLayout> createState() => _OTLLayoutState();
+}
+
+class _OTLLayoutState extends State<OTLLayout> {
+  final bool canPopRightLeft = OTLNavigator.canPopRightLeft;
+  final bool canPopDownUp = OTLNavigator.canPopDownUp;
+
+  @override
   Widget build(BuildContext context) {
     final ScaffoldState? scaffold = Scaffold.maybeOf(context);
     final bool hasDrawer = scaffold?.hasDrawer ?? false;
     final bool hasEndDrawer = scaffold?.hasEndDrawer ?? false;
-    final bool canPopRightLeft = OTLNavigator.canPopRightLeft;
-    final bool canPopDownUp = OTLNavigator.canPopDownUp;
 
     return Stack(
       fit: StackFit.expand,
       alignment: Alignment.topCenter,
       children: [
         Positioned.fill(
-          top: extendBodyBehindAppBar ? 0 : kToolbarHeight,
-          child: body,
+          top: widget.extendBodyBehindAppBar ? 0 : kToolbarHeight,
+          child: widget.body,
         ),
         Positioned(
           top: 0,
@@ -149,7 +155,9 @@ class OTLLayout extends StatelessWidget {
           child: SizedBox(
               height: kToolbarHeight,
               child: NavigationToolbar(
-                leading: (leading != null || canPopRightLeft || hasDrawer)
+                leading: (widget.leading != null ||
+                        canPopRightLeft ||
+                        hasDrawer)
                     ? Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
@@ -164,31 +172,32 @@ class OTLLayout extends StatelessWidget {
                                 icon: Icons.menu,
                                 onTap: () => Scaffold.of(context).openDrawer(),
                                 padding: EdgeInsets.all(16)),
-                          if (leading != null) leading!,
+                          if (widget.leading != null) widget.leading!,
                         ],
                       )
                     : null,
-                middle: middle,
-                trailing: (trailing != null || canPopDownUp || hasEndDrawer)
-                    ? Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          if (trailing != null) trailing!,
-                          if (hasEndDrawer)
-                            IconTextButton(
-                                icon: Icons.menu,
-                                onTap: () =>
-                                    Scaffold.of(context).openEndDrawer(),
-                                padding: EdgeInsets.all(16)),
-                          if (canPopDownUp)
-                            IconTextButton(
-                                icon: Icons.close,
-                                onTap: () => OTLNavigator.pop(context,
-                                    transition: 'down-up'),
-                                padding: EdgeInsets.all(16)),
-                        ],
-                      )
-                    : null,
+                middle: widget.middle,
+                trailing:
+                    (widget.trailing != null || canPopDownUp || hasEndDrawer)
+                        ? Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              if (widget.trailing != null) widget.trailing!,
+                              if (hasEndDrawer)
+                                IconTextButton(
+                                    icon: Icons.menu,
+                                    onTap: () =>
+                                        Scaffold.of(context).openEndDrawer(),
+                                    padding: EdgeInsets.all(16)),
+                              if (canPopDownUp)
+                                IconTextButton(
+                                    icon: Icons.close,
+                                    onTap: () => OTLNavigator.pop(context,
+                                        transition: 'down-up'),
+                                    padding: EdgeInsets.all(16)),
+                            ],
+                          )
+                        : null,
                 middleSpacing: 0,
               )),
         )
