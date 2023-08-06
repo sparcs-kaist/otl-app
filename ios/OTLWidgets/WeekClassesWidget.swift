@@ -205,13 +205,15 @@ struct WeekClassesLectureView: View {
 
 struct WeekClassesWidget: Widget {
     let kind: String = "WeekClassesWidget"
+    private let title: LocalizedStringKey = "weekclasseswidget.title"
+    private let description: LocalizedStringKey = "weekclasseswidget.description"
 
     var body: some WidgetConfiguration {
         IntentConfiguration(kind: kind, intent: ConfigurationIntent.self, provider: Provider()) { entry in
             WeekClassesWidgetEntryView(entry: entry)
         }
-        .configurationDisplayName("주간 시간표")
-        .description("일주일의 모든 수업을 확인합니다.")
+        .configurationDisplayName(title)
+        .description(description)
         .supportedFamilies([.systemLarge])
     }
 }

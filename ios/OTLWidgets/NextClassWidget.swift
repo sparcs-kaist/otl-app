@@ -395,13 +395,15 @@ struct NextClassWidgetEntryView : View {
 
 struct NextClassWidget: Widget {
     let kind: String = "NextClassWidget"
-
+    private let title: LocalizedStringKey = "nextclasswidget.title"
+    private let description: LocalizedStringKey = "nextclasswidget.description"
+    
     var body: some WidgetConfiguration {
         IntentConfiguration(kind: kind, intent: ConfigurationIntent.self, provider: Provider()) { entry in
             NextClassWidgetEntryView(entry: entry)
         }
-        .configurationDisplayName("다음 수업")
-        .description("다음에 시작할 수업을 확인합니다.")
+        .configurationDisplayName(title)
+        .description(description)
         .supportedFamilies([.systemSmall])
     }
 }

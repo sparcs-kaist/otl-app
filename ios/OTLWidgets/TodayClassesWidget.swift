@@ -188,13 +188,15 @@ struct ExactTimeLine: View {
 
 struct TodayClassesWidget: Widget {
     let kind: String = "TodayClassesWidget"
-
+    private let title: LocalizedStringKey = "todayclasseswidget.title"
+    private let description: LocalizedStringKey = "todayclasseswidget.description"
+    
     var body: some WidgetConfiguration {
         IntentConfiguration(kind: kind, intent: ConfigurationIntent.self, provider: Provider()) { entry in
             TodayClassesWidgetEntryView(entry: entry)
         }
-        .configurationDisplayName("오늘 수업")
-        .description("오늘 수업을 확인합니다.")
+        .configurationDisplayName(title)
+        .description(description)
         .supportedFamilies([.systemMedium])
     }
 }
