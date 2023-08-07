@@ -57,8 +57,8 @@ class _SemesterPickerState extends State<SemesterPicker> {
             : OTLColor.grayA,
         padding: const EdgeInsets.all(4.0),
         tapEffect: context.watch<TimetableModel>().canGoNextSemester()
-            ? 'lighten'
-            : 'none');
+            ? ButtonTapEffect.lighten
+            : ButtonTapEffect.none);
   }
 
   Widget _buildRightButton(ThemeData theme) {
@@ -76,7 +76,7 @@ class _SemesterPickerState extends State<SemesterPicker> {
             : OTLColor.grayA,
         padding: const EdgeInsets.all(4.0),
         tapEffect: context.watch<TimetableModel>().canGoNextSemester()
-            ? 'lighten'
-            : 'none');
+            ? ButtonTapEffect.lighten
+            : ButtonTapEffect.none);
   }
 }

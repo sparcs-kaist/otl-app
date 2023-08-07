@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+enum ButtonTapEffect { none, darken, lighten }
+
+enum ButtonDirection { row, column, rowReversed, columnReversed }
+
 class IconTextButton extends StatelessWidget {
   const IconTextButton({
     Key? key,
@@ -12,19 +16,12 @@ class IconTextButton extends StatelessWidget {
     this.textStyle = const TextStyle(),
     this.padding,
     this.onTap,
-    this.tapEffect = 'lighten',
+    this.tapEffect = ButtonTapEffect.lighten,
     this.tapEffectColorRatio = 0.48,
-    this.direction = 'row',
+    this.direction = ButtonDirection.row,
   })  : assert(icon is IconData || icon is String || icon == null),
         assert(icon != null || iconSize == 24),
         assert(text != null || textStyle == const TextStyle()),
-        assert(tapEffect == 'none' ||
-            tapEffect == 'darken' ||
-            tapEffect == 'lighten'),
-        assert(direction == 'row' ||
-            direction == 'column' ||
-            direction == 'row-reversed' ||
-            direction == 'column-reversed'),
         super(key: key);
   final Color? color;
   final dynamic icon; // IconData or String or null
@@ -34,9 +31,9 @@ class IconTextButton extends StatelessWidget {
   final TextStyle textStyle;
   final EdgeInsetsGeometry? padding;
   final VoidCallback? onTap;
-  final String? tapEffect;
+  final ButtonTapEffect tapEffect;
   final double tapEffectColorRatio;
-  final String direction;
+  final ButtonDirection direction;
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +52,8 @@ class IconTextButton extends StatelessWidget {
               'color': color
             }
           },
-      direction.startsWith('row')
+      (direction == ButtonDirection.row ||
+              direction == ButtonDirection.rowReversed)
           ? {
               'SizedBox': {
                 'width': spaceBetween,
@@ -74,17 +72,20 @@ class IconTextButton extends StatelessWidget {
           }
         }
     ];
-    Map<String, Map> child = direction.startsWith('row')
+    Map<String, Map> child = (direction == ButtonDirection.row ||
+            direction == ButtonDirection.rowReversed)
         ? {
             'Row': {
-              'children': direction.endsWith('reversed')
+              'children': (direction == ButtonDirection.rowReversed ||
+                      direction == ButtonDirection.columnReversed)
                   ? children.reversed.toList()
                   : children
             }
           }
         : {
             'Column': {
-              'children': direction.endsWith('reversed')
+              'children': (direction == ButtonDirection.rowReversed ||
+                      direction == ButtonDirection.columnReversed)
                   ? children.reversed.toList()
                   : children
             }
@@ -110,17 +111,14 @@ class BackgroundButton extends StatelessWidget {
       this.color = const Color(0x00000000),
       this.onTap,
       this.onLongPress,
-      this.tapEffect = 'darken',
+      this.tapEffect = ButtonTapEffect.darken,
       this.tapEffectColorRatio = 0.12,
       required this.child})
-      : assert(tapEffect == 'none' ||
-            tapEffect == 'darken' ||
-            tapEffect == 'lighten'),
-        super(key: key);
+      : super(key: key);
   final Color? color;
   final VoidCallback? onTap;
   final VoidCallback? onLongPress;
-  final String? tapEffect;
+  final ButtonTapEffect tapEffect;
   final double tapEffectColorRatio;
   final Widget child;
 
@@ -150,7 +148,7 @@ class RawResponsiveWidget extends StatelessWidget {
       Key? key})
       : super(key: key);
   final Map<String, Map> data;
-  final String tapEffect;
+  final ButtonTapEffect tapEffect;
   final double tapEffectColorRatio;
   final ValueNotifier<bool> pressedEffect;
 
@@ -216,9 +214,9 @@ class RawResponsiveWidget extends StatelessWidget {
         final Color unpressedColor = args['color'] ?? const Color(0xFF000000);
         final Color pressedColor = Color.lerp(
             unpressedColor,
-            tapEffect == 'darken'
+            tapEffect == ButtonTapEffect.darken
                 ? const Color(0xFF000000)
-                : tapEffect == 'lighten'
+                : tapEffect == ButtonTapEffect.lighten
                     ? const Color(0xFFFFFFFF)
                     : unpressedColor,
             tapEffectColorRatio)!;
@@ -235,9 +233,9 @@ class RawResponsiveWidget extends StatelessWidget {
         final ColorFilter pressedColorFilter = ColorFilter.mode(
             Color.lerp(
                 args['color'] ?? const Color(0xFF000000),
-                tapEffect == 'darken'
+                tapEffect == ButtonTapEffect.darken
                     ? const Color(0xFF000000)
-                    : tapEffect == 'lighten'
+                    : tapEffect == ButtonTapEffect.lighten
                         ? const Color(0xFFFFFFFF)
                         : args['color'] ?? const Color(0xFF000000),
                 tapEffectColorRatio)!,
@@ -275,9 +273,9 @@ class RawResponsiveWidget extends StatelessWidget {
         final TextStyle? pressedTextStyle = unpressedTextStyle.copyWith(
             color: Color.lerp(
                 unpressedTextStyle.color ?? const Color(0xFF000000),
-                tapEffect == 'darken'
+                tapEffect == ButtonTapEffect.darken
                     ? const Color(0xFF000000)
-                    : tapEffect == 'lighten'
+                    : tapEffect == ButtonTapEffect.lighten
                         ? const Color(0xFFFFFFFF)
                         : unpressedTextStyle.color ?? const Color(0xFF000000),
                 tapEffectColorRatio));
@@ -291,9 +289,9 @@ class RawResponsiveWidget extends StatelessWidget {
         final Color unpressedColor = args['color'] ?? const Color(0x00000000);
         final Color pressedColor = Color.lerp(
             unpressedColor,
-            tapEffect == 'darken'
+            tapEffect == ButtonTapEffect.darken
                 ? const Color(0xFF000000)
-                : tapEffect == 'lighten'
+                : tapEffect == ButtonTapEffect.lighten
                     ? const Color(0xFFFFFFFF)
                     : unpressedColor,
             tapEffectColorRatio)!;
@@ -338,13 +336,13 @@ class RawResponsiveButton extends StatefulWidget {
     required this.data,
     this.onTap,
     this.onLongPress,
-    this.tapEffect = 'lighten',
+    this.tapEffect = ButtonTapEffect.lighten,
     this.tapEffectColorRatio = 0.48,
   }) : super(key: key);
   final Map<String, Map> data;
   final VoidCallback? onTap;
   final VoidCallback? onLongPress;
-  final String? tapEffect;
+  final ButtonTapEffect tapEffect;
   final double tapEffectColorRatio;
 
   @override
@@ -395,7 +393,7 @@ class _RawResponsiveButtonState extends State<RawResponsiveButton> {
         },
         child: RawResponsiveWidget(
             data: widget.data,
-            tapEffect: widget.tapEffect!,
+            tapEffect: widget.tapEffect,
             tapEffectColorRatio: widget.tapEffectColorRatio,
             pressedEffect: _pressedEffect));
   }

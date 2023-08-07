@@ -45,7 +45,7 @@ class _PopUpState extends State<PopUp> {
                     );
                   });
                 },
-                tapEffect: 'none',
+                tapEffect: ButtonTapEffect.none,
                 icon: Icons.check_circle_outline,
                 color: _checked ? OTLColor.pinksMain : OTLColor.grayA,
                 spaceBetween: 8.0,
@@ -60,7 +60,7 @@ class _PopUpState extends State<PopUp> {
                 },
                 icon: Icons.close,
                 color: OTLColor.grayF,
-                tapEffect: 'darken',
+                tapEffect: ButtonTapEffect.darken,
                 tapEffectColorRatio: 0.24,
               ),
             ],

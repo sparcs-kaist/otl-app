@@ -78,7 +78,7 @@ class _MainPageState extends State<MainPage> {
                                 icon: 'assets/icons/person.svg',
                                 iconSize: 24,
                                 color: OTLColor.pinksMain,
-                                tapEffect: 'darken',
+                                tapEffect: ButtonTapEffect.darken,
                                 padding:
                                     EdgeInsets.fromLTRB(16.0, 16.0, 8.0, 16.0),
                               ),
@@ -88,7 +88,7 @@ class _MainPageState extends State<MainPage> {
                                 icon: 'assets/icons/gear.svg',
                                 iconSize: 24,
                                 color: OTLColor.pinksMain,
-                                tapEffect: 'darken',
+                                tapEffect: ButtonTapEffect.darken,
                                 padding:
                                     EdgeInsets.fromLTRB(8.0, 16.0, 16.0, 16.0),
                               ),
@@ -116,7 +116,7 @@ class _MainPageState extends State<MainPage> {
                                   }
                                 });
                               },
-                              tapEffect: 'darken',
+                              tapEffect: ButtonTapEffect.darken,
                               color: OTLColor.grayF,
                               child: Padding(
                                 padding: EdgeInsets.symmetric(
@@ -258,7 +258,7 @@ class _MainPageState extends State<MainPage> {
           text: 'title.privacy'.tr(),
           textStyle: labelRegular.copyWith(color: OTLColor.gray75),
           padding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 8.0),
-          tapEffect: 'lighten',
+          tapEffect: ButtonTapEffect.lighten,
         ),
         IconTextButton(
           onTap: () {
@@ -267,7 +267,7 @@ class _MainPageState extends State<MainPage> {
           text: 'title.credit'.tr(),
           textStyle: labelRegular.copyWith(color: OTLColor.gray75),
           padding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 8.0),
-          tapEffect: 'lighten',
+          tapEffect: ButtonTapEffect.lighten,
         ),
       ],
     );

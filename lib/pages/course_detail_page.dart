@@ -99,7 +99,7 @@ class CourseDetailPage extends StatelessWidget {
           height: 24.0,
           padding: const EdgeInsets.only(bottom: 4.0),
           builder: (shrinkOffset) => IconTextButton(
-              direction: 'row-reversed',
+              direction: ButtonDirection.rowReversed,
               padding: EdgeInsets.zero,
               onTap: () async {
                 if (shrinkOffset > 0) {
