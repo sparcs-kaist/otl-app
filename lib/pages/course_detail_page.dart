@@ -19,11 +19,9 @@ import 'package:otlplus/widgets/review_block.dart';
 import 'package:otlplus/widgets/review_write_block.dart';
 
 class CourseDetailPage extends StatelessWidget {
-  CourseDetailPage({Key? key, this.fromLectureDetailPage = false})
-      : super(key: key);
+  CourseDetailPage({Key? key}) : super(key: key);
   static String route = 'course_detail_page';
 
-  final bool fromLectureDetailPage;
   final _scrollController = ScrollController();
 
   @override
@@ -326,8 +324,7 @@ class CourseDetailPage extends StatelessWidget {
             return LectureGroupSimpleBlock(
                 lectures: filteredLectures,
                 semester: semester,
-                filter: selectedFilter,
-                fromLectureDetailPage: fromLectureDetailPage);
+                filter: selectedFilter);
           },
         ).toList(),
       ),

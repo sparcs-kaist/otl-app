@@ -156,19 +156,19 @@ class LectureDetailPage extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: <Widget>[
-        Visibility(
-          visible: fromCourseDetailPage == false,
-          child: Padding(
-            padding: EdgeInsets.only(right: 8.0),
-            child: IconTextButton(
-              onTap: () {
+        Padding(
+          padding: EdgeInsets.only(right: 8.0),
+          child: IconTextButton(
+            onTap: () {
+              if (fromCourseDetailPage) {
+                OTLNavigator.pop(context);
+              } else {
                 context.read<CourseDetailModel>().loadCourse(lecture.course);
-                OTLNavigator.push(
-                    context, CourseDetailPage(fromLectureDetailPage: false));
-              },
-              text: "dictionary.dictionary".tr(),
-              textStyle: bodyRegular.copyWith(color: OTLColor.pinksMain),
-            ),
+                OTLNavigator.push(context, CourseDetailPage());
+              }
+            },
+            text: "dictionary.dictionary".tr(),
+            textStyle: bodyRegular.copyWith(color: OTLColor.pinksMain),
           ),
         ),
         IconTextButton(

@@ -68,7 +68,8 @@ class LikedReviewPage extends StatelessWidget {
                                                 reviews[index].course.id);
                                         OTLNavigator.push(
                                             context, CourseDetailPage(),
-                                            transition: 'right-left');
+                                            transition: OTLNavigatorTransition
+                                                .rightLeft);
                                       },
                                     );
                                   },

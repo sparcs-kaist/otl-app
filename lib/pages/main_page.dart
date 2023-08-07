@@ -53,8 +53,8 @@ class _MainPageState extends State<MainPage> {
       trailing: Row(
         children: [
           IconTextButton(
-            onTap: () =>
-                OTLNavigator.push(context, UserPage(), transition: 'down-up'),
+            onTap: () => OTLNavigator.push(context, UserPage(),
+                transition: OTLNavigatorTransition.downUp),
             icon: 'assets/icons/person.svg',
             iconSize: 24,
             color: OTLColor.pinksMain,
@@ -63,7 +63,7 @@ class _MainPageState extends State<MainPage> {
           ),
           IconTextButton(
             onTap: () => OTLNavigator.push(context, SettingsPage(),
-                transition: 'down-up'),
+                transition: OTLNavigatorTransition.downUp),
             icon: 'assets/icons/gear.svg',
             iconSize: 24,
             color: OTLColor.pinksMain,
@@ -241,7 +241,8 @@ class _MainPageState extends State<MainPage> {
       children: [
         IconTextButton(
           onTap: () {
-            OTLNavigator.push(context, PrivacyPage(), transition: 'down-up');
+            OTLNavigator.push(context, PrivacyPage(),
+                transition: OTLNavigatorTransition.downUp);
           },
           text: 'title.privacy'.tr(),
           textStyle: labelRegular.copyWith(color: OTLColor.gray75),
@@ -250,7 +251,8 @@ class _MainPageState extends State<MainPage> {
         ),
         IconTextButton(
           onTap: () {
-            OTLNavigator.push(context, PeoplePage(), transition: 'down-up');
+            OTLNavigator.push(context, PeoplePage(),
+                transition: OTLNavigatorTransition.downUp);
           },
           text: 'title.credit'.tr(),
           textStyle: labelRegular.copyWith(color: OTLColor.gray75),

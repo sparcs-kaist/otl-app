@@ -1,26 +1,30 @@
 import 'package:flutter/material.dart';
 
+enum OTLNavigatorTransition { rightLeft, downUp, immediate }
+
+enum _TransitionHistory { rightLeft, downUp, immediate, dialog }
+
 class OTLNavigator {
   static List<Route> _rightleftTransitionHistory = [];
   static List<Route> _downupTransitionHistory = [];
-  //0 for right-left, 1 for down-up, 2 for immediate, 3 for dialog
-  static List<int> _history = [];
+  static List<_TransitionHistory> _history = [];
 
   static void _removeLastHistory() {
     switch (_history.removeLast()) {
-      case 0:
+      case _TransitionHistory.rightLeft:
         _rightleftTransitionHistory.removeLast();
         break;
-      case 1:
-      case 2:
+      case _TransitionHistory.downUp:
+      case _TransitionHistory.immediate:
         _downupTransitionHistory.removeLast();
         break;
-      case 3:
+      case _TransitionHistory.dialog:
         break;
     }
   }
 
-  static void _removeLastUntil(bool Function(int mode) predicate) {
+  static void _removeLastUntil(
+      bool Function(_TransitionHistory mode) predicate) {
     while (!predicate(_history.last)) {
       _removeLastHistory();
     }
@@ -28,70 +32,69 @@ class OTLNavigator {
   }
 
   static Future<T?> push<T extends Object?>(BuildContext context, Widget page,
-      {String transition = "right-left"}) {
-    assert(transition == "down-up" ||
-        transition == "right-left" ||
-        transition == "immediate");
+      {OTLNavigatorTransition transition = OTLNavigatorTransition.rightLeft}) {
     Route<T> _route;
-    if (transition == "right-left") {
-      _route = buildRightLeftPageRoute<T>(page);
-      _rightleftTransitionHistory.add(_route);
-      _history.add(0);
-    } else if (transition == "down-up") {
-      _route = buildDownUpPageRoute<T>(page);
-      _downupTransitionHistory.add(_route);
-      _history.add(1);
-    } else {
-      _route = buildImmediatePageRoute<T>(page);
-      _downupTransitionHistory.add(_route);
-      _history.add(2);
+    switch (transition) {
+      case OTLNavigatorTransition.rightLeft:
+        _route = buildRightLeftPageRoute<T>(page);
+        _rightleftTransitionHistory.add(_route);
+        _history.add(_TransitionHistory.rightLeft);
+        break;
+      case OTLNavigatorTransition.downUp:
+        _route = buildDownUpPageRoute<T>(page);
+        _downupTransitionHistory.add(_route);
+        _history.add(_TransitionHistory.downUp);
+        break;
+      case OTLNavigatorTransition.immediate:
+        _route = buildImmediatePageRoute<T>(page);
+        _downupTransitionHistory.add(_route);
+        _history.add(_TransitionHistory.immediate);
+        break;
     }
     return Navigator.of(context).push(_route);
   }
 
   static Future<T?> pushRoot<T extends Object?>(
       BuildContext context, Widget page,
-      {String transition = "immediate"}) {
-    assert(transition == "down-up" ||
-        transition == "right-left" ||
-        transition == "immediate");
+      {OTLNavigatorTransition transition = OTLNavigatorTransition.immediate}) {
     _rightleftTransitionHistory.clear();
     _downupTransitionHistory.clear();
     _history.clear();
     Route<T> _route;
-    if (transition == "right-left") {
-      _route = buildRightLeftPageRoute<T>(page);
-    } else if (transition == "down-up") {
-      _route = buildDownUpPageRoute<T>(page);
-    } else {
-      _route = buildImmediatePageRoute<T>(page);
+    switch (transition) {
+      case OTLNavigatorTransition.rightLeft:
+        _route = buildRightLeftPageRoute<T>(page);
+        break;
+      case OTLNavigatorTransition.downUp:
+        _route = buildDownUpPageRoute<T>(page);
+        break;
+      case OTLNavigatorTransition.immediate:
+        _route = buildImmediatePageRoute<T>(page);
+        break;
     }
     return Navigator.of(context)
         .pushAndRemoveUntil(_route, (Route<dynamic> route) => false);
   }
 
   static void pop<T extends Object?>(BuildContext context,
-      {String transition = "none", T? result}) {
-    assert(transition == "down-up" ||
-        transition == "right-left" ||
-        transition == "immediate" ||
-        transition == "none");
+      {OTLNavigatorTransition? until, T? result}) {
     NavigatorState navigator = Navigator.of(context);
     assert(_history.isNotEmpty);
-    if (transition == "none") {
+    if (until == null) {
       _removeLastHistory();
       return navigator.pop(result);
-    } else if (transition == "right-left") {
+    } else if (until == OTLNavigatorTransition.rightLeft) {
       assert(_rightleftTransitionHistory.isNotEmpty);
       navigator.popUntil((Route<dynamic> route) =>
           _rightleftTransitionHistory.last == route || route.isFirst);
-      _removeLastUntil((mode) => mode == 0);
+      _removeLastUntil((mode) => mode == _TransitionHistory.rightLeft);
       return navigator.pop(result);
     } else {
       assert(_downupTransitionHistory.isNotEmpty);
       navigator.popUntil((Route<dynamic> route) =>
           _downupTransitionHistory.last == route || route.isFirst);
-      _removeLastUntil((mode) => (mode == 1 || mode == 2));
+      _removeLastUntil((mode) => (mode == _TransitionHistory.downUp ||
+          mode == _TransitionHistory.immediate));
       return navigator.pop(result);
     }
   }
@@ -113,7 +116,7 @@ class OTLNavigator {
     Offset? anchorPoint,
     TraversalEdgeBehavior? traversalEdgeBehavior,
   }) {
-    _history.add(3);
+    _history.add(_TransitionHistory.dialog);
     return showDialog(
       context: context,
       builder: builder,

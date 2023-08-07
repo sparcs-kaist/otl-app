@@ -165,7 +165,7 @@ class _OTLLayoutState extends State<OTLLayout> {
                             IconTextButton(
                                 icon: Icons.navigate_before,
                                 onTap: () => OTLNavigator.pop(context,
-                                    transition: 'right-left'),
+                                    until: OTLNavigatorTransition.rightLeft),
                                 padding: EdgeInsets.all(16)),
                           if (hasDrawer)
                             IconTextButton(
@@ -193,7 +193,7 @@ class _OTLLayoutState extends State<OTLLayout> {
                                 IconTextButton(
                                     icon: Icons.close,
                                     onTap: () => OTLNavigator.pop(context,
-                                        transition: 'down-up'),
+                                        until: OTLNavigatorTransition.downUp),
                                     padding: EdgeInsets.all(16)),
                             ],
                           )
