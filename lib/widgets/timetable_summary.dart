@@ -45,7 +45,7 @@ class TimetableSummary extends StatelessWidget {
   TimetableSummary({required this.lectures, this.tempLecture});
 
   int _indexOfType(String type) {
-    final index = TYPES.indexOf(type);
+    final index = TYPES.indexWhere((tp) => type.startsWith(tp));
     return index == -1 ? 5 : index;
   }
 
