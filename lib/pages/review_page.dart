@@ -36,7 +36,7 @@ class _ReviewPageState extends State<ReviewPage> {
       ),
       body: Card(
         shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(top: Radius.circular(16.0)),
+          borderRadius: BorderRadius.only(topRight: Radius.circular(16.0)),
         ),
         child: NotificationListener<ScrollNotification>(
           onNotification: (scrollNotification) {
@@ -67,7 +67,7 @@ class _ReviewPageState extends State<ReviewPage> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                _selectedMode == 1 ? BuildLatestsReviews() : BuildHallOfFame()
+                _selectedMode == 1 ? LatestReviewsPage() : HallOfFamePage()
               ],
             ),
           ),
@@ -77,8 +77,8 @@ class _ReviewPageState extends State<ReviewPage> {
   }
 }
 
-class BuildLatestsReviews extends StatelessWidget {
-  const BuildLatestsReviews({Key? key}) : super(key: key);
+class LatestReviewsPage extends StatelessWidget {
+  const LatestReviewsPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -134,8 +134,8 @@ class BuildLatestsReviews extends StatelessWidget {
   }
 }
 
-class BuildHallOfFame extends StatelessWidget {
-  const BuildHallOfFame({Key? key}) : super(key: key);
+class HallOfFamePage extends StatelessWidget {
+  const HallOfFamePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
