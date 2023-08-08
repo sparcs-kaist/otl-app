@@ -196,44 +196,7 @@ class _MainPageState extends State<MainPage> {
                             ),
                           ),
                         ],
-                      )
-
-                      // SingleChildScrollView(
-                      //   child: ColoredBox(
-                      //     color: Colors.white,
-                      //     child: Padding(
-                      //       padding: const EdgeInsets.symmetric(
-                      //         horizontal: 16.0,
-                      //         vertical: 16.0,
-                      //       ),
-                      //       child: Column(
-                      //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      //         children: [
-                      //           Column(
-                      //             children: <Widget>[
-                      //               _buildTimetable(infoModel.user, semester, now),
-                      //               const SizedBox(height: 24.0),
-                      //               _buildDivider(),
-                      //               const SizedBox(height: 24.0),
-                      //               _buildSchedule(now, infoModel.currentSchedule),
-                      //               const SizedBox(height: 24.0),
-                      //               _buildDivider(),
-                      //             ],
-                      //           ),
-                      //           Column(
-                      //             children: <Widget>[
-                      //               _buildLogo(),
-                      //               const SizedBox(height: 4.0),
-                      //               _buildCopyRight(),
-                      //               _buildTextButtons(context),
-                      //             ],
-                      //           )
-                      //         ],
-                      //       ),
-                      //     ),
-                      //   ),
-                      // ),
-                      ),
+                      )),
                 ),
               ),
             ],
