@@ -11,6 +11,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - name: Get Latest Semester Info
+        id: get-semester-info
+        run: |
+          read year semester <<< $(curl -s --request GET "https://otl.kaist.ac.kr/api/semesters?order=year&order=semester" | jq -r '.[-1] | "\(.year) \(.semester)"')
+          echo "year=${year}" >> "$GITHUB_OUTPUT"
+          echo "semester=${semester}" >> "$GITHUB_OUTPUT"
+      - name: Download Sample Lectures by Type
+        run: |
+          TYPES=("BR" "BE" "MR" "ME" "HSE")
+          for type in ${TYPES[@]}; do
+            curl -s --request GET "https://otl.kaist.ac.kr/api/lectures?year=${{ steps.get-semester-info.outputs.year }}&semester=${{ steps.get-semester-info.outputs.semester }}&keyword=&type=${type}&department=ALL&level=ALL&&order=old_code&limit=1" --output test_samples/lecture/${type}.json --create-dirs &
+          done
+        shell: bash
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:

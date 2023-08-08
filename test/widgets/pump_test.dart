@@ -1,5 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:otlplus/providers/lecture_search_model.dart';
+import 'package:otlplus/providers/timetable_model.dart';
 import 'package:otlplus/widgets/course_block.dart';
 import 'package:otlplus/widgets/lecture_group_simple_block.dart';
 import 'package:otlplus/widgets/lecture_search.dart';
@@ -62,7 +63,8 @@ void main() {
   });
 
   testWidgets('pump TimetableSummary', (WidgetTester tester) async {
-    await tester.pumpWidget(TimetableSummary().material);
+    tester.pumpWidget(
+        TimetableSummary().scaffoldAndNotifier(TimetableModel(forTest: true)));
   });
 
   testWidgets('pump TimetableTabs', (WidgetTester tester) async {
