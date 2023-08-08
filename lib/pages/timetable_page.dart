@@ -44,7 +44,8 @@ class _TimetablePageState extends State<TimetablePage> {
   Widget _buildBody(BuildContext context) {
     final lectures = context.select<TimetableModel, List<Lecture>>(
         (model) => model.currentTimetable.lectures);
-    final mode = context.read<TimetableModel>().selectedMode;
+    final mode =
+        context.select<TimetableModel, int>((model) => model.selectedMode);
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (_selectedKey.currentContext != null)
@@ -56,7 +57,7 @@ class _TimetablePageState extends State<TimetablePage> {
         padding: const EdgeInsets.only(left: 16),
         child: SemesterPicker(
           onSemesterChanged: () {
-            context.read<LectureSearchModel>().setSelectedLecture(null);
+            context.read<TimetableModel>().setTempLecture(null);
             context.read<LectureSearchModel>().lectureClear();
           },
         ),
@@ -133,6 +134,7 @@ class _TimetablePageState extends State<TimetablePage> {
               child: LectureSearch(
                 onClosed: () async {
                   context.read<LectureSearchModel>().resetLectureFilter();
+                  context.read<TimetableModel>().setTempLecture(null);
                   return true;
                 },
               ),
@@ -159,11 +161,7 @@ class _TimetablePageState extends State<TimetablePage> {
             ),
           ),
         ),
-        if (!isExamTime)
-          TimetableSummary(
-            lectures: lectures,
-            tempLecture: context.watch<LectureSearchModel>().selectedLecture,
-          ),
+        if (!isExamTime) TimetableSummary(),
       ],
     );
   }
@@ -171,15 +169,14 @@ class _TimetablePageState extends State<TimetablePage> {
   Timetable _buildTimetable(
       BuildContext context, List<Lecture> lectures, bool isExamTime) {
     bool isFirst = true;
-    final lectureSearchModel = context.watch<LectureSearchModel>();
+    final tempLecture =
+        context.select<TimetableModel, Lecture?>((model) => model.tempLecture);
 
     return Timetable(
-      lectures: (lectureSearchModel.selectedLecture == null)
-          ? lectures
-          : [...lectures, lectureSearchModel.selectedLecture!],
+      lectures: (tempLecture == null) ? lectures : [...lectures, tempLecture],
       isExamTime: isExamTime,
       builder: (lecture, classTimeIndex, blockHeight) {
-        final isSelected = lectureSearchModel.selectedLecture == lecture;
+        final isSelected = tempLecture == lecture;
         Key? key;
 
         if (isSelected && isFirst) {

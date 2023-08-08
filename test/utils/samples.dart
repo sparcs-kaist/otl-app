@@ -168,6 +168,7 @@ class SampleLecture {
   static final departmentNameEn = '';
   static final type = '';
   static final typeEn = '';
+  static final typeIdx = 1;
   static final limit = 4;
   static final numPeople = 5;
   static final isEnglish = true;
@@ -201,6 +202,7 @@ class SampleLecture {
       departmentNameEn: departmentNameEn,
       type: type,
       typeEn: typeEn,
+      typeIdx: typeIdx,
       limit: limit,
       numPeople: numPeople,
       isEnglish: isEnglish,

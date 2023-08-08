@@ -40,8 +40,10 @@ class _SemesterPickerState extends State<SemesterPicker> {
   }
 
   Widget _buildLeftButton(ThemeData theme) {
+    final canGoPreviousSemester =
+        context.select<TimetableModel, bool>((m) => m.canGoPreviousSemester);
     return IconTextButton(
-        onTap: context.watch<TimetableModel>().canGoPreviousSemester()
+        onTap: canGoPreviousSemester
             ? () {
                 context.read<TimetableModel>().goPreviousSemester();
                 widget.onSemesterChanged();
@@ -49,18 +51,18 @@ class _SemesterPickerState extends State<SemesterPicker> {
             : null,
         icon: Icons.navigate_before_outlined,
         iconSize: 24,
-        color: context.watch<TimetableModel>().canGoPreviousSemester()
-            ? OTLColor.gray0
-            : OTLColor.grayA,
+        color: canGoPreviousSemester ? OTLColor.gray0 : OTLColor.grayA,
         padding: const EdgeInsets.all(4.0),
-        tapEffect: context.watch<TimetableModel>().canGoNextSemester()
+        tapEffect: canGoPreviousSemester
             ? ButtonTapEffect.lighten
             : ButtonTapEffect.none);
   }
 
   Widget _buildRightButton(ThemeData theme) {
+    final canGoNextSemester =
+        context.select<TimetableModel, bool>((m) => m.canGoNextSemester);
     return IconTextButton(
-        onTap: context.watch<TimetableModel>().canGoNextSemester()
+        onTap: canGoNextSemester
             ? () {
                 context.read<TimetableModel>().goNextSemester();
                 widget.onSemesterChanged();
@@ -68,12 +70,9 @@ class _SemesterPickerState extends State<SemesterPicker> {
             : null,
         icon: Icons.navigate_next_outlined,
         iconSize: 24,
-        color: context.watch<TimetableModel>().canGoNextSemester()
-            ? OTLColor.gray0
-            : OTLColor.grayA,
+        color: canGoNextSemester ? OTLColor.gray0 : OTLColor.grayA,
         padding: const EdgeInsets.all(4.0),
-        tapEffect: context.watch<TimetableModel>().canGoNextSemester()
-            ? ButtonTapEffect.lighten
-            : ButtonTapEffect.none);
+        tapEffect:
+            canGoNextSemester ? ButtonTapEffect.lighten : ButtonTapEffect.none);
   }
 }

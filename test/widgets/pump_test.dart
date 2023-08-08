@@ -62,7 +62,7 @@ void main() {
   });
 
   testWidgets('pump TimetableSummary', (WidgetTester tester) async {
-    await tester.pumpWidget(TimetableSummary(lectures: []).material);
+    await tester.pumpWidget(TimetableSummary().material);
   });
 
   testWidgets('pump TimetableTabs', (WidgetTester tester) async {

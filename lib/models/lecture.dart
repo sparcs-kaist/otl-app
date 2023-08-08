@@ -2,6 +2,19 @@ import 'package:otlplus/models/classtime.dart';
 import 'package:otlplus/models/examtime.dart';
 import 'package:otlplus/models/professor.dart';
 
+const TYPES = [
+  "Basic Required",
+  "Basic Elective",
+  "Major Required",
+  "Major Elective",
+  "Humanities & Social Elective",
+];
+
+int _indexOfType(String type) {
+  final int idx = TYPES.indexWhere((tp) => type.startsWith(tp));
+  return idx == -1 ? 5 : idx; //ETC == 5
+}
+
 class Lecture {
   final int id;
   final String title;
@@ -18,6 +31,7 @@ class Lecture {
   final String departmentNameEn;
   final String type;
   final String typeEn;
+  final int typeIdx;
   final int limit;
   final int numPeople;
   final bool isEnglish;
@@ -51,6 +65,7 @@ class Lecture {
       required this.departmentNameEn,
       required this.type,
       required this.typeEn,
+      required this.typeIdx,
       required this.limit,
       required this.numPeople,
       required this.isEnglish,
@@ -89,6 +104,7 @@ class Lecture {
         departmentNameEn = json['department_name_en'],
         type = json['type'],
         typeEn = json['type_en'],
+        typeIdx = _indexOfType(json['type_en']),
         limit = json['limit'],
         numPeople = json['num_people'],
         isEnglish = json['is_english'],
@@ -140,6 +156,7 @@ class Lecture {
     data['department_name_en'] = this.departmentNameEn;
     data['type'] = this.type;
     data['type_en'] = this.typeEn;
+    data['type_idx'] = this.typeIdx;
     data['limit'] = this.limit;
     data['num_people'] = this.numPeople;
     data['is_english'] = this.isEnglish;

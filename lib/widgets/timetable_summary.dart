@@ -3,14 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:otlplus/constants/color.dart';
 import 'package:otlplus/constants/text_styles.dart';
 import 'package:otlplus/models/lecture.dart';
+import 'package:otlplus/providers/timetable_model.dart';
+import 'package:provider/provider.dart';
 
-const TYPES = [
-  "Basic Required",
-  "Basic Elective",
-  "Major Required",
-  "Major Elective",
-  "Humanities & Social Elective",
-];
 const TYPES_SHORT = [
   "br",
   "be",
@@ -39,24 +34,18 @@ const LETTERS = [
 ];
 
 class TimetableSummary extends StatelessWidget {
-  final List<Lecture> lectures;
-  final Lecture? tempLecture;
-
-  TimetableSummary({required this.lectures, this.tempLecture});
-
-  int _indexOfType(String type) {
-    final index = TYPES.indexWhere((tp) => type.startsWith(tp));
-    return index == -1 ? 5 : index;
-  }
+  const TimetableSummary({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    List<int> currentTypeCredit = List.generate(
+    final lectures = context.select<TimetableModel, List<Lecture>>(
+        (model) => model.currentTimetable.lectures);
+    final tempLecture =
+        context.select<TimetableModel, Lecture?>((model) => model.tempLecture);
+    List<int> typeCredit = List.generate(
         6,
-        (i) => lectures
-            .where((lecture) => _indexOfType(lecture.typeEn) == i)
-            .fold<int>(
-                0, (acc, lecture) => acc + lecture.credit + lecture.creditAu));
+        (int i) => lectures.where((lecture) => lecture.typeIdx == i).fold<int>(
+            0, (acc, lecture) => acc + lecture.credit + lecture.creditAu));
     int allCreditCredit =
         lectures.fold<int>(0, (acc, lecture) => acc + lecture.credit);
     int allAuCredit =
@@ -89,28 +78,22 @@ class TimetableSummary extends StatelessWidget {
             ((lecture.reviewTotalWeight > 0)
                 ? (lecture.speech * (lecture.credit + lecture.creditAu))
                 : 0));
-    final tempType =
-        (tempLecture == null) ? 6 : _indexOfType(tempLecture!.typeEn);
-    final titles = List.generate(
-        6, (index) => 'timetable.summary.${TYPES_SHORT[index]}'.tr());
-
     if (tempLecture != null) {
-      currentTypeCredit[tempType] +=
-          (tempLecture!.credit + tempLecture!.creditAu);
-      allCreditCredit += tempLecture!.credit;
-      allAuCredit += tempLecture!.creditAu;
-      targetNum += ((tempLecture!.reviewTotalWeight > 0)
-          ? (tempLecture!.credit + tempLecture!.creditAu)
+      typeCredit[tempLecture.typeIdx] +=
+          (tempLecture.credit + tempLecture.creditAu);
+      allCreditCredit += tempLecture.credit;
+      allAuCredit += tempLecture.creditAu;
+      targetNum += ((tempLecture.reviewTotalWeight > 0)
+          ? (tempLecture.credit + tempLecture.creditAu)
           : 0);
-      grade += ((tempLecture!.reviewTotalWeight > 0)
-          ? (tempLecture!.grade * (tempLecture!.credit + tempLecture!.creditAu))
+      grade += ((tempLecture.reviewTotalWeight > 0)
+          ? (tempLecture.grade * (tempLecture.credit + tempLecture.creditAu))
           : 0);
-      load += ((tempLecture!.reviewTotalWeight > 0)
-          ? (tempLecture!.load * (tempLecture!.credit + tempLecture!.creditAu))
+      load += ((tempLecture.reviewTotalWeight > 0)
+          ? (tempLecture.load * (tempLecture.credit + tempLecture.creditAu))
           : 0);
-      speech += ((tempLecture!.reviewTotalWeight > 0)
-          ? (tempLecture!.speech *
-              (tempLecture!.credit + tempLecture!.creditAu))
+      speech += ((tempLecture.reviewTotalWeight > 0)
+          ? (tempLecture.speech * (tempLecture.credit + tempLecture.creditAu))
           : 0);
     }
 
@@ -136,27 +119,29 @@ class TimetableSummary extends StatelessWidget {
                 mainAxisExtent: 45,
               ),
               itemBuilder: (_, index) => _buildAttribute(
-                  titles[index], currentTypeCredit[index], tempType == index),
+                  'timetable.summary.${TYPES_SHORT[index]}'.tr(),
+                  typeCredit[index],
+                  tempLecture?.typeIdx == index),
             ),
           ),
           _buildScore(
               'timetable.summary.credit'.tr(),
               allCreditCredit.toString(),
-              tempLecture != null && tempLecture!.credit > 0),
+              tempLecture != null && tempLecture.credit > 0),
           _buildScore("AU", allAuCredit.toString(),
-              tempLecture != null && tempLecture!.creditAu > 0),
+              tempLecture != null && tempLecture.creditAu > 0),
           _buildScore(
               'timetable.summary.grade'.tr(),
               targetNum > 0 ? LETTERS[(grade / targetNum).round()] : "?",
-              tempLecture != null && tempLecture!.grade > 0),
+              tempLecture != null && tempLecture.grade > 0),
           _buildScore(
               'timetable.summary.load'.tr(),
               targetNum > 0 ? LETTERS[(load / targetNum).round()] : "?",
-              tempLecture != null && tempLecture!.load > 0),
+              tempLecture != null && tempLecture.load > 0),
           _buildScore(
               'timetable.summary.speech'.tr(),
               targetNum > 0 ? LETTERS[(speech / targetNum).round()] : "?",
-              tempLecture != null && tempLecture!.speech > 0),
+              tempLecture != null && tempLecture.speech > 0),
         ],
       ),
     );

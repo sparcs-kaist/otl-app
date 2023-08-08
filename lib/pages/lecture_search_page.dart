@@ -85,6 +85,7 @@ class _LectureSearchPageState extends State<LectureSearchPage> {
                       onPressed: () {
                         _searchTextController.clear();
                         context.read<LectureSearchModel>().resetLectureFilter();
+                        context.read<TimetableModel>().setTempLecture(null);
                       },
                       child: Text(
                         "common.reset_all".tr(),
@@ -114,6 +115,7 @@ class _LectureSearchPageState extends State<LectureSearchPage> {
                         ),
                       ),
                       onPressed: () async {
+                        context.read<TimetableModel>().setTempLecture(null);
                         if (await context
                             .read<LectureSearchModel>()
                             .lectureSearch(
