@@ -170,20 +170,6 @@ class RawResponsiveWidget extends StatelessWidget {
                   pressedEffect: pressedEffect))
               .toList(),
         );
-      case 'Row-reversed':
-        return Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisSize: MainAxisSize.min,
-          children: (args['children'] as List<Map<String, Map>>? ?? [])
-              .map((e) => RawResponsiveWidget(
-                  data: e,
-                  tapEffect: tapEffect,
-                  tapEffectColorRatio: tapEffectColorRatio,
-                  pressedEffect: pressedEffect))
-              .toList()
-              .reversed
-              .toList(),
-        );
       case 'Column':
         return Column(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -194,20 +180,6 @@ class RawResponsiveWidget extends StatelessWidget {
                   tapEffect: tapEffect,
                   tapEffectColorRatio: tapEffectColorRatio,
                   pressedEffect: pressedEffect))
-              .toList(),
-        );
-      case 'Column-reversed':
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisSize: MainAxisSize.min,
-          children: (args['children'] as List<Map<String, Map>>? ?? [])
-              .map((e) => RawResponsiveWidget(
-                  data: e,
-                  tapEffect: tapEffect,
-                  tapEffectColorRatio: tapEffectColorRatio,
-                  pressedEffect: pressedEffect))
-              .toList()
-              .reversed
               .toList(),
         );
       case 'Icon':
