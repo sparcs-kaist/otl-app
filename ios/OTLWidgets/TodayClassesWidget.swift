@@ -134,8 +134,8 @@ struct TodayClassesWidgetEntryView : View {
         for (i, l) in data {
             let c = l.classtimes[i]
             
-            let title = l.title
-            let place = c.classroom_short
+            let title = NSLocale.current.language.languageCode?.identifier == "en" ? l.title_en : l.title
+            let place = NSLocale.current.language.languageCode?.identifier == "en" ? c.classroom_short_en : c.classroom_short
             let width = (0.9388*Double(c.end-c.begin)*10).rounded()/10
             let x = 20 + (Double(c.begin-540)*0.95*10).rounded()/10
             let colour = getColourForCourse(course: l.course)
