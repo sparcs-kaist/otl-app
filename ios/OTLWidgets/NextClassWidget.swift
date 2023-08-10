@@ -215,7 +215,7 @@ struct NextClassWidgetEntryView : View {
             ZStack(alignment: .leading) {
                 widgetBackground
                 VStack(alignment: .leading) {
-                    Text("다음 강의")
+                    Text(LocalizedStringKey("nextclasswidget.nextlecture"))
                         .font(.custom("NotoSansKR-Bold", size: 12))
                         .foregroundColor(Color(red: 229.0/255, green: 76.0/255, blue: 100.0/255))
                     Text(getTimeLeft(timetable: entry.timetableData![Int(entry.configuration.nextClassTimetable?.identifier ?? "0") ?? 0], date: entry.date))
@@ -249,10 +249,10 @@ struct NextClassWidgetEntryView : View {
             ZStack(alignment: .leading) {
                 widgetBackground
                 VStack(alignment: .leading) {
-                    Text("다음 강의")
+                    Text(LocalizedStringKey("nextclasswidget.nextlecture"))
                         .font(.custom("NotoSansKR-Bold", size: 12))
                         .foregroundColor(Color(red: 229.0/255, green: 76.0/255, blue: 100.0/255))
-                    Text("정보 없음")
+                    Text(LocalizedStringKey("nextclasswidget.nodata"))
                         .font(.custom("NotoSansKR-Bold", size: 20))
                         .offset(y: -2)
                         .minimumScaleFactor(0.5)
@@ -264,16 +264,16 @@ struct NextClassWidgetEntryView : View {
                         Circle()
                             .fill(getColourForCourse(course: 1))
                             .frame(width: 12, height: 12)
-                        Text("정보 없음")
+                        Text(LocalizedStringKey("nextclasswidget.nodata"))
                             .font(.custom("NotoSansKR-Bold", size: 16))
                             .minimumScaleFactor(0.5)
                             .lineLimit(2)
                     }.offset(y: 8)
-                    Text("정보 없음")
+                    Text(LocalizedStringKey("nextclasswidget.nodata"))
                         .font(.custom("NotoSansKR-Regular", size: 12))
                         .minimumScaleFactor(0.5)
                         .lineLimit(1)
-                    Text("정보 없음")
+                    Text(LocalizedStringKey("nextclasswidget.nodata"))
                         .font(.custom("NotoSansKR-Medium", size: 12))
                         .minimumScaleFactor(0.5)
                         .foregroundColor(.gray)
@@ -286,7 +286,7 @@ struct NextClassWidgetEntryView : View {
                             Image("lock")
                                 .resizable()
                                 .frame(width: 44, height: 44)
-                            Text("로그인하러 가기")
+                            Text(LocalizedStringKey("widget.login"))
                                 .font(.custom("NotoSansKR-Bold", size: 12))
                                 .padding(.horizontal, 10.0)
                                 .padding(.vertical, 4)
@@ -344,14 +344,14 @@ struct NextClassWidgetEntryView : View {
         let c = getNextClass(timetable: timetable, date: date)
         let lecture: Lecture = c.1
         
-        return lecture.common_title
+        return NSLocale.current.language.languageCode?.identifier == "en" ? lecture.common_title_en : lecture.common_title
     }
     
     func getProfessor(timetable: Timetable, date: Date) -> String {
         let c = getNextClass(timetable: timetable, date: date)
         let lecture: Lecture = c.1
         
-        return "\(lecture.professors[0].name) 교수님"
+        return NSLocale.current.language.languageCode?.identifier == "en" ? String(format: String(localized: "nextclasswidget.professor"), lecture.professors[0].name_en) : String(format: String(localized: "nextclasswidget.professor"), lecture.professors[0].name)
     }
     
     func getPlace(timetable: Timetable, date: Date) -> String {
@@ -359,7 +359,7 @@ struct NextClassWidgetEntryView : View {
         let index = c.0
         let lecture: Lecture = c.1
         
-        return lecture.classtimes[index].classroom
+        return NSLocale.current.language.languageCode?.identifier == "en" ? lecture.classtimes[index].classroom_short_en : lecture.classtimes[index].classroom
     }
     
     func getTimeLeft(timetable: Timetable, date: Date) -> String {
@@ -375,13 +375,13 @@ struct NextClassWidgetEntryView : View {
         let lday = lecture.classtimes[index].day
         
         if lday == day {
-            return String(format:"오늘 %02d:%02d", begin/60, begin%60)
+            return String(format: String(localized: "nextclasswidget.today.timeformat"), begin/60, begin%60)
         } else if lday == day+1 {
-            return String(format:"내일 %02d:%02d", begin/60, begin%60)
+            return String(format: String(localized: "nextclasswidget.tomorrow.timeformat"), begin/60, begin%60)
         } else if lday > day+1 {
-            return String(format:"\(getDayInString(day: lday))요일 %02d:%02d", begin/60, begin%60)
+            return String(format: String(localized: "nextclasswidget.day.timeformat"), getDayInString(day: lday), begin/60, begin%60)
         } else {
-            return "다음주 \(getDayInString(day: lday))요일"
+            return String(format: String(localized: "nextclasswidget.nextweek.timeformat"), getDayInString(day: lday))
         }
     }
     

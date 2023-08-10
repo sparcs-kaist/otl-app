@@ -74,21 +74,21 @@ func getDayWithWeekDay(weekday: Int) -> Int {
 func getDayInString(day: Int) -> String {
     switch day {
     case 0:
-        return "월"
+        return String(localized: "mon")
     case 1:
-        return "화"
+        return String(localized: "tue")
     case 2:
-        return "수"
+        return String(localized: "wed")
     case 3:
-        return "목"
+        return String(localized: "thu")
     case 4:
-        return "금"
+        return String(localized: "fri")
     case 5:
-        return "토"
+        return String(localized: "sat")
     case 6:
-        return "일"
+        return String(localized: "sun")
     default:
-        return "월"
+        return String(localized: "mon")
     }
 }
 
