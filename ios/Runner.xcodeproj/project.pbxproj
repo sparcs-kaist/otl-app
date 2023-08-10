@@ -22,6 +22,9 @@
 		8B949A1129FF4CDF009D4750 /* NotoSansKR-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 8B949A0F29FF4CDF009D4750 /* NotoSansKR-Medium.otf */; };
 		8B949A1529FF4CE6009D4750 /* NotoSansKR-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 8B949A1429FF4CE6009D4750 /* NotoSansKR-Regular.otf */; };
 		8B949A1629FF4CE6009D4750 /* NotoSansKR-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 8B949A1429FF4CE6009D4750 /* NotoSansKR-Regular.otf */; };
+		8BA9FBE32A85323C00A430C5 /* Configuration.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 8BA9FBE72A85323C00A430C5 /* Configuration.intentdefinition */; };
+		8BA9FBE42A85323C00A430C5 /* Configuration.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 8BA9FBE72A85323C00A430C5 /* Configuration.intentdefinition */; };
+		8BA9FBE52A85323C00A430C5 /* Configuration.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 8BA9FBE72A85323C00A430C5 /* Configuration.intentdefinition */; };
 		8BB345822A012C99008A0E30 /* Intents.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BB345812A012C99008A0E30 /* Intents.framework */; };
 		8BB345852A012C99008A0E30 /* IntentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BB345842A012C99008A0E30 /* IntentHandler.swift */; };
 		8BB345892A012C99008A0E30 /* OTLPlusIntents.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 8BB345802A012C99008A0E30 /* OTLPlusIntents.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -34,8 +37,6 @@
 		8BB3DE0429D1F25B001AD191 /* OTLWidgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BB3DE0329D1F25B001AD191 /* OTLWidgetBundle.swift */; };
 		8BB3DE0629D1F25B001AD191 /* NextClassWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BB3DE0529D1F25B001AD191 /* NextClassWidget.swift */; };
 		8BB3DE0929D1F25B001AD191 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8BB3DE0829D1F25B001AD191 /* Assets.xcassets */; };
-		8BB3DE0B29D1F25B001AD191 /* Configuration.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 8BB3DE0729D1F25B001AD191 /* Configuration.intentdefinition */; };
-		8BB3DE0C29D1F25B001AD191 /* Configuration.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 8BB3DE0729D1F25B001AD191 /* Configuration.intentdefinition */; };
 		8BB3DE0F29D1F25B001AD191 /* OTLWidgetsExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 8BB3DDFD29D1F25A001AD191 /* OTLWidgetsExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		8BB4F62D2A73D4E700C8FE1D /* TimeInlineAccessory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BB4F62C2A73D4E700C8FE1D /* TimeInlineAccessory.swift */; };
 		8BB4F62F2A73DD2700C8FE1D /* LocationInlineAccessory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BB4F62E2A73DD2700C8FE1D /* LocationInlineAccessory.swift */; };
@@ -104,6 +105,9 @@
 		8B949A0529FF4CD0009D4750 /* NotoSansKR-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Bold.otf"; sourceTree = "<group>"; };
 		8B949A0F29FF4CDF009D4750 /* NotoSansKR-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Medium.otf"; sourceTree = "<group>"; };
 		8B949A1429FF4CE6009D4750 /* NotoSansKR-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Regular.otf"; sourceTree = "<group>"; };
+		8BA9FBE62A85323C00A430C5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; name = Base; path = Base.lproj/Configuration.intentdefinition; sourceTree = "<group>"; };
+		8BA9FBE92A85323E00A430C5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Configuration.strings; sourceTree = "<group>"; };
+		8BA9FBEB2A85323F00A430C5 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Configuration.strings; sourceTree = "<group>"; };
 		8BB345802A012C99008A0E30 /* OTLPlusIntents.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = OTLPlusIntents.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		8BB345812A012C99008A0E30 /* Intents.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Intents.framework; path = System/Library/Frameworks/Intents.framework; sourceTree = SDKROOT; };
 		8BB345842A012C99008A0E30 /* IntentHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntentHandler.swift; sourceTree = "<group>"; };
@@ -115,7 +119,6 @@
 		8BB3DE0029D1F25B001AD191 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		8BB3DE0329D1F25B001AD191 /* OTLWidgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTLWidgetBundle.swift; sourceTree = "<group>"; };
 		8BB3DE0529D1F25B001AD191 /* NextClassWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextClassWidget.swift; sourceTree = "<group>"; };
-		8BB3DE0729D1F25B001AD191 /* Configuration.intentdefinition */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; path = Configuration.intentdefinition; sourceTree = "<group>"; };
 		8BB3DE0829D1F25B001AD191 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8BB3DE0A29D1F25B001AD191 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8BB3DE4729D1F286001AD191 /* OTLWidgetsExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = OTLWidgetsExtension.entitlements; sourceTree = "<group>"; };
@@ -204,7 +207,7 @@
 				8BB4F62C2A73D4E700C8FE1D /* TimeInlineAccessory.swift */,
 				8BB4F62E2A73DD2700C8FE1D /* LocationInlineAccessory.swift */,
 				8B76C8E52A0E837F007E1947 /* WidgetBase.swift */,
-				8BB3DE0729D1F25B001AD191 /* Configuration.intentdefinition */,
+				8BA9FBE72A85323C00A430C5 /* Configuration.intentdefinition */,
 				8BB3DE0829D1F25B001AD191 /* Assets.xcassets */,
 				8BB3DE0A29D1F25B001AD191 /* Info.plist */,
 				8B04B3A52A7F9A8D001027AF /* Localizable.xcstrings */,
@@ -565,7 +568,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8BB3458F2A012CF8008A0E30 /* Configuration.intentdefinition in Sources */,
+				8BA9FBE52A85323C00A430C5 /* Configuration.intentdefinition in Sources */,
 				8BB345852A012C99008A0E30 /* IntentHandler.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -592,7 +595,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8BB3DE0C29D1F25B001AD191 /* Configuration.intentdefinition in Sources */,
+				8BA9FBE32A85323C00A430C5 /* Configuration.intentdefinition in Sources */,
 				74858FAF1ED2DC5600515810 /* AppDelegate.swift in Sources */,
 				1498D2341E8E89220040F4C2 /* GeneratedPluginRegistrant.m in Sources */,
 			);
@@ -614,6 +617,16 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		8BA9FBE72A85323C00A430C5 /* Configuration.intentdefinition */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8BA9FBE62A85323C00A430C5 /* Base */,
+				8BA9FBE92A85323E00A430C5 /* en */,
+				8BA9FBEB2A85323F00A430C5 /* ko */,
+			);
+			name = Configuration.intentdefinition;
+			sourceTree = "<group>";
+		};
 		97C146FA1CF9000F007C117D /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
