@@ -36,7 +36,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Widget _buildBody(BuildContext context) {
-    const AUTHORITY = 'otl.kaist.ac.kr';
+    const AUTHORITY = 'otl.sparcs.org';
     Map<String, dynamic> query = {'next': BASE_URL};
     if (Platform.isIOS) {
       query['social_login'] = '0';

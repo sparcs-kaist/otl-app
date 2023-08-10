@@ -138,7 +138,7 @@ Widget _buildGraduatePlanner() {
         const SizedBox(height: 8.0),
         FilledButton(
           onPressed: () => launchUrl(
-            Uri.https("otl.kaist.ac.kr", "planner"),
+            Uri.https("otl.sparcs.org", "planner"),
           ),
           child: Text.rich(
             TextSpan(
