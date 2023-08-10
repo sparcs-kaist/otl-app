@@ -81,9 +81,9 @@ class IntentHandler: INExtension, ConfigurationIntentHandling {
         let data: [Timetable]? = try? JSONDecoder().decode([Timetable].self, from: (sharedDefaults?.string(forKey: "timetables")?.data(using: .utf8)) ?? Data())
         var tables: [NextClassTimetable] = []
         
-        tables.append(NextClassTimetable(identifier: "0", display: "내 시간표"))
+        tables.append(NextClassTimetable(identifier: "0", display: NSLocale.current.language.languageCode?.identifier == "en" ? "My Table" : "내 시간표"))
         for i in 1..<data!.count {
-            tables.append(NextClassTimetable(identifier: "\(i)", display: "시간표 \(i)"))
+            tables.append(NextClassTimetable(identifier: "\(i)", display: NSLocale.current.language.languageCode?.identifier == "en" ? "Table \(i)" : "시간표 \(i)"))
         }
         
         let collection = INObjectCollection(items: tables)
