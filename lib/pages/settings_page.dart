@@ -27,6 +27,27 @@ class SettingsPage extends StatelessWidget {
               children: [
                 ListTile(
                   title: Text(
+                    "settings.language".tr(),
+                    style: bodyBold,
+                  ),
+                  subtitle: Text(
+                    "settings.current_language".tr(),
+                    style: bodyRegular,
+                  ),
+                  trailing: PlatformSwitch(
+                    value: EasyLocalization.of(context)?.currentLocale ==
+                        Locale("en"),
+                    onChanged: (value) {
+                      if (value) {
+                        EasyLocalization.of(context)?.setLocale(Locale('en'));
+                      } else {
+                        EasyLocalization.of(context)?.setLocale(Locale('ko'));
+                      }
+                    },
+                  ),
+                ),
+                ListTile(
+                  title: Text(
                     "settings.send_error_log".tr(),
                     style: bodyBold,
                   ),
