@@ -64,7 +64,7 @@ struct WeekClassesWidgetEntryView : View {
                     HStack {
                         Spacer()
                             .frame(width: 18)
-                        ForEach(["월", "화", "수", "목", "금"], id: \.self) { text in
+                        ForEach([String(localized: "mon"), String(localized: "tue"), String(localized: "wed"), String(localized: "thu"), String(localized: "fri")], id: \.self) { text in
                             Spacer()
                             Text(text)
                                 .offset(y: -2)
@@ -82,7 +82,7 @@ struct WeekClassesWidgetEntryView : View {
                         Image("lock")
                             .resizable()
                         .frame(width: 44, height: 44)
-                        Text("로그인하러 가기")
+                        Text(LocalizedStringKey("widget.login"))
                             .font(.custom("NotoSansKR-Bold", size: 12))
                             .padding(.horizontal, 10.0)
                             .padding(.vertical, 4)
@@ -111,7 +111,7 @@ struct WeekClassesWidgetEntryView : View {
         for (i, l) in data {
             let c = l.classtimes[i]
             
-            let title = l.title
+            let title = NSLocale.current.language.languageCode?.identifier == "en" ? l.title_en : l.title
             let minute = c.end - c.begin
             var height = 0.6833 * Double(minute)
             if minute/30 != 0 {
