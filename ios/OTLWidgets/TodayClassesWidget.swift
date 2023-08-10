@@ -90,7 +90,7 @@ struct TodayClassesWidgetEntryView : View {
                         Image("lock")
                             .resizable()
                         .frame(width: 44, height: 44)
-                        Text("로그인하러 가기")
+                        Text(LocalizedStringKey("widget.login"))
                             .font(.custom("NotoSansKR-Bold", size: 12))
                             .padding(.horizontal, 10.0)
                             .padding(.vertical, 4)
