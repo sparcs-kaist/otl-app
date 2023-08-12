@@ -5,6 +5,7 @@ import 'package:otlplus/providers/auth_model.dart';
 import 'package:otlplus/utils/build_app_bar.dart';
 import 'package:otlplus/utils/build_page_route.dart';
 import 'package:otlplus/utils/responsive_button.dart';
+import 'package:otlplus/widgets/delete_dialog.dart';
 import 'package:provider/provider.dart';
 import 'package:otlplus/constants/color.dart';
 import 'package:otlplus/providers/info_model.dart';
@@ -57,21 +58,35 @@ class UserPage extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: _buildDivider(),
             ),
-            Align(
-              alignment: Alignment.centerLeft,
-              child: IconTextButton(
-                icon: 'assets/icons/logout.svg',
-                onTap: () {
-                  context.read<AuthModel>().logout();
-                  context.read<InfoModel>().logout();
-                  Navigator.pop(context);
-                },
-                text: 'user.logout'.tr(),
-                color: OTLColor.pinksMain,
-                textStyle: bodyBold,
-                spaceBetween: 8.0,
-                padding: EdgeInsets.symmetric(horizontal: 16.0),
-              ),
+            _buildAccount(
+              'assets/icons/logout.svg',
+              () {
+                context.read<AuthModel>().logout();
+                context.read<InfoModel>().logout();
+                Navigator.pop(context);
+              },
+              'user.logout'.tr(),
+            ),
+            _buildAccount(
+              Icons.highlight_off,
+              () async {
+                showGeneralDialog(
+                  context: context,
+                  barrierColor: Colors.black.withOpacity(0.2),
+                  barrierDismissible: true,
+                  barrierLabel: MaterialLocalizations.of(context)
+                      .modalBarrierDismissLabel,
+                  pageBuilder: (context, _, __) => DeleteDialog(
+                    text: 'user.ask_delete_account'.tr(),
+                    onDelete: () {
+                      context.read<AuthModel>().logout();
+                      context.read<InfoModel>().deleteAccount();
+                      Navigator.pop(context);
+                    },
+                  ),
+                );
+              },
+              'user.delete_account'.tr(),
             ),
           ],
         ),
@@ -148,6 +163,21 @@ class UserPage extends StatelessWidget {
         }
       },
       onTap: onTap,
+    );
+  }
+
+  Widget _buildAccount(dynamic icon, void Function()? onTap, String? text) {
+    return Align(
+      alignment: Alignment.centerLeft,
+      child: IconTextButton(
+        icon: icon,
+        onTap: onTap,
+        text: text,
+        color: OTLColor.pinksMain,
+        textStyle: bodyBold,
+        spaceBetween: 8.0,
+        padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 6.0),
+      ),
     );
   }
 }

@@ -120,4 +120,9 @@ class InfoModel extends ChangeNotifier {
     return schedules.firstWhere((e) => e!["time"].isAfter(now),
         orElse: () => null);
   }
+
+  void deleteAccount() {
+    _hasData = false;
+    notifyListeners();
+  }
 }

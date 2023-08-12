@@ -121,7 +121,9 @@
     "major": "Major",
     "my_review": "My Reviews",
     "liked_review": "Liked Reviews",
-    "logout": "Logout"
+    "logout": "Logout",
+    "delete_account": "Delete Account",
+    "ask_delete_account": "Are you sure you want to delete your account?"
   },
   "settings": {
     "send_error_log": "Send error log",
