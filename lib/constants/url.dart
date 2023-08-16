@@ -1,4 +1,4 @@
-const BASE_URL = "https://otl.kaist.ac.kr/";
+const BASE_URL = "https://otl.sparcs.org/";
 const MAIN_URL = BASE_URL + "main";
 
 const SESSION_URL = "session/";
