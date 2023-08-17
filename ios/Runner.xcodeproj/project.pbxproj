@@ -26,6 +26,7 @@
 		8BB3458E2A012CF0008A0E30 /* IntentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BB345842A012C99008A0E30 /* IntentHandler.swift */; };
 		8BB3458F2A012CF8008A0E30 /* Configuration.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 8BB3DE0729D1F25B001AD191 /* Configuration.intentdefinition */; };
 		8BB397452A8E003300DD352E /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 8BB397442A8E003300DD352E /* Alamofire */; };
+		8BB397472A8E014200DD352E /* OTLAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BB397462A8E014200DD352E /* OTLAPI.swift */; };
 		8BB3DDFF29D1F25B001AD191 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BB3DDFE29D1F25A001AD191 /* WidgetKit.framework */; };
 		8BB3DE0129D1F25B001AD191 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BB3DE0029D1F25B001AD191 /* SwiftUI.framework */; };
 		8BB3DE0429D1F25B001AD191 /* OTLWidgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BB3DE0329D1F25B001AD191 /* OTLWidgetBundle.swift */; };
@@ -102,6 +103,7 @@
 		8BB345842A012C99008A0E30 /* IntentHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntentHandler.swift; sourceTree = "<group>"; };
 		8BB345862A012C99008A0E30 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8BB345902A01704E008A0E30 /* OTLPlusIntents.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = OTLPlusIntents.entitlements; sourceTree = "<group>"; };
+		8BB397462A8E014200DD352E /* OTLAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTLAPI.swift; sourceTree = "<group>"; };
 		8BB3DDFD29D1F25A001AD191 /* OTLWidgetsExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = OTLWidgetsExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		8BB3DDFE29D1F25A001AD191 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		8BB3DE0029D1F25B001AD191 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
@@ -186,6 +188,7 @@
 			isa = PBXGroup;
 			children = (
 				8BB3DE0329D1F25B001AD191 /* OTLWidgetBundle.swift */,
+				8BB397462A8E014200DD352E /* OTLAPI.swift */,
 				8BB3DE0529D1F25B001AD191 /* NextClassWidget.swift */,
 				8B76C8E32A0E834A007E1947 /* TodayClassesWidget.swift */,
 				8B1EA3B72A0FFF3B00387753 /* WeekClassesWidget.swift */,
@@ -557,6 +560,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8BB397472A8E014200DD352E /* OTLAPI.swift in Sources */,
 				8BB3DE0B29D1F25B001AD191 /* Configuration.intentdefinition in Sources */,
 				8B1EA3B82A0FFF3B00387753 /* WeekClassesWidget.swift in Sources */,
 				8BB3DE0429D1F25B001AD191 /* OTLWidgetBundle.swift in Sources */,
