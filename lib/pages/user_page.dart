@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:otlplus/constants/text_styles.dart';
@@ -67,27 +69,28 @@ class UserPage extends StatelessWidget {
               },
               'user.logout'.tr(),
             ),
-            _buildAccount(
-              Icons.highlight_off,
-              () async {
-                showGeneralDialog(
-                  context: context,
-                  barrierColor: Colors.black.withOpacity(0.2),
-                  barrierDismissible: true,
-                  barrierLabel: MaterialLocalizations.of(context)
-                      .modalBarrierDismissLabel,
-                  pageBuilder: (context, _, __) => DeleteDialog(
-                    text: 'user.ask_delete_account'.tr(),
-                    onDelete: () {
-                      context.read<AuthModel>().logout();
-                      context.read<InfoModel>().deleteAccount();
-                      Navigator.pop(context);
-                    },
-                  ),
-                );
-              },
-              'user.delete_account'.tr(),
-            ),
+            if (Platform.isIOS)
+              _buildAccount(
+                Icons.highlight_off,
+                () async {
+                  showGeneralDialog(
+                    context: context,
+                    barrierColor: Colors.black.withOpacity(0.2),
+                    barrierDismissible: true,
+                    barrierLabel: MaterialLocalizations.of(context)
+                        .modalBarrierDismissLabel,
+                    pageBuilder: (context, _, __) => DeleteDialog(
+                      text: 'user.ask_delete_account'.tr(),
+                      onDelete: () {
+                        context.read<AuthModel>().logout();
+                        context.read<InfoModel>().deleteAccount();
+                        Navigator.pop(context);
+                      },
+                    ),
+                  );
+                },
+                'user.delete_account'.tr(),
+              ),
           ],
         ),
       ),
