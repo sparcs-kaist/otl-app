@@ -23,7 +23,7 @@ jobs:
       - name: Test
         run: ./test/run.sh
       - name: Upload
-        uses: codecov/codecov-action@v2
+        uses: codecov/codecov-action@v3
         with:
           files: ./coverage/lcov.info
           token: ${{ secrets.CODECOV_TOKEN }}
