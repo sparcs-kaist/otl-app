@@ -40,7 +40,7 @@ jobs:
           flutter-version: ${{ env.FLUTTER_VERSION }}
           channel: "stable"
       - name: Test on Android
-        uses: reactivecircus/android-emulator-runner@v2.19.1
+        uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: 28
           script: flutter drive -d emulator-5554 --target=test_driver/app.dart
@@ -55,7 +55,7 @@ jobs:
         with:
           flutter-version: ${{ env.FLUTTER_VERSION }}
           channel: "stable"
-      - uses: actions/cache@v2
+      - uses: actions/cache@v3
         with:
           path: Pods
           key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}

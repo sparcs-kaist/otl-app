@@ -34,7 +34,7 @@ if (keystorePropertiesFile.exists()) {
 android {
     namespace 'org.sparcs.otlplus'
 
-    compileSdkVersion 33
+    compileSdk 33
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
