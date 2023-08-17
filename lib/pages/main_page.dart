@@ -19,6 +19,7 @@ import 'package:otlplus/providers/info_model.dart';
 import 'package:otlplus/widgets/timetable_block.dart';
 import 'package:otlplus/widgets/today_timetable.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter_widgetkit/flutter_widgetkit.dart';
 
 import '../models/lecture.dart';
 
@@ -32,6 +33,22 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
+
+  @override
+  void initState() {
+    super.initState();
+    initWidgetKitData();
+  }
+
+  Future<void> initWidgetKitData() async {
+    final infoModel = InfoModel();
+    await infoModel.getInfo();
+    if (infoModel.hasData) {
+      WidgetKit.setItem('uid', infoModel.user.id.toString(), 'group.org.sparcs.otl');
+      WidgetKit.reloadAllTimelines();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final now = DateTime.now();
