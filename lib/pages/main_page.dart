@@ -20,7 +20,6 @@ import 'package:otlplus/widgets/timetable_block.dart';
 import 'package:otlplus/widgets/today_timetable.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_widgetkit/flutter_widgetkit.dart';
-import 'package:webview_cookie_manager/webview_cookie_manager.dart';
 
 import '../models/lecture.dart';
 
@@ -34,7 +33,6 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-
   @override
   void initState() {
     super.initState();
@@ -42,23 +40,12 @@ class _MainPageState extends State<MainPage> {
   }
 
   Future<void> initWidgetKitData() async {
-    try {
-      final cookieManager = WebviewCookieManager();
-      final cookies = await cookieManager.getCookies('https://otl.sparcs.org');
-      for (var cookie in cookies) {
-        if (cookie.name == 'sessionid') {
-          WidgetKit.setItem('sessionid', cookie.value, 'group.org.sparcs.otl');
-          WidgetKit.reloadAllTimelines();
-        }
-      }
-      final infoModel = InfoModel();
-      await infoModel.getInfo();
-      if (infoModel.hasData) {
-        WidgetKit.setItem('uid', infoModel.user.id.toString(), 'group.org.sparcs.otl');
-        WidgetKit.reloadAllTimelines();
-      }
-    } catch (exception) {
-      print(exception);
+    final infoModel = InfoModel();
+    await infoModel.getInfo();
+    if (infoModel.hasData) {
+      WidgetKit.setItem(
+          'uid', infoModel.user.id.toString(), 'group.org.sparcs.otl');
+      WidgetKit.reloadAllTimelines();
     }
   }
 
