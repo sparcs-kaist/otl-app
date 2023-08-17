@@ -7,6 +7,13 @@
 //
 
 import Foundation
+import Alamofire
+
+struct urls {
+    static let BASE_URL = "https://otl.sparcs.org/"
+    static let API_URL = "api/"
+    static let API_TIMETABLE_URL = API_URL + "users/{user_id}/timetables"
+}
 
 struct Timetable: Encodable, Decodable, Hashable {
     let id: Int
@@ -73,3 +80,34 @@ struct Examtime: Encodable, Decodable, Hashable {
     let end: Int
 }
 
+class OTLAPI {
+    func getTimetables(sessionID: String, userID: String, year: Int, semester: Int, completion: @escaping (Result<[Timetable], Error>) -> Void) {
+        let cookieProperties = [
+            HTTPCookiePropertyKey.domain: "otl.sparcs.org",
+            HTTPCookiePropertyKey.path: "/",
+            HTTPCookiePropertyKey.name: "sessionid",
+            HTTPCookiePropertyKey.value: sessionID
+        ]
+
+        if let cookie = HTTPCookie(properties: cookieProperties) {
+            AF.session.configuration.httpCookieStorage?.setCookie(cookie)
+        }
+        
+        AF.request(urls.BASE_URL + urls.API_TIMETABLE_URL.replacingOccurrences(of: "{user_id}", with: userID), method: .get, parameters: ["year": year, "semester": semester]).responseData { response in
+            switch response.result {
+            case .success(let data):
+                do {
+                    let decoder = JSONDecoder()
+                    let json = try decoder.decode([Timetable].self, from: data)
+                    completion(.success(json))
+                } catch {
+                    print("Error: \(error)")
+                    completion(.failure(error))
+                }
+            case .failure(let error):
+                print("Error: \(error)")
+                completion(.failure(error))
+            }
+        }
+    }
+}

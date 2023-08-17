@@ -19,28 +19,113 @@ struct Provider: IntentTimelineProvider {
     func getSnapshot(for configuration: ConfigurationIntent, in context: Context, completion: @escaping (WidgetEntry) -> ()) {
         let sharedDefaults = UserDefaults.init(suiteName: "group.org.sparcs.otl")
         
-        let data = try? JSONDecoder().decode([Timetable].self, from: (sharedDefaults?.string(forKey: "widgetData")?.data(using: .utf8)) ?? Data())
-
-        let entryDate = Date()
-        let entry = WidgetEntry(date: entryDate, timetableData: data, configuration: configuration)
-        completion(entry)
+        let sessionid = sharedDefaults?.string(forKey: "sessionid")
+        let uid = sharedDefaults?.string(forKey: "uid")
+        
+        if (sessionid == nil || uid == nil) {
+            // sessionid and uid is not found. Requires login.
+            completion(WidgetEntry(date: Date(), timetableData: nil, configuration: configuration))
+        }
+        
+        OTLAPI().getTimetables(sessionID: sessionid!, userID: uid!, year: 2023, semester: 3) { result in
+            switch result {
+            case .success(let timetables):
+                // save timetable data
+                let encoder = JSONEncoder()
+                encoder.outputFormatting = .withoutEscapingSlashes
+                do {
+                    let data = try encoder.encode(timetables)
+                    sharedDefaults?.set(String(data: data, encoding: .utf8), forKey: "timetables")
+                } catch {
+                    print(error)
+                }
+                let entryDate = Date()
+                let entry = WidgetEntry(date: entryDate, timetableData: timetables, configuration: configuration)
+                completion(entry)
+            case .failure(_):
+                // request failed, mostly network issue or needing of a new sessionid
+                let decoder = JSONDecoder()
+                do {
+                    let data = try decoder.decode([Timetable].self, from: (sharedDefaults?.string(forKey: "timetables")?.data(using: .utf8)) ?? Data())
+                    completion(WidgetEntry(date: Date(), timetableData: data, configuration: configuration))
+                } catch {
+                    completion(WidgetEntry(date: Date(), timetableData: nil, configuration: configuration))
+                }
+            }
+        }
     }
 
     func getTimeline(for configuration: ConfigurationIntent, in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
         // Generate a timeline consisting of five entries an hour apart, starting from the current date.
         var entries: [WidgetEntry] = [WidgetEntry]()
         let sharedDefaults = UserDefaults.init(suiteName: "group.org.sparcs.otl")
-        let data = try? JSONDecoder().decode([Timetable].self, from: (sharedDefaults?.string(forKey: "widgetData")?.data(using: .utf8)) ?? Data())
         
-        let currentDate = Date()
-        for minutesOffset in 0..<5 {
-            let entryDate = Calendar.current.date(byAdding: .minute, value: minutesOffset*15, to: currentDate)!
-            let entry = WidgetEntry(date: entryDate, timetableData: data, configuration: configuration)
-            entries.append(entry)
+        let sessionid = sharedDefaults?.string(forKey: "sessionid")
+        let uid = sharedDefaults?.string(forKey: "uid")
+        
+        if (sessionid == nil || uid == nil) {
+            // sessionid and uid is not found. Requires login.
+            let currentDate = Date()
+            for minutesOffset in 0..<5 {
+                let entryDate = Calendar.current.date(byAdding: .minute, value: minutesOffset*15, to: currentDate)!
+                let entry = WidgetEntry(date: entryDate, timetableData: nil, configuration: configuration)
+                entries.append(entry)
+            }
+            
+            let timeline = Timeline(entries: entries, policy: .atEnd)
+            completion(timeline)
         }
         
-        let timeline = Timeline(entries: entries, policy: .atEnd)
-        completion(timeline)
+        OTLAPI().getTimetables(sessionID: sessionid!, userID: uid!, year: 2023, semester: 3) { result in
+            switch result {
+            case .success(let timetables):
+                // save timetable data
+                let encoder = JSONEncoder()
+                encoder.outputFormatting = .withoutEscapingSlashes
+                do {
+                    let data = try encoder.encode(timetables)
+                    sharedDefaults?.set(String(data: data, encoding: .utf8), forKey: "timetables")
+                } catch {
+                    print(error)
+                }
+                
+                let currentDate = Date()
+                for minutesOffset in 0..<5 {
+                    let entryDate = Calendar.current.date(byAdding: .minute, value: minutesOffset*15, to: currentDate)!
+                    let entry = WidgetEntry(date: entryDate, timetableData: timetables, configuration: configuration)
+                    entries.append(entry)
+                }
+                
+                let timeline = Timeline(entries: entries, policy: .atEnd)
+                completion(timeline)
+            case .failure(_):
+                // request failed, mostly network issue or needing of a new sessionid
+                let decoder = JSONDecoder()
+                do {
+                    let data = try decoder.decode([Timetable].self, from: (sharedDefaults?.string(forKey: "timetables")?.data(using: .utf8)) ?? Data())
+                    
+                    let currentDate = Date()
+                    for minutesOffset in 0..<5 {
+                        let entryDate = Calendar.current.date(byAdding: .minute, value: minutesOffset*15, to: currentDate)!
+                        let entry = WidgetEntry(date: entryDate, timetableData: data, configuration: configuration)
+                        entries.append(entry)
+                    }
+                    
+                    let timeline = Timeline(entries: entries, policy: .atEnd)
+                    completion(timeline)
+                } catch {
+                    let currentDate = Date()
+                    for minutesOffset in 0..<5 {
+                        let entryDate = Calendar.current.date(byAdding: .minute, value: minutesOffset*15, to: currentDate)!
+                        let entry = WidgetEntry(date: entryDate, timetableData: nil, configuration: configuration)
+                        entries.append(entry)
+                    }
+                    
+                    let timeline = Timeline(entries: entries, policy: .atEnd)
+                    completion(timeline)
+                }
+            }
+        }
     }
 }
 
@@ -136,7 +221,7 @@ struct NextClassWidgetEntryView : View {
                         VStack {
                             Image("lock")
                                 .resizable()
-                            .frame(width: 44, height: 44)
+                                .frame(width: 44, height: 44)
                             Text("로그인하러 가기")
                                 .font(.custom("NotoSansKR-Bold", size: 12))
                                 .padding(.horizontal, 10.0)
