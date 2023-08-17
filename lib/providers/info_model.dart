@@ -4,6 +4,7 @@ import 'package:otlplus/dio_provider.dart';
 import 'package:otlplus/extensions/semester.dart';
 import 'package:otlplus/models/semester.dart';
 import 'package:otlplus/models/user.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 const USED_SCHEDULE_FIELDS = [
   "beginning",
@@ -77,16 +78,15 @@ class InfoModel extends ChangeNotifier {
   }
 
   Future<void> getInfo() async {
-    // try {
-    _semesters = await getSemesters();
-    _years = _semesters.map((semester) => semester.year).toSet();
-    _user = await getUser();
-    _currentSchedule = getCurrentSchedule();
-    _hasData = true;
+    if ((await SharedPreferences.getInstance()).getBool('hasAccount') ??
+            true) {
+      _semesters = await getSemesters();
+      _years = _semesters.map((semester) => semester.year).toSet();
+      _user = await getUser();
+      _currentSchedule = getCurrentSchedule();
+      _hasData = true;
+    }
     notifyListeners();
-    // } catch (exception) {
-    //   print(exception);
-    // }
   }
 
   Future<List<Semester>> getSemesters() async {
@@ -119,5 +119,12 @@ class InfoModel extends ChangeNotifier {
     schedules.sort((a, b) => a!["time"].compareTo(b!["time"]));
     return schedules.firstWhere((e) => e!["time"].isAfter(now),
         orElse: () => null);
+  }
+
+  Future<void> deleteAccount() async {
+    final pref = await SharedPreferences.getInstance();
+    pref.setBool('hasAccount', false);
+    _hasData = false;
+    notifyListeners();
   }
 }

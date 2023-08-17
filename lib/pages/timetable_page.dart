@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:otlplus/utils/build_page_route.dart';
 import 'package:otlplus/providers/lecture_search_model.dart';
 import 'package:otlplus/utils/responsive_button.dart';
+import 'package:otlplus/widgets/delete_dialog.dart';
 import 'package:otlplus/widgets/lecture_search.dart';
 import 'package:otlplus/widgets/map_view.dart';
 import 'package:provider/provider.dart';
@@ -254,8 +255,15 @@ class _TimetablePageState extends State<TimetablePage> {
           barrierDismissible: true,
           barrierLabel:
               MaterialLocalizations.of(context).modalBarrierDismissLabel,
-          pageBuilder: (context, _, __) =>
-              _buildDeleteDialog(context, timetableModel.selectedIndex),
+          pageBuilder: (context, _, __) => DeleteDialog(
+            text: 'timetable.ask_delete_tab'.tr(args: [
+              'timetable.tab'
+                  .tr(args: [timetableModel.selectedIndex.toString()])
+            ]),
+            onDelete: () {
+              context.read<TimetableModel>().deleteTimetable();
+            },
+          ),
         );
       },
       onExportTap: (type) {
@@ -263,78 +271,6 @@ class _TimetablePageState extends State<TimetablePage> {
             .read<TimetableModel>()
             .shareTimetable(type, context.locale.languageCode);
       },
-    );
-  }
-
-  Widget _buildDeleteDialog(BuildContext context, int i) {
-    return Center(
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(10),
-        child: Material(
-          child: IntrinsicWidth(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Container(
-                  padding: const EdgeInsets.fromLTRB(16, 19, 16, 20),
-                  alignment: Alignment.center,
-                  color: Colors.white,
-                  child: Text(
-                    'timetable.ask_delete_tab'.tr(args: [
-                      'timetable.tab'.tr(args: [i.toString()])
-                    ]),
-                    style: TextStyle(
-                      fontSize: 12,
-                    ),
-                  ),
-                ),
-                Row(
-                  children: [
-                    Expanded(
-                      child: GestureDetector(
-                        onTap: () => Navigator.pop(context),
-                        child: Container(
-                          height: 40,
-                          alignment: Alignment.center,
-                          color: OTLColor.grayE,
-                          child: Text(
-                            'common.cancel'.tr(),
-                            style: TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      child: GestureDetector(
-                        onTap: () {
-                          context.read<TimetableModel>().deleteTimetable();
-                          Navigator.pop(context);
-                        },
-                        child: Container(
-                          height: 40,
-                          alignment: Alignment.center,
-                          color: OTLColor.pinksMain,
-                          child: Text(
-                            'common.delete'.tr(),
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 12,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                )
-              ],
-            ),
-          ),
-        ),
-      ),
     );
   }
 }

@@ -17,7 +17,8 @@
     "unselect_all": "Unselect All",
     "no_info": "No information",
     "all_selected": "All Selected",
-    "num_selected": " Selected"
+    "num_selected": " Selected",
+    "close": "Close"
   },
   "semester": {
     "spring": "Spring",
@@ -121,7 +122,11 @@
     "major": "Major",
     "my_review": "My Reviews",
     "liked_review": "Liked Reviews",
-    "logout": "Logout"
+    "logout": "Logout",
+    "delete_account": "Delete Account",
+    "ask_delete_account": "Are you sure you want to delete your account?",
+    "account_deleted": "Account Deleted",
+    "deleted_account": "This is the deleted account."
   },
   "settings": {
     "send_error_log": "Send error log",
