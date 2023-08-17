@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:otlplus/constants/color.dart';
 import 'package:otlplus/constants/text_styles.dart';
-import 'package:otlplus/utils/responsive_button.dart';
+import 'package:otlplus/widgets/responsive_button.dart';
 import 'package:provider/provider.dart';
 import 'package:otlplus/extensions/semester.dart';
 import 'package:otlplus/providers/timetable_model.dart';
@@ -57,8 +57,8 @@ class _SemesterPickerState extends State<SemesterPicker> {
             : OTLColor.grayA,
         padding: const EdgeInsets.all(4.0),
         tapEffect: context.watch<TimetableModel>().canGoNextSemester()
-            ? 'lighten'
-            : 'none');
+            ? ButtonTapEffect.lighten
+            : ButtonTapEffect.none);
   }
 
   Widget _buildRightButton(ThemeData theme) {
@@ -76,7 +76,7 @@ class _SemesterPickerState extends State<SemesterPicker> {
             : OTLColor.grayA,
         padding: const EdgeInsets.all(4.0),
         tapEffect: context.watch<TimetableModel>().canGoNextSemester()
-            ? 'lighten'
-            : 'none');
+            ? ButtonTapEffect.lighten
+            : ButtonTapEffect.none);
   }
 }

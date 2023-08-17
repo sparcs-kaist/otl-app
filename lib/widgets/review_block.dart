@@ -6,7 +6,7 @@ import 'package:otlplus/constants/url.dart';
 import 'package:otlplus/dio_provider.dart';
 import 'package:otlplus/extensions/review.dart';
 import 'package:otlplus/models/review.dart';
-import 'package:otlplus/utils/responsive_button.dart';
+import 'package:otlplus/widgets/responsive_button.dart';
 import 'package:otlplus/widgets/expandable_text.dart';
 
 class ReviewBlock extends StatefulWidget {

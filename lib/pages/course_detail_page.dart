@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:otlplus/constants/text_styles.dart';
 import 'package:otlplus/models/review.dart';
 import 'package:otlplus/utils/build_app_bar.dart';
-import 'package:otlplus/utils/responsive_button.dart';
+import 'package:otlplus/widgets/responsive_button.dart';
 import 'package:provider/provider.dart';
 import 'package:otlplus/constants/color.dart';
 import 'package:otlplus/extensions/course.dart';
@@ -99,7 +99,7 @@ class CourseDetailPage extends StatelessWidget {
           height: 24.0,
           padding: const EdgeInsets.only(bottom: 4.0),
           builder: (shrinkOffset) => IconTextButton(
-              direction: 'row-reversed',
+              direction: ButtonDirection.rowReversed,
               padding: EdgeInsets.zero,
               onTap: () async {
                 if (shrinkOffset > 0) {

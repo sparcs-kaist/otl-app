@@ -6,8 +6,8 @@ import 'package:otlplus/constants/text_styles.dart';
 import 'package:otlplus/providers/auth_model.dart';
 import 'package:otlplus/utils/build_app_bar.dart';
 import 'package:otlplus/utils/build_page_route.dart';
-import 'package:otlplus/utils/responsive_button.dart';
 import 'package:otlplus/widgets/delete_dialog.dart';
+import 'package:otlplus/widgets/responsive_button.dart';
 import 'package:provider/provider.dart';
 import 'package:otlplus/constants/color.dart';
 import 'package:otlplus/providers/info_model.dart';
@@ -116,7 +116,7 @@ class UserPage extends StatelessWidget {
 
   Widget _buildNavigateArrowButton(
       BuildContext context, String icon, String text, VoidCallback onTap) {
-    return IconTextButtonRaw(
+    return RawResponsiveButton(
       data: {
         'Padding': {
           'padding': EdgeInsets.symmetric(horizontal: 16.0),

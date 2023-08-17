@@ -2,7 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:otlplus/constants/color.dart';
 import 'package:otlplus/constants/text_styles.dart';
-import 'package:otlplus/utils/responsive_button.dart';
+import 'package:otlplus/widgets/responsive_button.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -45,7 +45,7 @@ class _PopUpState extends State<PopUp> {
                     );
                   });
                 },
-                tapEffect: 'none',
+                tapEffect: ButtonTapEffect.none,
                 icon: Icons.check_circle_outline,
                 color: _checked ? OTLColor.pinksMain : OTLColor.grayA,
                 spaceBetween: 8.0,
@@ -60,7 +60,7 @@ class _PopUpState extends State<PopUp> {
                 },
                 icon: Icons.close,
                 color: OTLColor.grayF,
-                tapEffect: 'darken',
+                tapEffect: ButtonTapEffect.darken,
                 tapEffectColorRatio: 0.24,
               ),
             ],
