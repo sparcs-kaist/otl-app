@@ -78,8 +78,7 @@ class InfoModel extends ChangeNotifier {
   }
 
   Future<void> getInfo() async {
-    if ((await SharedPreferences.getInstance()).getBool('hasAccount') ??
-            true) {
+    if ((await SharedPreferences.getInstance()).getBool('hasAccount') ?? true) {
       _semesters = await getSemesters();
       _years = _semesters.map((semester) => semester.year).toSet();
       _user = await getUser();
