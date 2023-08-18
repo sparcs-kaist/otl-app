@@ -87,13 +87,13 @@ struct Semester: Encodable, Decodable, Hashable {
     let semester: Int
     let beginning: Date
     let end: Date
-    let courseDescriptionSubmission: Date
-    let courseRegistrationPeriodStart: Date
-    let courseRegistrationPeriodEnd: Date
-    let courseAddDropPeriodEnd: Date
-    let courseDropDeadline: Date
-    let courseEvaluationDeadline: Date
-    let gradePosting: Date
+    let courseDesciptionSubmission: Date?
+    let courseRegistrationPeriodStart: Date?
+    let courseRegistrationPeriodEnd: Date?
+    let courseAddDropPeriodEnd: Date?
+    let courseDropDeadline: Date?
+    let courseEvaluationDeadline: Date?
+    let gradePosting: Date?
 }
 
 class OTLAPI {
