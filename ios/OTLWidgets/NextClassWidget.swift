@@ -123,7 +123,7 @@ struct Provider: IntentTimelineProvider {
                         
                         let currentDate = Date()
                         for minutesOffset in 0..<5 {
-                            let entryDate = Calendar.current.date(byAdding: .minute, value: minutesOffset*15, to: currentDate)!
+                            let entryDate = Calendar.current.date(byAdding: .minute, value: minutesOffset*12, to: currentDate)!
                             let entry = WidgetEntry(date: entryDate, timetableData: timetables, configuration: configuration)
                             entries.append(entry)
                         }
@@ -138,7 +138,7 @@ struct Provider: IntentTimelineProvider {
                             
                             let currentDate = Date()
                             for minutesOffset in 0..<5 {
-                                let entryDate = Calendar.current.date(byAdding: .minute, value: minutesOffset*15, to: currentDate)!
+                                let entryDate = Calendar.current.date(byAdding: .minute, value: minutesOffset*12, to: currentDate)!
                                 let entry = WidgetEntry(date: entryDate, timetableData: data, configuration: configuration)
                                 entries.append(entry)
                             }
