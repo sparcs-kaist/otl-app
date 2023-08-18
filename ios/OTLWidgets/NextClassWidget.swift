@@ -23,27 +23,50 @@ struct Provider: IntentTimelineProvider {
         let uid = sharedDefaults?.string(forKey: "uid")
         
         if (sessionid == nil || uid == nil) {
-            // sessionid and uid is not found. Requires login.
+            // sessionid or uid is not found. Requires login.
             completion(WidgetEntry(date: Date(), timetableData: nil, configuration: configuration))
         }
         
-        OTLAPI().getTimetables(sessionID: sessionid!, userID: uid!, year: 2023, semester: 3) { result in
+        OTLAPI().getSemesters() { result in
             switch result {
-            case .success(let timetables):
-                // save timetable data
-                let encoder = JSONEncoder()
-                encoder.outputFormatting = .withoutEscapingSlashes
-                do {
-                    let data = try encoder.encode(timetables)
-                    sharedDefaults?.set(String(data: data, encoding: .utf8), forKey: "timetables")
-                } catch {
-                    print(error)
+            case .success(let semesters):
+                var semester: Semester {
+                    var t: Semester? = nil
+                    for s in semesters {
+                        let now = Date()
+                        t = (s.beginning <= now && s.end >= now) ? s : semesters.last
+                    }
+
+                    return t!
                 }
-                let entryDate = Date()
-                let entry = WidgetEntry(date: entryDate, timetableData: timetables, configuration: configuration)
-                completion(entry)
+                
+                OTLAPI().getTimetables(sessionID: sessionid!, userID: uid!, year: semester.year, semester: semester.semester) { result in
+                    switch result {
+                    case .success(let timetables):
+                        // save timetable data
+                        let encoder = JSONEncoder()
+                        encoder.outputFormatting = .withoutEscapingSlashes
+                        do {
+                            let data = try encoder.encode(timetables)
+                            sharedDefaults?.set(String(data: data, encoding: .utf8), forKey: "timetables")
+                        } catch {
+                            print(error)
+                        }
+                        let entryDate = Date()
+                        let entry = WidgetEntry(date: entryDate, timetableData: timetables, configuration: configuration)
+                        completion(entry)
+                    case .failure(_):
+                        // request failed, mostly network issue or needing of a new sessionid
+                        let decoder = JSONDecoder()
+                        do {
+                            let data = try decoder.decode([Timetable].self, from: (sharedDefaults?.string(forKey: "timetables")?.data(using: .utf8)) ?? Data())
+                            completion(WidgetEntry(date: Date(), timetableData: data, configuration: configuration))
+                        } catch {
+                            completion(WidgetEntry(date: Date(), timetableData: nil, configuration: configuration))
+                        }
+                    }
+                }
             case .failure(_):
-                // request failed, mostly network issue or needing of a new sessionid
                 let decoder = JSONDecoder()
                 do {
                     let data = try decoder.decode([Timetable].self, from: (sharedDefaults?.string(forKey: "timetables")?.data(using: .utf8)) ?? Data())
@@ -64,42 +87,74 @@ struct Provider: IntentTimelineProvider {
         let uid = sharedDefaults?.string(forKey: "uid")
         
         if (sessionid == nil || uid == nil) {
-            // sessionid and uid is not found. Requires login.
+            // sessionid or uid is not found. Requires login.
             let currentDate = Date()
-            for minutesOffset in 0..<5 {
-                let entryDate = Calendar.current.date(byAdding: .minute, value: minutesOffset*15, to: currentDate)!
-                let entry = WidgetEntry(date: entryDate, timetableData: nil, configuration: configuration)
-                entries.append(entry)
-            }
+            entries = [WidgetEntry(date: currentDate, timetableData: nil, configuration: configuration)]
             
-            let timeline = Timeline(entries: entries, policy: .atEnd)
+            let timeline = Timeline(entries: entries, policy: .never)
             completion(timeline)
         }
         
-        OTLAPI().getTimetables(sessionID: sessionid!, userID: uid!, year: 2023, semester: 3) { result in
+        OTLAPI().getSemesters() { result in
             switch result {
-            case .success(let timetables):
-                // save timetable data
-                let encoder = JSONEncoder()
-                encoder.outputFormatting = .withoutEscapingSlashes
-                do {
-                    let data = try encoder.encode(timetables)
-                    sharedDefaults?.set(String(data: data, encoding: .utf8), forKey: "timetables")
-                } catch {
-                    print(error)
+            case .success(let semesters):
+                var semester: Semester {
+                    var t: Semester? = nil
+                    for s in semesters {
+                        let now = Date()
+                        t = (s.beginning <= now && s.end >= now) ? s : semesters.last
+                    }
+
+                    return t!
                 }
-                
-                let currentDate = Date()
-                for minutesOffset in 0..<5 {
-                    let entryDate = Calendar.current.date(byAdding: .minute, value: minutesOffset*15, to: currentDate)!
-                    let entry = WidgetEntry(date: entryDate, timetableData: timetables, configuration: configuration)
-                    entries.append(entry)
+                print(semester)
+                OTLAPI().getTimetables(sessionID: sessionid!, userID: uid!, year: semester.year, semester: semester.semester) { result in
+                    switch result {
+                    case .success(let timetables):
+                        // save timetable data
+                        let encoder = JSONEncoder()
+                        encoder.outputFormatting = .withoutEscapingSlashes
+                        do {
+                            let data = try encoder.encode(timetables)
+                            sharedDefaults?.set(String(data: data, encoding: .utf8), forKey: "timetables")
+                        } catch {
+                            print(error)
+                        }
+                        
+                        let currentDate = Date()
+                        for minutesOffset in 0..<5 {
+                            let entryDate = Calendar.current.date(byAdding: .minute, value: minutesOffset*15, to: currentDate)!
+                            let entry = WidgetEntry(date: entryDate, timetableData: timetables, configuration: configuration)
+                            entries.append(entry)
+                        }
+                        
+                        let timeline = Timeline(entries: entries, policy: .atEnd)
+                        completion(timeline)
+                    case .failure(_):
+                        // request failed, mostly network issue or needing of a new sessionid
+                        let decoder = JSONDecoder()
+                        do {
+                            let data = try decoder.decode([Timetable].self, from: (sharedDefaults?.string(forKey: "timetables")?.data(using: .utf8)) ?? Data())
+                            
+                            let currentDate = Date()
+                            for minutesOffset in 0..<5 {
+                                let entryDate = Calendar.current.date(byAdding: .minute, value: minutesOffset*15, to: currentDate)!
+                                let entry = WidgetEntry(date: entryDate, timetableData: data, configuration: configuration)
+                                entries.append(entry)
+                            }
+                            
+                            let timeline = Timeline(entries: entries, policy: .atEnd)
+                            completion(timeline)
+                        } catch {
+                            let currentDate = Date()
+                            entries = [WidgetEntry(date: currentDate, timetableData: nil, configuration: configuration)]
+                            
+                            let timeline = Timeline(entries: entries, policy: .never)
+                            completion(timeline)
+                        }
+                    }
                 }
-                
-                let timeline = Timeline(entries: entries, policy: .atEnd)
-                completion(timeline)
             case .failure(_):
-                // request failed, mostly network issue or needing of a new sessionid
                 let decoder = JSONDecoder()
                 do {
                     let data = try decoder.decode([Timetable].self, from: (sharedDefaults?.string(forKey: "timetables")?.data(using: .utf8)) ?? Data())
@@ -115,17 +170,15 @@ struct Provider: IntentTimelineProvider {
                     completion(timeline)
                 } catch {
                     let currentDate = Date()
-                    for minutesOffset in 0..<5 {
-                        let entryDate = Calendar.current.date(byAdding: .minute, value: minutesOffset*15, to: currentDate)!
-                        let entry = WidgetEntry(date: entryDate, timetableData: nil, configuration: configuration)
-                        entries.append(entry)
-                    }
+                    entries = [WidgetEntry(date: currentDate, timetableData: nil, configuration: configuration)]
                     
-                    let timeline = Timeline(entries: entries, policy: .atEnd)
+                    let timeline = Timeline(entries: entries, policy: .never)
                     completion(timeline)
                 }
             }
         }
+        
+        
     }
 }
 
