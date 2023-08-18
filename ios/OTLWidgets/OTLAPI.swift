@@ -133,6 +133,7 @@ class OTLAPI {
             case .success(let data):
                 do {
                     let decoder = JSONDecoder()
+                    decoder.dateDecodingStrategy = .iso8601
                     let json = try decoder.decode([Semester].self, from: data)
                     completion(.success(json))
                 } catch {
