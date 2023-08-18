@@ -107,7 +107,7 @@ struct Provider: IntentTimelineProvider {
 
                     return t!
                 }
-                print(semester)
+                
                 OTLAPI().getTimetables(sessionID: sessionid!, userID: uid!, year: semester.year, semester: semester.semester) { result in
                     switch result {
                     case .success(let timetables):
