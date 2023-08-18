@@ -11,8 +11,10 @@ import Alamofire
 
 struct urls {
     static let BASE_URL = "https://otl.sparcs.org/"
+    
     static let API_URL = "api/"
     static let API_TIMETABLE_URL = API_URL + "users/{user_id}/timetables"
+    static let API_SEMESTER_URL = API_URL + "semesters"
 }
 
 struct Timetable: Encodable, Decodable, Hashable {
@@ -80,6 +82,20 @@ struct Examtime: Encodable, Decodable, Hashable {
     let end: Int
 }
 
+struct Semester: Encodable, Decodable, Hashable {
+    let year: Int
+    let semester: Int
+    let beginning: Date
+    let end: Date
+    let courseDescriptionSubmission: Date
+    let courseRegistrationPeriodStart: Date
+    let courseRegistrationPeriodEnd: Date
+    let courseAddDropPeriodEnd: Date
+    let courseDropDeadline: Date
+    let courseEvaluationDeadline: Date
+    let gradePosting: Date
+}
+
 class OTLAPI {
     func getTimetables(sessionID: String, userID: String, year: Int, semester: Int, completion: @escaping (Result<[Timetable], Error>) -> Void) {
         let cookieProperties = [
@@ -102,6 +118,25 @@ class OTLAPI {
                     completion(.success(json))
                 } catch {
                     print("Error: \(error)")
+                    completion(.failure(error))
+                }
+            case .failure(let error):
+                print("Error: \(error)")
+                completion(.failure(error))
+            }
+        }
+    }
+    
+    func getSemesters(completion: @escaping (Result<[Semester], Error>) -> Void) {
+        AF.request(urls.BASE_URL + urls.API_SEMESTER_URL, method: .get).responseData { response in
+            switch response.result {
+            case .success(let data):
+                do {
+                    let decoder = JSONDecoder()
+                    let json = try decoder.decode([Semester].self, from: data)
+                    completion(.success(json))
+                } catch {
+                    print ("Error \(error)")
                     completion(.failure(error))
                 }
             case .failure(let error):
