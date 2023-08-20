@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:otlplus/constants/color.dart';
 import 'package:otlplus/constants/text_styles.dart';
 import 'package:otlplus/widgets/responsive_button.dart';
+import 'package:otlplus/utils/navigator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -56,7 +57,7 @@ class _PopUpState extends State<PopUp> {
               ),
               IconTextButton(
                 onTap: () async {
-                  Navigator.pop(context);
+                  OTLNavigator.pop(context);
                 },
                 icon: Icons.close,
                 color: OTLColor.grayF,

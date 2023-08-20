@@ -9,10 +9,8 @@ import 'package:otlplus/providers/timetable_model.dart';
 class SemesterPicker extends StatefulWidget {
   final bool isExamTime;
   final Function() onSemesterChanged;
-  final VoidCallback? onTap;
 
-  SemesterPicker(
-      {this.isExamTime = false, required this.onSemesterChanged, this.onTap});
+  SemesterPicker({this.isExamTime = false, required this.onSemesterChanged});
 
   @override
   _SemesterPickerState createState() => _SemesterPickerState();
@@ -34,11 +32,10 @@ class _SemesterPickerState extends State<SemesterPicker> {
   }
 
   Widget _buildTitle(BuildContext context) {
-    return IconTextButton(
-      onTap: widget.onTap,
+    return Padding(
       padding: const EdgeInsets.all(8.0),
-      text: context.watch<TimetableModel>().selectedSemester.title,
-      textStyle: displayBold.copyWith(height: 1.448),
+      child: Text(context.watch<TimetableModel>().selectedSemester.title,
+          style: displayBold.copyWith(height: 1.448)),
     );
   }
 

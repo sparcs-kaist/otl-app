@@ -3,11 +3,13 @@ import 'dart:io';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:otlplus/constants/text_styles.dart';
+import 'package:otlplus/pages/liked_review_page.dart';
+import 'package:otlplus/pages/my_review_page.dart';
 import 'package:otlplus/providers/auth_model.dart';
-import 'package:otlplus/utils/build_app_bar.dart';
-import 'package:otlplus/utils/build_page_route.dart';
+import 'package:otlplus/utils/navigator.dart';
 import 'package:otlplus/widgets/delete_dialog.dart';
 import 'package:otlplus/widgets/responsive_button.dart';
+import 'package:otlplus/widgets/otl_scaffold.dart';
 import 'package:provider/provider.dart';
 import 'package:otlplus/constants/color.dart';
 import 'package:otlplus/providers/info_model.dart';
@@ -18,80 +20,85 @@ class UserPage extends StatelessWidget {
     final user = context.watch<InfoModel>().user;
     final isEn = EasyLocalization.of(context)?.currentLocale == Locale('en');
 
-    return Scaffold(
-      appBar: buildAppBar(context, 'title.my_information'.tr(), false, true),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: Column(
-                children: [
-                  _buildContent(
-                      "user.name", "${user.firstName} ${user.lastName}"),
-                  _buildContent("user.email", user.email),
-                  _buildContent("user.student_id", user.studentId),
-                  _buildContent(
-                    "user.major",
-                    user.majors
-                        .map(
-                          (department) =>
-                              isEn ? department.nameEn : department.name,
-                        )
-                        .join(", "),
+    return OTLScaffold(
+      child: OTLLayout(
+        middle: Text('title.my_information'.tr(), style: titleBold),
+        body: ColoredBox(
+          color: Colors.white,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: Column(
+                    children: [
+                      _buildContent(
+                          "user.name", "${user.firstName} ${user.lastName}"),
+                      _buildContent("user.email", user.email),
+                      _buildContent("user.student_id", user.studentId),
+                      _buildContent(
+                        "user.major",
+                        user.majors
+                            .map(
+                              (department) =>
+                                  isEn ? department.nameEn : department.name,
+                            )
+                            .join(", "),
+                      ),
+                      _buildDivider(),
+                    ],
                   ),
-                  _buildDivider(),
-                ],
-              ),
+                ),
+                _buildNavigateArrowButton(
+                    context,
+                    'assets/icons/my_review.svg',
+                    'user.my_review'.tr(),
+                    () => OTLNavigator.push(context, MyReviewPage())),
+                _buildNavigateArrowButton(
+                    context,
+                    'assets/icons/liked_review.svg',
+                    'user.liked_review'.tr(),
+                    () => OTLNavigator.push(context, LikedReviewPage())),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: _buildDivider(),
+                ),
+                _buildAccount(
+                  'assets/icons/logout.svg',
+                  () {
+                    context.read<AuthModel>().logout();
+                    context.read<InfoModel>().logout();
+                    Navigator.pop(context);
+                  },
+                  'user.logout'.tr(),
+                ),
+                if (Platform.isIOS)
+                  _buildAccount(
+                    Icons.highlight_off,
+                    () async {
+                      showGeneralDialog(
+                        context: context,
+                        barrierColor: Colors.black.withOpacity(0.2),
+                        barrierDismissible: true,
+                        barrierLabel: MaterialLocalizations.of(context)
+                            .modalBarrierDismissLabel,
+                        pageBuilder: (context, _, __) => DeleteDialog(
+                          text: 'user.ask_delete_account'.tr(),
+                          onDelete: () {
+                            context.read<AuthModel>().logout();
+                            context.read<InfoModel>().deleteAccount();
+                            Navigator.pop(context);
+                          },
+                        ),
+                      );
+                    },
+                    'user.delete_account'.tr(),
+                  ),
+              ],
             ),
-            _buildNavigateArrowButton(
-                context,
-                'assets/icons/my_review.svg',
-                'user.my_review'.tr(),
-                () => Navigator.push(context, buildMyReviewPageRoute())),
-            _buildNavigateArrowButton(
-                context,
-                'assets/icons/liked_review.svg',
-                'user.liked_review'.tr(),
-                () => Navigator.push(context, buildLikedReviewPageRoute())),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: _buildDivider(),
-            ),
-            _buildAccount(
-              'assets/icons/logout.svg',
-              () {
-                context.read<AuthModel>().logout();
-                context.read<InfoModel>().logout();
-                Navigator.pop(context);
-              },
-              'user.logout'.tr(),
-            ),
-            if (Platform.isIOS)
-              _buildAccount(
-                Icons.highlight_off,
-                () async {
-                  showGeneralDialog(
-                    context: context,
-                    barrierColor: Colors.black.withOpacity(0.2),
-                    barrierDismissible: true,
-                    barrierLabel: MaterialLocalizations.of(context)
-                        .modalBarrierDismissLabel,
-                    pageBuilder: (context, _, __) => DeleteDialog(
-                      text: 'user.ask_delete_account'.tr(),
-                      onDelete: () {
-                        context.read<AuthModel>().logout();
-                        context.read<InfoModel>().deleteAccount();
-                        Navigator.pop(context);
-                      },
-                    ),
-                  );
-                },
-                'user.delete_account'.tr(),
-              ),
-          ],
+          ),
         ),
       ),
     );

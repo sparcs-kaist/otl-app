@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-double getTextHeight(
+Size getTextSize(
   BuildContext context, {
   required String text,
   required TextStyle style,
@@ -10,8 +10,8 @@ double getTextHeight(
     text: TextSpan(text: text, style: style),
     textDirection: TextDirection.ltr,
     textScaleFactor: MediaQuery.of(context).textScaleFactor,
-  )..layout(maxWidth: maxWidth);
-  return textPainter.size.height;
+  )..layout(minWidth: 0, maxWidth: maxWidth);
+  return textPainter.size;
 }
 
 double singleHeight(BuildContext context, TextStyle style) {

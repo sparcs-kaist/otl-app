@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:otlplus/utils/build_page_route.dart';
+import 'package:otlplus/pages/lecture_detail_page.dart';
+import 'package:otlplus/utils/navigator.dart';
 import 'package:otlplus/pages/lecture_search_page.dart';
 import 'package:otlplus/widgets/responsive_button.dart';
 import 'package:provider/provider.dart';
@@ -43,10 +44,8 @@ class _LectureSearchState extends State<LectureSearch> {
                   child: ClipRRect(
                       borderRadius: BorderRadius.all(Radius.circular(8.0)),
                       child: BackgroundButton(
-                        onTap: () => Navigator.of(context).push(
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    LectureSearchPage(openKeyboard: false))),
+                        onTap: () =>
+                            OTLNavigator.push(context, LectureSearchPage()),
                         color: Color(0xFFF9F0F0),
                         child: Padding(
                           padding: EdgeInsets.all(8.0),
@@ -109,7 +108,7 @@ class _LectureSearchState extends State<LectureSearch> {
                 context
                     .read<LectureDetailModel>()
                     .loadLecture(lecture.id, true);
-                Navigator.push(context, buildLectureDetailPageRoute());
+                OTLNavigator.push(context, LectureDetailPage());
               },
             ),
         separatorBuilder: (context, index) => SizedBox(height: 8));

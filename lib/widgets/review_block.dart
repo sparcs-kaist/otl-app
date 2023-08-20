@@ -7,6 +7,7 @@ import 'package:otlplus/dio_provider.dart';
 import 'package:otlplus/extensions/review.dart';
 import 'package:otlplus/models/review.dart';
 import 'package:otlplus/widgets/responsive_button.dart';
+import 'package:otlplus/utils/navigator.dart';
 import 'package:otlplus/widgets/expandable_text.dart';
 
 class ReviewBlock extends StatefulWidget {
@@ -185,7 +186,7 @@ class _ReviewBlockState extends State<ReviewBlock> {
   }
 
   void _report() {
-    showDialog(
+    OTLNavigator.pushDialog(
         context: context,
         builder: (_) => AlertDialog(
               title: Text('안내'),
@@ -195,7 +196,7 @@ class _ReviewBlockState extends State<ReviewBlock> {
                 new TextButton(
                   child: new Text("확인"),
                   onPressed: () {
-                    Navigator.pop(context);
+                    OTLNavigator.pop(context);
                   },
                 ),
               ],

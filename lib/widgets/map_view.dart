@@ -294,10 +294,11 @@ class _MapViewState extends State<MapView> {
                         ? classtime.classroom
                         : classtime.classroomEn
                     : classtime.roomName;
-                final isMultiLine = (getTextHeight(context,
-                            text: location,
-                            style: labelRegular,
-                            maxWidth: 143) ~/
+                final isMultiLine = (getTextSize(context,
+                                text: location,
+                                style: labelRegular,
+                                maxWidth: 143)
+                            .height ~/
                         singleHeight(context, labelRegular)) >
                     1;
 

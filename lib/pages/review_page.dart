@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:otlplus/pages/course_detail_page.dart';
 import 'package:otlplus/providers/hall_of_fame_model.dart';
-import 'package:otlplus/utils/build_page_route.dart';
+import 'package:otlplus/utils/navigator.dart';
+import 'package:otlplus/widgets/hall_of_fame_control.dart';
+import 'package:otlplus/widgets/otl_scaffold.dart';
+import 'package:otlplus/widgets/review_mode_control.dart';
 import 'package:provider/provider.dart';
 import 'package:otlplus/providers/course_detail_model.dart';
 import 'package:otlplus/providers/review_model.dart';
@@ -20,43 +24,55 @@ class _ReviewPageState extends State<ReviewPage> {
     final latestReviews = context.watch<ReviewModel>().reviews;
     final hallOfFames = context.watch<HallOfFameModel>().hallOfFames();
 
-    return Card(
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(16.0)),
+    return OTLLayout(
+      leading: ReviewModeControl(
+        selectedMode: context.watch<HallOfFameModel>().selectedMode,
       ),
-      child: NotificationListener<ScrollNotification>(
-        onNotification: (scrollNotification) {
-          if (_selectedMode == 1) {
-            final reviewModel = context.read<ReviewModel>();
-
-            if (!reviewModel.isLoading &&
-                scrollNotification.metrics.pixels ==
-                    scrollNotification.metrics.maxScrollExtent) {
-              reviewModel.loadReviews();
-            }
-
-            return true;
-          } else {
-            final hallOfFameModel = context.read<HallOfFameModel>();
-
-            if (!hallOfFameModel.isLoading &&
-                scrollNotification.metrics.pixels ==
-                    scrollNotification.metrics.maxScrollExtent) {
-              hallOfFameModel.loadHallOfFames();
-            }
-
-            return true;
-          }
-        },
+      trailing: Visibility(
+        visible: context.watch<HallOfFameModel>().selectedMode == 0,
         child: Padding(
-          padding: const EdgeInsets.fromLTRB(12.0, 12.0, 12.0, 0.0),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              _selectedMode == 1
-                  ? _buildLatestReviews(latestReviews)
-                  : _buildHallOfFames(hallOfFames),
-            ],
+          padding: const EdgeInsets.only(right: 16.0),
+          child: HallOfFameControl(),
+        ),
+      ),
+      body: Card(
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(top: Radius.circular(16.0)),
+        ),
+        child: NotificationListener<ScrollNotification>(
+          onNotification: (scrollNotification) {
+            if (_selectedMode == 1) {
+              final reviewModel = context.read<ReviewModel>();
+
+              if (!reviewModel.isLoading &&
+                  scrollNotification.metrics.pixels ==
+                      scrollNotification.metrics.maxScrollExtent) {
+                reviewModel.loadReviews();
+              }
+
+              return true;
+            } else {
+              final hallOfFameModel = context.read<HallOfFameModel>();
+
+              if (!hallOfFameModel.isLoading &&
+                  scrollNotification.metrics.pixels ==
+                      scrollNotification.metrics.maxScrollExtent) {
+                hallOfFameModel.loadHallOfFames();
+              }
+
+              return true;
+            }
+          },
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(12.0, 12.0, 12.0, 0.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                _selectedMode == 1
+                    ? _buildLatestReviews(latestReviews)
+                    : _buildHallOfFames(hallOfFames),
+              ],
+            ),
           ),
         ),
       ),
@@ -84,7 +100,7 @@ class _ReviewPageState extends State<ReviewPage> {
                         context
                             .read<CourseDetailModel>()
                             .loadCourse(latestReviews[index].course.id);
-                        Navigator.push(context, buildCourseDetailPageRoute());
+                        OTLNavigator.push(context, CourseDetailPage());
                       },
                     );
                   },
@@ -135,7 +151,7 @@ class _ReviewPageState extends State<ReviewPage> {
                         context
                             .read<CourseDetailModel>()
                             .loadCourse(hallOfFames[index].course.id);
-                        Navigator.push(context, buildCourseDetailPageRoute());
+                        OTLNavigator.push(context, CourseDetailPage());
                       },
                     );
                   },
