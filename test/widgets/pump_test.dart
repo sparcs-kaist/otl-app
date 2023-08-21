@@ -1,7 +1,11 @@
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:otlplus/providers/lecture_search_model.dart';
 import 'package:otlplus/providers/timetable_model.dart';
 import 'package:otlplus/widgets/course_block.dart';
+import 'package:otlplus/widgets/lecture_group_block.dart';
+import 'package:otlplus/widgets/lecture_group_block_row.dart';
 import 'package:otlplus/widgets/lecture_group_simple_block.dart';
 import 'package:otlplus/widgets/lecture_search.dart';
 import 'package:otlplus/widgets/lecture_simple_block.dart';
@@ -10,25 +14,33 @@ import 'package:otlplus/widgets/timetable_block.dart';
 import 'package:otlplus/widgets/timetable_summary.dart';
 import 'package:otlplus/widgets/timetable_tabs.dart';
 import 'package:otlplus/widgets/today_timetable.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../utils/extensions.dart';
 import '../utils/samples.dart';
 
 void main() {
+  setUpAll(() async {
+    SharedPreferences.setMockInitialValues({});
+    WidgetsFlutterBinding.ensureInitialized();
+    await EasyLocalization.ensureInitialized();
+  });
+
   testWidgets('pump CourseBlock', (WidgetTester tester) async {
     await tester.pumpWidget(CourseBlock(course: SampleCourse.shared).material);
   });
 
   testWidgets('pump LectureGroupBlockRow', (WidgetTester tester) async {
-    // await tester.pumpWidget(LectureGroupBlockRow(lecture: SampleLecture.shared).materialAndNotifier(TimetableModel(forTest: true)));
+    await tester.pumpWidget(LectureGroupBlockRow(lecture: SampleLecture.shared)
+        .materialAndNotifier(TimetableModel(forTest: true)));
   });
 
   testWidgets('pump LectureGroupBlock', (WidgetTester tester) async {
-    // await tester.pumpWidget(LectureGroupBlock(
-    //     lectures: [SampleLecture.shared],
-    //     onLongPress: (_) {
-    //       return;
-    //     }).material);
+    await tester.pumpWidget(LectureGroupBlock(
+        lectures: [SampleLecture.shared],
+        onLongPress: (_) {
+          return;
+        }).materialAndNotifier(TimetableModel(forTest: true)));
   });
 
   testWidgets('pump LectureGroupSimpleBlock', (WidgetTester tester) async {
@@ -58,8 +70,8 @@ void main() {
   });
 
   testWidgets('pump TimetableBlock', (WidgetTester tester) async {
-    // TODO: mocking context.locale
-    // await tester.pumpWidget(TimetableBlock(lecture: SampleLecture.shared).scaffold);
+    await tester
+        .pumpWidget(TimetableBlock(lecture: SampleLecture.shared).scaffold);
   });
 
   testWidgets('pump TimetableSummary', (WidgetTester tester) async {

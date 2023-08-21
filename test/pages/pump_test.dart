@@ -1,3 +1,5 @@
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:otlplus/pages/course_detail_page.dart';
 import 'package:otlplus/pages/course_search_page.dart';
@@ -14,10 +16,17 @@ import 'package:otlplus/providers/lecture_detail_model.dart';
 import 'package:otlplus/providers/lecture_search_model.dart';
 import 'package:otlplus/providers/settings_model.dart';
 import 'package:otlplus/providers/timetable_model.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../utils/extensions.dart';
 
 void main() {
+  setUpAll(() async {
+    SharedPreferences.setMockInitialValues({});
+    WidgetsFlutterBinding.ensureInitialized();
+    await EasyLocalization.ensureInitialized();
+  });
+
   testWidgets("pump CourseDetailPage", (WidgetTester tester) async {
     tester.pumpWidget(
         CourseDetailPage().scaffoldAndNotifier(CourseDetailModel()));
