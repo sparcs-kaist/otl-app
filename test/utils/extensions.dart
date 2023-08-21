@@ -1,12 +1,23 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 extension WidgetForTest on Widget {
-  Widget get material => MaterialApp(home: this);
+  Widget get material => EasyLocalization(
+        supportedLocales: [Locale('ko')],
+        path: 'assets/translations',
+        child: MaterialApp(
+          home: this,
+        ),
+      );
 
-  Widget get scaffold => MaterialApp(
-        home: Scaffold(
-          body: this,
+  Widget get scaffold => EasyLocalization(
+        supportedLocales: [Locale('ko')],
+        path: 'assets/translations',
+        child: MaterialApp(
+          home: Scaffold(
+            body: this,
+          ),
         ),
       );
 

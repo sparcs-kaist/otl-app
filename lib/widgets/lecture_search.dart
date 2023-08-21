@@ -13,8 +13,7 @@ import 'package:otlplus/widgets/lecture_group_block.dart';
 
 class LectureSearch extends StatefulWidget {
   final Future<bool> Function()? onClosed;
-
-  LectureSearch({this.onClosed});
+  const LectureSearch({Key? key, this.onClosed}) : super(key: key);
 
   @override
   _LectureSearchState createState() => _LectureSearchState();

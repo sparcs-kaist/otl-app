@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:otlplus/pages/course_detail_page.dart';
+import 'package:otlplus/models/review.dart';
 import 'package:otlplus/providers/hall_of_fame_model.dart';
 import 'package:otlplus/utils/navigator.dart';
 import 'package:otlplus/widgets/hall_of_fame_control.dart';
@@ -20,8 +21,10 @@ class ReviewPage extends StatefulWidget {
 class _ReviewPageState extends State<ReviewPage> {
   @override
   Widget build(BuildContext context) {
-    int _selectedMode = context.read<HallOfFameModel>().selectedMode;
-    final latestReviews = context.watch<ReviewModel>().reviews;
+    final _selectedMode =
+        context.select<HallOfFameModel, int>((m) => m.selectedMode);
+    final latestReviews =
+        context.select<ReviewModel, List<Review>>((m) => m.reviews);
     final hallOfFames = context.watch<HallOfFameModel>().hallOfFames();
 
     return OTLLayout(

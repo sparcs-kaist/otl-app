@@ -48,6 +48,7 @@ dependencies:
 
 dev_dependencies:
   test: ^1.19.5
+  http: ^1.1.0
   flutter_test:
     sdk: flutter
   flutter_driver:

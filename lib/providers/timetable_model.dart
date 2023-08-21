@@ -24,6 +24,14 @@ class TimetableModel extends ChangeNotifier {
   late List<Timetable> _timetables;
   List<Timetable> get timetables => _timetables;
 
+  Lecture? _tempLecture;
+  Lecture? get tempLecture => _tempLecture;
+
+  void setTempLecture(Lecture? lecture) {
+    _tempLecture = lecture;
+    notifyListeners();
+  }
+
   int _selectedTimetableIndex = 1;
   int get selectedIndex => _selectedTimetableIndex;
 
@@ -64,12 +72,10 @@ class TimetableModel extends ChangeNotifier {
     _loadTimetable();
   }
 
-  bool canGoPreviousSemester() {
-    return (_selectedSemesterIndex > 0);
-  }
+  get canGoPreviousSemester => _selectedSemesterIndex > 0;
 
   bool goPreviousSemester() {
-    if (canGoPreviousSemester()) {
+    if (canGoPreviousSemester) {
       _selectedSemesterIndex--;
       notifyListeners();
       _loadTimetable();
@@ -78,12 +84,10 @@ class TimetableModel extends ChangeNotifier {
     return false;
   }
 
-  bool canGoNextSemester() {
-    return (_selectedSemesterIndex < _semesters.length - 1);
-  }
+  get canGoNextSemester => _selectedSemesterIndex < _semesters.length - 1;
 
   bool goNextSemester() {
-    if (canGoNextSemester()) {
+    if (canGoNextSemester) {
       _selectedSemesterIndex++;
       notifyListeners();
       _loadTimetable();

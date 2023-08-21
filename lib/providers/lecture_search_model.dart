@@ -9,14 +9,6 @@ import 'package:otlplus/models/lecture.dart';
 import 'package:otlplus/models/semester.dart';
 
 class LectureSearchModel extends ChangeNotifier {
-  Lecture? _selectedLecture;
-  Lecture? get selectedLecture => _selectedLecture;
-
-  void setSelectedLecture(Lecture? lecture) {
-    _selectedLecture = lecture;
-    notifyListeners();
-  }
-
   bool get resultOpened => _lectures != null || _isSearching;
 
   List<List<Lecture>>? _lectures;
@@ -101,7 +93,6 @@ class LectureSearchModel extends ChangeNotifier {
 
   void resetLectureFilter() {
     _lectures = null;
-    _selectedLecture = null;
     _lectureSearchText = '';
     _lectureFilter.values.forEach((e) {
       if (e.isMultiSelect)

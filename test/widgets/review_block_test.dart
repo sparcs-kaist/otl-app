@@ -1,10 +1,19 @@
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:otlplus/widgets/review_block.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../utils/extensions.dart';
 import '../utils/samples.dart';
 
 void main() {
+  setUpAll(() async {
+    SharedPreferences.setMockInitialValues({});
+    WidgetsFlutterBinding.ensureInitialized();
+    await EasyLocalization.ensureInitialized();
+  });
+
   testWidgets('pump ReviewBlock', (WidgetTester tester) async {
     await tester.pumpWidget(ReviewBlock(review: SampleReview.shared).material);
   });

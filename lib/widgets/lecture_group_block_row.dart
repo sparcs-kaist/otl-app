@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:otlplus/constants/color.dart';
 import 'package:otlplus/extensions/lecture.dart';
 import 'package:otlplus/models/lecture.dart';
-import 'package:otlplus/providers/lecture_search_model.dart';
 import 'package:otlplus/widgets/responsive_button.dart';
 import 'package:otlplus/utils/navigator.dart';
 import 'package:provider/provider.dart';
@@ -33,20 +32,17 @@ class _LectureGroupBlockRowState extends State<LectureGroupBlockRow> {
             lec.oldCode == widget.lecture.oldCode &&
             widget.lecture.classTitle == lec.classTitle));
     bool selected =
-        context.watch<LectureSearchModel>().selectedLecture == widget.lecture;
+        context.watch<TimetableModel>().tempLecture == widget.lecture;
     return Material(
       color: Colors.transparent,
       child: ClipRRect(
         borderRadius: BorderRadius.circular(4),
         child: GestureDetector(
           onTap: () {
-            if (context.read<LectureSearchModel>().selectedLecture !=
-                widget.lecture) {
-              context
-                  .read<LectureSearchModel>()
-                  .setSelectedLecture(widget.lecture);
+            if (context.read<TimetableModel>().tempLecture != widget.lecture) {
+              context.read<TimetableModel>().setTempLecture(widget.lecture);
             } else {
-              context.read<LectureSearchModel>().setSelectedLecture(null);
+              context.read<TimetableModel>().setTempLecture(null);
             }
           },
           onLongPress: widget.onLongPress,
@@ -168,7 +164,7 @@ class _LectureGroupBlockRowState extends State<LectureGroupBlockRow> {
           },
         );
     if (result) {
-      context.read<LectureSearchModel>().setSelectedLecture(null);
+      context.read<TimetableModel>().setTempLecture(null);
     }
   }
 
@@ -176,6 +172,6 @@ class _LectureGroupBlockRowState extends State<LectureGroupBlockRow> {
     await context.read<TimetableModel>().removeLecture(
           lecture: lec,
         );
-    context.read<LectureSearchModel>().setSelectedLecture(null);
+    context.read<TimetableModel>().setTempLecture(null);
   }
 }
