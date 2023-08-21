@@ -1,30 +1,38 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:otlplus/constants/url.dart';
 
 import 'package:otlplus/models/lecture.dart';
 import 'package:test/test.dart';
 
 void main() {
-  const semestersUrl =
-      'https://otl.sparcs.org/api/semesters?order=year&order=semester';
-  String lecturesUrl =
-      'https://otl.sparcs.org/api/lectures?year={year}&semester={semester}&keyword=&type={type}&department=ALL&level=ALL&&order=old_code&limit=1';
-
   group('check typeIdx', () {
-    setUp(() async {
-      final response = await http.get(Uri.parse(semestersUrl));
-      final body = json.decode(response.body);
-      final year = body[body.length - 1]['year'];
-      final semester = body[body.length - 1]['semester'];
-      lecturesUrl = lecturesUrl
-          .replaceFirst('{year}', year.toString())
-          .replaceFirst('{semester}', semester.toString());
+    late Map<String, String> params;
+
+    setUpAll(() async {
+      final response = await http.get(Uri.https(BASE_AUTHORITY,
+          API_SEMESTER_URL, {'order[0]': 'year', 'order[1]': 'semester'}));
+      final List<dynamic> body = json.decode(response.body);
+      final String year = body[body.length - 1]['year'].toString();
+      final String semester = body[body.length - 1]['semester'].toString();
+      params = {
+        'year': year,
+        'semester': semester,
+        'keyword': '',
+        'department': 'ALL',
+        'level': 'ALL',
+        'order': 'old_code',
+        'limit': '1'
+      };
     });
 
     test('BR type index should be 0', () async {
-      final url = lecturesUrl.replaceFirst('{type}', 'BR');
+      final url = Uri.https(
+              BASE_AUTHORITY, API_LECTURE_URL, params..addAll({'type': 'BR'}))
+          .toString();
       final response = await http.get(Uri.parse(url));
       final lectures = json.decode(response.body);
+      assert(lectures.isNotEmpty);
       for (Map<String, dynamic> l in lectures) {
         final Lecture lecture = Lecture.fromJson(l);
         expect(lecture.typeIdx, 0);
@@ -32,9 +40,12 @@ void main() {
     });
 
     test('BE type index should be 1', () async {
-      final url = lecturesUrl.replaceFirst('{type}', 'BE');
+      final url = Uri.https(
+              BASE_AUTHORITY, API_LECTURE_URL, params..addAll({'type': 'BE'}))
+          .toString();
       final response = await http.get(Uri.parse(url));
       final lectures = json.decode(response.body);
+      assert(lectures.isNotEmpty);
       for (Map<String, dynamic> l in lectures) {
         final Lecture lecture = Lecture.fromJson(l);
         expect(lecture.typeIdx, 1);
@@ -42,9 +53,12 @@ void main() {
     });
 
     test('MR type index should be 2', () async {
-      final url = lecturesUrl.replaceFirst('{type}', 'MR');
+      final url = Uri.https(
+              BASE_AUTHORITY, API_LECTURE_URL, params..addAll({'type': 'MR'}))
+          .toString();
       final response = await http.get(Uri.parse(url));
       final lectures = json.decode(response.body);
+      assert(lectures.isNotEmpty);
       for (Map<String, dynamic> l in lectures) {
         final Lecture lecture = Lecture.fromJson(l);
         expect(lecture.typeIdx, 2);
@@ -52,9 +66,12 @@ void main() {
     });
 
     test('ME type index should be 3', () async {
-      final url = lecturesUrl.replaceFirst('{type}', 'ME');
+      final url = Uri.https(
+              BASE_AUTHORITY, API_LECTURE_URL, params..addAll({'type': 'ME'}))
+          .toString();
       final response = await http.get(Uri.parse(url));
       final lectures = json.decode(response.body);
+      assert(lectures.isNotEmpty);
       for (Map<String, dynamic> l in lectures) {
         final Lecture lecture = Lecture.fromJson(l);
         expect(lecture.typeIdx, 3);
@@ -62,9 +79,12 @@ void main() {
     });
 
     test('HSE type index should be 4', () async {
-      final url = lecturesUrl.replaceFirst('{type}', 'HSE');
+      final url = Uri.https(
+              BASE_AUTHORITY, API_LECTURE_URL, params..addAll({'type': 'HSE'}))
+          .toString();
       final response = await http.get(Uri.parse(url));
       final lectures = json.decode(response.body);
+      assert(lectures.isNotEmpty);
       for (Map<String, dynamic> l in lectures) {
         final Lecture lecture = Lecture.fromJson(l);
         expect(lecture.typeIdx, 4);
