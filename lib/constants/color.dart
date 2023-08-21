@@ -2,10 +2,6 @@ import 'package:flutter/material.dart';
 
 @Deprecated('old color styles')
 const DIVIDER_COLOR = Color(0xFFEDD1DC);
-@Deprecated('old color styles')
-const BORDER_COLOR = Color(0xFFE8E8E8);
-@Deprecated('old color styles')
-const BORDER_BOLD_COLOR = Color(0xFFC9C9C9);
 
 class OTLColor {
   static const gray0 = Color(0xFF000000);
