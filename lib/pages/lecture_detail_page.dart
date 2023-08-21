@@ -53,9 +53,7 @@ class LectureDetailPage extends StatelessWidget {
                 : '',
             style: titleBold),
         body: Card(
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.vertical(top: Radius.circular(16.0)),
-          ),
+          shape: const RoundedRectangleBorder(),
           child:
               context.select<LectureDetailModel, bool>((model) => model.hasData)
                   ? _buildBody(context)
