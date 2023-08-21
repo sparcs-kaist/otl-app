@@ -17,8 +17,6 @@ class TimetableBlock extends StatelessWidget {
   final bool isTemp;
   final bool isExamTime;
   final bool showTitle;
-  @Deprecated('There is no case to show the professor')
-  final bool showProfessor;
   final bool showClassroom;
 
   TimetableBlock(
@@ -32,7 +30,6 @@ class TimetableBlock extends StatelessWidget {
       this.isTemp = false,
       this.isExamTime = false,
       this.showTitle = true,
-      this.showProfessor = false,
       this.showClassroom = true})
       : super(key: key);
 
@@ -57,10 +54,6 @@ class TimetableBlock extends StatelessWidget {
         ),
         maxLines: maxLines > 1 ? maxLines : 1,
       ));
-    }
-
-    if (showProfessor) {
-      contents.add(Text(lecture.professorsStrShort));
     }
 
     if (showClassroom) {
