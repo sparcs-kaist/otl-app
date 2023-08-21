@@ -13,7 +13,7 @@ class DioProvider {
   DioProvider._internal();
 
   void authenticate(List<Cookie> cookies) {
-    _dio.options.baseUrl = BASE_URL;
+    _dio.options.baseUrl = Uri.https(BASE_AUTHORITY).toString() + "/";
     _dio.options.headers["cookie"] =
         cookies.map((cookie) => "${cookie.name}=${cookie.value}").join("; ");
     _dio.options.headers["X-CSRFToken"] =

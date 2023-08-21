@@ -1,8 +1,6 @@
-const BASE_URL = "https://otl.sparcs.org/";
-const MAIN_URL = BASE_URL + "main";
+const BASE_AUTHORITY = "otl.sparcs.org";
 
 const SESSION_URL = "session/";
-const SESSION_LOGIN_URL = SESSION_URL + "login/?next=" + MAIN_URL;
 const SESSION_INFO_URL = SESSION_URL + "info";
 
 const API_URL = "api/";

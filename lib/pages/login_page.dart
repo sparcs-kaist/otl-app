@@ -7,7 +7,6 @@ import 'package:otlplus/constants/color.dart';
 import 'package:otlplus/widgets/responsive_button.dart';
 import 'package:otlplus/widgets/otl_scaffold.dart';
 import 'package:provider/provider.dart';
-import 'package:otlplus/constants/url.dart';
 import 'package:otlplus/providers/auth_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:webview_flutter/webview_flutter.dart';
@@ -70,7 +69,7 @@ class _LoginPageState extends State<LoginPage> {
 
   Widget _buildBody(BuildContext context) {
     const AUTHORITY = 'otl.sparcs.org';
-    Map<String, dynamic> query = {'next': BASE_URL};
+    Map<String, dynamic> query = {'next': 'https://otl.sparcs.org/'};
     if (Platform.isIOS) {
       query['social_login'] = '0';
     }
