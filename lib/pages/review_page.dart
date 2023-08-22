@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:otlplus/pages/course_detail_page.dart';
-import 'package:otlplus/models/review.dart';
 import 'package:otlplus/providers/hall_of_fame_model.dart';
 import 'package:otlplus/utils/navigator.dart';
 import 'package:otlplus/widgets/hall_of_fame_control.dart';
@@ -8,7 +7,7 @@ import 'package:otlplus/widgets/otl_scaffold.dart';
 import 'package:otlplus/widgets/review_mode_control.dart';
 import 'package:provider/provider.dart';
 import 'package:otlplus/providers/course_detail_model.dart';
-import 'package:otlplus/providers/review_model.dart';
+import 'package:otlplus/providers/latest_reviews_model.dart';
 import 'package:otlplus/widgets/review_block.dart';
 
 class ReviewPage extends StatefulWidget {
@@ -23,9 +22,6 @@ class _ReviewPageState extends State<ReviewPage> {
   Widget build(BuildContext context) {
     final _selectedMode =
         context.select<HallOfFameModel, int>((m) => m.selectedMode);
-    final latestReviews =
-        context.select<ReviewModel, List<Review>>((m) => m.reviews);
-    final hallOfFames = context.watch<HallOfFameModel>().hallOfFames();
 
     return OTLLayout(
       leading: ReviewModeControl(
@@ -40,17 +36,17 @@ class _ReviewPageState extends State<ReviewPage> {
       ),
       body: Card(
         shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(top: Radius.circular(16.0)),
+          borderRadius: BorderRadius.only(topRight: Radius.circular(16.0)),
         ),
         child: NotificationListener<ScrollNotification>(
           onNotification: (scrollNotification) {
             if (_selectedMode == 1) {
-              final reviewModel = context.read<ReviewModel>();
+              final reviewModel = context.read<LatestReviewsModel>();
 
               if (!reviewModel.isLoading &&
                   scrollNotification.metrics.pixels ==
                       scrollNotification.metrics.maxScrollExtent) {
-                reviewModel.loadReviews();
+                reviewModel.loadLatestReviews();
               }
 
               return true;
@@ -60,7 +56,7 @@ class _ReviewPageState extends State<ReviewPage> {
               if (!hallOfFameModel.isLoading &&
                   scrollNotification.metrics.pixels ==
                       scrollNotification.metrics.maxScrollExtent) {
-                hallOfFameModel.loadHallOfFames();
+                hallOfFameModel.loadHallOfFame();
               }
 
               return true;
@@ -71,9 +67,7 @@ class _ReviewPageState extends State<ReviewPage> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                _selectedMode == 1
-                    ? _buildLatestReviews(latestReviews)
-                    : _buildHallOfFames(hallOfFames),
+                _selectedMode == 1 ? LatestReviewsPage() : HallOfFamePage()
               ],
             ),
           ),
@@ -81,14 +75,20 @@ class _ReviewPageState extends State<ReviewPage> {
       ),
     );
   }
+}
 
-  Widget _buildLatestReviews(latestReviews) {
+class LatestReviewsPage extends StatelessWidget {
+  const LatestReviewsPage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
     final _scrollController = context.watch<HallOfFameModel>().scrollController;
+    final latestReviews = context.watch<LatestReviewsModel>().latestReviews;
 
     return Expanded(
       child: RefreshIndicator(
         onRefresh: () async {
-          await context.read<ReviewModel>().clear();
+          await context.read<LatestReviewsModel>().clear();
         },
         child: Scrollbar(
           child: CustomScrollView(
@@ -132,9 +132,15 @@ class _ReviewPageState extends State<ReviewPage> {
       ),
     );
   }
+}
 
-  Widget _buildHallOfFames(hallOfFames) {
+class HallOfFamePage extends StatelessWidget {
+  const HallOfFamePage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
     final _scrollController = context.watch<HallOfFameModel>().scrollController;
+    final hallOfFames = context.watch<HallOfFameModel>().hallOfFame;
 
     return Expanded(
       child: RefreshIndicator(

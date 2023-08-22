@@ -3,26 +3,26 @@ import 'package:otlplus/constants/url.dart';
 import 'package:otlplus/dio_provider.dart';
 import 'package:otlplus/models/review.dart';
 
-class ReviewModel extends ChangeNotifier {
+class LatestReviewsModel extends ChangeNotifier {
   int _page = 0;
   int get page => _page;
 
   bool _isLoading = false;
   bool get isLoading => _isLoading;
 
-  List<Review> _reviews = <Review>[];
-  List<Review> get reviews {
-    if (_reviews.length == 0 && !_isLoading) loadReviews();
-    return _reviews;
+  List<Review> _latestReviews = <Review>[];
+  List<Review> get latestReviews {
+    if (_latestReviews.length == 0 && !_isLoading) loadLatestReviews();
+    return _latestReviews;
   }
 
   Future<void> clear() async {
-    _reviews.clear();
+    _latestReviews.clear();
     _page = 0;
-    await loadReviews();
+    await loadLatestReviews();
   }
 
-  Future<void> loadReviews() async {
+  Future<void> loadLatestReviews() async {
     _isLoading = true;
 
     try {
@@ -33,7 +33,8 @@ class ReviewModel extends ChangeNotifier {
         "limit": 10,
       });
       final rawReviews = response.data as List;
-      _reviews.addAll(rawReviews.map((review) => Review.fromJson(review)));
+      _latestReviews
+          .addAll(rawReviews.map((review) => Review.fromJson(review)));
       _page++;
       _isLoading = false;
       notifyListeners();
