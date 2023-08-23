@@ -24,7 +24,7 @@ class _PopUpState extends State<PopUp> {
       contentPadding: EdgeInsets.all(0.0),
       actionsPadding: EdgeInsets.only(top: 8.0),
       elevation: 0.0,
-      content: _buildAppEvent(context),
+      content: _build23fRecruiting(),
       actions: [
         Container(
           decoration: BoxDecoration(
@@ -72,6 +72,54 @@ class _PopUpState extends State<PopUp> {
   }
 }
 
+Widget _build23fRecruiting() {
+  return SingleChildScrollView(
+    child: Container(
+      child: Stack(
+        alignment: AlignmentDirectional.center,
+        children: [
+          Image.asset(
+            'assets/popups/23f-recruiting.png',
+            height: 328.0,
+            width: 285.0,
+          ),
+          Column(
+            children: [
+              const SizedBox(height: 262.0),
+              FilledButton(
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(Color(0xFFEBA12A)),
+                ),
+                onPressed: () => launchUrl(
+                  Uri.parse(
+                    'https://apply.sparcs.org/',
+                  ),
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      '지원하러 가기',
+                      style: evenBodyBold.copyWith(color: Colors.black),
+                      textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(width: 8.0),
+                    Icon(
+                      Icons.arrow_forward,
+                      color: Colors.black,
+                    )
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    ),
+  );
+}
+
+// ignore: unused_element
 Widget _buildAppEvent(BuildContext context) {
   final isEn = EasyLocalization.of(context)?.currentLocale == Locale('en');
 
@@ -82,8 +130,8 @@ Widget _buildAppEvent(BuildContext context) {
         children: [
           Image.asset(
             isEn
-                ? 'assets/app-event-image-en.png'
-                : 'assets/app-event-image.png',
+                ? 'assets/popups/app-event-image-en.png'
+                : 'assets/popups/app-event-image.png',
             height: 328.0,
             width: 285.0,
           ),
@@ -130,7 +178,7 @@ Widget _buildGraduatePlanner() {
           textAlign: TextAlign.center,
         ),
         const SizedBox(height: 16.0),
-        Image.asset('assets/graduate-planner.png', height: 128.0),
+        Image.asset('assets/popups/graduate-planner.png', height: 128.0),
         const SizedBox(height: 8.0),
         Text(
           '웹에서 지금 바로 만나보세요!',
