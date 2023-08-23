@@ -24,7 +24,7 @@ class _PopUpState extends State<PopUp> {
       contentPadding: EdgeInsets.all(0.0),
       actionsPadding: EdgeInsets.only(top: 8.0),
       elevation: 0.0,
-      content: _buildAppEvent(context),
+      content: _build23fRecruiting(),
       actions: [
         Container(
           decoration: BoxDecoration(
@@ -72,6 +72,45 @@ class _PopUpState extends State<PopUp> {
   }
 }
 
+Widget _build23fRecruiting() {
+  return SingleChildScrollView(
+    child: Column(
+      children: [
+        Text.rich(
+          TextSpan(
+            style: titleBold,
+            children: <TextSpan>[TextSpan(text: 'SPARCS 가을학기 리크루팅')],
+          ),
+          textAlign: TextAlign.center,
+        ),
+        const SizedBox(height: 16.0),
+        Image.asset('assets/popups/23f-recruiting.png', height: 280.0),
+        const SizedBox(height: 8.0),
+        Text(
+          '웹에서 지금 바로 만나보세요!',
+          style: bodyRegular,
+        ),
+        const SizedBox(height: 8.0),
+        FilledButton(
+          onPressed: () => launchUrl(
+            Uri.https("apply.sparcs.org"),
+          ),
+          child: Text.rich(
+            TextSpan(
+              style: titleBold,
+              children: <TextSpan>[
+                TextSpan(text: '지금 바로 지원하기'),
+              ],
+            ),
+            textAlign: TextAlign.center,
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
+// ignore: unused_element
 Widget _buildAppEvent(BuildContext context) {
   final isEn = EasyLocalization.of(context)?.currentLocale == Locale('en');
 
@@ -82,8 +121,8 @@ Widget _buildAppEvent(BuildContext context) {
         children: [
           Image.asset(
             isEn
-                ? 'assets/app-event-image-en.png'
-                : 'assets/app-event-image.png',
+                ? 'assets/popups/app-event-image-en.png'
+                : 'assets/popups/app-event-image.png',
             height: 328.0,
             width: 285.0,
           ),
@@ -130,7 +169,7 @@ Widget _buildGraduatePlanner() {
           textAlign: TextAlign.center,
         ),
         const SizedBox(height: 16.0),
-        Image.asset('assets/graduate-planner.png', height: 128.0),
+        Image.asset('assets/popups/graduate-planner.png', height: 128.0),
         const SizedBox(height: 8.0),
         Text(
           '웹에서 지금 바로 만나보세요!',
