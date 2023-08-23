@@ -34,7 +34,9 @@ class _OTLHomeState extends State<OTLHome> with SingleTickerProviderStateMixin {
 
     WidgetsBinding.instance.addPostFrameCallback(
       (_) async {
-        if ((await SharedPreferences.getInstance()).getBool('popup') ?? true) {
+        if ((await SharedPreferences.getInstance())
+                .getBool('popup_recruiting_23f') ??
+            true) {
           await OTLNavigator.pushDialog(
             context: context,
             builder: (context) => PopUp(),

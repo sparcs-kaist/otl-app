@@ -74,38 +74,47 @@ class _PopUpState extends State<PopUp> {
 
 Widget _build23fRecruiting() {
   return SingleChildScrollView(
-    child: Column(
-      children: [
-        Text.rich(
-          TextSpan(
-            style: titleBold,
-            children: <TextSpan>[TextSpan(text: 'SPARCS 가을학기 리크루팅')],
+    child: Container(
+      child: Stack(
+        alignment: AlignmentDirectional.center,
+        children: [
+          Image.asset(
+            'assets/popups/23f-recruiting.png',
+            height: 328.0,
+            width: 285.0,
           ),
-          textAlign: TextAlign.center,
-        ),
-        const SizedBox(height: 16.0),
-        Image.asset('assets/popups/23f-recruiting.png', height: 280.0),
-        const SizedBox(height: 8.0),
-        Text(
-          '웹에서 지금 바로 만나보세요!',
-          style: bodyRegular,
-        ),
-        const SizedBox(height: 8.0),
-        FilledButton(
-          onPressed: () => launchUrl(
-            Uri.https("apply.sparcs.org"),
+          Column(
+            children: [
+              const SizedBox(height: 262.0),
+              FilledButton(
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(Color(0xFFEBA12A)),
+                ),
+                onPressed: () => launchUrl(
+                  Uri.parse(
+                    'https://apply.sparcs.org/',
+                  ),
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      '지원하러 가기',
+                      style: evenBodyBold.copyWith(color: Colors.black),
+                      textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(width: 8.0),
+                    Icon(
+                      Icons.arrow_forward,
+                      color: Colors.black,
+                    )
+                  ],
+                ),
+              ),
+            ],
           ),
-          child: Text.rich(
-            TextSpan(
-              style: titleBold,
-              children: <TextSpan>[
-                TextSpan(text: '지금 바로 지원하기'),
-              ],
-            ),
-            textAlign: TextAlign.center,
-          ),
-        ),
-      ],
+        ],
+      ),
     ),
   );
 }
