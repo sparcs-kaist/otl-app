@@ -39,31 +39,35 @@ struct Provider: IntentTimelineProvider {
 
                     return t!
                 }
-                
-                OTLAPI().getTimetables(sessionID: sessionid!, userID: uid!, year: semester.year, semester: semester.semester) { result in
+
+                OTLAPI().getActualTimetable(sessionID: sessionid, userID: uid!, year: semester.year, semester: semester.semester) { result in
                     switch result {
-                    case .success(let timetables):
-                        // save timetable data
-                        let encoder = JSONEncoder()
-                        encoder.outputFormatting = .withoutEscapingSlashes
-                        do {
-                            let data = try encoder.encode(timetables)
-                            sharedDefaults?.set(String(data: data, encoding: .utf8), forKey: "timetables")
-                        } catch {
-                            print(error)
+                    case .success(let timetable):
+                        // handle my table data
+                        OTLAPI().getTimetables(sessionID: sessionid!, userID: uid!, year: semester.year, semester: semester.semester) { result in
+                            switch result {
+                            case .success(var timetables):
+                                // save timetable data
+                                timetables.insert(timetable, at: 0)
+                                let encoder = JSONEncoder()
+                                encoder.outputFormatting = .withoutEscapingSlashes
+                                do {
+                                    let data = try encoder.encode(timetables)
+                                    sharedDefaults?.set(String(data: data, encoding: .utf8), forKey: "timetables")
+                                } catch {
+                                    print(error)
+                                }
+                                let entryDate = Date()
+                                let entry = WidgetEntry(date: entryDate, timetableData: timetables, configuration: configuration)
+                                completion(entry)
+                            case .failure(_):
+                                // request failed, mostly network issue or needing of a new sessionid
+                                completion(WidgetEntry(date: Date(), timetableData: nil, configuration: configuration))
+                            }
                         }
-                        let entryDate = Date()
-                        let entry = WidgetEntry(date: entryDate, timetableData: timetables, configuration: configuration)
-                        completion(entry)
                     case .failure(_):
                         // request failed, mostly network issue or needing of a new sessionid
-                        let decoder = JSONDecoder()
-                        do {
-                            let data = try decoder.decode([Timetable].self, from: (sharedDefaults?.string(forKey: "timetables")?.data(using: .utf8)) ?? Data())
-                            completion(WidgetEntry(date: Date(), timetableData: data, configuration: configuration))
-                        } catch {
-                            completion(WidgetEntry(date: Date(), timetableData: nil, configuration: configuration))
-                        }
+                        completion(WidgetEntry(date: Date(), timetableData: nil, configuration: configuration))
                     }
                 }
             case .failure(_):

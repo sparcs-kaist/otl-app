@@ -12,9 +12,14 @@ import Alamofire
 struct urls {
     static let BASE_URL = "https://otl.sparcs.org/"
     
+    static let SESSION_URL = "session/"
+    static let SESSION_INFO_URL = SESSION_URL + "info"
+
     static let API_URL = "api/"
     static let API_TIMETABLE_URL = API_URL + "users/{user_id}/timetables"
     static let API_SEMESTER_URL = API_URL + "semesters"
+
+
 }
 
 struct Timetable: Encodable, Decodable, Hashable {
@@ -96,6 +101,27 @@ struct Semester: Encodable, Decodable, Hashable {
     let gradePosting: Date?
 }
 
+struct UserInfo: Encodable, Decodable, Hashable {
+    let id: Int
+    let email: String
+    let student_id: String
+    let firstName: String
+    let lastName: String
+    let department: Department
+    let majors: [Department]
+    let departments: [Department]
+    let favorite_departments: [Department]
+    let review_writable_lectures: [Lecture]
+    let my_timetable_lectures: [Lecture]
+}
+
+struct Department: Encodable, Decodable, Hashable {
+    let id: Int
+    let name: String
+    let name_en: String
+    let code: String
+}
+
 class OTLAPI {
     func getTimetables(sessionID: String, userID: String, year: Int, semester: Int, completion: @escaping (Result<[Timetable], Error>) -> Void) {
         let cookieProperties = [
@@ -138,6 +164,42 @@ class OTLAPI {
                     completion(.success(json))
                 } catch {
                     print ("Error \(error)")
+                    completion(.failure(error))
+                }
+            case .failure(let error):
+                print("Error: \(error)")
+                completion(.failure(error))
+            }
+        }
+    }
+
+    func getActualTimetable(sessionID: String, userID: String, year: Int, semester: Int, completion: @escaping (Result<[Timetable], Error>) -> Void) {
+        let cookieProperties = [
+            HTTPCookiePropertyKey.domain: "otl.sparcs.org",
+            HTTPCookiePropertyKey.path: "/",
+            HTTPCookiePropertyKey.name: "sessionid",
+            HTTPCookiePropertyKey.value: sessionID
+        ]
+
+        if let cookie = HTTPCookie(properties: cookieProperties) {
+            AF.session.configuration.httpCookieStorage?.setCookie(cookie)
+        }
+
+        AF.request(urls.BASE_URL + urls.SESSION_INFO_URL, method: .get).responseData { response in
+            switch response.result {
+            case .success(let data) :
+                do {
+                    let decoder = JSONDecoder()
+                    let json = try decoder.decode(UserInfo.self, from: data)
+                    var timetable = Timetable(id: 0, lectures: [])
+                    for lecture in json.my_timetable_lectures {
+                        if lecture.year == year && lecture.semester == semester {
+                            timetable.lectures.append(lecture)
+                        }
+                    }
+                    completion(.success(timetable))
+                } catch {
+                    print("Error: \(error)")
                     completion(.failure(error))
                 }
             case .failure(let error):
