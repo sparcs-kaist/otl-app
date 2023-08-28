@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 
-@Deprecated('old color styles')
-const DIVIDER_COLOR = Color(0xFFEDD1DC);
-
 class OTLColor {
   static const gray0 = Color(0xFF000000);
   static const gray3 = Color(0xFF333333);
