@@ -20,33 +20,64 @@ struct NextClassAccessoryEntryView : View {
         case .accessoryCircular:
             ZStack {
                 AccessoryWidgetBackground()
-                VStack {
-                    Image(systemName: "tablecells")
-                        .font(.caption2)
-                        .widgetAccentable()
-                    Text("12:00")
-                        .font(.system(size: 15))
-                        .fontWeight(.medium)
-                    Text("오전")
-                        .font(.system(size: 9))
-                        .fontWeight(.medium)
+                if (entry.timetableData != nil) {
+                    VStack {
+                        Image(systemName: "tablecells")
+                            .font(.caption2)
+                            .widgetAccentable()
+                        Text(getBeginInTwelveHour(timetable: entry.timetableData![Int(entry.configuration.nextClassTimetable?.identifier ?? "0") ?? 0], date: entry.date).0)
+                            .font(.system(size: 15))
+                            .fontWeight(.medium)
+                        Text(getBeginInTwelveHour(timetable: entry.timetableData![Int(entry.configuration.nextClassTimetable?.identifier ?? "0") ?? 0], date: entry.date).1)
+                            .font(.system(size: 9))
+                            .fontWeight(.medium)
+                    }
+                } else {
+                    VStack {
+                        Image(systemName: "tablecells")
+                            .font(.caption2)
+                            .widgetAccentable()
+                        Text("정보 없음")
+                            .font(.system(size: 15))
+                            .fontWeight(.medium)
+                        Text("")
+                            .font(.system(size: 9))
+                            .fontWeight(.medium)
+                    }
                 }
             }
         case .accessoryRectangular:
             HStack {
-                VStack(alignment: .leading) {
-                    HStack(alignment: .center, spacing: 4) {
-                        Circle()
-                            .frame(width: 12, height: 12)
-                        Text("10:30 - 12:30")
+                if (entry.timetableData != nil) {
+                    VStack(alignment: .leading) {
+                        HStack(alignment: .center, spacing: 4) {
+                            Circle()
+                                .frame(width: 12, height: 12)
+                            Text("\(getBegin(timetable: entry.timetableData![Int(entry.configuration.nextClassTimetable?.identifier ?? "0") ?? 0], date: entry.date)) - \(getEnd(timetable: entry.timetableData![Int(entry.configuration.nextClassTimetable?.identifier ?? "0") ?? 0], date: entry.date))")
+                                .font(.headline)
+                        }.offset(y: 7)
+                            .widgetAccentable()
+                        Text(getName(timetable: entry.timetableData![Int(entry.configuration.nextClassTimetable?.identifier ?? "0") ?? 0], date: entry.date))
                             .font(.headline)
-                    }.offset(y: 7)
-                        .widgetAccentable()
-                    Text("프로그래밍기초")
-                        .font(.headline)
-                        .widgetAccentable()
-                    Text("E11 창의학습관 101호")
-                        .foregroundColor(.gray)
+                            .widgetAccentable()
+                        Text(getPlace(timetable: entry.timetableData![Int(entry.configuration.nextClassTimetable?.identifier ?? "0") ?? 0], date: entry.date))
+                            .foregroundColor(.gray)
+                    }
+                } else {
+                    VStack(alignment: .leading) {
+                        HStack(alignment: .center, spacing: 4) {
+                            Circle()
+                                .frame(width: 12, height: 12)
+                            Text("정보 없음")
+                                .font(.headline)
+                        }.offset(y: 7)
+                            .widgetAccentable()
+                        Text("정보 없음")
+                            .font(.headline)
+                            .widgetAccentable()
+                        Text("")
+                            .foregroundColor(.gray)
+                    }
                 }
                 Spacer()
             }.offset(y: -3)
@@ -54,6 +85,91 @@ struct NextClassAccessoryEntryView : View {
         default:
             Text("Not Implemented")
         }
+    }
+    
+    func getNextClass(timetable: Timetable, date: Date) -> (Int, Lecture) {
+        var lecture: Lecture = timetable.lectures[0]
+        var begin = 1440
+        var index = 0
+        
+        let calendar = Calendar.current
+        let day = getDayWithWeekDay(weekday: calendar.component(.weekday, from: date))
+        var minutes = calendar.component(.minute, from: date) + calendar.component(.hour, from: date) * 60
+        
+        var lectures: [(Int, Lecture)] = getLecturesForDay(timetable: timetable, day: day)
+        
+        for (i, l) in lectures {
+            if l.classtimes[i].begin >= minutes && begin >= l.classtimes[i].begin {
+                begin = l.classtimes[i].begin
+                index = i
+                lecture = l
+            }
+        }
+        
+        if begin == 1440 {
+            var tmrDate = calendar.date(byAdding: .day, value: 1, to: date)!
+            lectures = getLecturesForDay(timetable: timetable, day: getDayWithWeekDay(weekday: calendar.component(.weekday, from: tmrDate)))
+            minutes = 0
+            
+            while lectures.count == 0 {
+                tmrDate = calendar.date(byAdding: .day, value: 1, to: tmrDate)!
+                lectures = getLecturesForDay(timetable: timetable, day: getDayWithWeekDay(weekday: calendar.component(.weekday, from: tmrDate)))
+            }
+            
+            for (i, l) in lectures {
+                if l.classtimes[i].begin >= minutes && begin >= l.classtimes[i].begin {
+                    begin = l.classtimes[i].begin
+                    index = i
+                    lecture = l
+                }
+            }
+        }
+        
+        return (index, lecture)
+    }
+    
+    func getBeginInTwelveHour(timetable: Timetable, date: Date) -> (String, String) {
+        let c = getNextClass(timetable: timetable, date: date)
+        let index = c.0
+        let lecture: Lecture = c.1
+        
+        var hour = (lecture.classtimes[index].begin >= 720) ? (lecture.classtimes[index].begin-720)/60 : lecture.classtimes[index].begin/60
+        hour = (hour == 0) ? 12 : hour
+        
+        let apm = (lecture.classtimes[index].begin >= 720) ? "오후" : "오전"
+        
+        return (String(format:"%02d:%02d", hour, lecture.classtimes[index].begin%60), apm)
+    }
+    
+    func getName(timetable: Timetable, date: Date) -> String {
+        let c = getNextClass(timetable: timetable, date: date)
+        let lecture: Lecture = c.1
+        
+        return lecture.common_title
+    }
+    
+    func getBegin(timetable: Timetable, date: Date) -> String {
+        let c = getNextClass(timetable: timetable, date: date)
+        let index = c.0
+        let lecture: Lecture = c.1
+        
+        return String(format:"%02d:%02d", lecture.classtimes[index].begin/60, lecture.classtimes[index].begin%60)
+    }
+    
+    func getPlace(timetable: Timetable, date: Date) -> String {
+        let c = getNextClass(timetable: timetable, date: date)
+        let index = c.0
+        let lecture: Lecture = c.1
+        
+        return lecture.classtimes[index].classroom
+    }
+    
+    func getEnd(timetable: Timetable, date: Date) -> String {
+        let c = getNextClass(timetable: timetable, date: date)
+        let index = c.0
+        let lecture: Lecture = c.1
+        
+        return String(format:"%02d:%02d", lecture.classtimes[index].end/60, lecture.classtimes[index].end%60)
     }
 }
 
