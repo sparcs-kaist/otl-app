@@ -90,8 +90,8 @@ struct Examtime: Encodable, Decodable, Hashable {
 struct Semester: Encodable, Decodable, Hashable {
     let year: Int
     let semester: Int
-    let beginning: Date
-    let end: Date
+    let beginning: Date?
+    let end: Date?
     let courseDesciptionSubmission: Date?
     let courseRegistrationPeriodStart: Date?
     let courseRegistrationPeriodEnd: Date?

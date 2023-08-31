@@ -34,7 +34,12 @@ struct Provider: IntentTimelineProvider {
                     var t: Semester? = nil
                     for s in semesters {
                         let now = Date()
-                        t = (s.beginning <= now && s.end >= now) ? s : semesters.last
+                        t = (s.beginning! <= now && s.end! >= now) ? s : nil
+                    }
+                    
+                    if (t == nil) {
+                        let last: Semester = semesters.last!
+                        t = Semester(year: last.year, semester: last.semester + 1, beginning: nil, end: nil, courseDesciptionSubmission: nil, courseRegistrationPeriodStart: nil, courseRegistrationPeriodEnd: nil, courseAddDropPeriodEnd: nil, courseDropDeadline: nil, courseEvaluationDeadline: nil, gradePosting: nil)
                     }
 
                     return t!
@@ -106,7 +111,12 @@ struct Provider: IntentTimelineProvider {
                     var t: Semester? = nil
                     for s in semesters {
                         let now = Date()
-                        t = (s.beginning <= now && s.end >= now) ? s : semesters.last
+                        t = (s.beginning! <= now && s.end! >= now) ? s : nil
+                    }
+                    
+                    if (t == nil) {
+                        let last: Semester = semesters.last!
+                        t = Semester(year: last.year, semester: last.semester + 1, beginning: nil, end: nil, courseDesciptionSubmission: nil, courseRegistrationPeriodStart: nil, courseRegistrationPeriodEnd: nil, courseAddDropPeriodEnd: nil, courseDropDeadline: nil, courseEvaluationDeadline: nil, gradePosting: nil)
                     }
 
                     return t!
