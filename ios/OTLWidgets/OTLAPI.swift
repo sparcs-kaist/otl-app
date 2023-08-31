@@ -24,7 +24,7 @@ struct urls {
 
 struct Timetable: Encodable, Decodable, Hashable {
     let id: Int
-    let lectures: [Lecture]
+    var lectures: [Lecture]
 }
 
 struct Lecture: Encodable, Decodable, Hashable {
@@ -107,7 +107,7 @@ struct UserInfo: Encodable, Decodable, Hashable {
     let student_id: String
     let firstName: String
     let lastName: String
-    let department: Department
+    let department: Department?
     let majors: [Department]
     let departments: [Department]
     let favorite_departments: [Department]
@@ -197,7 +197,7 @@ class OTLAPI {
                             timetable.lectures.append(lecture)
                         }
                     }
-                    completion(.success(timetable))
+                    completion(.success([timetable]))
                 } catch {
                     print("Error: \(error)")
                     completion(.failure(error))
