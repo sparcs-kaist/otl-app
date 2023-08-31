@@ -20,12 +20,72 @@ struct LocationInlineAccessoryEntryView : View {
         case .accessoryInline:
             HStack {
                 Image(systemName: "tablecells")
-                Text("(E11 303) 프로그래밍기초")
+                if (entry.timetableData != nil) {
+                    Text("\(getPlace(timetable: entry.timetableData![Int(entry.configuration.nextClassTimetable?.identifier ?? "0") ?? 0], date: entry.date)) \(getName(timetable: entry.timetableData![Int(entry.configuration.nextClassTimetable?.identifier ?? "0") ?? 0], date: entry.date))")
+                } else {
+                    Text("정보 없음")
+                }
             }
             
         default:
             Text("Not Implemented")
         }
+    }
+    
+    func getNextClass(timetable: Timetable, date: Date) -> (Int, Lecture) {
+        var lecture: Lecture = timetable.lectures[0]
+        var begin = 1440
+        var index = 0
+        
+        let calendar = Calendar.current
+        let day = getDayWithWeekDay(weekday: calendar.component(.weekday, from: date))
+        var minutes = calendar.component(.minute, from: date) + calendar.component(.hour, from: date) * 60
+        
+        var lectures: [(Int, Lecture)] = getLecturesForDay(timetable: timetable, day: day)
+        
+        for (i, l) in lectures {
+            if l.classtimes[i].begin >= minutes && begin >= l.classtimes[i].begin {
+                begin = l.classtimes[i].begin
+                index = i
+                lecture = l
+            }
+        }
+        
+        if begin == 1440 {
+            var tmrDate = calendar.date(byAdding: .day, value: 1, to: date)!
+            lectures = getLecturesForDay(timetable: timetable, day: getDayWithWeekDay(weekday: calendar.component(.weekday, from: tmrDate)))
+            minutes = 0
+            
+            while lectures.count == 0 {
+                tmrDate = calendar.date(byAdding: .day, value: 1, to: tmrDate)!
+                lectures = getLecturesForDay(timetable: timetable, day: getDayWithWeekDay(weekday: calendar.component(.weekday, from: tmrDate)))
+            }
+            
+            for (i, l) in lectures {
+                if l.classtimes[i].begin >= minutes && begin >= l.classtimes[i].begin {
+                    begin = l.classtimes[i].begin
+                    index = i
+                    lecture = l
+                }
+            }
+        }
+        
+        return (index, lecture)
+    }
+    
+    func getName(timetable: Timetable, date: Date) -> String {
+        let c = getNextClass(timetable: timetable, date: date)
+        let lecture: Lecture = c.1
+        
+        return lecture.common_title
+    }
+    
+    func getPlace(timetable: Timetable, date: Date) -> String {
+        let c = getNextClass(timetable: timetable, date: date)
+        let index = c.0
+        let lecture: Lecture = c.1
+        
+        return lecture.classtimes[index].classroom_short
     }
 }
 
