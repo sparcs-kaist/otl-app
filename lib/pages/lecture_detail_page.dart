@@ -142,7 +142,7 @@ class LectureDetailPage extends StatelessWidget {
         }
       },
       icon: isAdded
-          ? Icons.check_circle_outline_outlined
+          ? Icons.remove_circle_outline_rounded
           : Icons.add_circle_outline_rounded,
     );
   }
