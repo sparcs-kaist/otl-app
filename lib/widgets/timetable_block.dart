@@ -2,7 +2,6 @@ import 'package:easy_localization/easy_localization.dart' as loc;
 import 'package:flutter/material.dart';
 import 'package:otlplus/constants/color.dart';
 import 'package:otlplus/constants/text_styles.dart';
-import 'package:otlplus/extensions/lecture.dart';
 import 'package:otlplus/models/lecture.dart';
 import 'package:otlplus/utils/get_text_height.dart';
 import 'package:otlplus/widgets/responsive_button.dart';
