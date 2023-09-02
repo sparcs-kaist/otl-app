@@ -32,18 +32,18 @@ class _OTLHomeState extends State<OTLHome> with SingleTickerProviderStateMixin {
       vsync: this,
     );
 
-    WidgetsBinding.instance.addPostFrameCallback(
-      (_) async {
-        if ((await SharedPreferences.getInstance())
-                .getBool('popup_recruiting_23f') ??
-            true) {
-          await OTLNavigator.pushDialog(
-            context: context,
-            builder: (context) => PopUp(),
-          );
-        }
-      },
-    );
+    // WidgetsBinding.instance.addPostFrameCallback(
+    //   (_) async {
+    //     if ((await SharedPreferences.getInstance())
+    //             .getBool('popup_recruiting_23f') ??
+    //         true) {
+    //       await OTLNavigator.pushDialog(
+    //         context: context,
+    //         builder: (context) => PopUp(),
+    //       );
+    //     }
+    //   },
+    // );
   }
 
   @override
