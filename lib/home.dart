@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:otlplus/utils/navigator.dart';
 import 'package:otlplus/widgets/otl_scaffold.dart';
-import 'package:otlplus/widgets/pop_up.dart';
 import 'package:otlplus/pages/dictionary_page.dart';
 import 'package:otlplus/pages/main_page.dart';
 import 'package:otlplus/pages/review_page.dart';
 import 'package:otlplus/pages/timetable_page.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class OTLHome extends StatefulWidget {
   static String route = 'home';
@@ -32,18 +29,18 @@ class _OTLHomeState extends State<OTLHome> with SingleTickerProviderStateMixin {
       vsync: this,
     );
 
-    WidgetsBinding.instance.addPostFrameCallback(
-      (_) async {
-        if ((await SharedPreferences.getInstance())
-                .getBool('popup_recruiting_23f') ??
-            true) {
-          await OTLNavigator.pushDialog(
-            context: context,
-            builder: (context) => PopUp(),
-          );
-        }
-      },
-    );
+    // WidgetsBinding.instance.addPostFrameCallback(
+    //   (_) async {
+    //     if ((await SharedPreferences.getInstance())
+    //             .getBool('popup_recruiting_23f') ??
+    //         true) {
+    //       await OTLNavigator.pushDialog(
+    //         context: context,
+    //         builder: (context) => PopUp(),
+    //       );
+    //     }
+    //   },
+    // );
   }
 
   @override
