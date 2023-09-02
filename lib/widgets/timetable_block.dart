@@ -2,7 +2,6 @@ import 'package:easy_localization/easy_localization.dart' as loc;
 import 'package:flutter/material.dart';
 import 'package:otlplus/constants/color.dart';
 import 'package:otlplus/constants/text_styles.dart';
-import 'package:otlplus/extensions/lecture.dart';
 import 'package:otlplus/models/lecture.dart';
 import 'package:otlplus/utils/get_text_height.dart';
 import 'package:otlplus/widgets/responsive_button.dart';
@@ -17,8 +16,6 @@ class TimetableBlock extends StatelessWidget {
   final bool isTemp;
   final bool isExamTime;
   final bool showTitle;
-  @Deprecated('There is no case to show the professor')
-  final bool showProfessor;
   final bool showClassroom;
 
   TimetableBlock(
@@ -32,7 +29,6 @@ class TimetableBlock extends StatelessWidget {
       this.isTemp = false,
       this.isExamTime = false,
       this.showTitle = true,
-      this.showProfessor = false,
       this.showClassroom = true})
       : super(key: key);
 
@@ -57,10 +53,6 @@ class TimetableBlock extends StatelessWidget {
         ),
         maxLines: maxLines > 1 ? maxLines : 1,
       ));
-    }
-
-    if (showProfessor) {
-      contents.add(Text(lecture.professorsStrShort));
     }
 
     if (showClassroom) {

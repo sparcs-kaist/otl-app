@@ -22,10 +22,7 @@ class TodayTimetable extends StatelessWidget {
       required this.builder,
       required this.now,
       this.fontSize = 10.0,
-      this.dividerPadding = const EdgeInsets.symmetric(
-        horizontal: 12.0,
-        vertical: 1.0,
-      ),
+      this.dividerPadding = const EdgeInsets.fromLTRB(5, 0, 6, 0),
       this.daysCount}) {
     lectures.forEach((lecture) => lecture.classtimes.forEach((classtime) {
           if (classtime.day == now.weekday - 1) _lectures[classtime] = lecture;
@@ -73,10 +70,7 @@ class TodayTimetable extends StatelessWidget {
       );
     }
 
-    return Padding(
-      padding: dividerPadding,
-      child: Container(color: BORDER_COLOR, width: 1),
-    );
+    return SizedBox(width: _dividerWidth * 3 + 2);
   }
 
   Widget _buildHeaders() {
@@ -85,20 +79,22 @@ class TodayTimetable extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: List.generate(
-            ((2400 - 900) / 50 + 1).toInt(), (i) => _buildHeader(i * 50 + 900)),
+            ((2400 - 800) / 50 + 1).toInt(), (i) => _buildHeader(i * 50 + 800)),
       ),
     );
   }
 
   Widget _buildLectureBlock({required Lecture lecture, required Time time}) {
-    final begin = time.begin / 30 - 18;
-    final end = time.end / 30 - 18;
+    final begin = time.begin / 30 - 16;
+    final end = time.end / 30 - 16;
+    final left = _dividerWidth * (2 * begin + 0.5) + begin + 1;
+    final right = _dividerWidth * (2 * end + 0.5) + end - 2;
 
     return Positioned(
       top: 0,
-      left: _dividerWidth * (begin + 0.5) + 1,
+      left: left,
       bottom: 0,
-      width: _dividerWidth * (end - begin) - 2,
+      width: right - left,
       child: Padding(
         padding: EdgeInsets.symmetric(
           vertical: dividerPadding.vertical / 3,
@@ -110,28 +106,31 @@ class TodayTimetable extends StatelessWidget {
   }
 
   Widget _buildCell(int i) {
-    if (i % 600 == 0) return Container(color: BORDER_BOLD_COLOR, width: 1);
-    if (i % 100 == 0) return Container(color: BORDER_COLOR, width: 1);
-    return Column(
-      children: List.generate(
-        15,
-        (i) => Expanded(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 1.0),
-            child: Container(color: BORDER_COLOR, width: 1),
+    if (i % 100 == 0)
+      return Container(color: OTLColor.gray0.withOpacity(0.25), width: 1);
+    if (i % 50 == 0)
+      return Column(
+        children: List.generate(
+          15,
+          (i) => Expanded(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 1.0),
+              child:
+                  Container(color: OTLColor.gray0.withOpacity(0.25), width: 1),
+            ),
           ),
         ),
-      ),
-    );
+      );
+    return SizedBox(width: 2);
   }
 
   Widget _buildCells() {
     return Row(
       children: List.generate(
-          ((2400 - 900) / 50 + 1).toInt(),
+          ((2400 - 800) / 25 + 1).toInt(),
           (i) => Padding(
                 padding: dividerPadding,
-                child: _buildCell(i * 50 + 900),
+                child: _buildCell(i * 25 + 800),
               )),
     );
   }
@@ -145,7 +144,9 @@ class TodayTimetable extends StatelessWidget {
               .map((e) => _buildLectureBlock(lecture: e.value, time: e.key)),
           Positioned(
             top: 0,
-            left: _dividerWidth * ((now.hour + now.minute / 60) * 2 - 17.5),
+            left: (_dividerWidth * 4 + 2) * ((now.hour + now.minute / 60) - 8) +
+                _dividerWidth * 0.5 -
+                1,
             bottom: 0,
             width: 1,
             child: Container(key: _timebarKey, color: OTLColor.pinksMain),

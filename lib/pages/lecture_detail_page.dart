@@ -53,9 +53,7 @@ class LectureDetailPage extends StatelessWidget {
                 : '',
             style: titleBold),
         body: Card(
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.vertical(top: Radius.circular(16.0)),
-          ),
+          shape: const RoundedRectangleBorder(),
           child:
               context.select<LectureDetailModel, bool>((model) => model.hasData)
                   ? _buildBody(context)
@@ -63,6 +61,13 @@ class LectureDetailPage extends StatelessWidget {
                       child: const CircularProgressIndicator(),
                     ),
         ),
+        trailing: (context.select<LectureDetailModel, bool>(
+                    (model) => model.hasData) &&
+                context.select<LectureDetailModel, bool>(
+                    (model) => model.isUpdateEnabled) &&
+                context.read<TimetableModel>().selectedIndex != 0)
+            ? _buildUpdateButton(context)
+            : null,
       ),
     );
   }
@@ -78,26 +83,19 @@ class LectureDetailPage extends StatelessWidget {
           _buildButtons(context, lecture),
           const SizedBox(height: 8.0),
           Expanded(child: _buildScrollView(context, lecture)),
-          if (context.select<LectureDetailModel, bool>(
-                  (model) => model.isUpdateEnabled) &&
-              context.read<TimetableModel>().selectedIndex != 0) ...[
-            const Divider(color: DIVIDER_COLOR),
-            Align(
-              alignment: Alignment.centerRight,
-              child: _buildUpdateButton(context, lecture),
-            ),
-          ]
         ],
       ),
     );
   }
 
-  Widget _buildUpdateButton(BuildContext context, Lecture lecture) {
+  Widget _buildUpdateButton(BuildContext context) {
+    final lecture =
+        context.select<LectureDetailModel, Lecture>((model) => model.lecture);
     final isAdded = context.select<TimetableModel, bool>(
         (model) => model.currentTimetable.lectures.contains(lecture));
 
     return IconTextButton(
-      padding: const EdgeInsets.all(0),
+      padding: const EdgeInsets.all(16),
       onTap: () {
         final timetableModel = context.read<TimetableModel>();
 
@@ -143,13 +141,9 @@ class LectureDetailPage extends StatelessWidget {
           );
         }
       },
-      text: isAdded
-          ? "timetable.remove_lecture".tr()
-          : "timetable.add_lecture".tr(),
-      textStyle: const TextStyle(fontSize: 12.0),
-      icon: isAdded ? Icons.close : Icons.add,
-      iconSize: 14,
-      spaceBetween: 4.0,
+      icon: isAdded
+          ? Icons.remove_circle_outline_rounded
+          : Icons.add_circle_outline_rounded,
     );
   }
 
