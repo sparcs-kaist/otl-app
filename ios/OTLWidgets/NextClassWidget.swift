@@ -235,7 +235,7 @@ struct NextClassWidgetEntryView : View {
                             .minimumScaleFactor(0.5)
                             .lineLimit(2)
                     }.offset(y: 8)
-                    Text(getPlace(timetabe: entry.timetableData![Int(entry.configuration.nextClassTimetable?.identifier ?? "0") ?? 0], date: entry.date))
+                    Text(getPlace(timetable: entry.timetableData![Int(entry.configuration.nextClassTimetable?.identifier ?? "0") ?? 0], date: entry.date))
                         .font(.custom("NotoSansKR-Regular", size: 12))
                         .minimumScaleFactor(0.5)
                         .lineLimit(1)
@@ -354,8 +354,8 @@ struct NextClassWidgetEntryView : View {
         return "\(lecture.professors[0].name) 교수님"
     }
     
-    func getPlace(timetabe: Timetable, date: Date) -> String {
-        let c = getNextClass(timetable: timetabe, date: date)
+    func getPlace(timetable: Timetable, date: Date) -> String {
+        let c = getNextClass(timetable: timetable, date: date)
         let index = c.0
         let lecture: Lecture = c.1
         
