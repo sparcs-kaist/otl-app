@@ -23,7 +23,7 @@ struct TimeInlineAccessoryEntryView : View {
                 if (entry.timetableData != nil) {
                     Text("\(getBegin(timetable: entry.timetableData![Int(entry.configuration.nextClassTimetable?.identifier ?? "0") ?? 0], date: entry.date)) \(getName(timetable: entry.timetableData![Int(entry.configuration.nextClassTimetable?.identifier ?? "0") ?? 0], date: entry.date))")
                 } else {
-                    Text("정보 없음")
+                    Text(LocalizedStringKey("nextclasswidget.nodata"))
                 }
             }
             
@@ -77,7 +77,7 @@ struct TimeInlineAccessoryEntryView : View {
         let c = getNextClass(timetable: timetable, date: date)
         let lecture: Lecture = c.1
         
-        return lecture.common_title
+        return NSLocale.current.language.languageCode?.identifier == "en" ? lecture.common_title_en : lecture.common_title
     }
     
     func getBegin(timetable: Timetable, date: Date) -> String {
@@ -93,13 +93,15 @@ struct TimeInlineAccessoryEntryView : View {
 @available(iOSApplicationExtension 16.0, *)
 struct TimeInlineAccessory: Widget {
     let kind: String = "TimeInlineAccessory"
+    private let title: LocalizedStringKey = "timeinlineaccessory.title"
+    private let description: LocalizedStringKey = "timeinlineaccessory.description"
 
     var body: some WidgetConfiguration {
         IntentConfiguration(kind: kind, intent: ConfigurationIntent.self, provider: Provider()) { entry in
             TimeInlineAccessoryEntryView(entry: entry)
         }
-        .configurationDisplayName("다음 수업과 시간")
-        .description("다음 수업과 시간을 확인합니다.")
+        .configurationDisplayName(title)
+        .description(description)
         .supportedFamilies([.accessoryInline])
     }
 }

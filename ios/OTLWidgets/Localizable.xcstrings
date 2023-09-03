@@ -188,6 +188,16 @@
         }
       }
     },
+    "Not Implemented" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "구현되지 않음"
+          }
+        }
+      }
+    },
     "sat" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -235,6 +245,40 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "목"
+          }
+        }
+      }
+    },
+    "timeinlineaccessory.description" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Check  the lecture starting next and its beginning time."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "다음 수업과 시간을 확인합니다."
+          }
+        }
+      }
+    },
+    "timeinlineaccessory.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Next Lecture and Beginning Time"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "다음 수업과 시간"
           }
         }
       }
