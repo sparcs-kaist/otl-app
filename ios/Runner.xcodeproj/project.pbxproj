@@ -13,6 +13,7 @@
 		74858FAF1ED2DC5600515810 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74858FAE1ED2DC5600515810 /* AppDelegate.swift */; };
 		8B04B3A62A7F9A8D001027AF /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 8B04B3A52A7F9A8D001027AF /* Localizable.xcstrings */; };
 		8B1EA3B82A0FFF3B00387753 /* WeekClassesWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B1EA3B72A0FFF3B00387753 /* WeekClassesWidget.swift */; };
+		8B4BFF7A2AA4CC49008681B9 /* Configuration.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 8BA9FBE72A85323C00A430C5 /* Configuration.intentdefinition */; };
 		8B643C832A6BC16500BF6DAA /* NextClassAccessory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B643C822A6BC16500BF6DAA /* NextClassAccessory.swift */; };
 		8B76C8E42A0E834A007E1947 /* TodayClassesWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B76C8E32A0E834A007E1947 /* TodayClassesWidget.swift */; };
 		8B76C8E62A0E837F007E1947 /* WidgetBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B76C8E52A0E837F007E1947 /* WidgetBase.swift */; };
@@ -23,13 +24,11 @@
 		8B949A1529FF4CE6009D4750 /* NotoSansKR-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 8B949A1429FF4CE6009D4750 /* NotoSansKR-Regular.otf */; };
 		8B949A1629FF4CE6009D4750 /* NotoSansKR-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 8B949A1429FF4CE6009D4750 /* NotoSansKR-Regular.otf */; };
 		8BA9FBE32A85323C00A430C5 /* Configuration.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 8BA9FBE72A85323C00A430C5 /* Configuration.intentdefinition */; };
-		8BA9FBE42A85323C00A430C5 /* Configuration.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 8BA9FBE72A85323C00A430C5 /* Configuration.intentdefinition */; };
 		8BA9FBE52A85323C00A430C5 /* Configuration.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 8BA9FBE72A85323C00A430C5 /* Configuration.intentdefinition */; };
 		8BB345822A012C99008A0E30 /* Intents.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BB345812A012C99008A0E30 /* Intents.framework */; };
 		8BB345852A012C99008A0E30 /* IntentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BB345842A012C99008A0E30 /* IntentHandler.swift */; };
 		8BB345892A012C99008A0E30 /* OTLPlusIntents.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 8BB345802A012C99008A0E30 /* OTLPlusIntents.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		8BB3458E2A012CF0008A0E30 /* IntentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BB345842A012C99008A0E30 /* IntentHandler.swift */; };
-		8BB3458F2A012CF8008A0E30 /* Configuration.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 8BB3DE0729D1F25B001AD191 /* Configuration.intentdefinition */; };
 		8BB397452A8E003300DD352E /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 8BB397442A8E003300DD352E /* Alamofire */; };
 		8BB397472A8E014200DD352E /* OTLAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BB397462A8E014200DD352E /* OTLAPI.swift */; };
 		8BB3DDFF29D1F25B001AD191 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BB3DDFE29D1F25A001AD191 /* WidgetKit.framework */; };
@@ -577,8 +576,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8B4BFF7A2AA4CC49008681B9 /* Configuration.intentdefinition in Sources */,
 				8BB397472A8E014200DD352E /* OTLAPI.swift in Sources */,
-				8BB3DE0B29D1F25B001AD191 /* Configuration.intentdefinition in Sources */,
 				8B1EA3B82A0FFF3B00387753 /* WeekClassesWidget.swift in Sources */,
 				8BB3DE0429D1F25B001AD191 /* OTLWidgetBundle.swift in Sources */,
 				8B76C8E62A0E837F007E1947 /* WidgetBase.swift in Sources */,
