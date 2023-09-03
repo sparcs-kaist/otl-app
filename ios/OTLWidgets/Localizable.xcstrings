@@ -44,6 +44,40 @@
         }
       }
     },
+    "locationinlineaccessory.description" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Check the lecture starting next and its location."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "다음 수업과 장소를 확인합니다."
+          }
+        }
+      }
+    },
+    "locationinlineaccessory.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Next Lecture and Location"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "다음 수업과 장소"
+          }
+        }
+      }
+    },
     "mon" : {
       "extractionState" : "manual",
       "localizations" : {
