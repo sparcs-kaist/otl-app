@@ -134,16 +134,11 @@ func getLecturesForDay(timetable: Timetable?, day: Int) -> [(Int, Lecture)] {
     return tmp
 }
 
-extension WidgetConfiguration
-{
-    func contentMarginsDisabledIfAvailable() -> some WidgetConfiguration
-    {
-        if #available(iOSApplicationExtension 17.0, *)
-        {
+extension WidgetConfiguration {
+    func contentMarginsDisabledIfAvailable() -> some WidgetConfiguration {
+        if #available(iOSApplicationExtension 17.0, *) {
             return self.contentMarginsDisabled()
-        }
-        else
-        {
+        } else {
             return self
         }
     }

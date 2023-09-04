@@ -20,14 +20,13 @@ struct NextClassWidgetEntryView : View {
     }
 
     var body: some View {
-        if (entry.timetableData != nil && entry.timetableData![Int(entry.configuration.nextClassTimetable?.identifier ?? "0") ?? 0].lectures.count > 0) {
+        if #available(iOSApplicationExtension 17.0, *) {
             ZStack(alignment: .leading) {
-                widgetBackground
                 VStack(alignment: .leading) {
                     Text(LocalizedStringKey("nextclasswidget.nextlecture"))
                         .font(.custom("NotoSansKR-Bold", size: 12))
                         .foregroundColor(Color(red: 229.0/255, green: 76.0/255, blue: 100.0/255))
-                    Text(getTimeLeft(timetable: entry.timetableData![Int(entry.configuration.nextClassTimetable?.identifier ?? "0") ?? 0], date: entry.date))
+                    Text((entry.timetableData != nil && entry.timetableData![Int(entry.configuration.nextClassTimetable?.identifier ?? "0") ?? 0].lectures.count > 0) ? getTimeLeft(timetable: entry.timetableData![Int(entry.configuration.nextClassTimetable?.identifier ?? "0") ?? 0], date: entry.date) : String(localized: "nextclasswidget.nodata"))
                         .font(.custom("NotoSansKR-Bold", size: 20))
                         .offset(y: -2)
                         .minimumScaleFactor(0.5)
@@ -37,22 +36,41 @@ struct NextClassWidgetEntryView : View {
                     
                     HStack {
                         Circle()
-                            .fill(getColour(timetable: entry.timetableData![Int(entry.configuration.nextClassTimetable?.identifier ?? "0") ?? 0], date: entry.date))
+                            .fill((entry.timetableData != nil && entry.timetableData![Int(entry.configuration.nextClassTimetable?.identifier ?? "0") ?? 0].lectures.count > 0) ? getColour(timetable: entry.timetableData![Int(entry.configuration.nextClassTimetable?.identifier ?? "0") ?? 0], date: entry.date) : getColourForCourse(course: 1))
                             .frame(width: 12, height: 12)
-                        Text(getName(timetable: entry.timetableData![Int(entry.configuration.nextClassTimetable?.identifier ?? "0") ?? 0], date: entry.date))
+                        Text((entry.timetableData != nil && entry.timetableData![Int(entry.configuration.nextClassTimetable?.identifier ?? "0") ?? 0].lectures.count > 0) ? getName(timetable: entry.timetableData![Int(entry.configuration.nextClassTimetable?.identifier ?? "0") ?? 0], date: entry.date) : String(localized: "nextclasswidget.nodata"))
                             .font(.custom("NotoSansKR-Bold", size: 16))
                             .minimumScaleFactor(0.5)
                             .lineLimit(2)
                     }.offset(y: 8)
-                    Text(getPlace(timetable: entry.timetableData![Int(entry.configuration.nextClassTimetable?.identifier ?? "0") ?? 0], date: entry.date))
+                    Text((entry.timetableData != nil && entry.timetableData![Int(entry.configuration.nextClassTimetable?.identifier ?? "0") ?? 0].lectures.count > 0) ? getPlace(timetable: entry.timetableData![Int(entry.configuration.nextClassTimetable?.identifier ?? "0") ?? 0], date: entry.date) : String(localized: "nextclasswidget.nodata"))
                         .font(.custom("NotoSansKR-Regular", size: 12))
                         .minimumScaleFactor(0.5)
                         .lineLimit(1)
-                    Text(getProfessor(timetable: entry.timetableData![Int(entry.configuration.nextClassTimetable?.identifier ?? "0") ?? 0], date: entry.date))
+                    Text((entry.timetableData != nil && entry.timetableData![Int(entry.configuration.nextClassTimetable?.identifier ?? "0") ?? 0].lectures.count > 0) ? getProfessor(timetable: entry.timetableData![Int(entry.configuration.nextClassTimetable?.identifier ?? "0") ?? 0], date: entry.date) : String(localized: "nextclasswidget.nodata"))
                         .font(.custom("NotoSansKR-Medium", size: 12))
                         .minimumScaleFactor(0.5)
                         .foregroundColor(.gray)
-                }.padding()
+                }
+                if (entry.timetableData == nil) {
+                    ZStack {
+                        Color.clear
+                            .background(.ultraThinMaterial)
+                        VStack {
+                            Image("lock")
+                                .resizable()
+                                .frame(width: 44, height: 44)
+                            Text(LocalizedStringKey("widget.login"))
+                                .font(.custom("NotoSansKR-Bold", size: 12))
+                                .padding(.horizontal, 10.0)
+                                .padding(.vertical, 4)
+                                .foregroundColor(.white)
+                                .background(RoundedRectangle(cornerRadius: 30).foregroundColor(Color(red: 229.0/255, green: 76.0/255, blue: 100.0/255)))
+                        }
+                    }
+                }
+            } .containerBackground(for: .widget) {
+                widgetBackground
             }
         } else {
             ZStack(alignment: .leading) {
@@ -61,7 +79,7 @@ struct NextClassWidgetEntryView : View {
                     Text(LocalizedStringKey("nextclasswidget.nextlecture"))
                         .font(.custom("NotoSansKR-Bold", size: 12))
                         .foregroundColor(Color(red: 229.0/255, green: 76.0/255, blue: 100.0/255))
-                    Text(LocalizedStringKey("nextclasswidget.nodata"))
+                    Text((entry.timetableData![Int(entry.configuration.nextClassTimetable?.identifier ?? "0") ?? 0].lectures.count > 0) ? getTimeLeft(timetable: entry.timetableData![Int(entry.configuration.nextClassTimetable?.identifier ?? "0") ?? 0], date: entry.date) : String(localized: "nextclasswidget.nodata"))
                         .font(.custom("NotoSansKR-Bold", size: 20))
                         .offset(y: -2)
                         .minimumScaleFactor(0.5)
@@ -71,18 +89,18 @@ struct NextClassWidgetEntryView : View {
                     
                     HStack {
                         Circle()
-                            .fill(getColourForCourse(course: 1))
+                            .fill((entry.timetableData![Int(entry.configuration.nextClassTimetable?.identifier ?? "0") ?? 0].lectures.count > 0) ? getColour(timetable: entry.timetableData![Int(entry.configuration.nextClassTimetable?.identifier ?? "0") ?? 0], date: entry.date) : getColourForCourse(course: 1))
                             .frame(width: 12, height: 12)
-                        Text(LocalizedStringKey("nextclasswidget.nodata"))
+                        Text((entry.timetableData![Int(entry.configuration.nextClassTimetable?.identifier ?? "0") ?? 0].lectures.count > 0) ? getName(timetable: entry.timetableData![Int(entry.configuration.nextClassTimetable?.identifier ?? "0") ?? 0], date: entry.date) : String(localized: "nextclasswidget.nodata"))
                             .font(.custom("NotoSansKR-Bold", size: 16))
                             .minimumScaleFactor(0.5)
                             .lineLimit(2)
                     }.offset(y: 8)
-                    Text(LocalizedStringKey("nextclasswidget.nodata"))
+                    Text((entry.timetableData![Int(entry.configuration.nextClassTimetable?.identifier ?? "0") ?? 0].lectures.count > 0) ? getPlace(timetable: entry.timetableData![Int(entry.configuration.nextClassTimetable?.identifier ?? "0") ?? 0], date: entry.date) : String(localized: "nextclasswidget.nodata"))
                         .font(.custom("NotoSansKR-Regular", size: 12))
                         .minimumScaleFactor(0.5)
                         .lineLimit(1)
-                    Text(LocalizedStringKey("nextclasswidget.nodata"))
+                    Text((entry.timetableData![Int(entry.configuration.nextClassTimetable?.identifier ?? "0") ?? 0].lectures.count > 0) ? getProfessor(timetable: entry.timetableData![Int(entry.configuration.nextClassTimetable?.identifier ?? "0") ?? 0], date: entry.date) : String(localized: "nextclasswidget.nodata"))
                         .font(.custom("NotoSansKR-Medium", size: 12))
                         .minimumScaleFactor(0.5)
                         .foregroundColor(.gray)
@@ -214,7 +232,6 @@ struct NextClassWidget: Widget {
         .configurationDisplayName(title)
         .description(description)
         .supportedFamilies([.systemSmall])
-        .contentMarginsDisabledIfAvailable()
     }
 }
 
