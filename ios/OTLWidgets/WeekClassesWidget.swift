@@ -65,10 +65,9 @@ struct WeekClassesWidgetEntryView : View {
                         Spacer()
                             .frame(width: 18)
                         ForEach([String(localized: "mon"), String(localized: "tue"), String(localized: "wed"), String(localized: "thu"), String(localized: "fri")], id: \.self) { text in
-                            Spacer()
                             Text(text)
                                 .offset(y: -2)
-                            Spacer()
+                                .frame(width: 50)
                         }
                     }.font(.custom("NotoSansKR-Regular", size: 12))
                         .offset(y: 10)
