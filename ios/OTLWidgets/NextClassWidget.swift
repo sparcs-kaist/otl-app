@@ -214,6 +214,7 @@ struct NextClassWidget: Widget {
         .configurationDisplayName(title)
         .description(description)
         .supportedFamilies([.systemSmall])
+        .contentMarginsDisabledIfAvailable()
     }
 }
 

@@ -215,6 +215,7 @@ struct WeekClassesWidget: Widget {
         .configurationDisplayName(title)
         .description(description)
         .supportedFamilies([.systemLarge])
+        .contentMarginsDisabledIfAvailable()
     }
 }
 

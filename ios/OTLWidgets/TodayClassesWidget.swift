@@ -198,6 +198,7 @@ struct TodayClassesWidget: Widget {
         .configurationDisplayName(title)
         .description(description)
         .supportedFamilies([.systemMedium])
+        .contentMarginsDisabledIfAvailable()
     }
 }
 
