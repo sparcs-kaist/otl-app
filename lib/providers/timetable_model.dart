@@ -132,7 +132,7 @@ class TimetableModel extends ChangeNotifier {
               lecture.year == selectedSemester.year &&
               lecture.semester == selectedSemester.semester)
           .toList();
-      Timetable myTimetable = Timetable(id: 0, lectures: myLecturesList);
+      Timetable myTimetable = Timetable(id: -1, lectures: myLecturesList);
       _timetables.insert(0, myTimetable);
       _selectedTimetableIndex = _selectedTimetableIndex == 0 ? 0 : 1;
       _isLoaded = true;
