@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:otlplus/constants/color.dart';
 import 'package:otlplus/constants/text_styles.dart';
 import 'package:otlplus/providers/settings_model.dart';
+import 'package:otlplus/widgets/dropdown.dart';
 import 'package:otlplus/widgets/responsive_button.dart';
 import 'package:otlplus/utils/navigator.dart';
 import 'package:otlplus/widgets/otl_scaffold.dart';
@@ -10,7 +11,6 @@ import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter/foundation.dart' show kDebugMode;
 import 'package:easy_localization/easy_localization.dart';
-import 'package:dropdown_button2/dropdown_button2.dart';
 
 class SettingsPage extends StatelessWidget {
   final contactEmail = 'otlplus@kaist.ac.kr';
@@ -35,113 +35,52 @@ class SettingsPage extends StatelessWidget {
                       "settings.language".tr(),
                       style: bodyBold,
                     ),
-                    DropdownButtonHideUnderline(
-                      child: DropdownButton2(
-                        customButton: Container(
-                          height: 34,
-                          padding: const EdgeInsets.symmetric(horizontal: 16),
-                          decoration: BoxDecoration(
-                            color: OTLColor.pinksLight,
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          child: Row(
-                            children: [
-                              Icon(
-                                Icons.language,
-                                color: OTLColor.pinksMain,
-                              ),
-                              const SizedBox(width: 8),
-                              Text(
-                                isEn
-                                    ? "settings.english".tr()
-                                    : "settings.korean".tr(),
-                                style: bodyBold.copyWith(
-                                    height: 1.2, color: OTLColor.pinksMain),
-                              )
-                            ],
-                          ),
+                    Dropdown<bool>(
+                      customButton: Container(
+                        height: 34,
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        decoration: BoxDecoration(
+                          color: OTLColor.pinksLight,
+                          borderRadius: BorderRadius.circular(20),
                         ),
-                        dropdownStyleData: DropdownStyleData(
-                          direction: DropdownDirection.left,
-                          width: 200,
-                          elevation: 0,
-                          padding: EdgeInsets.zero,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: OTLColor.gray6,
-                          ),
-                          offset: const Offset(0, -6),
-                        ),
-                        menuItemStyleData: MenuItemStyleData(
-                          height: 42,
-                          padding: EdgeInsets.zero,
-                        ),
-                        items: [
-                          DropdownMenuItem(
-                            value: false,
-                            child: Stack(
-                              alignment: AlignmentDirectional.bottomStart,
-                              children: [
-                                Container(
-                                  height: 42,
-                                  child: Row(
-                                    children: [
-                                      const SizedBox(width: 16),
-                                      !isEn
-                                          ? Icon(
-                                              Icons.check,
-                                              color: OTLColor.grayF,
-                                              size: 16,
-                                            )
-                                          : const SizedBox(width: 16),
-                                      const SizedBox(width: 12),
-                                      Text(
-                                        "settings.korean".tr(),
-                                        style: bodyRegular.copyWith(
-                                            color: OTLColor.grayF),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Container(
-                                  color: OTLColor.grayF.withOpacity(0.5),
-                                  height: 0.5,
-                                ),
-                              ],
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.language,
+                              color: OTLColor.pinksMain,
                             ),
-                          ),
-                          DropdownMenuItem(
-                            value: true,
-                            child: Row(
-                              children: [
-                                const SizedBox(width: 16),
-                                isEn
-                                    ? Icon(
-                                        Icons.check,
-                                        color: OTLColor.grayF,
-                                        size: 16,
-                                      )
-                                    : const SizedBox(width: 16),
-                                const SizedBox(width: 12),
-                                Text(
-                                  "settings.english".tr(),
-                                  style: bodyRegular.copyWith(
-                                      color: OTLColor.grayF),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                        onChanged: (value) {
-                          if (value == false) {
-                            EasyLocalization.of(context)
-                                ?.setLocale(Locale('ko'));
-                          } else {
-                            EasyLocalization.of(context)
-                                ?.setLocale(Locale('en'));
-                          }
-                        },
+                            const SizedBox(width: 8),
+                            Text(
+                              isEn
+                                  ? "settings.english".tr()
+                                  : "settings.korean".tr(),
+                              style: bodyBold.copyWith(
+                                  height: 1.2, color: OTLColor.pinksMain),
+                            )
+                          ],
+                        ),
                       ),
+                      items: [
+                        ItemData(
+                          value: false,
+                          text: "settings.korean".tr(),
+                          icon: !isEn ? Icons.check : null,
+                        ),
+                        ItemData(
+                          value: true,
+                          text: "settings.english".tr(),
+                          icon: isEn ? Icons.check : null,
+                        ),
+                      ],
+                      isIconLeft: true,
+                      offsetY: -6,
+                      onChanged: (value) {
+                        if (value!) {
+                          EasyLocalization.of(context)?.setLocale(Locale('en'));
+                        } else {
+                          EasyLocalization.of(context)?.setLocale(Locale('ko'));
+                        }
+                      },
                     ),
                   ],
                 ),
