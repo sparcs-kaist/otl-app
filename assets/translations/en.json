@@ -137,7 +137,8 @@
   },
   "settings": {
     "language": "Language",
-    "current_language": "English",
+    "korean": "Korean",
+    "english": "English",
     "send_error_log": "Send error log",
     "send_error_log_desc": "Automatically collect logs without user reporting",
     "send_anonymously": "Send anonymously",

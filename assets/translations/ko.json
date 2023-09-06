@@ -137,7 +137,8 @@
   },
   "settings": {
     "language": "언어",
-    "current_language": "한국어",
+    "korean": "한국어",
+    "english": "영어",
     "send_error_log": "오류 로그 전송",
     "send_error_log_desc": "사용자의 제보 없이 자동으로 오류를 수집합니다.",
     "send_anonymously": "익명으로 전송",
