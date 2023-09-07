@@ -136,6 +136,9 @@
     "deleted_account": "This is the deleted account."
   },
   "settings": {
+    "language": "Language",
+    "korean": "Korean",
+    "english": "English",
     "send_error_log": "Send error log",
     "send_error_log_desc": "Automatically collect logs without user reporting",
     "send_anonymously": "Send anonymously",
@@ -143,7 +146,8 @@
     "reset_all": "Reset all settings",
     "reset_all_desc": "Are you really want to reset all data except login data?",
     "throw_test": "Throw Test Exception",
-    "throw_test_desc": "for testing firebase crashlytics"
+    "throw_test_desc": "for testing firebase crashlytics",
+    "about": "About"
   },
   "department": {
     "department": "Dept.",
