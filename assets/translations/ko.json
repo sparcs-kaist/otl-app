@@ -65,15 +65,20 @@
     }
   },
   "timetable": {
-    "ask_delete_lecture": "'{}' 수업을 삭제하시겠습니까?",
-    "ask_delete_tab": "'{}'을(를) 정말 삭제하시겠습니까?",
     "my_tab": "내 시간표",
     "tab": "시간표 {}",
-    "add_lecture": "시간표에 추가",
-    "remove_lecture": "시간표에서 제거",
     "dialog": {
       "add_lecture": "수업 추가",
-      "ask_add_lecture": "시간이 겹치는 수업이 있습니다. 추가하시면 해당 수업은 삭제됩니다.\n시간표에 추가하시겠습니까?"
+      "add_overlapping_lecture": "겹치는 수업 추가",
+      "delete_lecture": "수업 삭제",
+      "delete_tab": "시간표 삭제",
+      "ask_add_lecture": "'{}' 수업을 추가하시겠습니까?",
+      "ask_add_lecture_with_tab": "'{}' 수업을 {}에 추가하시겠습니까?",
+      "ask_add_overlapping_lecture": "{}와(과) 시간이 겹칩니다. '{}'을(를) 추가하시면 해당 수업은 삭제됩니다. 시간표에 추가하시겠습니까?",
+      "ask_add_overlapping_lecture_with_tab": "{}의 {}와(과) 시간이 겹칩니다. '{}'을(를) 추가하시면 해당 수업은 삭제됩니다. 시간표에 추가하시겠습니까?",
+      "ask_delete_lecture": "'{}' 수업을 삭제하시겠습니까?",
+      "ask_delete_lecture_with_tab": "'{}' 수업을 {}에서 삭제하시겠습니까?",
+      "ask_delete_tab": "{}을(를) 정말 삭제하시겠습니까?"
     },
     "tab_menu": {
       "copy": "시간표 복제하기",

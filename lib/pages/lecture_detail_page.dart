@@ -2,8 +2,10 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_web_browser/flutter_web_browser.dart';
 import 'package:otlplus/constants/text_styles.dart';
+import 'package:otlplus/extensions/semester.dart';
 import 'package:otlplus/models/review.dart';
 import 'package:otlplus/pages/course_detail_page.dart';
+import 'package:otlplus/widgets/otl_dialog.dart';
 import 'package:otlplus/widgets/responsive_button.dart';
 import 'package:otlplus/utils/navigator.dart';
 import 'package:otlplus/widgets/otl_scaffold.dart';
@@ -104,6 +106,27 @@ class LectureDetailPage extends StatelessWidget {
         } else {
           timetableModel.addLecture(
             lecture: lecture,
+            noOverlap: () async {
+              bool result = false;
+
+              await OTLNavigator.pushDialog(
+                context: context,
+                builder: (_) => OTLDialog(
+                  type: OTLDialogType.addLectureWithTab,
+                  args: [
+                    context.locale == Locale('ko')
+                        ? lecture.title
+                        : lecture.titleEn,
+                    "${timetableModel.selectedSemester.title} ${'timetable.tab'.tr(
+                      args: [timetableModel.selectedIndex.toString()],
+                    )}",
+                  ],
+                  onTapPos: () => result = true,
+                ),
+              );
+
+              return result;
+            },
             onOverlap: (lectures) async {
               bool result = false;
 

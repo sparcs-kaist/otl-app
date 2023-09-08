@@ -168,6 +168,7 @@ class TimetableModel extends ChangeNotifier {
 
   Future<bool> addLecture(
       {required Lecture lecture,
+      required FutureOr<bool> Function() noOverlap,
       required FutureOr<bool> Function(Iterable<Lecture>) onOverlap}) async {
     try {
       final overlappedLectures = currentTimetable.lectures.where(
@@ -189,7 +190,7 @@ class TimetableModel extends ChangeNotifier {
               data: {"lecture": lecture.id});
         }
         currentTimetable.lectures.removeWhere(overlappedLectures.contains);
-      }
+      } else if (!await noOverlap()) return false;
 
       final response = await DioProvider().dio.post(
           API_TIMETABLE_ADD_LECTURE_URL

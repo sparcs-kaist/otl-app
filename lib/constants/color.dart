@@ -10,6 +10,7 @@ class OTLColor {
   static const grayD = Color(0xFFDDDDDD);
   static const grayE = Color(0xFFEEEEEE);
   static const grayF = Color(0xFFFFFFFF);
+  static const barrier = Color(0x33000000);
 
   static const pinksLight = Color(0xFFF9F0F0);
   static const pinksSub = Color(0xFFF6C5CD);

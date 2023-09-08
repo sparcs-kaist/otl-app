@@ -4,6 +4,7 @@ import 'package:otlplus/constants/color.dart';
 import 'package:otlplus/constants/text_styles.dart';
 import 'package:otlplus/extensions/lecture.dart';
 import 'package:otlplus/models/lecture.dart';
+import 'package:otlplus/widgets/otl_dialog.dart';
 import 'package:otlplus/widgets/responsive_button.dart';
 import 'package:otlplus/utils/navigator.dart';
 import 'package:provider/provider.dart';
@@ -137,6 +138,22 @@ class _LectureGroupBlockRowState extends State<LectureGroupBlockRow> {
   Future<void> _addLecture(Lecture lec) async {
     bool result = await context.read<TimetableModel>().addLecture(
           lecture: lec,
+          noOverlap: () async {
+            bool result = false;
+
+            await OTLNavigator.pushDialog(
+              context: context,
+              builder: (_) => OTLDialog(
+                type: OTLDialogType.addLecture,
+                args: [
+                  context.locale == Locale('ko') ? lec.title : lec.titleEn
+                ],
+                onTapPos: () => result = true,
+              ),
+            );
+
+            return result;
+          },
           onOverlap: (lectures) async {
             bool result = false;
             await OTLNavigator.pushDialog(

@@ -65,15 +65,20 @@
     }
   },
   "timetable": {
-    "ask_delete_lecture": "Do you want to delete class '{}'?",
-    "ask_delete_tab": "Do you really want to delete '{}'?",
     "my_tab": "My Table",
     "tab": "Table {}",
-    "add_lecture": "Add Lecture",
-    "remove_lecture": "Remove Lecture",
     "dialog": {
       "add_lecture": "Add Lecture",
-      "ask_add_lecture": "There is a lecture with overlapping hours. If added, the previous lecture will be deleted.\nDo you want to add new lecture to the timetable?"
+      "add_overlapping_lecture": "Add Overlapping Lecture",
+      "delete_lecture": "Delete Lecture",
+      "delete_tab": "Delete Table",
+      "ask_add_lecture": "Do you want to add lecture '{}'?",
+      "ask_add_lecture_with_tab": "Do you want to add lecture '{}' to {}?",
+      "ask_add_overlapping_lecture": "Time overlaps with {}. If you add {}, the lecture(s) will be deleted. Do you want to add it to the timetable?",
+      "ask_add_overlapping_lecture_with_tab": "Time overlaps with {} in {}. If you add {}, the lecture(s) will be deleted. Do you want to add it to the timetable?",
+      "ask_delete_lecture": "Do you want to delete lecture '{}'?",
+      "ask_delete_lecture_with_tab": "Do you want to delete lecture '{}' from {}?",
+      "ask_delete_tab": "Do you really want to delete '{}'?"
     },
     "tab_menu": {
       "copy": "Copy Timetable",
