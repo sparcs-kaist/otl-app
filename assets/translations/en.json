@@ -135,7 +135,12 @@
     "speech": "Speech",
     "like": "Like",
     "report": "Report",
-    "expand": "more"
+    "expand": "more",
+    "dialog": {
+      "info": "Info",
+      "report": "Report Now",
+      "report_desc": "This feature is currently under development. Please report inappropriate reviews to {contact}."
+    }
   },
   "user": {
     "name": "Name",

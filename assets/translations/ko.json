@@ -135,7 +135,12 @@
     "speech": "강의",
     "like": "추천",
     "report": "신고하기",
-    "expand": "더 보기"
+    "expand": "더 보기",
+    "dialog": {
+      "info": "안내",
+      "report": "신고하러 가기",
+      "report_desc": "이 기능은 현재 개발 중입니다. 부적절한 후기는 {contact}로 신고해 주세요."
+    }
   },
   "user": {
     "name": "이름",

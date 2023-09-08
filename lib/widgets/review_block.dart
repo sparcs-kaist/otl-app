@@ -6,9 +6,11 @@ import 'package:otlplus/constants/url.dart';
 import 'package:otlplus/dio_provider.dart';
 import 'package:otlplus/extensions/review.dart';
 import 'package:otlplus/models/review.dart';
+import 'package:otlplus/widgets/otl_dialog.dart';
 import 'package:otlplus/widgets/responsive_button.dart';
 import 'package:otlplus/utils/navigator.dart';
 import 'package:otlplus/widgets/expandable_text.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ReviewBlock extends StatefulWidget {
   final Review review;
@@ -187,19 +189,12 @@ class _ReviewBlockState extends State<ReviewBlock> {
 
   void _report() {
     OTLNavigator.pushDialog(
-        context: context,
-        builder: (_) => AlertDialog(
-              title: Text('안내'),
-              content: Text(
-                  '이 기능은 현재 개발중입니다. 부적절한 후기는 otlplus@sparcs.org로 신고해 주세요.'),
-              actions: <Widget>[
-                new TextButton(
-                  child: new Text("확인"),
-                  onPressed: () {
-                    OTLNavigator.pop(context);
-                  },
-                ),
-              ],
-            ));
+      context: context,
+      builder: (_) => OTLDialog(
+        type: OTLDialogType.reportReview,
+        namedArgs: {'contact': CONTACT},
+        onTapPos: () => launchUrl(Uri.parse("mailto:$CONTACT")),
+      ),
+    );
   }
 }

@@ -35,7 +35,10 @@ enum OTLDialogType {
 
   resetSettings,
 
-  about
+  about,
+
+  /// namedArgs: 'contact'
+  reportReview
 }
 
 enum BtnStyle { one, even, uneven }
@@ -132,6 +135,14 @@ extension OTLDialogTypeExt on OTLDialogType {
       icon: 'OTL',
       negText: 'common.close',
       posText: 'settings.view_licenses',
+      btnStyle: BtnStyle.uneven,
+    ),
+    OTLDialogType.reportReview: _OTLDialogData(
+      title: 'review.dialog.info',
+      content: 'review.dialog.report_desc',
+      icon: 'alert',
+      negText: 'common.close',
+      posText: 'review.dialog.report',
       btnStyle: BtnStyle.uneven,
     ),
   };
@@ -261,6 +272,7 @@ class OTLDialog extends StatelessWidget {
       case OTLDialogType.deleteAccount:
       case OTLDialogType.accountDeleted:
       case OTLDialogType.resetSettings:
+      case OTLDialogType.reportReview:
         return Text(
           content,
           style: bodyRegular,
