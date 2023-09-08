@@ -6,7 +6,19 @@ import 'package:otlplus/constants/text_styles.dart';
 import 'package:otlplus/utils/navigator.dart';
 import 'package:otlplus/widgets/responsive_button.dart';
 
-enum OTLDialogType { addLecture, addLectureWithTab }
+enum OTLDialogType {
+  /// namedArgs: 'lecture'
+  addLecture,
+
+  /// namedArgs: 'lecture', 'timetable'
+  addLectureWithTab,
+
+  /// namedArgs: 'lectures', 'lecture'
+  addOverlappingLecture,
+
+  /// namedArgs: 'lectures', 'lecture', 'timetable'
+  addOverlappingLectureWithTab
+}
 
 enum BtnStyle { one, even, uneven }
 
@@ -20,6 +32,10 @@ class _OTLDialogData {
   ///
   /// Example: 'addLecture'
   final String icon;
+
+  /// Without tr()
+  ///
+  /// Example: 'common.cancel', 'common.add'
   final String negText, posText;
   final BtnStyle btnStyle;
 
@@ -27,7 +43,7 @@ class _OTLDialogData {
     required this.title,
     required this.content,
     required this.icon,
-    this.negText = '취소',
+    this.negText = 'common.cancel',
     required this.posText,
     this.btnStyle = BtnStyle.even,
   });
@@ -39,13 +55,25 @@ extension OTLDialogTypeExt on OTLDialogType {
       title: 'timetable.dialog.add_lecture',
       content: 'timetable.dialog.ask_add_lecture',
       icon: 'addLecture',
-      posText: '추가',
+      posText: 'common.add',
     ),
     OTLDialogType.addLectureWithTab: _OTLDialogData(
       title: 'timetable.dialog.add_lecture',
       content: 'timetable.dialog.ask_add_lecture_with_tab',
       icon: 'addLecture',
-      posText: '추가',
+      posText: 'common.add',
+    ),
+    OTLDialogType.addOverlappingLecture: _OTLDialogData(
+      title: 'timetable.dialog.add_overlapping_lecture',
+      content: 'timetable.dialog.ask_add_overlapping_lecture',
+      icon: 'overlap',
+      posText: 'common.add',
+    ),
+    OTLDialogType.addOverlappingLectureWithTab: _OTLDialogData(
+      title: 'timetable.dialog.add_overlapping_lecture',
+      content: 'timetable.dialog.ask_add_overlapping_lecture_with_tab',
+      icon: 'overlap',
+      posText: 'common.add',
     )
   };
 
@@ -61,14 +89,14 @@ class OTLDialog extends StatelessWidget {
   const OTLDialog({
     Key? key,
     required this.type,
-    this.args,
+    this.namedArgs,
     this.onTapContent,
     this.onTapNeg,
     this.onTapPos,
   }) : super(key: key);
 
   final OTLDialogType type;
-  final List<String>? args;
+  final Map<String, String>? namedArgs;
   final void Function()? onTapContent, onTapNeg, onTapPos;
 
   @override
@@ -117,7 +145,7 @@ class OTLDialog extends StatelessWidget {
                       if (onTapPos != null) onTapPos!();
                       OTLNavigator.pop(context);
                     },
-                    'btnText': type.posText,
+                    'btnText': type.posText.tr(),
                     'textColor': OTLColor.grayF,
                   },
                   false: {
@@ -126,7 +154,7 @@ class OTLDialog extends StatelessWidget {
                       if (onTapNeg != null) onTapNeg!();
                       OTLNavigator.pop(context);
                     },
-                    'btnText': type.negText,
+                    'btnText': type.negText.tr(),
                     'textColor': OTLColor.gray0,
                   }
                 };
@@ -167,9 +195,35 @@ class OTLDialog extends StatelessWidget {
       case OTLDialogType.addLecture:
       case OTLDialogType.addLectureWithTab:
         return Text(
-          type.content.tr(args: args),
+          type.content.tr(namedArgs: namedArgs),
           style: bodyRegular,
         );
+      case OTLDialogType.addOverlappingLecture:
+      case OTLDialogType.addOverlappingLectureWithTab:
+        return Text.rich(TextSpan(
+          children: () {
+            final content = type.content.tr(namedArgs: namedArgs),
+                reg = RegExp(r"'.*?'");
+            final lectures = reg
+                .allMatches(content)
+                .map((e) => TextSpan(text: e[0], style: bodyBold))
+                .toList();
+            final nonLectures = content
+                .split(reg)
+                .map((e) => TextSpan(text: e, style: bodyRegular))
+                .toList();
+            final children = <TextSpan>[];
+
+            children.add(nonLectures.first);
+
+            for (int i = 0; i < lectures.length; i++) {
+              children.add(lectures[i]);
+              children.add(nonLectures[i + 1]);
+            }
+
+            return children;
+          }(),
+        ));
       default:
         return SizedBox();
     }

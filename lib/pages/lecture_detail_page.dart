@@ -104,6 +104,13 @@ class LectureDetailPage extends StatelessWidget {
         if (isAdded) {
           timetableModel.removeLecture(lecture: lecture);
         } else {
+          final isKo = context.locale == Locale('ko');
+          final lectureTitle = isKo ? lecture.title : lecture.titleEn;
+          final timetable =
+              '${timetableModel.selectedSemester.title} ${'timetable.tab'.tr(
+            args: [timetableModel.selectedIndex.toString()],
+          )}';
+
           timetableModel.addLecture(
             lecture: lecture,
             noOverlap: () async {
@@ -113,14 +120,7 @@ class LectureDetailPage extends StatelessWidget {
                 context: context,
                 builder: (_) => OTLDialog(
                   type: OTLDialogType.addLectureWithTab,
-                  args: [
-                    context.locale == Locale('ko')
-                        ? lecture.title
-                        : lecture.titleEn,
-                    "${timetableModel.selectedSemester.title} ${'timetable.tab'.tr(
-                      args: [timetableModel.selectedIndex.toString()],
-                    )}",
-                  ],
+                  namedArgs: {'lecture': lectureTitle, 'timetable': timetable},
                   onTapPos: () => result = true,
                 ),
               );
@@ -132,30 +132,17 @@ class LectureDetailPage extends StatelessWidget {
 
               await OTLNavigator.pushDialog(
                 context: context,
-                barrierDismissible: false,
-                builder: (context) => AlertDialog(
-                  title: Text("timetable.dialog.add_lecture".tr()),
-                  content: Text("timetable.dialog.ask_add_lecture".tr()),
-                  actions: [
-                    IconTextButton(
-                      padding: EdgeInsets.all(12),
-                      text: 'common.cancel'.tr(),
-                      color: OTLColor.pinksMain,
-                      onTap: () {
-                        result = false;
-                        OTLNavigator.pop(context);
-                      },
-                    ),
-                    IconTextButton(
-                      padding: EdgeInsets.all(12),
-                      text: 'common.add'.tr(),
-                      color: OTLColor.pinksMain,
-                      onTap: () {
-                        result = true;
-                        OTLNavigator.pop(context);
-                      },
-                    ),
-                  ],
+                builder: (_) => OTLDialog(
+                  type: OTLDialogType.addOverlappingLectureWithTab,
+                  namedArgs: {
+                    'lectures': lectures
+                        .map((lecture) =>
+                            "'${isKo ? lecture.title : lecture.titleEn}'")
+                        .join(', '),
+                    'lecture': lectureTitle,
+                    'timetable': timetable
+                  },
+                  onTapPos: () => result = true,
                 ),
               );
 

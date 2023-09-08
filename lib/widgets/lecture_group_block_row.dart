@@ -136,6 +136,9 @@ class _LectureGroupBlockRowState extends State<LectureGroupBlockRow> {
   }
 
   Future<void> _addLecture(Lecture lec) async {
+    final isKo = context.locale == Locale('ko');
+    final lectureTitle = isKo ? lec.title : lec.titleEn;
+
     bool result = await context.read<TimetableModel>().addLecture(
           lecture: lec,
           noOverlap: () async {
@@ -145,9 +148,7 @@ class _LectureGroupBlockRowState extends State<LectureGroupBlockRow> {
               context: context,
               builder: (_) => OTLDialog(
                 type: OTLDialogType.addLecture,
-                args: [
-                  context.locale == Locale('ko') ? lec.title : lec.titleEn
-                ],
+                namedArgs: {'lecture': lectureTitle},
                 onTapPos: () => result = true,
               ),
             );
@@ -156,34 +157,22 @@ class _LectureGroupBlockRowState extends State<LectureGroupBlockRow> {
           },
           onOverlap: (lectures) async {
             bool result = false;
+
             await OTLNavigator.pushDialog(
               context: context,
-              barrierDismissible: false,
-              builder: (context) => AlertDialog(
-                title: Text("timetable.dialog.add_lecture".tr()),
-                content: Text("timetable.dialog.ask_add_lecture".tr()),
-                actions: [
-                  IconTextButton(
-                    padding: EdgeInsets.all(12),
-                    text: 'common.cancel'.tr(),
-                    color: OTLColor.pinksMain,
-                    onTap: () {
-                      result = false;
-                      OTLNavigator.pop(context);
-                    },
-                  ),
-                  IconTextButton(
-                    padding: EdgeInsets.all(12),
-                    text: 'common.add'.tr(),
-                    color: OTLColor.pinksMain,
-                    onTap: () {
-                      result = true;
-                      OTLNavigator.pop(context);
-                    },
-                  ),
-                ],
+              builder: (_) => OTLDialog(
+                type: OTLDialogType.addOverlappingLecture,
+                namedArgs: {
+                  'lectures': lectures
+                      .map((lecture) =>
+                          "'${isKo ? lecture.title : lecture.titleEn}'")
+                      .join(', '),
+                  'lecture': lectureTitle
+                },
+                onTapPos: () => result = true,
               ),
             );
+
             return result;
           },
         );
