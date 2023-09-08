@@ -30,7 +30,9 @@ enum OTLDialogType {
 
   deleteAccount,
 
-  accountDeleted
+  accountDeleted,
+
+  resetSettings
 }
 
 enum BtnStyle { one, even, uneven }
@@ -115,6 +117,12 @@ extension OTLDialogTypeExt on OTLDialogType {
       negText: 'common.close',
       btnStyle: BtnStyle.one,
     ),
+    OTLDialogType.resetSettings: _OTLDialogData(
+      title: 'settings.dialog.reset_settings',
+      content: 'settings.dialog.reset_settings_desc',
+      icon: 'alert',
+      posText: 'settings.dialog.reset',
+    )
   };
 
   String get title => _data[this]!.title;
@@ -239,6 +247,7 @@ class OTLDialog extends StatelessWidget {
       case OTLDialogType.deleteTab:
       case OTLDialogType.deleteAccount:
       case OTLDialogType.accountDeleted:
+      case OTLDialogType.resetSettings:
         return Text(
           type.content.tr(namedArgs: namedArgs),
           style: bodyRegular,

@@ -159,7 +159,11 @@
     "send_anonymously": "익명으로 전송",
     "send_anonymously_desc": "오류 로그에 사용자 ID를 포함하지 않고 익명으로 전송합니다.",
     "reset_all": "모든 설정 데이터 초기화",
-    "reset_all_desc": "정말 모든 설정 데이터를 초기화하시겠습니까? 로그인 정보는 초기화되지 않습니다.",
+    "dialog": {
+      "reset": "초기화",
+      "reset_settings": "설정 초기화",
+      "reset_settings_desc": "정말 모든 설정 데이터를 초기화하시겠습니까? 단, 로그인 정보는 제외하고 초기화됩니다."
+    },
     "throw_test": "테스트 오류 발생",
     "throw_test_desc": "Firebase crashlytics 테스트용",
     "about": "정보"

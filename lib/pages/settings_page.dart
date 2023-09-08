@@ -4,6 +4,7 @@ import 'package:otlplus/constants/color.dart';
 import 'package:otlplus/constants/text_styles.dart';
 import 'package:otlplus/providers/settings_model.dart';
 import 'package:otlplus/widgets/dropdown.dart';
+import 'package:otlplus/widgets/otl_dialog.dart';
 import 'package:otlplus/widgets/responsive_button.dart';
 import 'package:otlplus/utils/navigator.dart';
 import 'package:otlplus/widgets/otl_scaffold.dart';
@@ -121,38 +122,10 @@ class SettingsPage extends StatelessWidget {
                   onTap: () {
                     OTLNavigator.pushDialog(
                       context: context,
-                      builder: (context) => AlertDialog(
-                        title: Text(
-                          'common.alert'.tr(),
-                          style: titleRegular,
-                        ),
-                        content: Text(
-                          'settings.reset_all_desc'.tr(),
-                          style: bodyRegular,
-                        ),
-                        actions: <Widget>[
-                          TextButton(
-                            child: Text(
-                              "common.cancel".tr(),
-                              style: bodyRegular,
-                            ),
-                            onPressed: () {
-                              OTLNavigator.pop(context);
-                            },
-                          ),
-                          TextButton(
-                            child: Text(
-                              "common.delete".tr(),
-                              style: bodyRegular,
-                            ),
-                            onPressed: () {
-                              context
-                                  .read<SettingsModel>()
-                                  .clearAllValues()
-                                  .then((_) => OTLNavigator.pop(context));
-                            },
-                          ),
-                        ],
+                      builder: (_) => OTLDialog(
+                        type: OTLDialogType.resetSettings,
+                        onTapPos: () =>
+                            context.read<SettingsModel>().clearAllValues(),
                       ),
                     );
                   },
@@ -191,7 +164,7 @@ class SettingsPage extends StatelessWidget {
 
   Widget _buildListTile(
       {required String title,
-      String subtitle = '',
+      String? subtitle,
       Widget? trailing,
       void Function()? onTap,
       bool hasTopPadding = true}) {
@@ -209,8 +182,10 @@ class SettingsPage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(title, style: bodyBold),
-                    const SizedBox(height: 4),
-                    Text(subtitle, style: bodyRegular),
+                    if (subtitle != null) ...[
+                      const SizedBox(height: 4),
+                      Text(subtitle, style: bodyRegular),
+                    ]
                   ],
                 ),
               ),

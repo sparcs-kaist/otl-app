@@ -159,7 +159,11 @@
     "send_anonymously": "Send anonymously",
     "send_anonymously_desc": "Not including user ID in error logs",
     "reset_all": "Reset all settings",
-    "reset_all_desc": "Are you really want to reset all data except login data?",
+    "dialog": {
+      "reset": "Reset",
+      "reset_settings": "Reset settings",
+      "reset_settings_desc": "Are you really want to reset all data? However, it will be reset except for login data."
+    },
     "throw_test": "Throw Test Exception",
     "throw_test_desc": "for testing firebase crashlytics",
     "about": "About"
