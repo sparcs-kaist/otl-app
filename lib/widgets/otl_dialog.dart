@@ -17,7 +17,13 @@ enum OTLDialogType {
   addOverlappingLecture,
 
   /// namedArgs: 'lectures', 'lecture', 'timetable'
-  addOverlappingLectureWithTab
+  addOverlappingLectureWithTab,
+
+  /// namedArgs: 'lecture'
+  deleteLecture,
+
+  /// namedArgs: 'lecture', 'timetable'
+  deleteLectureWithTab
 }
 
 enum BtnStyle { one, even, uneven }
@@ -74,6 +80,18 @@ extension OTLDialogTypeExt on OTLDialogType {
       content: 'timetable.dialog.ask_add_overlapping_lecture_with_tab',
       icon: 'overlap',
       posText: 'common.add',
+    ),
+    OTLDialogType.deleteLecture: _OTLDialogData(
+      title: 'timetable.dialog.delete_lecture',
+      content: 'timetable.dialog.ask_delete_lecture',
+      icon: 'deleteLecture',
+      posText: 'common.delete',
+    ),
+    OTLDialogType.deleteLectureWithTab: _OTLDialogData(
+      title: 'timetable.dialog.delete_lecture',
+      content: 'timetable.dialog.ask_delete_lecture_with_tab',
+      icon: 'deleteLecture',
+      posText: 'common.delete',
     )
   };
 
@@ -194,6 +212,8 @@ class OTLDialog extends StatelessWidget {
     switch (type) {
       case OTLDialogType.addLecture:
       case OTLDialogType.addLectureWithTab:
+      case OTLDialogType.deleteLecture:
+      case OTLDialogType.deleteLectureWithTab:
         return Text(
           type.content.tr(namedArgs: namedArgs),
           style: bodyRegular,

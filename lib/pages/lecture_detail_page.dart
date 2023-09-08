@@ -100,17 +100,23 @@ class LectureDetailPage extends StatelessWidget {
       padding: const EdgeInsets.all(16),
       onTap: () {
         final timetableModel = context.read<TimetableModel>();
+        final isKo = context.locale == Locale('ko');
+        final lectureTitle = isKo ? lecture.title : lecture.titleEn;
+        final timetable =
+            '${timetableModel.selectedSemester.title} ${'timetable.tab'.tr(
+          args: [timetableModel.selectedIndex.toString()],
+        )}';
 
         if (isAdded) {
-          timetableModel.removeLecture(lecture: lecture);
+          OTLNavigator.pushDialog(
+            context: context,
+            builder: (_) => OTLDialog(
+              type: OTLDialogType.deleteLectureWithTab,
+              namedArgs: {'lecture': lectureTitle, 'timetable': timetable},
+              onTapPos: () => timetableModel.removeLecture(lecture: lecture),
+            ),
+          );
         } else {
-          final isKo = context.locale == Locale('ko');
-          final lectureTitle = isKo ? lecture.title : lecture.titleEn;
-          final timetable =
-              '${timetableModel.selectedSemester.title} ${'timetable.tab'.tr(
-            args: [timetableModel.selectedIndex.toString()],
-          )}';
-
           timetableModel.addLecture(
             lecture: lecture,
             noOverlap: () async {
