@@ -78,7 +78,7 @@
       "ask_add_overlapping_lecture_with_tab": "Time overlaps with {lectures} in {timetable}. If you add '{lecture}', the lecture(s) will be deleted. Do you want to add it to the timetable?",
       "ask_delete_lecture": "Do you want to delete lecture '{lecture}'?",
       "ask_delete_lecture_with_tab": "Do you want to delete lecture '{lecture}' from {timetable}?",
-      "ask_delete_tab": "Do you really want to delete '{timetable}'?"
+      "ask_delete_tab": "Do you really want to delete {timetable}?"
     },
     "tab_menu": {
       "copy": "Copy Timetable",

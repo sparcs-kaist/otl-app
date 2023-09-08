@@ -23,7 +23,10 @@ enum OTLDialogType {
   deleteLecture,
 
   /// namedArgs: 'lecture', 'timetable'
-  deleteLectureWithTab
+  deleteLectureWithTab,
+
+  /// namedArgs: 'timetable'
+  deleteTab
 }
 
 enum BtnStyle { one, even, uneven }
@@ -91,6 +94,12 @@ extension OTLDialogTypeExt on OTLDialogType {
       title: 'timetable.dialog.delete_lecture',
       content: 'timetable.dialog.ask_delete_lecture_with_tab',
       icon: 'deleteLecture',
+      posText: 'common.delete',
+    ),
+    OTLDialogType.deleteTab: _OTLDialogData(
+      title: 'timetable.dialog.delete_tab',
+      content: 'timetable.dialog.ask_delete_tab',
+      icon: 'timetable',
       posText: 'common.delete',
     )
   };
@@ -214,6 +223,7 @@ class OTLDialog extends StatelessWidget {
       case OTLDialogType.addLectureWithTab:
       case OTLDialogType.deleteLecture:
       case OTLDialogType.deleteLectureWithTab:
+      case OTLDialogType.deleteTab:
         return Text(
           type.content.tr(namedArgs: namedArgs),
           style: bodyRegular,

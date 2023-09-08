@@ -253,20 +253,15 @@ class _TimetablePageState extends State<TimetablePage> {
         });*/
       },
       onDeleteTap: () {
-        showGeneralDialog(
+        OTLNavigator.pushDialog(
           context: context,
-          barrierColor: Colors.black.withOpacity(0.2),
-          barrierDismissible: true,
-          barrierLabel:
-              MaterialLocalizations.of(context).modalBarrierDismissLabel,
-          pageBuilder: (context, _, __) => DeleteDialog(
-            text: 'timetable.ask_delete_tab'.tr(args: [
-              'timetable.tab'
+          builder: (_) => OTLDialog(
+            type: OTLDialogType.deleteTab,
+            namedArgs: {
+              'timetable': 'timetable.tab'
                   .tr(args: [timetableModel.selectedIndex.toString()])
-            ]),
-            onDelete: () {
-              context.read<TimetableModel>().deleteTimetable();
             },
+            onTapPos: () => context.read<TimetableModel>().deleteTimetable(),
           ),
         );
       },
