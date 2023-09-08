@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:otlplus/constants/color.dart';
 import 'package:otlplus/constants/text_styles.dart';
+import 'package:otlplus/constants/url.dart';
 import 'package:otlplus/utils/navigator.dart';
 import 'package:otlplus/widgets/responsive_button.dart';
 
@@ -32,7 +33,9 @@ enum OTLDialogType {
 
   accountDeleted,
 
-  resetSettings
+  resetSettings,
+
+  about
 }
 
 enum BtnStyle { one, even, uneven }
@@ -122,7 +125,15 @@ extension OTLDialogTypeExt on OTLDialogType {
       content: 'settings.dialog.reset_settings_desc',
       icon: 'alert',
       posText: 'settings.dialog.reset',
-    )
+    ),
+    OTLDialogType.about: _OTLDialogData(
+      title: 'Online Timeplanner with Lectures Plus @ KAIST',
+      content: CONTACT,
+      icon: 'OTL',
+      negText: 'common.close',
+      posText: 'settings.view_licenses',
+      btnStyle: BtnStyle.uneven,
+    ),
   };
 
   String get title => _data[this]!.title;
@@ -191,7 +202,8 @@ class OTLDialog extends StatelessWidget {
                     'btnColor': OTLColor.pinksMain,
                     'onTap': () {
                       if (onTapPos != null) onTapPos!();
-                      OTLNavigator.pop(context);
+                      if (type != OTLDialogType.about)
+                        OTLNavigator.pop(context);
                     },
                     'btnText': type.posText.tr(),
                     'textColor': OTLColor.grayF,
@@ -239,6 +251,7 @@ class OTLDialog extends StatelessWidget {
   }
 
   Widget _buildContent() {
+    final content = type.content.tr(namedArgs: namedArgs);
     switch (type) {
       case OTLDialogType.addLecture:
       case OTLDialogType.addLectureWithTab:
@@ -249,15 +262,14 @@ class OTLDialog extends StatelessWidget {
       case OTLDialogType.accountDeleted:
       case OTLDialogType.resetSettings:
         return Text(
-          type.content.tr(namedArgs: namedArgs),
+          content,
           style: bodyRegular,
         );
       case OTLDialogType.addOverlappingLecture:
       case OTLDialogType.addOverlappingLectureWithTab:
         return Text.rich(TextSpan(
           children: () {
-            final content = type.content.tr(namedArgs: namedArgs),
-                reg = RegExp(r"'.*?'");
+            final reg = RegExp(r"'.*?'");
             final lectures = reg
                 .allMatches(content)
                 .map((e) => TextSpan(text: e[0], style: bodyBold))
@@ -278,6 +290,16 @@ class OTLDialog extends StatelessWidget {
             return children;
           }(),
         ));
+      case OTLDialogType.about:
+        return RawResponsiveButton(
+          data: {
+            'Text': {
+              'arg': content,
+              'style': bodyRegular.copyWith(color: OTLColor.pinksMain),
+            }
+          },
+          onTap: onTapContent,
+        );
       default:
         return SizedBox();
     }

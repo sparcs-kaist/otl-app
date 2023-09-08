@@ -166,7 +166,8 @@
     },
     "throw_test": "Throw Test Exception",
     "throw_test_desc": "for testing firebase crashlytics",
-    "about": "About"
+    "about": "About",
+    "view_licenses": "View Licenses"
   },
   "department": {
     "department": "Dept.",
