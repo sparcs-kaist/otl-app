@@ -7,7 +7,7 @@ import 'package:otlplus/pages/liked_review_page.dart';
 import 'package:otlplus/pages/my_review_page.dart';
 import 'package:otlplus/providers/auth_model.dart';
 import 'package:otlplus/utils/navigator.dart';
-import 'package:otlplus/widgets/delete_dialog.dart';
+import 'package:otlplus/widgets/otl_dialog.dart';
 import 'package:otlplus/widgets/responsive_button.dart';
 import 'package:otlplus/widgets/otl_scaffold.dart';
 import 'package:provider/provider.dart';
@@ -77,19 +77,15 @@ class UserPage extends StatelessWidget {
                 if (Platform.isIOS)
                   _buildAccount(
                     Icons.highlight_off,
-                    () async {
-                      showGeneralDialog(
+                    () {
+                      OTLNavigator.pushDialog(
                         context: context,
-                        barrierColor: Colors.black.withOpacity(0.2),
-                        barrierDismissible: true,
-                        barrierLabel: MaterialLocalizations.of(context)
-                            .modalBarrierDismissLabel,
-                        pageBuilder: (context, _, __) => DeleteDialog(
-                          text: 'user.ask_delete_account'.tr(),
-                          onDelete: () {
+                        builder: (_) => OTLDialog(
+                          type: OTLDialogType.deleteAccount,
+                          onTapPos: () {
                             context.read<AuthModel>().logout();
                             context.read<InfoModel>().deleteAccount();
-                            Navigator.pop(context);
+                            OTLNavigator.pop(context);
                           },
                         ),
                       );

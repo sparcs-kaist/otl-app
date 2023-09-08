@@ -147,7 +147,7 @@
     "logout": "로그아웃",
     "delete_account": "계정 삭제",
     "ask_delete_account": "계정을 정말 삭제하시겠습니까?",
-    "account_deleted": "계정 삭제됨",
+    "account_deleted": "삭제된 계정",
     "deleted_account": "삭제된 계정입니다."
   },
   "settings": {

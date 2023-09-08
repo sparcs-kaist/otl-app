@@ -1,10 +1,9 @@
 import 'dart:io';
 
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:otlplus/constants/color.dart';
-import 'package:otlplus/widgets/responsive_button.dart';
+import 'package:otlplus/utils/navigator.dart';
+import 'package:otlplus/widgets/otl_dialog.dart';
 import 'package:otlplus/widgets/otl_scaffold.dart';
 import 'package:provider/provider.dart';
 import 'package:otlplus/providers/auth_model.dart';
@@ -29,21 +28,11 @@ class _LoginPageState extends State<LoginPage> {
       (_) async {
         if (!((await SharedPreferences.getInstance()).getBool('hasAccount') ??
             true)) {
-          await showDialog(
+          OTLNavigator.pushDialog(
             context: context,
-            builder: (context) => AlertDialog(
-              title: Text('user.account_deleted'.tr()),
-              content: Text('user.deleted_account'.tr()),
-              actions: [
-                IconTextButton(
-                  padding: EdgeInsets.all(12),
-                  text: 'common.close'.tr(),
-                  color: OTLColor.pinksMain,
-                  onTap: () {
-                    SystemNavigator.pop();
-                  },
-                ),
-              ],
+            builder: (_) => OTLDialog(
+              type: OTLDialogType.accountDeleted,
+              onTapNeg: () => SystemNavigator.pop(),
             ),
           );
         }

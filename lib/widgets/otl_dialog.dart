@@ -26,7 +26,11 @@ enum OTLDialogType {
   deleteLectureWithTab,
 
   /// namedArgs: 'timetable'
-  deleteTab
+  deleteTab,
+
+  deleteAccount,
+
+  accountDeleted
 }
 
 enum BtnStyle { one, even, uneven }
@@ -53,7 +57,7 @@ class _OTLDialogData {
     required this.content,
     required this.icon,
     this.negText = 'common.cancel',
-    required this.posText,
+    this.posText = 'common.add',
     this.btnStyle = BtnStyle.even,
   });
 }
@@ -64,25 +68,21 @@ extension OTLDialogTypeExt on OTLDialogType {
       title: 'timetable.dialog.add_lecture',
       content: 'timetable.dialog.ask_add_lecture',
       icon: 'addLecture',
-      posText: 'common.add',
     ),
     OTLDialogType.addLectureWithTab: _OTLDialogData(
       title: 'timetable.dialog.add_lecture',
       content: 'timetable.dialog.ask_add_lecture_with_tab',
       icon: 'addLecture',
-      posText: 'common.add',
     ),
     OTLDialogType.addOverlappingLecture: _OTLDialogData(
       title: 'timetable.dialog.add_overlapping_lecture',
       content: 'timetable.dialog.ask_add_overlapping_lecture',
       icon: 'overlap',
-      posText: 'common.add',
     ),
     OTLDialogType.addOverlappingLectureWithTab: _OTLDialogData(
       title: 'timetable.dialog.add_overlapping_lecture',
       content: 'timetable.dialog.ask_add_overlapping_lecture_with_tab',
       icon: 'overlap',
-      posText: 'common.add',
     ),
     OTLDialogType.deleteLecture: _OTLDialogData(
       title: 'timetable.dialog.delete_lecture',
@@ -101,7 +101,20 @@ extension OTLDialogTypeExt on OTLDialogType {
       content: 'timetable.dialog.ask_delete_tab',
       icon: 'timetable',
       posText: 'common.delete',
-    )
+    ),
+    OTLDialogType.deleteAccount: _OTLDialogData(
+      title: 'user.delete_account',
+      content: 'user.ask_delete_account',
+      icon: 'alert',
+      posText: 'common.delete',
+    ),
+    OTLDialogType.accountDeleted: _OTLDialogData(
+      title: 'user.account_deleted',
+      content: 'user.deleted_account',
+      icon: 'alert',
+      negText: 'common.close',
+      btnStyle: BtnStyle.one,
+    ),
   };
 
   String get title => _data[this]!.title;
@@ -224,6 +237,8 @@ class OTLDialog extends StatelessWidget {
       case OTLDialogType.deleteLecture:
       case OTLDialogType.deleteLectureWithTab:
       case OTLDialogType.deleteTab:
+      case OTLDialogType.deleteAccount:
+      case OTLDialogType.accountDeleted:
         return Text(
           type.content.tr(namedArgs: namedArgs),
           style: bodyRegular,

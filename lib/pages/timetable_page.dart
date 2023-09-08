@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:otlplus/extensions/semester.dart';
 import 'package:otlplus/pages/lecture_detail_page.dart';
 import 'package:otlplus/pages/lecture_search_page.dart';
 import 'package:otlplus/utils/navigator.dart';
 import 'package:otlplus/providers/lecture_search_model.dart';
-import 'package:otlplus/widgets/delete_dialog.dart';
 import 'package:otlplus/widgets/otl_dialog.dart';
-import 'package:otlplus/widgets/responsive_button.dart';
 import 'package:otlplus/widgets/lecture_search.dart';
 import 'package:otlplus/widgets/map_view.dart';
 import 'package:otlplus/widgets/otl_scaffold.dart';
