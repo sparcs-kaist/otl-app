@@ -90,7 +90,7 @@ struct TodayClassesWidgetEntryView : View {
                         Image("lock")
                             .resizable()
                         .frame(width: 44, height: 44)
-                        Text("로그인하러 가기")
+                        Text(LocalizedStringKey("widget.login"))
                             .font(.custom("NotoSansKR-Bold", size: 12))
                             .padding(.horizontal, 10.0)
                             .padding(.vertical, 4)
@@ -134,8 +134,8 @@ struct TodayClassesWidgetEntryView : View {
         for (i, l) in data {
             let c = l.classtimes[i]
             
-            let title = l.title
-            let place = c.classroom_short
+            let title = NSLocale.current.language.languageCode?.identifier == "en" ? l.title_en : l.title
+            let place = NSLocale.current.language.languageCode?.identifier == "en" ? c.classroom_short_en : c.classroom_short
             let width = (0.9388*Double(c.end-c.begin)*10).rounded()/10
             let x = 20 + (Double(c.begin-540)*0.95*10).rounded()/10
             let colour = getColourForCourse(course: l.course)
@@ -188,14 +188,17 @@ struct ExactTimeLine: View {
 
 struct TodayClassesWidget: Widget {
     let kind: String = "TodayClassesWidget"
-
+    private let title: LocalizedStringKey = "todayclasseswidget.title"
+    private let description: LocalizedStringKey = "todayclasseswidget.description"
+    
     var body: some WidgetConfiguration {
         IntentConfiguration(kind: kind, intent: ConfigurationIntent.self, provider: Provider()) { entry in
             TodayClassesWidgetEntryView(entry: entry)
         }
-        .configurationDisplayName("오늘 수업")
-        .description("오늘 수업을 확인합니다.")
+        .configurationDisplayName(title)
+        .description(description)
         .supportedFamilies([.systemMedium])
+        .contentMarginsDisabledIfAvailable()
     }
 }
 

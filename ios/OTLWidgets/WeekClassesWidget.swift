@@ -64,11 +64,10 @@ struct WeekClassesWidgetEntryView : View {
                     HStack {
                         Spacer()
                             .frame(width: 18)
-                        ForEach(["월", "화", "수", "목", "금"], id: \.self) { text in
-                            Spacer()
+                        ForEach([String(localized: "mon"), String(localized: "tue"), String(localized: "wed"), String(localized: "thu"), String(localized: "fri")], id: \.self) { text in
                             Text(text)
                                 .offset(y: -2)
-                            Spacer()
+                                .frame(width: 50)
                         }
                     }.font(.custom("NotoSansKR-Regular", size: 12))
                         .offset(y: 10)
@@ -82,7 +81,7 @@ struct WeekClassesWidgetEntryView : View {
                         Image("lock")
                             .resizable()
                         .frame(width: 44, height: 44)
-                        Text("로그인하러 가기")
+                        Text(LocalizedStringKey("widget.login"))
                             .font(.custom("NotoSansKR-Bold", size: 12))
                             .padding(.horizontal, 10.0)
                             .padding(.vertical, 4)
@@ -111,7 +110,7 @@ struct WeekClassesWidgetEntryView : View {
         for (i, l) in data {
             let c = l.classtimes[i]
             
-            let title = l.title
+            let title = NSLocale.current.language.languageCode?.identifier == "en" ? l.title_en : l.title
             let minute = c.end - c.begin
             var height = 0.6833 * Double(minute)
             if minute/30 != 0 {
@@ -205,14 +204,17 @@ struct WeekClassesLectureView: View {
 
 struct WeekClassesWidget: Widget {
     let kind: String = "WeekClassesWidget"
+    private let title: LocalizedStringKey = "weekclasseswidget.title"
+    private let description: LocalizedStringKey = "weekclasseswidget.description"
 
     var body: some WidgetConfiguration {
         IntentConfiguration(kind: kind, intent: ConfigurationIntent.self, provider: Provider()) { entry in
             WeekClassesWidgetEntryView(entry: entry)
         }
-        .configurationDisplayName("주간 시간표")
-        .description("일주일의 모든 수업을 확인합니다.")
+        .configurationDisplayName(title)
+        .description(description)
         .supportedFamilies([.systemLarge])
+        .contentMarginsDisabledIfAvailable()
     }
 }
 

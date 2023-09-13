@@ -23,7 +23,7 @@ struct LocationInlineAccessoryEntryView : View {
                 if (entry.timetableData != nil) {
                     Text("\(getPlace(timetable: entry.timetableData![Int(entry.configuration.nextClassTimetable?.identifier ?? "0") ?? 0], date: entry.date)) \(getName(timetable: entry.timetableData![Int(entry.configuration.nextClassTimetable?.identifier ?? "0") ?? 0], date: entry.date))")
                 } else {
-                    Text("정보 없음")
+                    Text(LocalizedStringKey("nextclasswidget.nodata"))
                 }
             }
             
@@ -77,7 +77,7 @@ struct LocationInlineAccessoryEntryView : View {
         let c = getNextClass(timetable: timetable, date: date)
         let lecture: Lecture = c.1
         
-        return lecture.common_title
+        return NSLocale.current.language.languageCode?.identifier == "en" ? lecture.common_title_en : lecture.common_title
     }
     
     func getPlace(timetable: Timetable, date: Date) -> String {
@@ -85,7 +85,7 @@ struct LocationInlineAccessoryEntryView : View {
         let index = c.0
         let lecture: Lecture = c.1
         
-        return lecture.classtimes[index].classroom_short
+        return NSLocale.current.language.languageCode?.identifier == "en" ? lecture.classtimes[index].classroom_short_en : lecture.classtimes[index].classroom_short
     }
 }
 
@@ -93,13 +93,15 @@ struct LocationInlineAccessoryEntryView : View {
 @available(iOSApplicationExtension 16.0, *)
 struct LocationInlineAccessory: Widget {
     let kind: String = "LocationInlineAccessory"
+    private let title: LocalizedStringKey = "locationinlineaccessory.title"
+    private let description: LocalizedStringKey = "locationinlineaccessory.description"
 
     var body: some WidgetConfiguration {
         IntentConfiguration(kind: kind, intent: ConfigurationIntent.self, provider: Provider()) { entry in
             LocationInlineAccessoryEntryView(entry: entry)
         }
-        .configurationDisplayName("다음 수업과 장소")
-        .description("다음 수업과 장소를 확인합니다.")
+        .configurationDisplayName(title)
+        .description(description)
         .supportedFamilies([.accessoryInline])
     }
 }

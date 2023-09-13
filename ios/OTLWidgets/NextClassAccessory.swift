@@ -37,7 +37,7 @@ struct NextClassAccessoryEntryView : View {
                         Image(systemName: "tablecells")
                             .font(.caption2)
                             .widgetAccentable()
-                        Text("정보 없음")
+                        Text(LocalizedStringKey("nextclasswidget.nodata"))
                             .font(.system(size: 15))
                             .fontWeight(.medium)
                         Text("")
@@ -68,11 +68,11 @@ struct NextClassAccessoryEntryView : View {
                         HStack(alignment: .center, spacing: 4) {
                             Circle()
                                 .frame(width: 12, height: 12)
-                            Text("정보 없음")
+                            Text(LocalizedStringKey("nextclasswidget.nodata"))
                                 .font(.headline)
                         }.offset(y: 7)
                             .widgetAccentable()
-                        Text("정보 없음")
+                        Text(LocalizedStringKey("nextclasswidget.nodata"))
                             .font(.headline)
                             .widgetAccentable()
                         Text("")
@@ -136,7 +136,15 @@ struct NextClassAccessoryEntryView : View {
         var hour = (lecture.classtimes[index].begin >= 720) ? (lecture.classtimes[index].begin-720)/60 : lecture.classtimes[index].begin/60
         hour = (hour == 0) ? 12 : hour
         
-        let apm = (lecture.classtimes[index].begin >= 720) ? "오후" : "오전"
+        var am: String {
+            return NSLocale.current.language.languageCode?.identifier == "en" ? "AM" : "오전"
+        }
+        
+        var pm: String {
+            return NSLocale.current.language.languageCode?.identifier == "en" ? "PM" : "오후"
+        }
+        
+        let apm = (lecture.classtimes[index].begin >= 720) ? pm : am
         
         return (String(format:"%02d:%02d", hour, lecture.classtimes[index].begin%60), apm)
     }
@@ -145,7 +153,7 @@ struct NextClassAccessoryEntryView : View {
         let c = getNextClass(timetable: timetable, date: date)
         let lecture: Lecture = c.1
         
-        return lecture.common_title
+        return NSLocale.current.language.languageCode?.identifier == "en" ? lecture.common_title_en : lecture.common_title
     }
     
     func getBegin(timetable: Timetable, date: Date) -> String {
@@ -161,7 +169,7 @@ struct NextClassAccessoryEntryView : View {
         let index = c.0
         let lecture: Lecture = c.1
         
-        return lecture.classtimes[index].classroom
+        return NSLocale.current.language.languageCode?.identifier == "en" ? lecture.classtimes[index].classroom_short_en : lecture.classtimes[index].classroom
     }
     
     func getEnd(timetable: Timetable, date: Date) -> String {
@@ -177,13 +185,15 @@ struct NextClassAccessoryEntryView : View {
 @available(iOSApplicationExtension 16.0, *)
 struct NextClassAccessory: Widget {
     let kind: String = "NextClassAccessory"
+    private let title: LocalizedStringKey = "nextclasswidget.title"
+    private let description: LocalizedStringKey = "nextclasswidget.description"
 
     var body: some WidgetConfiguration {
         IntentConfiguration(kind: kind, intent: ConfigurationIntent.self, provider: Provider()) { entry in
             NextClassAccessoryEntryView(entry: entry)
         }
-        .configurationDisplayName("다음 수업")
-        .description("다음 수업을 확인합니다.")
+        .configurationDisplayName(title)
+        .description(description)
         .supportedFamilies([.accessoryCircular, .accessoryRectangular])
     }
 }
