@@ -136,10 +136,10 @@
     "like": "추천",
     "report": "신고하기",
     "expand": "더 보기",
-    "dialog": {
-      "info": "안내",
-      "report": "신고하러 가기",
-      "report_desc": "이 기능은 현재 개발 중입니다. 부적절한 후기는 {contact}로 신고해 주세요."
+    "mailto": {
+      "subject": "[후기 신고]",
+      "body_reason": "[신고 사유]\n*후기를 신고한 이유를 서술해 주세요.\n---------------------------------\n\n\n\n---------------------------------\n\n",
+      "body_info": "[신고할 후기 정보]\n*자동으로 작성된 후기 정보입니다. 원활한 신고를 위해서 수정하지 말아주세요.\n과목: {title} ({oldCode})\n학기: {semesterTitle}\n교수: {professors}\n내용:\n{content}\n"
     }
   },
   "user": {

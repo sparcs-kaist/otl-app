@@ -136,10 +136,10 @@
     "like": "Like",
     "report": "Report",
     "expand": "more",
-    "dialog": {
-      "info": "Info",
-      "report": "Report Now",
-      "report_desc": "This feature is currently under development. Please report inappropriate reviews to {contact}."
+    "mailto": {
+      "subject": "[Report Review]",
+      "body_reason": "[Reason for Reporting]\n*Please describe a reason for reporting.\n---------------------------------\n\n\n\n---------------------------------\n\n",
+      "body_info": "[Review Information]\n*This information has been filled automatically. Please do NOT edit.\nLecture: {title} ({oldCode})\nSemester: {semesterTitle}\nProf.: {professors}\nContent:\n{content}\n"
     }
   },
   "user": {
