@@ -57,5 +57,7 @@ jobs:
         run: flutter pub get
       - name: Install ruby packages
         run: bundle update && bundle install
+        working-directory: ios
       - name: Build iOS
         run: bundle exec flutter build ios --release --no-codesign
+        working-directory: ios
