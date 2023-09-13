@@ -47,17 +47,13 @@ jobs:
         with:
           flutter-version: ${{ env.FLUTTER_VERSION }}
           channel: "stable"
-      # - uses: actions/cache@v3
-      #   with:
-      #     path: Pods
-      #     key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}
-      #     restore-keys: |
-      #       ${{ runner.os }}-pods-
+      - uses: actions/cache@v3
+        with:
+          path: Pods
+          key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-pods-
       - name: Install dependencies
         run: flutter pub get
-      - name: Install ruby packages
-        run: bundle update && bundle install
-        working-directory: ios
       - name: Build iOS
-        run: bundle exec flutter build ios --release --no-codesign
-        working-directory: ios
+        run: flutter build ios --release --no-codesign
