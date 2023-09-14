@@ -18,7 +18,8 @@
     "no_info": "정보 없음",
     "all_selected": "전체 선택됨",
     "num_selected": "개 선택됨",
-    "close": "닫기"
+    "close": "닫기",
+    "coming": "준비 중입니다."
   },
   "semester": {
     "spring": "봄",

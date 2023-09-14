@@ -26,7 +26,7 @@ class PeoplePage extends StatelessWidget {
                 _buildContainer('2020.03 ~ 2023.02'),
                 const SizedBox(height: 12.0),
                 Text(
-                  '준비 중입니다.',
+                  'common.coming'.tr(),
                   style: bodyRegular.copyWith(color: OTLColor.grayA),
                 ),
               ],
