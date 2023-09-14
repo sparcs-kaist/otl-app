@@ -185,9 +185,9 @@ class LectureSearchModel extends ChangeNotifier {
           TextSpan(
               text: keyword,
               style:
-                  TextStyle(fontWeight: FontWeight.bold, color: Colors.black)),
+                  TextStyle(fontWeight: FontWeight.bold, color: OTLColor.gray0)),
           if (filterOptions.length > 0)
-            TextSpan(style: TextStyle(color: Color(0xFFAAAAAA)), children: [
+            TextSpan(style: TextStyle(color: OTLColor.grayA), children: [
               if ((keyword ?? '').length > 0) TextSpan(text: ", "),
               TextSpan(text: (filterOptions).join(", ")),
             ])

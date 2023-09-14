@@ -101,7 +101,7 @@ class _LectureGroupBlockRowState extends State<LectureGroupBlockRow> {
                             icon: 'assets/icons/info.svg',
                             iconSize: 20.0,
                             onTap: widget.onLongPress,
-                            color: Color(0xFF000000),
+                            color: OTLColor.gray0,
                           ),
                           SizedBox(
                             width: 6.0,
@@ -120,7 +120,7 @@ class _LectureGroupBlockRowState extends State<LectureGroupBlockRow> {
                             iconSize: 24,
                             color: alreadyAdded
                                 ? OTLColor.pinksMain
-                                : Color(0xFF000000),
+                                : OTLColor.gray0,
                           )
                         ],
                       ),

@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart' as _;
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:otlplus/constants/color.dart';
 
 class ExpandableText extends StatefulWidget {
   const ExpandableText(
@@ -32,7 +33,7 @@ class ExpandableTextState extends State<ExpandableText> {
         TextSpan(
             text: "review.expand".tr(),
             style:
-                (widget.style ?? TextStyle()).copyWith(color: Colors.black45),
+                (widget.style ?? TextStyle()).copyWith(color: OTLColor.gray75),
             recognizer: TapGestureRecognizer()
               ..onTap = () {
                 setState(() => _expanded = true);

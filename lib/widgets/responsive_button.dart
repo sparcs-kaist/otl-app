@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:otlplus/constants/color.dart';
 
 enum ButtonTapEffect { none, darken, lighten }
 
@@ -8,7 +9,7 @@ enum ButtonDirection { row, column, rowReversed, columnReversed }
 class IconTextButton extends StatelessWidget {
   const IconTextButton({
     Key? key,
-    this.color = const Color(0xFF000000),
+    this.color = OTLColor.gray0,
     this.icon,
     this.iconSize = 24,
     this.spaceBetween = 0,
@@ -108,7 +109,7 @@ class IconTextButton extends StatelessWidget {
 class BackgroundButton extends StatelessWidget {
   const BackgroundButton(
       {Key? key,
-      this.color = const Color(0x00000000),
+      this.color = Colors.transparent,
       this.onTap,
       this.onLongPress,
       this.tapEffect = ButtonTapEffect.darken,
@@ -183,13 +184,13 @@ class RawResponsiveWidget extends StatelessWidget {
               .toList(),
         );
       case 'Icon':
-        final Color unpressedColor = args['color'] ?? const Color(0xFF000000);
+        final Color unpressedColor = args['color'] ?? OTLColor.gray0;
         final Color pressedColor = Color.lerp(
             unpressedColor,
             tapEffect == ButtonTapEffect.darken
-                ? const Color(0xFF000000)
+                ? OTLColor.gray0
                 : tapEffect == ButtonTapEffect.lighten
-                    ? const Color(0xFFFFFFFF)
+                    ? OTLColor.grayF
                     : unpressedColor,
             tapEffectColorRatio)!;
         return ValueListenableBuilder<bool>(
@@ -200,16 +201,16 @@ class RawResponsiveWidget extends StatelessWidget {
                   color: effect ? pressedColor : unpressedColor);
             });
       case 'SvgPicture.asset':
-        final ColorFilter unpressedColorFilter = ColorFilter.mode(
-            args['color'] ?? const Color(0xFF000000), BlendMode.srcIn);
+        final ColorFilter unpressedColorFilter =
+            ColorFilter.mode(args['color'] ?? OTLColor.gray0, BlendMode.srcIn);
         final ColorFilter pressedColorFilter = ColorFilter.mode(
             Color.lerp(
-                args['color'] ?? const Color(0xFF000000),
+                args['color'] ?? OTLColor.gray0,
                 tapEffect == ButtonTapEffect.darken
-                    ? const Color(0xFF000000)
+                    ? OTLColor.gray0
                     : tapEffect == ButtonTapEffect.lighten
-                        ? const Color(0xFFFFFFFF)
-                        : args['color'] ?? const Color(0xFF000000),
+                        ? OTLColor.grayF
+                        : args['color'] ?? OTLColor.gray0,
                 tapEffectColorRatio)!,
             BlendMode.srcIn);
         return ValueListenableBuilder<bool>(
@@ -244,12 +245,12 @@ class RawResponsiveWidget extends StatelessWidget {
         }
         final TextStyle? pressedTextStyle = unpressedTextStyle.copyWith(
             color: Color.lerp(
-                unpressedTextStyle.color ?? const Color(0xFF000000),
+                unpressedTextStyle.color ?? OTLColor.gray0,
                 tapEffect == ButtonTapEffect.darken
-                    ? const Color(0xFF000000)
+                    ? OTLColor.gray0
                     : tapEffect == ButtonTapEffect.lighten
-                        ? const Color(0xFFFFFFFF)
-                        : unpressedTextStyle.color ?? const Color(0xFF000000),
+                        ? OTLColor.grayF
+                        : unpressedTextStyle.color ?? OTLColor.gray0,
                 tapEffectColorRatio));
         return ValueListenableBuilder<bool>(
             valueListenable: pressedEffect,
@@ -258,13 +259,13 @@ class RawResponsiveWidget extends StatelessWidget {
                   style: effect ? pressedTextStyle : unpressedTextStyle);
             });
       case 'ColoredBox':
-        final Color unpressedColor = args['color'] ?? const Color(0x00000000);
+        final Color unpressedColor = args['color'] ?? Colors.transparent;
         final Color pressedColor = Color.lerp(
             unpressedColor,
             tapEffect == ButtonTapEffect.darken
-                ? const Color(0xFF000000)
+                ? OTLColor.gray0
                 : tapEffect == ButtonTapEffect.lighten
-                    ? const Color(0xFFFFFFFF)
+                    ? OTLColor.grayF
                     : unpressedColor,
             tapEffectColorRatio)!;
         return ValueListenableBuilder<bool>(

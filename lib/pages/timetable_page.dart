@@ -157,7 +157,7 @@ class _TimetablePageState extends State<TimetablePage> {
             child: RepaintBoundary(
               key: _paintKey,
               child: Container(
-                color: Colors.white,
+                color: OTLColor.grayF,
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: _buildTimetable(context, lectures, isExamTime),
               ),

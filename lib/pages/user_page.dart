@@ -24,7 +24,7 @@ class UserPage extends StatelessWidget {
       child: OTLLayout(
         middle: Text('title.my_information'.tr(), style: titleBold),
         body: ColoredBox(
-          color: Colors.white,
+          color: OTLColor.grayF,
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 16.0),
             child: Column(

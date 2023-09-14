@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:otlplus/constants/color.dart';
 import 'package:otlplus/pages/course_detail_page.dart';
 import 'package:otlplus/providers/hall_of_fame_model.dart';
 import 'package:otlplus/utils/navigator.dart';
@@ -119,7 +120,7 @@ class LatestReviewsPage extends StatelessWidget {
                       width: 24,
                       height: 24,
                       child: CircularProgressIndicator(
-                        color: Colors.black12,
+                        color: OTLColor.grayE,
                         strokeWidth: 2,
                       ),
                     ),
@@ -176,7 +177,7 @@ class HallOfFamePage extends StatelessWidget {
                       width: 24,
                       height: 24,
                       child: CircularProgressIndicator(
-                        color: Colors.black12,
+                        color: OTLColor.grayE,
                         strokeWidth: 2,
                       ),
                     ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:otlplus/constants/color.dart';
 
 class CustomHeaderDelegate extends SliverPersistentHeaderDelegate {
   final Widget Function(double) builder;
@@ -12,7 +13,7 @@ class CustomHeaderDelegate extends SliverPersistentHeaderDelegate {
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
     return Container(
-      color: Colors.white,
+      color: OTLColor.grayF,
       padding: padding,
       transform: Matrix4.translationValues(0, -1, 0),
       child: Material(
