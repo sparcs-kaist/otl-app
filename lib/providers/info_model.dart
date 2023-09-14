@@ -106,7 +106,7 @@ class InfoModel extends ChangeNotifier {
               final time = semester.toJson()[field];
               if (time == null) return null;
               return <String, dynamic>{
-                "title": semester.title,
+                "semester": semester,
                 "name": SCHEDULE_NAME[field],
                 "nameEn": SCHEDULE_NAME_EN[field],
                 "time": time,

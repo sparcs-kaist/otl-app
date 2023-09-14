@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:otlplus/constants/text_styles.dart';
+import 'package:otlplus/extensions/semester.dart';
 import 'package:otlplus/pages/course_search_page.dart';
 import 'package:otlplus/pages/lecture_detail_page.dart';
 import 'package:otlplus/pages/people_page.dart';
@@ -350,7 +351,7 @@ class _MainPageState extends State<MainPage> {
                     // ignore: unnecessary_null_comparison
                     (currentSchedule == null)
                         ? "-"
-                        : (currentSchedule["title"]),
+                        : (currentSchedule["semester"] as Semester).title,
               ),
               const TextSpan(text: " "),
               TextSpan(
