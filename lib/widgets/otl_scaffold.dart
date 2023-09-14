@@ -44,7 +44,10 @@ class OTLScaffold extends StatelessWidget {
     if (backgroundColor != null && backgroundColor!.computeLuminance() < 0.5)
       SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
     else
-      SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
+      SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark.copyWith(
+        systemNavigationBarColor: OTLColor.grayF,
+        statusBarColor: Colors.transparent,
+      ));
   }
   final Widget child;
   final bool extendBody;

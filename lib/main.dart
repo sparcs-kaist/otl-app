@@ -99,9 +99,6 @@ class OTLFirebaseApp extends StatelessWidget {
       }
     } on Error {}
 
-    SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(statusBarColor: Colors.transparent));
-
     return MaterialApp(
       builder: (context, child) {
         return ScrollConfiguration(
