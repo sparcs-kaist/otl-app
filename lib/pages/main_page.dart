@@ -326,55 +326,38 @@ class _MainPageState extends State<MainPage> {
   }
 
   Widget _buildSchedule(DateTime now, Map<String, dynamic>? currentSchedule) {
-    final isEn = EasyLocalization.of(context)!.currentLocale == Locale('en');
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
         Text(
           (currentSchedule == null)
               ? "common.no_info".tr()
-              : "home.remained_datetime".tr(
+              : "home.schedule.remained_datetime".tr(
                   args: getRemainedTime(
                       currentSchedule["time"].difference(now) as Duration)),
           style: titleRegular,
-          // ignore: unnecessary_null_comparison
-        ),
-        const SizedBox(height: 4.0),
-        Text.rich(
-          TextSpan(
-            style: bodyRegular,
-            children: <TextSpan>[
-              TextSpan(
-                style: bodyBold,
-                text:
-                    // ignore: unnecessary_null_comparison
-                    (currentSchedule == null)
-                        ? "-"
-                        : (currentSchedule["semester"] as Semester).title,
-              ),
-              const TextSpan(text: " "),
-              TextSpan(
-                style: bodyBold,
-                // ignore: unnecessary_null_comparison
-                text: (currentSchedule == null)
-                    ? ""
-                    : (isEn
-                        ? currentSchedule["nameEn"]
-                        : currentSchedule["name"]),
-              ),
-              const TextSpan(text: " "),
-              TextSpan(
-                // ignore: unnecessary_null_comparison
-                text: (currentSchedule == null)
-                    ? ""
-                    : DateFormat("yyyy.MM.dd")
-                        .format(currentSchedule["time"].toLocal()),
-              ),
-            ],
-          ),
           textAlign: TextAlign.center,
         ),
+        const SizedBox(height: 4.0),
+        (currentSchedule == null)
+            ? Text('-', style: bodyBold)
+            : Wrap(
+                alignment: WrapAlignment.center,
+                children: [
+                  Text(
+                    '${(currentSchedule["semester"] as Semester).title} ${(currentSchedule["name"] as String).tr()}',
+                    style: bodyBold,
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(width: 4),
+                  Text(
+                    DateFormat("yyyy.MM.dd")
+                        .format(currentSchedule["time"].toLocal()),
+                    style: bodyRegular,
+                    textAlign: TextAlign.center,
+                  ),
+                ],
+              ),
       ],
     );
   }

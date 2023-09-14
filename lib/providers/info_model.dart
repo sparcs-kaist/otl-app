@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:otlplus/constants/url.dart';
 import 'package:otlplus/dio_provider.dart';
-import 'package:otlplus/extensions/semester.dart';
 import 'package:otlplus/models/semester.dart';
 import 'package:otlplus/models/user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-const USED_SCHEDULE_FIELDS = [
+const SCHEDULE_NAME = [
   "beginning",
   "end",
   "courseRegistrationPeriodStart",
@@ -16,28 +15,6 @@ const USED_SCHEDULE_FIELDS = [
   "courseEvaluationDeadline",
   "gradePosting",
 ];
-
-const SCHEDULE_NAME = {
-  "beginning": "개강",
-  "end": "종강",
-  "courseRegistrationPeriodStart": "수강신청기간 시작",
-  "courseRegistrationPeriodEnd": "수강신청기간 종료",
-  "courseAddDropPeriodEnd": "수강변경기간 종료",
-  "courseDropDeadline": "수강취소 마감",
-  "courseEvaluationDeadline": "강의평가 마감",
-  "gradePosting": "성적게시"
-};
-
-const SCHEDULE_NAME_EN = {
-  "beginning": "Beginning",
-  "end": "End",
-  "courseRegistrationPeriodStart": "Start of Course Registration Period",
-  "courseRegistrationPeriodEnd": "End of Course Registration Period",
-  "courseAddDropPeriodEnd": "End of Course Add & Drop Period",
-  "courseDropDeadline": "Deadline to Course Drop",
-  "courseEvaluationDeadline": "Deadline to Course Evaluation",
-  "gradePosting": "Grade Posting",
-};
 
 class InfoModel extends ChangeNotifier {
   late Set<int> _years;
@@ -102,13 +79,12 @@ class InfoModel extends ChangeNotifier {
   Map<String, dynamic>? getCurrentSchedule() {
     final now = DateTime.now();
     final schedules = _semesters
-        .map((semester) => USED_SCHEDULE_FIELDS.map((field) {
-              final time = semester.toJson()[field];
+        .map((semester) => SCHEDULE_NAME.map((name) {
+              final time = semester.toJson()[name];
               if (time == null) return null;
               return <String, dynamic>{
                 "semester": semester,
-                "name": SCHEDULE_NAME[field],
-                "nameEn": SCHEDULE_NAME_EN[field],
+                "name": 'home.schedule.$name',
                 "time": time,
               };
             }))

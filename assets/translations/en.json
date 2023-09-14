@@ -35,7 +35,6 @@
     "review": "Review",
     "settings": "Settings",
     "no_info": "No information",
-    "remained_datetime": "D-{} days {} hours {} minutes",
     "goto_cais": "Go to CAIS"
   },
   "title": {
@@ -53,7 +52,17 @@
     "settings": "Settings"
   },
   "home": {
-    "remained_datetime": "D-{} days {} hours {} minutes"
+    "schedule": {
+      "remained_datetime": "D-{} days {} hours {} minutes",
+      "beginning": "Beginning",
+      "end": "End",
+      "courseRegistrationPeriodStart": "Start of Course Registration Period",
+      "courseRegistrationPeriodEnd": "End of Course Registration Period",
+      "courseAddDropPeriodEnd": "End of Course Add & Drop Period",
+      "courseDropDeadline": "Deadline to Course Drop",
+      "courseEvaluationDeadline": "Deadline to Course Evaluation",
+      "gradePosting": "Grade Posting"
+    }
   },
   "timetable": {
     "ask_delete_lecture": "Do you want to delete class '{}'?",

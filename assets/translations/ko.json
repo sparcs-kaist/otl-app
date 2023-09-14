@@ -35,7 +35,6 @@
     "review": "과목후기",
     "settings": "설정",
     "no_info": "정보 없음",
-    "remained_datetime": "D-{}일 {}시간 {}분",
     "goto_cais": "학사시스템 바로가기"
   },
   "title": {
@@ -53,7 +52,17 @@
     "settings": "설정"
   },
   "home": {
-    "remained_datetime": "D-{}일 {}시간 {}분"
+    "schedule": {
+      "remained_datetime": "D-{}일 {}시간 {}분",
+      "beginning": "개강",
+      "end": "종강",
+      "courseRegistrationPeriodStart": "수강신청기간 시작",
+      "courseRegistrationPeriodEnd": "수강신청기간 종료",
+      "courseAddDropPeriodEnd": "수강변경기간 종료",
+      "courseDropDeadline": "수강취소 마감",
+      "courseEvaluationDeadline": "강의평가 마감",
+      "gradePosting": "성적게시"
+    }
   },
   "timetable": {
     "ask_delete_lecture": "'{}' 수업을 삭제하시겠습니까?",
