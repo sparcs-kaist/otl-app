@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:otlplus/constants/text_styles.dart';
 import 'package:otlplus/pages/course_search_page.dart';
+import 'package:otlplus/pages/lecture_detail_page.dart';
 import 'package:otlplus/pages/people_page.dart';
 import 'package:otlplus/pages/privacy_page.dart';
 import 'package:otlplus/pages/settings_page.dart';
 import 'package:otlplus/pages/user_page.dart';
 import 'package:otlplus/providers/course_search_model.dart';
+import 'package:otlplus/providers/lecture_detail_model.dart';
 import 'package:otlplus/widgets/responsive_button.dart';
 import 'package:otlplus/utils/navigator.dart';
 import 'package:otlplus/widgets/otl_scaffold.dart';
@@ -393,6 +395,10 @@ class _MainPageState extends State<MainPage> {
           builder: (lecture, classTimeIndex) => TimetableBlock(
             lecture: lecture,
             classTimeIndex: classTimeIndex,
+            onTap: () {
+              context.read<LectureDetailModel>().loadLecture(lecture.id, false);
+              OTLNavigator.push(context, LectureDetailPage());
+            },
           ),
         ),
       ),
