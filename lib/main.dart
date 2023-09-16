@@ -4,7 +4,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:otlplus/pages/course_detail_page.dart';
 import 'package:otlplus/pages/lecture_detail_page.dart';
 import 'package:otlplus/pages/liked_review_page.dart';
@@ -98,9 +97,6 @@ class OTLFirebaseApp extends StatelessWidget {
             .setUserIdentifier(context.watch<InfoModel>().user.id.toString());
       }
     } on Error {}
-
-    SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(statusBarColor: Colors.transparent));
 
     return MaterialApp(
       builder: (context, child) {

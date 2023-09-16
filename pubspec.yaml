@@ -37,6 +37,7 @@ dependencies:
   flutter_widgetkit: ^1.0.3
   flutter_svg: ^2.0.7
   open_app_file: ^4.0.2
+  flutter_native_splash: ^2.3.2
   # Firebase
   firebase_core: ^2.8.0
   firebase_analytics: ^10.1.6
