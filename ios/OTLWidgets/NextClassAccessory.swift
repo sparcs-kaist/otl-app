@@ -20,7 +20,7 @@ struct NextClassAccessoryEntryView : View {
         case .accessoryCircular:
             ZStack {
                 AccessoryWidgetBackground()
-                if (entry.timetableData != nil) {
+                if (entry.timetableData != nil && entry.timetableData![Int(entry.configuration.nextClassTimetable?.identifier ?? "0") ?? 0].lectures.count > 0) {
                     VStack {
                         Image(systemName: "tablecells")
                             .font(.caption2)
