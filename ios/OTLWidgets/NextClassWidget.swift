@@ -12,6 +12,8 @@ import Intents
 
 struct NextClassWidgetEntryView : View {
     @Environment(\.colorScheme) var colorScheme
+    @Environment(\.showsWidgetContainerBackground) var showsWidgetBackground
+    @Environment(\.widgetRenderingMode) var renderingMode
     
     var entry: Provider.Entry
     
@@ -24,8 +26,9 @@ struct NextClassWidgetEntryView : View {
             ZStack(alignment: .leading) {
                 VStack(alignment: .leading) {
                     Text(LocalizedStringKey("nextclasswidget.nextlecture"))
-                        .font(.custom("NotoSansKR-Bold", size: 12))
-                        .foregroundColor(Color(red: 229.0/255, green: 76.0/255, blue: 100.0/255))
+                        .font(.custom("NotoSansKR-Bold", size: showsWidgetBackground ? 12 : 16))
+                        .foregroundColor((renderingMode == .vibrant) ? Color.white : Color(red: 229.0/255, green: 76.0/255, blue: 100.0/255))
+                        .frame(maxWidth: .infinity, alignment: .leading)
                     Text((entry.timetableData != nil && entry.timetableData![Int(entry.configuration.nextClassTimetable?.identifier ?? "0") ?? 0].lectures.count > 0) ? getTimeLeft(timetable: entry.timetableData![Int(entry.configuration.nextClassTimetable?.identifier ?? "0") ?? 0], date: entry.date) : String(localized: "nextclasswidget.nodata"))
                         .font(.custom("NotoSansKR-Bold", size: 20))
                         .offset(y: -2)
@@ -39,7 +42,7 @@ struct NextClassWidgetEntryView : View {
                             .fill((entry.timetableData != nil && entry.timetableData![Int(entry.configuration.nextClassTimetable?.identifier ?? "0") ?? 0].lectures.count > 0) ? getColour(timetable: entry.timetableData![Int(entry.configuration.nextClassTimetable?.identifier ?? "0") ?? 0], date: entry.date) : getColourForCourse(course: 1))
                             .frame(width: 12, height: 12)
                         Text((entry.timetableData != nil && entry.timetableData![Int(entry.configuration.nextClassTimetable?.identifier ?? "0") ?? 0].lectures.count > 0) ? getName(timetable: entry.timetableData![Int(entry.configuration.nextClassTimetable?.identifier ?? "0") ?? 0], date: entry.date) : String(localized: "nextclasswidget.nodata"))
-                            .font(.custom("NotoSansKR-Bold", size: 16))
+                            .font(.custom("NotoSansKR-Bold", size: showsWidgetBackground ? 16 : 20))
                             .minimumScaleFactor(0.5)
                             .lineLimit(2)
                     }.offset(y: 8)
@@ -51,11 +54,15 @@ struct NextClassWidgetEntryView : View {
                         .font(.custom("NotoSansKR-Medium", size: 12))
                         .minimumScaleFactor(0.5)
                         .foregroundColor(.gray)
-                }
+                }.padding(.horizontal, showsWidgetBackground ? 0 : 3)
                 if (entry.timetableData == nil) {
                     ZStack {
-                        Color.clear
-                            .background(.ultraThinMaterial)
+                        if showsWidgetBackground {
+                            Color.clear
+                                .background(.ultraThinMaterial)
+                        } else {
+                            Color.black
+                        }
                         VStack {
                             Image("lock")
                                 .resizable()
