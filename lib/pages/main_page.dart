@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:otlplus/constants/text_styles.dart';
+import 'package:otlplus/extensions/semester.dart';
 import 'package:otlplus/pages/course_search_page.dart';
+import 'package:otlplus/pages/lecture_detail_page.dart';
 import 'package:otlplus/pages/people_page.dart';
 import 'package:otlplus/pages/privacy_page.dart';
 import 'package:otlplus/pages/settings_page.dart';
 import 'package:otlplus/pages/user_page.dart';
 import 'package:otlplus/providers/course_search_model.dart';
+import 'package:otlplus/providers/lecture_detail_model.dart';
 import 'package:otlplus/widgets/responsive_button.dart';
 import 'package:otlplus/utils/navigator.dart';
 import 'package:otlplus/widgets/otl_scaffold.dart';
@@ -323,55 +326,38 @@ class _MainPageState extends State<MainPage> {
   }
 
   Widget _buildSchedule(DateTime now, Map<String, dynamic>? currentSchedule) {
-    final isEn = EasyLocalization.of(context)!.currentLocale == Locale('en');
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
         Text(
           (currentSchedule == null)
               ? "common.no_info".tr()
-              : "home.remained_datetime".tr(
+              : "home.schedule.remained_datetime".tr(
                   args: getRemainedTime(
                       currentSchedule["time"].difference(now) as Duration)),
           style: titleRegular,
-          // ignore: unnecessary_null_comparison
-        ),
-        const SizedBox(height: 4.0),
-        Text.rich(
-          TextSpan(
-            style: bodyRegular,
-            children: <TextSpan>[
-              TextSpan(
-                style: bodyBold,
-                text:
-                    // ignore: unnecessary_null_comparison
-                    (currentSchedule == null)
-                        ? "-"
-                        : (currentSchedule["title"]),
-              ),
-              const TextSpan(text: " "),
-              TextSpan(
-                style: bodyBold,
-                // ignore: unnecessary_null_comparison
-                text: (currentSchedule == null)
-                    ? ""
-                    : (isEn
-                        ? currentSchedule["nameEn"]
-                        : currentSchedule["name"]),
-              ),
-              const TextSpan(text: " "),
-              TextSpan(
-                // ignore: unnecessary_null_comparison
-                text: (currentSchedule == null)
-                    ? ""
-                    : DateFormat("yyyy.MM.dd")
-                        .format(currentSchedule["time"].toLocal()),
-              ),
-            ],
-          ),
           textAlign: TextAlign.center,
         ),
+        const SizedBox(height: 4.0),
+        (currentSchedule == null)
+            ? Text('-', style: bodyBold)
+            : Wrap(
+                alignment: WrapAlignment.center,
+                children: [
+                  Text(
+                    '${(currentSchedule["semester"] as Semester).title} ${(currentSchedule["name"] as String).tr()}',
+                    style: bodyBold,
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(width: 4),
+                  Text(
+                    DateFormat("yyyy.MM.dd")
+                        .format(currentSchedule["time"].toLocal()),
+                    style: bodyRegular,
+                    textAlign: TextAlign.center,
+                  ),
+                ],
+              ),
       ],
     );
   }
@@ -393,6 +379,10 @@ class _MainPageState extends State<MainPage> {
           builder: (lecture, classTimeIndex) => TimetableBlock(
             lecture: lecture,
             classTimeIndex: classTimeIndex,
+            onTap: () {
+              context.read<LectureDetailModel>().loadLecture(lecture.id, false);
+              OTLNavigator.push(context, LectureDetailPage());
+            },
           ),
         ),
       ),

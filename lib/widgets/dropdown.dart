@@ -66,6 +66,7 @@ class Dropdown<T> extends StatelessWidget {
                   crossAxisMargin: 4.5,
                   thickness: MaterialStatePropertyAll(3),
                   thumbColor: MaterialStatePropertyAll(OTLColor.grayF),
+                  interactive: true,
                 )
               : null,
         ),
