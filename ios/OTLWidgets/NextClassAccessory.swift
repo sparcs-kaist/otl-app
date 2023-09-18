@@ -40,6 +40,7 @@ struct NextClassAccessoryEntryView : View {
                         Text(LocalizedStringKey("nextclasswidget.nodata"))
                             .font(.system(size: 10))
                             .fontWeight(.medium)
+                            .padding(.top, 2)
                         Text("")
                             .font(.system(size: 9))
                             .fontWeight(.medium)
