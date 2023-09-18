@@ -48,7 +48,7 @@ struct NextClassAccessoryEntryView : View {
             }
         case .accessoryRectangular:
             HStack {
-                if (entry.timetableData != nil) {
+                if (entry.timetableData != nil && entry.timetableData![Int(entry.configuration.nextClassTimetable?.identifier ?? "0") ?? 0].lectures.count > 0) {
                     VStack(alignment: .leading) {
                         HStack(alignment: .center, spacing: 4) {
                             Circle()
