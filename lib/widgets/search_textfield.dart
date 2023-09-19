@@ -49,7 +49,7 @@ class _SearchTextfieldState extends State<SearchTextfield> {
                   style: bodyRegular,
                   decoration: InputDecoration(
                     hintText: "common.search_hint".tr(),
-                    hintStyle: evenBodyRegular.copyWith(color: OTLColor.grayA),
+                    hintStyle: bodyRegular.copyWith(color: OTLColor.grayA),
                   ),
                 ),
               ),

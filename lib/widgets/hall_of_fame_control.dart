@@ -49,7 +49,7 @@ class _HallOfFameControlState extends State<HallOfFameControl> {
               _currentSemester == null
                   ? "common.all".tr()
                   : "${_currentSemester?.year} ${_currentSemester?.semester == 1 ? 'semester.spring'.tr() : 'semester.fall'.tr()}",
-              style: evenBodyBold.copyWith(
+              style: bodyBold.copyWith(
                 color: OTLColor.pinksMain,
               ),
             ),

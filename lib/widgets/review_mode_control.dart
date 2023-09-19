@@ -109,7 +109,7 @@ class _ReviewModeControlState extends State<ReviewModeControl> {
                     widget._selectedMode == 0
                         ? "title.hall_of_fame".tr()
                         : "title.latest_reviews".tr(),
-                    style: evenTitleBold.copyWith(color: OTLColor.grayF),
+                    style: titleBold.copyWith(color: OTLColor.grayF),
                   ),
                 ],
               ),

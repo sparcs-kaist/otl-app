@@ -100,7 +100,7 @@ Widget _build23fRecruiting() {
                   children: [
                     Text(
                       '지원하러 가기',
-                      style: evenBodyBold.copyWith(color: OTLColor.gray0),
+                      style: bodyBold.copyWith(color: OTLColor.gray0),
                       textAlign: TextAlign.center,
                     ),
                     const SizedBox(width: 8.0),

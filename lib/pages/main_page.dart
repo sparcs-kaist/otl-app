@@ -155,7 +155,7 @@ class _MainPageState extends State<MainPage> {
                                   Expanded(
                                     child: Text(
                                       "common.search_hint".tr(),
-                                      style: evenBodyRegular.copyWith(
+                                      style: bodyRegular.copyWith(
                                           color: OTLColor.grayA, height: 1.24),
                                     ),
                                   ),
