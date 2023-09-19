@@ -20,7 +20,7 @@ struct NextClassAccessoryEntryView : View {
         case .accessoryCircular:
             ZStack {
                 AccessoryWidgetBackground()
-                if (entry.timetableData != nil) {
+                if (entry.timetableData != nil && entry.timetableData![Int(entry.configuration.nextClassTimetable?.identifier ?? "0") ?? 0].lectures.count > 0) {
                     VStack {
                         Image(systemName: "tablecells")
                             .font(.caption2)
@@ -38,8 +38,9 @@ struct NextClassAccessoryEntryView : View {
                             .font(.caption2)
                             .widgetAccentable()
                         Text(LocalizedStringKey("nextclasswidget.nodata"))
-                            .font(.system(size: 15))
+                            .font(.system(size: 10))
                             .fontWeight(.medium)
+                            .padding(.top, 2)
                         Text("")
                             .font(.system(size: 9))
                             .fontWeight(.medium)
@@ -48,7 +49,7 @@ struct NextClassAccessoryEntryView : View {
             }
         case .accessoryRectangular:
             HStack {
-                if (entry.timetableData != nil) {
+                if (entry.timetableData != nil && entry.timetableData![Int(entry.configuration.nextClassTimetable?.identifier ?? "0") ?? 0].lectures.count > 0) {
                     VStack(alignment: .leading) {
                         HStack(alignment: .center, spacing: 4) {
                             Circle()
@@ -72,7 +73,7 @@ struct NextClassAccessoryEntryView : View {
                                 .font(.headline)
                         }.offset(y: 7)
                             .widgetAccentable()
-                        Text(LocalizedStringKey("nextclasswidget.nodata"))
+                        Text("")
                             .font(.headline)
                             .widgetAccentable()
                         Text("")

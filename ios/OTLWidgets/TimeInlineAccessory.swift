@@ -20,7 +20,7 @@ struct TimeInlineAccessoryEntryView : View {
         case .accessoryInline:
             HStack {
                 Image(systemName: "tablecells")
-                if (entry.timetableData != nil) {
+                if (entry.timetableData != nil && entry.timetableData![Int(entry.configuration.nextClassTimetable?.identifier ?? "0") ?? 0].lectures.count > 0) {
                     Text("\(getBegin(timetable: entry.timetableData![Int(entry.configuration.nextClassTimetable?.identifier ?? "0") ?? 0], date: entry.date)) \(getName(timetable: entry.timetableData![Int(entry.configuration.nextClassTimetable?.identifier ?? "0") ?? 0], date: entry.date))")
                 } else {
                     Text(LocalizedStringKey("nextclasswidget.nodata"))
