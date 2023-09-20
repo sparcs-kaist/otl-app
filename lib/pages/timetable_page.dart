@@ -3,8 +3,7 @@ import 'package:otlplus/pages/lecture_detail_page.dart';
 import 'package:otlplus/pages/lecture_search_page.dart';
 import 'package:otlplus/utils/navigator.dart';
 import 'package:otlplus/providers/lecture_search_model.dart';
-import 'package:otlplus/widgets/delete_dialog.dart';
-import 'package:otlplus/widgets/responsive_button.dart';
+import 'package:otlplus/widgets/otl_dialog.dart';
 import 'package:otlplus/widgets/lecture_search.dart';
 import 'package:otlplus/widgets/map_view.dart';
 import 'package:otlplus/widgets/otl_scaffold.dart';
@@ -158,7 +157,7 @@ class _TimetablePageState extends State<TimetablePage> {
             child: RepaintBoundary(
               key: _paintKey,
               child: Container(
-                color: Colors.white,
+                color: OTLColor.grayF,
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: _buildTimetable(context, lectures, isExamTime),
               ),
@@ -178,7 +177,6 @@ class _TimetablePageState extends State<TimetablePage> {
     bool isFirst = true;
     final tempLecture =
         context.select<TimetableModel, Lecture?>((model) => model.tempLecture);
-    final isEn = EasyLocalization.of(context)?.currentLocale == Locale('en');
 
     return Timetable(
       lectures: (tempLecture == null) ? lectures : [...lectures, tempLecture],
@@ -203,47 +201,25 @@ class _TimetablePageState extends State<TimetablePage> {
             context.read<LectureDetailModel>().loadLecture(lecture.id, true);
             OTLNavigator.push(context, LectureDetailPage());
           },
-          onLongPress: isSelected
-              ? null
-              : () async {
-                  bool result = false;
-                  await OTLNavigator.pushDialog(
-                    context: context,
-                    barrierDismissible: false,
-                    builder: (context) => AlertDialog(
-                      title: Text("common.delete".tr()),
-                      content: Text("timetable.ask_delete_lecture").tr(
-                        args: [isEn ? lecture.titleEn : lecture.title],
-                      ),
-                      actions: [
-                        IconTextButton(
-                          padding: EdgeInsets.all(12),
-                          text: 'common.cancel'.tr(),
-                          color: OTLColor.pinksMain,
-                          onTap: () {
-                            result = false;
-                            OTLNavigator.pop(context);
+          onLongPress:
+              isSelected || context.read<TimetableModel>().selectedIndex == 0
+                  ? null
+                  : () {
+                      OTLNavigator.pushDialog(
+                        context: context,
+                        builder: (_) => OTLDialog(
+                          type: OTLDialogType.deleteLecture,
+                          namedArgs: {
+                            'lecture': context.locale == Locale('ko')
+                                ? lecture.title
+                                : lecture.titleEn
                           },
+                          onTapPos: () => context
+                              .read<TimetableModel>()
+                              .removeLecture(lecture: lecture),
                         ),
-                        IconTextButton(
-                          padding: EdgeInsets.all(12),
-                          text: 'common.delete'.tr(),
-                          color: OTLColor.pinksMain,
-                          onTap: () {
-                            result = true;
-                            OTLNavigator.pop(context);
-                          },
-                        ),
-                      ],
-                    ),
-                  );
-
-                  if (result) {
-                    context
-                        .read<TimetableModel>()
-                        .removeLecture(lecture: lecture);
-                  }
-                },
+                      );
+                    },
         );
       },
     );
@@ -274,20 +250,15 @@ class _TimetablePageState extends State<TimetablePage> {
         });*/
       },
       onDeleteTap: () {
-        showGeneralDialog(
+        OTLNavigator.pushDialog(
           context: context,
-          barrierColor: Colors.black.withOpacity(0.2),
-          barrierDismissible: true,
-          barrierLabel:
-              MaterialLocalizations.of(context).modalBarrierDismissLabel,
-          pageBuilder: (context, _, __) => DeleteDialog(
-            text: 'timetable.ask_delete_tab'.tr(args: [
-              'timetable.tab'
+          builder: (_) => OTLDialog(
+            type: OTLDialogType.deleteTab,
+            namedArgs: {
+              'timetable': 'timetable.tab'
                   .tr(args: [timetableModel.selectedIndex.toString()])
-            ]),
-            onDelete: () {
-              context.read<TimetableModel>().deleteTimetable();
             },
+            onTapPos: () => context.read<TimetableModel>().deleteTimetable(),
           ),
         );
       },

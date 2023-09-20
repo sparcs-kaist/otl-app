@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:otlplus/constants/color.dart';
 
 enum OTLNavigatorTransition { rightLeft, downUp, immediate }
 
@@ -108,9 +109,9 @@ class OTLNavigator {
     required BuildContext context,
     required WidgetBuilder builder,
     bool barrierDismissible = true,
-    Color? barrierColor = Colors.black54,
+    Color? barrierColor = OTLColor.barrier,
     String? barrierLabel,
-    bool useSafeArea = true,
+    bool useSafeArea = false,
     bool useRootNavigator = true,
     RouteSettings? routeSettings,
     Offset? anchorPoint,

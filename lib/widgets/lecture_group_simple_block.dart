@@ -71,11 +71,11 @@ class LectureGroupSimpleBlock extends StatelessWidget {
                           ),
                           child: Text.rich(
                             TextSpan(
-                              style: evenBodyRegular,
+                              style: bodyRegular,
                               children: [
                                 TextSpan(
                                   text: lecture.classTitle,
-                                  style: evenBodyBold,
+                                  style: bodyBold,
                                 ),
                                 TextSpan(text: ' '),
                                 TextSpan(

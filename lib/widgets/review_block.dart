@@ -5,10 +5,13 @@ import 'package:otlplus/constants/text_styles.dart';
 import 'package:otlplus/constants/url.dart';
 import 'package:otlplus/dio_provider.dart';
 import 'package:otlplus/extensions/review.dart';
+import 'package:otlplus/extensions/semester.dart';
 import 'package:otlplus/models/review.dart';
+import 'package:otlplus/models/semester.dart';
 import 'package:otlplus/widgets/responsive_button.dart';
-import 'package:otlplus/utils/navigator.dart';
 import 'package:otlplus/widgets/expandable_text.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:mailto/mailto.dart';
 
 class ReviewBlock extends StatefulWidget {
   final Review review;
@@ -186,20 +189,32 @@ class _ReviewBlockState extends State<ReviewBlock> {
   }
 
   void _report() {
-    OTLNavigator.pushDialog(
-        context: context,
-        builder: (_) => AlertDialog(
-              title: Text('안내'),
-              content: Text(
-                  '이 기능은 현재 개발중입니다. 부적절한 후기는 otlplus@sparcs.org로 신고해 주세요.'),
-              actions: <Widget>[
-                new TextButton(
-                  child: new Text("확인"),
-                  onPressed: () {
-                    OTLNavigator.pop(context);
-                  },
-                ),
-              ],
-            ));
+    final lecture = widget.review.lecture;
+    final isKo = context.locale == Locale('ko');
+    launchUrl(
+      Uri.parse(
+        '${Mailto(
+          to: [CONTACT],
+          subject: 'review.mailto.subject'.tr(),
+          body: 'review.mailto.body_reason'.tr() +
+              'review.mailto.body_info'.tr(
+                namedArgs: {
+                  'title': isKo ? lecture.title : lecture.titleEn,
+                  'oldCode': lecture.oldCode,
+                  'semesterTitle': Semester(
+                          year: lecture.year,
+                          semester: lecture.semester,
+                          beginning: DateTime(0),
+                          end: DateTime(0))
+                      .title,
+                  'professors': lecture.professors
+                      .map((e) => isKo ? e.name : e.nameEn)
+                      .join(', '),
+                  'content': widget.review.content
+                },
+              ),
+        )}',
+      ),
+    );
   }
 }

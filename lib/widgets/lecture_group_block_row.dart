@@ -4,6 +4,7 @@ import 'package:otlplus/constants/color.dart';
 import 'package:otlplus/constants/text_styles.dart';
 import 'package:otlplus/extensions/lecture.dart';
 import 'package:otlplus/models/lecture.dart';
+import 'package:otlplus/widgets/otl_dialog.dart';
 import 'package:otlplus/widgets/responsive_button.dart';
 import 'package:otlplus/utils/navigator.dart';
 import 'package:provider/provider.dart';
@@ -100,7 +101,7 @@ class _LectureGroupBlockRowState extends State<LectureGroupBlockRow> {
                             icon: 'assets/icons/info.svg',
                             iconSize: 20.0,
                             onTap: widget.onLongPress,
-                            color: Color(0xFF000000),
+                            color: OTLColor.gray0,
                           ),
                           SizedBox(
                             width: 6.0,
@@ -119,7 +120,7 @@ class _LectureGroupBlockRowState extends State<LectureGroupBlockRow> {
                             iconSize: 24,
                             color: alreadyAdded
                                 ? OTLColor.pinksMain
-                                : Color(0xFF000000),
+                                : OTLColor.gray0,
                           )
                         ],
                       ),
@@ -135,38 +136,43 @@ class _LectureGroupBlockRowState extends State<LectureGroupBlockRow> {
   }
 
   Future<void> _addLecture(Lecture lec) async {
+    final isKo = context.locale == Locale('ko');
+    final lectureTitle = isKo ? lec.title : lec.titleEn;
+
     bool result = await context.read<TimetableModel>().addLecture(
           lecture: lec,
-          onOverlap: (lectures) async {
+          noOverlap: () async {
             bool result = false;
+
             await OTLNavigator.pushDialog(
               context: context,
-              barrierDismissible: false,
-              builder: (context) => AlertDialog(
-                title: Text("timetable.dialog.add_lecture".tr()),
-                content: Text("timetable.dialog.ask_add_lecture".tr()),
-                actions: [
-                  IconTextButton(
-                    padding: EdgeInsets.all(12),
-                    text: 'common.cancel'.tr(),
-                    color: OTLColor.pinksMain,
-                    onTap: () {
-                      result = false;
-                      OTLNavigator.pop(context);
-                    },
-                  ),
-                  IconTextButton(
-                    padding: EdgeInsets.all(12),
-                    text: 'common.add'.tr(),
-                    color: OTLColor.pinksMain,
-                    onTap: () {
-                      result = true;
-                      OTLNavigator.pop(context);
-                    },
-                  ),
-                ],
+              builder: (_) => OTLDialog(
+                type: OTLDialogType.addLecture,
+                namedArgs: {'lecture': lectureTitle},
+                onTapPos: () => result = true,
               ),
             );
+
+            return result;
+          },
+          onOverlap: (lectures) async {
+            bool result = false;
+
+            await OTLNavigator.pushDialog(
+              context: context,
+              builder: (_) => OTLDialog(
+                type: OTLDialogType.addOverlappingLecture,
+                namedArgs: {
+                  'lectures': lectures
+                      .map((lecture) =>
+                          "'${isKo ? lecture.title : lecture.titleEn}'")
+                      .join(', '),
+                  'lecture': lectureTitle
+                },
+                onTapPos: () => result = true,
+              ),
+            );
+
             return result;
           },
         );
@@ -176,9 +182,17 @@ class _LectureGroupBlockRowState extends State<LectureGroupBlockRow> {
   }
 
   Future<void> _removeLecture(Lecture lec) async {
-    await context.read<TimetableModel>().removeLecture(
-          lecture: lec,
-        );
+    await OTLNavigator.pushDialog(
+      context: context,
+      builder: (_) => OTLDialog(
+        type: OTLDialogType.deleteLecture,
+        namedArgs: {
+          'lecture': context.locale == Locale('ko') ? lec.title : lec.titleEn
+        },
+        onTapPos: () =>
+            context.read<TimetableModel>().removeLecture(lecture: lec),
+      ),
+    );
     context.read<TimetableModel>().setTempLecture(null);
   }
 }

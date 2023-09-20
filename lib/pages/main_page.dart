@@ -111,8 +111,6 @@ class _MainPageState extends State<MainPage> {
           Image.asset(
             "assets/images/bg.4556cdee.jpg",
             fit: BoxFit.cover,
-            color: const Color(0xFF9B4810).withOpacity(0.1),
-            colorBlendMode: BlendMode.srcATop,
           ),
           Container(
             constraints: const BoxConstraints.expand(),
@@ -157,7 +155,7 @@ class _MainPageState extends State<MainPage> {
                                   Expanded(
                                     child: Text(
                                       "common.search_hint".tr(),
-                                      style: evenBodyRegular.copyWith(
+                                      style: bodyRegular.copyWith(
                                           color: OTLColor.grayA, height: 1.24),
                                     ),
                                   ),
@@ -181,7 +179,7 @@ class _MainPageState extends State<MainPage> {
                             SliverFillRemaining(
                               hasScrollBody: false,
                               child: ColoredBox(
-                                color: Colors.white,
+                                color: OTLColor.grayF,
                                 child: Padding(
                                   padding: const EdgeInsets.symmetric(
                                     horizontal: 16.0,

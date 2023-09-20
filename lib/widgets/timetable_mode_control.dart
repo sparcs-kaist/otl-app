@@ -27,7 +27,7 @@ class _TimetableModeControlState extends State<TimetableModeControl> {
       height: 40,
       padding: const EdgeInsets.fromLTRB(4, 4, 16, 4),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: OTLColor.grayF,
         borderRadius: BorderRadius.horizontal(left: Radius.circular(20)),
       ),
       child: Stack(
@@ -59,7 +59,7 @@ class _TimetableModeControlState extends State<TimetableModeControl> {
                   child: Icon(
                     _iconList[index],
                     color: (index == widget.dropdownIndex)
-                        ? Colors.white
+                        ? OTLColor.grayF
                         : OTLColor.pinksMain,
                   ),
                 ),

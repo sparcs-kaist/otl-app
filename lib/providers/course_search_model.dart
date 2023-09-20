@@ -148,7 +148,7 @@ class CourseSearchModel extends ChangeNotifier {
   Text get courseSearchquery => (_courseSearchquery == null)
       ? Text(
           "common.search_hint".tr(),
-          style: evenBodyRegular.copyWith(color: OTLColor.grayA),
+          style: bodyRegular.copyWith(color: OTLColor.grayA),
         )
       : _courseSearchquery!;
   void updateCourseSearchquery() {
@@ -166,7 +166,7 @@ class CourseSearchModel extends ChangeNotifier {
     } else {
       _courseSearchquery = Text.rich(
         TextSpan(
-          style: evenBodyRegular.copyWith(color: OTLColor.grayA),
+          style: bodyRegular.copyWith(color: OTLColor.grayA),
           children: [
             TextSpan(
               text: _courseSearchText.isEmpty ? '' : '"$_courseSearchText"',

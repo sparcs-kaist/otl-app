@@ -338,8 +338,8 @@ class _SilderSelectionState extends State<SilderSelection> {
                     thumbShape: CustomSliderThumbShape(
                         outerThumbRadius: 10,
                         innerThumbRadius: 7,
-                        outerThumbColor: Color(0xFFF6C5CD),
-                        innerThumbColor: Colors.white),
+                        outerThumbColor: OTLColor.pinksSub,
+                        innerThumbColor: OTLColor.grayF),
                     trackHeight: 5.0,
                     trackShape: RoundRectangularSliderTrackShape(),
                     tickMarkShape: SliderTickMarkShape.noTickMark,
@@ -349,8 +349,8 @@ class _SilderSelectionState extends State<SilderSelection> {
                   min: 0.0,
                   max: divisions.toDouble(),
                   divisions: divisions,
-                  activeColor: Color(0xFFF6C5CD),
-                  inactiveColor: Color(0xFFEEEEEE),
+                  activeColor: OTLColor.pinksSub,
+                  inactiveColor: OTLColor.grayE,
                   onChanged: (double value) {
                     setState(() {
                       _value = value;
@@ -488,8 +488,8 @@ class CustomSliderThumbShape extends SliderComponentShape {
   const CustomSliderThumbShape({
     this.outerThumbRadius = 10.0,
     this.innerThumbRadius = 10.0,
-    this.outerThumbColor = Colors.white,
-    this.innerThumbColor = Colors.white,
+    this.outerThumbColor = OTLColor.grayF,
+    this.innerThumbColor = OTLColor.grayF,
     this.elevation = 0.0,
     this.pressedElevation = 0.0,
   });
@@ -541,7 +541,7 @@ class CustomSliderThumbShape extends SliderComponentShape {
     bool paintShadows = true;
 
     if (paintShadows) {
-      canvas.drawShadow(path, Colors.black, evaluatedElevation, true);
+      canvas.drawShadow(path, OTLColor.gray0, evaluatedElevation, true);
     }
 
     canvas

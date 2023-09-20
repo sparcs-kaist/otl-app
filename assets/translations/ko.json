@@ -4,7 +4,7 @@
     "alert": "경고",
     "cancel": "취소",
     "delete": "삭제",
-    "add": "추가하기",
+    "add": "추가",
     "reset": "초기화",
     "reset_all": "전체 초기화",
     "search": "검색",
@@ -65,15 +65,20 @@
     }
   },
   "timetable": {
-    "ask_delete_lecture": "'{}' 수업을 삭제하시겠습니까?",
-    "ask_delete_tab": "'{}'을(를) 정말 삭제하시겠습니까?",
     "my_tab": "내 시간표",
     "tab": "시간표 {}",
-    "add_lecture": "시간표에 추가",
-    "remove_lecture": "시간표에서 제거",
     "dialog": {
       "add_lecture": "수업 추가",
-      "ask_add_lecture": "시간이 겹치는 수업이 있습니다. 추가하시면 해당 수업은 삭제됩니다.\n시간표에 추가하시겠습니까?"
+      "add_overlapping_lecture": "겹치는 수업 추가",
+      "delete_lecture": "수업 삭제",
+      "delete_tab": "시간표 삭제",
+      "ask_add_lecture": "'{lecture}' 수업을 추가하시겠습니까?",
+      "ask_add_lecture_with_tab": "'{lecture}' 수업을 {timetable}에 추가하시겠습니까?",
+      "ask_add_overlapping_lecture": "{lectures}와(과) 시간이 겹칩니다. '{lecture}'을(를) 추가하시면 해당 수업은 삭제됩니다. 시간표에 추가하시겠습니까?",
+      "ask_add_overlapping_lecture_with_tab": "{timetable}의 {lectures}와(과) 시간이 겹칩니다. '{lecture}'을(를) 추가하시면 해당 수업은 삭제됩니다. 시간표에 추가하시겠습니까?",
+      "ask_delete_lecture": "'{lecture}' 수업을 삭제하시겠습니까?",
+      "ask_delete_lecture_with_tab": "'{lecture}' 수업을 {timetable}에서 삭제하시겠습니까?",
+      "ask_delete_tab": "{timetable}을(를) 정말 삭제하시겠습니까?"
     },
     "tab_menu": {
       "copy": "시간표 복제하기",
@@ -130,7 +135,12 @@
     "speech": "강의",
     "like": "추천",
     "report": "신고하기",
-    "expand": "더 보기"
+    "expand": "더 보기",
+    "mailto": {
+      "subject": "[후기 신고]",
+      "body_reason": "[신고 사유]\n*후기를 신고한 이유를 서술해 주세요.\n---------------------------------\n\n\n\n---------------------------------\n\n",
+      "body_info": "[신고할 후기 정보]\n*자동으로 작성된 후기 정보입니다. 원활한 신고를 위해서 수정하지 말아주세요.\n과목: {title} ({oldCode})\n학기: {semesterTitle}\n교수: {professors}\n내용:\n{content}\n"
+    }
   },
   "user": {
     "name": "이름",
@@ -142,7 +152,7 @@
     "logout": "로그아웃",
     "delete_account": "계정 삭제",
     "ask_delete_account": "계정을 정말 삭제하시겠습니까?",
-    "account_deleted": "계정 삭제됨",
+    "account_deleted": "삭제된 계정",
     "deleted_account": "삭제된 계정입니다."
   },
   "settings": {
@@ -154,10 +164,15 @@
     "send_anonymously": "익명으로 전송",
     "send_anonymously_desc": "오류 로그에 사용자 ID를 포함하지 않고 익명으로 전송합니다.",
     "reset_all": "모든 설정 데이터 초기화",
-    "reset_all_desc": "정말 모든 설정 데이터를 초기화하시겠습니까? 로그인 정보는 초기화되지 않습니다.",
+    "dialog": {
+      "reset": "초기화",
+      "reset_settings": "설정 초기화",
+      "reset_settings_desc": "정말 모든 설정 데이터를 초기화하시겠습니까? 단, 로그인 정보는 제외하고 초기화됩니다."
+    },
     "throw_test": "테스트 오류 발생",
     "throw_test_desc": "Firebase crashlytics 테스트용",
-    "about": "정보"
+    "about": "정보",
+    "view_licenses": "라이선스 보기"
   },
   "department": {
     "department": "학과",

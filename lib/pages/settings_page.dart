@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:otlplus/constants/color.dart';
 import 'package:otlplus/constants/text_styles.dart';
+import 'package:otlplus/constants/url.dart';
 import 'package:otlplus/providers/settings_model.dart';
 import 'package:otlplus/widgets/dropdown.dart';
-import 'package:otlplus/widgets/responsive_button.dart';
+import 'package:otlplus/widgets/otl_dialog.dart';
 import 'package:otlplus/utils/navigator.dart';
 import 'package:otlplus/widgets/otl_scaffold.dart';
 import 'package:provider/provider.dart';
@@ -13,8 +14,6 @@ import 'package:flutter/foundation.dart' show kDebugMode;
 import 'package:easy_localization/easy_localization.dart';
 
 class SettingsPage extends StatelessWidget {
-  final contactEmail = 'otlplus@kaist.ac.kr';
-
   @override
   Widget build(BuildContext context) {
     final isEn = EasyLocalization.of(context)?.currentLocale == Locale('en');
@@ -121,65 +120,30 @@ class SettingsPage extends StatelessWidget {
                   onTap: () {
                     OTLNavigator.pushDialog(
                       context: context,
-                      builder: (context) => AlertDialog(
-                        title: Text(
-                          'common.alert'.tr(),
-                          style: titleRegular,
-                        ),
-                        content: Text(
-                          'settings.reset_all_desc'.tr(),
-                          style: bodyRegular,
-                        ),
-                        actions: <Widget>[
-                          TextButton(
-                            child: Text(
-                              "common.cancel".tr(),
-                              style: bodyRegular,
-                            ),
-                            onPressed: () {
-                              OTLNavigator.pop(context);
-                            },
-                          ),
-                          TextButton(
-                            child: Text(
-                              "common.delete".tr(),
-                              style: bodyRegular,
-                            ),
-                            onPressed: () {
-                              context
-                                  .read<SettingsModel>()
-                                  .clearAllValues()
-                                  .then((_) => OTLNavigator.pop(context));
-                            },
-                          ),
-                        ],
+                      builder: (_) => OTLDialog(
+                        type: OTLDialogType.resetSettings,
+                        onTapPos: () =>
+                            context.read<SettingsModel>().clearAllValues(),
                       ),
                     );
                   },
                 ),
                 _buildListTile(
                   title: "settings.about".tr(),
-                  onTap: () => showAboutDialog(
+                  onTap: () => OTLNavigator.pushDialog(
                     context: context,
-                    applicationName: "",
-                    applicationIcon:
-                        Image.asset("assets/images/logo.png", height: 48.0),
-                    children: [
-                      Text(
-                        "Online Timeplanner with Lectures Plus @ KAIST",
-                        style: bodyRegular,
+                    builder: (_) => OTLDialog(
+                      type: OTLDialogType.about,
+                      onTapContent: () =>
+                          launchUrl(Uri.parse("mailto:$CONTACT")),
+                      onTapPos: () => showLicensePage(
+                        context: context,
+                        applicationName: "",
+                        applicationIcon:
+                            Image.asset("assets/images/logo.png", height: 48.0),
                       ),
-                      IconTextButton(
-                        padding: EdgeInsets.fromLTRB(0, 4, 10, 4),
-                        onTap: () =>
-                            launchUrl(Uri.parse("mailto:$contactEmail")),
-                        text: contactEmail,
-                        textStyle:
-                            bodyRegular.copyWith(color: OTLColor.pinksMain),
-                      )
-                    ],
+                    ),
                   ),
-                  hasTopPadding: false,
                 ),
               ],
             ),
@@ -191,7 +155,7 @@ class SettingsPage extends StatelessWidget {
 
   Widget _buildListTile(
       {required String title,
-      String subtitle = '',
+      String? subtitle,
       Widget? trailing,
       void Function()? onTap,
       bool hasTopPadding = true}) {
@@ -209,8 +173,10 @@ class SettingsPage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(title, style: bodyBold),
-                    const SizedBox(height: 4),
-                    Text(subtitle, style: bodyRegular),
+                    if (subtitle != null) ...[
+                      const SizedBox(height: 4),
+                      Text(subtitle, style: bodyRegular),
+                    ]
                   ],
                 ),
               ),

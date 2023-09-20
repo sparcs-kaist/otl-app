@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
-const regularBase = TextStyle(letterSpacing: 0.15);
+const regularBase = TextStyle(
+  letterSpacing: 0.15,
+  leadingDistribution: TextLeadingDistribution.even,
+);
 
 final labelRegular = regularBase.copyWith(
   fontSize: 12.0,
@@ -31,16 +34,3 @@ final displayRegular = regularBase.copyWith(
   height: 1.6,
 );
 final displayBold = displayRegular.copyWith(fontWeight: FontWeight.bold);
-
-final evenLabelRegular = labelRegular.copyWith(
-  leadingDistribution: TextLeadingDistribution.even,
-);
-final evenBodyRegular = bodyRegular.copyWith(
-  leadingDistribution: TextLeadingDistribution.even,
-);
-final evenBodyBold = bodyBold.copyWith(
-  leadingDistribution: TextLeadingDistribution.even,
-);
-final evenTitleBold = titleBold.copyWith(
-  leadingDistribution: TextLeadingDistribution.even,
-);

@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:otlplus/constants/color.dart';
 import 'package:otlplus/constants/text_styles.dart';
 import 'package:otlplus/pages/course_detail_page.dart';
 import 'package:otlplus/providers/course_detail_model.dart';
@@ -86,7 +87,7 @@ class LikedReviewPage extends StatelessWidget {
                                       width: 24,
                                       height: 24,
                                       child: CircularProgressIndicator(
-                                        color: Colors.black12,
+                                        color: OTLColor.grayE,
                                         strokeWidth: 2,
                                       ),
                                     ),

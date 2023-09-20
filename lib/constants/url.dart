@@ -22,3 +22,5 @@ const API_LIKED_REVIEW_URL = API_URL + "/users/{user_id}/liked-reviews";
 const API_SHARE_URL = API_URL + "share/timetable/{share_type}";
 
 enum ShareType { image, ical }
+
+const CONTACT = "otlplus@sparcs.org";

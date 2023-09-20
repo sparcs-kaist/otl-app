@@ -133,7 +133,7 @@ class LectureSearchModel extends ChangeNotifier {
                 .map((i) => i.label)))).values.expand((i) => i).toList();
     _lectureSearchquery = Text.rich(
       TextSpan(
-        style: evenBodyRegular.copyWith(color: OTLColor.grayA),
+        style: bodyRegular.copyWith(color: OTLColor.grayA),
         children: [
           TextSpan(
             text: _lectureSearchText.isEmpty ? '' : '"$_lectureSearchText"',
@@ -184,10 +184,10 @@ class LectureSearchModel extends ChangeNotifier {
         children: [
           TextSpan(
               text: keyword,
-              style:
-                  TextStyle(fontWeight: FontWeight.bold, color: Colors.black)),
+              style: TextStyle(
+                  fontWeight: FontWeight.bold, color: OTLColor.gray0)),
           if (filterOptions.length > 0)
-            TextSpan(style: TextStyle(color: Color(0xFFAAAAAA)), children: [
+            TextSpan(style: TextStyle(color: OTLColor.grayA), children: [
               if ((keyword ?? '').length > 0) TextSpan(text: ", "),
               TextSpan(text: (filterOptions).join(", ")),
             ])

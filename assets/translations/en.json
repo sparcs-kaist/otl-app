@@ -65,15 +65,20 @@
     }
   },
   "timetable": {
-    "ask_delete_lecture": "Do you want to delete class '{}'?",
-    "ask_delete_tab": "Do you really want to delete '{}'?",
     "my_tab": "My Table",
     "tab": "Table {}",
-    "add_lecture": "Add Lecture",
-    "remove_lecture": "Remove Lecture",
     "dialog": {
       "add_lecture": "Add Lecture",
-      "ask_add_lecture": "There is a lecture with overlapping hours. If added, the previous lecture will be deleted.\nDo you want to add new lecture to the timetable?"
+      "add_overlapping_lecture": "Add Overlapping Lecture",
+      "delete_lecture": "Delete Lecture",
+      "delete_tab": "Delete Table",
+      "ask_add_lecture": "Do you want to add lecture '{lecture}'?",
+      "ask_add_lecture_with_tab": "Do you want to add lecture '{lecture}' to {timetable}?",
+      "ask_add_overlapping_lecture": "Time overlaps with {lectures}. If you add '{lecture}', the lecture(s) will be deleted. Do you want to add it to the timetable?",
+      "ask_add_overlapping_lecture_with_tab": "Time overlaps with {lectures} in {timetable}. If you add '{lecture}', the lecture(s) will be deleted. Do you want to add it to the timetable?",
+      "ask_delete_lecture": "Do you want to delete lecture '{lecture}'?",
+      "ask_delete_lecture_with_tab": "Do you want to delete lecture '{lecture}' from {timetable}?",
+      "ask_delete_tab": "Do you really want to delete {timetable}?"
     },
     "tab_menu": {
       "copy": "Copy Timetable",
@@ -130,7 +135,12 @@
     "speech": "Speech",
     "like": "Like",
     "report": "Report",
-    "expand": "more"
+    "expand": "more",
+    "mailto": {
+      "subject": "[Report Review]",
+      "body_reason": "[Reason for Reporting]\n*Please describe a reason for reporting.\n---------------------------------\n\n\n\n---------------------------------\n\n",
+      "body_info": "[Review Information]\n*This information has been filled automatically. Please do NOT edit.\nLecture: {title} ({oldCode})\nSemester: {semesterTitle}\nProf.: {professors}\nContent:\n{content}\n"
+    }
   },
   "user": {
     "name": "Name",
@@ -154,10 +164,15 @@
     "send_anonymously": "Send anonymously",
     "send_anonymously_desc": "Not including user ID in error logs",
     "reset_all": "Reset all settings",
-    "reset_all_desc": "Are you really want to reset all data except login data?",
+    "dialog": {
+      "reset": "Reset",
+      "reset_settings": "Reset settings",
+      "reset_settings_desc": "Are you really want to reset all data? However, it will be reset except for login data."
+    },
     "throw_test": "Throw Test Exception",
     "throw_test_desc": "for testing firebase crashlytics",
-    "about": "About"
+    "about": "About",
+    "view_licenses": "View Licenses"
   },
   "department": {
     "department": "Dept.",

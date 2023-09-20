@@ -75,7 +75,7 @@ class LectureGroupBlock extends StatelessWidget {
             child: SizedBox(
               height: 1,
               child: ColoredBox(
-                color: Color(0xFFDADADA),
+                color: OTLColor.grayA,
               ),
             ),
           ),
