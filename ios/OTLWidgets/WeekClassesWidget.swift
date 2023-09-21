@@ -101,22 +101,20 @@ struct WeekClassesWidgetEntryView : View {
         var tmp = 0
         let calendar = Calendar.current
         let hour = calendar.component(.hour, from: date) >= 2 ? calendar.component(.hour, from: date)-2 : calendar.component(.hour, from: date)
+        let minutes = calendar.component(.minute, from: date) + calendar.component(.hour, from: date) * 60
         
         if hour > 9 {
             tmp = hour >= 18 ? -387 : -43*(hour-9)
         }
         
-        let c = getLecturesForDay(timetable: timetable!, day: getDayWithWeekDay(weekday: Calendar.current.component(.weekday, from: entry.date)))
-        if c.count != 0 {
-            let lecture: Lecture = c.last!.1
-            let index = c.last!.0
-            let end = lecture.classtimes[index].end
-            let minutes = calendar.component(.minute, from: date) + calendar.component(.hour, from: date) * 60
-            
-            return (end >= minutes) ? CGFloat(tmp) : 0
+        var end = 0
+        for lecture in timetable!.lectures {
+            for classtime in lecture.classtimes {
+                end = (classtime.end > end) ? classtime.end : end
+            }
         }
         
-        return CGFloat(tmp)
+        return (end >= minutes) ? CGFloat(tmp) : 0
     }
     
     func getLecturesData(data: [(Int, Lecture)]) -> [WeekClassesWidgetData] {
