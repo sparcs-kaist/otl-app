@@ -358,7 +358,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1430;
-				LastUpgradeCheck = 1300;
+				LastUpgradeCheck = 1430;
 				ORGANIZATIONNAME = "The Chromium Authors";
 				TargetAttributes = {
 					8BB3457F2A012C99008A0E30 = {
@@ -384,7 +384,7 @@
 			);
 			mainGroup = 97C146E51CF9000F007C117D;
 			packageReferences = (
-				8BB397432A8E003300DD352E /* XCRemoteSwiftPackageReference "Alamofire" */,
+				8BB397432A8E003300DD352E /* XCRemoteSwiftPackageReference "Alamofire.git" */,
 			);
 			productRefGroup = 97C146EF1CF9000F007C117D /* Products */;
 			projectDirPath = "";
@@ -523,6 +523,7 @@
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/PromisesObjC/FBLPromises.framework",
 				"${BUILT_PRODUCTS_DIR}/PromisesSwift/Promises.framework",
+				"${BUILT_PRODUCTS_DIR}/flutter_native_splash/flutter_native_splash.framework",
 				"${BUILT_PRODUCTS_DIR}/flutter_web_browser/flutter_web_browser.framework",
 				"${BUILT_PRODUCTS_DIR}/flutter_widgetkit/flutter_widgetkit.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
@@ -545,6 +546,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBLPromises.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Promises.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/flutter_native_splash.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/flutter_web_browser.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/flutter_widgetkit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
@@ -1201,7 +1203,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		8BB397432A8E003300DD352E /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+		8BB397432A8E003300DD352E /* XCRemoteSwiftPackageReference "Alamofire.git" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
 			requirement = {
@@ -1214,7 +1216,7 @@
 /* Begin XCSwiftPackageProductDependency section */
 		8BB397442A8E003300DD352E /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 8BB397432A8E003300DD352E /* XCRemoteSwiftPackageReference "Alamofire" */;
+			package = 8BB397432A8E003300DD352E /* XCRemoteSwiftPackageReference "Alamofire.git" */;
 			productName = Alamofire;
 		};
 /* End XCSwiftPackageProductDependency section */
