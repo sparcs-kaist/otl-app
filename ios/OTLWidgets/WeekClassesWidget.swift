@@ -50,7 +50,7 @@ struct WeekClassesWidgetEntryView : View {
                             }
                             , alignment: .top
                         )
-                        .offset(y: getOffsetByDate(date: entry.date))
+                        .offset(y: getOffsetByDate(timetable: entry.timetableData?[Int(entry.configuration.nextClassTimetable?.identifier ?? "0") ?? 0], date: entry.date))
                 }
             }.padding(16)
             GeometryReader { proxy in
@@ -93,15 +93,28 @@ struct WeekClassesWidgetEntryView : View {
         }
     }
 
-    func getOffsetByDate(date: Date) -> CGFloat {
+    func getOffsetByDate(timetable: Timetable?, date: Date) -> CGFloat {
+        if (timetable == nil || timetable?.lectures.count == 0) {
+            return 0
+        }
+        
         var tmp = 0
-        let hour = Calendar.current.component(.hour, from: date) >= 2 ? Calendar.current.component(.hour, from: date)-2 : Calendar.current.component(.hour, from: date)
+        let calendar = Calendar.current
+        let hour = calendar.component(.hour, from: date) >= 2 ? calendar.component(.hour, from: date)-2 : calendar.component(.hour, from: date)
+        let minutes = calendar.component(.minute, from: date) + calendar.component(.hour, from: date) * 60
         
         if hour > 9 {
             tmp = hour >= 18 ? -387 : -43*(hour-9)
         }
         
-        return CGFloat(tmp)
+        var end = 0
+        for lecture in timetable!.lectures {
+            for classtime in lecture.classtimes {
+                end = (classtime.end > end) ? classtime.end : end
+            }
+        }
+        
+        return (end >= minutes) ? CGFloat(tmp) : 0
     }
     
     func getLecturesData(data: [(Int, Lecture)]) -> [WeekClassesWidgetData] {
