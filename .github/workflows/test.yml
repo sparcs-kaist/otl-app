@@ -26,9 +26,11 @@ jobs:
 
   integration-android:
     name: Integration Test on Android
-    runs-on: macos-latest
+    runs-on: macos-13
     steps:
       - uses: actions/checkout@v3
+      - name: Select Xcode version
+        run: sudo xcode-select -s '/Applications/Xcode_15.0.app/Contents/Developer'
       - name: Set up Java
         uses: actions/setup-java@v3
         with:
