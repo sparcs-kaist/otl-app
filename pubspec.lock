@@ -140,12 +140,11 @@ packages:
   dropdown_button2:
     dependency: "direct main"
     description:
-      path: "."
-      ref: HEAD
-      resolved-ref: "81499508deb9fea0e54eeee82283e073fb0c96f4"
-      url: "https://github.com/sparcs-kaist/dropdown_button2.git"
-    source: git
-    version: "2.3.7"
+      name: dropdown_button2
+      sha256: a60c69cfe075b3b57cbecf163e629e05a5ac7057b9659494f6b80c1960fc7426
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.0.0-beta.4"
   easy_localization:
     dependency: "direct main"
     description:

@@ -71,7 +71,6 @@ class Dropdown<T> extends StatelessWidget {
               : null,
         ),
         menuItemStyleData: MenuItemStyleData(
-          height: 42,
           padding: EdgeInsets.zero,
         ),
         items: items.map((itemData) {
@@ -91,8 +90,9 @@ class Dropdown<T> extends StatelessWidget {
               ),
             ),
           ];
-          return DropdownMenuItem<T>(
+          return DropdownItem<T>(
             value: itemData.value,
+            height: 42,
             child: Stack(
               alignment: AlignmentDirectional.bottomStart,
               children: [
