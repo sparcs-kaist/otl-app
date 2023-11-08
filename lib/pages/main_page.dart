@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:otlplus/constants/text_styles.dart';
 import 'package:otlplus/extensions/semester.dart';
@@ -37,10 +38,13 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
+  final channel = MethodChannel('org.sparcs.otlplus.watchkitapp');
+
   @override
   void initState() {
     super.initState();
     initWidgetKitData();
+    initWatchOSData();
   }
 
   Future<void> initWidgetKitData() async {
@@ -71,6 +75,25 @@ class _MainPageState extends State<MainPage> {
         WidgetKit.setItem(
             'uid', infoModel.user.id.toString(), 'group.org.sparcs.otl');
         WidgetKit.reloadAllTimelines();
+      }
+    } catch (exception) {
+      print(exception);
+    }
+  }
+
+  Future<void> initWatchOSData() async {
+    try {
+      final cookieManager = WebviewCookieManager();
+      final cookies = await cookieManager.getCookies('https://otl.sparcs.org');
+      for (var cookie in cookies) {
+        if (cookie.name == 'sessionid') {
+          await channel.invokeMethod("flutterToWatch", {"method": "sendSessionID", "data": cookie.value});
+        }
+      }
+      final infoModel = InfoModel();
+      await infoModel.getInfo();
+      if (infoModel.hasData) {
+        await channel.invokeMethod("flutterToWatch", {"method": "sendUserID", "data": infoModel.user.id.toString()});
       }
     } catch (exception) {
       print(exception);
