@@ -46,6 +46,8 @@
 		8BB4F62F2A73DD2700C8FE1D /* LocationInlineAccessory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BB4F62E2A73DD2700C8FE1D /* LocationInlineAccessory.swift */; };
 		8BE671612AFC5BE9006222B1 /* DayLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BE671602AFC5BE9006222B1 /* DayLabelView.swift */; };
 		8BE671632AFC5C94006222B1 /* TimelineLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BE671622AFC5C94006222B1 /* TimelineLabelView.swift */; };
+		8BE671652AFC5D6F006222B1 /* DailyTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BE671642AFC5D6F006222B1 /* DailyTableView.swift */; };
+		8BE671672AFC5F2D006222B1 /* HorizontalLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BE671662AFC5F2D006222B1 /* HorizontalLine.swift */; };
 		8BFB7C562AFB67CE007F3E5C /* WatchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BFB7C552AFB67CE007F3E5C /* WatchViewModel.swift */; };
 		8BFB7C582AFC37D4007F3E5C /* WeeklyTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BFB7C572AFC37D4007F3E5C /* WeeklyTableView.swift */; };
 		8BFB7C5C2AFC49C9007F3E5C /* ObservableScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BFB7C5B2AFC49C9007F3E5C /* ObservableScrollView.swift */; };
@@ -159,6 +161,8 @@
 		8BB4F62E2A73DD2700C8FE1D /* LocationInlineAccessory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationInlineAccessory.swift; sourceTree = "<group>"; };
 		8BE671602AFC5BE9006222B1 /* DayLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayLabelView.swift; sourceTree = "<group>"; };
 		8BE671622AFC5C94006222B1 /* TimelineLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineLabelView.swift; sourceTree = "<group>"; };
+		8BE671642AFC5D6F006222B1 /* DailyTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyTableView.swift; sourceTree = "<group>"; };
+		8BE671662AFC5F2D006222B1 /* HorizontalLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalLine.swift; sourceTree = "<group>"; };
 		8BFB7C552AFB67CE007F3E5C /* WatchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchViewModel.swift; sourceTree = "<group>"; };
 		8BFB7C572AFC37D4007F3E5C /* WeeklyTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyTableView.swift; sourceTree = "<group>"; };
 		8BFB7C5B2AFC49C9007F3E5C /* ObservableScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableScrollView.swift; sourceTree = "<group>"; };
@@ -287,6 +291,7 @@
 			isa = PBXGroup;
 			children = (
 				8BFB7C572AFC37D4007F3E5C /* WeeklyTableView.swift */,
+				8BE671642AFC5D6F006222B1 /* DailyTableView.swift */,
 			);
 			path = Pages;
 			sourceTree = "<group>";
@@ -297,6 +302,7 @@
 				8BFB7C5B2AFC49C9007F3E5C /* ObservableScrollView.swift */,
 				8BE671602AFC5BE9006222B1 /* DayLabelView.swift */,
 				8BE671622AFC5C94006222B1 /* TimelineLabelView.swift */,
+				8BE671662AFC5F2D006222B1 /* HorizontalLine.swift */,
 			);
 			path = Subviews;
 			sourceTree = "<group>";
@@ -695,7 +701,9 @@
 				8B5208362AE539720011417B /* OTLApp.swift in Sources */,
 				8BE671632AFC5C94006222B1 /* TimelineLabelView.swift in Sources */,
 				8BFB7C5C2AFC49C9007F3E5C /* ObservableScrollView.swift in Sources */,
+				8BE671652AFC5D6F006222B1 /* DailyTableView.swift in Sources */,
 				8BE671612AFC5BE9006222B1 /* DayLabelView.swift in Sources */,
+				8BE671672AFC5F2D006222B1 /* HorizontalLine.swift in Sources */,
 				8BFB7C562AFB67CE007F3E5C /* WatchViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
