@@ -44,7 +44,10 @@
 		8BB3DE0F29D1F25B001AD191 /* OTLWidgetsExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 8BB3DDFD29D1F25A001AD191 /* OTLWidgetsExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		8BB4F62D2A73D4E700C8FE1D /* TimeInlineAccessory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BB4F62C2A73D4E700C8FE1D /* TimeInlineAccessory.swift */; };
 		8BB4F62F2A73DD2700C8FE1D /* LocationInlineAccessory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BB4F62E2A73DD2700C8FE1D /* LocationInlineAccessory.swift */; };
+		8BE671612AFC5BE9006222B1 /* DayLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BE671602AFC5BE9006222B1 /* DayLabelView.swift */; };
+		8BE671632AFC5C94006222B1 /* TimelineLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BE671622AFC5C94006222B1 /* TimelineLabelView.swift */; };
 		8BFB7C562AFB67CE007F3E5C /* WatchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BFB7C552AFB67CE007F3E5C /* WatchViewModel.swift */; };
+		8BFB7C582AFC37D4007F3E5C /* WeeklyTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BFB7C572AFC37D4007F3E5C /* WeeklyTableView.swift */; };
 		8BFB7C5C2AFC49C9007F3E5C /* ObservableScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BFB7C5B2AFC49C9007F3E5C /* ObservableScrollView.swift */; };
 		97C146FC1CF9000F007C117D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FA1CF9000F007C117D /* Main.storyboard */; };
 		97C146FE1CF9000F007C117D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FD1CF9000F007C117D /* Assets.xcassets */; };
@@ -154,7 +157,10 @@
 		8BB3DE4729D1F286001AD191 /* OTLWidgetsExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = OTLWidgetsExtension.entitlements; sourceTree = "<group>"; };
 		8BB4F62C2A73D4E700C8FE1D /* TimeInlineAccessory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeInlineAccessory.swift; sourceTree = "<group>"; };
 		8BB4F62E2A73DD2700C8FE1D /* LocationInlineAccessory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationInlineAccessory.swift; sourceTree = "<group>"; };
+		8BE671602AFC5BE9006222B1 /* DayLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayLabelView.swift; sourceTree = "<group>"; };
+		8BE671622AFC5C94006222B1 /* TimelineLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineLabelView.swift; sourceTree = "<group>"; };
 		8BFB7C552AFB67CE007F3E5C /* WatchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchViewModel.swift; sourceTree = "<group>"; };
+		8BFB7C572AFC37D4007F3E5C /* WeeklyTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyTableView.swift; sourceTree = "<group>"; };
 		8BFB7C5B2AFC49C9007F3E5C /* ObservableScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableScrollView.swift; sourceTree = "<group>"; };
 		9740EEB21CF90195004384FC /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Debug.xcconfig; path = Flutter/Debug.xcconfig; sourceTree = "<group>"; };
 		9740EEB31CF90195004384FC /* Generated.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Generated.xcconfig; path = Flutter/Generated.xcconfig; sourceTree = "<group>"; };
@@ -220,6 +226,7 @@
 				8B5208462AE5455A0011417B /* OTL Watch App.entitlements */,
 				8B5208352AE539720011417B /* OTLApp.swift */,
 				8BFB7C5A2AFC49B1007F3E5C /* Subviews */,
+				8BFB7C592AFC4968007F3E5C /* Pages */,
 				8B5208372AE539720011417B /* ContentView.swift */,
 				8BFB7C552AFB67CE007F3E5C /* WatchViewModel.swift */,
 				8B5208392AE539750011417B /* Assets.xcassets */,
@@ -276,10 +283,20 @@
 			path = OTLWidgets;
 			sourceTree = "<group>";
 		};
+		8BFB7C592AFC4968007F3E5C /* Pages */ = {
+			isa = PBXGroup;
+			children = (
+				8BFB7C572AFC37D4007F3E5C /* WeeklyTableView.swift */,
+			);
+			path = Pages;
+			sourceTree = "<group>";
+		};
 		8BFB7C5A2AFC49B1007F3E5C /* Subviews */ = {
 			isa = PBXGroup;
 			children = (
 				8BFB7C5B2AFC49C9007F3E5C /* ObservableScrollView.swift */,
+				8BE671602AFC5BE9006222B1 /* DayLabelView.swift */,
+				8BE671622AFC5C94006222B1 /* TimelineLabelView.swift */,
 			);
 			path = Subviews;
 			sourceTree = "<group>";
@@ -673,9 +690,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8BFB7C582AFC37D4007F3E5C /* WeeklyTableView.swift in Sources */,
 				8B5208382AE539720011417B /* ContentView.swift in Sources */,
 				8B5208362AE539720011417B /* OTLApp.swift in Sources */,
+				8BE671632AFC5C94006222B1 /* TimelineLabelView.swift in Sources */,
 				8BFB7C5C2AFC49C9007F3E5C /* ObservableScrollView.swift in Sources */,
+				8BE671612AFC5BE9006222B1 /* DayLabelView.swift in Sources */,
 				8BFB7C562AFB67CE007F3E5C /* WatchViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
