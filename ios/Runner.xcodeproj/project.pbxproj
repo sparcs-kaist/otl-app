@@ -19,6 +19,8 @@
 		8B52083A2AE539750011417B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8B5208392AE539750011417B /* Assets.xcassets */; };
 		8B52083D2AE539750011417B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8B52083C2AE539750011417B /* Preview Assets.xcassets */; };
 		8B5208402AE539750011417B /* OTL Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 8B5208332AE539720011417B /* OTL Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		8B5DB7B92B05DD960078CAB9 /* OTLAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B5DB7B82B05DD960078CAB9 /* OTLAPI.swift */; };
+		8B5DB7BB2B05DE750078CAB9 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 8B5DB7BA2B05DE750078CAB9 /* Alamofire */; };
 		8B643C832A6BC16500BF6DAA /* NextClassAccessory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B643C822A6BC16500BF6DAA /* NextClassAccessory.swift */; };
 		8B76C8E42A0E834A007E1947 /* TodayClassesWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B76C8E32A0E834A007E1947 /* TodayClassesWidget.swift */; };
 		8B76C8E62A0E837F007E1947 /* WidgetBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B76C8E52A0E837F007E1947 /* WidgetBase.swift */; };
@@ -134,6 +136,7 @@
 		8B5208392AE539750011417B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8B52083C2AE539750011417B /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		8B5208462AE5455A0011417B /* OTL Watch App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "OTL Watch App.entitlements"; sourceTree = "<group>"; };
+		8B5DB7B82B05DD960078CAB9 /* OTLAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTLAPI.swift; sourceTree = "<group>"; };
 		8B643C822A6BC16500BF6DAA /* NextClassAccessory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextClassAccessory.swift; sourceTree = "<group>"; };
 		8B76C8E32A0E834A007E1947 /* TodayClassesWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayClassesWidget.swift; sourceTree = "<group>"; };
 		8B76C8E52A0E837F007E1947 /* WidgetBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetBase.swift; sourceTree = "<group>"; };
@@ -182,6 +185,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8B5DB7BB2B05DE750078CAB9 /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -235,6 +239,7 @@
 				8BFB7C552AFB67CE007F3E5C /* WatchViewModel.swift */,
 				8B5208392AE539750011417B /* Assets.xcassets */,
 				8B52083B2AE539750011417B /* Preview Content */,
+				8B5DB7B82B05DD960078CAB9 /* OTLAPI.swift */,
 			);
 			path = "OTL Watch App";
 			sourceTree = "<group>";
@@ -396,6 +401,9 @@
 			dependencies = (
 			);
 			name = "OTL Watch App";
+			packageProductDependencies = (
+				8B5DB7BA2B05DE750078CAB9 /* Alamofire */,
+			);
 			productName = "OTL Watch App";
 			productReference = 8B5208332AE539720011417B /* OTL Watch App.app */;
 			productType = "com.apple.product-type.application";
@@ -696,6 +704,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8B5DB7B92B05DD960078CAB9 /* OTLAPI.swift in Sources */,
 				8BFB7C582AFC37D4007F3E5C /* WeeklyTableView.swift in Sources */,
 				8B5208382AE539720011417B /* ContentView.swift in Sources */,
 				8B5208362AE539720011417B /* OTLApp.swift in Sources */,
@@ -1507,6 +1516,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		8B5DB7BA2B05DE750078CAB9 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8BB397432A8E003300DD352E /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
 		8BB397442A8E003300DD352E /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 8BB397432A8E003300DD352E /* XCRemoteSwiftPackageReference "Alamofire" */;
