@@ -24,67 +24,15 @@ struct WeeklyTableView: View {
                             HStack {
                                 Spacer()
                                     .frame(width: 20)
-                                ZStack(alignment: .top) {
-                                    RoundedRectangle(cornerRadius: 4)
-                                        .foregroundColor(Color(red: 51/256, green: 51/256, blue: 51/256))
-                                    RoundedRectangle(cornerRadius: 4)
-                                        .frame(height: 20)
-                                }
+                                WeeklyDayView()
                                 Spacer()
-                                ZStack(alignment: .top) {
-                                    RoundedRectangle(cornerRadius: 4)
-                                        .foregroundColor(Color(red: 51/256, green: 51/256, blue: 51/256))
-                                    RoundedRectangle(cornerRadius: 4)
-                                        .frame(height: 20)
-                                    RoundedRectangle(cornerRadius: 4)
-                                        .frame(height: 20)
-                                        .offset(y: 21)
-                                    RoundedRectangle(cornerRadius: 4)
-                                        .frame(height: 20)
-                                        .offset(y: 42)
-                                    RoundedRectangle(cornerRadius: 4)
-                                        .frame(height: 20)
-                                        .offset(y: 63)
-                                    RoundedRectangle(cornerRadius: 4)
-                                        .frame(height: 20)
-                                        .offset(y: 84)
-                                }
+                                WeeklyDayView()
                                 Spacer()
-                                ZStack(alignment: .top) {
-                                    RoundedRectangle(cornerRadius: 4)
-                                        .foregroundColor(Color(red: 51/256, green: 51/256, blue: 51/256))
-                                    RoundedRectangle(cornerRadius: 4)
-                                        .frame(height: 20)
-                                    RoundedRectangle(cornerRadius: 4)
-                                        .frame(height: 20)
-                                        .offset(y: 105)
-                                }
+                                WeeklyDayView()
                                 Spacer()
-                                ZStack(alignment: .top) {
-                                    RoundedRectangle(cornerRadius: 4)
-                                        .foregroundColor(Color(red: 51/256, green: 51/256, blue: 51/256))
-                                    RoundedRectangle(cornerRadius: 4)
-                                        .frame(height: 20)
-                                    RoundedRectangle(cornerRadius: 4)
-                                        .frame(height: 20)
-                                        .offset(y: 21)
-                                    RoundedRectangle(cornerRadius: 4)
-                                        .frame(height: 20)
-                                        .offset(y: 42)
-                                    RoundedRectangle(cornerRadius: 4)
-                                        .frame(height: 20)
-                                        .offset(y: 63)
-                                    RoundedRectangle(cornerRadius: 4)
-                                        .frame(height: 20)
-                                        .offset(y: 84)
-                                }
+                                WeeklyDayView()
                                 Spacer()
-                                ZStack(alignment: .top) {
-                                    RoundedRectangle(cornerRadius: 4)
-                                        .foregroundColor(Color(red: 51/256, green: 51/256, blue: 51/256))
-                                    RoundedRectangle(cornerRadius: 4)
-                                        .frame(height: 20)
-                                }
+                                WeeklyDayView()
                             }
                         }.frame(height: 210)
                         
