@@ -9,7 +9,15 @@
 import SwiftUI
 
 struct WeeklyTableView: View {
+    @ObservedObject var viewModel = WatchViewModel()
+    @AppStorage("sessionID") var sessionID: String = ""
+    @AppStorage("userID") var userID: String = ""
+    
     @State private var scrollOffset: CGFloat = CGFloat.zero
+    @State private var showsSettingsView = false
+    @State private var selectedSemester: SemesterElement? = nil
+    @State private var selectedTimetable: Int = 0
+    @State private var timetable: Timetable = Timetable(id: 0, lectures: [])
     
     var body: some View {
         NavigationStack {
@@ -24,19 +32,22 @@ struct WeeklyTableView: View {
                             HStack {
                                 Spacer()
                                     .frame(width: 20)
-                                WeeklyDayView()
+                                WeeklyDayView(lectures: .constant(self.getLectureElements(atDay: .mon)), day: .constant(.mon))
                                 Spacer()
-                                WeeklyDayView()
+                                WeeklyDayView(lectures: .constant(self.getLectureElements(atDay: .tue)), day: .constant(.tue))
                                 Spacer()
-                                WeeklyDayView()
+                                WeeklyDayView(lectures: .constant(self.getLectureElements(atDay: .wed)), day: .constant(.wed))
                                 Spacer()
-                                WeeklyDayView()
+                                WeeklyDayView(lectures: .constant(self.getLectureElements(atDay: .thu)), day: .constant(.thu))
                                 Spacer()
-                                WeeklyDayView()
+                                WeeklyDayView(lectures: .constant(self.getLectureElements(atDay: .fri)), day: .constant(.fri))
+                                Spacer()
                             }
                         }.frame(height: 210)
                         
-                        Button(action: {}, label: {
+                        Button(action: {
+                            self.showsSettingsView.toggle()
+                        }, label: {
                             HStack {
                                 Image(systemName: "gearshape.fill")
                                 Text("시간표 설정")
@@ -55,21 +66,16 @@ struct WeeklyTableView: View {
                         Color.black
                         HStack {
                             Spacer()
-                                .frame(width: 20)
+                                .frame(width: 22)
+                            DayLabelView(day: .constant(.mon))
                             Spacer()
-                            DayLabelView(day: .constant(.mon), isHighlighted: .constant(false))
+                            DayLabelView(day: .constant(.tue))
                             Spacer()
+                            DayLabelView(day: .constant(.wed))
                             Spacer()
-                            DayLabelView(day: .constant(.tue), isHighlighted: .constant(false))
+                            DayLabelView(day: .constant(.thu))
                             Spacer()
-                            Spacer()
-                            DayLabelView(day: .constant(.wed), isHighlighted: .constant(false))
-                            Spacer()
-                            Spacer()
-                            DayLabelView(day: .constant(.thu), isHighlighted: .constant(true))
-                            Spacer()
-                            Spacer()
-                            DayLabelView(day: .constant(.fri), isHighlighted: .constant(false))
+                            DayLabelView(day: .constant(.fri))
                             Spacer()
                         }.offset(y: -2)
                     }
@@ -80,7 +86,110 @@ struct WeeklyTableView: View {
                 
                 
             }
-            .navigationTitle("23 가을")
+            .navigationTitle("\((self.selectedSemester?.year ?? 2023) - 2000) \(getSemesterString(self.selectedSemester?.semester ?? 1))")
+            .navigationDestination(isPresented: self.$showsSettingsView) {
+                SettingsView(selectedSemester: self.$selectedSemester, selectedTimetable: self.$selectedTimetable)
+            }
+            .onChange(of: self.selectedSemester) {
+                fetchTimetable()
+            }
+            .onChange(of: self.selectedTimetable) {
+                fetchTimetable()
+            }
+        }
+        .onAppear {
+            fetchData()
+            fetchTimetable()
+        }
+    }
+    
+    func fetchData() {
+        let defaults = UserDefaults.standard
+        if let semesterData = defaults.object(forKey: "selectedSemester") as? Data {
+            let decoder = JSONDecoder()
+            if let semester = try? decoder.decode(SemesterElement.self, from: semesterData) {
+                self.selectedSemester = semester
+            }
+        }
+        self.selectedTimetable = defaults.integer(forKey: "selectedTimetable")
+        
+        if (self.selectedSemester == nil) {
+            OTLAPI().getActualSemesters(sessionID: self.sessionID, userID: self.userID) { results in
+                switch results {
+                case .success(let data):
+                    self.selectedSemester = data.first
+                case .failure(_):
+                    print("failed")
+                }
+            }
+        }
+    }
+    
+    func fetchTimetable() {
+        let defaults = UserDefaults.standard
+        if let timetableData = defaults.object(forKey: "timetable") as? Data {
+            let decoder = JSONDecoder()
+            if let timetable = try? decoder.decode(Timetable.self, from: timetableData) {
+                self.timetable = timetable
+            }
+        }
+        if (self.selectedSemester != nil) {
+            OTLAPI().getActualTimetable(sessionID: self.sessionID, userID: self.userID, year: self.selectedSemester!.year, semester: self.selectedSemester!.semester) { results in
+                switch results {
+                case .success(let data):
+                    var table = [Timetable]()
+                    table.append(data.first!)
+                    OTLAPI().getTimetables(sessionID: self.sessionID, userID: self.userID, year: self.selectedSemester!.year, semester: self.selectedSemester!.semester) { results in
+                        switch results {
+                        case .success(let timetableData):
+                            for timetable in timetableData {
+                                table.append(timetable)
+                            }
+                            var index = self.selectedTimetable
+                            if table.count-1 < self.selectedTimetable {
+                                index = 0
+                            }
+                            self.timetable = table[index]
+                            let encoder = JSONEncoder()
+                            if let encoded = try? encoder.encode(table[index]) {
+                                defaults.set(encoded, forKey: "timetable")
+                            }
+                        case .failure(_):
+                            print("failed")
+                        }
+                    }
+                case .failure(_):
+                    print("failed")
+                }
+            }
+        }
+    }
+    
+    func getLectureElements(atDay: Days) -> [LectureElement] {
+        var table = [LectureElement]()
+        for lecture in self.timetable.lectures {
+            for classtime in lecture.classtimes {
+                if atDay.rawValue == classtime.day {
+                    table.append(LectureElement(id: lecture.id, title: lecture.title, title_en: lecture.title_en, course: lecture.course, old_code: lecture.old_code, class_no: lecture.class_no, year: lecture.year, semester: lecture.semester, code: lecture.code, department: lecture.department, department_code: lecture.department_code, department_name: lecture.department_name, department_name_en: lecture.department_name_en, type: lecture.type, type_en: lecture.type_en, limit: lecture.limit, num_people: lecture.num_people, is_english: lecture.is_english, credit: lecture.credit, credit_au: lecture.credit_au, common_title: lecture.common_title, common_title_en: lecture.common_title_en, class_title: lecture.class_title, class_title_en: lecture.class_title_en, review_total_weight: lecture.review_total_weight, grade: lecture.grade, speech: lecture.speech, professors: lecture.professors, classtime: classtime, examtimes: lecture.examtimes))
+                }
+            }
+        }
+        
+        return table
+    }
+    
+    func getSemesterString(_ semester: Int) -> String {
+        switch semester {
+        case 1:
+            return "봄"
+        case 2:
+            return "여름"
+        case 3:
+            return "가을"
+        case 4:
+            return "겨울"
+        default:
+            return "알수없음"
         }
     }
 }

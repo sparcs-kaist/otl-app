@@ -9,6 +9,9 @@
 import SwiftUI
 
 struct DailyTableView: View {
+    @Binding var lectures: [LectureElement]
+    @Binding var day: DayType
+    
     var body: some View {
         NavigationStack {
             ScrollView {
@@ -48,11 +51,11 @@ struct DailyTableView: View {
                     }
                 }.frame(height: 801)
             }
-            .navigationTitle("목")
+            .navigationTitle("\(self.day.rawValue)요일")
         }
     }
 }
 
 #Preview {
-    DailyTableView()
+    DailyTableView(lectures: .constant([LectureElement]()), day: .constant(.mon))
 }
