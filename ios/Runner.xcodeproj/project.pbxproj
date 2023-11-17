@@ -23,6 +23,7 @@
 		8B5DB7BB2B05DE750078CAB9 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 8B5DB7BA2B05DE750078CAB9 /* Alamofire */; };
 		8B5DB7BD2B05E0960078CAB9 /* WeeklyDayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B5DB7BC2B05E0960078CAB9 /* WeeklyDayView.swift */; };
 		8B5DB7BF2B05E4230078CAB9 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B5DB7BE2B05E4230078CAB9 /* SettingsView.swift */; };
+		8B5DB7C32B0742080078CAB9 /* DailyDayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B5DB7C22B0742080078CAB9 /* DailyDayView.swift */; };
 		8B643C832A6BC16500BF6DAA /* NextClassAccessory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B643C822A6BC16500BF6DAA /* NextClassAccessory.swift */; };
 		8B76C8E42A0E834A007E1947 /* TodayClassesWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B76C8E32A0E834A007E1947 /* TodayClassesWidget.swift */; };
 		8B76C8E62A0E837F007E1947 /* WidgetBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B76C8E52A0E837F007E1947 /* WidgetBase.swift */; };
@@ -141,6 +142,7 @@
 		8B5DB7B82B05DD960078CAB9 /* OTLAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTLAPI.swift; sourceTree = "<group>"; };
 		8B5DB7BC2B05E0960078CAB9 /* WeeklyDayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyDayView.swift; sourceTree = "<group>"; };
 		8B5DB7BE2B05E4230078CAB9 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		8B5DB7C22B0742080078CAB9 /* DailyDayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyDayView.swift; sourceTree = "<group>"; };
 		8B643C822A6BC16500BF6DAA /* NextClassAccessory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextClassAccessory.swift; sourceTree = "<group>"; };
 		8B76C8E32A0E834A007E1947 /* TodayClassesWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayClassesWidget.swift; sourceTree = "<group>"; };
 		8B76C8E52A0E837F007E1947 /* WidgetBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetBase.swift; sourceTree = "<group>"; };
@@ -241,9 +243,9 @@
 				8BFB7C592AFC4968007F3E5C /* Pages */,
 				8B5208372AE539720011417B /* ContentView.swift */,
 				8BFB7C552AFB67CE007F3E5C /* WatchViewModel.swift */,
+				8B5DB7B82B05DD960078CAB9 /* OTLAPI.swift */,
 				8B5208392AE539750011417B /* Assets.xcassets */,
 				8B52083B2AE539750011417B /* Preview Content */,
-				8B5DB7B82B05DD960078CAB9 /* OTLAPI.swift */,
 			);
 			path = "OTL Watch App";
 			sourceTree = "<group>";
@@ -314,6 +316,7 @@
 				8BE671622AFC5C94006222B1 /* TimelineLabelView.swift */,
 				8BE671662AFC5F2D006222B1 /* HorizontalLine.swift */,
 				8B5DB7BC2B05E0960078CAB9 /* WeeklyDayView.swift */,
+				8B5DB7C22B0742080078CAB9 /* DailyDayView.swift */,
 			);
 			path = Subviews;
 			sourceTree = "<group>";
@@ -717,6 +720,7 @@
 				8BE671632AFC5C94006222B1 /* TimelineLabelView.swift in Sources */,
 				8BFB7C5C2AFC49C9007F3E5C /* ObservableScrollView.swift in Sources */,
 				8BE671652AFC5D6F006222B1 /* DailyTableView.swift in Sources */,
+				8B5DB7C32B0742080078CAB9 /* DailyDayView.swift in Sources */,
 				8B5DB7BD2B05E0960078CAB9 /* WeeklyDayView.swift in Sources */,
 				8BE671612AFC5BE9006222B1 /* DayLabelView.swift in Sources */,
 				8B5DB7BF2B05E4230078CAB9 /* SettingsView.swift in Sources */,
