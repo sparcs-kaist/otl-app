@@ -31,22 +31,29 @@ struct DailyTableView: View {
                             }
                         }
                     }.frame(width: 18)
-                    VStack {
-                        ForEach(0..<33) { number in
-                            if number % 2 == 0 {
-                                HorizontalLine()
-                                    .stroke(style: StrokeStyle(lineWidth: 1))
-                                    .frame(height: 1)
-                                    .foregroundStyle(Color.white.opacity(0.25))
-                            } else {
-                                HorizontalLine()
-                                    .stroke(style: StrokeStyle(lineWidth: 1, dash: [2]))
-                                    .frame(height: 1)
-                                    .foregroundStyle(Color.white.opacity(0.25))
+                    ZStack(alignment: .top) {
+                        VStack {
+                            ForEach(0..<33) { number in
+                                if number % 2 == 0 {
+                                    HorizontalLine()
+                                        .stroke(style: StrokeStyle(lineWidth: 1))
+                                        .frame(height: 1)
+                                        .foregroundStyle(Color.white.opacity(0.25))
+                                } else {
+                                    HorizontalLine()
+                                        .stroke(style: StrokeStyle(lineWidth: 1, dash: [2]))
+                                        .frame(height: 1)
+                                        .foregroundStyle(Color.white.opacity(0.25))
+                                }
+                                if number != 32 {
+                                    Spacer()
+                                }
                             }
-                            if number != 32 {
-                                Spacer()
-                            }
+                        }
+                        ForEach(self.lectures) { lecture in
+                            DailyDayView(lecture: .constant(lecture))
+                                .frame(height: Double(lecture.classtime.end - lecture.classtime.begin)/30*24+(Double(lecture.classtime.end - lecture.classtime.begin)/30-3)-1)
+                                .offset(y: 51 + Double(lecture.classtime.begin-540)/60*50 + 1)
                         }
                     }
                 }.frame(height: 801)
