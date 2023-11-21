@@ -12,7 +12,7 @@ import SwiftUI
 struct OTL_Watch_AppApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            WeeklyTableView()
         }
     }
 }
