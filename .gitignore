@@ -83,3 +83,6 @@ lib/generated_plugin_registrant.dart
 /android/fastlane/otlplus-fastlane.json
 /android/fastlane/upload-keystore.jks
 /ios/fastlane/.env.default
+
+# etc
+android/app/property*
