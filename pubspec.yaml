@@ -21,7 +21,7 @@ dependencies:
   flutter:
     sdk: flutter
 
-  dio: ^5.3.3
+  dio: ^5.3.4
   dotted_border: ^2.1.0
   flutter_web_browser: ^0.17.1
   webview_flutter: ^3.0.4
@@ -40,9 +40,9 @@ dependencies:
   mailto: ^2.0.0
   dropdown_button2: ^3.0.0-beta.7
   # Firebase
-  firebase_core: ^2.22.0
-  firebase_analytics: ^10.7.0
-  firebase_crashlytics: ^3.4.4
+  firebase_core: ^2.23.0
+  firebase_analytics: ^10.7.1
+  firebase_crashlytics: ^3.4.5
 
 dev_dependencies:
   test: ^1.24.9
