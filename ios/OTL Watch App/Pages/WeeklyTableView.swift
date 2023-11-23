@@ -25,7 +25,7 @@ struct WeeklyTableView: View {
                 // MARK: - Contents
                 VStack {
                     Spacer()
-                        .frame(height: 25)
+                        .frame(height: 28)
                     ObservableScrollView(scrollOffset: self.$scrollOffset) {
                         ZStack {
                             TimelineLabelView()
@@ -66,7 +66,7 @@ struct WeeklyTableView: View {
                         Color.black
                         HStack {
                             Spacer()
-                                .frame(width: 22)
+                                .frame(width: 25)
                             DayLabelView(day: .constant(.mon))
                             Spacer()
                             DayLabelView(day: .constant(.tue))
@@ -79,7 +79,7 @@ struct WeeklyTableView: View {
                             Spacer()
                         }.offset(y: -2)
                     }
-                    .frame(height: 25)
+                    .frame(height: 28)
                     .offset(y: self.scrollOffset < 0 ? -self.scrollOffset : 0)
                     Spacer()
                 }
