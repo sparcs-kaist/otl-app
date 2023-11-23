@@ -35,7 +35,3 @@ struct WeeklyDayView: View {
         }
     }
 }
-
-#Preview {
-    WeeklyDayView(lectures: .constant([LectureElement]()), day: .constant(.mon))
-}

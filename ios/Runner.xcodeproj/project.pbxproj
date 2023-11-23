@@ -49,6 +49,7 @@
 		8BB3DE0F29D1F25B001AD191 /* OTLWidgetsExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 8BB3DDFD29D1F25A001AD191 /* OTLWidgetsExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		8BB4F62D2A73D4E700C8FE1D /* TimeInlineAccessory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BB4F62C2A73D4E700C8FE1D /* TimeInlineAccessory.swift */; };
 		8BB4F62F2A73DD2700C8FE1D /* LocationInlineAccessory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BB4F62E2A73DD2700C8FE1D /* LocationInlineAccessory.swift */; };
+		8BBBACA42B0CA2FA00437DCA /* LectureDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BBBACA32B0CA2FA00437DCA /* LectureDetailView.swift */; };
 		8BE671612AFC5BE9006222B1 /* DayLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BE671602AFC5BE9006222B1 /* DayLabelView.swift */; };
 		8BE671632AFC5C94006222B1 /* TimelineLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BE671622AFC5C94006222B1 /* TimelineLabelView.swift */; };
 		8BE671652AFC5D6F006222B1 /* DailyTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BE671642AFC5D6F006222B1 /* DailyTableView.swift */; };
@@ -168,6 +169,7 @@
 		8BB3DE4729D1F286001AD191 /* OTLWidgetsExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = OTLWidgetsExtension.entitlements; sourceTree = "<group>"; };
 		8BB4F62C2A73D4E700C8FE1D /* TimeInlineAccessory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeInlineAccessory.swift; sourceTree = "<group>"; };
 		8BB4F62E2A73DD2700C8FE1D /* LocationInlineAccessory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationInlineAccessory.swift; sourceTree = "<group>"; };
+		8BBBACA32B0CA2FA00437DCA /* LectureDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LectureDetailView.swift; sourceTree = "<group>"; };
 		8BE671602AFC5BE9006222B1 /* DayLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayLabelView.swift; sourceTree = "<group>"; };
 		8BE671622AFC5C94006222B1 /* TimelineLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineLabelView.swift; sourceTree = "<group>"; };
 		8BE671642AFC5D6F006222B1 /* DailyTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyTableView.swift; sourceTree = "<group>"; };
@@ -303,6 +305,7 @@
 			children = (
 				8BFB7C572AFC37D4007F3E5C /* WeeklyTableView.swift */,
 				8BE671642AFC5D6F006222B1 /* DailyTableView.swift */,
+				8BBBACA32B0CA2FA00437DCA /* LectureDetailView.swift */,
 				8B5DB7BE2B05E4230078CAB9 /* SettingsView.swift */,
 			);
 			path = Pages;
@@ -715,6 +718,7 @@
 			files = (
 				8B5DB7B92B05DD960078CAB9 /* OTLAPI.swift in Sources */,
 				8BFB7C582AFC37D4007F3E5C /* WeeklyTableView.swift in Sources */,
+				8BBBACA42B0CA2FA00437DCA /* LectureDetailView.swift in Sources */,
 				8B5208382AE539720011417B /* ContentView.swift in Sources */,
 				8B5208362AE539720011417B /* OTLApp.swift in Sources */,
 				8BE671632AFC5C94006222B1 /* TimelineLabelView.swift in Sources */,
