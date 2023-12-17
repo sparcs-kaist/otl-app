@@ -14,16 +14,14 @@ struct WeeklyDayView: View {
     @State private var showsDailyTableView = false
     
     var body: some View {
-        NavigationStack {
-            ZStack(alignment: .top) {
-                RoundedRectangle(cornerRadius: 4)
-                    .foregroundColor(Color(red: 51/256, green: 51/256, blue: 51/256))
-                ForEach(self.lectures) { lecture in
-                    RoundedRectangle(cornerRadius: 2)
-                        .foregroundStyle(getColourForCourse(course: lecture.course))
-                        .frame(height: Double(lecture.classtime.end - lecture.classtime.begin)/60*14-1)
-                        .offset(y: CGFloat(Double(lecture.classtime.begin - 540)/60*14))
-                }
+        ZStack(alignment: .top) {
+            RoundedRectangle(cornerRadius: 4)
+                .foregroundColor(Color(red: 51/256, green: 51/256, blue: 51/256))
+            ForEach(self.lectures) { lecture in
+                RoundedRectangle(cornerRadius: 2)
+                    .foregroundStyle(getColourForCourse(course: lecture.course))
+                    .frame(height: Double(lecture.classtime.end - lecture.classtime.begin)/60*14-1)
+                    .offset(y: CGFloat(Double(lecture.classtime.begin - 540)/60*14))
             }
         }
     }
