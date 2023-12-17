@@ -30,23 +30,6 @@ class WatchViewModel: NSObject, ObservableObject {
 extension WatchViewModel: WCSessionDelegate {
     func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) { }
     
-    func session(_ session: WCSession, didReceiveMessage message: [String: Any]) {
-        DispatchQueue.main.async {
-            guard let rawMethod = message["method"] as? String, let method = WatchReceiveMethod(rawValue: rawMethod) else {
-                return
-            }
-            
-            switch method {
-            case .sendSessionID:
-                self.sessionID = message["data"] as? String ?? ""
-                UserDefaults.standard.set(message["data"] as? String ?? "", forKey: "sessionID")
-            case .sendUserID:
-                self.userID = message["data"] as? String ?? ""
-                UserDefaults.standard.set(message["data"] as? String ?? "", forKey: "userID")
-            }
-        }
-    }
-    
     func session(_ session: WCSession, didReceiveUserInfo userInfo: [String : Any] = [:]) {
         DispatchQueue.main.async {
             guard let rawMethod = userInfo["method"] as? String, let method = WatchReceiveMethod(rawValue: rawMethod) else {

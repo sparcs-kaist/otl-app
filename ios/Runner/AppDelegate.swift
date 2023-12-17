@@ -22,7 +22,6 @@ import WatchConnectivity
     }
     
     private func initFlutterChannel() {
-        print("AppDelegate")
         if let controller = window?.rootViewController as? FlutterViewController {
             let channel = FlutterMethodChannel(
                 name: "org.sparcs.otlplus.watchkitapp",
@@ -38,18 +37,11 @@ import WatchConnectivity
                           let methodData = call.arguments as? [String: Any],
                           let method = methodData["method"],
                           let data = methodData["data"] else {
-                        print("failllllllll")
-                        print(self?.session?.isPaired)
-                        print("llllllllllll")
                         result(false)
                         return
                     }
-                    print("watchData Start")
                     let watchData: [String: Any] = ["method": method, "data": data]
-                    print(watchData)
-                    print("watchData End")
                     watchSession.transferUserInfo(watchData)
-//                    watchSession.sendMessage(watchData, replyHandler: nil, errorHandler: nil)
                     result(true)
                 default:
                     result(FlutterMethodNotImplemented)
@@ -66,13 +58,13 @@ extension AppDelegate: WCSessionDelegate {
     
     func sessionDidDeactivate(_ session: WCSession) { }
     
-    func session(_ session: WCSession, didReceiveMessage message: [String: Any]) {
+    func session(_ session: WCSession, didReceiveUserInfo userInfo: [String : Any] = [:]) {
         DispatchQueue.main.async {
-            if let method = message["method"] as? String, let controller = self.window?.rootViewController as? FlutterViewController {
+            if let method = userInfo["method"] as? String, let controller = self.window?.rootViewController as? FlutterViewController {
                 let channel = FlutterMethodChannel(
                     name: "org.sparcs.otlplus.watchkitapp",
                     binaryMessenger: controller.binaryMessenger)
-                channel.invokeMethod(method, arguments: message)
+                channel.invokeMethod(method, arguments: userInfo)
             }
         }
     }
