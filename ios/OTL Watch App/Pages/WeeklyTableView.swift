@@ -32,15 +32,25 @@ struct WeeklyTableView: View {
                             HStack {
                                 Spacer()
                                     .frame(width: 20)
-                                WeeklyDayView(lectures: .constant(self.getLectureElements(atDay: .mon)), day: .constant(.mon))
+                                NavigationLink(destination: DailyTableView(lectures: .constant(self.getLectureElements(atDay: .mon)), day: .constant(.mon))) {
+                                    WeeklyDayView(lectures: .constant(self.getLectureElements(atDay: .mon)))
+                                }.buttonStyle(.plain)
                                 Spacer()
-                                WeeklyDayView(lectures: .constant(self.getLectureElements(atDay: .tue)), day: .constant(.tue))
+                                NavigationLink(destination: DailyTableView(lectures: .constant(self.getLectureElements(atDay: .tue)), day: .constant(.tue))) {
+                                    WeeklyDayView(lectures: .constant(self.getLectureElements(atDay: .tue)))
+                                }.buttonStyle(.plain)
                                 Spacer()
-                                WeeklyDayView(lectures: .constant(self.getLectureElements(atDay: .wed)), day: .constant(.wed))
+                                NavigationLink(destination: DailyTableView(lectures: .constant(self.getLectureElements(atDay: .wed)), day: .constant(.wed))) {
+                                    WeeklyDayView(lectures: .constant(self.getLectureElements(atDay: .wed)))
+                                }.buttonStyle(.plain)
                                 Spacer()
-                                WeeklyDayView(lectures: .constant(self.getLectureElements(atDay: .thu)), day: .constant(.thu))
+                                NavigationLink(destination: DailyTableView(lectures: .constant(self.getLectureElements(atDay: .thu)), day: .constant(.thu))) {
+                                    WeeklyDayView(lectures: .constant(self.getLectureElements(atDay: .thu)))
+                                }.buttonStyle(.plain)
                                 Spacer()
-                                WeeklyDayView(lectures: .constant(self.getLectureElements(atDay: .fri)), day: .constant(.fri))
+                                NavigationLink(destination: DailyTableView(lectures: .constant(self.getLectureElements(atDay: .fri)), day: .constant(.fri))) {
+                                    WeeklyDayView(lectures: .constant(self.getLectureElements(atDay: .fri)))
+                                }.buttonStyle(.plain)
                                 Spacer()
                             }
                         }.frame(height: 210)

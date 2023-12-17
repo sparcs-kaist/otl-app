@@ -10,7 +10,6 @@ import SwiftUI
 
 struct WeeklyDayView: View {
     @Binding var lectures: [LectureElement]
-    @Binding var day: DayType
     
     @State private var showsDailyTableView = false
     
@@ -25,12 +24,6 @@ struct WeeklyDayView: View {
                         .frame(height: Double(lecture.classtime.end - lecture.classtime.begin)/60*14-1)
                         .offset(y: CGFloat(Double(lecture.classtime.begin - 540)/60*14))
                 }
-            }
-            .onTapGesture {
-                self.showsDailyTableView.toggle()
-            }
-            .navigationDestination(isPresented: self.$showsDailyTableView) {
-                DailyTableView(lectures: self.$lectures, day: self.$day)
             }
         }
     }
