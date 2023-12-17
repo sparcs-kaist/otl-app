@@ -9,16 +9,15 @@ import SwiftUI
 
 struct ContentView: View {
     @ObservedObject var viewModel = WatchViewModel()
-    @AppStorage("sessionID") var sessionID: String = ""
+    
+    @State private var loginState: Bool = true
     
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text(sessionID)
+        if loginState {
+            WeeklyTableView(loginState: self.$loginState)
+        } else {
+            LoginView()
         }
-        .padding()
     }
 }
 

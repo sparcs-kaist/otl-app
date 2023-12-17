@@ -14,6 +14,7 @@
 		8B04B3A62A7F9A8D001027AF /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 8B04B3A52A7F9A8D001027AF /* Localizable.xcstrings */; };
 		8B1EA3B82A0FFF3B00387753 /* WeekClassesWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B1EA3B72A0FFF3B00387753 /* WeekClassesWidget.swift */; };
 		8B4BFF7A2AA4CC49008681B9 /* Configuration.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 8BA9FBE72A85323C00A430C5 /* Configuration.intentdefinition */; };
+		8B4F6C472B2F45EC00402FEB /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B4F6C462B2F45EC00402FEB /* LoginView.swift */; };
 		8B5208362AE539720011417B /* OTLApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B5208352AE539720011417B /* OTLApp.swift */; };
 		8B5208382AE539720011417B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B5208372AE539720011417B /* ContentView.swift */; };
 		8B52083A2AE539750011417B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8B5208392AE539750011417B /* Assets.xcassets */; };
@@ -134,6 +135,7 @@
 		7AFA3C8E1D35360C0083082E /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Release.xcconfig; path = Flutter/Release.xcconfig; sourceTree = "<group>"; };
 		8B04B3A52A7F9A8D001027AF /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		8B1EA3B72A0FFF3B00387753 /* WeekClassesWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekClassesWidget.swift; sourceTree = "<group>"; };
+		8B4F6C462B2F45EC00402FEB /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		8B5208332AE539720011417B /* OTL Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "OTL Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8B5208352AE539720011417B /* OTLApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTLApp.swift; sourceTree = "<group>"; };
 		8B5208372AE539720011417B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -307,6 +309,7 @@
 				8BE671642AFC5D6F006222B1 /* DailyTableView.swift */,
 				8BBBACA32B0CA2FA00437DCA /* LectureDetailView.swift */,
 				8B5DB7BE2B05E4230078CAB9 /* SettingsView.swift */,
+				8B4F6C462B2F45EC00402FEB /* LoginView.swift */,
 			);
 			path = Pages;
 			sourceTree = "<group>";
@@ -719,6 +722,7 @@
 				8B5DB7B92B05DD960078CAB9 /* OTLAPI.swift in Sources */,
 				8BFB7C582AFC37D4007F3E5C /* WeeklyTableView.swift in Sources */,
 				8BBBACA42B0CA2FA00437DCA /* LectureDetailView.swift in Sources */,
+				8B4F6C472B2F45EC00402FEB /* LoginView.swift in Sources */,
 				8B5208382AE539720011417B /* ContentView.swift in Sources */,
 				8B5208362AE539720011417B /* OTLApp.swift in Sources */,
 				8BE671632AFC5C94006222B1 /* TimelineLabelView.swift in Sources */,

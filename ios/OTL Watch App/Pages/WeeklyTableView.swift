@@ -7,9 +7,11 @@
 //
 
 import SwiftUI
+import Alamofire
 
 struct WeeklyTableView: View {
-    @ObservedObject var viewModel = WatchViewModel()
+    @Binding var loginState: Bool
+    
     @AppStorage("sessionID") var sessionID: String = ""
     @AppStorage("userID") var userID: String = ""
     
@@ -25,7 +27,7 @@ struct WeeklyTableView: View {
                 // MARK: - Contents
                 VStack {
                     Spacer()
-                        .frame(height: 28)
+                        .frame(height: 32)
                     ObservableScrollView(scrollOffset: self.$scrollOffset) {
                         ZStack {
                             TimelineLabelView()
@@ -76,7 +78,7 @@ struct WeeklyTableView: View {
                         Color.black
                         HStack {
                             Spacer()
-                                .frame(width: 25)
+                                .frame(width: 22)
                             DayLabelView(day: .constant(.mon))
                             Spacer()
                             DayLabelView(day: .constant(.tue))
@@ -89,7 +91,7 @@ struct WeeklyTableView: View {
                             Spacer()
                         }.offset(y: -2)
                     }
-                    .frame(height: 28)
+                    .frame(height: 32)
                     .offset(y: self.scrollOffset < 0 ? -self.scrollOffset : 0)
                     Spacer()
                 }
@@ -129,7 +131,7 @@ struct WeeklyTableView: View {
                 case .success(let data):
                     self.selectedSemester = data.first
                 case .failure(_):
-                    print("failed")
+                    self.loginState = false
                 }
             }
         }
@@ -164,12 +166,16 @@ struct WeeklyTableView: View {
                             if let encoded = try? encoder.encode(table[index]) {
                                 defaults.set(encoded, forKey: "timetable")
                             }
-                        case .failure(_):
-                            print("failed")
+                        case .failure(let error):
+                            if let err = error as? AFError, err.isResponseSerializationError {
+                                self.loginState = false
+                            }
                         }
                     }
-                case .failure(_):
-                    print("failed")
+                case .failure(let error):
+                    if let err = error as? AFError, err.isResponseSerializationError {
+                        self.loginState = false
+                    }
                 }
             }
         }
@@ -205,5 +211,5 @@ struct WeeklyTableView: View {
 }
 
 #Preview {
-    WeeklyTableView()
+    WeeklyTableView(loginState: .constant(true))
 }
