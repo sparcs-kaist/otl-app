@@ -8,8 +8,6 @@
 import SwiftUI
 
 struct ContentView: View {
-    @ObservedObject var viewModel = WatchViewModel()
-    
     @State private var loginState: Bool = true
     
     var body: some View {

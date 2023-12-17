@@ -215,11 +215,11 @@ class OTLAPI {
                     let json = try decoder.decode([Timetable].self, from: data)
                     completion(.success(json))
                 } catch {
-                    print("Error: \(error)")
+                    print("getTimetables Error: \(error)")
                     completion(.failure(error))
                 }
             case .failure(let error):
-                print("Error: \(error)")
+                print("getTimetables Error: \(error)")
                 completion(.failure(error))
             }
         }
@@ -235,11 +235,11 @@ class OTLAPI {
                     let json = try decoder.decode([Semester].self, from: data)
                     completion(.success(json))
                 } catch {
-                    print ("Error \(error)")
+                    print ("getSemesters Error \(error)")
                     completion(.failure(error))
                 }
             case .failure(let error):
-                print("Error: \(error)")
+                print("getSemesters Error: \(error)")
                 completion(.failure(error))
             }
         }
@@ -271,11 +271,11 @@ class OTLAPI {
                     }
                     completion(.success([timetable]))
                 } catch {
-                    print("Error: \(error)")
+                    print("getActualTimetable Error: \(error)")
                     completion(.failure(error))
                 }
             case .failure(let error):
-                print("Error: \(error)")
+                print("getActualTimetable Error: \(error)")
                 completion(.failure(error))
             }
         }
@@ -315,11 +315,11 @@ class OTLAPI {
                     })
                     completion(.success(semesters))
                 } catch {
-                    print("Error: \(error)")
+                    print("getActualSemesters Error: \(error)")
                     completion(.failure(error))
                 }
             case .failure(let error):
-                print("Error: \(error)")
+                print("getActualSemesters Error: \(error)")
                 completion(.failure(error))
             }
         }

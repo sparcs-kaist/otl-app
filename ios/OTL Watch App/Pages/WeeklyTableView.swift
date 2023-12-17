@@ -12,6 +12,8 @@ import Alamofire
 struct WeeklyTableView: View {
     @Binding var loginState: Bool
     
+    @ObservedObject var viewModel = WatchViewModel()
+    
     @AppStorage("sessionID") var sessionID: String = ""
     @AppStorage("userID") var userID: String = ""
     
