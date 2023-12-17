@@ -10,24 +10,16 @@ import SwiftUI
 
 struct DailyDayView: View {
     @Binding var lecture: LectureElement
-    @Binding var day: DayType
     
     @State private var showsDetailView = false
     
     var body: some View {
-        NavigationStack {
-            ZStack(alignment: .topLeading) {
-                RoundedRectangle(cornerRadius: 2)
-                    .foregroundStyle(getColourForCourse(course: lecture.course))
-                Text(lecture.title)
-                    .foregroundStyle(.black)
-                    .padding()
-            }.onTapGesture {
-                self.showsDetailView.toggle()
-            }
-            .navigationDestination(isPresented: self.$showsDetailView) {
-                LectureDetailView(lecture: self.$lecture, day: self.$day)
-            }
+        ZStack(alignment: .topLeading) {
+            RoundedRectangle(cornerRadius: 2)
+                .foregroundStyle(getColourForCourse(course: lecture.course))
+            Text(lecture.title)
+                .foregroundStyle(.black)
+                .padding()
         }
     }
 }

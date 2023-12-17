@@ -51,7 +51,9 @@ struct DailyTableView: View {
                             }
                         }
                         ForEach(self.lectures) { lecture in
-                            DailyDayView(lecture: .constant(lecture), day: self.$day)
+                            NavigationLink(destination: LectureDetailView(lecture: .constant(lecture), day: self.$day)) {
+                                DailyDayView(lecture: .constant(lecture))
+                            }.buttonStyle(.plain)
                                 .frame(height: Double(lecture.classtime.end - lecture.classtime.begin)/30*24+(Double(lecture.classtime.end - lecture.classtime.begin)/30-3)-1)
                                 .offset(y: 51 + Double(lecture.classtime.begin-540)/60*50 + 1)
                         }
