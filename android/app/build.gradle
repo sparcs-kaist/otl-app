@@ -31,6 +31,10 @@ if (keystorePropertiesFile.exists()) {
     keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 }
 
+kotlin {
+    jvmToolchain(17)
+}
+
 android {
     namespace 'org.sparcs.otlplus'
 
