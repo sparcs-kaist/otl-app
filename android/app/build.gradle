@@ -31,10 +31,6 @@ if (keystorePropertiesFile.exists()) {
     keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 }
 
-kotlin {
-    jvmToolchain(17)
-}
-
 android {
     namespace 'org.sparcs.otlplus'
 
@@ -74,14 +70,6 @@ android {
         jniLibs {
             useLegacyPackaging = true
         }
-    }
-
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
-    kotlinOptions {
-        jvmTarget = '1.8'
     }
 }
 
