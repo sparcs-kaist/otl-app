@@ -9,7 +9,7 @@ Size getTextSize(
   final TextPainter textPainter = TextPainter(
     text: TextSpan(text: text, style: style),
     textDirection: TextDirection.ltr,
-    textScaleFactor: MediaQuery.of(context).textScaleFactor,
+    textScaler: MediaQuery.of(context).textScaler,
   )..layout(minWidth: 0, maxWidth: maxWidth);
   return textPainter.size;
 }
@@ -17,5 +17,5 @@ Size getTextSize(
 double singleHeight(BuildContext context, TextStyle style) {
   return style.fontSize! *
       style.height! *
-      MediaQuery.of(context).textScaleFactor;
+      MediaQuery.of(context).textScaler.scale(style.fontSize!);
 }

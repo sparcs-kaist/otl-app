@@ -26,8 +26,12 @@ class _LectureSearchState extends State<LectureSearch> {
   Widget build(BuildContext context) {
     final searchModel = context.watch<LectureSearchModel>();
 
-    return WillPopScope(
-      onWillPop: widget.onClosed,
+    return PopScope(
+      onPopInvoked: (_) {
+        if (widget.onClosed != null) {
+          widget.onClosed!();
+        }
+      },
       child: ColoredBox(
         color: OTLColor.grayF,
         child: Column(

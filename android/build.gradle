@@ -1,14 +1,15 @@
 import groovy.xml.XmlParser
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 buildscript {
-    ext.kotlin_version = '1.7.10'
+    ext.kotlin_version = '1.9.22'
     repositories {
         google()
         mavenCentral()
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:8.1.1'
+        classpath 'com.android.tools.build:gradle:8.1.4'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
@@ -30,6 +31,15 @@ subprojects {
         if(it.hasProperty('android') && it.android.namespace == null){
             def manifest = new XmlParser().parse(file(it.android.sourceSets.main.manifest.srcFile))
             android.namespace= manifest.@package
+        }
+        tasks.withType(KotlinCompile).tap {
+            configureEach {
+                if (project.plugins.hasPlugin("com.android.application") || project.plugins.hasPlugin("com.android.library")) {
+                    kotlinOptions.jvmTarget = android.compileOptions.sourceCompatibility
+                } else {
+                    kotlinOptions.jvmTarget = sourceCompatibility
+                }
+            }
         }
     }
     project.evaluationDependsOn(':app')
