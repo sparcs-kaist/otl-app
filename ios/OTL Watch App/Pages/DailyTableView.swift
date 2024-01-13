@@ -8,6 +8,7 @@
 
 import SwiftUI
 
+@available(iOS 13.0, *)
 struct DailyTableView: View {
     @Binding var lectures: [LectureElement]
     @Binding var day: DayType
@@ -65,6 +66,7 @@ struct DailyTableView: View {
     }
 }
 
+@available(iOS 13.0, *)
 #Preview {
     DailyTableView(lectures: .constant([LectureElement]()), day: .constant(.mon))
 }

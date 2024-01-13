@@ -9,6 +9,7 @@
 import Foundation
 import WatchConnectivity
 
+@available(iOS 13.0, *)
 class WatchViewModel: NSObject, ObservableObject {
     var session: WCSession
     @Published var sessionID: String = ""
@@ -27,6 +28,7 @@ class WatchViewModel: NSObject, ObservableObject {
     }
 }
 
+@available(iOS 13.0, *)
 extension WatchViewModel: WCSessionDelegate {
     func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) { }
     

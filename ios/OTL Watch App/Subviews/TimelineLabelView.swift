@@ -8,6 +8,7 @@
 
 import SwiftUI
 
+@available(iOS 17.0, *)
 struct TimelineLabelView: View {
     var body: some View {
         HStack {
@@ -26,6 +27,7 @@ struct TimelineLabelView: View {
     }
 }
 
+@available(iOS 17.0, *)
 #Preview {
     TimelineLabelView()
 }

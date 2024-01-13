@@ -171,6 +171,7 @@ struct Department: Codable, Hashable {
     let code: String
 }
 
+@available(iOS 13.0, *)
 func getColourForCourse(course: Int) -> Color {
     let colours = [
         [242.0, 206.0, 206.0],

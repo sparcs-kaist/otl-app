@@ -32,6 +32,7 @@ extension UIColor {
     }
 }
 
+@available(iOS 15.0, *)
 extension Color {
     func adjust(hue: CGFloat = 0, saturation: CGFloat = 0, brightness: CGFloat = 0, opacity: CGFloat = 1) -> Color {
         let color = UIColor(self)
@@ -59,6 +60,7 @@ extension Color {
     }
 }
 
+@available(iOS 16.0, *)
 struct LectureDetailView: View {
     @Binding var lecture: LectureElement
     @Binding var day: DayType

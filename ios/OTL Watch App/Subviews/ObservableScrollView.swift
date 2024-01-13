@@ -15,6 +15,7 @@ struct ScrollViewOffsetPreferenceKey: PreferenceKey {
     }
 }
 
+@available(iOS 14.0, *)
 struct ObservableScrollView<Content>: View where Content : View {
     @Namespace var scrollSpace
     @Binding var scrollOffset: CGFloat
