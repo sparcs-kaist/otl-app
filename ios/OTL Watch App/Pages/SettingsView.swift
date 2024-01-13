@@ -8,6 +8,7 @@
 
 import SwiftUI
 
+@available(iOS 17.0, *)
 struct SettingsView: View {
     @Binding var selectedSemester: SemesterElement?
     @Binding var selectedTimetable: Int
@@ -125,6 +126,7 @@ struct SettingsView: View {
     }
 }
 
+@available(iOS 17.0, *)
 #Preview {
     SettingsView(selectedSemester: .constant(SemesterElement(year: 2023, semester: 3)), selectedTimetable: .constant(0))
 }

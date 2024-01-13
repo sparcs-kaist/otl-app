@@ -8,6 +8,7 @@
 
 import SwiftUI
 
+@available(iOS 16.0, *)
 struct LoginView: View {
     var body: some View {
         NavigationStack {
@@ -18,6 +19,7 @@ struct LoginView: View {
     }
 }
 
+@available(iOS 16.0, *)
 #Preview {
     LoginView()
 }

@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+@available(iOS 17.0, *)
 struct ContentView: View {
     @State private var loginState: Bool = true
     
@@ -19,6 +20,7 @@ struct ContentView: View {
     }
 }
 
+@available(iOS 17.0, *)
 #Preview {
     ContentView()
 }

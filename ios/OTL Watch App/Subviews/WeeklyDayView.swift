@@ -8,6 +8,7 @@
 
 import SwiftUI
 
+@available(iOS 15.0, *)
 struct WeeklyDayView: View {
     @Binding var lectures: [LectureElement]
     

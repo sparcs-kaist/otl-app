@@ -8,6 +8,7 @@
 
 import SwiftUI
 
+@available(iOS 17.0, *)
 @main
 struct OTL_Watch_AppApp: App {
     var body: some Scene {

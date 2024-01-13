@@ -18,6 +18,7 @@ enum DayType: String {
     case sat = "토"
 }
 
+@available(iOS 15.0, *)
 struct DayLabelView: View {
     @Binding var day: DayType
     
@@ -80,6 +81,7 @@ struct DayLabelView: View {
     }
 }
 
+@available(iOS 17.0, *)
 #Preview("DayLabelView", traits: .sizeThatFitsLayout) {
     VStack {
         DayLabelView(day: .constant(.mon))

@@ -8,6 +8,7 @@
 
 import SwiftUI
 
+@available(iOS 13.0, *)
 struct HorizontalLine: Shape {
     func path(in rect: CGRect) -> Path {
         var path = Path()
@@ -17,6 +18,7 @@ struct HorizontalLine: Shape {
     }
 }
 
+@available(iOS 13.0, *)
 #Preview {
     HorizontalLine()
 }

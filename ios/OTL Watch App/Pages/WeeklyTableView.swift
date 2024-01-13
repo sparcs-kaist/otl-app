@@ -9,6 +9,7 @@
 import SwiftUI
 import Alamofire
 
+@available(iOS 17.0, *)
 struct WeeklyTableView: View {
     @Binding var loginState: Bool
     
@@ -212,6 +213,7 @@ struct WeeklyTableView: View {
     }
 }
 
+@available(iOS 17.0, *)
 #Preview {
     WeeklyTableView(loginState: .constant(true))
 }
