@@ -32,6 +32,12 @@ class WatchViewModel: NSObject, ObservableObject {
 extension WatchViewModel: WCSessionDelegate {
     func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) { }
     
+    #if(os(iOS))
+    func sessionDidBecomeInactive(_ session: WCSession) { }
+
+    func sessionDidDeactivate(_ session: WCSession) { }
+    #endif
+    
     func session(_ session: WCSession, didReceiveUserInfo userInfo: [String : Any] = [:]) {
         DispatchQueue.main.async {
             guard let rawMethod = userInfo["method"] as? String, let method = WatchReceiveMethod(rawValue: rawMethod) else {
