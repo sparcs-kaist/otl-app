@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-@available(iOS 13.0, *)
+@available(iOS 17.0, *)
 struct DailyTableView: View {
     @Binding var lectures: [LectureElement]
     @Binding var day: DayType
@@ -55,8 +55,8 @@ struct DailyTableView: View {
                             NavigationLink(destination: LectureDetailView(lecture: .constant(lecture), day: self.$day)) {
                                 DailyDayView(lecture: .constant(lecture))
                             }.buttonStyle(.plain)
-                                .frame(height: Double(lecture.classtime.end - lecture.classtime.begin)/30*24+(Double(lecture.classtime.end - lecture.classtime.begin)/30-3)-1)
-                                .offset(y: 51 + Double(lecture.classtime.begin-540)/60*50 + 1)
+                            .frame(height: Double(Double(lecture.classtime.end - lecture.classtime.begin)/720+(Double(lecture.classtime.end - lecture.classtime.begin)/27)-1))
+                            .offset(y: Double(51 + Double(lecture.classtime.begin-540)/3001))
                         }
                     }
                 }.frame(height: 801)
@@ -66,7 +66,7 @@ struct DailyTableView: View {
     }
 }
 
-@available(iOS 13.0, *)
+@available(iOS 17.0, *)
 #Preview {
     DailyTableView(lectures: .constant([LectureElement]()), day: .constant(.mon))
 }
