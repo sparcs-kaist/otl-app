@@ -87,13 +87,15 @@ class _MainPageState extends State<MainPage> {
       final cookies = await cookieManager.getCookies('https://otl.sparcs.org');
       for (var cookie in cookies) {
         if (cookie.name == 'sessionid') {
-          await channel.invokeMethod("flutterToWatch", {"method": "sendSessionID", "data": cookie.value});
+          await channel.invokeMethod("flutterToWatch",
+              {"method": "sendSessionID", "data": cookie.value});
         }
       }
       final infoModel = InfoModel();
       await infoModel.getInfo();
       if (infoModel.hasData) {
-        await channel.invokeMethod("flutterToWatch", {"method": "sendUserID", "data": infoModel.user.id.toString()});
+        await channel.invokeMethod("flutterToWatch",
+            {"method": "sendUserID", "data": infoModel.user.id.toString()});
       }
     } catch (exception) {
       print(exception);
