@@ -1,0 +1,77 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/Widget.Android.AppWidget.Container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="12dp"
+    android:theme="@style/Theme.Android.AppWidgetContainer">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/notosanskr_bold"
+        android:includeFontPadding="false"
+        android:text="@string/next_lecture_text"
+        android:textColor="@color/pinks_main"
+        android:textSize="11sp" />
+
+    <TextView
+        android:id="@+id/nextLectureTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/notosanskr_bold"
+        android:includeFontPadding="false"
+        android:text="다음주 월요일"
+        android:textColor="@color/grays_gray0_black"
+        android:textSize="11sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:layout_marginVertical="3dp"
+            android:layout_marginEnd="4dp"
+            android:background="@drawable/timetable_circle_background" />
+
+        <TextView
+            android:id="@+id/nextLectureTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:fontFamily="@font/notosanskr_bold"
+            android:includeFontPadding="false"
+            android:maxLines="1"
+            android:text="아주 긴 과목 이름은 이렇게 표시됩니다"
+            android:textColor="@color/grays_gray0_black"
+            android:textSize="11sp" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/nextLectureRoom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:fontFamily="@font/notosanskr_regular"
+        android:includeFontPadding="false"
+        android:maxLines="1"
+        android:text="아주 긴 장소 이름은 이렇게 표시됩니다"
+        android:textColor="@color/grays_gray0_black"
+        android:textSize="11sp" />
+
+    <TextView
+        android:id="@+id/nextLectureProfessors"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:fontFamily="@font/notosanskr_medium"
+        android:includeFontPadding="false"
+        android:maxLines="1"
+        android:text="아주 긴 교수자명은 이렇게 표시됩니다"
+        android:textColor="@color/grays_gray75"
+        android:textSize="11sp" />
+</LinearLayout>
