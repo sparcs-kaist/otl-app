@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="ic_launcher_background">#F9F0F0</color>
+
+    <color name="pinks_light">#F9F0F0</color>
+    <color name="pinks_main">#E54C65</color>
+
+    <color name="grays_gray0_black">#000000</color>
+    <color name="grays_gray75">#757575</color>
 </resources>
