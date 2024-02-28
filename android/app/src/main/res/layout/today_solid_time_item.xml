@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="@dimen/today_solid_time_width"
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:ignore="UseCompoundDrawables">
 
     <TextView
         android:id="@+id/time"
@@ -12,13 +14,15 @@
         android:fontFamily="@font/notosanskr_regular"
         android:gravity="center"
         android:includeFontPadding="false"
-        android:text="8"
         android:textColor="@color/grays_gray0_black"
-        android:textSize="11sp" />
+        android:textSize="11sp"
+        tools:text="8" />
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="2dp"
-        android:background="@drawable/solid_line_vertical" />
+        android:background="@drawable/solid_line_vertical"
+        android:importantForAccessibility="no"
+        tools:ignore="ImageContrastCheck" />
 </LinearLayout>
