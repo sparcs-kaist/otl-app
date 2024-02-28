@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="@dimen/today_dotted_time_width"
     android:layout_height="match_parent"
     android:layout_marginHorizontal="12dp"
     android:gravity="center_horizontal"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:ignore="UseCompoundDrawables">
 
     <TextView
         android:layout_width="match_parent"
@@ -17,5 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="2dp"
-        android:background="@drawable/dotted_line_vertical" />
+        android:background="@drawable/dotted_line_vertical"
+        android:importantForAccessibility="no"
+        tools:ignore="ImageContrastCheck" />
 </LinearLayout>
