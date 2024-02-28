@@ -2,5 +2,27 @@
     style="@style/Widget.Android.AppWidget.Container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingVertical="8dp"
     android:theme="@style/Theme.Android.AppWidgetContainer">
+
+    <LinearLayout
+        android:id="@+id/todayTimetable"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:paddingHorizontal="@dimen/today_time_margin" />
+
+    <LinearLayout
+        android:id="@+id/timeIndicatorContainer"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:paddingHorizontal="@dimen/today_time_margin">
+
+        <include
+            android:id="@+id/timeIndicator"
+            layout="@layout/time_indicator_item"
+            android:layout_width="@dimen/time_indicator_width"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+
 </RelativeLayout>

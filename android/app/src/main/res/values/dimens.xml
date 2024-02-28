@@ -6,5 +6,9 @@ Refer to App Widget Documentation for margin information
 http://developer.android.com/guide/topics/appwidgets/index.html#CreatingLayout
     -->
     <dimen name="widget_margin">0dp</dimen>
+    <dimen name="today_solid_time_width">13dp</dimen>
+    <dimen name="today_dotted_time_width">10dp</dimen>
+    <dimen name="today_time_margin">12dp</dimen>
+    <dimen name="time_indicator_width">10dp</dimen>
 
 </resources>
