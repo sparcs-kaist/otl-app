@@ -83,7 +83,7 @@ void main() {
       length: 1,
       onTap: (_) {},
       onCopyTap: () {},
-      onDeleteTap: () {},
+      onDeleteTap: (_) {},
       onExportTap: (_) {},
     ).scaffold);
   });
