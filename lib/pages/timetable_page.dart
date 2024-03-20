@@ -270,7 +270,6 @@ class _TimetablePageState extends State<TimetablePage> {
                 'timetable': 'timetable.tab'
                     .tr(args: [timetableModel.selectedIndex.toString()])
               },
-              // onTapPos: () {}
             ),
           );
         } else {

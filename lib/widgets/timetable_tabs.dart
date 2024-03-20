@@ -78,7 +78,6 @@ class _TimetableTabsState extends State<TimetableTabs> {
     );
 
     if (i == _index) {
-      // bool canDelete = widget.length > 2 && i != 0;
       return Padding(
         padding: const EdgeInsets.only(right: 8.0),
         child: Dropdown<int>(
@@ -123,7 +122,6 @@ class _TimetableTabsState extends State<TimetableTabs> {
                 text: 'timetable.tab_menu.delete'.tr(),
                 icon: Icons.delete_outlined,
                 textColor: OTLColor.red,
-                // disabled: !canDelete,
               )
             ]
             /*ItemData(
