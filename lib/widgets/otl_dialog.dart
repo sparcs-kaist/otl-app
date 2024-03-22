@@ -29,6 +29,8 @@ enum OTLDialogType {
   /// namedArgs: 'timetable'
   deleteTab,
 
+  disabledDeleteLastTab,
+
   deleteAccount,
 
   accountDeleted,
@@ -106,6 +108,13 @@ extension OTLDialogTypeExt on OTLDialogType {
       content: 'timetable.dialog.ask_delete_tab',
       icon: 'timetable',
       posText: 'common.delete',
+    ),
+    OTLDialogType.disabledDeleteLastTab: _OTLDialogData(
+      title: 'timetable.dialog.delete_last_tab',
+      content: 'timetable.dialog.disabled_delete_last_tab',
+      icon: 'alert',
+      negText: 'common.close',
+      btnStyle: BtnStyle.one,
     ),
     OTLDialogType.deleteAccount: _OTLDialogData(
       title: 'user.delete_account',
@@ -258,6 +267,7 @@ class OTLDialog extends StatelessWidget {
       case OTLDialogType.deleteLecture:
       case OTLDialogType.deleteLectureWithTab:
       case OTLDialogType.deleteTab:
+      case OTLDialogType.disabledDeleteLastTab:
       case OTLDialogType.deleteAccount:
       case OTLDialogType.accountDeleted:
       case OTLDialogType.resetSettings:

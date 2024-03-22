@@ -10,7 +10,7 @@ class TimetableTabs extends StatefulWidget {
   final int length;
   final Function(int) onTap;
   final VoidCallback onCopyTap;
-  final VoidCallback onDeleteTap;
+  final Function(int) onDeleteTap;
   final Function(ShareType) onExportTap;
 
   TimetableTabs(
@@ -78,7 +78,6 @@ class _TimetableTabsState extends State<TimetableTabs> {
     );
 
     if (i == _index) {
-      bool canDelete = widget.length > 2 && i != 0;
       return Padding(
         padding: const EdgeInsets.only(right: 8.0),
         child: Dropdown<int>(
@@ -117,13 +116,14 @@ class _TimetableTabsState extends State<TimetableTabs> {
               text: 'timetable.tab_menu.export_cal'.tr(),
               icon: Icons.calendar_today_outlined,
             ),
-            ItemData(
-              value: 3,
-              text: 'timetable.tab_menu.delete'.tr(),
-              icon: Icons.delete_outlined,
-              textColor: OTLColor.red,
-              disabled: !canDelete,
-            ),
+            if (i != 0) ...[
+              ItemData(
+                value: 3,
+                text: 'timetable.tab_menu.delete'.tr(),
+                icon: Icons.delete_outlined,
+                textColor: OTLColor.red,
+              )
+            ]
             /*ItemData(
                 value: 4,
                 text: 'timetable.tab_menu.syllabus'.tr(),
@@ -135,7 +135,7 @@ class _TimetableTabsState extends State<TimetableTabs> {
             if (value == 0) widget.onCopyTap();
             if (value == 1) widget.onExportTap(ShareType.image);
             if (value == 2) widget.onExportTap(ShareType.ical);
-            if (value == 3 && canDelete) widget.onDeleteTap();
+            if (value == 3) widget.onDeleteTap(i);
             // if (value == 4) Pass
           },
         ),

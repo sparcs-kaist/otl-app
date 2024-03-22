@@ -72,13 +72,15 @@
       "add_overlapping_lecture": "Add Overlapping Lecture",
       "delete_lecture": "Delete Lecture",
       "delete_tab": "Delete Table",
+      "delete_last_tab": "Can't Delete Table",
       "ask_add_lecture": "Do you want to add lecture '{lecture}'?",
       "ask_add_lecture_with_tab": "Do you want to add lecture '{lecture}' to {timetable}?",
       "ask_add_overlapping_lecture": "Time overlaps with {lectures}. If you add '{lecture}', the lecture(s) will be deleted. Do you want to add it to the timetable?",
       "ask_add_overlapping_lecture_with_tab": "Time overlaps with {lectures} in {timetable}. If you add '{lecture}', the lecture(s) will be deleted. Do you want to add it to the timetable?",
       "ask_delete_lecture": "Do you want to delete lecture '{lecture}'?",
       "ask_delete_lecture_with_tab": "Do you want to delete lecture '{lecture}' from {timetable}?",
-      "ask_delete_tab": "Do you really want to delete {timetable}?"
+      "ask_delete_tab": "Do you really want to delete {timetable}?",
+      "disabled_delete_last_tab": "You can't delete the last timetable."
     },
     "tab_menu": {
       "copy": "Copy Timetable",
