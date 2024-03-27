@@ -60,25 +60,25 @@ class PeoplePage extends StatelessWidget {
     ];
 
     const Map<String, dynamic> people_info = {
-      'yumyum' : {
+      'yumyum': {
         'name': '조유민',
       },
-      'platypus' : {
+      'platypus': {
         'name': '오승빈',
       },
-      'star' : {
+      'star': {
         'name': '문동우',
       },
-      'lobe' : {
+      'lobe': {
         'name': '정성엽',
       },
-      'seungho' : {
+      'seungho': {
         'name': '장승호',
       },
-      'soongyu' : {
+      'soongyu': {
         'name': '권순규',
       },
-      'edge' : {
+      'edge': {
         'name': '정재현',
       },
     };
@@ -117,7 +117,8 @@ class PeoplePage extends StatelessWidget {
                     const SizedBox(
                       width: 4,
                     ),
-                    Text(people[i][j],
+                    Text(
+                      people[i][j],
                       style: TextStyle(
                         color: Color(0xFFEBA12A),
                         fontSize: 15,
@@ -132,7 +133,8 @@ class PeoplePage extends StatelessWidget {
                     ),
                     Padding(
                       padding: const EdgeInsets.only(bottom: 2.0),
-                      child: Text(people_info[people[i][j]]['name'],
+                      child: Text(
+                        people_info[people[i][j]]['name'],
                         style: TextStyle(
                           color: Color(0xFFEBA12A).withOpacity(0.4),
                           fontFamily: 'NanumSquare',
