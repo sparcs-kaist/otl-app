@@ -59,11 +59,35 @@ class PeoplePage extends StatelessWidget {
       'Developer',
     ];
 
+    const Map<String, dynamic> people_info = {
+      'yumyum' : {
+        'name': '조유민',
+      },
+      'platypus' : {
+        'name': '오승빈',
+      },
+      'star' : {
+        'name': '문동우',
+      },
+      'lobe' : {
+        'name': '정성엽',
+      },
+      'seungho' : {
+        'name': '장승호',
+      },
+      'soongyu' : {
+        'name': '권순규',
+      },
+      'edge' : {
+        'name': '정재현',
+      },
+    };
+
     const List<List<String>> people = [
       ['yumyum'],
       ['platypus'],
       ['yumyum'],
-      ['platypus', 'star', 'lobe', 'seungho', 'soongyu'],
+      ['platypus', 'star', 'lobe', 'seungho', 'soongyu', 'edge'],
     ];
 
     return List.generate(
@@ -79,10 +103,47 @@ class PeoplePage extends StatelessWidget {
             people[i].length,
             (j) => Column(
               children: [
-                const SizedBox(height: 4.0),
-                SvgPicture.asset(
-                  'assets/people/${people[i][j]}.svg',
-                  height: 24.0,
+                const SizedBox(
+                  height: 4.0,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    SvgPicture.asset(
+                      'assets/icons/SPARCS.svg',
+                      height: 24.0,
+                    ),
+                    const SizedBox(
+                      width: 4,
+                    ),
+                    Text(people[i][j],
+                      style: TextStyle(
+                        color: Color(0xFFEBA12A),
+                        fontSize: 15,
+                        fontFamily: 'Raleway',
+                        fontWeight: FontWeight.w800,
+                        letterSpacing: 0.15,
+                        leadingDistribution: TextLeadingDistribution.even,
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 3,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 2.0),
+                      child: Text(people_info[people[i][j]]['name'],
+                        style: TextStyle(
+                          color: Color(0xFFEBA12A).withOpacity(0.4),
+                          fontFamily: 'NanumSquare',
+                          fontSize: 9.5,
+                          fontWeight: FontWeight.w800,
+                          letterSpacing: 0.15,
+                          leadingDistribution: TextLeadingDistribution.even,
+                        ),
+                      ),
+                    ),
+                  ],
                 )
               ],
             ),
