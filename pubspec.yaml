@@ -103,6 +103,32 @@ flutter:
           weight: 700
         - asset: assets/fonts/NotoSansKR-Black.otf
           weight: 900
+    - family: Raleway
+      fonts:
+        - asset: assets/fonts/Raleway-Thin.ttf
+          weight: 100
+        - asset: assets/fonts/Raleway-Light.ttf
+          weight: 300
+        - asset: assets/fonts/Raleway-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/Raleway-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/Raleway-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/Raleway-ExtraBold.ttf
+          weight: 800
+        - asset: assets/fonts/Raleway-Black.ttf
+          weight: 900
+    - family: NanumSquare
+      fonts:
+        - asset: assets/fonts/NanumSquareL.otf
+          weight: 300
+        - asset: assets/fonts/NanumSquareR.otf
+          weight: 400
+        - asset: assets/fonts/NanumSquareB.otf
+          weight: 700
+        - asset: assets/fonts/NanumSquareEB.otf
+          weight: 800
 
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
