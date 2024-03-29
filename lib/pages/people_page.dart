@@ -15,21 +15,23 @@ class PeoplePage extends StatelessWidget {
         middle: Text('title.credit'.tr(), style: titleBold),
         body: ColoredBox(
           color: OTLColor.grayF,
-          child: Padding(
-            padding: EdgeInsets.all(16.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                _buildContainer('2023.03 ~'),
-                ..._get202303(),
-                const SizedBox(height: 32.0),
-                _buildContainer('2020.03 ~ 2023.02'),
-                const SizedBox(height: 12.0),
-                Text(
-                  'common.coming'.tr(),
-                  style: bodyRegular.copyWith(color: OTLColor.grayA),
-                ),
-              ],
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  _buildContainer('2023.03 ~'),
+                  ..._get202303(),
+                  const SizedBox(height: 32.0),
+                  _buildContainer('2020.03 ~ 2023.02'),
+                  const SizedBox(height: 12.0),
+                  Text(
+                    'common.coming'.tr(),
+                    style: bodyRegular.copyWith(color: OTLColor.grayA),
+                  ),
+                ],
+              ),
             ),
           ),
         ),
