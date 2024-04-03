@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="@dimen/today_dotted_time_width"
     android:layout_height="match_parent"
-    android:layout_marginHorizontal="12dp"
+    android:layout_marginHorizontal="@dimen/today_time_margin"
     android:gravity="center_horizontal"
     android:orientation="vertical"
     tools:ignore="UseCompoundDrawables">
