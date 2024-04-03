@@ -7,5 +7,23 @@
 
     <color name="grays_gray0_black">#000000</color>
     <color name="grays_gray0_25">#40000000</color>
+    <color name="grays_gray0_50">#80000000</color>
     <color name="grays_gray75">#757575</color>
+
+    <color name="lecture_0">#F2CECE</color>
+    <color name="lecture_1">#F4B3AE</color>
+    <color name="lecture_2">#F2BCA0</color>
+    <color name="lecture_3">#F0D3AB</color>
+    <color name="lecture_4">#F1E1A9</color>
+    <color name="lecture_5">#F4F2B3</color>
+    <color name="lecture_6">#DBF4BE</color>
+    <color name="lecture_7">#BEEDD7</color>
+    <color name="lecture_8">#B7E2DE</color>
+    <color name="lecture_9">#C9EAF4</color>
+    <color name="lecture_10">#B4D3ED</color>
+    <color name="lecture_11">#B9C5ED</color>
+    <color name="lecture_12">#CCC6ED</color>
+    <color name="lecture_13">#D8C1F0</color>
+    <color name="lecture_14">#EBCAEF</color>
+    <color name="lecture_15">#F4BADB</color>
 </resources>
