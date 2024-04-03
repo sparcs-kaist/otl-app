@@ -22,6 +22,7 @@ class LikedReviewPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final user = context.watch<InfoModel>().user;
     final reviews = context.watch<LikedReviewModel>().likedReviews(user);
+    final reviewPage = context.watch<LikedReviewModel>().page;
 
     return OTLScaffold(
       child: OTLLayout(
@@ -77,23 +78,26 @@ class LikedReviewPage extends StatelessWidget {
                                   childCount: reviews.length,
                                 ),
                               ),
-                              SliverList(
+                              if(reviewPage*10 == reviews.length)...[
+                                SliverList(
                                   delegate: SliverChildListDelegate([
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      top: 4.0, bottom: 12.0),
-                                  child: const Center(
-                                    child: SizedBox(
-                                      width: 24,
-                                      height: 24,
-                                      child: CircularProgressIndicator(
-                                        color: OTLColor.grayE,
-                                        strokeWidth: 2,
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          top: 4.0, bottom: 12.0),
+                                      child: const Center(
+                                        child: SizedBox(
+                                          width: 24,
+                                          height: 24,
+                                          child: CircularProgressIndicator(
+                                            color: OTLColor.grayE,
+                                            strokeWidth: 2,
+                                          ),
+                                        ),
                                       ),
-                                    ),
-                                  ),
+                                    )
+                                  ])
                                 )
-                              ]))
+                              ]
                             ],
                           ),
                         ),
