@@ -112,7 +112,7 @@ class LatestReviewsPage extends StatelessWidget {
                   childCount: latestReviews.length,
                 ),
               ),
-              if(latestReviewPage*10 == latestReviews.length)...[
+              if (latestReviewPage * 10 == latestReviews.length) ...[
                 SliverList(
                     delegate: SliverChildListDelegate([
                   Padding(
@@ -172,7 +172,7 @@ class HallOfFamePage extends StatelessWidget {
                   childCount: hallOfFames.length,
                 ),
               ),
-              if(hallOfFamesPage*10 == hallOfFames.length)...[
+              if (hallOfFamesPage * 10 == hallOfFames.length) ...[
                 SliverList(
                     delegate: SliverChildListDelegate([
                   Padding(

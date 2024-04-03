@@ -78,25 +78,24 @@ class LikedReviewPage extends StatelessWidget {
                                   childCount: reviews.length,
                                 ),
                               ),
-                              if(reviewPage*10 == reviews.length)...[
+                              if (reviewPage * 10 == reviews.length) ...[
                                 SliverList(
-                                  delegate: SliverChildListDelegate([
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          top: 4.0, bottom: 12.0),
-                                      child: const Center(
-                                        child: SizedBox(
-                                          width: 24,
-                                          height: 24,
-                                          child: CircularProgressIndicator(
-                                            color: OTLColor.grayE,
-                                            strokeWidth: 2,
-                                          ),
+                                    delegate: SliverChildListDelegate([
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        top: 4.0, bottom: 12.0),
+                                    child: const Center(
+                                      child: SizedBox(
+                                        width: 24,
+                                        height: 24,
+                                        child: CircularProgressIndicator(
+                                          color: OTLColor.grayE,
+                                          strokeWidth: 2,
                                         ),
                                       ),
-                                    )
-                                  ])
-                                )
+                                    ),
+                                  )
+                                ]))
                               ]
                             ],
                           ),
