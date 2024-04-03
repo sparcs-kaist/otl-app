@@ -21,7 +21,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/notosanskr_bold"
         android:includeFontPadding="false"
-        android:text="다음주 월요일"
+        android:text="@string/sample_time"
         android:textColor="@color/grays_gray0_black"
         android:textSize="11sp" />
 
@@ -46,7 +46,7 @@
             android:fontFamily="@font/notosanskr_bold"
             android:includeFontPadding="false"
             android:maxLines="1"
-            android:text="아주 긴 과목 이름은 이렇게 표시됩니다"
+            android:text="@string/sample_title"
             android:textColor="@color/grays_gray0_black"
             android:textSize="11sp" />
     </LinearLayout>
@@ -59,7 +59,7 @@
         android:fontFamily="@font/notosanskr_regular"
         android:includeFontPadding="false"
         android:maxLines="1"
-        android:text="아주 긴 장소 이름은 이렇게 표시됩니다"
+        android:text="@string/sample_room"
         android:textColor="@color/grays_gray0_black"
         android:textSize="11sp" />
 
@@ -71,7 +71,7 @@
         android:fontFamily="@font/notosanskr_medium"
         android:includeFontPadding="false"
         android:maxLines="1"
-        android:text="아주 긴 교수자명은 이렇게 표시됩니다"
+        android:text="@string/sample_professors"
         android:textColor="@color/grays_gray75"
         android:textSize="11sp" />
 </LinearLayout>
