@@ -85,6 +85,7 @@ class LatestReviewsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final _scrollController = context.watch<HallOfFameModel>().scrollController;
     final latestReviews = context.watch<LatestReviewsModel>().latestReviews;
+    final latestReviewPage = context.watch<LatestReviewsModel>().page;
 
     return Expanded(
       child: RefreshIndicator(
@@ -111,22 +112,24 @@ class LatestReviewsPage extends StatelessWidget {
                   childCount: latestReviews.length,
                 ),
               ),
-              SliverList(
-                  delegate: SliverChildListDelegate([
-                Padding(
-                  padding: const EdgeInsets.only(top: 4.0, bottom: 12.0),
-                  child: const Center(
-                    child: SizedBox(
-                      width: 24,
-                      height: 24,
-                      child: CircularProgressIndicator(
-                        color: OTLColor.grayE,
-                        strokeWidth: 2,
+              if (latestReviewPage * 10 == latestReviews.length) ...[
+                SliverList(
+                    delegate: SliverChildListDelegate([
+                  Padding(
+                    padding: const EdgeInsets.only(top: 4.0, bottom: 12.0),
+                    child: const Center(
+                      child: SizedBox(
+                        width: 24,
+                        height: 24,
+                        child: CircularProgressIndicator(
+                          color: OTLColor.grayE,
+                          strokeWidth: 2,
+                        ),
                       ),
                     ),
-                  ),
-                )
-              ]))
+                  )
+                ]))
+              ]
             ],
           ),
         ),
@@ -142,6 +145,7 @@ class HallOfFamePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final _scrollController = context.watch<HallOfFameModel>().scrollController;
     final hallOfFames = context.watch<HallOfFameModel>().hallOfFame;
+    final hallOfFamesPage = context.watch<HallOfFameModel>().page;
 
     return Expanded(
       child: RefreshIndicator(
@@ -168,22 +172,24 @@ class HallOfFamePage extends StatelessWidget {
                   childCount: hallOfFames.length,
                 ),
               ),
-              SliverList(
-                  delegate: SliverChildListDelegate([
-                Padding(
-                  padding: const EdgeInsets.only(top: 4.0, bottom: 12.0),
-                  child: const Center(
-                    child: SizedBox(
-                      width: 24,
-                      height: 24,
-                      child: CircularProgressIndicator(
-                        color: OTLColor.grayE,
-                        strokeWidth: 2,
+              if (hallOfFamesPage * 10 == hallOfFames.length) ...[
+                SliverList(
+                    delegate: SliverChildListDelegate([
+                  Padding(
+                    padding: const EdgeInsets.only(top: 4.0, bottom: 12.0),
+                    child: const Center(
+                      child: SizedBox(
+                        width: 24,
+                        height: 24,
+                        child: CircularProgressIndicator(
+                          color: OTLColor.grayE,
+                          strokeWidth: 2,
+                        ),
                       ),
                     ),
-                  ),
-                )
-              ]))
+                  )
+                ]))
+              ]
             ],
           ),
         ),
