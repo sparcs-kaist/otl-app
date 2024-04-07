@@ -50,4 +50,14 @@ class Classtime extends Time {
     data['end'] = this.end;
     return data;
   }
+
+  Map<String, dynamic> toJsonForWidget() {
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data['classroom_short'] = this.classroomShort;
+    data['classroom_short_en'] = this.classroomShortEn;
+    data['day'] = this.day;
+    data['begin'] = this.begin;
+    data['end'] = this.end;
+    return data;
+  }
 }

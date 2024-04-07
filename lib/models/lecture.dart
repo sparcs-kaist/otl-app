@@ -1,3 +1,4 @@
+import 'package:otlplus/extensions/lecture.dart';
 import 'package:otlplus/models/classtime.dart';
 import 'package:otlplus/models/examtime.dart';
 import 'package:otlplus/models/professor.dart';
@@ -173,6 +174,18 @@ class Lecture {
     data['speech'] = this.speech;
     data['classtimes'] = this.classtimes.map((v) => v.toJson()).toList();
     data['examtimes'] = this.examtimes.map((v) => v.toJson()).toList();
+    return data;
+  }
+
+  Map<String, dynamic> toJsonForWidget() {
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data['title'] = this.title;
+    data['title_en'] = this.titleEn;
+    data['course'] = this.course;
+    data['professors'] = this.professorsStrShort;
+    data['professors_en'] = this.professorsStrShortEn;
+    data['classtimes'] =
+        this.classtimes.map((v) => v.toJsonForWidget()).toList();
     return data;
   }
 }

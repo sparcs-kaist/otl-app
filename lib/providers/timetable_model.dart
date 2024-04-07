@@ -1,6 +1,8 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:dio/dio.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:otlplus/constants/url.dart';
 import 'package:otlplus/dio_provider.dart';
@@ -9,20 +11,25 @@ import 'package:otlplus/models/semester.dart';
 import 'package:otlplus/models/timetable.dart';
 import 'package:otlplus/models/user.dart';
 import 'package:otlplus/utils/export_file.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class TimetableModel extends ChangeNotifier {
   late User _user;
+
   User get user => _user;
 
   late List<Semester> _semesters;
 
   late int _selectedSemesterIndex;
+
   Semester get selectedSemester => _semesters[_selectedSemesterIndex];
 
   late List<Timetable> _timetables;
+
   List<Timetable> get timetables => _timetables;
 
   Lecture? _tempLecture;
+
   Lecture? get tempLecture => _tempLecture;
 
   void setTempLecture(Lecture? lecture) {
@@ -31,14 +38,17 @@ class TimetableModel extends ChangeNotifier {
   }
 
   int _selectedTimetableIndex = 1;
+
   int get selectedIndex => _selectedTimetableIndex;
 
   Timetable get currentTimetable => _timetables[_selectedTimetableIndex];
 
   int _selectedModeIndex = 0;
+
   int get selectedMode => _selectedModeIndex;
 
   bool _isLoaded = false;
+
   bool get isLoaded => _isLoaded;
 
   TimetableModel({bool forTest = false}) {
@@ -74,7 +84,7 @@ class TimetableModel extends ChangeNotifier {
     _semesters = semesters;
     _selectedSemesterIndex = semesters.length - 1;
     notifyListeners();
-    _loadTimetable();
+    _loadTimetable().whenComplete(() => _saveTimetable());
   }
 
   get canGoPreviousSemester => _selectedSemesterIndex > 0;
@@ -109,6 +119,18 @@ class TimetableModel extends ChangeNotifier {
   void setMode(int index) {
     _selectedModeIndex = index;
     notifyListeners();
+  }
+
+  Future<void> _saveTimetable() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('beginning',
+        DateFormat('yyyy-MM-dd').format(selectedSemester.beginning));
+    await prefs.setString(
+        'end', DateFormat('yyyy-MM-dd').format(selectedSemester.end));
+    await prefs.setString(
+        'lectures',
+        jsonEncode(
+            _timetables[0].lectures.map((e) => e.toJsonForWidget()).toList()));
   }
 
   Future<bool> _loadTimetable() async {
