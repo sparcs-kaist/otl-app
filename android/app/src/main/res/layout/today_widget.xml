@@ -12,6 +12,12 @@
         android:orientation="horizontal"
         android:paddingHorizontal="@dimen/today_time_margin" />
 
+    <RelativeLayout
+        android:id="@+id/todayLectureBlockContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal" />
+
     <LinearLayout
         android:id="@+id/timeIndicatorContainer"
         android:layout_width="wrap_content"

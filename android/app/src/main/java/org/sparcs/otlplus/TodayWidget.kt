@@ -7,6 +7,7 @@ import android.appwidget.AppWidgetProvider
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.view.View
 import java.util.Calendar
 import android.widget.RemoteViews
@@ -60,8 +61,9 @@ class TodayWidget : AppWidgetProvider() {
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val intent = Intent(context, TodayWidget::class.java)
         intent.action = ACTION_UPDATE_WIDGET
-        val pendingIntent =
-            PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+        val pendingIntent = PendingIntent.getBroadcast(
+            context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_MUTABLE
+        )
 
         // Schedule alarm to update widget every minute
         alarmManager.setRepeating(
@@ -74,12 +76,11 @@ class TodayWidget : AppWidgetProvider() {
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val intent = Intent(context, TodayWidget::class.java)
         intent.action = ACTION_UPDATE_WIDGET
-        val pendingIntent =
-            PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+        val pendingIntent = PendingIntent.getBroadcast(
+            context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_MUTABLE
+        )
         alarmManager.cancel(pendingIntent)
     }
-
-
 }
 
 internal fun updateTodayWidget(
@@ -94,8 +95,9 @@ internal fun updateTodayWidget(
     val dottedWidth = context.resources.getDimensionPixelSize(R.dimen.today_dotted_time_width)
     val indicatorWidth = context.resources.getDimensionPixelSize(R.dimen.time_indicator_width)
     val itemMargin = context.resources.getDimensionPixelSize(R.dimen.today_time_margin)
+    val blockMargin = context.resources.getDimensionPixelSize(R.dimen.block_margin)
     val hourMargin = solidWidth + dottedWidth + itemMargin * 2
-    val startMargin = itemMargin + solidWidth / 2.0 - indicatorWidth / 2.0
+    val startMargin = itemMargin + solidWidth / 2.0
 
     // Construct the RemoteViews object
     val views = RemoteViews(context.packageName, R.layout.today_widget)
@@ -126,10 +128,12 @@ internal fun updateTodayWidget(
     val hour = calendar.get(Calendar.HOUR_OF_DAY)
     val minute = calendar.get(Calendar.MINUTE)
     val visibility = isVisible(hour, minute)
+    val offset = getOffset(hour, minute)
+
+    Log.d("TodayWidget", "updated at $hour:$minute")
 
     if (visibility) {
-        val margin = getMargin(hour, minute)
-        val offset = getOffset(hour, minute)
+        val margin = getMargin(hour, minute) - indicatorWidth / 2.0
 
         views.setViewPadding(R.id.todayTimetable, (itemMargin - offset).roundToInt(), 0, 0, 0)
         views.setViewVisibility(R.id.timeIndicator, View.VISIBLE)
@@ -137,6 +141,39 @@ internal fun updateTodayWidget(
     } else {
         views.setViewPadding(R.id.todayTimetable, itemMargin, 0, 0, 0)
         views.setViewVisibility(R.id.timeIndicator, View.INVISIBLE)
+    }
+
+    // Add lecture blocks
+    views.removeAllViews(R.id.todayLectureBlockContainer)
+
+    fun getLayoutId(minute: Int): Int? = when (minute) {
+        30 -> R.layout.today_lecture_block_30
+        50 -> R.layout.today_lecture_block_50
+        60 -> R.layout.today_lecture_block_60
+        70 -> R.layout.today_lecture_block_70
+        75 -> R.layout.today_lecture_block_75
+        90 -> R.layout.today_lecture_block_90
+        110 -> R.layout.today_lecture_block_110
+        120 -> R.layout.today_lecture_block_120
+        150 -> R.layout.today_lecture_block_150
+        165 -> R.layout.today_lecture_block_165
+        170 -> R.layout.today_lecture_block_170
+        180 -> R.layout.today_lecture_block_180
+        210 -> R.layout.today_lecture_block_210
+        240 -> R.layout.today_lecture_block_240
+        300 -> R.layout.today_lecture_block_300
+        360 -> R.layout.today_lecture_block_360
+        420 -> R.layout.today_lecture_block_420
+        480 -> R.layout.today_lecture_block_480
+        540 -> R.layout.today_lecture_block_540
+        else -> null
+    }
+
+    (getLayoutId(110))?.let { layoutId ->
+        val margin = getMargin(10, 30) + blockMargin
+        val lectureBlock = RemoteViews(context.packageName, layoutId)
+        lectureBlock.setViewPadding(R.id.todayLectureBlock, (margin - offset).roundToInt(), 0, 0, 0)
+        views.addView(R.id.todayLectureBlockContainer, lectureBlock)
     }
 
     // Instruct the widget manager to update the widget

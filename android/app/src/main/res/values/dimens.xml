@@ -10,5 +10,28 @@ http://developer.android.com/guide/topics/appwidgets/index.html#CreatingLayout
     <dimen name="today_dotted_time_width">10dp</dimen>
     <dimen name="today_time_margin">12dp</dimen>
     <dimen name="time_indicator_width">10dp</dimen>
+    <dimen name="block_margin">1.5dp</dimen>
 
+    <!-- hard coded
+    width = hour_margin * time - block_margin * 2
+    -->
+    <dimen name="block_width_30">20.5dp</dimen>
+    <dimen name="block_width_50">36.16dp</dimen>
+    <dimen name="block_width_60">44dp</dimen>
+    <dimen name="block_width_70">51.83dp</dimen>
+    <dimen name="block_width_75">55.75dp</dimen>
+    <dimen name="block_width_90">67.5dp</dimen>,
+    <dimen name="block_width_110">83.16dp</dimen>
+    <dimen name="block_width_120">91dp</dimen>
+    <dimen name="block_width_150">114.5dp</dimen>
+    <dimen name="block_width_165">126.25dp</dimen>
+    <dimen name="block_width_170">130.16dp</dimen>
+    <dimen name="block_width_180">138dp</dimen>
+    <dimen name="block_width_210">161.5dp</dimen>
+    <dimen name="block_width_240">185dp</dimen>
+    <dimen name="block_width_300">232dp</dimen>
+    <dimen name="block_width_360">279dp</dimen>
+    <dimen name="block_width_420">326dp</dimen>
+    <dimen name="block_width_480">373dp</dimen>
+    <dimen name="block_width_540">420dp</dimen>
 </resources>
