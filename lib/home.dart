@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:otlplus/pages/planner_page.dart';
 import 'package:otlplus/widgets/otl_scaffold.dart';
 import 'package:otlplus/pages/dictionary_page.dart';
 import 'package:otlplus/pages/main_page.dart';
@@ -84,6 +85,7 @@ class _OTLHomeState extends State<OTLHome> with SingleTickerProviderStateMixin {
                 TimetablePage(),
                 DictionaryPage(),
                 ReviewPage(),
+                PlannerPage(),
               ],
             ),
             curve: Curves.easeInOut,
@@ -125,6 +127,10 @@ class _OTLHomeState extends State<OTLHome> with SingleTickerProviderStateMixin {
         BottomNavigationBarItem(
           icon: Icon(Icons.rate_review_outlined),
           label: tr("title.review"),
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.edit_calendar_outlined),
+          label: tr("title.planner"),
         ),
       ],
     );
