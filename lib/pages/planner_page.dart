@@ -7,8 +7,6 @@ import 'package:otlplus/widgets/planner_preview.dart';
 import 'package:otlplus/widgets/planner_select.dart';
 import 'package:otlplus/widgets/planner_semester.dart';
 import 'package:otlplus/widgets/planner_semester_select_tabs.dart';
-import 'package:otlplus/widgets/planner_statistic.dart';
-import 'package:otlplus/widgets/planner_table.dart';
 import 'package:otlplus/widgets/timetable.dart';
 import 'package:provider/provider.dart';
 import '../constants/color.dart';
