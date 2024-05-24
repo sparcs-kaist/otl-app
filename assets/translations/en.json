@@ -112,6 +112,25 @@
       "sun": "Sun"
     }
   },
+  "planner": {
+    "my_tab": "My Planner",
+    "tab": "플래너 {}",
+    "dialog": {
+      "add_lecture": "Add Lecture",
+      "add_overlapping_lecture": "Add Overlapping Lecture",
+      "delete_lecture": "Delete Lecture",
+      "delete_planner_tab": "Delete Planner",
+      "delete_last_planner_tab": "Can't Delete Planner",
+      "ask_add_lecture": "Do you want to add lecture '{lecture}'?",
+      "ask_add_lecture_with_tab": "Do you want to add lecture '{lecture}' to {planner}?",
+      "ask_add_overlapping_lecture": "Time overlaps with {lectures}. If you add '{lecture}', the lecture(s) will be deleted. Do you want to add it to the planner?",
+      "ask_add_overlapping_lecture_with_tab": "Time overlaps with {lectures} in {planner}. If you add '{lecture}', the lecture(s) will be deleted. Do you want to add it to the planner?",
+      "ask_delete_lecture": "Do you want to delete lecture '{lecture}'?",
+      "ask_delete_lecture_with_tab": "Do you want to delete lecture '{lecture}' from {planner}?",
+      "ask_delete_planner_tab": "Do you really want to delete {planner}?",
+      "disabled_delete_last_planner_tab": "You can't delete the last planner."
+    }
+  },
   "dictionary": {
     "reviews": "Reviews",
     "dictionary": "Dictionary",
