@@ -46,4 +46,14 @@ class OTLColor {
     Color(0xFFEBD4B0),
     Color(0xFFDDDDDD)
   ];
+
+  static const plannerStatisticColors = [
+    Color(0xFFDDDDDD),
+    Color(0xFFEAC6C6),
+    Color(0xFFEABEA4),
+    Color(0xFFEABEA4),
+    Color(0xFFD4C2ED),
+    Color(0xFFEBD4B0),
+    Color(0xFFDDDDDD)
+  ];
 }
