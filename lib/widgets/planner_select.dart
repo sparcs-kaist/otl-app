@@ -5,7 +5,9 @@ import 'package:otlplus/constants/text_styles.dart';
 import 'package:otlplus/models/planner.dart';
 import 'package:otlplus/providers/hall_of_fame_model.dart';
 import 'package:otlplus/providers/planner_model.dart';
+import 'package:otlplus/utils/navigator.dart';
 import 'package:otlplus/widgets/dropdown.dart';
+import 'package:otlplus/widgets/otl_dialog.dart';
 import 'package:provider/provider.dart';
 
 class PlannerSelect extends StatefulWidget {
@@ -69,6 +71,33 @@ class _PlannerSelectState extends State<PlannerSelect> {
                 //add
               } else if (value == planners.planners.length + 2) {
                 //delete
+                if (planners.planners.length <= 2) {
+                  OTLNavigator.pushDialog(
+                    context: context,
+                    builder: (_) => OTLDialog(
+                      type: OTLDialogType.disabledDeleteLastPlannerTab,
+                      namedArgs: {
+                        'planner': 'planner.tab'
+                            .tr(args: [planners.selectedIndex.toString()])
+                      },
+                    ),
+                  );
+                }
+                else{
+                  OTLNavigator.pushDialog(
+                    context: context,
+                    builder: (_) => OTLDialog(
+                      type: OTLDialogType.deletePlannerTab,
+                      namedArgs: {
+                        'planner': 'planner.tab'
+                            .tr(args: [planners.selectedIndex.toString()])
+                      },
+                      onTapPos: () => context.read<PlannerModel>().deletePlanner(),
+                    ),
+                  );
+                }
+
+                // planners.deletePlanner();
               }
             },
           ),

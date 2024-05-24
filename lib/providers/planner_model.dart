@@ -425,6 +425,29 @@ class PlannerModel extends ChangeNotifier {
     return false;
   }
 
+
+  Future<bool> deletePlanner() async {
+    try {
+      if (_planners.length <= 2) return false;
+
+      await DioProvider().dio.delete(
+          API_PLANNER_URL.replaceFirst("{user_id}", user.id.toString()) +
+              "/" +
+              _planners[_selectedPlannerIndex].id.toString(),
+          data: {});
+
+      _planners.remove(_planners[_selectedPlannerIndex]);
+      if (_selectedPlannerIndex > 1) _selectedPlannerIndex--;
+      notifyListeners();
+      return true;
+    } catch (exception) {
+      print(exception);
+    }
+    return false;
+  }
+
+
+
   // Future<bool> createTimetable({List<Lecture>? lectures}) async {
   //   try {
   //     final response = await DioProvider().dio.post(
