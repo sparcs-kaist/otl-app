@@ -29,7 +29,12 @@ enum OTLDialogType {
   /// namedArgs: 'timetable'
   deleteTab,
 
+  /// namedArgs: 'planner'
+  deletePlannerTab,
+
   disabledDeleteLastTab,
+
+  disabledDeleteLastPlannerTab,
 
   deleteAccount,
 
@@ -109,9 +114,22 @@ extension OTLDialogTypeExt on OTLDialogType {
       icon: 'timetable',
       posText: 'common.delete',
     ),
+    OTLDialogType.deletePlannerTab: _OTLDialogData(
+      title: 'planner.dialog.delete_planner_tab',
+      content: 'planner.dialog.ask_delete_planner_tab',
+      icon: 'deleteLecture',
+      posText: 'common.delete',
+    ),
     OTLDialogType.disabledDeleteLastTab: _OTLDialogData(
       title: 'timetable.dialog.delete_last_tab',
       content: 'timetable.dialog.disabled_delete_last_tab',
+      icon: 'alert',
+      negText: 'common.close',
+      btnStyle: BtnStyle.one,
+    ),
+    OTLDialogType.disabledDeleteLastPlannerTab: _OTLDialogData(
+      title: 'planner.dialog.delete_last_planner_tab',
+      content: 'planner.dialog.disabled_delete_last_planner_tab',
       icon: 'alert',
       negText: 'common.close',
       btnStyle: BtnStyle.one,
@@ -267,7 +285,9 @@ class OTLDialog extends StatelessWidget {
       case OTLDialogType.deleteLecture:
       case OTLDialogType.deleteLectureWithTab:
       case OTLDialogType.deleteTab:
+      case OTLDialogType.deletePlannerTab:
       case OTLDialogType.disabledDeleteLastTab:
+      case OTLDialogType.disabledDeleteLastPlannerTab:
       case OTLDialogType.deleteAccount:
       case OTLDialogType.accountDeleted:
       case OTLDialogType.resetSettings:
