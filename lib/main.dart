@@ -68,8 +68,7 @@ void main() {
                 create: (context) => PlannerModel(),
                 update: (context, infoModel, plannerModel) {
                   if (infoModel.hasData) {
-                    plannerModel?.loadPlanner(
-                        user: infoModel.user);
+                    plannerModel?.loadPlanner(user: infoModel.user);
                   }
                   return (plannerModel is PlannerModel)
                       ? plannerModel

@@ -22,7 +22,8 @@ const API_LIKED_REVIEW_URL = API_URL + "/users/{user_id}/liked-reviews";
 const API_SHARE_URL = API_URL + "share/timetable/{share_type}";
 
 const API_PLANNER_URL = API_URL + "users/{user_id}/planners";
-const API_PLANNER_ADD_FUTURE_URL = API_PLANNER_URL + "/{planner_id}/add-future-item";
+const API_PLANNER_ADD_FUTURE_URL =
+    API_PLANNER_URL + "/{planner_id}/add-future-item";
 
 enum ShareType { image, ical }
 

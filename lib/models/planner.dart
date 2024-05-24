@@ -3,9 +3,8 @@ import 'package:otlplus/models/department.dart';
 import 'package:otlplus/models/lecture.dart';
 import 'package:otlplus/models/planner_course.dart';
 
-
 class Planner {
-  final int id ;
+  final int id;
   final int start_year;
   final int end_year;
   final int arrange_order;
@@ -31,25 +30,24 @@ class Planner {
 
   factory Planner.fromJson(Map<String, dynamic> json) {
     return Planner(
-      id: json['id'],
-      start_year: json['start_year'],
-      end_year: json['end_year'],
-      arrange_order: json['arrange_order'],
-      general_track: GeneralTrack.fromJson(json['general_track']),
-      major_track: MajorTrack.fromJson(json['major_track']),
-      additional_tracks: (json['additional_tracks'] as List)
-        .map((tracks) => AdditionalTrack.fromJson(tracks))
-        .toList(),
-      taken_items: (json['taken_items'] as List)
-        .map((item) => TakenItem.fromJson(item))
-        .toList(),
-      future_items: (json['future_items'] as List)
-        .map((item) => FutureItem.fromJson(item))
-        .toList(),
-      arbitrary_items: (json['arbitrary_items'] as List)
-        .map((item) => ArbitraryItem.fromJson(item))
-        .toList()
-    );
+        id: json['id'],
+        start_year: json['start_year'],
+        end_year: json['end_year'],
+        arrange_order: json['arrange_order'],
+        general_track: GeneralTrack.fromJson(json['general_track']),
+        major_track: MajorTrack.fromJson(json['major_track']),
+        additional_tracks: (json['additional_tracks'] as List)
+            .map((tracks) => AdditionalTrack.fromJson(tracks))
+            .toList(),
+        taken_items: (json['taken_items'] as List)
+            .map((item) => TakenItem.fromJson(item))
+            .toList(),
+        future_items: (json['future_items'] as List)
+            .map((item) => FutureItem.fromJson(item))
+            .toList(),
+        arbitrary_items: (json['arbitrary_items'] as List)
+            .map((item) => ArbitraryItem.fromJson(item))
+            .toList());
   }
 }
 
@@ -80,9 +78,7 @@ class Planner {
 //   }
 // }
 
-
-
-class GeneralTrack{
+class GeneralTrack {
   late int id = 0;
   late int start_year = 0;
   late int end_year = 0;
@@ -117,33 +113,33 @@ class GeneralTrack{
 
   factory GeneralTrack.fromJson(Map<String, dynamic> json) {
     return GeneralTrack(
-        id: json['id'],
-        start_year: json['start_year'],
-        end_year: json['end_year'],
-        is_foreign: json['is_foreign'],
-        total_credit: json['total_credit'],
-        total_au: json['total_au'],
-        basic_required: json['basic_required'],
-        basic_elective: json['basic_elective'],
-        thesis_study: json['thesis_study'],
-        thesis_study_doublemajor: json['thesis_study_doublemajor'],
-        general_required_credit: json['general_required_credit'],
-        general_required_au: json['general_required_au'],
-        humanities: json['humanities'],
-        humanities_doublemajor: json['humanities_doublemajor'],
+      id: json['id'],
+      start_year: json['start_year'],
+      end_year: json['end_year'],
+      is_foreign: json['is_foreign'],
+      total_credit: json['total_credit'],
+      total_au: json['total_au'],
+      basic_required: json['basic_required'],
+      basic_elective: json['basic_elective'],
+      thesis_study: json['thesis_study'],
+      thesis_study_doublemajor: json['thesis_study_doublemajor'],
+      general_required_credit: json['general_required_credit'],
+      general_required_au: json['general_required_au'],
+      humanities: json['humanities'],
+      humanities_doublemajor: json['humanities_doublemajor'],
     );
   }
 }
 
-
-class MajorTrack{
+class MajorTrack {
   late int id = 0;
   late int start_year = 0;
   late int end_year = 0;
   late int basic_elective_doublemajor = 0;
   late int major_required = 0;
   late int major_elective = 0;
-  late Department department = Department(id: 0, name: "", nameEn: "", code: "");
+  late Department department =
+      Department(id: 0, name: "", nameEn: "", code: "");
 
   MajorTrack({
     this.id = 0,
@@ -157,25 +153,25 @@ class MajorTrack{
 
   factory MajorTrack.fromJson(Map<String, dynamic> json) {
     return MajorTrack(
-      id: json['id'],
-      start_year: json['start_year'],
-      end_year: json['end_year'],
-      basic_elective_doublemajor: json['basic_elective_doublemajor'],
-      major_required: json['major_required'],
-      major_elective: json['major_elective'],
-      department: Department.fromJson(json['department'])
-    );
+        id: json['id'],
+        start_year: json['start_year'],
+        end_year: json['end_year'],
+        basic_elective_doublemajor: json['basic_elective_doublemajor'],
+        major_required: json['major_required'],
+        major_elective: json['major_elective'],
+        department: Department.fromJson(json['department']));
   }
 }
 
-class AdditionalTrack{
+class AdditionalTrack {
   late int id = 0;
   late int start_year = 0;
   late int end_year = 0;
   late String type = "";
   late int major_required = 0;
   late int major_elective = 0;
-  late Department department = Department(id: 0, name: "", nameEn: "", code: "");
+  late Department department =
+      Department(id: 0, name: "", nameEn: "", code: "");
 
   AdditionalTrack({
     this.id = 0,
@@ -195,18 +191,18 @@ class AdditionalTrack{
         type: json['type'],
         major_required: json['major_required'],
         major_elective: json['major_elective'],
-        department: json['department'] == null ? Department(id: 0, name: "", nameEn: "", code: "") : Department.fromJson(json['department'])
-    );
+        department: json['department'] == null
+            ? Department(id: 0, name: "", nameEn: "", code: "")
+            : Department.fromJson(json['department']));
   }
 }
 
-class TakenItem{
+class TakenItem {
   late int id = 0;
   late String item_type = "";
   late bool is_excluded = false;
   late Lecture lecture;
   late PlannerCourse course;
-
 
   TakenItem({
     this.id = 0,
@@ -218,17 +214,16 @@ class TakenItem{
 
   factory TakenItem.fromJson(Map<String, dynamic> json) {
     return TakenItem(
-        id: json['id'],
-        item_type: json['item_type'],
-        is_excluded: json['is_excluded'],
-        lecture: Lecture.fromJson(json['lecture']),
-        course: PlannerCourse.fromJson(json['course']),
-      );
+      id: json['id'],
+      item_type: json['item_type'],
+      is_excluded: json['is_excluded'],
+      lecture: Lecture.fromJson(json['lecture']),
+      course: PlannerCourse.fromJson(json['course']),
+    );
   }
 }
 
-
-class FutureItem{
+class FutureItem {
   late int id = 0;
   late String item_type = "";
   late bool is_excluded = false;
@@ -257,8 +252,7 @@ class FutureItem{
   }
 }
 
-
-class ArbitraryItem{
+class ArbitraryItem {
   late int id = 0;
   late bool isArbitrary = false;
   late String type = "";
@@ -268,8 +262,8 @@ class ArbitraryItem{
   late String title = "";
   late String title_en = "";
   late String old_code = "";
-  late Department department = Department(id: 0, name: "", nameEn: "", code: "");
-
+  late Department department =
+      Department(id: 0, name: "", nameEn: "", code: "");
 
   ArbitraryItem({
     this.id = 0,
@@ -286,16 +280,17 @@ class ArbitraryItem{
 
   factory ArbitraryItem.fromJson(Map<String, dynamic> json) {
     return ArbitraryItem(
-      id: json['id'],
-      isArbitrary: json['isArbitrary'],
-      type: json['type'],
-      type_en: json['type_en'],
-      credit: json['credit'],
-      credit_au: json['credit_au'],
-      title: json['title'],
-      title_en: json['title_en'],
-      old_code: json['old_code'].toString(),
-      department: json['department'] == null ? Department(id: 0, name: "", nameEn: "", code: "") : Department.fromJson(json['department'])
-    );
+        id: json['id'],
+        isArbitrary: json['isArbitrary'],
+        type: json['type'],
+        type_en: json['type_en'],
+        credit: json['credit'],
+        credit_au: json['credit_au'],
+        title: json['title'],
+        title_en: json['title_en'],
+        old_code: json['old_code'].toString(),
+        department: json['department'] == null
+            ? Department(id: 0, name: "", nameEn: "", code: "")
+            : Department.fromJson(json['department']));
   }
 }

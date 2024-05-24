@@ -32,7 +32,8 @@ class PlannerModel extends ChangeNotifier {
       end_year: 0,
       arrange_order: 0,
       general_track: GeneralTrack(),
-      major_track: MajorTrack(department: Department(id: 0, name: "", nameEn: "", code: "")),
+      major_track: MajorTrack(
+          department: Department(id: 0, name: "", nameEn: "", code: "")),
       additional_tracks: [],
       taken_items: [],
       future_items: [],
@@ -46,7 +47,8 @@ class PlannerModel extends ChangeNotifier {
     end_year: 0,
     arrange_order: 0,
     general_track: GeneralTrack(),
-    major_track: MajorTrack(department: Department(id: 0, name: "", nameEn: "", code: "")),
+    major_track: MajorTrack(
+        department: Department(id: 0, name: "", nameEn: "", code: "")),
     additional_tracks: [],
     taken_items: [],
     future_items: [],
@@ -143,7 +145,8 @@ class PlannerModel extends ChangeNotifier {
           end_year: 0,
           arrange_order: 0,
           general_track: GeneralTrack(),
-          major_track: MajorTrack(department: Department(id: 0, name: "", nameEn: "", code: "")),
+          major_track: MajorTrack(
+              department: Department(id: 0, name: "", nameEn: "", code: "")),
           additional_tracks: [],
           taken_items: [],
           future_items: [],
@@ -153,7 +156,7 @@ class PlannerModel extends ChangeNotifier {
     }
   }
 
-  void initializeLectures(){
+  void initializeLectures() {
     _lectures = {};
     _lectures_excluded = {};
     _taken_lectures = 0;
@@ -184,6 +187,7 @@ class PlannerModel extends ChangeNotifier {
       "기타": 0, //논문연구, 선택(석/박사), 세미나
     };
   }
+
   //
   void loadPlanner({required User user}) {
     _user = user;
@@ -195,99 +199,162 @@ class PlannerModel extends ChangeNotifier {
     // notifyListeners();
   }
 
-  void selectPlanner(int index){
+  void selectPlanner(int index) {
     _selectedPlannerIndex = index;
     setLectures();
     notifyListeners();
   }
 
-  void setPLannerSemester(String index){
+  void setPLannerSemester(String index) {
     _selectedPlannerSemesterKey = index;
     notifyListeners();
   }
 
-  void setLectures(){
+  void setLectures() {
     initializeLectures();
 
+    _category_map_required["기초필수"] =
+        _planners[_selectedPlannerIndex].general_track.basic_required;
+    _category_map_required["기초선택"] =
+        _planners[_selectedPlannerIndex].general_track.basic_elective;
+    _category_map_required["졸업연구"] =
+        _planners[_selectedPlannerIndex].general_track.thesis_study;
+    _category_map_required["인문사회선택"] =
+        _planners[_selectedPlannerIndex].general_track.humanities;
+    _category_map_required["교양필수"] =
+        _planners[_selectedPlannerIndex].general_track.general_required_credit +
+            _planners[_selectedPlannerIndex]
+                .general_track
+                .general_required_au; //교양필수 7학점 + 8AU
+    _category_map_required["전공필수"] =
+        _planners[_selectedPlannerIndex].major_track.major_required;
+    _category_map_required["전공선택"] =
+        _planners[_selectedPlannerIndex].major_track.major_elective;
 
-    _category_map_required["기초필수"] = _planners[_selectedPlannerIndex].general_track.basic_required;
-    _category_map_required["기초선택"] = _planners[_selectedPlannerIndex].general_track.basic_elective;
-    _category_map_required["졸업연구"] = _planners[_selectedPlannerIndex].general_track.thesis_study;
-    _category_map_required["인문사회선택"] = _planners[_selectedPlannerIndex].general_track.humanities;
-    _category_map_required["교양필수"] = _planners[_selectedPlannerIndex].general_track.general_required_credit
-        + _planners[_selectedPlannerIndex].general_track.general_required_au; //교양필수 7학점 + 8AU
-    _category_map_required["전공필수"] = _planners[_selectedPlannerIndex].major_track.major_required;
-    _category_map_required["전공선택"] = _planners[_selectedPlannerIndex].major_track.major_elective;
-
-    for(int i = 0; i < _planners[_selectedPlannerIndex].additional_tracks.length; i++){
-      _category_map_required["전공필수"] += _planners[_selectedPlannerIndex].additional_tracks[i].major_required;
-      _category_map_required["전공선택"] += _planners[_selectedPlannerIndex].additional_tracks[i].major_elective;
+    for (int i = 0;
+        i < _planners[_selectedPlannerIndex].additional_tracks.length;
+        i++) {
+      _category_map_required["전공필수"] +=
+          _planners[_selectedPlannerIndex].additional_tracks[i].major_required;
+      _category_map_required["전공선택"] +=
+          _planners[_selectedPlannerIndex].additional_tracks[i].major_elective;
     }
 
-
-
-
-
-    for(int i=0; i<_planners[_selectedPlannerIndex].taken_items.length; i++){
-      if(!_planners[_selectedPlannerIndex].taken_items[i].is_excluded){
-        if(_category_map.containsKey(_planners[_selectedPlannerIndex].taken_items[i].course.type.split('(')[0])){
-          _category_map[_planners[_selectedPlannerIndex].taken_items[i].course.type.split('(')[0]] += _planners[_selectedPlannerIndex].taken_items[i].course.credit;
+    for (int i = 0;
+        i < _planners[_selectedPlannerIndex].taken_items.length;
+        i++) {
+      if (!_planners[_selectedPlannerIndex].taken_items[i].is_excluded) {
+        if (_category_map.containsKey(_planners[_selectedPlannerIndex]
+            .taken_items[i]
+            .course
+            .type
+            .split('(')[0])) {
+          _category_map[_planners[_selectedPlannerIndex]
+                  .taken_items[i]
+                  .course
+                  .type
+                  .split('(')[0]] +=
+              _planners[_selectedPlannerIndex].taken_items[i].course.credit;
         }
 
-        _taken_lectures += _planners[_selectedPlannerIndex].taken_items[i].course.credit;
-        _taken_au += _planners[_selectedPlannerIndex].taken_items[i].course.credit_au;
+        _taken_lectures +=
+            _planners[_selectedPlannerIndex].taken_items[i].course.credit;
+        _taken_au +=
+            _planners[_selectedPlannerIndex].taken_items[i].course.credit_au;
 
-        String year_semester = _planners[_selectedPlannerIndex].taken_items[i].lecture.year.toString()+' '
-            +_planners[_selectedPlannerIndex].taken_items[i].lecture.semester.toString();
-        if(_lectures.containsKey(year_semester)){
-          _lectures[year_semester].add(_planners[_selectedPlannerIndex].taken_items[i].course);
+        String year_semester = _planners[_selectedPlannerIndex]
+                .taken_items[i]
+                .lecture
+                .year
+                .toString() +
+            ' ' +
+            _planners[_selectedPlannerIndex]
+                .taken_items[i]
+                .lecture
+                .semester
+                .toString();
+        if (_lectures.containsKey(year_semester)) {
+          _lectures[year_semester]
+              .add(_planners[_selectedPlannerIndex].taken_items[i].course);
+        } else {
+          _lectures[year_semester] = [
+            _planners[_selectedPlannerIndex].taken_items[i].course
+          ];
         }
-        else{
-          _lectures[year_semester] = [_planners[_selectedPlannerIndex].taken_items[i].course];
-        }
-      }
-      else{
-        String year_semester = _planners[_selectedPlannerIndex].taken_items[i].lecture.year.toString()+' '
-            +_planners[_selectedPlannerIndex].taken_items[i].lecture.semester.toString();
+      } else {
+        String year_semester = _planners[_selectedPlannerIndex]
+                .taken_items[i]
+                .lecture
+                .year
+                .toString() +
+            ' ' +
+            _planners[_selectedPlannerIndex]
+                .taken_items[i]
+                .lecture
+                .semester
+                .toString();
 
-        if(_lectures_excluded.containsKey(year_semester)){
-          _lectures_excluded[year_semester].add(_planners[_selectedPlannerIndex].taken_items[i].course);
-        }
-        else{
-          _lectures_excluded[year_semester] = [_planners[_selectedPlannerIndex].taken_items[i].course];
+        if (_lectures_excluded.containsKey(year_semester)) {
+          _lectures_excluded[year_semester]
+              .add(_planners[_selectedPlannerIndex].taken_items[i].course);
+        } else {
+          _lectures_excluded[year_semester] = [
+            _planners[_selectedPlannerIndex].taken_items[i].course
+          ];
         }
       }
     }
 
-    for(int i=0; i<_planners[_selectedPlannerIndex].future_items.length; i++){
-      if(!_planners[_selectedPlannerIndex].future_items[i].is_excluded){
-        if(_category_map.containsKey(_planners[_selectedPlannerIndex].future_items[i].course.type)){
-          _category_map[_planners[_selectedPlannerIndex].future_items[i].course.type] += _planners[_selectedPlannerIndex].future_items[i].course.credit;
+    for (int i = 0;
+        i < _planners[_selectedPlannerIndex].future_items.length;
+        i++) {
+      if (!_planners[_selectedPlannerIndex].future_items[i].is_excluded) {
+        if (_category_map.containsKey(
+            _planners[_selectedPlannerIndex].future_items[i].course.type)) {
+          _category_map[_planners[_selectedPlannerIndex]
+                  .future_items[i]
+                  .course
+                  .type] +=
+              _planners[_selectedPlannerIndex].future_items[i].course.credit;
         }
 
-        _taken_lectures += _planners[_selectedPlannerIndex].future_items[i].course.credit;
-        _taken_au += _planners[_selectedPlannerIndex].future_items[i].course.credit_au;
+        _taken_lectures +=
+            _planners[_selectedPlannerIndex].future_items[i].course.credit;
+        _taken_au +=
+            _planners[_selectedPlannerIndex].future_items[i].course.credit_au;
 
-        String year_semester = _planners[_selectedPlannerIndex].future_items[i].year.toString()+' '
-            +_planners[_selectedPlannerIndex].future_items[i].semester.toString();
+        String year_semester =
+            _planners[_selectedPlannerIndex].future_items[i].year.toString() +
+                ' ' +
+                _planners[_selectedPlannerIndex]
+                    .future_items[i]
+                    .semester
+                    .toString();
 
-        if(_lectures.containsKey(year_semester)){
-          _lectures[year_semester].add(_planners[_selectedPlannerIndex].future_items[i].course);
+        if (_lectures.containsKey(year_semester)) {
+          _lectures[year_semester]
+              .add(_planners[_selectedPlannerIndex].future_items[i].course);
+        } else {
+          _lectures[year_semester] = [
+            _planners[_selectedPlannerIndex].future_items[i].course
+          ];
         }
-        else{
-          _lectures[year_semester] = [_planners[_selectedPlannerIndex].future_items[i].course];
-        }
+      } else {
+        String year_semester =
+            _planners[_selectedPlannerIndex].future_items[i].year.toString() +
+                ' ' +
+                _planners[_selectedPlannerIndex]
+                    .future_items[i]
+                    .semester
+                    .toString();
 
-      }
-      else{
-        String year_semester = _planners[_selectedPlannerIndex].future_items[i].year.toString()+' '
-            +_planners[_selectedPlannerIndex].future_items[i].semester.toString();
-
-        if(_lectures_excluded.containsKey(year_semester)){
-          _lectures_excluded[year_semester].add(_planners[_selectedPlannerIndex].future_items[i].course);
-        }
-        else{
-          _lectures_excluded[year_semester] = [_planners[_selectedPlannerIndex].future_items[i].course];
+        if (_lectures_excluded.containsKey(year_semester)) {
+          _lectures_excluded[year_semester]
+              .add(_planners[_selectedPlannerIndex].future_items[i].course);
+        } else {
+          _lectures_excluded[year_semester] = [
+            _planners[_selectedPlannerIndex].future_items[i].course
+          ];
         }
       }
     }
@@ -330,7 +397,7 @@ class PlannerModel extends ChangeNotifier {
   Future<bool> _loadPlanner() async {
     try {
       final response = await DioProvider().dio.get(
-          API_PLANNER_URL.replaceFirst("{user_id}", _user.id.toString()),
+            API_PLANNER_URL.replaceFirst("{user_id}", _user.id.toString()),
           );
 
       List<dynamic> rawPlanners = response.data as List;
@@ -343,10 +410,8 @@ class PlannerModel extends ChangeNotifier {
         return true;
       }
 
-      _planners = rawPlanners
-          .map((planner) => Planner.fromJson(planner))
-          .toList();
-
+      _planners =
+          rawPlanners.map((planner) => Planner.fromJson(planner)).toList();
 
       _planners.insert(0, myPlanner);
       _selectedPlannerIndex = _planners.length >= 2 ? 1 : 0;
@@ -381,5 +446,4 @@ class PlannerModel extends ChangeNotifier {
   //   }
   //   return false;
   // }
-
 }

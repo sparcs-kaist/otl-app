@@ -16,21 +16,21 @@ class PlannerSemesterSelectTabs extends StatefulWidget {
   });
 
   @override
-  State<PlannerSemesterSelectTabs> createState() => _PlannerSemesterSelectTabsState();
+  State<PlannerSemesterSelectTabs> createState() =>
+      _PlannerSemesterSelectTabsState();
 }
 
 class _PlannerSemesterSelectTabsState extends State<PlannerSemesterSelectTabs> {
   String _key = "";
   ScrollController _scrollController = ScrollController();
 
-
   @override
   Widget build(BuildContext context) {
     final planners = Provider.of<PlannerModel>(context);
     List semester = planners.lectures.keys.toList();
     List semester_excluded = planners.lectures_excluded.keys.toList();
-    for(int i = 0; i<semester_excluded.length; i++){
-      if(!semester.contains(semester_excluded[i])){
+    for (int i = 0; i < semester_excluded.length; i++) {
+      if (!semester.contains(semester_excluded[i])) {
         semester.add(semester_excluded[i]);
       }
     }
@@ -53,18 +53,13 @@ class _PlannerSemesterSelectTabsState extends State<PlannerSemesterSelectTabs> {
     final planners = Provider.of<PlannerModel>(context);
     List semester = planners.lectures.keys.toList();
     List semester_excluded = planners.lectures_excluded.keys.toList();
-    for(int i = 0; i<semester_excluded.length; i++){
-      if(!semester.contains(semester_excluded[i])){
+    for (int i = 0; i < semester_excluded.length; i++) {
+      if (!semester.contains(semester_excluded[i])) {
         semester.add(semester_excluded[i]);
       }
     }
     semester.sort();
-    Map _seme = {
-      '1': '봄',
-      '2': '여름',
-      '3': '가을',
-      '4': '겨울'
-    };
+    Map _seme = {'1': '봄', '2': '여름', '3': '가을', '4': '겨울'};
 
     Text text = Text(
       semester[i].split(' ')[0] + _seme[semester[i].split(' ')[1]],
@@ -73,7 +68,7 @@ class _PlannerSemesterSelectTabsState extends State<PlannerSemesterSelectTabs> {
       textAlign: TextAlign.center,
     );
 
-    if (semester[i] == _key ) {
+    if (semester[i] == _key) {
       return Padding(
         padding: const EdgeInsets.only(right: 8.0),
         child: Container(
@@ -84,9 +79,7 @@ class _PlannerSemesterSelectTabsState extends State<PlannerSemesterSelectTabs> {
             borderRadius: BorderRadius.circular(100),
           ),
           child: Row(
-            children: [
-              text
-            ],
+            children: [text],
           ),
         ),
       );

@@ -35,8 +35,7 @@ class PlannerCourse {
       required this.speech,
       required this.userspecificIsRead,
       required this.credit,
-      required this.credit_au
-      });
+      required this.credit_au});
 
   bool operator ==(Object other) =>
       identical(this, other) || (other is PlannerCourse && other.id == id);

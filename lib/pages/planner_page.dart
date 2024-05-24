@@ -20,14 +20,12 @@ class PlannerPage extends StatefulWidget {
 }
 
 class _PlannerPageState extends State<PlannerPage> {
-
-
   @override
   Widget build(BuildContext context) {
     final planners = Provider.of<PlannerModel>(context);
     // final mode =
     // context.select<PlannerModel, int>((model) => model.user);
-    if(!planners.isLoaded){
+    if (!planners.isLoaded) {
       return OTLLayout(
         body: Expanded(
           child: Column(
@@ -68,11 +66,15 @@ class _PlannerPageState extends State<PlannerPage> {
                 // Text("General Track Total Credit : "+planners.planners[planners.selectedIndex].general_track.total_credit.toString()),
 
                 PlannerPreview(),
-                SizedBox(height: 16,),
-                PlannerSemesterSelectTabs(
-                  onTap: (i){},
+                SizedBox(
+                  height: 16,
                 ),
-                SizedBox(height: 16,),
+                PlannerSemesterSelectTabs(
+                  onTap: (i) {},
+                ),
+                SizedBox(
+                  height: 16,
+                ),
                 PlannerSemester(),
               ],
             ),
