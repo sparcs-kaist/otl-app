@@ -23,26 +23,9 @@ class TrackModel extends ChangeNotifier {
   late List<AdditionalTrack> _additional_tracks = [];
   List<AdditionalTrack> get additional_tracks => _additional_tracks;
 
-  // late int _selectedSemesterIndex;
-  // Semester get selectedSemester => _semesters[_selectedSemesterIndex];
-  //
-  // late List<Planner> _timetables;
-  // List<Planner> get timetables => _timetables;
-  //
-  // Lecture? _tempLecture;
-  // Lecture? get tempLecture => _tempLecture;
-
-  // void setTempLecture(Lecture? lecture) {
-  //   _tempLecture = lecture;
-  //   notifyListeners();
-  // }
-
-  //
-  void loadTracks({required User user}) {
+  void loadTracks() {
     notifyListeners();
     _loadTracks();
-    // setLectures();
-    // notifyListeners();
   }
 
   Future<bool> _loadTracks() async {
@@ -50,7 +33,6 @@ class TrackModel extends ChangeNotifier {
       final response = await DioProvider().dio.get(API_TRACK_URL);
 
       dynamic data = response.data;
-
       _general_tracks = (data['general'] as List)
           .map((tracks) => GeneralTrack.fromJson(tracks))
           .toList();
