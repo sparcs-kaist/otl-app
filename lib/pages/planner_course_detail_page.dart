@@ -2,6 +2,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:otlplus/constants/text_styles.dart';
 import 'package:otlplus/models/review.dart';
+import 'package:otlplus/providers/planner_model.dart';
+import 'package:otlplus/utils/navigator.dart';
 import 'package:otlplus/widgets/responsive_button.dart';
 import 'package:otlplus/widgets/otl_scaffold.dart';
 import 'package:provider/provider.dart';
@@ -18,9 +20,20 @@ import 'package:otlplus/widgets/lecture_group_simple_block.dart';
 import 'package:otlplus/widgets/review_block.dart';
 import 'package:otlplus/widgets/review_write_block.dart';
 
-class PlannerCourseDetailPage extends StatelessWidget {
-  PlannerCourseDetailPage({Key? key}) : super(key: key);
-  static String route = 'course_detail_page';
+
+class PlannerCourseDetailPage extends StatefulWidget {
+  final bool is_excluded;
+
+  const PlannerCourseDetailPage({Key? key,
+  required this.is_excluded
+  }) : super(key: key);
+
+  @override
+  State<PlannerCourseDetailPage> createState() => _PlannerCourseDetailPageState();
+}
+
+class _PlannerCourseDetailPageState extends State<PlannerCourseDetailPage> {
+  String route = 'course_detail_page';
 
   final _scrollController = ScrollController();
 
@@ -29,8 +42,35 @@ class PlannerCourseDetailPage extends StatelessWidget {
     final CourseDetailModel courseDetailModel =
     context.watch<CourseDetailModel>();
     final isEn = EasyLocalization.of(context)?.currentLocale == Locale('en');
+    final planners = Provider.of<PlannerModel>(context);
+
 
     return OTLScaffold(
+      // bottomNavigationBar:
+        bottomSheet: Container(
+          height: 100,
+          width: double.maxFinite,
+          child: courseDetailModel.hasData?
+            Center(
+              child: Container(
+
+                child: IconTextButton(
+                  onTap: () {
+                    planners.updateExclude();
+                    OTLNavigator.pop(context);
+                  },
+                  icon: Icons.edit_calendar_outlined,
+                  text: "계산제외",
+                  iconSize: 40,
+                  direction: ButtonDirection.column,
+                  color: widget.is_excluded? OTLColor.grayA : OTLColor.pinksMain,
+                  tapEffect: ButtonTapEffect.darken,
+                  padding: EdgeInsets.fromLTRB(16.0, 16.0, 8.0, 16.0),
+                ),
+              ),
+            ):
+          Container()
+        ),
         child: OTLLayout(
           middle: Text(
               courseDetailModel.hasData
