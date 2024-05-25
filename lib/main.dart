@@ -13,6 +13,7 @@ import 'package:otlplus/providers/hall_of_fame_model.dart';
 import 'package:otlplus/providers/liked_review_model.dart';
 import 'package:otlplus/providers/planner_model.dart';
 import 'package:otlplus/providers/settings_model.dart';
+import 'package:otlplus/providers/track_model.dart';
 import 'package:provider/provider.dart';
 import 'package:otlplus/constants/color.dart';
 import 'package:otlplus/home.dart';
@@ -83,6 +84,7 @@ void main() {
               ChangeNotifierProvider(create: (_) => CourseDetailModel()),
               ChangeNotifierProvider(create: (_) => LectureDetailModel()),
               ChangeNotifierProvider(create: (_) => SettingsModel()),
+              ChangeNotifierProvider(create: (_) => TrackModel()),
             ],
             child: OTLFirebaseApp(),
           )),
