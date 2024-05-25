@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:otlplus/constants/text_styles.dart';
 import 'package:otlplus/models/lecture.dart';
 import 'package:otlplus/providers/planner_model.dart';
+import 'package:otlplus/providers/track_model.dart';
 import 'package:otlplus/widgets/otl_scaffold.dart';
 import 'package:otlplus/widgets/planner_preview.dart';
 import 'package:otlplus/widgets/planner_select.dart';
@@ -23,8 +24,7 @@ class _PlannerPageState extends State<PlannerPage> {
   @override
   Widget build(BuildContext context) {
     final planners = Provider.of<PlannerModel>(context);
-    // final mode =
-    // context.select<PlannerModel, int>((model) => model.user);
+
     if (!planners.isLoaded) {
       return OTLLayout(
         body: Expanded(
@@ -60,11 +60,6 @@ class _PlannerPageState extends State<PlannerPage> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                // Text("ID : "+planners.planners[planners.selectedIndex].id.toString()),
-                // Text("Start Year : "+planners.planners[planners.selectedIndex].start_year.toString()),
-                // Text("End Year : "+planners.planners[planners.selectedIndex].end_year.toString()),
-                // Text("General Track Total Credit : "+planners.planners[planners.selectedIndex].general_track.total_credit.toString()),
-
                 PlannerPreview(),
                 SizedBox(
                   height: 16,
