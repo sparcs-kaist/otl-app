@@ -104,6 +104,13 @@ class PlannerModel extends ChangeNotifier {
   int _taken_au = 0;
   int get taken_au => _taken_au;
 
+
+  int _selected_item_type = 0;
+  int get selected_item_type => _selected_item_type;
+
+  int _selected_item_index = 0;
+  int get selected_item_index => _selected_item_index;
+
   Map _category_map = {
     "기초필수": 0,
     "기초선택": 0,
@@ -163,14 +170,18 @@ class PlannerModel extends ChangeNotifier {
     }
   }
 
-  void initializeLectures() {
+  void initializeLectures({bool initial = true}) {
     _lectures = {};
     _lectures_excluded = {};
     _lectures_future = {};
     _lectures_future_excluded = {};
     _taken_lectures = 0;
     _taken_au = 0;
-    _selectedPlannerSemesterKey = "";
+    if(initial){
+      _selectedPlannerSemesterKey = "";
+    }
+    _selected_item_type = 0;
+    _selected_item_index = 0;
     _category_map = {
       "기초필수": 0,
       "기초선택": 0,
@@ -197,6 +208,12 @@ class PlannerModel extends ChangeNotifier {
     };
   }
 
+  void selectSemesterLecture(int type, int index){
+    _selected_item_type = type;
+    _selected_item_index = index;
+    notifyListeners();
+  }
+
   //
   void loadPlanner({required User user}) {
     _user = user;
@@ -219,8 +236,10 @@ class PlannerModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void setLectures() {
-    initializeLectures();
+
+
+  void setLectures({bool initial = true}) {
+    initializeLectures(initial: initial);
 
     _category_map_required["기초필수"] =
         _planners[_selectedPlannerIndex].general_track.basic_required;
@@ -368,40 +387,7 @@ class PlannerModel extends ChangeNotifier {
       }
     }
   }
-  //
-  // get canGoPreviousSemester => _selectedSemesterIndex > 0;
 
-  // bool goPreviousSemester() {
-  //   if (canGoPreviousSemester) {
-  //     _selectedSemesterIndex--;
-  //     notifyListeners();
-  //     _loadPlanner();
-  //     return true;
-  //   }
-  //   return false;
-  // }
-  //
-  // get canGoNextSemester => _selectedSemesterIndex < _semesters.length - 1;
-
-  // bool goNextSemester() {
-  //   if (canGoNextSemester) {
-  //     _selectedSemesterIndex++;
-  //     notifyListeners();
-  //     _loadPlanner();
-  //     return true;
-  //   }
-  //   return false;
-  // }
-  //
-  // void setIndex(int index) {
-  //   _selectedTimetableIndex = index;
-  //   notifyListeners();
-  // }
-  //
-  // void setMode(int index) {
-  //   _selectedModeIndex = index;
-  //   notifyListeners();
-  // }
 
   Future<bool> _loadPlanner() async {
     try {
@@ -484,47 +470,79 @@ class PlannerModel extends ChangeNotifier {
     return (Random().nextDouble() * 100000000).floor();
   }
 
-  Future<bool> createPlanner() async {
+  int getPlannerGeneralTrack(List<GeneralTrack> generalTracks){
+    int startYear = getPlannerStartYear();
+    List<GeneralTrack> yearedTracks = generalTracks.where(
+          (gt) => startYear >= gt.start_year && startYear <= gt.end_year,
+    ).toList();
+    List<GeneralTrack> targetTracks = yearedTracks.where((gt) => !gt.is_foreign).toList();
+
+    if (targetTracks.length > 0) {
+      return targetTracks.toList()[0].id;
+    }
+    return yearedTracks.toList()[0].id;
+  }
+
+  int getPlannerMajorTrack(List<MajorTrack> majorTracks){
+
+    int startYear = getPlannerStartYear();
+
+    List<MajorTrack> yearedTracks = majorTracks.where(
+          (mt) => startYear >= mt.start_year && startYear <= mt.end_year,
+    ).toList();
+    if(user.departments.length == 0){
+      return yearedTracks[0].id;
+    }
+    List<MajorTrack> targetTracks = yearedTracks.where((mt) => mt.department.code == user.departments[0].code).toList();
+
+    if (targetTracks.length > 0) {
+      return targetTracks[0].id;
+    }
+    return yearedTracks[0].id;
+  }
+
+  Future<bool> createPlanner(List<GeneralTrack> generalTracks, List<MajorTrack> majorTracks) async {
     try {
       final response = await DioProvider().dio.post(
           API_PLANNER_URL.replaceFirst("{user_id}", user.id.toString()),
           data: {
-            "id": createRandomPlannerID(),
             "start_year": getPlannerStartYear(),
             "end_year": max(getPlannerStartYear() + 3,  DateTime.now().year),
-            "general_track": {
-              "id": 1,
-              "start_year": 2023,
-              "end_year": 2100,
-              "is_foreign": false,
-              "total_credit": 138,
-              "total_au": 4,
-              "basic_required": 23,
-              "basic_elective": 9,
-              "thesis_study": 3,
-              "thesis_study_doublemajor": 0,
-              "general_required_credit": 7,
-              "general_required_au": 4,
-              "humanities": 21,
-              "humanities_doublemajor": 12
-            },
-            "major_track": {
-              "id": 2,
-              "start_year": 2016,
-              "end_year": 2100,
-              "department": user.departments[0].toJson(),
-              "basic_elective_doublemajor": 6,
-              "major_required": 21,
-              "major_elective": 21
-            },
+            "general_track": getPlannerGeneralTrack(generalTracks),
+            "major_track": getPlannerMajorTrack(majorTracks),
             "additional_tracks": [],
-            "taken_items": [],
-            "future_items": [],
-            "arbitrary_items": [],
-            "arrange_order": _planners.length > 1 ? (_planners.map((t) => t.arrange_order).reduce(max)) + 1 : 0,
+            "should_update_taken_semesters": true,
+            "taken_items_to_copy": [],
+            "future_items_to_copy": [],
+            "arbitrary_items_to_copy": [],
           });
       final planner = Planner.fromJson(response.data);
-      print("werrrwe");
+
+      _planners.add(planner);
+      notifyListeners();
+      return true;
+    } catch (exception) {
+      print(exception);
+    }
+    return false;
+  }
+
+  Future<bool> copyPlanner() async {
+    try {
+      final response = await DioProvider().dio.post(
+          API_PLANNER_URL.replaceFirst("{user_id}", user.id.toString()),
+          data: {
+            "start_year": _planners[_selectedPlannerIndex].start_year,
+            "end_year": _planners[_selectedPlannerIndex].end_year,
+            "general_track": _planners[_selectedPlannerIndex].general_track.id,
+            "major_track": _planners[_selectedPlannerIndex].major_track.id,
+            "additional_tracks": _planners[_selectedPlannerIndex].additional_tracks.map((track) => track.id).toList(),
+            "taken_items_to_copy": _planners[_selectedPlannerIndex].taken_items.map((item) => item.id).toList(),
+            "future_items_to_copy": _planners[_selectedPlannerIndex].future_items.map((item) => item.id).toList(),
+            "arbitrary_items_to_copy": _planners[_selectedPlannerIndex].arbitrary_items.map((item) => item.id).toList()
+          });
+      final planner = Planner.fromJson(response.data);
+
       _planners.add(planner);
       _selectedPlannerIndex = _planners.length - 1;
       notifyListeners();
@@ -535,25 +553,94 @@ class PlannerModel extends ChangeNotifier {
     return false;
   }
 
-  // Future<bool> createTimetable({List<Lecture>? lectures}) async {
-  //   try {
-  //     final response = await DioProvider().dio.post(
-  //         API_PLANNER_URL.replaceFirst("{user_id}", user.id.toString()),
-  //         data: {
-  //           "year": selectedSemester.year,
-  //           "semester": selectedSemester.semester,
-  //           "lectures": (lectures == null)
-  //               ? []
-  //               : lectures.map((lecture) => lecture.id).toList(),
-  //         });
-  //     final timetable = Planner.fromJson(response.data);
-  //     _timetables.add(timetable);
-  //     _selectedTimetableIndex = _timetables.length - 1;
-  //     notifyListeners();
-  //     return true;
-  //   } catch (exception) {
-  //     print(exception);
-  //   }
-  //   return false;
-  // }
+  void _updateExclude(int lectureID){
+    if(_selected_item_type == 0){
+      _lectures[selectedSemesterKey][selected_item_index].is_excluded = !_lectures[selectedSemesterKey][selected_item_index].is_excluded;
+      dynamic _item;
+      _item = _lectures[selectedSemesterKey][selected_item_index];
+      _lectures[selectedSemesterKey].removeAt(selected_item_index);
+      if(_lectures_excluded.containsKey(selectedSemesterKey)){
+        _lectures_excluded[selectedSemesterKey].add(_item);
+      }
+      else{
+        _lectures_excluded[selectedSemesterKey] = [_item];
+      }
+
+
+    }
+    else if(_selected_item_type == 2){
+      _lectures_excluded[selectedSemesterKey][selected_item_index].is_excluded = !_lectures_excluded[selectedSemesterKey][selected_item_index].is_excluded;
+      dynamic _item;
+      _item = _lectures_excluded[selectedSemesterKey][selected_item_index];
+      _lectures_excluded[selectedSemesterKey].removeAt(selected_item_index);
+      if(_lectures.containsKey(selectedSemesterKey)){
+        _lectures[selectedSemesterKey].add(_item);
+      }
+      else{
+        _lectures[selectedSemesterKey] = [_item];
+      }
+    }
+    else if(_selected_item_type == 1){
+      _lectures_future[selectedSemesterKey][selected_item_index].is_excluded = !_lectures_future[selectedSemesterKey][selected_item_index].is_excluded;
+      dynamic _item;
+      _item = _lectures_future[selectedSemesterKey][selected_item_index];
+      _lectures_future[selectedSemesterKey].removeAt(selected_item_index);
+      if(_lectures_future_excluded.containsKey(selectedSemesterKey)){
+        _lectures_future_excluded[selectedSemesterKey].add(_item);
+      }
+      else{
+        _lectures_future_excluded[selectedSemesterKey] = [_item];
+      }
+    }
+    else if(_selected_item_type == 3){
+      _lectures_future_excluded[selectedSemesterKey][selected_item_index].is_excluded = !_lectures_future_excluded[selectedSemesterKey][selected_item_index].is_excluded;
+      dynamic _item;
+      _item = _lectures_future_excluded[selectedSemesterKey][selected_item_index];
+      _lectures_future_excluded[selectedSemesterKey].removeAt(selected_item_index);
+      if(_lectures_future.containsKey(selectedSemesterKey)){
+        _lectures_future[selectedSemesterKey].add(_item);
+      }
+      else{
+        _lectures_future[selectedSemesterKey] = [_item];
+      }
+    }
+  notifyListeners();
+  }
+
+  Future<bool> updateExclude() async {
+    dynamic selectedItem;
+    if(_selected_item_type == 0){
+      selectedItem = _lectures[selectedSemesterKey][_selected_item_index];
+    }
+    else if(_selected_item_type == 1){
+      selectedItem = _lectures_future[selectedSemesterKey][_selected_item_index];
+    }
+    else if(_selected_item_type == 2){
+      selectedItem = _lectures_excluded[selectedSemesterKey][_selected_item_index];
+    }
+    else if(_selected_item_type == 3){
+      selectedItem = _lectures_future_excluded[selectedSemesterKey][_selected_item_index];
+    }
+    bool toUpdate = !selectedItem.is_excluded;
+    int itemID = selectedItem.id;
+    String itemType = selectedItem.item_type;
+
+    try {
+      final response = await DioProvider().dio.post(
+          API_PLANNER_UPDATE_URL.replaceFirst("{user_id}", user.id.toString()).replaceFirst("{planner_id}", _planners[_selectedPlannerIndex].id.toString()),
+          data: {
+            "is_excluded": toUpdate,
+            "item": itemID,
+            "item_type": itemType
+          });
+      _updateExclude(itemID);
+      setLectures(initial: false);
+      notifyListeners();
+      return true;
+    } catch (exception) {
+      print(exception);
+    }
+    return false;
+  }
+
 }
