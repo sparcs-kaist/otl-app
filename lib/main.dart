@@ -76,6 +76,17 @@ void main() {
                       : PlannerModel();
                 },
               ),
+              ChangeNotifierProxyProvider<InfoModel, TrackModel>(
+                create: (context) => TrackModel(),
+                update: (context, infoModel, trackModel) {
+                  if (infoModel.hasData) {
+                    trackModel?.loadTracks();
+                  }
+                  return (trackModel is TrackModel)
+                      ? trackModel
+                      : TrackModel();
+                },
+              ),
               ChangeNotifierProvider(create: (_) => LectureSearchModel()),
               ChangeNotifierProvider(create: (_) => CourseSearchModel()),
               ChangeNotifierProvider(create: (_) => LatestReviewsModel()),
@@ -84,7 +95,6 @@ void main() {
               ChangeNotifierProvider(create: (_) => CourseDetailModel()),
               ChangeNotifierProvider(create: (_) => LectureDetailModel()),
               ChangeNotifierProvider(create: (_) => SettingsModel()),
-              ChangeNotifierProvider(create: (_) => TrackModel()),
             ],
             child: OTLFirebaseApp(),
           )),
