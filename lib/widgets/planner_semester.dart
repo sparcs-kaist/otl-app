@@ -133,11 +133,11 @@ class _PlannerSemesterState extends State<PlannerSemester> {
                   onTap: () {
                     context
                         .read<CourseDetailModel>()
-                        .loadCourse(planners.lectures[planners.selectedSemesterKey][i].id);
+                        .loadCourse(planners.lectures[planners.selectedSemesterKey][i].course.id);
                     OTLNavigator.push(context, PlannerCourseDetailPage());
                   },
                   child: Text(
-                    planners.lectures[planners.selectedSemesterKey][i].title,
+                    planners.lectures[planners.selectedSemesterKey][i].course.title,
                     overflow: TextOverflow.ellipsis,
                     style: labelRegular.copyWith(
                       decoration: TextDecoration.underline,
@@ -147,20 +147,63 @@ class _PlannerSemesterState extends State<PlannerSemester> {
               ))),
           DataCell(Center(
               child: Text(
-                  planners.lectures[planners.selectedSemesterKey][i].type))),
-          planners.lectures[planners.selectedSemesterKey][i].credit == 0
+                  planners.lectures[planners.selectedSemesterKey][i].course.type))),
+          planners.lectures[planners.selectedSemesterKey][i].course.credit == 0
               ? DataCell(Center(
                   child: Text(planners
-                          .lectures[planners.selectedSemesterKey][i].credit_au
+                          .lectures[planners.selectedSemesterKey][i].course.credit_au
                           .toString() +
                       'AU')))
               : DataCell(Center(
                   child: Text(planners
-                      .lectures[planners.selectedSemesterKey][i].credit
+                      .lectures[planners.selectedSemesterKey][i].course.credit
                       .toString()))),
         ]));
       }
     }
+
+    if (planners.lectures_future.containsKey(planners.selectedSemesterKey)) {
+      for (int i = 0;
+      i < planners.lectures_future[planners.selectedSemesterKey].length;
+      i++) {
+        lectureList.add(DataRow(cells: [
+          DataCell(ConstrainedBox(
+              constraints:
+              BoxConstraints(maxWidth: width * .45), //SET max width
+              child: Center(
+                child: GestureDetector(
+                  onTap: () {
+                    context
+                        .read<CourseDetailModel>()
+                        .loadCourse(planners.lectures_future[planners.selectedSemesterKey][i].course.id);
+                    OTLNavigator.push(context, PlannerCourseDetailPage());
+                  },
+                  child: Text(
+                    planners.lectures_future[planners.selectedSemesterKey][i].course.title,
+                    overflow: TextOverflow.ellipsis,
+                    style: labelRegular.copyWith(
+                      decoration: TextDecoration.underline,
+                    ),
+                  ),
+                ),
+              ))),
+          DataCell(Center(
+              child: Text(
+                  planners.lectures_future[planners.selectedSemesterKey][i].course.type))),
+          planners.lectures_future[planners.selectedSemesterKey][i].course.credit == 0
+              ? DataCell(Center(
+              child: Text(planners
+                  .lectures_future[planners.selectedSemesterKey][i].course.credit_au
+                  .toString() +
+                  'AU')))
+              : DataCell(Center(
+              child: Text(planners
+                  .lectures_future[planners.selectedSemesterKey][i].course.credit
+                  .toString()))),
+        ]));
+      }
+    }
+
     if (planners.lectures_excluded.containsKey(planners.selectedSemesterKey)) {
       for (int i = 0;
           i < planners.lectures_excluded[planners.selectedSemesterKey].length;
@@ -172,11 +215,14 @@ class _PlannerSemesterState extends State<PlannerSemester> {
               child: Center(
                 child: GestureDetector(
                   onTap: () {
+                    context
+                        .read<CourseDetailModel>()
+                        .loadCourse(planners.lectures_excluded[planners.selectedSemesterKey][i].course.id);
                     OTLNavigator.push(context, PlannerCourseDetailPage());
                   },
                   child: Text(
                     planners
-                        .lectures_excluded[planners.selectedSemesterKey][i].title,
+                        .lectures_excluded[planners.selectedSemesterKey][i].course.title,
                     overflow: TextOverflow.ellipsis,
                     style: labelRegular.copyWith(
                         decoration: TextDecoration.underline,
@@ -186,19 +232,66 @@ class _PlannerSemesterState extends State<PlannerSemester> {
               ))),
           DataCell(Center(
               child: Text(planners
-                  .lectures_excluded[planners.selectedSemesterKey][i].type))),
-          planners.lectures_excluded[planners.selectedSemesterKey][i].credit ==
+                  .lectures_excluded[planners.selectedSemesterKey][i].course.type))),
+          planners.lectures_excluded[planners.selectedSemesterKey][i].course.credit ==
                   0
               ? DataCell(Center(
                   child: Text(planners
                           .lectures_excluded[planners.selectedSemesterKey][i]
+                          .course
                           .credit_au
                           .toString() +
                       'AU')))
               : DataCell(Center(
                   child: Text(planners
-                      .lectures_excluded[planners.selectedSemesterKey][i].credit
+                      .lectures_excluded[planners.selectedSemesterKey][i].credit.course
                       .toString()))),
+        ]));
+      }
+    }
+
+    if (planners.lectures_future_excluded.containsKey(planners.selectedSemesterKey)) {
+      for (int i = 0;
+      i < planners.lectures_future_excluded[planners.selectedSemesterKey].length;
+      i++) {
+        lectureList.add(DataRow(cells: [
+          DataCell(ConstrainedBox(
+              constraints:
+              BoxConstraints(maxWidth: width * .45), //SET max width
+              child: Center(
+                child: GestureDetector(
+                  onTap: () {
+                    context
+                        .read<CourseDetailModel>()
+                        .loadCourse(planners.lectures_future_excluded[planners.selectedSemesterKey][i].course.id);
+                    OTLNavigator.push(context, PlannerCourseDetailPage());
+                  },
+                  child: Text(
+                    planners
+                        .lectures_future_excluded[planners.selectedSemesterKey][i].course.title,
+                    overflow: TextOverflow.ellipsis,
+                    style: labelRegular.copyWith(
+                        decoration: TextDecoration.underline,
+                        color: OTLColor.grayA),
+                  ),
+                ),
+              ))),
+          DataCell(Center(
+              child: Text(planners
+                  .lectures_future_excluded[planners.selectedSemesterKey][i].course.type))),
+          planners.lectures_future_excluded[planners.selectedSemesterKey][i].course.credit ==
+              0
+              ? DataCell(Center(
+              child: Text(planners
+                  .lectures_future_excluded[planners.selectedSemesterKey][i]
+                  .course
+                  .credit_au
+                  .toString() +
+                  'AU')))
+              : DataCell(Center(
+              child: Text(planners
+                  .lectures_future_excluded[planners.selectedSemesterKey][i].credit.course
+                  .toString()))),
         ]));
       }
     }

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -91,6 +92,12 @@ class PlannerModel extends ChangeNotifier {
   Map _lectures_excluded = {};
   Map get lectures_excluded => _lectures_excluded;
 
+  Map _lectures_future = {};
+  Map get lectures_future => _lectures_future;
+
+  Map _lectures_future_excluded = {};
+  Map get lectures_future_excluded => _lectures_future_excluded;
+
   int _taken_lectures = 0;
   int get taken_lectures => _taken_lectures;
 
@@ -159,6 +166,8 @@ class PlannerModel extends ChangeNotifier {
   void initializeLectures() {
     _lectures = {};
     _lectures_excluded = {};
+    _lectures_future = {};
+    _lectures_future_excluded = {};
     _taken_lectures = 0;
     _taken_au = 0;
     _selectedPlannerSemesterKey = "";
@@ -275,10 +284,10 @@ class PlannerModel extends ChangeNotifier {
                 .toString();
         if (_lectures.containsKey(year_semester)) {
           _lectures[year_semester]
-              .add(_planners[_selectedPlannerIndex].taken_items[i].course);
+              .add(_planners[_selectedPlannerIndex].taken_items[i]);
         } else {
           _lectures[year_semester] = [
-            _planners[_selectedPlannerIndex].taken_items[i].course
+            _planners[_selectedPlannerIndex].taken_items[i]
           ];
         }
       } else {
@@ -296,10 +305,10 @@ class PlannerModel extends ChangeNotifier {
 
         if (_lectures_excluded.containsKey(year_semester)) {
           _lectures_excluded[year_semester]
-              .add(_planners[_selectedPlannerIndex].taken_items[i].course);
+              .add(_planners[_selectedPlannerIndex].taken_items[i]);
         } else {
           _lectures_excluded[year_semester] = [
-            _planners[_selectedPlannerIndex].taken_items[i].course
+            _planners[_selectedPlannerIndex].taken_items[i]
           ];
         }
       }
@@ -331,12 +340,12 @@ class PlannerModel extends ChangeNotifier {
                     .semester
                     .toString();
 
-        if (_lectures.containsKey(year_semester)) {
-          _lectures[year_semester]
-              .add(_planners[_selectedPlannerIndex].future_items[i].course);
+        if (_lectures_future.containsKey(year_semester)) {
+          _lectures_future[year_semester]
+              .add(_planners[_selectedPlannerIndex].future_items[i]);
         } else {
-          _lectures[year_semester] = [
-            _planners[_selectedPlannerIndex].future_items[i].course
+          _lectures_future[year_semester] = [
+            _planners[_selectedPlannerIndex].future_items[i]
           ];
         }
       } else {
@@ -348,12 +357,12 @@ class PlannerModel extends ChangeNotifier {
                     .semester
                     .toString();
 
-        if (_lectures_excluded.containsKey(year_semester)) {
-          _lectures_excluded[year_semester]
-              .add(_planners[_selectedPlannerIndex].future_items[i].course);
+        if (_lectures_future_excluded.containsKey(year_semester)) {
+          _lectures_future_excluded[year_semester]
+              .add(_planners[_selectedPlannerIndex].future_items[i]);
         } else {
-          _lectures_excluded[year_semester] = [
-            _planners[_selectedPlannerIndex].future_items[i].course
+          _lectures_future_excluded[year_semester] = [
+            _planners[_selectedPlannerIndex].future_items[i]
           ];
         }
       }
@@ -447,6 +456,84 @@ class PlannerModel extends ChangeNotifier {
   }
 
 
+
+  int getPlannerStartYear(){
+    int currentYear = DateTime.now().year;
+    if(user.studentId == ""){
+      return currentYear;
+    }
+
+    if ( user.studentId.length != 8 && user.studentId[4] == '0') {
+      int userEntranceYear = int.parse(user.studentId.substring(0, 4));
+      if (userEntranceYear >= 2000 && userEntranceYear <= currentYear) {
+        return userEntranceYear;
+      }
+    }
+
+    if (user.reviewWritableLectures.length > 0) {
+      int firstTakenLectureYear = user.reviewWritableLectures.map((l) => l.year).toList().reduce(min);
+      if (firstTakenLectureYear >= 2000 && firstTakenLectureYear <= currentYear) {
+        return firstTakenLectureYear;
+      }
+    }
+
+    return currentYear;
+  }
+
+  int createRandomPlannerID(){
+    return (Random().nextDouble() * 100000000).floor();
+  }
+
+  Future<bool> createPlanner() async {
+    try {
+      final response = await DioProvider().dio.post(
+          API_PLANNER_URL.replaceFirst("{user_id}", user.id.toString()),
+          data: {
+            "id": createRandomPlannerID(),
+            "start_year": getPlannerStartYear(),
+            "end_year": max(getPlannerStartYear() + 3,  DateTime.now().year),
+            "general_track": {
+              "id": 1,
+              "start_year": 2023,
+              "end_year": 2100,
+              "is_foreign": false,
+              "total_credit": 138,
+              "total_au": 4,
+              "basic_required": 23,
+              "basic_elective": 9,
+              "thesis_study": 3,
+              "thesis_study_doublemajor": 0,
+              "general_required_credit": 7,
+              "general_required_au": 4,
+              "humanities": 21,
+              "humanities_doublemajor": 12
+            },
+            "major_track": {
+              "id": 2,
+              "start_year": 2016,
+              "end_year": 2100,
+              "department": user.departments[0].toJson(),
+              "basic_elective_doublemajor": 6,
+              "major_required": 21,
+              "major_elective": 21
+            },
+            "additional_tracks": [],
+            "taken_items": [],
+            "future_items": [],
+            "arbitrary_items": [],
+            "arrange_order": _planners.length > 1 ? (_planners.map((t) => t.arrange_order).reduce(max)) + 1 : 0,
+          });
+      final planner = Planner.fromJson(response.data);
+      print("werrrwe");
+      _planners.add(planner);
+      _selectedPlannerIndex = _planners.length - 1;
+      notifyListeners();
+      return true;
+    } catch (exception) {
+      print(exception);
+    }
+    return false;
+  }
 
   // Future<bool> createTimetable({List<Lecture>? lectures}) async {
   //   try {

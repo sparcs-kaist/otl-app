@@ -29,9 +29,22 @@ class _PlannerSemesterSelectTabsState extends State<PlannerSemesterSelectTabs> {
     final planners = Provider.of<PlannerModel>(context);
     List semester = planners.lectures.keys.toList();
     List semester_excluded = planners.lectures_excluded.keys.toList();
+    List semester_future = planners.lectures_future.keys.toList();
+    List semester_future_excluded = planners.lectures_future_excluded.keys.toList();
+
     for (int i = 0; i < semester_excluded.length; i++) {
       if (!semester.contains(semester_excluded[i])) {
         semester.add(semester_excluded[i]);
+      }
+    }
+    for (int i = 0; i < semester_future.length; i++) {
+      if (!semester.contains(semester_future[i])) {
+        semester.add(semester_future[i]);
+      }
+    }
+    for (int i = 0; i < semester_future_excluded.length; i++) {
+      if (!semester.contains(semester_future_excluded[i])) {
+        semester.add(semester_future_excluded[i]);
       }
     }
     semester.sort();
@@ -53,9 +66,22 @@ class _PlannerSemesterSelectTabsState extends State<PlannerSemesterSelectTabs> {
     final planners = Provider.of<PlannerModel>(context);
     List semester = planners.lectures.keys.toList();
     List semester_excluded = planners.lectures_excluded.keys.toList();
+    List semester_future = planners.lectures_future.keys.toList();
+    List semester_future_excluded = planners.lectures_future_excluded.keys.toList();
+
     for (int i = 0; i < semester_excluded.length; i++) {
       if (!semester.contains(semester_excluded[i])) {
         semester.add(semester_excluded[i]);
+      }
+    }
+    for (int i = 0; i < semester_future.length; i++) {
+      if (!semester.contains(semester_future[i])) {
+        semester.add(semester_future[i]);
+      }
+    }
+    for (int i = 0; i < semester_future_excluded.length; i++) {
+      if (!semester.contains(semester_future_excluded[i])) {
+        semester.add(semester_future_excluded[i]);
       }
     }
     semester.sort();
