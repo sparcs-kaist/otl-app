@@ -18,9 +18,6 @@ class PlannerSemester extends StatefulWidget {
 }
 
 class _PlannerSemesterState extends State<PlannerSemester> {
-  List name = ['전산학특강<안녕하세요>', '이산구조', '이산구조', '이산구조', '이산구조', '이산구조', '이산구조'];
-  List category = ['전공필수', '전공필수', '전공필수', '전공필수', '전공필수', '전공필수', '전공필수'];
-  List credit = [3, 3, 3, 3, 3, 3, 3];
 
   @override
   Widget build(BuildContext context) {
@@ -134,7 +131,8 @@ class _PlannerSemesterState extends State<PlannerSemester> {
                     context
                         .read<CourseDetailModel>()
                         .loadCourse(planners.lectures[planners.selectedSemesterKey][i].course.id);
-                    OTLNavigator.push(context, PlannerCourseDetailPage());
+                    planners.selectSemesterLecture(0, i);
+                    OTLNavigator.push(context, PlannerCourseDetailPage(is_excluded: planners.lectures[planners.selectedSemesterKey][i].is_excluded));
                   },
                   child: Text(
                     planners.lectures[planners.selectedSemesterKey][i].course.title,
@@ -176,7 +174,8 @@ class _PlannerSemesterState extends State<PlannerSemester> {
                     context
                         .read<CourseDetailModel>()
                         .loadCourse(planners.lectures_future[planners.selectedSemesterKey][i].course.id);
-                    OTLNavigator.push(context, PlannerCourseDetailPage());
+                    planners.selectSemesterLecture(1, i);
+                    OTLNavigator.push(context, PlannerCourseDetailPage(is_excluded: planners.lectures_future[planners.selectedSemesterKey][i].is_excluded));
                   },
                   child: Text(
                     planners.lectures_future[planners.selectedSemesterKey][i].course.title,
@@ -218,7 +217,8 @@ class _PlannerSemesterState extends State<PlannerSemester> {
                     context
                         .read<CourseDetailModel>()
                         .loadCourse(planners.lectures_excluded[planners.selectedSemesterKey][i].course.id);
-                    OTLNavigator.push(context, PlannerCourseDetailPage());
+                    planners.selectSemesterLecture(2, i);
+                    OTLNavigator.push(context, PlannerCourseDetailPage(is_excluded: planners.lectures_excluded[planners.selectedSemesterKey][i].is_excluded));
                   },
                   child: Text(
                     planners
@@ -244,7 +244,7 @@ class _PlannerSemesterState extends State<PlannerSemester> {
                       'AU')))
               : DataCell(Center(
                   child: Text(planners
-                      .lectures_excluded[planners.selectedSemesterKey][i].credit.course
+                      .lectures_excluded[planners.selectedSemesterKey][i].course.credit
                       .toString()))),
         ]));
       }
@@ -264,7 +264,8 @@ class _PlannerSemesterState extends State<PlannerSemester> {
                     context
                         .read<CourseDetailModel>()
                         .loadCourse(planners.lectures_future_excluded[planners.selectedSemesterKey][i].course.id);
-                    OTLNavigator.push(context, PlannerCourseDetailPage());
+                    planners.selectSemesterLecture(3, i);
+                    OTLNavigator.push(context, PlannerCourseDetailPage(is_excluded: planners.lectures_future_excluded[planners.selectedSemesterKey][i].is_excluded));
                   },
                   child: Text(
                     planners
@@ -290,7 +291,7 @@ class _PlannerSemesterState extends State<PlannerSemester> {
                   'AU')))
               : DataCell(Center(
               child: Text(planners
-                  .lectures_future_excluded[planners.selectedSemesterKey][i].credit.course
+                  .lectures_future_excluded[planners.selectedSemesterKey][i].course.credit
                   .toString()))),
         ]));
       }

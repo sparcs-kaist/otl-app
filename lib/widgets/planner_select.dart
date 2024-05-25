@@ -5,6 +5,7 @@ import 'package:otlplus/constants/text_styles.dart';
 import 'package:otlplus/models/planner.dart';
 import 'package:otlplus/providers/hall_of_fame_model.dart';
 import 'package:otlplus/providers/planner_model.dart';
+import 'package:otlplus/providers/track_model.dart';
 import 'package:otlplus/utils/navigator.dart';
 import 'package:otlplus/widgets/dropdown.dart';
 import 'package:otlplus/widgets/otl_dialog.dart';
@@ -25,6 +26,7 @@ class _PlannerSelectState extends State<PlannerSelect> {
   @override
   Widget build(BuildContext context) {
     final planners = Provider.of<PlannerModel>(context);
+    final tracks = Provider.of<TrackModel>(context);
     String selectedPlannerName = "플래너 ";
 
     return Container(
@@ -32,6 +34,7 @@ class _PlannerSelectState extends State<PlannerSelect> {
         child: Padding(
           padding: const EdgeInsets.only(right: 8.0),
           child: Dropdown<int>(
+
             customButton: Container(
               height: 34,
               padding: EdgeInsets.fromLTRB(12, 0, 8, 0),
@@ -57,17 +60,18 @@ class _PlannerSelectState extends State<PlannerSelect> {
             items: makeItems(context),
             offsetFromLeft: true,
             onChanged: (value) {
-              // if (value == 0) widget.onCopyTap();
-              // if (value == 1) widget.onExportTap(ShareType.image);
-              // if (value == 2) widget.onExportTap(ShareType.ical);
-              // if (value == 3) widget.onDeleteTap(i);
-              // if (value == 4) Pass
               if (value == planners.selectedIndex) {
               } else if (value! < planners.planners.length) {
                 planners.selectPlanner(value);
               } else if (value == planners.planners.length) {
                 //copy
+                Future<bool> result = planners.copyPlanner();
+                result.then((value) => planners.selectPlanner(planners.planners.length-1));
               } else if (value == planners.planners.length + 1) {
+                // get general track
+                tracks.loadTracks();
+                Future<bool> result = planners.createPlanner(tracks.general_tracks, tracks.major_tracks);
+                result.then((value) => planners.selectPlanner(planners.planners.length-1));
                 //add
               } else if (value == planners.planners.length + 2) {
                 //delete
@@ -111,13 +115,13 @@ class _PlannerSelectState extends State<PlannerSelect> {
       if (i == planners.selectedIndex) {
         items.add(ItemData(
           value: i,
-          text: "플래너 " + (planners.planners[i].arrange_order + 1).toString(),
+          text: "플래너 " + (i).toString(),
           icon: Icons.check_outlined,
         ));
       } else {
         items.add(ItemData(
           value: i,
-          text: "플래너 " + (planners.planners[i].arrange_order + 1).toString(),
+          text: "플래너 " + (i).toString(),
         ));
       }
     }
