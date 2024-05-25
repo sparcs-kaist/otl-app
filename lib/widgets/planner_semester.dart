@@ -3,8 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:otlplus/constants/color.dart';
 import 'package:otlplus/constants/text_styles.dart';
+import 'package:otlplus/pages/planner_course_detail_page.dart';
+import 'package:otlplus/providers/course_detail_model.dart';
 import 'package:otlplus/providers/planner_model.dart';
 import 'package:otlplus/providers/planner_model.dart';
+import 'package:otlplus/utils/navigator.dart';
 import 'package:provider/provider.dart';
 
 class PlannerSemester extends StatefulWidget {
@@ -126,11 +129,19 @@ class _PlannerSemesterState extends State<PlannerSemester> {
               constraints:
                   BoxConstraints(maxWidth: width * .45), //SET max width
               child: Center(
-                child: Text(
-                  planners.lectures[planners.selectedSemesterKey][i].title,
-                  overflow: TextOverflow.ellipsis,
-                  style: labelRegular.copyWith(
-                    decoration: TextDecoration.underline,
+                child: GestureDetector(
+                  onTap: () {
+                    context
+                        .read<CourseDetailModel>()
+                        .loadCourse(planners.lectures[planners.selectedSemesterKey][i].id);
+                    OTLNavigator.push(context, PlannerCourseDetailPage());
+                  },
+                  child: Text(
+                    planners.lectures[planners.selectedSemesterKey][i].title,
+                    overflow: TextOverflow.ellipsis,
+                    style: labelRegular.copyWith(
+                      decoration: TextDecoration.underline,
+                    ),
                   ),
                 ),
               ))),
@@ -159,13 +170,18 @@ class _PlannerSemesterState extends State<PlannerSemester> {
               constraints:
                   BoxConstraints(maxWidth: width * .45), //SET max width
               child: Center(
-                child: Text(
-                  planners
-                      .lectures_excluded[planners.selectedSemesterKey][i].title,
-                  overflow: TextOverflow.ellipsis,
-                  style: labelRegular.copyWith(
-                      decoration: TextDecoration.underline,
-                      color: OTLColor.grayA),
+                child: GestureDetector(
+                  onTap: () {
+                    OTLNavigator.push(context, PlannerCourseDetailPage());
+                  },
+                  child: Text(
+                    planners
+                        .lectures_excluded[planners.selectedSemesterKey][i].title,
+                    overflow: TextOverflow.ellipsis,
+                    style: labelRegular.copyWith(
+                        decoration: TextDecoration.underline,
+                        color: OTLColor.grayA),
+                  ),
                 ),
               ))),
           DataCell(Center(
