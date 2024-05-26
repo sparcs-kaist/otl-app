@@ -11,7 +11,9 @@ import 'package:otlplus/pages/my_review_page.dart';
 import 'package:otlplus/providers/course_search_model.dart';
 import 'package:otlplus/providers/hall_of_fame_model.dart';
 import 'package:otlplus/providers/liked_review_model.dart';
+import 'package:otlplus/providers/planner_model.dart';
 import 'package:otlplus/providers/settings_model.dart';
+import 'package:otlplus/providers/track_model.dart';
 import 'package:provider/provider.dart';
 import 'package:otlplus/constants/color.dart';
 import 'package:otlplus/home.dart';
@@ -61,6 +63,26 @@ void main() {
                   return (timetableModel is TimetableModel)
                       ? timetableModel
                       : TimetableModel();
+                },
+              ),
+              ChangeNotifierProxyProvider<InfoModel, PlannerModel>(
+                create: (context) => PlannerModel(),
+                update: (context, infoModel, plannerModel) {
+                  if (infoModel.hasData) {
+                    plannerModel?.loadPlanner(user: infoModel.user);
+                  }
+                  return (plannerModel is PlannerModel)
+                      ? plannerModel
+                      : PlannerModel();
+                },
+              ),
+              ChangeNotifierProxyProvider<InfoModel, TrackModel>(
+                create: (context) => TrackModel(),
+                update: (context, infoModel, trackModel) {
+                  if (infoModel.hasData) {
+                    trackModel?.loadTracks();
+                  }
+                  return (trackModel is TrackModel) ? trackModel : TrackModel();
                 },
               ),
               ChangeNotifierProvider(create: (_) => LectureSearchModel()),

@@ -51,7 +51,7 @@ class Dropdown<T> extends StatelessWidget {
           direction:
               offsetFromLeft ? DropdownDirection.right : DropdownDirection.left,
           width: 200,
-          maxHeight: 237,
+          maxHeight: 800,
           elevation: 0,
           padding: EdgeInsets.zero,
           decoration: BoxDecoration(
