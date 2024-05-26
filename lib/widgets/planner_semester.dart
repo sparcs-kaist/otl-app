@@ -1,11 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:otlplus/constants/color.dart';
 import 'package:otlplus/constants/text_styles.dart';
 import 'package:otlplus/pages/planner_course_detail_page.dart';
 import 'package:otlplus/providers/course_detail_model.dart';
-import 'package:otlplus/providers/planner_model.dart';
 import 'package:otlplus/providers/planner_model.dart';
 import 'package:otlplus/utils/navigator.dart';
 import 'package:provider/provider.dart';

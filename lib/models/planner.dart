@@ -1,4 +1,3 @@
-import 'package:otlplus/models/course.dart';
 import 'package:otlplus/models/department.dart';
 import 'package:otlplus/models/lecture.dart';
 import 'package:otlplus/models/planner_course.dart';

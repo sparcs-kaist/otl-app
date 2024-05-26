@@ -2,8 +2,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:otlplus/constants/color.dart';
 import 'package:otlplus/constants/text_styles.dart';
-import 'package:otlplus/models/planner.dart';
-import 'package:otlplus/providers/hall_of_fame_model.dart';
 import 'package:otlplus/providers/planner_model.dart';
 import 'package:otlplus/providers/track_model.dart';
 import 'package:otlplus/utils/navigator.dart';
@@ -13,9 +11,7 @@ import 'package:provider/provider.dart';
 
 class PlannerSelect extends StatefulWidget {
   const PlannerSelect({Key? key, int selectedMode = 0})
-      : _selectedMode = selectedMode,
-        super(key: key);
-  final int _selectedMode;
+      : super(key: key);
 
   @override
   State<PlannerSelect> createState() => _PlannerSelectState();
@@ -27,7 +23,6 @@ class _PlannerSelectState extends State<PlannerSelect> {
   Widget build(BuildContext context) {
     final planners = Provider.of<PlannerModel>(context);
     final tracks = Provider.of<TrackModel>(context);
-    String selectedPlannerName = "플래너 ";
 
     return Container(
         padding: const EdgeInsets.fromLTRB(16, 4, 4, 4),

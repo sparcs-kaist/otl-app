@@ -1,9 +1,7 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:otlplus/constants/color.dart';
 import 'package:otlplus/constants/text_styles.dart';
 import 'package:otlplus/providers/planner_model.dart';
-import 'package:otlplus/widgets/dropdown.dart';
 import 'package:provider/provider.dart';
 
 class PlannerSemesterSelectTabs extends StatefulWidget {
