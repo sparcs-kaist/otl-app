@@ -34,36 +34,37 @@ class _PlannerPageState extends State<PlannerPage> {
           color: OTLColor.pinksMain,
         ),
       ),
-      body: !planners.isLoaded?
-        Center(
-          child: CircularProgressIndicator(),
-        ):
-        Card(
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.only(topRight: Radius.circular(16.0)),
-          ),
-          child: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.all(16),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  PlannerPreview(),
-                  SizedBox(
-                    height: 16,
+      body: !planners.isLoaded
+          ? Center(
+              child: CircularProgressIndicator(),
+            )
+          : Card(
+              shape: const RoundedRectangleBorder(
+                borderRadius:
+                    BorderRadius.only(topRight: Radius.circular(16.0)),
+              ),
+              child: SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      PlannerPreview(),
+                      SizedBox(
+                        height: 16,
+                      ),
+                      PlannerSemesterSelectTabs(
+                        onTap: (i) {},
+                      ),
+                      SizedBox(
+                        height: 16,
+                      ),
+                      PlannerSemester(),
+                    ],
                   ),
-                  PlannerSemesterSelectTabs(
-                    onTap: (i) {},
-                  ),
-                  SizedBox(
-                    height: 16,
-                  ),
-                  PlannerSemester(),
-                ],
+                ),
               ),
             ),
-          ),
-        ),
     );
   }
 }

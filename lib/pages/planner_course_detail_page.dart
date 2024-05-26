@@ -20,16 +20,15 @@ import 'package:otlplus/widgets/lecture_group_simple_block.dart';
 import 'package:otlplus/widgets/review_block.dart';
 import 'package:otlplus/widgets/review_write_block.dart';
 
-
 class PlannerCourseDetailPage extends StatefulWidget {
   final bool is_excluded;
 
-  const PlannerCourseDetailPage({Key? key,
-  required this.is_excluded
-  }) : super(key: key);
+  const PlannerCourseDetailPage({Key? key, required this.is_excluded})
+      : super(key: key);
 
   @override
-  State<PlannerCourseDetailPage> createState() => _PlannerCourseDetailPageState();
+  State<PlannerCourseDetailPage> createState() =>
+      _PlannerCourseDetailPageState();
 }
 
 class _PlannerCourseDetailPageState extends State<PlannerCourseDetailPage> {
@@ -40,61 +39,61 @@ class _PlannerCourseDetailPageState extends State<PlannerCourseDetailPage> {
   @override
   Widget build(BuildContext context) {
     final CourseDetailModel courseDetailModel =
-    context.watch<CourseDetailModel>();
+        context.watch<CourseDetailModel>();
     final isEn = EasyLocalization.of(context)?.currentLocale == Locale('en');
     final planners = Provider.of<PlannerModel>(context);
 
-
     return OTLScaffold(
-      // bottomNavigationBar:
+        // bottomNavigationBar:
         bottomSheet: Container(
-          height: 100,
-          width: double.maxFinite,
-          child: courseDetailModel.hasData?
-            Center(
-              child: Container(
-
-                child: IconTextButton(
-                  onTap: () {
-                    planners.updateExclude();
-                    OTLNavigator.pop(context);
-                  },
-                  icon: Icons.edit_calendar_outlined,
-                  text: "계산제외",
-                  iconSize: 40,
-                  direction: ButtonDirection.column,
-                  color: widget.is_excluded? OTLColor.grayA : OTLColor.pinksMain,
-                  tapEffect: ButtonTapEffect.darken,
-                  padding: EdgeInsets.fromLTRB(16.0, 16.0, 8.0, 16.0),
-                ),
-              ),
-            ):
-          Container()
-        ),
+            height: 100,
+            width: double.maxFinite,
+            child: courseDetailModel.hasData
+                ? Center(
+                    child: Container(
+                      child: IconTextButton(
+                        onTap: () {
+                          planners.updateExclude();
+                          OTLNavigator.pop(context);
+                        },
+                        icon: Icons.edit_calendar_outlined,
+                        text: "계산제외",
+                        iconSize: 40,
+                        direction: ButtonDirection.column,
+                        color: widget.is_excluded
+                            ? OTLColor.grayA
+                            : OTLColor.pinksMain,
+                        tapEffect: ButtonTapEffect.darken,
+                        padding: EdgeInsets.fromLTRB(16.0, 16.0, 8.0, 16.0),
+                      ),
+                    ),
+                  )
+                : Container()),
         child: OTLLayout(
           middle: Text(
               courseDetailModel.hasData
                   ? (isEn
-                  ? courseDetailModel.course.titleEn
-                  : courseDetailModel.course.title)
+                      ? courseDetailModel.course.titleEn
+                      : courseDetailModel.course.title)
                   : '',
               style: titleBold),
           body: Card(
             shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.vertical(top: Radius.circular(16.0)),
             ),
-            child: context.select<CourseDetailModel, bool>((model) => model.hasData)
+            child: context
+                    .select<CourseDetailModel, bool>((model) => model.hasData)
                 ? _buildBody(context)
                 : Center(
-              child: const CircularProgressIndicator(),
-            ),
+                    child: const CircularProgressIndicator(),
+                  ),
           ),
         ));
   }
 
   Widget _buildBody(BuildContext context) {
     final course =
-    context.select<CourseDetailModel, Course>((model) => model.course);
+        context.select<CourseDetailModel, Course>((model) => model.course);
 
     return Padding(
       padding: const EdgeInsets.all(12.0),
@@ -172,8 +171,8 @@ class _PlannerCourseDetailPageState extends State<PlannerCourseDetailPage> {
         professor == null
             ? "common.all".tr()
             : (isEn
-            ? (professor.nameEn == '' ? professor.name : professor.nameEn)
-            : professor.name),
+                ? (professor.nameEn == '' ? professor.name : professor.nameEn)
+                : professor.name),
         style: labelRegular,
       ),
       selected: (professor == null
@@ -208,10 +207,10 @@ class _PlannerCourseDetailPageState extends State<PlannerCourseDetailPage> {
                 ...courseDetailModel.professors
                     .toSet()
                     .map((professor) => Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                  child: _buildChoiceChip(context,
-                      courseDetailModel.selectedFilter, professor),
-                ))
+                          padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                          child: _buildChoiceChip(context,
+                              courseDetailModel.selectedFilter, professor),
+                        ))
                     .toList(),
               ],
             ),
@@ -313,14 +312,14 @@ class _PlannerCourseDetailPageState extends State<PlannerCourseDetailPage> {
               child: Row(
                 children: years
                     .map((year) => Container(
-                  width: isEn ? 150.0 : 100.0,
-                  margin: const EdgeInsets.symmetric(horizontal: 8.0),
-                  child: Text(
-                    year.toString(),
-                    textAlign: TextAlign.center,
-                    style: bodyBold,
-                  ),
-                ))
+                          width: isEn ? 150.0 : 100.0,
+                          margin: const EdgeInsets.symmetric(horizontal: 8.0),
+                          child: Text(
+                            year.toString(),
+                            textAlign: TextAlign.center,
+                            style: bodyBold,
+                          ),
+                        ))
                     .toList(),
               ),
             ),
@@ -343,10 +342,10 @@ class _PlannerCourseDetailPageState extends State<PlannerCourseDetailPage> {
     return IntrinsicHeight(
       child: Row(
         children: years.map(
-              (year) {
+          (year) {
             final filteredLectures = lectures
                 .where((lecture) =>
-            lecture.year == year && lecture.semester == semester)
+                    lecture.year == year && lecture.semester == semester)
                 .toList();
             if (filteredLectures.length == 0)
               return Container(
@@ -380,15 +379,15 @@ class _PlannerCourseDetailPageState extends State<PlannerCourseDetailPage> {
       delegate: SliverChildListDelegate([
         ...user.reviewWritableLectures
             .where((lecture) =>
-        lecture.course == course.id &&
-            (selectedFilter == "ALL" ||
-                lecture.professors.any((professor) =>
-                professor.professorId.toString() == selectedFilter)))
+                lecture.course == course.id &&
+                (selectedFilter == "ALL" ||
+                    lecture.professors.any((professor) =>
+                        professor.professorId.toString() == selectedFilter)))
             .map((lecture) {
           Review? existingReview;
           try {
             existingReview = user.reviews.firstWhere(
-                    (review) => review.lecture.id == lecture.id,
+                (review) => review.lecture.id == lecture.id,
                 orElse: null);
           } catch (_) {}
           return ReviewWriteBlock(
@@ -416,8 +415,8 @@ class _PlannerCourseDetailPageState extends State<PlannerCourseDetailPage> {
             ];
           } else {
             return model.reviews
-                ?.map((review) => ReviewBlock(review: review))
-                .toList() ??
+                    ?.map((review) => ReviewBlock(review: review))
+                    .toList() ??
                 [
                   Center(
                     child: Padding(

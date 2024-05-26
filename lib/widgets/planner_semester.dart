@@ -18,7 +18,6 @@ class PlannerSemester extends StatefulWidget {
 }
 
 class _PlannerSemesterState extends State<PlannerSemester> {
-
   @override
   Widget build(BuildContext context) {
     final double width = MediaQuery.of(context).size.width;
@@ -128,14 +127,19 @@ class _PlannerSemesterState extends State<PlannerSemester> {
               child: Center(
                 child: GestureDetector(
                   onTap: () {
-                    context
-                        .read<CourseDetailModel>()
-                        .loadCourse(planners.lectures[planners.selectedSemesterKey][i].course.id);
+                    context.read<CourseDetailModel>().loadCourse(planners
+                        .lectures[planners.selectedSemesterKey][i].course.id);
                     planners.selectSemesterLecture(0, i);
-                    OTLNavigator.push(context, PlannerCourseDetailPage(is_excluded: planners.lectures[planners.selectedSemesterKey][i].is_excluded));
+                    OTLNavigator.push(
+                        context,
+                        PlannerCourseDetailPage(
+                            is_excluded: planners
+                                .lectures[planners.selectedSemesterKey][i]
+                                .is_excluded));
                   },
                   child: Text(
-                    planners.lectures[planners.selectedSemesterKey][i].course.title,
+                    planners
+                        .lectures[planners.selectedSemesterKey][i].course.title,
                     overflow: TextOverflow.ellipsis,
                     style: labelRegular.copyWith(
                       decoration: TextDecoration.underline,
@@ -144,12 +148,12 @@ class _PlannerSemesterState extends State<PlannerSemester> {
                 ),
               ))),
           DataCell(Center(
-              child: Text(
-                  planners.lectures[planners.selectedSemesterKey][i].course.type))),
+              child: Text(planners
+                  .lectures[planners.selectedSemesterKey][i].course.type))),
           planners.lectures[planners.selectedSemesterKey][i].course.credit == 0
               ? DataCell(Center(
-                  child: Text(planners
-                          .lectures[planners.selectedSemesterKey][i].course.credit_au
+                  child: Text(planners.lectures[planners.selectedSemesterKey][i]
+                          .course.credit_au
                           .toString() +
                       'AU')))
               : DataCell(Center(
@@ -162,23 +166,31 @@ class _PlannerSemesterState extends State<PlannerSemester> {
 
     if (planners.lectures_future.containsKey(planners.selectedSemesterKey)) {
       for (int i = 0;
-      i < planners.lectures_future[planners.selectedSemesterKey].length;
-      i++) {
+          i < planners.lectures_future[planners.selectedSemesterKey].length;
+          i++) {
         lectureList.add(DataRow(cells: [
           DataCell(ConstrainedBox(
               constraints:
-              BoxConstraints(maxWidth: width * .45), //SET max width
+                  BoxConstraints(maxWidth: width * .45), //SET max width
               child: Center(
                 child: GestureDetector(
                   onTap: () {
-                    context
-                        .read<CourseDetailModel>()
-                        .loadCourse(planners.lectures_future[planners.selectedSemesterKey][i].course.id);
+                    context.read<CourseDetailModel>().loadCourse(planners
+                        .lectures_future[planners.selectedSemesterKey][i]
+                        .course
+                        .id);
                     planners.selectSemesterLecture(1, i);
-                    OTLNavigator.push(context, PlannerCourseDetailPage(is_excluded: planners.lectures_future[planners.selectedSemesterKey][i].is_excluded));
+                    OTLNavigator.push(
+                        context,
+                        PlannerCourseDetailPage(
+                            is_excluded: planners
+                                .lectures_future[planners.selectedSemesterKey]
+                                    [i]
+                                .is_excluded));
                   },
                   child: Text(
-                    planners.lectures_future[planners.selectedSemesterKey][i].course.title,
+                    planners.lectures_future[planners.selectedSemesterKey][i]
+                        .course.title,
                     overflow: TextOverflow.ellipsis,
                     style: labelRegular.copyWith(
                       decoration: TextDecoration.underline,
@@ -187,18 +199,26 @@ class _PlannerSemesterState extends State<PlannerSemester> {
                 ),
               ))),
           DataCell(Center(
-              child: Text(
-                  planners.lectures_future[planners.selectedSemesterKey][i].course.type))),
-          planners.lectures_future[planners.selectedSemesterKey][i].course.credit == 0
+              child: Text(planners
+                  .lectures_future[planners.selectedSemesterKey][i]
+                  .course
+                  .type))),
+          planners.lectures_future[planners.selectedSemesterKey][i].course
+                      .credit ==
+                  0
               ? DataCell(Center(
-              child: Text(planners
-                  .lectures_future[planners.selectedSemesterKey][i].course.credit_au
-                  .toString() +
-                  'AU')))
+                  child: Text(planners
+                          .lectures_future[planners.selectedSemesterKey][i]
+                          .course
+                          .credit_au
+                          .toString() +
+                      'AU')))
               : DataCell(Center(
-              child: Text(planners
-                  .lectures_future[planners.selectedSemesterKey][i].course.credit
-                  .toString()))),
+                  child: Text(planners
+                      .lectures_future[planners.selectedSemesterKey][i]
+                      .course
+                      .credit
+                      .toString()))),
         ]));
       }
     }
@@ -214,15 +234,22 @@ class _PlannerSemesterState extends State<PlannerSemester> {
               child: Center(
                 child: GestureDetector(
                   onTap: () {
-                    context
-                        .read<CourseDetailModel>()
-                        .loadCourse(planners.lectures_excluded[planners.selectedSemesterKey][i].course.id);
+                    context.read<CourseDetailModel>().loadCourse(planners
+                        .lectures_excluded[planners.selectedSemesterKey][i]
+                        .course
+                        .id);
                     planners.selectSemesterLecture(2, i);
-                    OTLNavigator.push(context, PlannerCourseDetailPage(is_excluded: planners.lectures_excluded[planners.selectedSemesterKey][i].is_excluded));
+                    OTLNavigator.push(
+                        context,
+                        PlannerCourseDetailPage(
+                            is_excluded: planners
+                                .lectures_excluded[planners.selectedSemesterKey]
+                                    [i]
+                                .is_excluded));
                   },
                   child: Text(
-                    planners
-                        .lectures_excluded[planners.selectedSemesterKey][i].course.title,
+                    planners.lectures_excluded[planners.selectedSemesterKey][i]
+                        .course.title,
                     overflow: TextOverflow.ellipsis,
                     style: labelRegular.copyWith(
                         decoration: TextDecoration.underline,
@@ -232,8 +259,11 @@ class _PlannerSemesterState extends State<PlannerSemester> {
               ))),
           DataCell(Center(
               child: Text(planners
-                  .lectures_excluded[planners.selectedSemesterKey][i].course.type))),
-          planners.lectures_excluded[planners.selectedSemesterKey][i].course.credit ==
+                  .lectures_excluded[planners.selectedSemesterKey][i]
+                  .course
+                  .type))),
+          planners.lectures_excluded[planners.selectedSemesterKey][i].course
+                      .credit ==
                   0
               ? DataCell(Center(
                   child: Text(planners
@@ -244,32 +274,48 @@ class _PlannerSemesterState extends State<PlannerSemester> {
                       'AU')))
               : DataCell(Center(
                   child: Text(planners
-                      .lectures_excluded[planners.selectedSemesterKey][i].course.credit
+                      .lectures_excluded[planners.selectedSemesterKey][i]
+                      .course
+                      .credit
                       .toString()))),
         ]));
       }
     }
 
-    if (planners.lectures_future_excluded.containsKey(planners.selectedSemesterKey)) {
+    if (planners.lectures_future_excluded
+        .containsKey(planners.selectedSemesterKey)) {
       for (int i = 0;
-      i < planners.lectures_future_excluded[planners.selectedSemesterKey].length;
-      i++) {
+          i <
+              planners.lectures_future_excluded[planners.selectedSemesterKey]
+                  .length;
+          i++) {
         lectureList.add(DataRow(cells: [
           DataCell(ConstrainedBox(
               constraints:
-              BoxConstraints(maxWidth: width * .45), //SET max width
+                  BoxConstraints(maxWidth: width * .45), //SET max width
               child: Center(
                 child: GestureDetector(
                   onTap: () {
-                    context
-                        .read<CourseDetailModel>()
-                        .loadCourse(planners.lectures_future_excluded[planners.selectedSemesterKey][i].course.id);
+                    context.read<CourseDetailModel>().loadCourse(planners
+                        .lectures_future_excluded[planners.selectedSemesterKey]
+                            [i]
+                        .course
+                        .id);
                     planners.selectSemesterLecture(3, i);
-                    OTLNavigator.push(context, PlannerCourseDetailPage(is_excluded: planners.lectures_future_excluded[planners.selectedSemesterKey][i].is_excluded));
+                    OTLNavigator.push(
+                        context,
+                        PlannerCourseDetailPage(
+                            is_excluded: planners
+                                .lectures_future_excluded[
+                                    planners.selectedSemesterKey][i]
+                                .is_excluded));
                   },
                   child: Text(
                     planners
-                        .lectures_future_excluded[planners.selectedSemesterKey][i].course.title,
+                        .lectures_future_excluded[planners.selectedSemesterKey]
+                            [i]
+                        .course
+                        .title,
                     overflow: TextOverflow.ellipsis,
                     style: labelRegular.copyWith(
                         decoration: TextDecoration.underline,
@@ -279,20 +325,26 @@ class _PlannerSemesterState extends State<PlannerSemester> {
               ))),
           DataCell(Center(
               child: Text(planners
-                  .lectures_future_excluded[planners.selectedSemesterKey][i].course.type))),
-          planners.lectures_future_excluded[planners.selectedSemesterKey][i].course.credit ==
-              0
-              ? DataCell(Center(
-              child: Text(planners
                   .lectures_future_excluded[planners.selectedSemesterKey][i]
                   .course
-                  .credit_au
-                  .toString() +
-                  'AU')))
+                  .type))),
+          planners.lectures_future_excluded[planners.selectedSemesterKey][i]
+                      .course.credit ==
+                  0
+              ? DataCell(Center(
+                  child: Text(planners
+                          .lectures_future_excluded[
+                              planners.selectedSemesterKey][i]
+                          .course
+                          .credit_au
+                          .toString() +
+                      'AU')))
               : DataCell(Center(
-              child: Text(planners
-                  .lectures_future_excluded[planners.selectedSemesterKey][i].course.credit
-                  .toString()))),
+                  child: Text(planners
+                      .lectures_future_excluded[planners.selectedSemesterKey][i]
+                      .course
+                      .credit
+                      .toString()))),
         ]));
       }
     }

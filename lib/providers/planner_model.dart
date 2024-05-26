@@ -104,7 +104,6 @@ class PlannerModel extends ChangeNotifier {
   int _taken_au = 0;
   int get taken_au => _taken_au;
 
-
   int _selected_item_type = 0;
   int get selected_item_type => _selected_item_type;
 
@@ -177,7 +176,7 @@ class PlannerModel extends ChangeNotifier {
     _lectures_future_excluded = {};
     _taken_lectures = 0;
     _taken_au = 0;
-    if(initial){
+    if (initial) {
       _selectedPlannerSemesterKey = "";
     }
     _selected_item_type = 0;
@@ -208,7 +207,7 @@ class PlannerModel extends ChangeNotifier {
     };
   }
 
-  void selectSemesterLecture(int type, int index){
+  void selectSemesterLecture(int type, int index) {
     _selected_item_type = type;
     _selected_item_index = index;
     notifyListeners();
@@ -235,8 +234,6 @@ class PlannerModel extends ChangeNotifier {
     _selectedPlannerSemesterKey = index;
     notifyListeners();
   }
-
-
 
   void setLectures({bool initial = true}) {
     initializeLectures(initial: initial);
@@ -388,7 +385,6 @@ class PlannerModel extends ChangeNotifier {
     }
   }
 
-
   Future<bool> _loadPlanner() async {
     try {
       final response = await DioProvider().dio.get(
@@ -420,7 +416,6 @@ class PlannerModel extends ChangeNotifier {
     return false;
   }
 
-
   Future<bool> deletePlanner() async {
     try {
       if (_planners.length <= 2) return false;
@@ -441,15 +436,13 @@ class PlannerModel extends ChangeNotifier {
     return false;
   }
 
-
-
-  int getPlannerStartYear(){
+  int getPlannerStartYear() {
     int currentYear = DateTime.now().year;
-    if(user.studentId == ""){
+    if (user.studentId == "") {
       return currentYear;
     }
 
-    if ( user.studentId.length != 8 && user.studentId[4] == '0') {
+    if (user.studentId.length != 8 && user.studentId[4] == '0') {
       int userEntranceYear = int.parse(user.studentId.substring(0, 4));
       if (userEntranceYear >= 2000 && userEntranceYear <= currentYear) {
         return userEntranceYear;
@@ -457,8 +450,10 @@ class PlannerModel extends ChangeNotifier {
     }
 
     if (user.reviewWritableLectures.length > 0) {
-      int firstTakenLectureYear = user.reviewWritableLectures.map((l) => l.year).toList().reduce(min);
-      if (firstTakenLectureYear >= 2000 && firstTakenLectureYear <= currentYear) {
+      int firstTakenLectureYear =
+          user.reviewWritableLectures.map((l) => l.year).toList().reduce(min);
+      if (firstTakenLectureYear >= 2000 &&
+          firstTakenLectureYear <= currentYear) {
         return firstTakenLectureYear;
       }
     }
@@ -466,16 +461,19 @@ class PlannerModel extends ChangeNotifier {
     return currentYear;
   }
 
-  int createRandomPlannerID(){
+  int createRandomPlannerID() {
     return (Random().nextDouble() * 100000000).floor();
   }
 
-  int getPlannerGeneralTrack(List<GeneralTrack> generalTracks){
+  int getPlannerGeneralTrack(List<GeneralTrack> generalTracks) {
     int startYear = getPlannerStartYear();
-    List<GeneralTrack> yearedTracks = generalTracks.where(
+    List<GeneralTrack> yearedTracks = generalTracks
+        .where(
           (gt) => startYear >= gt.start_year && startYear <= gt.end_year,
-    ).toList();
-    List<GeneralTrack> targetTracks = yearedTracks.where((gt) => !gt.is_foreign).toList();
+        )
+        .toList();
+    List<GeneralTrack> targetTracks =
+        yearedTracks.where((gt) => !gt.is_foreign).toList();
 
     if (targetTracks.length > 0) {
       return targetTracks.toList()[0].id;
@@ -483,17 +481,20 @@ class PlannerModel extends ChangeNotifier {
     return yearedTracks.toList()[0].id;
   }
 
-  int getPlannerMajorTrack(List<MajorTrack> majorTracks){
-
+  int getPlannerMajorTrack(List<MajorTrack> majorTracks) {
     int startYear = getPlannerStartYear();
 
-    List<MajorTrack> yearedTracks = majorTracks.where(
+    List<MajorTrack> yearedTracks = majorTracks
+        .where(
           (mt) => startYear >= mt.start_year && startYear <= mt.end_year,
-    ).toList();
-    if(user.departments.length == 0){
+        )
+        .toList();
+    if (user.departments.length == 0) {
       return yearedTracks[0].id;
     }
-    List<MajorTrack> targetTracks = yearedTracks.where((mt) => mt.department.code == user.departments[0].code).toList();
+    List<MajorTrack> targetTracks = yearedTracks
+        .where((mt) => mt.department.code == user.departments[0].code)
+        .toList();
 
     if (targetTracks.length > 0) {
       return targetTracks[0].id;
@@ -501,13 +502,14 @@ class PlannerModel extends ChangeNotifier {
     return yearedTracks[0].id;
   }
 
-  Future<bool> createPlanner(List<GeneralTrack> generalTracks, List<MajorTrack> majorTracks) async {
+  Future<bool> createPlanner(
+      List<GeneralTrack> generalTracks, List<MajorTrack> majorTracks) async {
     try {
       final response = await DioProvider().dio.post(
           API_PLANNER_URL.replaceFirst("{user_id}", user.id.toString()),
           data: {
             "start_year": getPlannerStartYear(),
-            "end_year": max(getPlannerStartYear() + 3,  DateTime.now().year),
+            "end_year": max(getPlannerStartYear() + 3, DateTime.now().year),
             "general_track": getPlannerGeneralTrack(generalTracks),
             "major_track": getPlannerMajorTrack(majorTracks),
             "additional_tracks": [],
@@ -536,10 +538,22 @@ class PlannerModel extends ChangeNotifier {
             "end_year": _planners[_selectedPlannerIndex].end_year,
             "general_track": _planners[_selectedPlannerIndex].general_track.id,
             "major_track": _planners[_selectedPlannerIndex].major_track.id,
-            "additional_tracks": _planners[_selectedPlannerIndex].additional_tracks.map((track) => track.id).toList(),
-            "taken_items_to_copy": _planners[_selectedPlannerIndex].taken_items.map((item) => item.id).toList(),
-            "future_items_to_copy": _planners[_selectedPlannerIndex].future_items.map((item) => item.id).toList(),
-            "arbitrary_items_to_copy": _planners[_selectedPlannerIndex].arbitrary_items.map((item) => item.id).toList()
+            "additional_tracks": _planners[_selectedPlannerIndex]
+                .additional_tracks
+                .map((track) => track.id)
+                .toList(),
+            "taken_items_to_copy": _planners[_selectedPlannerIndex]
+                .taken_items
+                .map((item) => item.id)
+                .toList(),
+            "future_items_to_copy": _planners[_selectedPlannerIndex]
+                .future_items
+                .map((item) => item.id)
+                .toList(),
+            "arbitrary_items_to_copy": _planners[_selectedPlannerIndex]
+                .arbitrary_items
+                .map((item) => item.id)
+                .toList()
           });
       final planner = Planner.fromJson(response.data);
 
@@ -553,73 +567,74 @@ class PlannerModel extends ChangeNotifier {
     return false;
   }
 
-  void _updateExclude(int lectureID){
-    if(_selected_item_type == 0){
-      _lectures[selectedSemesterKey][selected_item_index].is_excluded = !_lectures[selectedSemesterKey][selected_item_index].is_excluded;
+  void _updateExclude(int lectureID) {
+    if (_selected_item_type == 0) {
+      _lectures[selectedSemesterKey][selected_item_index].is_excluded =
+          !_lectures[selectedSemesterKey][selected_item_index].is_excluded;
       dynamic _item;
       _item = _lectures[selectedSemesterKey][selected_item_index];
       _lectures[selectedSemesterKey].removeAt(selected_item_index);
-      if(_lectures_excluded.containsKey(selectedSemesterKey)){
+      if (_lectures_excluded.containsKey(selectedSemesterKey)) {
         _lectures_excluded[selectedSemesterKey].add(_item);
-      }
-      else{
+      } else {
         _lectures_excluded[selectedSemesterKey] = [_item];
       }
-
-
-    }
-    else if(_selected_item_type == 2){
-      _lectures_excluded[selectedSemesterKey][selected_item_index].is_excluded = !_lectures_excluded[selectedSemesterKey][selected_item_index].is_excluded;
+    } else if (_selected_item_type == 2) {
+      _lectures_excluded[selectedSemesterKey][selected_item_index].is_excluded =
+          !_lectures_excluded[selectedSemesterKey][selected_item_index]
+              .is_excluded;
       dynamic _item;
       _item = _lectures_excluded[selectedSemesterKey][selected_item_index];
       _lectures_excluded[selectedSemesterKey].removeAt(selected_item_index);
-      if(_lectures.containsKey(selectedSemesterKey)){
+      if (_lectures.containsKey(selectedSemesterKey)) {
         _lectures[selectedSemesterKey].add(_item);
-      }
-      else{
+      } else {
         _lectures[selectedSemesterKey] = [_item];
       }
-    }
-    else if(_selected_item_type == 1){
-      _lectures_future[selectedSemesterKey][selected_item_index].is_excluded = !_lectures_future[selectedSemesterKey][selected_item_index].is_excluded;
+    } else if (_selected_item_type == 1) {
+      _lectures_future[selectedSemesterKey][selected_item_index].is_excluded =
+          !_lectures_future[selectedSemesterKey][selected_item_index]
+              .is_excluded;
       dynamic _item;
       _item = _lectures_future[selectedSemesterKey][selected_item_index];
       _lectures_future[selectedSemesterKey].removeAt(selected_item_index);
-      if(_lectures_future_excluded.containsKey(selectedSemesterKey)){
+      if (_lectures_future_excluded.containsKey(selectedSemesterKey)) {
         _lectures_future_excluded[selectedSemesterKey].add(_item);
-      }
-      else{
+      } else {
         _lectures_future_excluded[selectedSemesterKey] = [_item];
       }
-    }
-    else if(_selected_item_type == 3){
-      _lectures_future_excluded[selectedSemesterKey][selected_item_index].is_excluded = !_lectures_future_excluded[selectedSemesterKey][selected_item_index].is_excluded;
+    } else if (_selected_item_type == 3) {
+      _lectures_future_excluded[selectedSemesterKey][selected_item_index]
+          .is_excluded = !_lectures_future_excluded[selectedSemesterKey]
+              [selected_item_index]
+          .is_excluded;
       dynamic _item;
-      _item = _lectures_future_excluded[selectedSemesterKey][selected_item_index];
-      _lectures_future_excluded[selectedSemesterKey].removeAt(selected_item_index);
-      if(_lectures_future.containsKey(selectedSemesterKey)){
+      _item =
+          _lectures_future_excluded[selectedSemesterKey][selected_item_index];
+      _lectures_future_excluded[selectedSemesterKey]
+          .removeAt(selected_item_index);
+      if (_lectures_future.containsKey(selectedSemesterKey)) {
         _lectures_future[selectedSemesterKey].add(_item);
-      }
-      else{
+      } else {
         _lectures_future[selectedSemesterKey] = [_item];
       }
     }
-  notifyListeners();
+    notifyListeners();
   }
 
   Future<bool> updateExclude() async {
     dynamic selectedItem;
-    if(_selected_item_type == 0){
+    if (_selected_item_type == 0) {
       selectedItem = _lectures[selectedSemesterKey][_selected_item_index];
-    }
-    else if(_selected_item_type == 1){
-      selectedItem = _lectures_future[selectedSemesterKey][_selected_item_index];
-    }
-    else if(_selected_item_type == 2){
-      selectedItem = _lectures_excluded[selectedSemesterKey][_selected_item_index];
-    }
-    else if(_selected_item_type == 3){
-      selectedItem = _lectures_future_excluded[selectedSemesterKey][_selected_item_index];
+    } else if (_selected_item_type == 1) {
+      selectedItem =
+          _lectures_future[selectedSemesterKey][_selected_item_index];
+    } else if (_selected_item_type == 2) {
+      selectedItem =
+          _lectures_excluded[selectedSemesterKey][_selected_item_index];
+    } else if (_selected_item_type == 3) {
+      selectedItem =
+          _lectures_future_excluded[selectedSemesterKey][_selected_item_index];
     }
     bool toUpdate = !selectedItem.is_excluded;
     int itemID = selectedItem.id;
@@ -627,7 +642,10 @@ class PlannerModel extends ChangeNotifier {
 
     try {
       final response = await DioProvider().dio.post(
-          API_PLANNER_UPDATE_URL.replaceFirst("{user_id}", user.id.toString()).replaceFirst("{planner_id}", _planners[_selectedPlannerIndex].id.toString()),
+          API_PLANNER_UPDATE_URL
+              .replaceFirst("{user_id}", user.id.toString())
+              .replaceFirst("{planner_id}",
+                  _planners[_selectedPlannerIndex].id.toString()),
           data: {
             "is_excluded": toUpdate,
             "item": itemID,
@@ -642,5 +660,4 @@ class PlannerModel extends ChangeNotifier {
     }
     return false;
   }
-
 }

@@ -30,7 +30,8 @@ class _PlannerSemesterSelectTabsState extends State<PlannerSemesterSelectTabs> {
     List semester = planners.lectures.keys.toList();
     List semester_excluded = planners.lectures_excluded.keys.toList();
     List semester_future = planners.lectures_future.keys.toList();
-    List semester_future_excluded = planners.lectures_future_excluded.keys.toList();
+    List semester_future_excluded =
+        planners.lectures_future_excluded.keys.toList();
 
     for (int i = 0; i < semester_excluded.length; i++) {
       if (!semester.contains(semester_excluded[i])) {
@@ -67,7 +68,8 @@ class _PlannerSemesterSelectTabsState extends State<PlannerSemesterSelectTabs> {
     List semester = planners.lectures.keys.toList();
     List semester_excluded = planners.lectures_excluded.keys.toList();
     List semester_future = planners.lectures_future.keys.toList();
-    List semester_future_excluded = planners.lectures_future_excluded.keys.toList();
+    List semester_future_excluded =
+        planners.lectures_future_excluded.keys.toList();
 
     for (int i = 0; i < semester_excluded.length; i++) {
       if (!semester.contains(semester_excluded[i])) {

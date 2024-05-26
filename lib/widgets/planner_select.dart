@@ -34,7 +34,6 @@ class _PlannerSelectState extends State<PlannerSelect> {
         child: Padding(
           padding: const EdgeInsets.only(right: 8.0),
           child: Dropdown<int>(
-
             customButton: Container(
               height: 34,
               padding: EdgeInsets.fromLTRB(12, 0, 8, 0),
@@ -66,12 +65,15 @@ class _PlannerSelectState extends State<PlannerSelect> {
               } else if (value == planners.planners.length) {
                 //copy
                 Future<bool> result = planners.copyPlanner();
-                result.then((value) => planners.selectPlanner(planners.planners.length-1));
+                result.then((value) =>
+                    planners.selectPlanner(planners.planners.length - 1));
               } else if (value == planners.planners.length + 1) {
                 // get general track
                 tracks.loadTracks();
-                Future<bool> result = planners.createPlanner(tracks.general_tracks, tracks.major_tracks);
-                result.then((value) => planners.selectPlanner(planners.planners.length-1));
+                Future<bool> result = planners.createPlanner(
+                    tracks.general_tracks, tracks.major_tracks);
+                result.then((value) =>
+                    planners.selectPlanner(planners.planners.length - 1));
                 //add
               } else if (value == planners.planners.length + 2) {
                 //delete
@@ -86,8 +88,7 @@ class _PlannerSelectState extends State<PlannerSelect> {
                       },
                     ),
                   );
-                }
-                else{
+                } else {
                   OTLNavigator.pushDialog(
                     context: context,
                     builder: (_) => OTLDialog(
@@ -96,7 +97,8 @@ class _PlannerSelectState extends State<PlannerSelect> {
                         'planner': 'planner.tab'
                             .tr(args: [planners.selectedIndex.toString()])
                       },
-                      onTapPos: () => context.read<PlannerModel>().deletePlanner(),
+                      onTapPos: () =>
+                          context.read<PlannerModel>().deletePlanner(),
                     ),
                   );
                 }

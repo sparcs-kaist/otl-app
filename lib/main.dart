@@ -82,9 +82,7 @@ void main() {
                   if (infoModel.hasData) {
                     trackModel?.loadTracks();
                   }
-                  return (trackModel is TrackModel)
-                      ? trackModel
-                      : TrackModel();
+                  return (trackModel is TrackModel) ? trackModel : TrackModel();
                 },
               ),
               ChangeNotifierProvider(create: (_) => LectureSearchModel()),

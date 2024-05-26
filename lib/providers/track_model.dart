@@ -13,7 +13,6 @@ import 'package:otlplus/models/user.dart';
 import 'package:otlplus/utils/export_file.dart';
 
 class TrackModel extends ChangeNotifier {
-
   late List<GeneralTrack> _general_tracks = [];
   List<GeneralTrack> get general_tracks => _general_tracks;
 
@@ -45,7 +44,6 @@ class TrackModel extends ChangeNotifier {
           .map((tracks) => AdditionalTrack.fromJson(tracks))
           .toList();
 
-
       notifyListeners();
       return true;
     } catch (exception) {
@@ -53,5 +51,4 @@ class TrackModel extends ChangeNotifier {
     }
     return false;
   }
-
 }
