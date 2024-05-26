@@ -25,22 +25,6 @@ class _PlannerPageState extends State<PlannerPage> {
   Widget build(BuildContext context) {
     final planners = Provider.of<PlannerModel>(context);
 
-    if (!planners.isLoaded) {
-      return OTLLayout(
-        body: Expanded(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              CircularProgressIndicator(),
-              Text(
-                "불러오는 중",
-                style: bodyRegular.copyWith(color: OTLColor.pinksMain),
-              ),
-            ],
-          ),
-        ),
-      );
-    }
     return OTLLayout(
       leading: PlannerSelect(),
       trailing: Container(
@@ -50,32 +34,36 @@ class _PlannerPageState extends State<PlannerPage> {
           color: OTLColor.pinksMain,
         ),
       ),
-      body: Card(
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(topRight: Radius.circular(16.0)),
-        ),
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                PlannerPreview(),
-                SizedBox(
-                  height: 16,
-                ),
-                PlannerSemesterSelectTabs(
-                  onTap: (i) {},
-                ),
-                SizedBox(
-                  height: 16,
-                ),
-                PlannerSemester(),
-              ],
+      body: !planners.isLoaded?
+        Center(
+          child: CircularProgressIndicator(),
+        ):
+        Card(
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(topRight: Radius.circular(16.0)),
+          ),
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  PlannerPreview(),
+                  SizedBox(
+                    height: 16,
+                  ),
+                  PlannerSemesterSelectTabs(
+                    onTap: (i) {},
+                  ),
+                  SizedBox(
+                    height: 16,
+                  ),
+                  PlannerSemester(),
+                ],
+              ),
             ),
           ),
         ),
-      ),
     );
   }
 }
