@@ -10,8 +10,7 @@ import 'package:otlplus/widgets/otl_dialog.dart';
 import 'package:provider/provider.dart';
 
 class PlannerSelect extends StatefulWidget {
-  const PlannerSelect({Key? key, int selectedMode = 0})
-      : super(key: key);
+  const PlannerSelect({Key? key, int selectedMode = 0}) : super(key: key);
 
   @override
   State<PlannerSelect> createState() => _PlannerSelectState();
