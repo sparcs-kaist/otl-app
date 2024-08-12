@@ -43,6 +43,12 @@ dependencies:
   firebase_core: ^2.23.0
   firebase_analytics: ^10.7.1
   firebase_crashlytics: ^3.4.5
+  channel_talk_flutter:
+    git:
+      url: https://github.com/happycastle114/channel_talk_flutter.git
+      ref: main
+
+  firebase_messaging: ^14.7.19
 
 dev_dependencies:
   test: ^1.24.9

@@ -11,6 +11,7 @@
         android:maxSdkVersion="28"/>
     <uses-permission
         android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
     <application
         android:name="${applicationName}"
         android:label="OTL"
@@ -31,6 +32,14 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+         <service
+        android:name="com.kuku.channel_talk_flutter.PushInterceptService"
+        android:exported="true"
+         >
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
+        </service>
         <!-- Don't delete the meta-data below.
              This is used by the Flutter tool to generate GeneratedPluginRegistrant.java -->
         <meta-data
