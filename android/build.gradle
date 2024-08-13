@@ -6,11 +6,12 @@ allprojects {
         google()
         mavenCentral()
     }
-    ext {
-        compileSdkVersion   = 34
-        targetSdkVersion    = 34
-        appCompatVersion    = "1.7.0"
-    }
+}
+
+ext {
+    compileSdkVersion   = 34
+    targetSdkVersion    = 34
+    appCompatVersion    = "1.7.0"
 }
 
 rootProject.buildDir = '../build'
@@ -39,11 +40,4 @@ subprojects {
 
 tasks.register("clean", Delete) {
     delete rootProject.buildDir
-}
-
-
-configurations.all {
-    resolutionStrategy {
-        force 'androidx.core:core-ktx:1.6.0'
-    }
 }

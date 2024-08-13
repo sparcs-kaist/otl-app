@@ -64,8 +64,8 @@ class Dropdown<T> extends StatelessWidget {
                   radius: Radius.circular(1.5),
                   mainAxisMargin: 11.5,
                   crossAxisMargin: 4.5,
-                  thickness: WidgetStatePropertyAll(3),
-                  thumbColor: WidgetStatePropertyAll(OTLColor.grayF),
+                  thickness: MaterialStatePropertyAll(3),
+                  thumbColor: MaterialStatePropertyAll(OTLColor.grayF),
                   interactive: true,
                 )
               : null,

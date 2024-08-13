@@ -14,7 +14,7 @@ description: Online Timeplanner with Lectures Plus App @ KAIST
 version: 2.3.0+21
 
 environment:
-  sdk: ">=2.14.0 <3.0.0"
+  sdk: ">=3.2.0 <4.0.0"
 publish_to: none
 
 dependencies:
@@ -40,15 +40,15 @@ dependencies:
   mailto: ^2.0.0
   dropdown_button2: ^3.0.0-beta.7
   # Firebase
-  firebase_core: ^2.23.0
-  firebase_analytics: ^10.7.1
-  firebase_crashlytics: ^3.4.5
+  firebase_core: ^3.3.0
+  firebase_analytics: ^11.2.1
+  firebase_crashlytics: ^4.0.4
   channel_talk_flutter:
     git:
       url: https://github.com/happycastle114/channel_talk_flutter.git
       ref: main
 
-  firebase_messaging: ^14.7.19
+  firebase_messaging: ^15.0.4
 
 dev_dependencies:
   test: ^1.24.9
