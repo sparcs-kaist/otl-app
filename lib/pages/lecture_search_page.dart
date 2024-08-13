@@ -92,9 +92,8 @@ class _LectureSearchPageState extends State<LectureSearchPage> {
                         style: bodyBold.copyWith(color: OTLColor.pinksMain),
                       ),
                       style: ButtonStyle(
-                        backgroundColor:
-                            MaterialStatePropertyAll(OTLColor.grayF),
-                        shape: MaterialStatePropertyAll(
+                        backgroundColor: WidgetStatePropertyAll(OTLColor.grayF),
+                        shape: WidgetStatePropertyAll(
                           RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8.0),
                           ),
@@ -108,7 +107,7 @@ class _LectureSearchPageState extends State<LectureSearchPage> {
                   Expanded(
                     child: FilledButton(
                       style: ButtonStyle(
-                        shape: MaterialStatePropertyAll(
+                        shape: WidgetStatePropertyAll(
                           RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8.0),
                           ),

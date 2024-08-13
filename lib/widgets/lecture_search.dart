@@ -27,7 +27,7 @@ class _LectureSearchState extends State<LectureSearch> {
     final searchModel = context.watch<LectureSearchModel>();
 
     return PopScope(
-      onPopInvoked: (_) {
+      onPopInvokedWithResult: (_, __) {
         if (widget.onClosed != null) {
           widget.onClosed!();
         }
