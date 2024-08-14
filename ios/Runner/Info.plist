@@ -78,5 +78,16 @@
 		<string>사용자 요청 시 해당 기능을 사용합니다.</string>
 		<key>UIStatusBarHidden</key>
 		<false/>
+		<key>NSCameraUsageDescription</key>
+		<string>사용자 요청 시 고객센터에서 사진을 주고받기 위해 필요합니다.</string>
+
+		<key>NSMicrophoneUsageDescription</key>
+		<string>사용자 요청 시 고객센터에서 음성을 주고받기 위해 필요합니다.</string>
+
+		<key>NSPhotoLibraryAddUsageDescription</key>
+		<string>사용자 요청 시 고객센터에서 주고받은 사진을 저장합니다.</string>
+		
+		<key>NSPhotoLibraryUsageDescription</key>
+		<string>사용자 요청 시 고객센터에서 사진을 주고받기 위해 필요합니다.</string>
 	</dict>
 </plist>

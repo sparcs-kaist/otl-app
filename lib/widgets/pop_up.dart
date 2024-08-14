@@ -88,7 +88,7 @@ Widget _build23fRecruiting() {
               const SizedBox(height: 262.0),
               FilledButton(
                 style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(Color(0xFFEBA12A)),
+                  backgroundColor: WidgetStatePropertyAll(Color(0xFFEBA12A)),
                 ),
                 onPressed: () => launchUrl(
                   Uri.parse(

@@ -8,6 +8,12 @@ allprojects {
     }
 }
 
+ext {
+    compileSdkVersion   = 34
+    targetSdkVersion    = 34
+    appCompatVersion    = "1.7.0"
+}
+
 rootProject.buildDir = '../build'
 subprojects {
     project.buildDir = "${rootProject.buildDir}/${project.name}"

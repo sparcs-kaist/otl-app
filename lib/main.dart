@@ -24,6 +24,8 @@ import 'package:otlplus/providers/latest_reviews_model.dart';
 import 'package:otlplus/providers/lecture_search_model.dart';
 import 'package:otlplus/providers/timetable_model.dart';
 import 'package:otlplus/utils/create_material_color.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:channel_talk_flutter/channel_talk_flutter.dart';
 
 import 'firebase_options.dart';
 
@@ -31,10 +33,35 @@ void main() {
   runZonedGuarded<Future<void>>(() async {
     WidgetsFlutterBinding.ensureInitialized();
     await EasyLocalization.ensureInitialized();
+
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
     );
+
+    await FirebaseMessaging.instance.requestPermission(
+      alert: true,
+      announcement: false,
+      badge: true,
+      carPlay: false,
+      criticalAlert: false,
+      provisional: true,
+      sound: true,
+    );
+
+    final token = await FirebaseMessaging.instance.getToken();
+
     FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
+
+    await ChannelTalk.boot(
+      pluginKey: '0abc4b50-9e66-4b45-b910-eb654a481f08', // Required
+      memberHash: token,
+      language: Language.korean,
+      appearance: Appearance.light,
+    );
+
+    await ChannelTalk.initPushToken(deviceToken: token ?? "");
+
+    await ChannelTalk.showChannelButton();
 
     runApp(
       EasyLocalization(

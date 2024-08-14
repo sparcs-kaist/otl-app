@@ -7,13 +7,13 @@ on:
     branches: [main]
 
 env:
-  FLUTTER_VERSION: "3"
+  FLUTTER_VERSION: "3.22.3"
   JAVA_VERSION: "17"
 
 jobs:
   build-android:
     name: Build Android
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - name: Set up Java
@@ -25,7 +25,7 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           flutter-version: ${{ env.FLUTTER_VERSION }}
-          channel: "stable"
+          # channel: "stable"
       - name: Create key.properties
         run: |
           echo "storeFile=../ci.jks" > android/key.properties
@@ -48,7 +48,7 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           flutter-version: ${{ env.FLUTTER_VERSION }}
-          channel: "stable"
+          # channel: "stable"
       - uses: actions/cache@v3
         with:
           path: Pods
