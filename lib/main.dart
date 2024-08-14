@@ -56,7 +56,7 @@ void main() {
       pluginKey: '0abc4b50-9e66-4b45-b910-eb654a481f08', // Required
       memberHash: token,
       language: Language.korean,
-      appearance: Appearance.dark,
+      appearance: Appearance.light,
     );
 
     await ChannelTalk.initPushToken(deviceToken: token ?? "");
