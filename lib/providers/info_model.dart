@@ -52,17 +52,18 @@ class InfoModel extends ChangeNotifier {
 
   void logout() {
     ChannelTalk.isBooted().then((isBooted) => {
-      if (isBooted == true) {
-        ChannelTalk.updateUser(
-          name: "",
-          email: "",
-          customAttributes: {
-            "id": 0,
-            "studentId": "",
-          },
-        )
-      }
-    });
+          if (isBooted == true)
+            {
+              ChannelTalk.updateUser(
+                name: "",
+                email: "",
+                customAttributes: {
+                  "id": 0,
+                  "studentId": "",
+                },
+              )
+            }
+        });
 
     _hasData = false;
     notifyListeners();
