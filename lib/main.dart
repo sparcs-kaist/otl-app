@@ -53,11 +53,12 @@ void main() {
     FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
 
     await ChannelTalk.boot(
-      pluginKey: '0abc4b50-9e66-4b45-b910-eb654a481f08', // Required
-      memberHash: token,
-      language: Language.korean,
-      appearance: Appearance.light,
-    );
+        pluginKey: '0abc4b50-9e66-4b45-b910-eb654a481f08', // Required
+        memberHash: token,
+        language: Language.korean,
+        appearance: Appearance.light,
+        channelButtonOption: ChannelButtonOption(
+            position: ChannelButtonPosition.right, xMargin: 16, yMargin: 130));
 
     await ChannelTalk.initPushToken(deviceToken: token ?? "");
 
