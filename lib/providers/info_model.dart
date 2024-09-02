@@ -1,3 +1,4 @@
+import 'package:channel_talk_flutter/channel_talk_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:otlplus/constants/url.dart';
 import 'package:otlplus/dio_provider.dart';
@@ -50,6 +51,20 @@ class InfoModel extends ChangeNotifier {
   }
 
   void logout() {
+    ChannelTalk.isBooted().then((isBooted) => {
+          if (isBooted == true)
+            {
+              ChannelTalk.updateUser(
+                name: "",
+                email: "",
+                customAttributes: {
+                  "id": 0,
+                  "studentId": "",
+                },
+              )
+            }
+        });
+
     _hasData = false;
     notifyListeners();
   }
@@ -62,6 +77,18 @@ class InfoModel extends ChangeNotifier {
       _currentSchedule = getCurrentSchedule();
       _hasData = true;
     }
+
+    if (await ChannelTalk.isBooted() == true) {
+      ChannelTalk.updateUser(
+        name: "${user.firstName} ${user.lastName}",
+        email: user.email,
+        customAttributes: {
+          "id": user.id,
+          "studentId": user.studentId,
+        },
+      );
+    }
+
     notifyListeners();
   }
 
