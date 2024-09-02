@@ -70,7 +70,7 @@ packages:
     description:
       path: "."
       ref: main
-      resolved-ref: f863ea48eb96624fcc55475bed3eec2829da9c41
+      resolved-ref: "6090bc7f6b2ca047b69a85b213e9a81004e2c923"
       url: "https://github.com/happycastle114/channel_talk_flutter"
     source: git
     version: "3.1.3"

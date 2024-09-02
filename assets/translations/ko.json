@@ -174,7 +174,8 @@
     "throw_test": "테스트 오류 발생",
     "throw_test_desc": "Firebase crashlytics 테스트용",
     "about": "정보",
-    "view_licenses": "라이선스 보기"
+    "view_licenses": "라이선스 보기",
+    "show_channel_talk_button": "채널톡 버튼 표시하기"
   },
   "department": {
     "department": "학과",
