@@ -273,18 +273,20 @@ class _TimetablePageState extends State<TimetablePage> {
             ),
           );
         } else {
-          context.read<TimetableModel>().deleteTimetable();
-          // OTLNavigator.pushDialog(
-          //   context: context,
-          //   builder: (_) => OTLDialog(
-          //     type: OTLDialogType.deleteTab,
-          //     namedArgs: {
-          //       'timetable': 'timetable.tab'
-          //           .tr(args: [timetableModel.selectedIndex.toString()])
-          //     },
-          //     onTapPos: () => context.read<TimetableModel>().deleteTimetable(),
-          //   ),
-          // );
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            OTLNavigator.pushDialog(
+              context: context,
+              builder: (_) => OTLDialog(
+                type: OTLDialogType.deleteTab,
+                namedArgs: {
+                  'timetable': 'timetable.tab'
+                      .tr(args: [timetableModel.selectedIndex.toString()])
+                },
+                onTapPos: () =>
+                    context.read<TimetableModel>().deleteTimetable(),
+              ),
+            );
+          });
         }
       },
       onExportTap: (type) {
