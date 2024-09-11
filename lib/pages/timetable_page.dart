@@ -251,27 +251,31 @@ class _TimetablePageState extends State<TimetablePage> {
       },
       onDeleteTap: (i) {
         if (i == 0) {
-          OTLNavigator.pushDialog(
-            context: context,
-            builder: (_) => OTLDialog(
-                type: OTLDialogType.accountDeleted,
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            OTLNavigator.pushDialog(
+              context: context,
+              builder: (_) => OTLDialog(
+                  type: OTLDialogType.accountDeleted,
+                  namedArgs: {
+                    'timetable': 'timetable.tab'
+                        .tr(args: [timetableModel.selectedIndex.toString()])
+                  },
+                  onTapPos: () {}),
+            );
+          });
+        } else if (timetableModel.timetables.length <= 2) {
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            OTLNavigator.pushDialog(
+              context: context,
+              builder: (_) => OTLDialog(
+                type: OTLDialogType.disabledDeleteLastTab,
                 namedArgs: {
                   'timetable': 'timetable.tab'
                       .tr(args: [timetableModel.selectedIndex.toString()])
                 },
-                onTapPos: () {}),
-          );
-        } else if (timetableModel.timetables.length <= 2) {
-          OTLNavigator.pushDialog(
-            context: context,
-            builder: (_) => OTLDialog(
-              type: OTLDialogType.disabledDeleteLastTab,
-              namedArgs: {
-                'timetable': 'timetable.tab'
-                    .tr(args: [timetableModel.selectedIndex.toString()])
-              },
-            ),
-          );
+              ),
+            );
+          });
         } else {
           WidgetsBinding.instance.addPostFrameCallback((_) {
             OTLNavigator.pushDialog(
