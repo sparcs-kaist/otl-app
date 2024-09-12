@@ -51,7 +51,7 @@ class TimetableBlock extends StatelessWidget {
           color: isTemp ? OTLColor.grayF : OTLColor.gray0,
           overflow: TextOverflow.ellipsis,
         ),
-        maxLines: maxLines > 1 ? maxLines : 1,
+        maxLines: 2,
       ));
     }
 
@@ -70,6 +70,7 @@ class TimetableBlock extends StatelessWidget {
             style: labelRegular.copyWith(
               color: isTemp ? OTLColor.grayE : OTLColor.gray6,
               overflow: TextOverflow.ellipsis,
+              fontSize: 10,
             ),
             maxLines: maxLines > 1 ? maxLines : 1,
           ),
