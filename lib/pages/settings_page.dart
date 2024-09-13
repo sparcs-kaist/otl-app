@@ -12,6 +12,7 @@ import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter/foundation.dart' show kDebugMode;
 import 'package:easy_localization/easy_localization.dart';
+import 'package:channel_talk_flutter/channel_talk_flutter.dart';
 
 class SettingsPage extends StatelessWidget {
   @override
@@ -105,6 +106,25 @@ class SettingsPage extends StatelessWidget {
                           .read<SettingsModel>()
                           .setSendCrashlyticsAnonymously(value),
                     ),
+                  ),
+                ),
+                _buildListTile(
+                  title: "settings.show_channel_talk_button".tr(),
+                  trailing: CupertinoSwitch(
+                    value: context
+                        .watch<SettingsModel>()
+                        .getShowsChannelTalkButton(),
+                    onChanged: (value) {
+                      context
+                          .read<SettingsModel>()
+                          .setShowsChannelTalkButton(value);
+
+                      if (!value) {
+                        ChannelTalk.hideChannelButton();
+                      } else {
+                        ChannelTalk.showChannelButton();
+                      }
+                    },
                   ),
                 ),
                 Visibility(
