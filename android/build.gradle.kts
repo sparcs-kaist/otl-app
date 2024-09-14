@@ -37,6 +37,13 @@ subprojects {
                 }
             }
         }
+        if (project.plugins.hasPlugin("com.android.application") ||
+            project.plugins.hasPlugin("com.android.library")
+        ) {
+            project.extensions.configure<BaseExtension> {
+                rootProject.extra.get("compileSdkVersion")?.toString()?.toIntOrNull()?.let { compileSdkVersion(it) }
+            }
+        }
         tasks.withType(KotlinCompile::class.java).configureEach {
             if (project.plugins.hasPlugin("com.android.application") || project.plugins.hasPlugin("com.android.library")) {
                 kotlinOptions {
