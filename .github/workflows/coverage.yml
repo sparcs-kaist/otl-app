@@ -3,19 +3,18 @@ name: Coverage
 on: [push]
 
 env:
-  FLUTTER_VERSION: "3.22.3"
+  FLUTTER_VERSION: "3.24.0"
 
 jobs:
   coverage:
     name: Upload coverage to Codecov
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
           flutter-version: ${{ env.FLUTTER_VERSION }}
-          # channel: "stable"
       - name: Install lcov
         run: sudo apt-get install -y lcov
       - name: Install dependencies
@@ -23,7 +22,7 @@ jobs:
       - name: Test
         run: ./test/run.sh
       - name: Upload
-        uses: codecov/codecov-action@v3
+        uses: codecov/codecov-action@v4
         with:
           files: ./coverage/lcov.info
           token: ${{ secrets.CODECOV_TOKEN }}
