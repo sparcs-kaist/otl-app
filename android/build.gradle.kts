@@ -15,14 +15,6 @@ buildscript {
         set("compileSdkVersion", 34)
         set("targetSdkVersion", 34)
     }
-    repositories {
-        maven {
-            url = uri("https://plugins.gradle.org/m2/")
-        }
-    }
-    dependencies {
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.9.23")
-    }
 }
 
 rootProject.layout.buildDirectory.set(file("../build"))
