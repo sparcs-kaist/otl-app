@@ -52,7 +52,7 @@
 
             <meta-data
                 android:name="android.appwidget.provider"
-                android:resource="@xml/time_table_widget_info" />
+                android:resource="@xml/next_lecture_widget_info" />
         </receiver>
 
         <activity

@@ -5,11 +5,11 @@ object Data { // TODO: Get data using api
         get() = "다음주 월요일"
 
     val nextLectureName
-        get() = "그래프이론 개론"
+        get() = "일반물리학"
 
     val nextLecturePlace
-        get() = "(E2)산업경영학동1225"
+        get() = "(E11)창의학습관 311"
 
     val nextLectureProfessor
-        get() = "김재훈"
+        get() = "김교수"
 }
