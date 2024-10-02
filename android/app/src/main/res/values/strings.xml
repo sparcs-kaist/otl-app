@@ -4,5 +4,9 @@
     <string name="add_widget">Add widget</string>
     <string name="app_widget_description">This is an app widget description</string>
     <string name="next_lecture">다음 강의</string>
+    <string name="next_lecture_date_preview">6시간 뒤</string>
+    <string name="next_lecture_place_preview">교양분관</string>
+    <string name="next_lecture_name_preview">OTL 개론</string>
+    <string name="next_lecture_professor_preview">○○○ 교수님</string>
     <string name="placeholder">{placeholder}</string>
 </resources>

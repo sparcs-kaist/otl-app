@@ -25,7 +25,7 @@
             android:textColor="@color/gray0"
             android:textSize="11sp"
             android:textFontWeight="700"
-            android:text="@string/placeholder" />
+            android:text="@string/next_lecture_date_preview" />
 
         <LinearLayout
             android:layout_marginTop="6dp"
@@ -50,7 +50,7 @@
                 android:textFontWeight="700"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:text="@string/placeholder"/>
+                android:text="@string/next_lecture_name_preview"/>
         </LinearLayout>
 
         <TextView
@@ -62,7 +62,7 @@
             android:textFontWeight="400"
             android:ellipsize="end"
             android:maxLines="1"
-            android:text="@string/placeholder"/>
+            android:text="@string/next_lecture_place_preview"/>
 
         <TextView
             android:id="@+id/nextLectureProfessor"
@@ -73,6 +73,6 @@
             android:textFontWeight="500"
             android:ellipsize="end"
             android:maxLines="1"
-            android:text="@string/placeholder"/>
+            android:text="@string/next_lecture_professor_preview"/>
     </LinearLayout>
 </RelativeLayout>
