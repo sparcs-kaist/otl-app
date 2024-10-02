@@ -16,4 +16,39 @@
         <item name="android:background">?android:attr/colorBackground</item>
         <item name="android:textColor">?android:attr/textColorPrimary</item>
     </style>
+    
+    <style name="DayTextStyle">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/gray0</item>
+        <item name="android:textSize">11sp</item>
+    </style>
+
+    <style name="TimeTextStyle">
+        <item name="android:layout_width">13dp</item>
+        <item name="android:layout_height">18dp</item>
+        <item name="android:layout_weight">0</item>
+        <item name="android:layout_marginEnd">6dp</item>
+        <item name="android:gravity">end</item>
+        <item name="android:textColor">@color/gray0</item>
+        <item name="android:textSize">11sp</item>
+    </style>
+
+    <style name="SolidGuideline">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:background">@drawable/solid_guideline</item>
+        <item name="android:layout_margin">1dp</item>
+    </style>
+
+    <style name="DottedGuideLine">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:background">@drawable/dotted_guideline</item>
+        <item name="android:layout_margin">1dp</item>
+    </style>
 </resources>

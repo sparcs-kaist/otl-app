@@ -3,6 +3,13 @@
     <string name="appwidget_text">EXAMPLE</string>
     <string name="add_widget">Add widget</string>
     <string name="app_widget_description">This is an app widget description</string>
+    <string name="mon">월</string>
+    <string name="tue">화</string>
+    <string name="wed">수</string>
+    <string name="thu">목</string>
+    <string name="fri">금</string>
+    <string name="sat">토</string>
+    <string name="sun">일</string>
     <string name="next_lecture_widget_description">다음 강의의 세부 정보를 확인하세요.</string>
     <string name="next_lecture">다음 강의</string>
     <string name="next_lecture_date_preview">6시간 뒤</string>
