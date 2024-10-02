@@ -9,6 +9,6 @@
     android:previewLayout="@layout/timetable_widget"
     android:resizeMode="horizontal|vertical"
     android:targetCellWidth="4"
-    android:targetCellHeight="4"
+    android:targetCellHeight="3"
     android:updatePeriodMillis="86400000"
     android:widgetCategory="home_screen" />
