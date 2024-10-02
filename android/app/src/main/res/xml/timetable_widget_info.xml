@@ -5,7 +5,7 @@
     android:initialLayout="@layout/timetable_widget"
     android:minWidth="40dp"
     android:minHeight="40dp"
-    android:previewImage="@drawable/example_appwidget_preview"
+    android:previewImage="@drawable/timetable_appwidget_preview"
     android:previewLayout="@layout/timetable_widget"
     android:resizeMode="horizontal|vertical"
     android:targetCellWidth="4"
