@@ -19,15 +19,20 @@ struct Provider: IntentTimelineProvider {
     func getSnapshot(for configuration: ConfigurationIntent, in context: Context, completion: @escaping (WidgetEntry) -> ()) {
         let sharedDefaults = UserDefaults.init(suiteName: "group.org.sparcs.otl")
         
-        let sessionid = sharedDefaults?.string(forKey: "sessionid")
+        let refreshToken = sharedDefaults?.string(forKey: "refreshToken")
+        let csrfToken = sharedDefaults?.string(forKey: "csrftoken")
+        let accessToken = sharedDefaults?.string(forKey: "accessToken")
         let uid = sharedDefaults?.string(forKey: "uid")
         
-        if (sessionid == nil || uid == nil) {
+        if (refreshToken == nil || csrfToken == nil || accessToken == nil || uid == nil) {
             // sessionid or uid is not found. Requires login.
             completion(WidgetEntry(date: Date(), timetableData: nil, configuration: configuration))
         }
         
-        OTLAPI().getSemesters() { result in
+        let API: OTLAPI = OTLAPI.shared
+        API.setTokens(csrfToken: csrfToken, refreshToken: refreshToken, accessToken: accessToken)
+        
+        API.getSemesters() { result in
             switch result {
             case .success(let semesters):
                 var semester: Semester {
@@ -45,11 +50,11 @@ struct Provider: IntentTimelineProvider {
                     return t!
                 }
 
-                OTLAPI().getActualTimetable(sessionID: sessionid!, userID: uid!, year: semester.year, semester: semester.semester) { result in
+                API.getActualTimetable(userID: uid!, year: semester.year, semester: semester.semester) { result in
                     switch result {
                     case .success(let timetable):
                         // handle my table data
-                        OTLAPI().getTimetables(sessionID: sessionid!, userID: uid!, year: semester.year, semester: semester.semester) { result in
+                        API.getTimetables(userID: uid!, year: semester.year, semester: semester.semester) { result in
                             switch result {
                             case .success(var timetables):
                                 // save timetable data
@@ -92,11 +97,13 @@ struct Provider: IntentTimelineProvider {
         var entries: [WidgetEntry] = [WidgetEntry]()
         let sharedDefaults = UserDefaults.init(suiteName: "group.org.sparcs.otl")
         
-        let sessionid = sharedDefaults?.string(forKey: "sessionid")
+        let refreshToken = sharedDefaults?.string(forKey: "refreshToken")
+        let csrfToken = sharedDefaults?.string(forKey: "csrftoken")
+        let accessToken = sharedDefaults?.string(forKey: "accessToken")
         let uid = sharedDefaults?.string(forKey: "uid")
         
-        if (sessionid == nil || uid == nil) {
-            // sessionid or uid is not found. Requires login.
+        if (refreshToken == nil || csrfToken == nil || accessToken == nil || uid == nil) {
+            // tokens or uid is not found. Requires login.
             let currentDate = Date()
             entries = [WidgetEntry(date: currentDate, timetableData: nil, configuration: configuration)]
             
@@ -104,7 +111,10 @@ struct Provider: IntentTimelineProvider {
             completion(timeline)
         }
         
-        OTLAPI().getSemesters() { result in
+        let API: OTLAPI = OTLAPI.shared
+        API.setTokens(csrfToken: csrfToken, refreshToken: refreshToken, accessToken: accessToken)
+        
+        API.getSemesters() { result in
             switch result {
             case .success(let semesters):
                 var semester: Semester {
@@ -122,10 +132,10 @@ struct Provider: IntentTimelineProvider {
                     return t!
                 }
                 
-                OTLAPI().getActualTimetable(sessionID: sessionid!, userID: uid!, year: semester.year, semester: semester.semester) { result in
+                API.getActualTimetable(userID: uid!, year: semester.year, semester: semester.semester) { result in
                     switch result {
                     case .success(let timetable):
-                        OTLAPI().getTimetables(sessionID: sessionid!, userID: uid!, year: semester.year, semester: semester.semester) { result in
+                        API.getTimetables(userID: uid!, year: semester.year, semester: semester.semester) { result in
                             switch result {
                             case .success(var timetables):
                                 // save timetable data
@@ -211,7 +221,7 @@ struct OTLWidgetBundle : WidgetBundle {
         WeekClassesWidget()
         
         // Lock Complications accessories for iOS 16+
-        if #available(iOSApplicationExtension 16.0, *) {
+        if #available(iOS 16.1, *) {
             NextClassAccessory()
             TimeInlineAccessory()
             LocationInlineAccessory()
