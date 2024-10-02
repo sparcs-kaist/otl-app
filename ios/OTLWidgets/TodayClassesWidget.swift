@@ -191,6 +191,7 @@ struct TodayClassesLectureView: View {
                     Text(lecturePlace)
                         .font(.custom("NotoSansKR-Regular", size: 12))
                         .foregroundColor(Color(red: 102.0/255, green: 102.0/255, blue: 102.0/255))
+                        .widgetAccentable()
                     Spacer()
                 }.padding(.vertical, 8)
                 Spacer()
