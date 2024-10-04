@@ -8,47 +8,48 @@
     android:background="@drawable/rounded_corner_background"
     android:padding="8dp">
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/timetable_start"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="19dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0"/>
+
+        <TextView
+            style="@style/DayTextStyle"
+            android:textFontWeight="400"
+            android:text="@string/mon" />
+
+        <TextView
+            style="@style/DayTextStyle"
+            android:textFontWeight="400"
+            android:text="@string/tue" />
+
+        <TextView
+            style="@style/DayTextStyle"
+            android:textFontWeight="400"
+            android:text="@string/wed" />
+
+        <TextView
+            style="@style/DayTextStyle"
+            android:textFontWeight="400"
+            android:text="@string/thu" />
+
+        <TextView
+            style="@style/DayTextStyle"
+            android:textFontWeight="400"
+            android:text="@string/fri" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_below="@id/timetable_start"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="19dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0"/>
-
-            <TextView
-                style="@style/DayTextStyle"
-                android:textFontWeight="400"
-                android:text="@string/mon" />
-
-            <TextView
-                style="@style/DayTextStyle"
-                android:textFontWeight="400"
-                android:text="@string/tue" />
-
-            <TextView
-                style="@style/DayTextStyle"
-                android:textFontWeight="400"
-                android:text="@string/wed" />
-
-            <TextView
-                style="@style/DayTextStyle"
-                android:textFontWeight="400"
-                android:text="@string/thu" />
-
-            <TextView
-                style="@style/DayTextStyle"
-                android:textFontWeight="400"
-                android:text="@string/fri" />
-        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -373,5 +374,169 @@
             <TextView style="@style/SolidGuideline" />
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+            <TextView style="@style/TimeTextStyle"/>
+            <ImageView style="@style/DottedGuideLine"/>
+            <ImageView style="@style/DottedGuideLine"/>
+            <ImageView style="@style/DottedGuideLine"/>
+            <ImageView style="@style/DottedGuideLine"/>
+            <ImageView style="@style/DottedGuideLine"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+            <TextView
+                style="@style/TimeTextStyle"
+                android:text="9"/>
+            <TextView style="@style/SolidGuideline" />
+            <TextView style="@style/SolidGuideline" />
+            <TextView style="@style/SolidGuideline" />
+            <TextView style="@style/SolidGuideline" />
+            <TextView style="@style/SolidGuideline" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+            <TextView style="@style/TimeTextStyle"/>
+            <ImageView style="@style/DottedGuideLine"/>
+            <ImageView style="@style/DottedGuideLine"/>
+            <ImageView style="@style/DottedGuideLine"/>
+            <ImageView style="@style/DottedGuideLine"/>
+            <ImageView style="@style/DottedGuideLine"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+            <TextView
+                style="@style/TimeTextStyle"
+                android:text="10"/>
+            <TextView style="@style/SolidGuideline" />
+            <TextView style="@style/SolidGuideline" />
+            <TextView style="@style/SolidGuideline" />
+            <TextView style="@style/SolidGuideline" />
+            <TextView style="@style/SolidGuideline" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+            <TextView style="@style/TimeTextStyle"/>
+            <ImageView style="@style/DottedGuideLine"/>
+            <ImageView style="@style/DottedGuideLine"/>
+            <ImageView style="@style/DottedGuideLine"/>
+            <ImageView style="@style/DottedGuideLine"/>
+            <ImageView style="@style/DottedGuideLine"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+            <TextView
+                style="@style/TimeTextStyle"
+                android:text="11"/>
+            <TextView style="@style/SolidGuideline" />
+            <TextView style="@style/SolidGuideline" />
+            <TextView style="@style/SolidGuideline" />
+            <TextView style="@style/SolidGuideline" />
+            <TextView style="@style/SolidGuideline" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+            <TextView style="@style/TimeTextStyle"/>
+            <ImageView style="@style/DottedGuideLine"/>
+            <ImageView style="@style/DottedGuideLine"/>
+            <ImageView style="@style/DottedGuideLine"/>
+            <ImageView style="@style/DottedGuideLine"/>
+            <ImageView style="@style/DottedGuideLine"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+            <TextView
+                style="@style/TimeTextStyle"
+                android:text="12"/>
+            <TextView style="@style/SolidGuideline" />
+            <TextView style="@style/SolidGuideline" />
+            <TextView style="@style/SolidGuideline" />
+            <TextView style="@style/SolidGuideline" />
+            <TextView style="@style/SolidGuideline" />
+        </LinearLayout>
+
     </LinearLayout>
+
+    <LinearLayout
+        android:layout_below="@id/timetable_start"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="9dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView style="@style/TimeTextStyle" />
+
+            <LinearLayout
+                android:id="@+id/time_table_column_1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical" />
+
+            <LinearLayout
+                android:id="@+id/time_table_column_2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical" />
+
+            <LinearLayout
+                android:id="@+id/time_table_column_3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical" />
+
+            <LinearLayout
+                android:id="@+id/time_table_column_4"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical" />
+
+            <LinearLayout
+                android:id="@+id/time_table_column_5"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical" />
+        </LinearLayout>
+    </LinearLayout>
+
 </RelativeLayout>
