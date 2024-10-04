@@ -86,3 +86,6 @@ lib/generated_plugin_registrant.dart
 
 # etc
 android/app/property*
+
+# FVM Version Cache
+.fvm/
