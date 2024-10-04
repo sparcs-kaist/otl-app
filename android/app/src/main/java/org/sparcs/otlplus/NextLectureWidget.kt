@@ -4,7 +4,7 @@ import android.appwidget.AppWidgetManager
 import android.appwidget.AppWidgetProvider
 import android.content.Context
 import android.widget.RemoteViews
-import org.sparcs.otlplus.api.Data
+import org.sparcs.otlplus.api.NextLectureData
 
 /**
  * Implementation of App Widget functionality.
@@ -38,10 +38,10 @@ internal fun updateNextLectureWidget(
 ) {
     // Construct the RemoteViews object
     RemoteViews(context.packageName, R.layout.next_lecture_widget).let {
-        it.setTextViewText(R.id.nextLectureDate, Data.nextLectureDate)
-        it.setTextViewText(R.id.nextLectureName, Data.nextLectureName)
-        it.setTextViewText(R.id.nextLecturePlace, Data.nextLecturePlace)
-        it.setTextViewText(R.id.nextLectureProfessor, Data.nextLectureProfessor)
+        it.setTextViewText(R.id.nextLectureDate, NextLectureData.nextLectureDate)
+        it.setTextViewText(R.id.nextLectureName, NextLectureData.nextLectureName)
+        it.setTextViewText(R.id.nextLecturePlace, NextLectureData.nextLecturePlace)
+        it.setTextViewText(R.id.nextLectureProfessor, NextLectureData.nextLectureProfessor)
         // Instruct the widget manager to update the widget
         appWidgetManager.updateAppWidget(appWidgetId, it)
     }

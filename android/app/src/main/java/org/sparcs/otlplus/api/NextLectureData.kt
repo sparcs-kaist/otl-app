@@ -1,6 +1,6 @@
 package org.sparcs.otlplus.api
 
-object Data { // TODO: Get data using api
+object NextLectureData { // TODO: Get data using api
     val nextLectureDate
         get() = "다음주 월요일"
 
