@@ -10,7 +10,8 @@ import WidgetKit
 import SwiftUI
 import Intents
 
-struct TodayClassesWidgetData: Hashable {
+struct TodayClassesWidgetData: Identifiable {
+    let id = UUID()
     let title: String
     let place: String
     let width: Double
@@ -30,8 +31,32 @@ struct TodayClassesWidgetEntryView : View {
     }
 
     var body: some View {
+        if #available(iOSApplicationExtension 17.0, *) {
+            TodayClassesWidgetView(background: false, entry: entry)
+                .containerBackground(for: .widget) {
+                    widgetBackground
+                }
+        } else {
+            TodayClassesWidgetView(background: true, entry: entry)
+        }
+    }
+}
+
+struct TodayClassesWidgetView: View {
+    @Environment(\.colorScheme) var colorScheme
+    @State var background: Bool = false
+    
+    var entry: Provider.Entry
+    
+    var widgetBackground: some View {
+        colorScheme == .dark ? Color(red: 51.0/255, green: 51.0/255, blue: 51.0/255) : Color(red: 249.0/255, green: 240.0/255, blue: 240.0/255)
+    }
+    
+    var body: some View {
         ZStack {
-            widgetBackground
+            if background {
+                widgetBackground
+            }
             Color.clear
                 .overlay(
                     Group {
@@ -63,15 +88,13 @@ struct TodayClassesWidgetEntryView : View {
                                 }
                             }
                             if (entry.timetableData != nil) {
-                                ForEach(getLecturesData(data: getLecturesForDay(timetable: entry.timetableData?[Int(entry.configuration.nextClassTimetable?.identifier ?? "0") ?? 0], day: getDayWithWeekDay(weekday: Calendar.current.component(.weekday, from: entry.date)))), id: \.self) { data in
+                                ForEach(getLecturesData(data: getLecturesForDay(timetable: entry.timetableData?[Int(entry.configuration.nextClassTimetable?.identifier ?? "0") ?? 0], day: getDayWithWeekDay(weekday: Calendar.current.component(.weekday, from: entry.date))))) { data in
                                     VStack {
-                                        Spacer()
-                                            .frame(height: 24)
+                                        Spacer().frame(height: 24)
                                         TodayClassesLectureView(lectureName: data.title, lecturePlace: data.place, colour: data.colour)
                                             .frame(width: data.width)
                                             .offset(x: data.x)
-                                        Spacer()
-                                            .frame(height: 2)
+                                        Spacer().frame(height: 2)
                                     }
                                 }
                             }
@@ -148,6 +171,8 @@ struct TodayClassesWidgetEntryView : View {
 }
 
 struct TodayClassesLectureView: View {
+    @Environment(\.widgetRenderingMode) var renderingMode
+    
     let lectureName: String
     let lecturePlace: String
     let colour: Color
@@ -156,6 +181,8 @@ struct TodayClassesLectureView: View {
         ZStack {
             RoundedRectangle(cornerRadius: 2)
                 .foregroundColor(colour)
+                .widgetAccentable()
+                .opacity(renderingMode == .accented ? 0.2 : 1.0)
             HStack {
                 VStack(alignment: .leading) {
                     Text(lectureName)
@@ -164,6 +191,7 @@ struct TodayClassesLectureView: View {
                     Text(lecturePlace)
                         .font(.custom("NotoSansKR-Regular", size: 12))
                         .foregroundColor(Color(red: 102.0/255, green: 102.0/255, blue: 102.0/255))
+                        .widgetAccentable()
                     Spacer()
                 }.padding(.vertical, 8)
                 Spacer()
@@ -182,7 +210,7 @@ struct ExactTimeLine: View {
             Rectangle()
                 .fill(Color(red: 229.0/255, green: 76.0/255, blue: 99.0/255))
                 .frame(width: 2)
-        }
+        }.widgetAccentable()
     }
 }
 

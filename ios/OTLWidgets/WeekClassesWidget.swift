@@ -10,7 +10,8 @@ import WidgetKit
 import SwiftUI
 import Intents
 
-struct WeekClassesWidgetData: Hashable {
+struct WeekClassesWidgetData: Identifiable {
+    let id = UUID()
     let title: String
     let height: Double
     let y: Double
@@ -27,40 +28,69 @@ struct WeekClassesWidgetEntryView : View {
     }
 
     var body: some View {
+        if #available(iOSApplicationExtension 17.0, *) {
+            WeekClassesWidgetView(background: false, entry: entry)
+                .containerBackground(for: .widget) {
+                    widgetBackground
+                }
+        } else {
+            WeekClassesWidgetView(background: true, entry: entry)
+        }
+    }
+}
+
+struct WeekClassesWidgetView: View {
+    @Environment(\.colorScheme) var colorScheme
+    
+    @State var background: Bool = false
+    var entry: Provider.Entry
+    
+    var widgetBackground: some View {
+        colorScheme == .dark ? Color(red: 51.0/255, green: 51.0/255, blue: 51.0/255) : Color(red: 249.0/255, green: 240.0/255, blue: 240.0/255)
+    }
+    
+    var body: some View {
         ZStack(alignment: .top) {
-            widgetBackground
-            Group {
-                VStack(spacing: 0) {
-                    Spacer()
-                        .frame(height: 17)
-                    Color.clear
-                        .overlay(
-                            HStack(spacing: 2) {
-                                TimeLabelView()
-                                ForEach(0..<5) { number in
-                                    ZStack(alignment: .topLeading) {
-                                        TableLineView()
-                                        ForEach(getLecturesData(data: getLecturesForDay(timetable: entry.timetableData?[Int(entry.configuration.nextClassTimetable?.identifier ?? "0") ?? 0], day: number)), id: \.self) { data in
-                                            WeekClassesLectureView(lectureName: data.title, colour: data.colour)
-                                                .frame(height: data.height)
-                                                .offset(y: data.y)
+            if background {
+                widgetBackground
+            }
+            GeometryReader { proxy in
+                Group {
+                    VStack(spacing: 0) {
+                        Spacer()
+                            .frame(height: 17)
+                        Color.clear
+                            .overlay(
+                                HStack(spacing: 2) {
+                                    TimeLabelView()
+                                    ForEach(0..<5) { number in
+                                        ZStack(alignment: .topLeading) {
+                                            TableLineView()
+                                            ForEach(getLecturesData(data: getLecturesForDay(timetable: entry.timetableData?[Int(entry.configuration.nextClassTimetable?.identifier ?? "0") ?? 0], day: number))) { data in
+                                                WeekClassesLectureView(lectureName: data.title, colour: data.colour)
+                                                    .frame(height: data.height)
+                                                    .offset(y: data.y)
+                                            }
                                         }
                                     }
                                 }
-                            }
-                            , alignment: .top
-                        )
-                        .offset(y: getOffsetByDate(timetable: entry.timetableData?[Int(entry.configuration.nextClassTimetable?.identifier ?? "0") ?? 0], date: entry.date))
-                }
-            }.padding(16)
+                                , alignment: .top
+                            )
+                            .offset(y: getOffsetByDate(timetable: entry.timetableData?[Int(entry.configuration.nextClassTimetable?.identifier ?? "0") ?? 0], date: entry.date))
+                    }
+                }.padding(16)
+                    .mask(
+                        HStack(spacing: 0) {
+                            Rectangle()
+                                .frame(width: 45)
+                                .offset(y: 33)
+                            Rectangle()
+                                .offset(y: 37)
+                        }
+                    )
+            }
             GeometryReader { proxy in
                 ZStack {
-                    widgetBackground
-                        .frame(height: 33)
-                        .offset(y: -5)
-                    widgetBackground
-                        .frame(width: proxy.size.width-45, height: 37)
-                        .offset(x: 10)
                     HStack {
                         Spacer()
                             .frame(width: 18)
@@ -92,7 +122,7 @@ struct WeekClassesWidgetEntryView : View {
             }
         }
     }
-
+    
     func getOffsetByDate(timetable: Timetable?, date: Date) -> CGFloat {
         if (timetable == nil || timetable?.lectures.count == 0) {
             return 0
@@ -138,7 +168,6 @@ struct WeekClassesWidgetEntryView : View {
         return tmp
     }
 }
-
 
 struct TimeLabelView: View {
     @Environment(\.colorScheme) var colorScheme
@@ -198,6 +227,8 @@ struct TableLineView: View {
 
 
 struct WeekClassesLectureView: View {
+    @Environment(\.widgetRenderingMode) var renderingMode
+    
     let lectureName: String
     let colour: Color
     
@@ -206,6 +237,8 @@ struct WeekClassesLectureView: View {
             RoundedRectangle(cornerRadius: 2)
                 .foregroundColor(colour)
                 .padding(.vertical, 2)
+                .widgetAccentable()
+                .opacity(renderingMode == .accented ? 0.2 : 1)
             Text(lectureName)
                 .font(.custom("NotoSansKR-Regular", size: 10))
                 .foregroundColor(.black)
