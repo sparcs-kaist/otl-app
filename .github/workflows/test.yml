@@ -5,10 +5,10 @@ on:
     branches: [main]
 
 env:
-  FLUTTER_VERSION: "3.24.0"
+  FLUTTER_VERSION: "3.24.x"
   JAVA_VERSION: "17"
   ANDROID_API_LEVEL: "34"
-  XCODE_VERSION: "Xcode_16_Release_Candidate"
+  XCODE_VERSION: "Xcode_16"
   IOS_DEVICE: "iPhone 15 Pro"
 
 jobs:
@@ -21,7 +21,7 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           flutter-version: ${{ env.FLUTTER_VERSION }}
-          channel: "stable"
+          cache: true
       - name: Install dependencies
         run: flutter pub get
       - name: Test
