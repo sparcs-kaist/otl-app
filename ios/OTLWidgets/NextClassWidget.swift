@@ -17,6 +17,21 @@ struct NextClassWidgetEntryView : View {
     
     var entry: Provider.Entry
     
+    // Helper to get the next class lecture
+    private var currentLecture: Lecture? {
+        guard
+            let timetableData = entry.timetableData,
+            let index = Int(entry.configuration.nextClassTimetable?.identifier ?? "0"),
+            timetableData.indices.contains(index),
+            !timetableData[index].lectures.isEmpty
+        else {
+            return nil
+        }
+        
+        return getNextClass(timetable: timetableData[index], date: entry.date).1
+    }
+    
+    // Helper for background color based on theme
     var widgetBackground: some View {
         colorScheme == .dark ? Color(red: 51.0/255, green: 51.0/255, blue: 51.0/255) : Color(red: 249.0/255, green: 240.0/255, blue: 240.0/255)
     }
@@ -25,11 +40,15 @@ struct NextClassWidgetEntryView : View {
         if #available(iOSApplicationExtension 17.0, *) {
             ZStack(alignment: .leading) {
                 VStack(alignment: .leading) {
+                    // Header
                     Text(LocalizedStringKey("nextclasswidget.nextlecture"))
                         .font(.custom("NotoSansKR-Bold", size: showsWidgetBackground ? 12 : 16))
-                        .foregroundColor((renderingMode == .vibrant) ? Color.white : Color(red: 229.0/255, green: 76.0/255, blue: 100.0/255))
+                        .foregroundColor(renderingMode == .vibrant ? .white : Color(red: 229.0/255, green: 76.0/255, blue: 100.0/255))
                         .frame(maxWidth: .infinity, alignment: .leading)
-                    Text((entry.timetableData != nil && entry.timetableData![Int(entry.configuration.nextClassTimetable?.identifier ?? "0") ?? 0].lectures.count > 0) ? getTimeLeft(timetable: entry.timetableData![Int(entry.configuration.nextClassTimetable?.identifier ?? "0") ?? 0], date: entry.date) : String(localized: "nextclasswidget.nodata"))
+                        .widgetAccentable()
+                    
+                    // Lecture Time Left
+                    Text(currentLecture != nil ? getTimeLeft(timetable: entry.timetableData![0], date: entry.date) : String(localized: "nextclasswidget.nodata"))
                         .font(.custom("NotoSansKR-Bold", size: 20))
                         .offset(y: -2)
                         .minimumScaleFactor(0.5)
@@ -37,56 +56,48 @@ struct NextClassWidgetEntryView : View {
                     
                     Spacer()
                     
+                    // Circle Color and Lecture Name
                     HStack {
                         Circle()
-                            .fill((entry.timetableData != nil && entry.timetableData![Int(entry.configuration.nextClassTimetable?.identifier ?? "0") ?? 0].lectures.count > 0) ? getColour(timetable: entry.timetableData![Int(entry.configuration.nextClassTimetable?.identifier ?? "0") ?? 0], date: entry.date) : getColourForCourse(course: 1))
+                            .fill(currentLecture != nil ? getColour(timetable: entry.timetableData![0], date: entry.date) : getColourForCourse(course: 1))
                             .frame(width: 12, height: 12)
-                        Text((entry.timetableData != nil && entry.timetableData![Int(entry.configuration.nextClassTimetable?.identifier ?? "0") ?? 0].lectures.count > 0) ? getName(timetable: entry.timetableData![Int(entry.configuration.nextClassTimetable?.identifier ?? "0") ?? 0], date: entry.date) : String(localized: "nextclasswidget.nodata"))
+                            .widgetAccentable()
+                        Text(currentLecture != nil ? getName(timetable: entry.timetableData![0], date: entry.date) : String(localized: "nextclasswidget.nodata"))
                             .font(.custom("NotoSansKR-Bold", size: showsWidgetBackground ? 16 : 20))
                             .minimumScaleFactor(0.5)
                             .lineLimit(2)
                     }.offset(y: 6)
-                    Text((entry.timetableData != nil && entry.timetableData![Int(entry.configuration.nextClassTimetable?.identifier ?? "0") ?? 0].lectures.count > 0) ? getPlace(timetable: entry.timetableData![Int(entry.configuration.nextClassTimetable?.identifier ?? "0") ?? 0], date: entry.date) : String(localized: "nextclasswidget.nodata"))
+                    
+                    // Place
+                    Text(currentLecture != nil ? getPlace(timetable: entry.timetableData![0], date: entry.date) : String(localized: "nextclasswidget.nodata"))
                         .font(.custom("NotoSansKR-Regular", size: 12))
                         .minimumScaleFactor(0.5)
                         .lineLimit(1)
-                    Text((entry.timetableData != nil && entry.timetableData![Int(entry.configuration.nextClassTimetable?.identifier ?? "0") ?? 0].lectures.count > 0) ? getProfessor(timetable: entry.timetableData![Int(entry.configuration.nextClassTimetable?.identifier ?? "0") ?? 0], date: entry.date) : String(localized: "nextclasswidget.nodata"))
+                    
+                    // Professor
+                    Text(currentLecture != nil ? getProfessor(timetable: entry.timetableData![0], date: entry.date) : String(localized: "nextclasswidget.nodata"))
                         .font(.custom("NotoSansKR-Medium", size: 12))
                         .minimumScaleFactor(0.5)
                         .foregroundColor(.gray)
+                        .widgetAccentable()
+                        .opacity(renderingMode == .accented ? 0.5 : 1)
                 }.padding(.horizontal, showsWidgetBackground ? 0 : 3)
-                if (entry.timetableData == nil) {
-                    ZStack {
-                        if showsWidgetBackground {
-                            Color.clear
-                                .background(.ultraThinMaterial)
-                        } else {
-                            Color.black
-                        }
-                        VStack {
-                            Image("lock")
-                                .resizable()
-                                .frame(width: 44, height: 44)
-                            Text(LocalizedStringKey("widget.login"))
-                                .font(.custom("NotoSansKR-Bold", size: 12))
-                                .padding(.horizontal, 10.0)
-                                .padding(.vertical, 4)
-                                .foregroundColor(.white)
-                                .background(RoundedRectangle(cornerRadius: 30).foregroundColor(Color(red: 229.0/255, green: 76.0/255, blue: 100.0/255)))
-                        }
-                    }
+                
+                // If Timetable is nil, show login prompt
+                if entry.timetableData == nil {
+                    LoginPromptView(showsWidgetBackground: showsWidgetBackground)
                 }
-            } .containerBackground(for: .widget) {
-                widgetBackground
             }
+            .containerBackground(for: .widget) { widgetBackground }
         } else {
+            // Fallback for older iOS versions
             ZStack(alignment: .leading) {
                 widgetBackground
                 VStack(alignment: .leading) {
                     Text(LocalizedStringKey("nextclasswidget.nextlecture"))
                         .font(.custom("NotoSansKR-Bold", size: 12))
                         .foregroundColor(Color(red: 229.0/255, green: 76.0/255, blue: 100.0/255))
-                    Text((entry.timetableData != nil && entry.timetableData![Int(entry.configuration.nextClassTimetable?.identifier ?? "0") ?? 0].lectures.count > 0) ? getTimeLeft(timetable: entry.timetableData![Int(entry.configuration.nextClassTimetable?.identifier ?? "0") ?? 0], date: entry.date) : String(localized: "nextclasswidget.nodata"))
+                    Text(currentLecture != nil ? getTimeLeft(timetable: entry.timetableData![0], date: entry.date) : String(localized: "nextclasswidget.nodata"))
                         .font(.custom("NotoSansKR-Bold", size: 20))
                         .offset(y: -2)
                         .minimumScaleFactor(0.5)
@@ -96,82 +107,27 @@ struct NextClassWidgetEntryView : View {
                     
                     HStack {
                         Circle()
-                            .fill((entry.timetableData != nil && entry.timetableData![Int(entry.configuration.nextClassTimetable?.identifier ?? "0") ?? 0].lectures.count > 0) ? getColour(timetable: entry.timetableData![Int(entry.configuration.nextClassTimetable?.identifier ?? "0") ?? 0], date: entry.date) : getColourForCourse(course: 1))
+                            .fill(currentLecture != nil ? getColour(timetable: entry.timetableData![0], date: entry.date) : getColourForCourse(course: 1))
                             .frame(width: 12, height: 12)
-                        Text((entry.timetableData != nil && entry.timetableData![Int(entry.configuration.nextClassTimetable?.identifier ?? "0") ?? 0].lectures.count > 0) ? getName(timetable: entry.timetableData![Int(entry.configuration.nextClassTimetable?.identifier ?? "0") ?? 0], date: entry.date) : String(localized: "nextclasswidget.nodata"))
+                        Text(currentLecture != nil ? getName(timetable: entry.timetableData![0], date: entry.date) : String(localized: "nextclasswidget.nodata"))
                             .font(.custom("NotoSansKR-Bold", size: 16))
                             .minimumScaleFactor(0.5)
                             .lineLimit(2)
                     }.offset(y: 6)
-                    Text((entry.timetableData != nil && entry.timetableData![Int(entry.configuration.nextClassTimetable?.identifier ?? "0") ?? 0].lectures.count > 0) ? getPlace(timetable: entry.timetableData![Int(entry.configuration.nextClassTimetable?.identifier ?? "0") ?? 0], date: entry.date) : String(localized: "nextclasswidget.nodata"))
+                    Text(currentLecture != nil ? getPlace(timetable: entry.timetableData![0], date: entry.date) : String(localized: "nextclasswidget.nodata"))
                         .font(.custom("NotoSansKR-Regular", size: 12))
                         .minimumScaleFactor(0.5)
                         .lineLimit(1)
-                    Text((entry.timetableData != nil && entry.timetableData![Int(entry.configuration.nextClassTimetable?.identifier ?? "0") ?? 0].lectures.count > 0) ? getProfessor(timetable: entry.timetableData![Int(entry.configuration.nextClassTimetable?.identifier ?? "0") ?? 0], date: entry.date) : String(localized: "nextclasswidget.nodata"))
+                    Text(currentLecture != nil ? getProfessor(timetable: entry.timetableData![0], date: entry.date) : String(localized: "nextclasswidget.nodata"))
                         .font(.custom("NotoSansKR-Medium", size: 12))
                         .minimumScaleFactor(0.5)
                         .foregroundColor(.gray)
                 }.padding()
-                if (entry.timetableData == nil) {
-                    ZStack {
-                        Color.clear
-                            .background(.ultraThinMaterial)
-                        VStack {
-                            Image("lock")
-                                .resizable()
-                                .frame(width: 44, height: 44)
-                            Text(LocalizedStringKey("widget.login"))
-                                .font(.custom("NotoSansKR-Bold", size: 12))
-                                .padding(.horizontal, 10.0)
-                                .padding(.vertical, 4)
-                                .foregroundColor(.white)
-                                .background(RoundedRectangle(cornerRadius: 30).foregroundColor(Color(red: 229.0/255, green: 76.0/255, blue: 100.0/255)))
-                        }
-                    }
+                if entry.timetableData == nil {
+                    LoginPromptView(showsWidgetBackground: showsWidgetBackground)
                 }
             }
         }
-    }
-    
-    func getNextClass(timetable: Timetable, date: Date) -> (Int, Lecture) {
-        var lecture: Lecture = timetable.lectures[0]
-        var begin = 1440
-        var index = 0
-        
-        let calendar = Calendar.current
-        let day = getDayWithWeekDay(weekday: calendar.component(.weekday, from: date))
-        var minutes = calendar.component(.minute, from: date) + calendar.component(.hour, from: date) * 60
-        
-        var lectures: [(Int, Lecture)] = getLecturesForDay(timetable: timetable, day: day)
-        
-        for (i, l) in lectures {
-            if l.classtimes[i].begin >= minutes && begin >= l.classtimes[i].begin {
-                begin = l.classtimes[i].begin
-                index = i
-                lecture = l
-            }
-        }
-        
-        if begin == 1440 {
-            var tmrDate = calendar.date(byAdding: .day, value: 1, to: date)!
-            lectures = getLecturesForDay(timetable: timetable, day: getDayWithWeekDay(weekday: calendar.component(.weekday, from: tmrDate)))
-            minutes = 0
-            
-            while lectures.count == 0 {
-                tmrDate = calendar.date(byAdding: .day, value: 1, to: tmrDate)!
-                lectures = getLecturesForDay(timetable: timetable, day: getDayWithWeekDay(weekday: calendar.component(.weekday, from: tmrDate)))
-            }
-            
-            for (i, l) in lectures {
-                if l.classtimes[i].begin >= minutes && begin >= l.classtimes[i].begin {
-                    begin = l.classtimes[i].begin
-                    index = i
-                    lecture = l
-                }
-            }
-        }
-        
-        return (index, lecture)
     }
     
     func getName(timetable: Timetable, date: Date) -> String {
@@ -227,6 +183,66 @@ struct NextClassWidgetEntryView : View {
     }
 }
 
+struct LoginPromptView: View {
+    var showsWidgetBackground: Bool
+    
+    var body: some View {
+        ZStack {
+            if showsWidgetBackground {
+                Color.clear.background(.ultraThinMaterial)
+            } else {
+                Color.clear
+            }
+            VStack {
+                Image("lock")
+                    .resizable()
+                    .frame(width: 44, height: 44)
+                Text(LocalizedStringKey("widget.login"))
+                    .font(.custom("NotoSansKR-Bold", size: 12))
+                    .padding(.horizontal, 10.0)
+                    .padding(.vertical, 4)
+                    .foregroundColor(.white)
+                    .background(RoundedRectangle(cornerRadius: 30).foregroundColor(Color(red: 229.0/255, green: 76.0/255, blue: 100.0/255)))
+            }
+        }
+    }
+}
+
+// Refactored getNextClass for better readability
+func getNextClass(timetable: Timetable, date: Date) -> (Int, Lecture) {
+    let calendar = Calendar.current
+    let day = getDayWithWeekDay(weekday: calendar.component(.weekday, from: date))
+    let minutes = calendar.component(.minute, from: date) + calendar.component(.hour, from: date) * 60
+    
+    // Find today's next class
+    if let nextClass = getUpcomingLecture(on: day, after: minutes, from: timetable) {
+        return nextClass
+    }
+    
+    // Find tomorrow's or next available class
+    return findNextAvailableLecture(from: timetable, date: date)
+}
+
+private func getUpcomingLecture(on day: Int, after minutes: Int, from timetable: Timetable) -> (Int, Lecture)? {
+    let lectures = getLecturesForDay(timetable: timetable, day: day)
+    return lectures.first(where: { $0.1.classtimes[$0.0].begin >= minutes })
+}
+
+private func findNextAvailableLecture(from timetable: Timetable, date: Date) -> (Int, Lecture) {
+    var tmrDate = Calendar.current.date(byAdding: .day, value: 1, to: date)!
+    
+    // Loop until a lecture is found
+    while true {
+        let day = getDayWithWeekDay(weekday: Calendar.current.component(.weekday, from: tmrDate))
+        let lectures = getLecturesForDay(timetable: timetable, day: day)
+        if let nextLecture = lectures.first {
+            return nextLecture
+        }
+        tmrDate = Calendar.current.date(byAdding: .day, value: 1, to: tmrDate)!
+    }
+}
+
+// Widget definition
 struct NextClassWidget: Widget {
     let kind: String = "NextClassWidget"
     private let title: LocalizedStringKey = "nextclasswidget.title"

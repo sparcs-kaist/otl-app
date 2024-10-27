@@ -48,8 +48,20 @@ class _MainPageState extends State<MainPage> {
       final cookieManager = WebviewCookieManager();
       final cookies = await cookieManager.getCookies('https://otl.sparcs.org');
       for (var cookie in cookies) {
-        if (cookie.name == 'sessionid') {
-          WidgetKit.setItem('sessionid', cookie.value, 'group.org.sparcs.otl');
+        if (cookie.name == 'refreshToken') {
+          WidgetKit.setItem(
+              'refreshToken', cookie.value, 'group.org.sparcs.otl');
+          WidgetKit.reloadAllTimelines();
+        }
+
+        if (cookie.name == 'csrftoken') {
+          WidgetKit.setItem('csrftoken', cookie.value, 'group.org.sparcs.otl');
+          WidgetKit.reloadAllTimelines();
+        }
+
+        if (cookie.name == 'accessToken') {
+          WidgetKit.setItem(
+              'accessToken', cookie.value, 'group.org.sparcs.otl');
           WidgetKit.reloadAllTimelines();
         }
       }
