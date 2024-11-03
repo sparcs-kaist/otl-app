@@ -10,6 +10,7 @@ import org.sparcs.otlplus.api.Lecture
 import org.sparcs.otlplus.api.LocalTime
 import org.sparcs.otlplus.api.TimetableData
 import org.sparcs.otlplus.api.WeekDays
+import org.sparcs.otlplus.constants.BlockColor
 
 val timeTableColumns = listOf(
     R.id.time_table_column_1,
@@ -66,7 +67,7 @@ internal fun updateTimetableWidget(
         for (timeTableElement in dayTimetable) {
             val blockView = when(timeTableElement.lecture) {
                 null -> RemoteViews(context.packageName, R.layout.blank_view)
-                else -> RemoteViews(context.packageName, R.layout.timetable_block).apply {
+                else -> RemoteViews(context.packageName, BlockColor.getLayout(timeTableElement.lecture)).apply {
                     setTextViewText(R.id.timetable_block_lecture_name, timeTableElement.lecture.name)
                 }
             }

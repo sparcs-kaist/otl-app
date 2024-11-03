@@ -18,7 +18,8 @@ object TimetableData {
                         start = LocalTime(10, 30),
                         end = LocalTime(12, 0),
                     ),
-                )
+                ),
+                course = 317
             ),
             Lecture(
                 name = "지속가능 사회 인프라 시스템과 환경의 이해",
@@ -35,7 +36,8 @@ object TimetableData {
                         start = LocalTime(16, 0),
                         end = LocalTime(17, 30),
                     ),
-                )
+                ),
+                course = 100
             )
         )
 }

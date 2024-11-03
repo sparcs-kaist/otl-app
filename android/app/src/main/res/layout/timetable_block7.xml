@@ -13,6 +13,6 @@
         android:ellipsize="end"
         android:textColor="@color/gray0"
         android:padding="4dp"
-        android:background="@drawable/timetable_block_rounded_corner"/>
+        android:background="@drawable/block_background7"/>
 
 </RelativeLayout>

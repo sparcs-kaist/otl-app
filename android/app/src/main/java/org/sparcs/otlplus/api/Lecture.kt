@@ -26,5 +26,6 @@ data class Lecture(
     val name: String,
     val timeBlocks: List<TimeBlock>,
     val place: String,
-    val professor: String
+    val professor: String,
+    val course: Int,
 )
