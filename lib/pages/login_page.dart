@@ -19,6 +19,7 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   bool _isVisible = true;
+  late final WebViewController controller;
 
   @override
   void initState() {
@@ -38,38 +39,16 @@ class _LoginPageState extends State<LoginPage> {
         }
       },
     );
-  }
 
-  @override
-  Widget build(BuildContext context) {
-    return OTLScaffold(
-      child: Material(
-        child: Stack(
-          children: <Widget>[
-            Center(
-              child: const CircularProgressIndicator(),
-            ),
-            _buildBody(context),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildBody(BuildContext context) {
     const AUTHORITY = 'otl.sparcs.org';
     Map<String, dynamic> query = {'next': 'https://otl.sparcs.org/'};
     if (Platform.isIOS) {
       query['social_login'] = '0';
     }
-    return Visibility(
-      maintainSize: true,
-      maintainAnimation: true,
-      maintainState: true,
-      visible: _isVisible,
-      child: WebView(
-        initialUrl: Uri.https(AUTHORITY, '/session/login/', query).toString(),
-        javascriptMode: JavascriptMode.unrestricted,
+
+    controller = WebViewController()
+      ..setJavaScriptMode(JavaScriptMode.unrestricted)
+      ..setNavigationDelegate(NavigationDelegate(
         onPageStarted: (url) {
           if (Uri.parse(url).authority == AUTHORITY) {
             setState(() {
@@ -91,7 +70,36 @@ class _LoginPageState extends State<LoginPage> {
             });
           }
         },
+        onNavigationRequest: (NavigationRequest request) {
+          return NavigationDecision.navigate;
+        },
+      ))
+      ..loadRequest(Uri.https(AUTHORITY, '/session/login/', query));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return OTLScaffold(
+      child: Material(
+        child: Stack(
+          children: <Widget>[
+            Center(
+              child: const CircularProgressIndicator(),
+            ),
+            _buildBody(context),
+          ],
+        ),
       ),
+    );
+  }
+
+  Widget _buildBody(BuildContext context) {
+    return Visibility(
+      maintainSize: true,
+      maintainAnimation: true,
+      maintainState: true,
+      visible: _isVisible,
+      child: WebViewWidget(controller: controller),
     );
   }
 }
