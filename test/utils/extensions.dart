@@ -21,6 +21,10 @@ extension WidgetForTest on Widget {
         ),
       );
 
+  Widget get inScrollView => SingleChildScrollView(
+        child: this,
+      );
+
   Widget materialAndNotifier<T extends ChangeNotifier>(T model) {
     return ChangeNotifierProvider(
         create: (_) => model, child: MaterialApp(home: this));

@@ -5,12 +5,16 @@ import 'package:otlplus/pages/course_detail_page.dart';
 import 'package:otlplus/pages/course_search_page.dart';
 import 'package:otlplus/pages/lecture_detail_page.dart';
 import 'package:otlplus/pages/lecture_search_page.dart';
+import 'package:otlplus/pages/main_page.dart';
+import 'package:otlplus/pages/my_review_page.dart';
 import 'package:otlplus/pages/people_page.dart';
 import 'package:otlplus/pages/privacy_page.dart';
 import 'package:otlplus/pages/settings_page.dart';
 import 'package:otlplus/pages/timetable_page.dart';
+import 'package:otlplus/pages/user_page.dart';
 import 'package:otlplus/providers/course_detail_model.dart';
 import 'package:otlplus/providers/course_search_model.dart';
+import 'package:otlplus/providers/info_model.dart';
 import 'package:otlplus/providers/lecture_detail_model.dart';
 import 'package:otlplus/providers/lecture_search_model.dart';
 import 'package:otlplus/providers/settings_model.dart';
@@ -59,11 +63,14 @@ void main() {
   });
 
   testWidgets("pump MainPage", (WidgetTester tester) async {
-    // tester.pumpWidget(MainPage().materialAndNotifier(InfoModel()));
+    tester.pumpWidget(MainPage(
+      changeIndex: (int index) {},
+    ).materialAndNotifier(InfoModel(forTest: true)));
   });
 
   testWidgets("pump MyReviewPage", (WidgetTester tester) async {
-    // tester.pumpWidget(MyReviewPage().materialAndNotifier(InfoModel(forTest: true)));
+    tester.pumpWidget(
+        MyReviewPage().materialAndNotifier(InfoModel(forTest: true)));
   });
 
   testWidgets("pump PeoplePage", (WidgetTester tester) async {
@@ -88,6 +95,6 @@ void main() {
   });
 
   testWidgets("pump UserPage", (WidgetTester tester) async {
-    // tester.pumpWidget(UserPage().materialAndNotifier(InfoModel()));
+    tester.pumpWidget(UserPage().materialAndNotifier(InfoModel(forTest: true)));
   });
 }
