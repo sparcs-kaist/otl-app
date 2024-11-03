@@ -4,12 +4,16 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:otlplus/providers/lecture_search_model.dart';
 import 'package:otlplus/providers/timetable_model.dart';
 import 'package:otlplus/widgets/course_block.dart';
+import 'package:otlplus/widgets/dropdown.dart';
+import 'package:otlplus/widgets/expandable_text.dart';
 import 'package:otlplus/widgets/lecture_group_block.dart';
 import 'package:otlplus/widgets/lecture_group_block_row.dart';
 import 'package:otlplus/widgets/lecture_group_simple_block.dart';
 import 'package:otlplus/widgets/lecture_search.dart';
 import 'package:otlplus/widgets/lecture_simple_block.dart';
 import 'package:otlplus/widgets/review_write_block.dart';
+import 'package:otlplus/widgets/semester_picker.dart';
+import 'package:otlplus/widgets/timetable.dart';
 import 'package:otlplus/widgets/timetable_block.dart';
 import 'package:otlplus/widgets/timetable_summary.dart';
 import 'package:otlplus/widgets/timetable_tabs.dart';
@@ -27,6 +31,20 @@ void main() {
 
   testWidgets('pump CourseBlock', (WidgetTester tester) async {
     await tester.pumpWidget(CourseBlock(course: SampleCourse.shared).material);
+  });
+
+  testWidgets('pump Dropdown', (WidgetTester tester) async {
+    await tester.pumpWidget(Dropdown(
+      customButton: Text('Dropdown'),
+      items: [
+        ItemData(value: 1, text: 'Item 1'),
+      ],
+      onChanged: (_) {},
+    ).scaffold);
+  });
+
+  testWidgets('pump ExpandableText', (WidgetTester tester) async {
+    await tester.pumpWidget(ExpandableText('text').material);
   });
 
   testWidgets('pump LectureGroupBlockRow', (WidgetTester tester) async {
@@ -64,8 +82,8 @@ void main() {
   });
 
   testWidgets('pump SemesterPicker', (WidgetTester tester) async {
-    // await tester
-    //     .pumpWidget(SemesterPicker(onSemesterChanged: () => null).scaffoldAndNotifier(TimetableModel()));
+    await tester.pumpWidget(SemesterPicker(onSemesterChanged: () => null)
+        .scaffoldAndNotifier(TimetableModel(forTest: true)));
   });
 
   testWidgets('pump TimetableBlock', (WidgetTester tester) async {
@@ -89,7 +107,11 @@ void main() {
   });
 
   testWidgets('pump Timetable', (WidgetTester tester) async {
-    //   await tester.pumpWidget(widget.Timetable(lectures: [], builder: (lecture,_)=> TimetableBlock(lecture: lecture)).scaffold);
+    await tester.pumpWidget(Timetable(
+            lectures: [],
+            builder: (lecture, _, __) => TimetableBlock(lecture: lecture))
+        .inScrollView
+        .material);
   });
 
   testWidgets('pump TodayTimetable', (WidgetTester tester) async {

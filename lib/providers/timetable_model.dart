@@ -54,11 +54,18 @@ class TimetableModel extends ChangeNotifier {
           myTimetableLectures: [],
           reviewWritableLectures: [],
           reviews: []);
-      _semesters = [];
+      _semesters = [
+        Semester(
+            year: 2024,
+            semester: 3,
+            beginning: DateTime.now(),
+            end: DateTime.now()),
+      ];
       _timetables = [
         Timetable(id: 0, lectures: []),
         Timetable(id: 1, lectures: [])
       ];
+      _selectedSemesterIndex = 0;
     }
   }
 

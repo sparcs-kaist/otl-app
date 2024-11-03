@@ -46,7 +46,18 @@ class InfoModel extends ChangeNotifier {
           myTimetableLectures: [],
           reviewWritableLectures: [],
           reviews: []);
-      _semesters = [];
+      _semesters = [
+        Semester(
+            year: 2000,
+            semester: 1,
+            beginning: DateTime(2000),
+            end: DateTime(2001))
+      ];
+      _currentSchedule = {
+        "semester": _semesters.first,
+        "name": 'home.schedule.beginning',
+        "time": DateTime.now()
+      };
     }
   }
 

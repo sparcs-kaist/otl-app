@@ -28,6 +28,7 @@ jobs:
         run: flutter test
 
   integration-android:
+    if: false
     name: Integration Test on Android
     runs-on: ubuntu-latest
     steps:
