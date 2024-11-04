@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:otlplus/constants/text_styles.dart';
@@ -49,28 +51,37 @@ class _MainPageState extends State<MainPage> {
       final cookies = await cookieManager.getCookies('https://otl.sparcs.org');
       for (var cookie in cookies) {
         if (cookie.name == 'refreshToken') {
-          WidgetKit.setItem(
-              'refreshToken', cookie.value, 'group.org.sparcs.otl');
-          WidgetKit.reloadAllTimelines();
+          if (Platform.isIOS) {
+            WidgetKit.setItem(
+                'refreshToken', cookie.value, 'group.org.sparcs.otl');
+            WidgetKit.reloadAllTimelines();
+          }
         }
 
         if (cookie.name == 'csrftoken') {
-          WidgetKit.setItem('csrftoken', cookie.value, 'group.org.sparcs.otl');
-          WidgetKit.reloadAllTimelines();
+          if (Platform.isIOS) {
+            WidgetKit.setItem(
+                'csrftoken', cookie.value, 'group.org.sparcs.otl');
+            WidgetKit.reloadAllTimelines();
+          }
         }
 
         if (cookie.name == 'accessToken') {
-          WidgetKit.setItem(
-              'accessToken', cookie.value, 'group.org.sparcs.otl');
-          WidgetKit.reloadAllTimelines();
+          if (Platform.isIOS) {
+            WidgetKit.setItem(
+                'accessToken', cookie.value, 'group.org.sparcs.otl');
+            WidgetKit.reloadAllTimelines();
+          }
         }
       }
       final infoModel = InfoModel();
       await infoModel.getInfo();
       if (infoModel.hasData) {
-        WidgetKit.setItem(
-            'uid', infoModel.user.id.toString(), 'group.org.sparcs.otl');
-        WidgetKit.reloadAllTimelines();
+        if (Platform.isIOS) {
+          WidgetKit.setItem(
+              'uid', infoModel.user.id.toString(), 'group.org.sparcs.otl');
+          WidgetKit.reloadAllTimelines();
+        }
       }
     } catch (exception) {
       print(exception);
