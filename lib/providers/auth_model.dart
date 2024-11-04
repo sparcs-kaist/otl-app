@@ -1,8 +1,11 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:otlplus/dio_provider.dart';
+import 'package:otlplus/extensions/storage_model.dart';
 import 'package:webview_cookie_manager/webview_cookie_manager.dart';
 
-class AuthModel extends ChangeNotifier {
+class AuthModel extends StorageModel {
   bool _isLogined = false;
   bool get isLogined => _isLogined;
 
@@ -10,6 +13,16 @@ class AuthModel extends ChangeNotifier {
     try {
       final cookieManager = WebviewCookieManager();
       final cookies = await cookieManager.getCookies(url);
+      DioProvider().authenticate(cookies);
+      _isLogined = true;
+      notifyListeners();
+    } catch (exception) {
+      print(exception);
+    }
+  }
+
+  Future<void> authenticateWithCookies(List<Cookie> cookies) async {
+    try {
       DioProvider().authenticate(cookies);
       _isLogined = true;
       notifyListeners();
