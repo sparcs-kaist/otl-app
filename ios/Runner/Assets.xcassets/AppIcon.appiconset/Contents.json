@@ -1,250 +1,33 @@
 {
   "images" : [
     {
-      "filename" : "40.png",
-      "idiom" : "iphone",
-      "scale" : "2x",
-      "size" : "20x20"
-    },
-    {
-      "filename" : "60.png",
-      "idiom" : "iphone",
-      "scale" : "3x",
-      "size" : "20x20"
-    },
-    {
-      "filename" : "58.png",
-      "idiom" : "iphone",
-      "scale" : "2x",
-      "size" : "29x29"
-    },
-    {
-      "filename" : "87.png",
-      "idiom" : "iphone",
-      "scale" : "3x",
-      "size" : "29x29"
-    },
-    {
-      "filename" : "80.png",
-      "idiom" : "iphone",
-      "scale" : "2x",
-      "size" : "40x40"
-    },
-    {
-      "filename" : "120.png",
-      "idiom" : "iphone",
-      "scale" : "3x",
-      "size" : "40x40"
-    },
-    {
-      "filename" : "120-1.png",
-      "idiom" : "iphone",
-      "scale" : "2x",
-      "size" : "60x60"
-    },
-    {
-      "filename" : "180.png",
-      "idiom" : "iphone",
-      "scale" : "3x",
-      "size" : "60x60"
-    },
-    {
-      "filename" : "20.png",
-      "idiom" : "ipad",
-      "scale" : "1x",
-      "size" : "20x20"
-    },
-    {
-      "filename" : "40-1.png",
-      "idiom" : "ipad",
-      "scale" : "2x",
-      "size" : "20x20"
-    },
-    {
-      "filename" : "29.png",
-      "idiom" : "ipad",
-      "scale" : "1x",
-      "size" : "29x29"
-    },
-    {
-      "filename" : "58-1.png",
-      "idiom" : "ipad",
-      "scale" : "2x",
-      "size" : "29x29"
-    },
-    {
-      "filename" : "40-2.png",
-      "idiom" : "ipad",
-      "scale" : "1x",
-      "size" : "40x40"
-    },
-    {
-      "filename" : "80-1.png",
-      "idiom" : "ipad",
-      "scale" : "2x",
-      "size" : "40x40"
-    },
-    {
-      "filename" : "76.png",
-      "idiom" : "ipad",
-      "scale" : "1x",
-      "size" : "76x76"
-    },
-    {
-      "filename" : "152.png",
-      "idiom" : "ipad",
-      "scale" : "2x",
-      "size" : "76x76"
-    },
-    {
-      "filename" : "167.png",
-      "idiom" : "ipad",
-      "scale" : "2x",
-      "size" : "83.5x83.5"
-    },
-    {
       "filename" : "1024.png",
-      "idiom" : "ios-marketing",
-      "scale" : "1x",
+      "idiom" : "universal",
+      "platform" : "ios",
       "size" : "1024x1024"
     },
     {
-      "filename" : "44px.png",
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "1024 1.png",
       "idiom" : "universal",
-      "platform" : "watchos",
-      "scale" : "2x",
-      "size" : "22x22"
+      "platform" : "ios",
+      "size" : "1024x1024"
     },
     {
-      "filename" : "48px.png",
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "tinted"
+        }
+      ],
+      "filename" : "1024 2.png",
       "idiom" : "universal",
-      "platform" : "watchos",
-      "scale" : "2x",
-      "size" : "24x24"
-    },
-    {
-      "filename" : "55px.png",
-      "idiom" : "universal",
-      "platform" : "watchos",
-      "scale" : "2x",
-      "size" : "27.5x27.5"
-    },
-    {
-      "filename" : "58px.png",
-      "idiom" : "universal",
-      "platform" : "watchos",
-      "scale" : "2x",
-      "size" : "29x29"
-    },
-    {
-      "filename" : "60px.png",
-      "idiom" : "universal",
-      "platform" : "watchos",
-      "scale" : "2x",
-      "size" : "30x30"
-    },
-    {
-      "filename" : "64px.png",
-      "idiom" : "universal",
-      "platform" : "watchos",
-      "scale" : "2x",
-      "size" : "32x32"
-    },
-    {
-      "filename" : "66px.png",
-      "idiom" : "universal",
-      "platform" : "watchos",
-      "scale" : "2x",
-      "size" : "33x33"
-    },
-    {
-      "filename" : "80px.png",
-      "idiom" : "universal",
-      "platform" : "watchos",
-      "scale" : "2x",
-      "size" : "40x40"
-    },
-    {
-      "filename" : "87px.png",
-      "idiom" : "universal",
-      "platform" : "watchos",
-      "scale" : "2x",
-      "size" : "43.5x43.5"
-    },
-    {
-      "filename" : "88px.png",
-      "idiom" : "universal",
-      "platform" : "watchos",
-      "scale" : "2x",
-      "size" : "44x44"
-    },
-    {
-      "filename" : "92px.png",
-      "idiom" : "universal",
-      "platform" : "watchos",
-      "scale" : "2x",
-      "size" : "46x46"
-    },
-    {
-      "filename" : "100px.png",
-      "idiom" : "universal",
-      "platform" : "watchos",
-      "scale" : "2x",
-      "size" : "50x50"
-    },
-    {
-      "filename" : "102px.png",
-      "idiom" : "universal",
-      "platform" : "watchos",
-      "scale" : "2x",
-      "size" : "51x51"
-    },
-    {
-      "filename" : "108px.png",
-      "idiom" : "universal",
-      "platform" : "watchos",
-      "scale" : "2x",
-      "size" : "54x54"
-    },
-    {
-      "filename" : "172px.png",
-      "idiom" : "universal",
-      "platform" : "watchos",
-      "scale" : "2x",
-      "size" : "86x86"
-    },
-    {
-      "filename" : "196px.png",
-      "idiom" : "universal",
-      "platform" : "watchos",
-      "scale" : "2x",
-      "size" : "98x98"
-    },
-    {
-      "filename" : "216px.png",
-      "idiom" : "universal",
-      "platform" : "watchos",
-      "scale" : "2x",
-      "size" : "108x108"
-    },
-    {
-      "filename" : "234px.png",
-      "idiom" : "universal",
-      "platform" : "watchos",
-      "scale" : "2x",
-      "size" : "117x117"
-    },
-    {
-      "filename" : "258px.png",
-      "idiom" : "universal",
-      "platform" : "watchos",
-      "scale" : "2x",
-      "size" : "129x129"
-    },
-    {
-      "filename" : "1024px.png",
-      "idiom" : "universal",
-      "platform" : "watchos",
+      "platform" : "ios",
       "size" : "1024x1024"
     }
   ],

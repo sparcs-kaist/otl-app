@@ -17,7 +17,6 @@ import WatchConnectivity
             session?.activate()
         }
         
-        GeneratedPluginRegistrant.register(with: self)
         return super.application(application, didFinishLaunchingWithOptions: launchOptions)
     }
     

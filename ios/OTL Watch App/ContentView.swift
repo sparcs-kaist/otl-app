@@ -8,14 +8,16 @@
 import SwiftUI
 
 struct ContentView: View {
+    @ObservedObject var viewModel = WatchViewModel()
+    
+    @State private var loginState: Bool = true
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        if loginState {
+            WeeklyTableView(loginState: $loginState)
+        } else {
+            LoginView()
         }
-        .padding()
     }
 }
 
