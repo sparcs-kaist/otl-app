@@ -3,7 +3,6 @@
 //  OTL Watch App
 //
 //  Created by Soongyu Kwon on 11/8/23.
-//  Copyright © 2023 The Chromium Authors. All rights reserved.
 //
 
 import Foundation
@@ -12,11 +11,15 @@ import WatchConnectivity
 @available(iOS 13.0, *)
 class WatchViewModel: NSObject, ObservableObject {
     var session: WCSession
-    @Published var sessionID: String = ""
+    @Published var refreshToken: String = ""
+    @Published var csrftoken: String = ""
+    @Published var accessToken: String = ""
     @Published var userID: String = ""
     
     enum WatchReceiveMethod: String {
-        case sendSessionID
+        case sendRefreshToken
+        case sendCSRFToken
+        case sendAccessToken
         case sendUserID
     }
     
@@ -45,9 +48,15 @@ extension WatchViewModel: WCSessionDelegate {
             }
             
             switch method {
-            case .sendSessionID:
-                self.sessionID = userInfo["data"] as? String ?? ""
-                UserDefaults.standard.set(userInfo["data"] as? String ?? "", forKey: "sessionID")
+            case .sendRefreshToken:
+                self.refreshToken = userInfo["data"] as? String ?? ""
+                UserDefaults.standard.set(userInfo["data"] as? String ?? "", forKey: "refreshToken")
+            case .sendCSRFToken:
+                self.csrftoken = userInfo["data"] as? String ?? ""
+                UserDefaults.standard.set(userInfo["data"] as? String ?? "", forKey: "csrftoken")
+            case .sendAccessToken:
+                self.accessToken = userInfo["data"] as? String ?? ""
+                UserDefaults.standard.set(userInfo["data"] as? String ?? "", forKey: "accessToken")
             case .sendUserID:
                 self.userID = userInfo["data"] as? String ?? ""
                 UserDefaults.standard.set(userInfo["data"] as? String ?? "", forKey: "userID")

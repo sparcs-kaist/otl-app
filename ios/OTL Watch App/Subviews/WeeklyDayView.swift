@@ -3,7 +3,6 @@
 //  OTL Watch App
 //
 //  Created by Soongyu Kwon on 11/16/23.
-//  Copyright © 2023 The Chromium Authors. All rights reserved.
 //
 
 import SwiftUI

@@ -3,7 +3,6 @@
 //  OTL Watch App
 //
 //  Created by Soongyu Kwon on 11/9/23.
-//  Copyright © 2023 The Chromium Authors. All rights reserved.
 //
 
 import SwiftUI
@@ -28,7 +27,7 @@ struct DayLabelView: View {
         ZStack {
             if isHighlighted {
                 RoundedRectangle(cornerRadius: 4)
-                    .foregroundStyle(.accent)
+//                    .foregroundStyle(.accent)
             }
             Text(day.rawValue)
                 .fontWeight(.medium)

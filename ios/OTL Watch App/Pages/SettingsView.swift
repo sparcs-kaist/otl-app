@@ -3,7 +3,6 @@
 //  OTL Watch App
 //
 //  Created by Soongyu Kwon on 11/16/23.
-//  Copyright © 2023 The Chromium Authors. All rights reserved.
 //
 
 import SwiftUI
@@ -14,7 +13,9 @@ struct SettingsView: View {
     @Binding var selectedTimetable: Int
     
     @ObservedObject var viewModel = WatchViewModel()
-    @AppStorage("sessionID") var sessionID: String = ""
+    @AppStorage("refreshToken") var refreshToken: String = ""
+    @AppStorage("csrftoken") var csrfToken: String = ""
+    @AppStorage("accessToken") var accessToken: String = ""
     @AppStorage("userID") var userID: String = ""
     
     @State private var availableSemesters: [SemesterElement] = [SemesterElement]()
@@ -78,7 +79,10 @@ struct SettingsView: View {
             }
         }
         
-        OTLAPI().getActualSemesters(sessionID: self.sessionID, userID: self.userID) { results in
+        let API: OTLAPI = OTLAPI.shared
+        API.setTokens(csrfToken: csrfToken, refreshToken: refreshToken, accessToken: accessToken)
+        
+        API.getActualSemesters(userID: self.userID) { results in
             switch results {
             case .success(let data):
                 self.availableSemesters = data
@@ -98,7 +102,10 @@ struct SettingsView: View {
         self.availableTimetables = defaults.integer(forKey: "availableTimetables")
         
         if (self.selectedSemester != nil) {
-            OTLAPI().getTimetables(sessionID: self.sessionID, userID: self.userID, year: self.selectedSemester!.year, semester: self.selectedSemester!.semester) { results in
+            let API: OTLAPI = OTLAPI.shared
+            API.setTokens(csrfToken: csrfToken, refreshToken: refreshToken, accessToken: accessToken)
+            
+            API.getTimetables(userID: self.userID, year: self.selectedSemester!.year, semester: self.selectedSemester!.semester) { results in
                 switch results {
                 case .success(let data):
                     self.availableTimetables = data.count

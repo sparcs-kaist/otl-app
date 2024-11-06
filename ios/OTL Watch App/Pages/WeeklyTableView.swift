@@ -3,7 +3,6 @@
 //  OTL Watch App
 //
 //  Created by Soongyu Kwon on 11/9/23.
-//  Copyright © 2023 The Chromium Authors. All rights reserved.
 //
 
 import SwiftUI
@@ -15,7 +14,9 @@ struct WeeklyTableView: View {
     
     @ObservedObject var viewModel = WatchViewModel()
     
-    @AppStorage("sessionID") var sessionID: String = ""
+    @AppStorage("refreshToken") var refreshToken: String = ""
+    @AppStorage("csrftoken") var csrfToken: String = ""
+    @AppStorage("accessToken") var accessToken: String = ""
     @AppStorage("userID") var userID: String = ""
     
     @State private var scrollOffset: CGFloat = CGFloat.zero
@@ -129,7 +130,10 @@ struct WeeklyTableView: View {
         self.selectedTimetable = defaults.integer(forKey: "selectedTimetable")
         
         if (self.selectedSemester == nil) {
-            OTLAPI().getActualSemesters(sessionID: self.sessionID, userID: self.userID) { results in
+            let API: OTLAPI = OTLAPI.shared
+            API.setTokens(csrfToken: csrfToken, refreshToken: refreshToken, accessToken: accessToken)
+            
+            API.getActualSemesters(userID: self.userID) { results in
                 switch results {
                 case .success(let data):
                     self.selectedSemester = data.first
@@ -149,12 +153,15 @@ struct WeeklyTableView: View {
             }
         }
         if (self.selectedSemester != nil) {
-            OTLAPI().getActualTimetable(sessionID: self.sessionID, userID: self.userID, year: self.selectedSemester!.year, semester: self.selectedSemester!.semester) { results in
+            let API: OTLAPI = OTLAPI.shared
+            API.setTokens(csrfToken: csrfToken, refreshToken: refreshToken, accessToken: accessToken)
+            
+            API.getActualTimetable(userID: self.userID, year: self.selectedSemester!.year, semester: self.selectedSemester!.semester) { results in
                 switch results {
                 case .success(let data):
                     var table = [Timetable]()
                     table.append(data.first!)
-                    OTLAPI().getTimetables(sessionID: self.sessionID, userID: self.userID, year: self.selectedSemester!.year, semester: self.selectedSemester!.semester) { results in
+                    API.getTimetables(userID: self.userID, year: self.selectedSemester!.year, semester: self.selectedSemester!.semester) { results in
                         switch results {
                         case .success(let timetableData):
                             for timetable in timetableData {
