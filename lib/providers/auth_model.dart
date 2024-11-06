@@ -16,6 +16,7 @@ class AuthModel extends StorageModel {
       DioProvider().authenticate(cookies);
       _isLogined = true;
       notifyListeners();
+      save('cookies', cookies.map((cookie) => cookie.toString()).join(';'));
     } catch (exception) {
       print(exception);
     }
@@ -31,12 +32,31 @@ class AuthModel extends StorageModel {
     }
   }
 
+  Future<void> authenticateFromStorage() async {
+    try {
+      final cookies_string = await read('cookies');
+      print("IT CALLED");
+      print(cookies_string);
+      if (cookies_string != null) {
+        final cookies = cookies_string //
+            .split(';')
+            .map((cookie) => Cookie.fromSetCookieValue(cookie))
+            .toList();
+
+        authenticateWithCookies(cookies);
+      }
+    } catch (exception) {
+      print(exception);
+    }
+  }
+
   void logout() {
     try {
       final cookieManager = WebviewCookieManager();
       // cookieManager.removeCookie(url);
       cookieManager.clearCookies();
       DioProvider().logout();
+      delete('cookies');
       _isLogined = false;
       notifyListeners();
     } catch (exception) {

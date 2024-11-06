@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart'
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class StorageModel extends ChangeNotifier {
-
-
-  Future<bool> save(String key,String value) async {
+  Future<bool> save(String key, String value) async {
     try {
       final storage = FlutterSecureStorage();
       await storage.write(key: key, value: value);
@@ -25,4 +23,14 @@ class StorageModel extends ChangeNotifier {
     }
   }
 
+  Future<bool> delete(String key) async {
+    try {
+      final storage = FlutterSecureStorage();
+      await storage.delete(key: key);
+      return true;
+    } catch (exception) {
+      print(exception);
+      return false;
+    }
+  }
 }

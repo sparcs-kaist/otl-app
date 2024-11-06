@@ -39,7 +39,11 @@ class _LoginPageState extends State<LoginPage> {
         }
       },
     );
-
+    if (!context.read<AuthModel>().isLogined) {
+      context.read<AuthModel>().authenticateFromStorage().then((value) {
+        print("hello");
+      });
+    }
     const AUTHORITY = 'otl.sparcs.org';
     Map<String, dynamic> query = {'next': 'https://otl.sparcs.org/'};
     if (Platform.isIOS) {
