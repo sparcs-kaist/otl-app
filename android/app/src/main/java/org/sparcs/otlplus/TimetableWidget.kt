@@ -6,6 +6,7 @@ import android.appwidget.AppWidgetProvider
 import android.content.Context
 import android.util.TypedValue
 import android.widget.RemoteViews
+import org.sparcs.otlplus.api.ApiLoader
 import org.sparcs.otlplus.api.Lecture
 import org.sparcs.otlplus.api.LocalTime
 import org.sparcs.otlplus.api.TimetableData
@@ -29,23 +30,24 @@ data class TimeTableElement(
  * Implementation of App Widget functionality.
  */
 class TimetableWidget : AppWidgetProvider() {
+    private val CHANNEL = "https://otl.sparcs.org/"
+
     override fun onUpdate(
         context: Context,
         appWidgetManager: AppWidgetManager,
         appWidgetIds: IntArray
     ) {
-        // There may be multiple widgets active, so update all of them
-        for (appWidgetId in appWidgetIds) {
-            updateTimetableWidget(context, appWidgetManager, appWidgetId)
+        val apiLoader = ApiLoader(context)
+        val semestersUrl = "$CHANNEL/api/semesters"
+
+        apiLoader.get(semestersUrl) { dataString ->
+            println(dataString)
+            val timetableData = TimetableData(dataString)
+
+            for (appWidgetId in appWidgetIds) {
+                updateTimetableWidget(context, appWidgetManager, appWidgetId, timetableData)
+            }
         }
-    }
-
-    override fun onEnabled(context: Context) {
-        // Enter relevant functionality for when the first widget is created
-    }
-
-    override fun onDisabled(context: Context) {
-        // Enter relevant functionality for when the last widget is disabled
     }
 }
 
@@ -53,7 +55,8 @@ class TimetableWidget : AppWidgetProvider() {
 internal fun updateTimetableWidget(
     context: Context,
     appWidgetManager: AppWidgetManager,
-    appWidgetId: Int
+    appWidgetId: Int,
+    timetableData: TimetableData,
 ) {
     val views = RemoteViews(context.packageName, R.layout.timetable_widget)
 
@@ -61,7 +64,7 @@ internal fun updateTimetableWidget(
         views.removeAllViews(timetableColumn)
     }
 
-    val weekTimetable = createTimeTable(TimetableData.lectures)
+    val weekTimetable = createTimeTable(timetableData.lectures)
 
     for ((weekday, dayTimetable) in weekTimetable.withIndex()) {
         for (timeTableElement in dayTimetable) {

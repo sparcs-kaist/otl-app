@@ -25,6 +25,7 @@ import 'package:otlplus/widgets/timetable_block.dart';
 import 'package:otlplus/widgets/today_timetable.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_widgetkit/flutter_widgetkit.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:webview_cookie_manager/webview_cookie_manager.dart';
 
 import '../models/lecture.dart';
@@ -42,13 +43,24 @@ class _MainPageState extends State<MainPage> {
   @override
   void initState() {
     super.initState();
-    initWidgetKitData();
+    initWidgetData();
   }
 
-  Future<void> initWidgetKitData() async {
-    try {
+  Future<void> initWidgetData() async {
       final cookieManager = WebviewCookieManager();
       final cookies = await cookieManager.getCookies('https://otl.sparcs.org');
+      initAndroidWidgetData(cookies);
+      initWidgetKitData(cookies);
+  }
+
+  Future<void> initAndroidWidgetData(List<Cookie> cookies) async {
+      final prefs = await SharedPreferences.getInstance();
+      final cookieHeader = cookies.map((cookie) => "${cookie.name}=${cookie.value}").join("; ");
+      await prefs.setString("cookie_header", cookieHeader);
+  }
+
+  Future<void> initWidgetKitData(List<Cookie> cookies) async {
+    try {
       for (var cookie in cookies) {
         if (cookie.name == 'refreshToken') {
           if (Platform.isIOS) {

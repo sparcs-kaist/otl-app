@@ -6,6 +6,7 @@ enum class WeekDays {
     Wed,
     Thu,
     Fri,
+    Undef,
 }
 
 data class LocalTime(
