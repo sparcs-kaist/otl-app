@@ -3,7 +3,6 @@
 //  OTLPlusIntents
 //
 //  Created by Soongyu Kwon on 02/05/2023.
-//  Copyright © 2023 The Chromium Authors. All rights reserved.
 //
 
 import Intents

@@ -3,7 +3,6 @@
 //  OTLWidgetsExtension
 //
 //  Created by Soongyu Kwon on 14/05/2023.
-//  Copyright © 2023 The Chromium Authors. All rights reserved.
 //
 
 import WidgetKit
