@@ -31,6 +31,7 @@ import WatchConnectivity
                 result: @escaping FlutterResult) -> Void in
                 switch call.method {
                 case "flutterToWatch":
+                    print("FLUTTERTOWATCH!!!!!!!!!!!!!!!!!!!!!!!!!")
                     guard let watchSession = self?.session,
                           watchSession.isPaired,
                           let methodData = call.arguments as? [String: Any],

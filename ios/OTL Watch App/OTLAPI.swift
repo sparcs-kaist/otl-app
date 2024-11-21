@@ -264,6 +264,7 @@ class OTLAPI {
             switch response.result {
             case .success(let data):
                 do {
+                    print("getActualSemesters")
                     let userInfo = try self.jsonDecoder.decode(UserInfo.self, from: data)
                     var semesters = [SemesterElement]()
                     for lecture in userInfo.my_timetable_lectures {

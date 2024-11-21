@@ -42,6 +42,7 @@ extension WatchViewModel: WCSessionDelegate {
     #endif
     
     func session(_ session: WCSession, didReceiveUserInfo userInfo: [String : Any] = [:]) {
+        print("RECIEVED!!!")
         DispatchQueue.main.async {
             guard let rawMethod = userInfo["method"] as? String, let method = WatchReceiveMethod(rawValue: rawMethod) else {
                 return

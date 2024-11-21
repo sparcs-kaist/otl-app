@@ -27,7 +27,7 @@ struct DayLabelView: View {
         ZStack {
             if isHighlighted {
                 RoundedRectangle(cornerRadius: 4)
-//                    .foregroundStyle(.accent)
+                    .foregroundStyle(.accent)
             }
             Text(day.rawValue)
                 .fontWeight(.medium)
