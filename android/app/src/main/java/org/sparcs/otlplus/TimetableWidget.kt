@@ -30,7 +30,7 @@ data class TimeTableElement(
  * Implementation of App Widget functionality.
  */
 class TimetableWidget : AppWidgetProvider() {
-    private val CHANNEL = "https://otl.sparcs.org/"
+    private val CHANNEL = "https://otl.sparcs.org"
 
     override fun onUpdate(
         context: Context,
@@ -38,10 +38,10 @@ class TimetableWidget : AppWidgetProvider() {
         appWidgetIds: IntArray
     ) {
         val apiLoader = ApiLoader(context)
-        val semestersUrl = "$CHANNEL/api/semesters"
+        val sessionUrl = "$CHANNEL/session/info"
 
-        apiLoader.get(semestersUrl) { dataString ->
-            println(dataString)
+        apiLoader.get(sessionUrl) { dataString ->
+//            println(dataString)
             val timetableData = TimetableData(dataString)
 
             for (appWidgetId in appWidgetIds) {
@@ -92,6 +92,7 @@ fun createTimeTable(lectures: List<Lecture>): List<List<TimeTableElement>> {
     val timetable = List(5) { mutableListOf<TimeTableElement>() }
 
     for (dayIndex in WeekDays.entries.toTypedArray().indices) {
+        if (dayIndex == 5) break
         val day = WeekDays.entries[dayIndex]
 
         val dailyLectures = lectures.flatMap { lecture ->

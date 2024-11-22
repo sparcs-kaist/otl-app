@@ -32,7 +32,7 @@ class TimetableData(jsonString: String) {
                 }
             }
         } catch (e: Exception) {
-            e.printStackTrace()
+//            e.printStackTrace()
         }
     }
 
@@ -44,11 +44,11 @@ class TimetableData(jsonString: String) {
 
             TimeBlock(
                 weekday = when (date) {
-                    1 -> WeekDays.Mon
-                    2 -> WeekDays.Tue
-                    3 -> WeekDays.Wed
-                    4 -> WeekDays.Thu
-                    5 -> WeekDays.Fri
+                    0 -> WeekDays.Mon
+                    1 -> WeekDays.Tue
+                    2 -> WeekDays.Wed
+                    3 -> WeekDays.Thu
+                    4 -> WeekDays.Fri
                     else -> WeekDays.Undef
                 },
                 start = LocalTime(

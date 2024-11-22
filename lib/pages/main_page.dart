@@ -56,7 +56,9 @@ class _MainPageState extends State<MainPage> {
   Future<void> initAndroidWidgetData(List<Cookie> cookies) async {
       final prefs = await SharedPreferences.getInstance();
       final cookieHeader = cookies.map((cookie) => "${cookie.name}=${cookie.value}").join("; ");
+      final csrfToken = cookies.firstWhere((cookie) => cookie.name == "csrftoken").value;
       await prefs.setString("cookie_header", cookieHeader);
+      await prefs.setString("csrf_token", csrfToken);
   }
 
   Future<void> initWidgetKitData(List<Cookie> cookies) async {

@@ -14,22 +14,36 @@ class ApiLoader(context: Context) {
         .build()
 
     private val cookieHeader = cookies.header
+    private val csrfToken = cookies.token
 
     fun get(url: String, then: (String) -> Unit) {
         val request = Request.Builder()
             .url(url)
-            .addHeader("Cookie", cookieHeader ?: "")
+            .addHeader("cookie", cookieHeader ?: "")
+            .addHeader("X-CSRFToken", csrfToken ?: "")
             .build()
+
+//        println("--------WIDGET: Call sent--------")
+//        println("Cookie: $cookieHeader")
+//        println("Token: $csrfToken")
+//        println("URL: $url")
 
         client.newCall(request).enqueue(object: Callback {
             override fun onFailure(call: Call, e: IOException) {
-                println("FAILURE @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
-                e.printStackTrace()
+//                println("--------WIDGET: Api call failed--------")
+//                e.printStackTrace()
             }
 
             override fun onResponse(call: Call, response: Response) {
-                println("GET RESPONSE @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
-                then(response.body?.string() ?: "")
+                if (!response.isSuccessful) {
+//                    println("--------WIDGET: Api call failed--------")
+//                    println(response.body?.string())
+                    return
+                }
+//                println("--------WIDGET: Got response--------")
+                val responseText = response.body?.string() ?: ""
+//                println(responseText)
+                then(responseText)
             }
         })
     }
