@@ -3,6 +3,7 @@ package org.sparcs.otlplus
 import android.content.ContentValues
 import android.content.Intent
 import android.os.Build
+import android.os.Bundle
 import android.provider.MediaStore
 import androidx.annotation.NonNull
 import io.flutter.embedding.android.FlutterActivity
@@ -15,6 +16,21 @@ import java.io.IOException
 
 class MainActivity : FlutterActivity() {
     private val CHANNEL = "org.sparcs.otlplus"
+
+    private lateinit var preferenceUpdateListener: SharedPreferenceUpdateListener
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        preferenceUpdateListener = SharedPreferenceUpdateListener(this)
+        preferenceUpdateListener.register()
+    }
+
+    override fun onDestroy() {
+        preferenceUpdateListener.unregister()
+
+        super.onDestroy()
+    }
 
     override fun configureFlutterEngine(@NonNull flutterEngine: FlutterEngine) {
         GeneratedPluginRegistrant.registerWith(flutterEngine)

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:otlplus/constants/text_styles.dart';
@@ -23,6 +25,7 @@ import 'package:otlplus/widgets/timetable_block.dart';
 import 'package:otlplus/widgets/today_timetable.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_widgetkit/flutter_widgetkit.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:webview_cookie_manager/webview_cookie_manager.dart';
 
 import '../models/lecture.dart';
@@ -40,37 +43,61 @@ class _MainPageState extends State<MainPage> {
   @override
   void initState() {
     super.initState();
-    initWidgetKitData();
+    initWidgetData();
   }
 
-  Future<void> initWidgetKitData() async {
+  Future<void> initWidgetData() async {
+    final cookieManager = WebviewCookieManager();
+    final cookies = await cookieManager.getCookies('https://otl.sparcs.org');
+    initAndroidWidgetData(cookies);
+    initWidgetKitData(cookies);
+  }
+
+  Future<void> initAndroidWidgetData(List<Cookie> cookies) async {
+    final prefs = await SharedPreferences.getInstance();
+    final cookieHeader =
+        cookies.map((cookie) => "${cookie.name}=${cookie.value}").join("; ");
+    final csrfToken =
+        cookies.firstWhere((cookie) => cookie.name == "csrftoken").value;
+    await prefs.setString("cookie_header", cookieHeader);
+    await prefs.setString("csrf_token", csrfToken);
+  }
+
+  Future<void> initWidgetKitData(List<Cookie> cookies) async {
     try {
-      final cookieManager = WebviewCookieManager();
-      final cookies = await cookieManager.getCookies('https://otl.sparcs.org');
       for (var cookie in cookies) {
         if (cookie.name == 'refreshToken') {
-          WidgetKit.setItem(
-              'refreshToken', cookie.value, 'group.org.sparcs.otl');
-          WidgetKit.reloadAllTimelines();
+          if (Platform.isIOS) {
+            WidgetKit.setItem(
+                'refreshToken', cookie.value, 'group.org.sparcs.otl');
+            WidgetKit.reloadAllTimelines();
+          }
         }
 
         if (cookie.name == 'csrftoken') {
-          WidgetKit.setItem('csrftoken', cookie.value, 'group.org.sparcs.otl');
-          WidgetKit.reloadAllTimelines();
+          if (Platform.isIOS) {
+            WidgetKit.setItem(
+                'csrftoken', cookie.value, 'group.org.sparcs.otl');
+            WidgetKit.reloadAllTimelines();
+          }
         }
 
         if (cookie.name == 'accessToken') {
-          WidgetKit.setItem(
-              'accessToken', cookie.value, 'group.org.sparcs.otl');
-          WidgetKit.reloadAllTimelines();
+          if (Platform.isIOS) {
+            WidgetKit.setItem(
+                'accessToken', cookie.value, 'group.org.sparcs.otl');
+            WidgetKit.reloadAllTimelines();
+          }
         }
       }
       final infoModel = InfoModel();
       await infoModel.getInfo();
       if (infoModel.hasData) {
-        WidgetKit.setItem(
-            'uid', infoModel.user.id.toString(), 'group.org.sparcs.otl');
-        WidgetKit.reloadAllTimelines();
+        if (Platform.isIOS) {
+          WidgetKit.setItem(
+              'uid', infoModel.user.id.toString(), 'group.org.sparcs.otl');
+          WidgetKit.reloadAllTimelines();
+        }
       }
     } catch (exception) {
       print(exception);

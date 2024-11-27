@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="1dp"
+    android:id="@+id/timetable_block_root">
+
+    <TextView
+        android:id="@+id/timetable_block_lecture_name"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textSize="11sp"
+        android:ellipsize="end"
+        android:textColor="@color/gray0"
+        android:padding="4dp"
+        android:background="@drawable/block_background5"/>
+
+</RelativeLayout>
