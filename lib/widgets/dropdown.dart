@@ -109,7 +109,7 @@ class Dropdown<T> extends StatelessWidget {
                 ),
                 if (itemData != items.last)
                   Container(
-                    color: OTLColor.grayF.withOpacity(0.5),
+                    color: OTLColor.grayF.withValues(alpha: .5),
                     height: 0.5,
                   ),
               ],

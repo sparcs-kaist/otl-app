@@ -178,7 +178,7 @@ class OTLDialog extends StatelessWidget {
           borderRadius: BorderRadius.circular(10),
           boxShadow: [
             BoxShadow(
-              color: OTLColor.gray0.withOpacity(0.15),
+              color: OTLColor.gray0.withValues(alpha: .15),
               offset: const Offset(2, 2),
               blurRadius: 16,
             ),
@@ -310,8 +310,6 @@ class OTLDialog extends StatelessWidget {
           },
           onTap: onTapContent,
         );
-      default:
-        return SizedBox();
     }
   }
 

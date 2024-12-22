@@ -37,7 +37,7 @@ class LectureSimpleBlock extends StatelessWidget {
                 TextSpan(
                   style: bodyRegular.copyWith(
                     color: hasReview
-                        ? OTLColor.gray0.withOpacity(0.4)
+                        ? OTLColor.gray0.withValues(alpha: .4)
                         : OTLColor.gray0,
                   ),
                   children: <TextSpan>[
