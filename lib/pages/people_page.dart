@@ -138,7 +138,7 @@ class PeoplePage extends StatelessWidget {
                       child: Text(
                         people_info[people[i][j]]['name'],
                         style: TextStyle(
-                          color: Color(0xFFEBA12A).withOpacity(0.4),
+                          color: Color(0xFFEBA12A).withValues(alpha: .4),
                           fontFamily: 'NanumSquare',
                           fontSize: 9.5,
                           fontWeight: FontWeight.w800,

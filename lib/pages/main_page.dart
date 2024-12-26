@@ -303,7 +303,7 @@ class _MainPageState extends State<MainPage> {
   }
 
   Widget _buildDivider() {
-    return Divider(color: OTLColor.gray0.withOpacity(0.25));
+    return Divider(color: OTLColor.gray0.withValues(alpha: .25));
   }
 
   Widget _buildTextButtons(BuildContext context) {

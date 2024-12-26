@@ -129,7 +129,7 @@ class _MapViewState extends State<MapView> {
   Widget _buildMapPin(BuildContext context, String buildingCode) {
     List<BoxShadow> boxShadow = [
       BoxShadow(
-        color: OTLColor.gray0.withOpacity(0.25),
+        color: OTLColor.gray0.withValues(alpha: .25),
         blurRadius: 4,
         offset: Offset(0, 4),
       )
@@ -234,7 +234,7 @@ class _MapViewState extends State<MapView> {
                   Divider(
                     height: 15,
                     thickness: 1,
-                    color: OTLColor.gray0.withOpacity(0.25),
+                    color: OTLColor.gray0.withValues(alpha: .25),
                   ),
                   const SizedBox(height: 1),
                   ...List.generate(

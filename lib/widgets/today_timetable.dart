@@ -107,7 +107,7 @@ class TodayTimetable extends StatelessWidget {
 
   Widget _buildCell(int i) {
     if (i % 100 == 0)
-      return Container(color: OTLColor.gray0.withOpacity(0.25), width: 1);
+      return Container(color: OTLColor.gray0.withValues(alpha: .25), width: 1);
     if (i % 50 == 0)
       return Column(
         children: List.generate(
@@ -115,8 +115,8 @@ class TodayTimetable extends StatelessWidget {
           (i) => Expanded(
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 1.0),
-              child:
-                  Container(color: OTLColor.gray0.withOpacity(0.25), width: 1),
+              child: Container(
+                  color: OTLColor.gray0.withValues(alpha: .25), width: 1),
             ),
           ),
         ),
