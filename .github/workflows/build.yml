@@ -9,7 +9,7 @@ on:
 env:
   FLUTTER_VERSION: "3.27.x"
   JAVA_VERSION: "17"
-  XCODE_VERSION: "Xcode_16"
+  XCODE_VERSION: "Xcode_16.2"
 
 jobs:
   build-android:
