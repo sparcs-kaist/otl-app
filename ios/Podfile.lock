@@ -248,13 +248,13 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/webview_flutter_wkwebview/darwin"
 
 SPEC CHECKSUMS:
-  channel_talk_flutter: 62d078feeddfa94b03dfa72f39ecf26f2731c2ee
+  channel_talk_flutter: c479a334a8383bcf7e6ca9ce0384d616673249a3
   ChannelIOSDK: 3d4bee1e1a077cf60394b439801e5078bb69a3b1
   Firebase: cf1b19f21410b029b6786a54e9764a0cacad3c99
-  firebase_analytics: 2815af29d49c1a994652abd37a5b001a88bc7b75
-  firebase_core: b62a5080210edad3f2934314a8b2c6f5124e8e10
-  firebase_crashlytics: 757e252772ed3dd37c07638f9fcd4dceb5f101c8
-  firebase_messaging: 98619a0572d82cfb3668e78859ba9f1110e268c9
+  firebase_analytics: 0ff02d803c99a48739f7afd5f5b0dee64c78e1a0
+  firebase_core: 726c34112998e66d1ddaf4b1bef78ed2dd4b9804
+  firebase_crashlytics: 1c2e2091a0b06bf6e3d6535010469a98c44c4d67
+  firebase_messaging: a538130cb2bca3ea0ff0892b8c948bd7d20ecaed
   FirebaseAnalytics: 3feef9ae8733c567866342a1000691baaa7cad49
   FirebaseCore: e0510f1523bc0eb21653cac00792e1e2bd6f1771
   FirebaseCoreExtension: f1bc67a4702931a7caa097d8e4ac0a1b0d16720e
@@ -265,22 +265,22 @@ SPEC CHECKSUMS:
   FirebaseRemoteConfigInterop: e75e348953352a000331eb77caf01e424248e176
   FirebaseSessions: 3f56f177d9e53a85021d16b31f9a111849d1dd8b
   Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
-  flutter_native_splash: e8a1e01082d97a8099d973f919f57904c925008a
-  flutter_web_browser: 7bccaafbb0c5b8862afe7bcd158f15557109f61f
-  flutter_widgetkit: a0e9b0d50ee9bec366dad36c639509daaafc397a
+  flutter_native_splash: 576fbd69b830a63594ae678396fa17e43abbc5f8
+  flutter_web_browser: 8fe4d18e7b1328ab3fbec6e67029d6996c2335d9
+  flutter_widgetkit: 21fcf04a99462110a8c855b614b97532d7d759b7
   GoogleAppMeasurement: 987769c4ca6b968f2479fbcc9fe3ce34af454b8e
   GoogleDataTransport: aae35b7ea0c09004c3797d53c8c41f66f219d6a7
   GoogleUtilities: 26a3abef001b6533cf678d3eb38fd3f614b7872d
   nanopb: fad817b59e0457d11a5dfbde799381cd727c1275
-  open_app_file: 205f73051668bfbd68356005fef8a62e620f0a77
-  path_provider_foundation: 2b6b4c569c0fb62ec74538f866245ac84301af46
-  permission_handler_apple: 9878588469a2b0d0fc1e048d9f43605f92e6cec2
+  open_app_file: ba67d2bf6cdddfb654b13b713d66bea4974a5adb
+  path_provider_foundation: 080d55be775b7414fd5a5ef3ac137b97b097e564
+  permission_handler_apple: 4ed2196e43d0651e8ff7ca3483a069d469701f2d
   PromisesObjC: f5707f49cb48b9636751c5b2e7d227e43fba9f47
   PromisesSwift: 9d77319bbe72ebf6d872900551f7eeba9bce2851
-  shared_preferences_foundation: fcdcbc04712aee1108ac7fda236f363274528f78
-  url_launcher_ios: 5334b05cef931de560670eeae103fd3e431ac3fe
-  webview_cookie_manager: eaf920722b493bd0f7611b5484771ca53fed03f7
-  webview_flutter_wkwebview: 0982481e3d9c78fd5c6f62a002fcd24fc791f1e4
+  shared_preferences_foundation: 9e1978ff2562383bd5676f64ec4e9aa8fa06a6f7
+  url_launcher_ios: 694010445543906933d732453a59da0a173ae33d
+  webview_cookie_manager: d63a76cabdf42a7ea3d92768ac67d4853a1367f8
+  webview_flutter_wkwebview: 44d4dee7d7056d5ad185d25b38404436d56c547c
 
 PODFILE CHECKSUM: b34ba01b6d31eabe4d020b5ccb7ac5cba06d49cf
 
