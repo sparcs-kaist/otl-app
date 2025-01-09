@@ -1,14 +1,17 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 final _kSendCrashlytics = 'sendCrashlytics';
 final _kSendCrashlyticsAnonymously = 'sendCrashlyticsAnonymously';
 final _kShowsChannelTalkButton = 'showsChannelTalkButton';
+final _kReceivePromotion = 'receivePromoiton';
 
 class SettingsModel extends ChangeNotifier {
   late bool _sendCrashlytics;
   late bool _sendCrashlyticsAnonymously;
   late bool _showsChannelTalkButton;
+  late bool _receivePromotion;
 
   bool getSendCrashlytics() => _sendCrashlytics;
   void setSendCrashlytics(bool newValue) {
@@ -34,6 +37,17 @@ class SettingsModel extends ChangeNotifier {
         (instance) => instance.setBool(_kShowsChannelTalkButton, newValue));
   }
 
+  bool getReceivePromotion() => _receivePromotion;
+  Future<void> setReceivePromotion(bool newValue) async {
+    _receivePromotion = newValue;
+    notifyListeners();
+    SharedPreferences.getInstance()
+        .then((instance) => instance.setBool(_kReceivePromotion, newValue));
+    newValue
+        ? await FirebaseMessaging.instance.subscribeToTopic("promotion")
+        : await FirebaseMessaging.instance.unsubscribeFromTopic("promotion");
+  }
+
   SettingsModel({bool forTest = false}) {
     SharedPreferences.getInstance().then((instance) {
       getAllValues(instance);
@@ -43,6 +57,7 @@ class SettingsModel extends ChangeNotifier {
       _sendCrashlytics = true;
       _sendCrashlyticsAnonymously = false;
       _showsChannelTalkButton = true;
+      _receivePromotion = true;
     }
   }
 
@@ -52,6 +67,8 @@ class SettingsModel extends ChangeNotifier {
         instance.getBool(_kSendCrashlyticsAnonymously) ?? false;
     _showsChannelTalkButton =
         instance.getBool(_kShowsChannelTalkButton) ?? true;
+    _receivePromotion = instance.getBool(_kReceivePromotion) ?? false;
+
     notifyListeners();
   }
 
