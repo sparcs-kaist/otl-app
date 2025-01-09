@@ -86,7 +86,8 @@ void main() {
       final lectures = json.decode(response.body);
       print(url);
       // 2024년 가을학기부터 HSE 강의 없음
-      assert(lectures.isEmpty);
+      // 2025년 1월 10일 기준 있음
+      assert(!lectures.isEmpty);
       for (Map<String, dynamic> l in lectures) {
         final Lecture lecture = Lecture.fromJson(l);
         expect(lecture.typeIdx, 4);
