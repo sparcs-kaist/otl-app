@@ -32,19 +32,19 @@ dependencies:
   provider: ^6.1.2
   url_launcher: ^6.3.1
   equatable: ^2.0.7
-  shared_preferences: ^2.3.4
+  shared_preferences: ^2.3.5
   easy_localization: ^3.0.7
   flutter_widgetkit: ^1.0.3
-  flutter_svg: ^2.0.16
+  flutter_svg: ^2.0.17
   open_app_file: ^4.0.2
-  flutter_native_splash: ^2.4.3
+  flutter_native_splash: ^2.4.4
   mailto: ^2.0.0
   dropdown_button2: ^3.0.0-beta.21
   # Firebase
-  firebase_core: ^3.9.0
-  firebase_analytics: ^11.3.6
-  firebase_crashlytics: ^4.2.0
-  firebase_messaging: ^15.1.6
+  firebase_core: ^3.10.0
+  firebase_analytics: ^11.4.0
+  firebase_crashlytics: ^4.3.0
+  firebase_messaging: ^15.2.0
   channel_talk_flutter:
     git:
       url: https://github.com/happycastle114/channel_talk_flutter
