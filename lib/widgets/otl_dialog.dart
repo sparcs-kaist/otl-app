@@ -337,7 +337,7 @@ class OTLDialog extends StatelessWidget {
                   Text(
                       '${'settings.dialog.date'.tr(namedArgs: namedArgs)} : ${DateFormat('yyyy-MM-dd').format(DateTime.now())}'),
                   Text(
-                      '${'settings.dialog.user_name'.tr(namedArgs: namedArgs)} : ${user!.firstName} ${user!.lastName}'),
+                      '${'settings.dialog.user_name'.tr(namedArgs: namedArgs)} : ${user?.firstName} ${user?.lastName}'),
                   Text(
                       '${'settings.dialog.detail'.tr(namedArgs: namedArgs)} : ${'settings.dialog.enable'.tr(namedArgs: namedArgs)}'),
                 ],
