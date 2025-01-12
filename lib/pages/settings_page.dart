@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:otlplus/constants/color.dart';
 import 'package:otlplus/constants/text_styles.dart';
 import 'package:otlplus/constants/url.dart';
-import 'package:otlplus/providers/info_model.dart';
 import 'package:otlplus/providers/settings_model.dart';
 import 'package:otlplus/widgets/dropdown.dart';
 import 'package:otlplus/widgets/otl_dialog.dart';
@@ -19,7 +18,6 @@ class SettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isEn = EasyLocalization.of(context)?.currentLocale == Locale('en');
-    final user = context.watch<InfoModel>().user;
 
     return OTLScaffold(
       child: OTLLayout(
@@ -126,6 +124,14 @@ class SettingsPage extends StatelessWidget {
                           .read<SettingsModel>()
                           .setSendCrashlyticsAnonymously(value),
                     ),
+                  ),
+                ),
+                _buildListTile(
+                  title: "알림 받기",
+                  trailing: CupertinoSwitch(
+                    value: context.watch<SettingsModel>().getReceiveAlarm(),
+                    onChanged: (value) =>
+                        context.read<SettingsModel>().setReceiveAlarm(value),
                   ),
                 ),
                 _buildListTile(
