@@ -8,20 +8,24 @@ final _kSendCrashlytics = 'sendCrashlytics';
 final _kSendCrashlyticsAnonymously = 'sendCrashlyticsAnonymously';
 final _kShowsChannelTalkButton = 'showsChannelTalkButton';
 final _kReceivePromotion = 'receivePromoiton';
+
 final _kReceiveInfo = 'receiveInformation';
 final _kReceiveSubjectSuggestion = 'receiveSubjectSuggestion';
 final _kReceiveAlarm = 'receiveAlarm';
 final _kDialog = 'dialog';
+
 
 class SettingsModel extends ChangeNotifier {
   late bool _sendCrashlytics;
   late bool _sendCrashlyticsAnonymously;
   late bool _showsChannelTalkButton;
   late bool _receivePromotion;
+
   late bool _receiveInfo;
   late bool _receiveSubjectSuggestion;
   late bool _receiveAlarm;
   late bool _dialog;
+
 
   bool getSendCrashlytics() => _sendCrashlytics;
   void setSendCrashlytics(bool newValue) {
@@ -111,6 +115,7 @@ class SettingsModel extends ChangeNotifier {
         .then((instance) => instance.setBool(_kDialog, newValue));
   }
 
+
   SettingsModel({bool forTest = false}) {
     SharedPreferences.getInstance().then((instance) {
       getAllValues(instance);
@@ -125,6 +130,7 @@ class SettingsModel extends ChangeNotifier {
       _receiveInfo = true;
       _receiveSubjectSuggestion = true;
       _dialog = true;
+
     }
   }
 
@@ -135,11 +141,13 @@ class SettingsModel extends ChangeNotifier {
     _showsChannelTalkButton =
         instance.getBool(_kShowsChannelTalkButton) ?? true;
     _receivePromotion = instance.getBool(_kReceivePromotion) ?? false;
+
     _receiveAlarm = instance.getBool(_kReceiveAlarm) ?? true;
     _receiveInfo = instance.getBool(_kReceiveInfo) ?? true;
     _receiveSubjectSuggestion =
         instance.getBool(_kReceiveSubjectSuggestion) ?? true;
     _dialog = instance.getBool(_kDialog) ?? true;
+
 
     notifyListeners();
   }

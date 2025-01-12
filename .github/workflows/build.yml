@@ -9,7 +9,7 @@ on:
 env:
   FLUTTER_VERSION: "3.27.x"
   JAVA_VERSION: "17"
-  XCODE_VERSION: "Xcode_16"
+  XCODE_VERSION: "Xcode_16.2"
 
 jobs:
   build-android:
@@ -40,7 +40,7 @@ jobs:
 
   build-ios:
     name: Build iOS
-    runs-on: macos-14
+    runs-on: macos-15
     steps:
       - uses: actions/checkout@v4
       - name: Select Xcode version
