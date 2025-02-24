@@ -13,7 +13,7 @@ class TimetableData(jsonString: String) {
 
             lectures = (0 until myTimetableLectures.length()).mapNotNull { index ->
                 val lectureJsonObject = myTimetableLectures.getJSONObject(index)
-                if (lectureJsonObject.getInt("year") != 2024 || lectureJsonObject.getInt("semester") != 3) {
+                if (lectureJsonObject.getInt("year") != 2025 || lectureJsonObject.getInt("semester") != 1) {
                     null
                 } else {
                     Lecture(
