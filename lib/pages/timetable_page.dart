@@ -20,6 +20,9 @@ import 'package:otlplus/widgets/timetable.dart';
 import 'package:otlplus/widgets/timetable_block.dart';
 import 'package:otlplus/widgets/timetable_summary.dart';
 import 'package:otlplus/widgets/timetable_tabs.dart';
+import 'package:otlplus/widgets/custom_block_dialog.dart';
+import 'package:otlplus/utils/export_file.dart';
+import 'package:flutter/rendering.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 class TimetablePage extends StatefulWidget {
@@ -114,6 +117,19 @@ class _TimetablePageState extends State<TimetablePage> {
                             ),
                           ),
                         ),
+                        if (mode == TimetableViewMode.classes &&
+                            !context.watch<TimetableModel>().isMyTimetable)
+                          IconButton(
+                            tooltip: 'custom_block.add'.tr(),
+                            icon: const Icon(
+                              Icons.add_box_outlined,
+                              color: OTLColor.pinksMain,
+                            ),
+                            onPressed: () => showCustomBlockEditor(
+                              context,
+                              context.read<TimetableModel>(),
+                            ),
+                          ),
                         if (mode == TimetableViewMode.classes)
                           GestureDetector(
                             behavior: HitTestBehavior.translucent,
@@ -212,6 +228,15 @@ class _TimetablePageState extends State<TimetablePage> {
     return Timetable(
       lectures: (tempLecture == null) ? lectures : [...lectures, tempLecture],
       isExamTime: isExamTime,
+      customBlocks: context
+          .watch<TimetableModel>()
+          .currentTimetable
+          .customBlocks,
+      onCustomBlockTap: (block) => showCustomBlockEditor(
+        context,
+        context.read<TimetableModel>(),
+        block: block,
+      ),
       builder: (lecture, classTimeIndex, blockHeight) {
         final isSelected = tempLecture == lecture;
         Key? key;
@@ -256,29 +281,29 @@ class _TimetablePageState extends State<TimetablePage> {
     );
   }
 
-  void _handleTimetableTabAction(
+  Future<void> _handleTimetableTabAction(
     BuildContext context,
     TimetableModel timetableModel,
     TimetableTabAction action,
     int index,
-  ) {
+  ) async {
     switch (action) {
       case TimetableTabAction.copy:
-        timetableModel.createTimetable(
+        final copied = await timetableModel.createTimetable(
           lectures: timetableModel.currentTimetable.lectures,
+          customBlocks: timetableModel.currentTimetable.customBlocks,
         );
+        if (!copied) _showActionError();
         return;
       case TimetableTabAction.exportImage:
-        timetableModel.shareTimetable(
-          ShareType.image,
-          context.locale.languageCode,
-        );
+        _exportVisibleImage();
         return;
       case TimetableTabAction.exportIcal:
-        timetableModel.shareTimetable(
+        final shared = await timetableModel.shareTimetable(
           ShareType.ical,
           context.locale.languageCode,
         );
+        if (!shared) _showActionError();
         return;
       case TimetableTabAction.delete:
         if (timetableModel.isMyTimetableIndex(index)) {
@@ -321,8 +346,7 @@ class _TimetablePageState extends State<TimetablePage> {
                     args: [timetableModel.selectedIndex.toString()],
                   ),
                 },
-                onTapPos: () =>
-                    context.read<TimetableModel>().deleteTimetable(),
+                onTapPos: timetableModel.deleteTimetable,
               ),
             );
           });
@@ -350,5 +374,23 @@ class _TimetablePageState extends State<TimetablePage> {
       onAction: (action, index) =>
           _handleTimetableTabAction(context, timetableModel, action, index),
     );
+  }
+
+  Future<void> _exportVisibleImage() async {
+    try {
+      final boundary = _paintKey.currentContext?.findRenderObject();
+      if (boundary is! RenderRepaintBoundary)
+        throw StateError('Timetable is not visible');
+      await exportImage(boundary);
+    } catch (_) {
+      _showActionError();
+    }
+  }
+
+  void _showActionError() {
+    if (mounted)
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text('custom_block.failed'.tr())));
   }
 }
