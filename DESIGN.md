@@ -17,6 +17,14 @@ This change preserves the existing app design, not the separate web redesign.
   rather than overflow. Form scrolls for the keyboard and small displays.
 - Accessibility: tooltips/semantic labels on icons, labeled inputs, localized
   Korean/English text. No decorative motion; use existing Material feedback.
+- Timetable toolbar: keep a single row when the measured, scaled semester title
+  and the 164px mode control fit; otherwise stack them and move the content below
+  both rows. Mode buttons and their indicator share fixed 48px slots and respect
+  text direction. Long press and tap are mutually exclusive gestures.
+- Enlarged text: time-grid spacing grows with the labels and block positions use
+  the same spacing. Weekday headers stay on one line with ellipsis when needed.
+  The credit summary grows vertically and scrolls horizontally rather than
+  clipping labels or shrinking the user's font size.
 - QA: real widget CRUD, invalid input, overlap, network failure, tab switching,
   mobile viewport and enlarged text. Native platform/plugin verification is
   distinct from a browser component harness.
