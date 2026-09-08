@@ -8,9 +8,7 @@ import 'package:otlplus/providers/lecture_search_model.dart';
 import 'package:otlplus/widgets/otl_dialog.dart';
 import 'package:otlplus/widgets/lecture_search.dart';
 import 'package:otlplus/widgets/map_view.dart';
-import 'package:otlplus/widgets/otl_scaffold.dart';
-import 'package:otlplus/widgets/semester_picker.dart';
-import 'package:otlplus/widgets/timetable_mode_control.dart';
+import 'package:otlplus/widgets/timetable_layout.dart';
 import 'package:provider/provider.dart';
 import 'package:otlplus/constants/color.dart';
 import 'package:otlplus/models/lecture.dart';
@@ -77,20 +75,7 @@ class _TimetablePageState extends State<TimetablePage> {
         Scrollable.ensureVisible(_selectedKey.currentContext!);
     });
 
-    return OTLLayout(
-      leading: Padding(
-        padding: const EdgeInsets.only(left: 16),
-        child: SemesterPicker(
-          onSemesterChanged: () {
-            context.read<TimetableModel>().setTempLecture(null);
-            context.read<LectureSearchModel>().lectureClear();
-          },
-        ),
-      ),
-      trailing: TimetableModeControl(
-        selectedMode: context.watch<TimetableModel>().selectedMode,
-        onTap: (mode) => context.read<TimetableModel>().setMode(mode),
-      ),
+    return TimetableLayout(
       body: Column(
         children: <Widget>[
           Expanded(
